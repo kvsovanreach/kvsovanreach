@@ -4,12 +4,14 @@
  const requestMetaData = new XMLHttpRequest()
  include('https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js');
  requestInfo();
- var articleArray = [];
- var programmingArray = [],
+ let articleArray = [];
+ let programmingArray = [],
      devopsArray = [],
      blockchainArray = [],
      bigdataArray = [],
      tagArticlesArray = [];
+let totalRecord = 0;
+let tagName = null;
  async function requestInfo() {
      // Layout fragment raw JS without helper library xD, it's a dirty code but that's okay, thanks for inspecting...
      // Request for head tag
@@ -30,13 +32,13 @@
      // Request for article meta data
      await makeRequest("GET", "/manifest/programming.json").then((data) => {
         articleArray = articleArray.concat(JSON.parse(data));
-         let tagName = location.href.split("id=")[1]
+         tagName = location.href.split("id=")[1].split("&")[0]
          articleArray.forEach((data) => {
              if (indexOf(data['tag'], tagName) > -1) {
                  tagArticlesArray.push(data);
              }
          })
-         document.getElementById("tag-name").innerHTML = tagName;
+         document.getElementById("tag-name").innerHTML = "#"+tagName;
          generateCard(tagArticlesArray, "tag-row");
      })
 
@@ -117,25 +119,44 @@
 
  // Generate article card
  function generateCard(arrayVar, divClass) {
+     let totalRecord = arrayVar.length;
+     let page = location.href.split("page=")[1];
+     if(page == undefined || page == "undefined"){
+         page = 1;
+     }
      if (arrayVar.length < 1) {
-         document.getElementById(divClass).innerHTML = "<h2>This is an INVALID tagname.</h2>"
+         document.getElementById(divClass).innerHTML = "<h2>This is an INVALID category.</h2>"
      } else {
+         if(arrayVar.length > 40){
+             let startIndex = (page == 1) ? 0 : 40 * (page-1);
+             let endIndex = (arrayVar.length > startIndex+40) ? startIndex+40 : startIndex + (arrayVar.length-startIndex);
+             arrayVar = arrayVar.slice(startIndex, endIndex)
+         }
          arrayVar.forEach((data) => {
              let article = `<div class="col-md-3 mb-3">
-                   <div class="card blog-post-card">
-                       <div style="overflow:hidden">
-                           <img class="card-img-top" 
-                           src = "${(data["thumbnail"]  == undefined )? "/assets/images/placeholder.jpg" : data['thumbnail']}" 
-                           onerror="this.src = '/assets/images/placeholder.jpg';"
-                           >
-                       </div>   
-                       <div class="card-body">
-                           <h5 class="card-title" id="article-title"><a class="theme-link" href="/pages/${data.category}/${data.id}.html">${data['title']}</a></h5>
-                       </div>
-                   </div>
-               </div>`;
+                                <div class="card blog-post-card">
+                                    <div style="overflow:hidden">
+                                        <img class="card-img-top" 
+                                        src = "${(data["thumbnail"]  == undefined )? "/assets/images/placeholder.jpg" : data['thumbnail']}" 
+                                        onerror="this.src = '/assets/images/placeholder.jpg';"
+                                        >
+                                    </div>   
+                                    <div class="card-body">
+                                        <h5 class="card-title" id="article-title"><a class="theme-link" href="/pages/${data.category}/${data.id}.html">${data['title']}</a></h5>
+                                    </div>
+                                </div>
+                            </div>`;
              document.getElementById(divClass).innerHTML += article;
          })
+         if(totalRecord > 40 ) {
+             let pagination = ``;
+            pagination += `<nav id= "pagination-nav" class="col-12"> <ul class="pagination justify-content-center">`;
+            for(let i = 0; i < totalRecord/40 ; i++){
+                pagination += `<li class="page-item ${(parseInt(page) == i+1)?"active":""}"><a href="/tag.html?id=${tagName}&page=${i+1}" class="page-link">${i+1}</a></li>`
+            }
+            pagination += `</ul></nav>`;
+            document.getElementById(divClass).innerHTML += pagination;
+         }
      }
  }
 

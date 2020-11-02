@@ -657,7 +657,8 @@ svg:not(:root).svg-inline--fa {
     line-height: 1.5em;
 }
 
-.main-wrapper #article-title, .main-wrapper #article-content {
+.main-wrapper #article-title,
+.main-wrapper #article-content {
     font-family: Hanuman !important;
 }
 
@@ -777,3 +778,21 @@ body.dark-mode #article-title a:hover {
     transition: transform 0.8s;
 }
 
+#pagination-nav .page-item {
+    width: 50px;
+    text-align: center;
+    /* font-weight: bold; */
+
+}
+
+#pagination-nav .page-item a {
+    background-color: #5D6BA7;
+    color: #fff;
+}
+
+.page-item.active .page-link {
+    background-color: #fff !important;
+    color: #000 !important;
+    border-color: #fff !important;
+
+}
