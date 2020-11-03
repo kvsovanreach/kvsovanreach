@@ -799,5 +799,16 @@ body.dark-mode #article-title a:hover {
     background-color: #fff !important;
     color: #000 !important;
     border-color: #000 !important;
+}
 
+.card-title {
+    text-align: center;
+}
+
+.card-title a {
+    text-decoration: none !important;
+}
+
+.post-sidebar-article {
+    margin-bottom: 1em !important;
 }

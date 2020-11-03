@@ -137,15 +137,17 @@
      arrayVar.forEach((data) => {
          let article = `<div class="col-md-3 mb-3">
                 <div class="card blog-post-card">
-                    <div style="overflow:hidden">
-                        <img class="card-img-top" 
-                        src = "${(data["thumbnail"]  == undefined )? "/assets/images/placeholder.jpg" : data['thumbnail']}" 
-                        onerror="this.src = '/assets/images/placeholder.jpg';"
-                        >
-                    </div>   
-                    <div class="card-body">
-                        <h5 class="card-title" id="article-title"><a class="theme-link" href="/pages/${data.category}/${data.id}.html">${data['title']}</a></h5>
-                    </div>
+                    <a href = "/pages/${data.category}/${data.id}.html">
+                        <div style="overflow:hidden">
+                            <img class="card-img-top" 
+                            src = "${(data["thumbnail"]  == undefined )? "/assets/images/placeholder.jpg" : data['thumbnail']}" 
+                            onerror="this.src = '/assets/images/placeholder.jpg';"
+                            >
+                        </div>   
+                        <div class="card-body">
+                            <h5 class="card-title" id="article-title"><a class="theme-link" href="/pages/${data.category}/${data.id}.html">${data['title']}</a></h5>
+                        </div>
+                    </a>
                 </div>
             </div>`;
          document.getElementById(divClass).innerHTML += article;

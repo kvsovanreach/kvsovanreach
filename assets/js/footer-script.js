@@ -7,6 +7,7 @@
  requestInfo();
  var article = null;
  var articleArray = [];
+ var commonTagArticle = [];
  async function requestInfo() {
      // Layout fragment raw JS without helper library xD, it's a dirty code but that's okay, thanks for inspecting...
      // Request for head tag
@@ -38,6 +39,15 @@
                  document.querySelectorAll('[property="og:image"]')[0].setAttribute("content", article['thumbnail'])
              }
          })
+
+         articleArray.forEach((data) => {
+             if (commonTagArticle.length < 6) {
+                 let union = [...new Set([...data['tag'], ...article['tag']])];
+                 if (union.length > 0) {
+                     commonTagArticle.push(data)
+                 }
+             }
+         })
      })
 
      // Request for footer script
@@ -52,7 +62,7 @@
      })
 
      // Request sidebar
-     await makeRequest("GET", "/template/sidebar.html").then((data) => {
+     await makeRequest("GET", "/template/post-sidebar.html").then((data) => {
          let mainSidebar = document.getElementById("main-sidebar");
          mainSidebar.innerHTML = "";
          mainSidebar.innerHTML += data;
@@ -61,6 +71,23 @@
          let tags = article['tag'];
          tags.forEach((tag) => {
              theUL.innerHTML += `<li><a href='/tag.html?id=${tag}'>#${tag}</li>`;
+         })
+         commonTagArticle.forEach((data) => {
+             document.getElementById('post-sidebar-article-row').innerHTML +=
+                 `<div class="col-12 post-sidebar-article">
+                    <div class="card blog-post-card">
+                        <a href="/pages/${data.category}/${data.id}.html">
+                            <div style="overflow:hidden">
+                                <img class="card-img-top" src="/assets/images/placeholder.jpg">
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title" class="article-title">
+                                    <a class="theme-link" href="/pages/${data.category}/${data.id}.html">${data.title}</a>
+                                </h5>
+                            </div>
+                        </a>
+                    </div>
+                </div>`;
          })
      })
 
