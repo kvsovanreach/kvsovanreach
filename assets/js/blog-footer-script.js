@@ -1,11 +1,11 @@
- const requestHeader = new XMLHttpRequest()
- const requestMainHeader = new XMLHttpRequest()
- const requestFooterScript = new XMLHttpRequest()
- const requestMetaData = new XMLHttpRequest()
+ const requestHeader = new XMLHttpRequest();
+ const requestMainHeader = new XMLHttpRequest();
+ const requestFooterScript = new XMLHttpRequest();
+ const requestMetaData = new XMLHttpRequest();
  include('https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js');
  requestInfo();
- var articleArray = [];
- var programmingArray = [],
+ var articleArray = [],
+     programmingArray = [],
      devopsArray = [],
      blockchainArray = [],
      bigdataArray = [];
@@ -13,24 +13,24 @@
      // Layout fragment raw JS without helper library xD, it's a dirty code but that's okay, thanks for inspecting...
      // Request for head tag
      await makeRequest("GET", "/template/head.html").then((data) => {
-         let loaderStyle = document.getElementById("loader-style")
+         let loaderStyle = document.getElementById("loader-style");
          loaderStyle.insertAdjacentHTML("beforeBegin", data);
      })
 
-    await makeRequest("GET", "/manifest/devops.json").then((data) => {
-        articleArray = articleArray.concat(JSON.parse(data))
-    })
-    await makeRequest("GET", "/manifest/blockchain.json").then((data) => {
-        articleArray = articleArray.concat(JSON.parse(data))
-    })
-    await makeRequest("GET", "/manifest/bigdata.json").then((data) => {
-        articleArray = articleArray.concat(JSON.parse(data))
-    })
+     await makeRequest("GET", "/manifest/devops.json").then((data) => {
+         articleArray = articleArray.concat(JSON.parse(data));
+     })
+     await makeRequest("GET", "/manifest/blockchain.json").then((data) => {
+         articleArray = articleArray.concat(JSON.parse(data));
+     })
+     await makeRequest("GET", "/manifest/bigdata.json").then((data) => {
+         articleArray = articleArray.concat(JSON.parse(data));
+     })
 
      // Request for article meta data
      await makeRequest("GET", "/manifest/programming.json").then((data) => {
-        articleArray = articleArray.concat(JSON.parse(data))
-        articleArray.forEach((data) => {
+         articleArray = articleArray.concat(JSON.parse(data));
+         articleArray.forEach((data) => {
              switch (data['category']) {
                  case 'programming':
                      programmingArray.push(data);
@@ -45,7 +45,7 @@
                      bigdataArray.push(data);
                      break;
                  default:
-                     console.log(article['categoty'])
+                     console.log(article['categoty']);
              }
          })
          generateCard(programmingArray, "programming-row");
@@ -56,7 +56,7 @@
 
      // Request for footer script
      await makeRequest("GET", "/template/script.html").then((data) => {
-         let lines = data.split("\n")
+         let lines = data.split("\n");
          lines.forEach((url) => {
              let script = document.createElement('script');
              script.type = 'text/javascript';
@@ -67,14 +67,14 @@
 
      //  Request sidebar
      await makeRequest("GET", "/template/sidebar.html").then((data) => {
-         let mainSidebar = document.getElementById("main-sidebar")
+         let mainSidebar = document.getElementById("main-sidebar");
          mainSidebar.innerHTML = "";
          mainSidebar.innerHTML += data;
      }).then(() => {
          let theUL = document.getElementById("tag-list-ul");
          var tags = [];
          articleArray.forEach((data) => {
-             tags.push(...data['tag'])
+             tags.push(...data['tag']);
          })
          tags = [...new Set(tags)].map(v => v.toLowerCase());
          tags.forEach((tag) => {
@@ -85,12 +85,14 @@
 
      // Request for header block
      await makeRequest("GET", "/template/header.html").then((data) => {
-         let mainHeader = document.getElementById("main-header")
+         let mainHeader = document.getElementById("main-header");
          mainHeader.innerHTML = "";
          mainHeader.innerHTML += data;
          setTimeout(() => {
-             document.getElementById("loader-wrapper").style.display = "none"
-         }, 1000)
+             $('#darkmode').attr('checked', true);
+             document.getElementById("loader-wrapper").style.display = "none";
+             document.body.style.overflowY = "auto";
+         }, 1000);
      })
  }
 

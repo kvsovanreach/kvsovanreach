@@ -12052,9 +12052,11 @@ a.resume-link:hover {
     .resume-wrapper {
         padding: 10px !important;
     }
+
     .resume-name {
         font-size: 1em;
     }
+
     .profile-teaser .name {
         font-size: 1.6rem
     }

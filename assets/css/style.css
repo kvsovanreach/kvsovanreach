@@ -781,8 +781,6 @@ body.dark-mode #article-title a:hover {
 #pagination-nav .page-item {
     width: 50px;
     text-align: center;
-    /* font-weight: bold; */
-
 }
 
 #pagination-nav .page-item a {
@@ -791,8 +789,15 @@ body.dark-mode #article-title a:hover {
 }
 
 .page-item.active .page-link {
+    background-color: #5D6BA7 !important;
+    color: #fff !important;
+    border-color: #000 !important;
+
+}
+
+.page-item .page-link {
     background-color: #fff !important;
     color: #000 !important;
-    border-color: #fff !important;
+    border-color: #000 !important;
 
 }

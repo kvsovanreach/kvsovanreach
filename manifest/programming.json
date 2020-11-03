@@ -2,8 +2,9 @@
     
     {
         "id": "how-to-learn-java",
-        "title": "How to get start with big data",
+        "title": "aHow to get start with big data",
         "category": "programming",
+        "thumbnail":"https://www.learningtogive.org/sites/default/files/ph3_3.jpg",
         "tag": [
             "programming", "fast_learning", "coding"
         ]
@@ -18,8 +19,9 @@
     },
     {
         "id": "how-to-learn-java",
-        "title": "How to get start with big data",
+        "title": "dHow to get start with big data",
         "category": "programming",
+        "thumbnail":"https://www.learningtogive.org/sites/default/files/ph3_3.jpg",
         "tag": [
             "programming", "fast_learning", "coding"
         ]

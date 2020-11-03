@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(document).ready(function () {
 
 	// function setThemeFromCookie() {
 	// 	// Check if the cookie is set 
@@ -10,18 +10,16 @@ $(document).ready(function() {
 	// 		$('#darkmode').attr('checked', false); // toggle change
 	// 	}
 	// }
-	
+
 	// setThemeFromCookie();
 	$('#darkmode').attr('checked', true);
-	$('#darkmode').on('change', function(e){
-
+	$(document).on('change', '#darkmode', function (e) {
 		if ($(this).is(':checked')) {
 			$('body').addClass('dark-mode');
 			// Cookies.set('mode', 'dark-mode', { expires: 7 });
-			
 		} else {
 			$('body').removeClass('dark-mode');
 			// Cookies.remove('mode');
 		}
 	});
-});	
+});
