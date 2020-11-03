@@ -812,3 +812,57 @@ body.dark-mode #article-title a:hover {
 .post-sidebar-article {
     margin-bottom: 1em !important;
 }
+
+.img_10 {
+    width: 10%;
+    display: block;
+}
+
+.img_20 {
+    width: 20%;
+    display: block;
+}
+
+.img_30 {
+    width: 30%;
+    display: block;
+}
+
+.img_40 {
+    width: 40%;
+    display: block;
+}
+
+.img_50 {
+    width: 50%;
+    display: block;
+}
+
+.img_60 {
+    width: 60%;
+    display: block;
+}
+
+.img_70 {
+    width: 70%;
+    display: block;
+}
+
+.img_80 {
+    width: 80%;
+    display: block;
+}
+
+.img_90 {
+    width: 90%;
+    display: block;
+}
+
+.img_100 {
+    width: 100%;
+    display: block;
+}
+
+.img_center {
+    margin: 1em auto;
+}
