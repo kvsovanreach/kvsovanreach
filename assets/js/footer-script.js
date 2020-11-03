@@ -78,7 +78,7 @@
                     <div class="card blog-post-card">
                         <a href="/pages/${data.category}/${data.id}.html">
                             <div style="overflow:hidden">
-                                <img class="card-img-top" src="/assets/images/placeholder.jpg">
+                                <img class="card-img-top" src="/assets/images/placeholder.jpg" alt= "article thumbnail">
                             </div>
                             <div class="card-body">
                                 <h5 class="card-title" class="article-title">
