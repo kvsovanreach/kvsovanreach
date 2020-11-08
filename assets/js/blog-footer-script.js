@@ -18,36 +18,19 @@
      })
 
      await makeRequest("GET", "/manifest/devops.json").then((data) => {
-         articleArray = articleArray.concat(JSON.parse(data));
+         devopsArray = articleArray.concat(JSON.parse(data));
      })
      await makeRequest("GET", "/manifest/blockchain.json").then((data) => {
-         articleArray = articleArray.concat(JSON.parse(data));
+         blockchainArray = articleArray.concat(JSON.parse(data));
      })
      await makeRequest("GET", "/manifest/bigdata.json").then((data) => {
-         articleArray = articleArray.concat(JSON.parse(data));
+         bigdataArray = articleArray.concat(JSON.parse(data));
      })
 
      // Request for article meta data
      await makeRequest("GET", "/manifest/programming.json").then((data) => {
-         articleArray = articleArray.concat(JSON.parse(data));
-         articleArray.forEach((data) => {
-             switch (data['category']) {
-                 case 'programming':
-                     programmingArray.push(data);
-                     break;
-                 case 'devops':
-                     devopsArray.push(data);
-                     break;
-                 case 'blockchain':
-                     blockchainArray.push(data);
-                     break;
-                 case 'bigdata':
-                     bigdataArray.push(data);
-                     break;
-                 default:
-                     console.log(article['categoty']);
-             }
-         })
+         programmingArray = articleArray.concat(JSON.parse(data));
+         articleArray = programmingArray.concat(blockchainArray).concat(devopsArray).concat(bigdataArray);
          generateCard(programmingArray, "programming-row");
          generateCard(devopsArray, "devops-row");
          generateCard(blockchainArray, "blockchain-row");
@@ -92,16 +75,16 @@
              $('#darkmode').attr('checked', true);
              document.getElementById("loader-wrapper").style.display = "none";
              document.body.style.overflowY = "auto";
-         }, 1000);
+         }, 300);
      })
  }
 
  // Make http request
  function makeRequest(method, url) {
-     return new Promise(function (resolve, reject) {
+     return new Promise(function(resolve, reject) {
          let xhr = new XMLHttpRequest();
          xhr.open(method, url);
-         xhr.onload = function () {
+         xhr.onload = function() {
              if (this.status >= 200 && this.status < 300) {
                  resolve(xhr.response);
              } else {
@@ -111,7 +94,7 @@
                  });
              }
          };
-         xhr.onerror = function () {
+         xhr.onerror = function() {
              reject({
                  status: this.status,
                  statusText: xhr.statusText

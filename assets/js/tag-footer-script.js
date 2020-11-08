@@ -84,16 +84,16 @@
              $('#darkmode').attr('checked', true);
              document.getElementById("loader-wrapper").style.display = "none";
              document.body.style.overflowY = "auto";
-         }, 1000)
+         }, 300)
      })
  }
 
  // Make http request
  function makeRequest(method, url) {
-     return new Promise(function (resolve, reject) {
+     return new Promise(function(resolve, reject) {
          let xhr = new XMLHttpRequest();
          xhr.open(method, url);
-         xhr.onload = function () {
+         xhr.onload = function() {
              if (this.status >= 200 && this.status < 300) {
                  resolve(xhr.response);
              } else {
@@ -103,7 +103,7 @@
                  });
              }
          };
-         xhr.onerror = function () {
+         xhr.onerror = function() {
              reject({
                  status: this.status,
                  statusText: xhr.statusText
