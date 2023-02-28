@@ -1,386 +1,450 @@
-<html>
+<!-- CREDIT: THIS THEM IS ORIGINALLY DEVELOPED BY https://github.com/rawatanimesh/portfolio-website-dark-light-themes-->
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <title>Kong Vungsovanreach</title>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="author" content="Kong vungsovanreach">
-    <meta name="keyword" content="kong vungsovanreach, vungsovanreach, vanreach" />
-    <meta property="og:title" content="Kong vungsovanreach">
-    <meta property="og:type" content="website" />
-    <meta property="og:image" content="/assets/images/thumbnail.jpg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <link rel="shortcut icon" href="/assets/images/favicon.png" type="image/x-icon">
-    <link
-        href="https://fonts.googleapis.com/css?family=Roboto+Mono:400,300,300italic,700,500,500italic,700italic,400italic%7CLato:400,700,300"
-        rel="stylesheet" type="text/css">
-    <link rel="stylesheet" href="/assets/css/bootstrap.min.css" type="text/css">
-    <link rel="stylesheet" href="/assets/css/animate.css" type="text/css">
-    <link rel="stylesheet" href="/assets/css/ionicons.min.css" type="text/css">
-    <link rel="stylesheet" href="/assets/css/owl.carousel.min.css" type="text/css">
-    <link rel="stylesheet" href="/assets/css/owl.transitions.css" type="text/css">
-    <link rel="stylesheet" href="/assets/css/magnific-popup.css" type="text/css">
-    <link rel="stylesheet" href="/assets/css/style.css" type="text/css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Personal website of Kong Vungsovanreach. A summary of professional experience, 
+      skills, projects details and contact information." />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta property="og:image" content="/assets/img/thumbnail.jpg">
+  <title>Kong Vungsovanreach</title>
+
+  <!--==================== OPEN GRAPH META TAGS ===================== -->
+  <meta property="og:title" content="Kong Vungsovanreach" />
+  <meta property="og:image" content="/assets/img/PwaImages/ios/512.png" />
+  <meta property="og:description"
+    content="Personal website of Kong Vungsovanreach. A summary of professional experience, skills, projects details and contact information." />
+
+  <!--==================== TWITTER META TAGS ===================== -->
+  <meta name="twitter:title" content="Kong Vungsovanreach" />
+  <meta name="twitter:description"
+    content="Personal website of Kong Vungsovanreach. A summary of professional experience, skills, projects details and contact information." />
+  <meta name="twitter:image" content="/assets/img/PwaImages/ios/512.png" />
+
+  <!--==================== UNICONS ====================-->
+  <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css" />
+
+  <!-- ============FAVICONS============== -->
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favicons/favicon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets//img/favicons/favicon.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicons/favicon.png" />
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.png" />
+
+  <!--==================== SWIPER CSS ====================-->
+  <link rel="stylesheet" href="/assets/css/swiper-bundle.min.css" />
+
+  <!--==================== CSS ====================-->
+  <link rel="stylesheet" href="assets/css/styles.css" />
 </head>
 
 <body>
-    <div id="loader">
-        <div class="box-one"></div>
-        <div class="box-two"></div>
-        <div class="box-three"></div>
-        <div class="box-four"></div>
-    </div>
-    <nav class="menu">
-        <ul class="menu-ul">
-            <li class="current"> <a href="#about"> About </a> </li>
-            <li><a href="#experience-education"> Education </a> </li>
-            <li><a href="#experience-education"> Experience </a> </li>
-            <li><a href="#skill"> Skill </a> </li>
+  <!-- ===================== LOADER ==================== -->
+  <div id="loading">
+    <div class="loader"><span>
+        &lt;</span><span>/&gt;</span></div>
+  </div>
+
+  <!--==================== HEADER ====================-->
+  <header class="header" id="header">
+    <nav class="nav container">
+      <a href="#" class="nav__logo noSelect">KONG VUNGSOVANREACH&nbsp;&nbsp;<i class="uil uil-code-branch"></i></a>
+
+      <div class="nav__menu" id="nav-menu">
+        <ul class="nav__list grid">
+          <li class="nav__item">
+            <a href="#home" class="nav__link noSelect active-link">
+              <i class="uil uil-estate nav__icon"></i> Home
+            </a>
+          </li>
+
+          <li class="nav__item">
+            <a href="#about" class="nav__link noSelect">
+              <i class="uil uil-user nav__icon"></i> About
+            </a>
+          </li>
+
+          <li class="nav__item">
+            <a href="#skills" class="nav__link noSelect">
+              <i class="uil uil-file-alt nav__icon"></i> Skills
+            </a>
+          </li>
+
+          <li class="nav__item">
+            <a href="#qualification" class="nav__link noSelect">
+              <i class="uil uil-briefcase-alt nav__icon"></i> Qualification
+            </a>
+          </li>
+
+          <li class="nav__item">
+            <a href="#portfolio" class="nav__link noSelect">
+              <i class="uil uil-scenery nav__icon"></i> Portfolio
+            </a>
+          </li>
         </ul>
-        <div class="menu-holder">
-            <div class="menu-bar"></div>
+        <i class="uil uil-times nav__close noSelect" id="nav-close"></i>
+      </div>
+
+      <div class="nav__btns">
+        <!-- theme change button -->
+        <i class="uil uil-moon change-theme" id="theme-button"></i>
+        <div class="nav__toggle noSelect" id="nav-toggle">
+          <i class="uil uil-apps"></i>
         </div>
+      </div>
     </nav>
-    <section id="about">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-4 col-sm-push-8">
-                    <div class="section-holder texture">
-                        <div class="line-art-top">
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                        </div>
-                        <div class="line-art-bottom">
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                        </div>
-                        <div class="line-art-left">
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                        </div>
-                        <div class="line-art-right">
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                        </div>
-                        <div class="img-holder">
-                            <img src="/assets/images/avatar1.jpg" class="img-responsive img-circle" alt="John Doe">
-                        </div>
-                        <div class="sep-mini"></div>
-                        <h4> Name: Kong Vungsovanreach</h4>
-                        <h4> Date of birth: ** / March / 1998 </h4>
-                        <h4> Nationality: Cambodian </h4>
-                    </div>
-                </div>
+  </header>
 
-                <div class="col-sm-8 col-sm-pull-4">
-                    <div class="section-holder">
-                        <div class="icon-holder i-size-big">
-                            <i class="ion-ios-compose-outline"></i>
-                        </div>
-                        <h3 class="section-title"> About Me </h3>
-                        <h4>Developer & Researcher</h4>
-                        <p>
-                            Hey you! Thanks for visiting me here. I'm Sovanreach , a computer science student, backend
-                            developer, panda lover, happy sleeper ^^ and YouTuber </br>(I mean... Love watching YouTube,
-                            not a content creator. xD)
-                        </p>
+  <!--==================== MAIN ====================-->
 
-                        <h4>Daily Energy Wasted On</h4>
-                        <p> code | research | music | sleep </p>
-                        <h4>Reach Me</h4>
-                        <div class="social-links">
-                            <a href="https://gitlab.com/kongvungsovanreach"><i class="fab fa-gitlab"></i></a>
-                            <a href="https://github.com/kongvungsovanreach"><i class="fab fa-github"></i></a>
-                            <a href="https://www.linkedin.com/in/kongvungsovanreach"><i
-                                    class="fab fa-linkedin-in fa-fw"></i></a>
-                            <a href="https://t.me/kvsovanreach"><i class="fab fa-telegram"></i></a>
-                            <a href="https://www.facebook.com/sovanreach.jp"><i class="fab fa-facebook"></i></a>
-                        </div>
-                        <a class="tooltip-cl cv-download" data-tooltip="Download CV"
-                            href="/assets/kongvungsovanreach-cv.pdf" download> <i
-                                class="ion-ios-download-outline i-size-small"></i> </a>
-                    </div>
-                </div>
-            </div>
+  <main class="main">
+    <!--==================== HOME ====================-->
+    <section class="home section" id="home">
+      <div class="home__container container grid">
+        <div class="home__content grid">
+          <div class="home__social">
+            <a href="https://www.linkedin.com/in/kongvungsovanreach/" target="_blank" class="home__social-icon">
+              <i class="uil uil-linkedin-alt"></i>
+            </a>
+            <a href="https://gitlab.com/kongvungsovanreach" target="_blank" class="home__social-icon">
+              <i class="uil uil-gitlab"></i>
+            </a>
+            <a href="https://t.me/kongvungsovanreach" target="_blank" class="home__social-icon">
+              <i class="uil uil-telegram-alt"></i>
+            </a>
+          </div>
+
+          <div class="home__img">
+            <svg class="home__blob" viewBox="0 0 200 187" xmlns="http://www.w3.org/2000/svg"
+              xmlns:xlink="http://www.w3.org/1999/xlink">
+              <mask id="mask0" mask-type="alpha">
+                <path d="M190.312 36.4879C206.582 62.1187 201.309 102.826 182.328 134.186C163.346 165.547 
+                                130.807 187.559 100.226 186.353C69.6454 185.297 41.0228 161.023 21.7403 129.362C2.45775 
+                                97.8511 -7.48481 59.1033 6.67581 34.5279C20.9871 10.1032 59.7028 -0.149132 97.9666 
+                                0.00163737C136.23 0.303176 174.193 10.857 190.312 36.4879Z" />
+              </mask>
+              <g mask="url(#mask0)">
+                <path d="M190.312 36.4879C206.582 62.1187 201.309 102.826 182.328 134.186C163.346 
+                                165.547 130.807 187.559 100.226 186.353C69.6454 185.297 41.0228 161.023 21.7403 
+                                129.362C2.45775 97.8511 -7.48481 59.1033 6.67581 34.5279C20.9871 10.1032 59.7028 
+                                -0.149132 97.9666 0.00163737C136.23 0.303176 174.193 10.857 190.312 36.4879Z" />
+                <image class="home__blob-img" x="-20" xlink:href="assets/img/kongvungsovanreach_01.jpeg"></image>
+              </g>
+            </svg>
+          </div>
+
+          <div class="home__data">
+            <h1 class="home__title">Hi, I'm Sovanreach</h1>
+            <h3 class="home__subtitle">Developer & Researcher</h3>
+            <p class="home__description">
+              Hi there! I'm Sovanreach, a backend developer, an IT instructor, Big Data & AI & Computer Vision engineer.
+              Thank you for reaching me out here.
+            </p>
+          </div>
         </div>
+        <div class="home__scroll">
+          <a href="#about" class="home__scroll-button button--flex">
+            <i class="uil uil-mouse-alt home__scroll-mouse"></i>
+            <span class="home__scroll-name">Scroll Down</span>
+            <i class="uil uil-arrow-down home__scroll-arrow"></i>
+          </a>
+        </div>
+      </div>
     </section>
+  </main>
 
-    <section id="experience-education">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-6">
-                    <div class="section-holder">
-                        <div class="icon-holder i-size-big">
-                            <i class="ion-ios-lightbulb-outline"></i>
-                        </div>
-                        <h3> Education </h3>
-                        <div class="time-line">
-                            <div class="row">
-                                 <div class="col-sm-12">
-                                    <div class="time-item">
-                                        <div class="icon-holder-time wow fadeIn">
-                                            <i class="ion-ios-circle-outline"></i>
-                                        </div>
-                                        <h4 class="time-title">
-                                           Ph.D Degree (2022 - Present)
-                                        </h4>
-                                        <h5 class="time-semitag"> Majoring in Big Data at Chungbuk National University,
-                                            South Korea</h5>
-                                    </div>
-                                </div>
-                                <div class="col-sm-12">
-                                    <div class="time-item">
-                                        <div class="icon-holder-time wow fadeIn">
-                                            <i class="ion-ios-circle-outline"></i>
-                                        </div>
-                                        <h4 class="time-title">
-                                            Master's Degree (2020 - 2022)
-                                        </h4>
-                                        <h5 class="time-semitag"> Majoring in Big Data at Chungbuk National University,
-                                            South Korea</h5>
-                                    </div>
-                                </div>
-                                <div class="col-sm-12">
-                                    <div class="time-item">
-                                        <div class="icon-holder-time wow fadeIn" data-wow-delay=".25s">
-                                            <i class="ion-ios-circle-outline"></i>
-                                        </div>
-                                        <h4 class="time-title">
-                                            Bachelor’s Degree (2014 - 2019)
-                                        </h4>
-                                        <h5 class="time-semitag">Majoring in Computer Science at The University of
-                                            Cambodia</h5>
-                                    </div>
-                                </div>
-                                <div class="col-sm-12">
-                                    <div class="time-item">
-                                        <div class="icon-holder-time wow fadeIn" data-wow-delay=".5s">
-                                            <i class="ion-ios-circle-outline"></i>
-                                        </div>
-                                        <h4 class="time-title">
-                                            Short-Training (2018 - 2019)
-                                        </h4>
-                                        <h5 class="time-semitag">IT professional Training 6th Generation at Korea
-                                            Software HRD Center</h5>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6">
-                    <div class="section-holder">
-                        <div class="icon-holder i-size-big">
-                            <i class="ion-ios-briefcase-outline"></i>
-                        </div>
-                        <h3> Work Experience </h3>
-                        <div class="time-line">
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <div class="time-item">
-                                        <div class="icon-holder-time wow fadeIn">
-                                            <i class="ion-ios-circle-outline"></i>
-                                        </div>
-                                        <h4 class="time-title">
-                                            Lab Assistant (2020 - Present)
-                                        </h4>
-                                        <p>
-                                            Researcher & Lab Assistant at Big Data Lab @Chungbuk
-                                            National University
-                                        </p>
-                                    </div>
-                                    <div class="work-item-icon">
-                                    </div>
-                                </div>
+  <!--==================== ABOUT ====================-->
 
-                                <div class="col-sm-12">
-                                    <div class="time-item">
-                                        <div class="icon-holder-time wow fadeIn" data-wow-delay=".25s">
-                                            <i class="ion-ios-circle-outline"></i>
-                                        </div>
-                                        <h4 class="time-title">
-                                            IT Instructor (2018 - 2019)
-                                        </h4>
-                                        <p>
-                                            Training student on JAVA, Springboot Framework, Laravel Framework @Korea
-                                            Software HRD Center
-                                        </p>
-                                    </div>
-                                </div>
+  <section class="about section" id="about">
+    <h2 class="section__title">About Me</h2>
+    <span class="section__subtitle">My Introduction</span>
 
-                                <div class="col-sm-12">
-                                    <div class="time-item">
-                                        <div class="icon-holder-time wow fadeIn" data-wow-delay=".5s">
-                                            <i class="ion-ios-circle-outline"></i>
-                                        </div>
-                                        <h4 class="time-title">
-                                            Self-Learning (Birth - Death)
-                                        </h4>
-                                        <p>
-                                            Doing research on things that I'm in love with xD @My Own Computer
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <div class="about__container container grid">
+      <img src="assets/img/kongvungsovanreach_02.png" alt="" class="about__image" />
+
+      <div class="about__data">
+        <p class="about__description">
+          A highly motivated, passionate, and fast-learning engineer who has 5+ years of work experience with software
+          development and 3+ years of experience with machine learning, deep learning, and computer vision areas. A
+          Python enthusiast with good programming skills and extensive experience with data science libraries and tools.
+        </p>
+        <table id="info-table">
+          <tbody>
+            <tr>
+              <th><i class="uil uil-at"></i></th>
+              <td><a href="mailto:kv.sovanreach@gmail.com">kv.sovanreach@gmail.com</a></td>
+            </tr>
+            <tr>
+              <th><i class="uil uil-location-point"></i></th>
+              <td>Cheongju-si, South Korea</td>
+            </tr>
+            <tr>
+              <th><i class="uil uil-heart-alt"></i></th>
+              <td>Big Data, AI, ML & Computer Vision</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="about__buttons">
+          <a download="" href="assets/pdf/kongvungsovanreach_cv.pdf" class="button button--flex">
+            Download Resume<i class="uil uil-download-alt button__icon"></i></a>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 
-    <section id="skill" class="last">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-12">
-                    <div class="section-holder">
-                        <div class="text-center">
-                            <div class="icon-holder-center i-size-big">
-                                <i class="ion-ios-pulse"></i>
-                            </div>
-                        </div>
-                        <h3 class="text-center"> Got Hand Dirty With </h3>
+  <!--==================== SKILLS ====================-->
 
-                        <ul class="process">
-                            <li class="wow fadeIn">
-                                <h4>Java</h4>
-                            </li>
-                            <li class="wow fadeIn">
-                                <h4>Python</h4>
-                            </li>
-                            <li class="wow fadeIn">
-                                <h4>Javascript</h4>
-                            </li>
-                            <li class="wow fadeIn">
-                                <h4>PHP</h4>
-                            </li>
-                            <li class="wow fadeIn">
-                                <h4>Dart</h4>
-                            </li>
-                            <li class="wow fadeIn">
-                                <h4>Springboot</h4>
-                            </li>
-                            <li class="wow fadeIn">
-                                <h4>Flask</h4>
-                            </li>
-                            <li class="wow fadeIn">
-                                <h4>NodeJS</h4>
-                            </li>
-                            <li class="wow fadeIn">
-                                <h4>Laravel</h4>
-                            </li>
-                            <li class="wow fadeIn">
-                                <h4>Android</h4>
-                            </li>
-                            <li class="wow fadeIn">
-                                <h4>MySQL</h4>
-                            </li>
-                            <li class="wow fadeIn">
-                                <h4>PostgreSQL</h4>
-                            </li>
-                            <li class="wow fadeIn">
-                                <h4>MongoDB</h4>
-                            </li>
-                            <li class="wow fadeIn">
-                                <h4>iOS</h4>
-                            </li>
-                            <li class="wow fadeIn">
-                                <h4>Flutter</h4>
-                            </li>
-                            <li class="wow fadeIn">
-                                <h4>Docker</h4>
-                            </li>
-                            <li class="wow fadeIn">
-                                <h4>Linux</h4>
-                            </li>
-                            <li class="wow fadeIn">
-                                <h4>Blockchain</h4>
-                            </li>
-                            <li class="wow fadeIn">
-                                <h4>BigData</h4>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+  <section class="skills section" id="skills">
+    <h2 class="section__title">Skills</h2>
+    <span class="section__subtitle">My Tech Stack</span>
+    <div class="skills__container container grid">
+      <table id="skill__table">
+        <tbody>
+          <tr>
+            <th>Programming Language</th>
+            <td>Python (+++), Java (++), JS (++), GoLang (++), R (++), PHP (++), Scala (+)</td>
+          </tr>
+          <tr>
+            <th>Data Science Framework</th>
+            <td>Pandas, Numpy, Pillow, OpenCV, Tensorflow, PyTorch, Keras, Matplotlib</td>
+          </tr>
+          <tr>
+            <th>Web Framework</th>
+            <td>Flask, NodeJS, Springboot, Laravel</td>
+          </tr>
+          <tr>
+            <th>IDE & Tool</th>
+            <td>Jupyter, VSCode, IntelliJ, Eclipse, XCode, Android Studio, Git, Docker</td>
+          </tr>
+          <tr>
+            <th>Database</th>
+            <td>MySQL, MongoDB, SQL Server, PostgreSQL</td>
+          </tr>
+          <tr>
+            <th>OS</th>
+            <td>Ubuntu, Windows, MacOS</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!--==================== QUALIFICATOIN ====================-->
+
+  <section class="qualification section" id="qualification">
+    <h2 class="section__title">Qualification</h2>
+    <span class="section__subtitle">My Personal Journey</span>
+
+    <div class="qualification__container container">
+      <div class="qualification__tabs">
+        <div class="qualification__button button--flex qualification__active" data-target="#education">
+          <i class="uil uil-graduation-cap qualification__icon"> </i>
+          Education
         </div>
-    </section>
-    <!-- <section id="fun-fact">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-12">
-                    <div class="section-holder">
-                        <div class="text-center">
-                            <div class="icon-holder-center i-size-big">
-                                <i class="ion-ios-barcode-outline"></i>
-                            </div>
-                        </div>
-                        <h3 class="text-center"> Fun Facts </h3>
-                        <ul class="counter">
-                            <li>
-                                <div class="counter-icon i-size-med">
-                                    <i class="ion-ios-analytics"></i>
-                                </div>
-                                <h1 class="counter-data">128</h1>
-                                <h4>Projects Done</h4>
-                            </li>
-                            <li>
-                                <div class="counter-icon i-size-med">
-                                    <i class="ion-ios-color-filter"></i>
-                                </div>
-                                <h1 class="counter-data">366</h1>
-                                <h4>Happy Clients</h4>
-                            </li>
-                            <li>
-                                <div class="counter-icon i-size-med">
-                                    <i class="ion-ios-clock"></i>
-                                </div>
-                                <h1 class="counter-data">6970</h1>
-                                <h4>Hours worked</h4>
-                            </li>
-                            <li>
-                                <div class="counter-icon i-size-med">
-                                    <i class="ion-trophy"></i>
-                                </div>
-                                <h1 class="counter-data">26</h1>
-                                <h4>Awards won</h4>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+
+        <div class="qualification__button button--flex" data-target="#work">
+          <i class="uil uil-briefcase-alt qualification__icon"> </i> Work
         </div>
-    </section> -->
-
-    <script src="/assets/js/jquery.min.js" type="text/javascript"></script>
-    <script src="/assets/js/jquery.magnific-popup.min.js" type="text/javascript"></script>
-    <script src="/assets/js/jquery.lettering.js" type="text/javascript"></script>
-    <script src="/assets/js/jquery.textillate.js" type="text/javascript"></script>
-    <script src="/assets/js/owl.carousel.min.js" type="text/javascript"></script>
-    <script src="/assets/js/jquery.waypoints.min.js" type="text/javascript"></script>
-    <script src="/assets/js/jquery.counterup.js" type="text/javascript"></script>
-    <script src="/assets/js/wow.min.js" type="text/javascript"></script>
-    <script src="/assets/js/jquery.nav.js" type="text/javascript"></script>
-    <script src="/assets/js/script.js" type="text/javascript"></script>
-
-    <script type="text/javascript">
-        $(window).load(function () {
-            $("#loader").delay(500).fadeOut("slow");
-        });
-    </script>
+      </div>
 
 
+      <div class="qualification__sections">
+        <!--==================== QUALIFICATOIN CONTENT 2====================-->
+        <div class="qualification__content qualification__active" data-content id="education">
+          <!--==================== QUALIFICATOIN 1====================-->
+          <div class="qualification__data">
+            <div>
+              <h3 class="qualification__title">Ph.D Candidate</h3>
+              <span class="qualification__subtitle">
+                Chungbuk National University
+              </span>
+              <div class="qualification__calender">
+                <i class="uil uil-calendar-alt"></i> 2022.03 ~ Present
+              </div>
+            </div>
 
+            <div>
+              <span class="qualification__rounder"></span>
+              <span class="qualification__line"></span>
+            </div>
+          </div>
 
+          <!--==================== QUALIFICATOIN 2====================-->
+          <div class="qualification__data">
+            <div></div>
+            <div>
+              <span class="qualification__rounder"></span>
+              <span class="qualification__line"></span>
+            </div>
+            <div>
+              <h3 class="qualification__title">Master's Degree</h3>
+              <span class="qualification__subtitle">Chungbuk National University</span>
+              <div class="qualification__calender">
+                <i class="uil uil-calendar-alt"></i> 2020.03 ~ 2022.02
+              </div>
+            </div>
+          </div>
+
+          <!--==================== QUALIFICATOIN 3====================-->
+          <div class="qualification__data">
+            <div>
+              <h3 class="qualification__title">Bachelor Degree</h3>
+              <span class="qualification__subtitle">The University of Cambodia</span>
+              <div class="qualification__calender">
+                <i class="uil uil-calendar-alt"></i> 2014.11 ~ 2019.12
+              </div>
+            </div>
+            <div>
+              <span class="qualification__rounder"></span>
+              <span class="qualification__line"></span>
+            </div>
+          </div>
+
+          <!--==================== QUALIFICATOIN 4====================-->
+          <div class="qualification__data">
+            <div></div>
+            <div>
+              <span class="qualification__rounder"></span>
+              <span class="qualification__line"></span>
+            </div>
+            <div>
+              <h3 class="qualification__title">IT Professional Training (Advanced)</h3>
+              <span class="qualification__subtitle">Korea Software HRD Center</span>
+              <div class="qualification__calender">
+                <i class="uil uil-calendar-alt"></i> 2018.10 ~ 2019.02
+              </div>
+            </div>
+          </div>
+
+          <!--==================== QUALIFICATOIN 5====================-->
+          <div class="qualification__data">
+            <div>
+              <h3 class="qualification__title">IT Professional Training (Basic)</h3>
+              <span class="qualification__subtitle">Korea Software HRD Center</span>
+              <div class="qualification__calender">
+                <i class="uil uil-calendar-alt"></i> 2018.04 ~ 2018.08
+              </div>
+            </div>
+            <div>
+              <span class="qualification__rounder"></span>
+              <!-- <span class="qualification__line"></span> -->
+            </div>
+          </div>
+        </div>
+        <!--==================== QUALIFICATOIN CONTENT 2====================-->
+        <div class="qualification__content" data-content id="work">
+          <!--==================== QUALIFICATOIN 1====================-->
+          <div class="qualification__data">
+            <div>
+              <h3 class="qualification__title">Research Assistant</h3>
+              <span class="qualification__subtitle">Chungbuk National University</span>
+              <div class="qualification__calender">
+                <i class="uil uil-calendar-alt"></i> 2022.03 ~ Present
+              </div>
+            </div>
+            <div>
+              <span class="qualification__rounder"></span>
+              <span class="qualification__line"></span>
+            </div>
+          </div>
+
+          <!--==================== QUALIFICATOIN 2====================-->
+          <div class="qualification__data">
+            <div></div>
+            <div>
+              <span class="qualification__rounder"></span>
+              <span class="qualification__line"></span>
+            </div>
+            <div>
+              <h3 class="qualification__title">Research Assistant</h3>
+              <span class="qualification__subtitle">Chungbuk National University</span>
+              <div class="qualification__calender">
+                <i class="uil uil-calendar-alt"></i>2020.03 ~ 2022.03
+              </div>
+            </div>
+          </div>
+
+          <!--==================== QUALIFICATOIN 3====================-->
+          <div class="qualification__data">
+            <div>
+              <h3 class="qualification__title">IT Instructor</h3>
+              <span class="qualification__subtitle">Korea Software HRD Center</span>
+              <div class="qualification__calender">
+                <i class="uil uil-calendar-alt"></i> 2019.03 ~ 2020.02
+              </div>
+            </div>
+            <div>
+              <span class="qualification__rounder"></span>
+              <!-- <span class="qualification__line"></span> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="publication__container container">
+      <div class="publication__tabs">
+        <div class="publication__button button--flex" data-target="#education">
+          <i class="uil uil-book-open qualification__icon"> </i>
+          Publication
+        </div>
+      </div>
+      <div class="publication__sections">
+        <div class="publication__header">
+          <h5>[J*]: Journal Publication</h5>
+          <h5>[C*]: Conference Publication</h5>
+          <h5>[D*]: Graduation Dissertation</h5>
+        </div>
+        <div class="publication__content">
+          <p><span>[J1]</span>Kong, V., Somakhamixay, O., Cho, W. S., Kang, G., Won, H., Rah, H., & Bang, H. J. (2022).
+            Recurrence risk prediction of acute coronary syndrome per patient as a personalized ACS recurrence risk: a
+            retrospective study. PeerJ, 10, e14348.<a target="_blank" href="https://peerj.com/articles/14348/"><i
+                class="uil uil-arrow-up-right "></i></a></p>
+          <p><span>[J2]</span>Shon, H. S., Kong, V., Park, J. S., Jang, W., Cha, E. J., Kim, S. Y., ... & Kim, K. A.
+            (2022). Deep Learning Model for Classifying Periodontitis Stages on Dental Panoramic Radiography. Applied
+            Sciences, 12(17), 8500.<a target="_blank" href="https://www.mdpi.com/2076-3417/12/17/8500"><i
+                class="uil uil-arrow-up-right "></i></a></p>
+          <p><span>[D1]</span>Kong, V. (2022). Design and Implementation of a Workflow and Orchestration Tool for
+            Building
+            Machine Learning Model. Chungbuk National University<a target="_blank"
+              href="http://www.dcollection.net/handler/chungbuk/000000056260"><i
+                class="uil uil-arrow-up-right "></i></a></p>
+          <p><span>[C1]</span>Vungsovanreach, K., Choi, E. S., Shon, H. S., Cha, E. J., Kim, K. A., & Cho, W. S. (2021).
+            Comparison of Classification Techniques based on Feature Extraction and Imbalanced Data Processing. 대한전기학회
+            학술대회 논문집, 1886-1887.<a target="_blank"
+              href="https://www.dbpia.co.kr/journal/articleDetail?nodeId=NODE10610472"><i
+                class="uil uil-arrow-up-right "></i></a></p>
+          <p><span>[C2]</span>최은선(Eun-Seon Choi),Kong Vungsovanreach,조완섭(Wan-Sup Cho),김재성(Jae-Sung
+            Kim),이경희(Kyung Hee Lee),손호선(Ho Sun Shon),and 최성곤(Seong Gon Choi). "스마트팩토리 데이터를 활용한 클래스 불균형문제 해결 방법 비교."
+            한국통신학회 학술대회논문집 2021.6
+            (2021): 86-87.<a target="_blank" href="https://www.dbpia.co.kr/journal/articleDetail?nodeId=NODE10586832"><i
+                class="uil uil-arrow-up-right "></i></a></p>
+          <p><span>[J3]</span>Aing Teckchun, Kong Vungsovanreach,김옥기,이경희,and 조완섭. "블록체인 자동화도구 개발과
+            전자투표 적용사례." 한국빅데이터학회 학회지 6.2 (2021): 151-159.<a target="_blank"
+              href="https://kiss.kstudy.com/Detail/Ar?key=3924967"><i class="uil uil-arrow-up-right "></i></a></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!--==================== SCROLL TOP ====================-->
+
+  <a href="#" class="scrollup" id="scroll-up">
+    <i class="uil uil-arrow-up scrollup__icon"></i>
+  </a>
+
+  <!--==================== SWIPER JS ====================-->
+  <script src="/assets/js/swiper-bundle.min.js"></script>
+
+  <!--==================== MAIN JS ====================-->
+  <script src="assets/js/main.js"></script>
+
+  <!-- ===================== SHOW/HIDE LOADER ==================== -->
+  <script>
+    window.onload = function () {
+      document.getElementById("loading").style.display = "none";
+    };
+  </script>
 </body>
 
 </html>
