@@ -381,6 +381,7 @@ header {
 
 .home__scroll {
   display: none;
+  margin-right: .5em;
 }
 
 .home__scroll-button {
@@ -902,7 +903,8 @@ header {
   background-color: var(--first-color-alt);
 }
 .scrollup__icon {
-  font-size: 1.5rem;
+  font-size: 1.2rem;
+  padding: .2em .1em;
   color: #fff;
 }
 
@@ -1247,8 +1249,4 @@ header {
 
 .dark-theme #info-table a {
   color: rgb(75, 114, 214);
-}
-
-.uil-gitlab:before {
-  font-weight: bold;
 }

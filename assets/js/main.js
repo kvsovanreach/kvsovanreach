@@ -76,18 +76,18 @@ modalCloses.forEach((modalClose) => {
 
 /*==================== PORTFOLIO SWIPER ====================*/
 
-let swiper = new Swiper(".portfolio__container", {
-  cssMode: true,
-  loop: true,
-  navigation: {
-    nextEl: ".swiper-button-next",
-    prevEl: ".swiper-button-prev",
-  },
-  pagination: {
-    el: ".swiper-pagination",
-    clickable: true,
-  },
-});
+// let swiper = new Swiper(".portfolio__container", {
+//   cssMode: true,
+//   loop: true,
+//   navigation: {
+//     nextEl: ".swiper-button-next",
+//     prevEl: ".swiper-button-prev",
+//   },
+//   pagination: {
+//     el: ".swiper-pagination",
+//     clickable: true,
+//   },
+// });
 
 /*==================== SCROLL SECTIONS ACTIVE LINK ====================*/
 
@@ -136,7 +136,7 @@ window.addEventListener("scroll", scrollUp);
 
 const themeButton = document.getElementById("theme-button");
 const darkTheme = "dark-theme";
-const iconTheme = "uil-sun";
+const iconTheme = "fa-sun";
 
 // Previously selected topic (if user selected)
 const selectedTheme = localStorage.getItem("selected-theme");
@@ -146,7 +146,7 @@ const selectedIcon = localStorage.getItem("selected-icon");
 const getCurrentTheme = () =>
   document.body.classList.contains(darkTheme) ? "dark" : "light";
 const getCurrentIcon = () =>
-  themeButton.classList.contains(iconTheme) ? "uil-moon" : "uil-sun";
+  themeButton.classList.contains(iconTheme) ? "fa-moon" : "fa-sun";
 
 //validate if user previously chose a theme
 if (selectedTheme) {
@@ -154,9 +154,13 @@ if (selectedTheme) {
   document.body.classList[selectedTheme === "dark" ? "add" : "remove"](
     darkTheme
   );
-  themeButton.classList[selectedIcon === "uil-moon" ? "add" : "remove"](
-    iconTheme
-  );
+  if(selectedIcon != "fa-moon"){
+    themeButton.classList.remove(iconTheme);
+    themeButton.classList.add("fa-moon");
+  }else {
+    themeButton.classList.add(iconTheme);
+    themeButton.classList.remove("fa-moon");
+  }
 }
 //if initially there is no local storage ie. user has not made a choice and this is first time loading
 //then we check if browser/OS is in dark mode and then add dark theme if required by default
@@ -167,17 +171,25 @@ else if (
   console.log("found dark mode for browser/OS");
   // add dark theme by setting dark theme flags in localStorage
   localStorage.setItem("selected-theme", "dark");
-  localStorage.setItem("selected-icon", "uil-moon");
+  localStorage.setItem("selected-icon", "fa-moon");
   // add classes for dark theme in DOM
   document.body.classList.add(darkTheme);
   themeButton.classList.add(iconTheme);
+  themeButton.classList.remove("fa-moon");
 }
 
 // Activate / deactivate the theme manually with the button
 themeButton.addEventListener("click", () => {
   // Add or remove the dark / icon theme
   document.body.classList.toggle(darkTheme);
-  themeButton.classList.toggle(iconTheme);
+  // themeButton.classList.toggle(iconTheme);
+  if(themeButton.classList.contains(iconTheme)){
+    themeButton.classList.remove(iconTheme);
+    themeButton.classList.add("fa-moon");
+  }else {
+    themeButton.classList.add(iconTheme);
+    themeButton.classList.remove("fa-moon");
+  }
   // We save the theme and the current icon that the user chose
   localStorage.setItem("selected-theme", getCurrentTheme());
   localStorage.setItem("selected-icon", getCurrentIcon());

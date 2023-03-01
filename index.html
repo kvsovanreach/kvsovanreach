@@ -24,7 +24,7 @@
   <meta name="twitter:image" content="/assets/img/PwaImages/ios/512.png" />
 
   <!--==================== UNICONS ====================-->
-  <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
   <!-- ============FAVICONS============== -->
   <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favicons/favicon.png" />
@@ -33,7 +33,7 @@
   <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.png" />
 
   <!--==================== SWIPER CSS ====================-->
-  <link rel="stylesheet" href="/assets/css/swiper-bundle.min.css" />
+  <!-- <link rel="stylesheet" href="/assets/css/swiper-bundle.min.css" /> -->
 
   <!--==================== CSS ====================-->
   <link rel="stylesheet" href="assets/css/styles.css" />
@@ -49,48 +49,49 @@
   <!--==================== HEADER ====================-->
   <header class="header" id="header">
     <nav class="nav container">
-      <a href="#" class="nav__logo noSelect">KONG VUNGSOVANREACH&nbsp;&nbsp;<i class="uil uil-code-branch"></i></a>
+      <a href="#" class="nav__logo noSelect"></i>KONG VUNGSOVANREACH&nbsp;&nbsp;<i class="fa-solid fa-code-branch"></i></a>
 
       <div class="nav__menu" id="nav-menu">
         <ul class="nav__list grid">
           <li class="nav__item">
             <a href="#home" class="nav__link noSelect active-link">
-              <i class="uil uil-estate nav__icon"></i> Home
+              <i class="fa-solid fa-house-chimney nav__icon"></i> Home
             </a>
           </li>
 
           <li class="nav__item">
             <a href="#about" class="nav__link noSelect">
-              <i class="uil uil-user nav__icon"></i> About
+              <i class="fa-solid fa-user-tie nav__icon"></i> About
             </a>
           </li>
 
           <li class="nav__item">
             <a href="#skills" class="nav__link noSelect">
-              <i class="uil uil-file-alt nav__icon"></i> Skills
+              <i class="fa-solid fa-laptop-code nav__icon"></i> Skills
             </a>
           </li>
 
           <li class="nav__item">
             <a href="#qualification" class="nav__link noSelect">
-              <i class="uil uil-briefcase-alt nav__icon"></i> Qualification
+              <i class="fa-solid fa-briefcase nav__icon"></i> Qualification
             </a>
           </li>
 
           <li class="nav__item">
             <a href="#portfolio" class="nav__link noSelect">
-              <i class="uil uil-scenery nav__icon"></i> Portfolio
+              <i class="fa-solid fa-image nav__icon"></i> Portfolio
             </a>
           </li>
         </ul>
-        <i class="uil uil-times nav__close noSelect" id="nav-close"></i>
+        <i class="fa-solid fa-xmark nav__close noSelect" id="nav-close"></i>
       </div>
 
       <div class="nav__btns">
         <!-- theme change button -->
-        <i class="uil uil-moon change-theme" id="theme-button"></i>
+        <i class="fa-solid fa-moon change-theme" id="theme-button"></i>
+        
         <div class="nav__toggle noSelect" id="nav-toggle">
-          <i class="uil uil-apps"></i>
+          <i class="fa-solid fa-bars"></i>
         </div>
       </div>
     </nav>
@@ -105,13 +106,13 @@
         <div class="home__content grid">
           <div class="home__social">
             <a href="https://www.linkedin.com/in/kongvungsovanreach/" target="_blank" class="home__social-icon">
-              <i class="uil uil-linkedin-alt"></i>
+              <i class="fa-brands fa-linkedin"></i>
             </a>
             <a href="https://gitlab.com/kongvungsovanreach" target="_blank" class="home__social-icon">
-              <i class="uil uil-gitlab"></i>
+              <i class="fa-brands fa-gitlab"></i>
             </a>
             <a href="https://t.me/kongvungsovanreach" target="_blank" class="home__social-icon">
-              <i class="uil uil-telegram-alt"></i>
+              <i class="fa-brands fa-telegram"></i>
             </a>
           </div>
 
@@ -145,9 +146,9 @@
         </div>
         <div class="home__scroll">
           <a href="#about" class="home__scroll-button button--flex">
-            <i class="uil uil-mouse-alt home__scroll-mouse"></i>
+            <i class="fa-solid fa-computer-mouse home__scroll"></i>
             <span class="home__scroll-name">Scroll Down</span>
-            <i class="uil uil-arrow-down home__scroll-arrow"></i>
+            <i class="fa-solid fa-arrow-down home__scroll"></i>
           </a>
         </div>
       </div>
@@ -172,22 +173,22 @@
         <table id="info-table">
           <tbody>
             <tr>
-              <th><i class="uil uil-at"></i></th>
+              <th><i class="fa-solid fa-at"></i></th>
               <td><a href="mailto:kv.sovanreach@gmail.com">kv.sovanreach@gmail.com</a></td>
             </tr>
             <tr>
-              <th><i class="uil uil-location-point"></i></th>
+              <th><i class="fa-solid fa-map-location-dot"></i></th>
               <td>Cheongju-si, South Korea</td>
             </tr>
             <tr>
-              <th><i class="uil uil-heart-alt"></i></th>
+              <th><i class="fa-solid fa-heart"></i></th>
               <td>Big Data, AI, ML & Computer Vision</td>
             </tr>
           </tbody>
         </table>
         <div class="about__buttons">
           <a download="" href="assets/pdf/kongvungsovanreach_cv.pdf" class="button button--flex">
-            Download Resume<i class="uil uil-download-alt button__icon"></i></a>
+            Download Resume<i class="fa-solid fa-download button__icon"></i></a>
         </div>
       </div>
     </div>
@@ -239,12 +240,13 @@
     <div class="qualification__container container">
       <div class="qualification__tabs">
         <div class="qualification__button button--flex qualification__active" data-target="#education">
-          <i class="uil uil-graduation-cap qualification__icon"> </i>
+          <i class="fa-solid fa-graduation-cap qualification__icon"></i>
           Education
         </div>
 
         <div class="qualification__button button--flex" data-target="#work">
-          <i class="uil uil-briefcase-alt qualification__icon"> </i> Work
+          <i class="fa-solid fa-briefcase qualification__icon"></i>
+           Work
         </div>
       </div>
 
@@ -260,7 +262,7 @@
                 Chungbuk National University
               </span>
               <div class="qualification__calender">
-                <i class="uil uil-calendar-alt"></i> 2022.03 ~ Present
+                <i class="fa-solid fa-calendar-days"></i> 2022.03 ~ Present
               </div>
             </div>
 
@@ -281,7 +283,7 @@
               <h3 class="qualification__title">Master's Degree</h3>
               <span class="qualification__subtitle">Chungbuk National University</span>
               <div class="qualification__calender">
-                <i class="uil uil-calendar-alt"></i> 2020.03 ~ 2022.02
+                <i class="fa-solid fa-calendar-days"></i> 2020.03 ~ 2022.02
               </div>
             </div>
           </div>
@@ -292,7 +294,7 @@
               <h3 class="qualification__title">Bachelor Degree</h3>
               <span class="qualification__subtitle">The University of Cambodia</span>
               <div class="qualification__calender">
-                <i class="uil uil-calendar-alt"></i> 2014.11 ~ 2019.12
+                <i class="fa-solid fa-calendar-days"></i> 2014.11 ~ 2019.12
               </div>
             </div>
             <div>
@@ -312,7 +314,7 @@
               <h3 class="qualification__title">IT Professional Training (Advanced)</h3>
               <span class="qualification__subtitle">Korea Software HRD Center</span>
               <div class="qualification__calender">
-                <i class="uil uil-calendar-alt"></i> 2018.10 ~ 2019.02
+                <i class="fa-solid fa-calendar-days"></i></i> 2018.10 ~ 2019.02
               </div>
             </div>
           </div>
@@ -323,7 +325,7 @@
               <h3 class="qualification__title">IT Professional Training (Basic)</h3>
               <span class="qualification__subtitle">Korea Software HRD Center</span>
               <div class="qualification__calender">
-                <i class="uil uil-calendar-alt"></i> 2018.04 ~ 2018.08
+                <i class="fa-solid fa-calendar-days"></i> 2018.04 ~ 2018.08
               </div>
             </div>
             <div>
@@ -340,7 +342,7 @@
               <h3 class="qualification__title">Research Assistant</h3>
               <span class="qualification__subtitle">Chungbuk National University</span>
               <div class="qualification__calender">
-                <i class="uil uil-calendar-alt"></i> 2022.03 ~ Present
+                <i class="fa-solid fa-calendar-days"></i> 2022.03 ~ Present
               </div>
             </div>
             <div>
@@ -360,7 +362,7 @@
               <h3 class="qualification__title">Research Assistant</h3>
               <span class="qualification__subtitle">Chungbuk National University</span>
               <div class="qualification__calender">
-                <i class="uil uil-calendar-alt"></i>2020.03 ~ 2022.03
+                <i class="fa-solid fa-calendar-days"></i>2020.03 ~ 2022.03
               </div>
             </div>
           </div>
@@ -371,7 +373,7 @@
               <h3 class="qualification__title">IT Instructor</h3>
               <span class="qualification__subtitle">Korea Software HRD Center</span>
               <div class="qualification__calender">
-                <i class="uil uil-calendar-alt"></i> 2019.03 ~ 2020.02
+                <i class="fa-solid fa-calendar-days"></i> 2019.03 ~ 2020.02
               </div>
             </div>
             <div>
@@ -385,7 +387,7 @@
     <div class="publication__container container">
       <div class="publication__tabs">
         <div class="publication__button button--flex" data-target="#education">
-          <i class="uil uil-book-open qualification__icon"> </i>
+          <i class="fa-solid fa-book-open qualification__icon"></i>
           Publication
         </div>
       </div>
@@ -398,30 +400,25 @@
         <div class="publication__content">
           <p><span>[J1]</span>Kong, V., Somakhamixay, O., Cho, W. S., Kang, G., Won, H., Rah, H., & Bang, H. J. (2022).
             Recurrence risk prediction of acute coronary syndrome per patient as a personalized ACS recurrence risk: a
-            retrospective study. PeerJ, 10, e14348.<a target="_blank" href="https://peerj.com/articles/14348/"><i
-                class="uil uil-arrow-up-right "></i></a></p>
+            retrospective study. PeerJ, 10, e14348.<a target="_blank" href="https://peerj.com/articles/14348/"><i class="fa-solid fa-arrow-up-right-from-square"></i></a></p>
           <p><span>[J2]</span>Shon, H. S., Kong, V., Park, J. S., Jang, W., Cha, E. J., Kim, S. Y., ... & Kim, K. A.
             (2022). Deep Learning Model for Classifying Periodontitis Stages on Dental Panoramic Radiography. Applied
-            Sciences, 12(17), 8500.<a target="_blank" href="https://www.mdpi.com/2076-3417/12/17/8500"><i
-                class="uil uil-arrow-up-right "></i></a></p>
+            Sciences, 12(17), 8500.<a target="_blank" href="https://www.mdpi.com/2076-3417/12/17/8500"><i class="fa-solid fa-arrow-up-right-from-square"></i></a></p>
           <p><span>[D1]</span>Kong, V. (2022). Design and Implementation of a Workflow and Orchestration Tool for
             Building
             Machine Learning Model. Chungbuk National University<a target="_blank"
-              href="http://www.dcollection.net/handler/chungbuk/000000056260"><i
-                class="uil uil-arrow-up-right "></i></a></p>
+              href="http://www.dcollection.net/handler/chungbuk/000000056260"><i class="fa-solid fa-arrow-up-right-from-square"></i></a></p>
           <p><span>[C1]</span>Vungsovanreach, K., Choi, E. S., Shon, H. S., Cha, E. J., Kim, K. A., & Cho, W. S. (2021).
             Comparison of Classification Techniques based on Feature Extraction and Imbalanced Data Processing. 대한전기학회
             학술대회 논문집, 1886-1887.<a target="_blank"
-              href="https://www.dbpia.co.kr/journal/articleDetail?nodeId=NODE10610472"><i
-                class="uil uil-arrow-up-right "></i></a></p>
+              href="https://www.dbpia.co.kr/journal/articleDetail?nodeId=NODE10610472"><i class="fa-solid fa-arrow-up-right-from-square"></i></a></p>
           <p><span>[C2]</span>최은선(Eun-Seon Choi),Kong Vungsovanreach,조완섭(Wan-Sup Cho),김재성(Jae-Sung
             Kim),이경희(Kyung Hee Lee),손호선(Ho Sun Shon),and 최성곤(Seong Gon Choi). "스마트팩토리 데이터를 활용한 클래스 불균형문제 해결 방법 비교."
             한국통신학회 학술대회논문집 2021.6
-            (2021): 86-87.<a target="_blank" href="https://www.dbpia.co.kr/journal/articleDetail?nodeId=NODE10586832"><i
-                class="uil uil-arrow-up-right "></i></a></p>
+            (2021): 86-87.<a target="_blank" href="https://www.dbpia.co.kr/journal/articleDetail?nodeId=NODE10586832"><i class="fa-solid fa-arrow-up-right-from-square"></i></a></p>
           <p><span>[J3]</span>Aing Teckchun, Kong Vungsovanreach,김옥기,이경희,and 조완섭. "블록체인 자동화도구 개발과
             전자투표 적용사례." 한국빅데이터학회 학회지 6.2 (2021): 151-159.<a target="_blank"
-              href="https://kiss.kstudy.com/Detail/Ar?key=3924967"><i class="uil uil-arrow-up-right "></i></a></p>
+              href="https://kiss.kstudy.com/Detail/Ar?key=3924967"><i class="fa-solid fa-arrow-up-right-from-square"></i></a></p>
         </div>
       </div>
     </div>
@@ -430,11 +427,11 @@
   <!--==================== SCROLL TOP ====================-->
 
   <a href="#" class="scrollup" id="scroll-up">
-    <i class="uil uil-arrow-up scrollup__icon"></i>
+    <i class="fa-solid fa-arrow-up scrollup__icon"></i>
   </a>
 
   <!--==================== SWIPER JS ====================-->
-  <script src="/assets/js/swiper-bundle.min.js"></script>
+  <!-- <script src="/assets/js/swiper-bundle.min.js"></script> -->
 
   <!--==================== MAIN JS ====================-->
   <script src="assets/js/main.js"></script>
