@@ -46,7 +46,7 @@
   --mb-1-5: 1.5rem;
   --mb-2: 2rem;
   --mb-2-5: 2.5rem;
-  --mb-3: 3rem;
+  --mb-3: 2rem;
   /*========== z index ==========*/
   --z-tooltip: 10;
   --z-fixed: 100;
@@ -151,7 +151,7 @@ img {
 }
 
 .section {
-  padding: 2rem 0 4rem;
+  padding: 2rem 0 3rem;
 }
 
 .section__title {
@@ -1249,4 +1249,12 @@ header {
 
 .dark-theme #info-table a {
   color: rgb(75, 114, 214);
+}
+
+.publication__tabs {
+  margin-bottom: 2em;
+}
+
+.qualification__calender > i {
+  margin-right: .3em;
 }
