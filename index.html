@@ -13,7 +13,7 @@
 
   <!--==================== OPEN GRAPH META TAGS ===================== -->
   <meta property="og:title" content="Kong Vungsovanreach" />
-  <meta property="og:image" content="/assets/img/PwaImages/ios/512.png" />
+  <meta property="og:image" content="/assets/img/pwa/ios/512.png" />
   <meta property="og:description"
     content="Personal website of Kong Vungsovanreach. A summary of professional experience, skills, projects details and contact information." />
 
@@ -21,24 +21,48 @@
   <meta name="twitter:title" content="Kong Vungsovanreach" />
   <meta name="twitter:description"
     content="Personal website of Kong Vungsovanreach. A summary of professional experience, skills, projects details and contact information." />
-  <meta name="twitter:image" content="/assets/img/PwaImages/ios/512.png" />
+  <meta name="twitter:image" content="/assets/img/pwa/ios/512.png" />
 
-  <!--==================== UNICONS ====================-->
+  <!--==================== FontAwesome ====================-->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
     integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
 
   <!-- ============FAVICONS============== -->
-  <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favicons/favicon.png" />
-  <link rel="icon" type="image/png" sizes="32x32" href="/assets//img/favicons/favicon.png" />
-  <link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicons/favicon.png" />
-  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.png" />
+  <link rel="apple-touch-icon" sizes="57x57" href="/assets/img/favicons/apple-touch-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="/assets/img/favicons/apple-touch-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/assets/img/favicons/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/assets/img/favicons/apple-touch-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/assets/img/favicons/apple-touch-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="/assets/img/favicons/apple-touch-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/assets/img/favicons/apple-touch-icon-144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/assets/img/favicons/apple-touch-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favicons/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicons/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicons/favicon-16x16.png">
+  <link rel="manifest" href="/assets/img/favicons/site.webmanifest">
+  <link rel="mask-icon" href="/assets/img/favicons/safari-pinned-tab.svg" color="#5bbad5">
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico" />
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
 
-  <!--==================== SWIPER CSS ====================-->
-  <!-- <link rel="stylesheet" href="/assets/css/swiper-bundle.min.css" /> -->
+  <!-- ====================PWA================== -->
+  <link rel="manifest" href="/assets/img/pwa/android/manifest.json" />
+  <!-- ios support -->
+  <link rel="apple-touch-icon" href="/assets/img/pwa/ios/32.png" />
+  <link rel="apple-touch-icon" href="/assets/img/pwa/ios/72.png" />
+  <link rel="apple-touch-icon" href="/assets/img/pwa/ios/100.png" />
+  <link rel="apple-touch-icon" href="/assets/img/pwa/ios/128.png" />
+  <link rel="apple-touch-icon" href="/assets/img/pwa/ios/144.png" />
+  <link rel="apple-touch-icon" href="/assets/img/pwa/ios/152.png" />
+  <link rel="apple-touch-icon" href="/assets/img/pwa/ios/192.png" />
+  <link rel="apple-touch-icon" href="/assets/img/pwa/ios/256.png" />
+  <link rel="apple-touch-icon" href="/assets/img/pwa/ios/512.png" />
+  <meta name="apple-mobile-web-app-status-bar" content="#6E57E0" />
+  <meta name="theme-color" content="#6E57E0" />
 
   <!--==================== CSS ====================-->
-  <link rel="stylesheet" href="assets/css/styles.css" />
+  <link rel="stylesheet" href="assets/css/main.css" />
 </head>
 
 <body>
@@ -133,7 +157,8 @@
                                 165.547 130.807 187.559 100.226 186.353C69.6454 185.297 41.0228 161.023 21.7403 
                                 129.362C2.45775 97.8511 -7.48481 59.1033 6.67581 34.5279C20.9871 10.1032 59.7028 
                                 -0.149132 97.9666 0.00163737C136.23 0.303176 174.193 10.857 190.312 36.4879Z" />
-                <image class="home__blob-img" x="-20" xlink:href="assets/img/kongvungsovanreach_01.jpeg"></image>
+                <image class="home__blob-img" x="-20" xlink:href="assets/img/profile/kongvungsovanreach_01.jpg">
+                </image>
               </g>
             </svg>
           </div>
@@ -166,7 +191,7 @@
     <span class="section__subtitle">My Introduction</span>
 
     <div class="about__container container grid">
-      <img src="assets/img/kongvungsovanreach_02.png" alt="" class="about__image" />
+      <img src="assets/img/profile/kongvungsovanreach_02.jpg" alt="" class="about__image" />
 
       <div class="about__data">
         <p class="about__description">
@@ -451,6 +476,17 @@
     window.onload = function () {
       document.getElementById("loading").style.display = "none";
     };
+  </script>
+   <!-- =====================REGISTER SERVICE WORKER================ -->
+   <script>
+    if (navigator && navigator.serviceWorker) {
+      window.addEventListener("load", function () {
+        navigator.serviceWorker
+          .register("/serviceWorker.js")
+          .then((res) => console.log("service worker registered"))
+          .catch((err) => console.log("service worker not registered", err));
+      });
+    }
   </script>
 </body>
 
