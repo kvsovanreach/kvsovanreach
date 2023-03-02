@@ -171,7 +171,7 @@ img {
 
 /*==================== LAYOUT ====================*/
 
-.container {
+.kong-container {
   max-width: 968px;
   margin-left: var(--mb-1-5);
   margin-right: var(--mb-1-5);
@@ -656,7 +656,7 @@ header {
   .loader {
     font-size: 11vh;
   }
-  .container {
+  .kong-container {
     margin-left: var(--mb-1);
     margin-right: var(--mb-1);
   }
@@ -733,7 +733,7 @@ header {
   .loader {
     font-size: 16vh;
   }
-  .container {
+  .kong-container {
     margin-left: auto;
     margin-right: auto;
   }
@@ -741,7 +741,7 @@ header {
     margin: 0;
   }
   .section {
-    padding: 4rem 0 2rem;
+    padding: 5rem 0 2rem;
   }
   .section__subtitle {
     margin-bottom: 4rem;
