@@ -1,20 +1,102 @@
+body {
+    display: none;
+}
+
+:root {
+    --color-text: #616161;
+    --color-text-btn: #ffffff;
+    --card1-gradient-color1-general-tool: #7F00FF;
+    --card1-gradient-color2-general-tool: #3f2b96;
+    --card2-gradient-color1: #7F00FF;
+    --card2-gradient-color2: #E100FF;
+    --card3-gradient-color1: #3f2b96;
+    --card3-gradient-color2: #a8c0ff;
+    --card4-gradient-color1: #11998e;
+    --card4-gradient-color2: #38ef7d;
+}
+
 nav.kong-container ul {
     padding-left: 0;
     margin-bottom: 0;
 }
 
-.tool-card {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    max-height: 100%;
-    padding: 1em;
-    margin: 1em;
-    background-color: red;
+.section {
+    margin: 0 1em;
 }
 
-.tool-card-icon img {
-    width: 50%;
-    height: auto;
-    margin: auto;
+.kong-tool-card-wrap {
+    width: 100%;
+    background: #fff;
+    border-radius: 20px;
+    border: 5px solid #fff;
+    overflow: hidden;
+    color: var(--color-text);
+    box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px,
+        rgba(0, 0, 0, 0.23) 0px 6px 6px;
+    cursor: default;
+    transition: all .2s ease-in-out;
+    margin-bottom: 1em;
+}
+
+.kong-tool-card-wrap:hover {
+    transform: scale(1.05);
+}
+
+.kong-tool-card-header {
+    height: 100%;
+    width: 100%;
+    background: red;
+    border-radius: 100% 0% 100% 0% / 0% 50% 50% 100%;
+    display: grid;
+    place-items: center;
+}
+
+.kong-tool-card-header img {
+    max-height: 70%;
+    max-width: 40%;
+    margin-top: -.5em;
+}
+
+.kong-tool-card-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 90%;
+    margin: 0 auto;
+}
+
+.kong-tool-card-title {
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 16px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+
+}
+
+.kong-tool-card-text {
+    text-align: center;
+    font-size: 12px;
+    margin-bottom: 20px;
+}
+
+.kong-tool-card-btn {
+    border: none;
+    border-radius: 100px;
+    padding: 5px 30px;
+    color: #fff;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+}
+
+.kong-tool-card-header.general-tool {
+    background: linear-gradient(to bottom left, var(--card1-gradient-color1-general-tool), var(--card1-gradient-color2-general-tool));
+}
+
+.kong-tool-card-btn.general-tool {
+    background: linear-gradient(to left, var(--card1-gradient-color1-general-tool), var(--card1-gradient-color2-general-tool));
+}
+
+.dark-theme h1.kong-tool-card-title {
+    color: var(--color-text);
 }
