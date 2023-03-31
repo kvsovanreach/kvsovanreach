@@ -1,4 +1,4 @@
-<!-- CREDIT: THIS THEM IS ORIGINALLY DEVELOPED BY https://github.com/rawatanimesh/portfolio-website-dark-light-themes-->
+<!-- CREDIT: THIS THEME IS ORIGINALLY DEVELOPED BY https://github.com/rawatanimesh/portfolio-website-dark-light-themes-->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -66,6 +66,7 @@
   <link rel="apple-touch-icon" href="/assets/img/pwa/ios/192.png" />
   <link rel="apple-touch-icon" href="/assets/img/pwa/ios/256.png" />
   <link rel="apple-touch-icon" href="/assets/img/pwa/ios/512.png" />
+  <link rel="apple-touch-icon" href="/assets/img/pwa/ios/1024.png" />
   <meta name="apple-mobile-web-app-status-bar" content="#6E57E0" />
   <meta name="theme-color" content="#6E57E0" />
 
@@ -165,7 +166,7 @@
                                 165.547 130.807 187.559 100.226 186.353C69.6454 185.297 41.0228 161.023 21.7403 
                                 129.362C2.45775 97.8511 -7.48481 59.1033 6.67581 34.5279C20.9871 10.1032 59.7028 
                                 -0.149132 97.9666 0.00163737C136.23 0.303176 174.193 10.857 190.312 36.4879Z" />
-                <image class="home__blob-img" x="-20" xlink:href="assets/img/profile/kongvungsovanreach_01.jpg">
+                <image class="home__blob-img" x="-20" xlink:href="assets/img/profile/kongvungsovanreach_01.jpeg">
                 </image>
               </g>
             </svg>
@@ -199,7 +200,7 @@
     <span class="section__subtitle">My Introduction</span>
 
     <div class="about__container kong-container grid">
-      <img src="assets/img/profile/kongvungsovanreach_02.jpg" alt="" class="about__image" />
+      <img src="assets/img/profile/kongvungsovanreach_02.jpeg" alt="" class="about__image" />
 
       <div class="about__data">
         <p class="about__description">
@@ -488,8 +489,8 @@
       window.addEventListener("load", function () {
         navigator.serviceWorker
           .register("/serviceWorker.js")
-          .then((res) => console.log("service worker registered"))
-          .catch((err) => console.log("service worker not registered", err));
+          .then((res) => console.log("Service Worker Registration: DONE"))
+          .catch((err) => console.log("Service Worker Registration: ERROR", err));
       });
     }
   </script>
