@@ -252,7 +252,7 @@
             const gender = $('#gender').val()
             const email = $('#email').val()
             console.log(first_name, last_name, dob, password);
-            const filename = `INFO_${first_name}_${last_name}_${dob}_${uuidv4()}.csv`
+            const filename = `INFO_${first_name}_${last_name}_${dob}_${uuidv4()}`
             if (email == '') {
                 Toastify({
                     text: `Error: emtpy email address!`,
