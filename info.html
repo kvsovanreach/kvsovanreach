@@ -11,7 +11,7 @@
         integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
     <style>
-        #info_div {
+        #info_div, #download_btn_div {
             margin-top: 1em;
         }
 
@@ -27,6 +27,7 @@
         #title {
             margin-bottom: 1em;
         }
+
     </style>
     <script>
         const first_names = ['Samnang', 'Sopheap', 'Vannak', 'Rathana', 'Sovann', 'Chetra', 'Kosal', 'Pheakdei', 'Sarith', 'Visal', 'Bunthoeun', 'Channarong', 'Dara', 'Kanha', 'Narith', 'Phirun', 'Serey', 'Thyda', 'Vireak', 'Arun', 'Chhay', 'Dararith', 'Heng', 'Kiri', 'Makara',
@@ -93,6 +94,20 @@
                 <p>First Name: <span id="first_name">Not Generated</span></p>
                 <p>Date of birth: <span id="date_of_birth">Not Generated</span></p>
                 <p>Password: <span id="password">Not Generated</span></p>
+            </div>
+            <div class="col-6 offset-3">
+                <label for="email">Email:</label>
+                <input type="text" class="form-control" id="email">
+            </div>
+            <div class="col-6 offset-3">
+                <label for="gender">Gender:</label>
+                <select name="gender" id="gender" class="form-select">
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                </select>
+              </div>
+            <div class="col-6 offset-3" id="download_btn_div">
+                <input type="button" class="btn btn-success" value="Download" id="download_btn">
             </div>
         </div>
     </div>
@@ -190,6 +205,12 @@
             });
         }
 
+        function uuidv4() {
+        return "10000000-1000-4000-8000-100000000000".replace(/[018]/g, c =>
+            (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+        );
+        }
+
         // Function to attach click event to spans
         function attachClickEventToSpans() {
             // Select all span elements
@@ -204,13 +225,73 @@
             });
         }
 
+        function downloadObjectAsJson(exportObj, exportName){
+            var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(exportObj));
+            var downloadAnchorNode = document.createElement('a');
+            downloadAnchorNode.setAttribute("href",     dataStr);
+            downloadAnchorNode.setAttribute("download", exportName + ".json");
+            document.body.appendChild(downloadAnchorNode); // required for firefox
+            downloadAnchorNode.click();
+            downloadAnchorNode.remove();
+            Toastify({
+                    text: `Downloaded: file downloaded!`,
+                    className: "success",
+                    position: 'center',
+                    duration: 1000,
+                    style: {
+                        background: "linear-gradient(to right, #00b09b, #96c93d)",
+                    }
+                }).showToast();
+        }
+
+        function prepare_file() {
+            const first_name = localStorage.getItem('first_name');
+            const last_name = localStorage.getItem('last_name');
+            const dob = localStorage.getItem('date_of_birth');
+            const password = localStorage.getItem('password');
+            const gender = $('#gender').val()
+            const email = $('#email').val()
+            console.log(first_name, last_name, dob, password);
+            const filename = `INFO_${first_name}_${last_name}_${dob}_${uuidv4()}.csv`
+            if (email == '') {
+                Toastify({
+                    text: `Error: emtpy email address!`,
+                    className: "danger",
+                    position: 'center',
+                    duration: 3000,
+                    style: {
+                        background: "linear-gradient(to right, #ff0000, #ff0000)",
+                    }
+                }).showToast();
+                return
+            }
+            const data = {
+                'first_name': first_name,
+                'last_name': last_name,
+                'dob': dob,
+                'gender': gender,
+                'email': email,
+                'password': password
+            }
+            downloadObjectAsJson(data, filename);
+        }
+
         $('#gen_btn').click(() => {
             get_name();
             get_dob();
             get_password();
+            //reset email and gender input
+            $('#email').val('');
+            $('#gender').val("male");
         });
+
+        $('#download_btn').click(() => {
+            prepare_file();
+        });
+
         restore_info();
         attachClickEventToSpans();
+
     </script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 </body>
