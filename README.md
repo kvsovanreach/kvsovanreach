@@ -18,11 +18,15 @@
   <a href="https://expressjs.com" target="_blank"><img src="https://raw.githubusercontent.com/kongvungsovanreach/kongvungsovanreach/master/assets/icons/express.svg" alt="Express.js" width="40" height="40"/></a>&nbsp;&nbsp;&nbsp;
   <a href="https://spring.io/" target="_blank"> <img src="https://raw.githubusercontent.com/kongvungsovanreach/kongvungsovanreach/master/assets/icons/spring.svg" alt="Spring" width="40" height="40"/></a>&nbsp;&nbsp;&nbsp;
   <a href="https://pytorch.org/" target="_blank"><img src="https://raw.githubusercontent.com/kongvungsovanreach/kongvungsovanreach/master/assets/icons/pytorch.svg" alt="PyTorch" width="40" height="40"/></a>&nbsp;&nbsp;&nbsp;
-  <a href="https://opencv.org/" target="_blank"> <img src="https://raw.githubusercontent.com/kongvungsovanreach/kongvungsovanreach/master/assets/icons/opencv.svg" alt="opencv" width="40" height="40"/></a>&nbsp;&nbsp;&nbsp;
+  <a href="https://opencv.org/" target="_blank"> <img src="https://raw.githubusercontent.com/kongvungsovanreach/kongvungsovanreach/master/assets/icons/opencv.svg" alt="OpenCV" width="40" height="40"/></a>&nbsp;&nbsp;&nbsp;
+  <a href="https://pandas.pydata.org/" target="_blank"> <img src="https://raw.githubusercontent.com/kongvungsovanreach/kongvungsovanreach/master/assets/icons/pandas.svg" alt="Pandas" width="40" height="40"/></a>&nbsp;&nbsp;&nbsp;
+  <a href="https://seaborn.pydata.org/" target="_blank"> <img src="https://raw.githubusercontent.com/kongvungsovanreach/kongvungsovanreach/master/assets/icons/seaborn.svg" alt="Seaborn" width="40" height="40"/></a>&nbsp;&nbsp;&nbsp;
+  <a href="https://scikit-learn.org/" target="_blank"> <img src="https://raw.githubusercontent.com/kongvungsovanreach/kongvungsovanreach/master/assets/icons/sklearn.svg" alt="Scikit Learn" width="40" height="40"/></a>&nbsp;&nbsp;&nbsp;
   <a href="https://aws.amazon.com" target="_blank"><img src="https://raw.githubusercontent.com/kongvungsovanreach/kongvungsovanreach/master/assets/icons/aws.svg" alt="AWS" width="40" height="40"/></a>&nbsp;&nbsp;&nbsp;
   <a href="https://www.docker.com/" target="_blank"><img src="https://raw.githubusercontent.com/kongvungsovanreach/kongvungsovanreach/master/assets/icons/docker.svg" alt="Docker" width="40" height="40"/></a>&nbsp;&nbsp;&nbsp;
   <a href="https://www.linux.org/" target="_blank"> <img src="https://raw.githubusercontent.com/kongvungsovanreach/kongvungsovanreach/master/assets/icons/linux.svg" alt="Linux" width="40" height="40"/></a>&nbsp;&nbsp;&nbsp;
   <a href="https://www.mongodb.com/" target="_blank"> <img src="https://raw.githubusercontent.com/kongvungsovanreach/kongvungsovanreach/master/assets/icons/mongodb.svg" alt="MongoDB" width="40" height="40"/></a>&nbsp;&nbsp;&nbsp;
+    <a href="https://www.postgresql.org/" target="_blank"> <img src="https://raw.githubusercontent.com/kongvungsovanreach/kongvungsovanreach/master/assets/icons/postgresql.svg" alt="PostgreSQL" width="40" height="40"/></a>&nbsp;&nbsp;&nbsp;
   <a href="https://www.mysql.com/" target="_blank"> <img src="https://raw.githubusercontent.com/kongvungsovanreach/kongvungsovanreach/master/assets/icons/mysql.svg" alt="MySQL" width="50" height="50"/></a>
 </p>
 
