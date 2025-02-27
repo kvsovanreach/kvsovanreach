@@ -24,28 +24,21 @@
   <a href="https://www.docker.com/" target="_blank"><img src="https://raw.githubusercontent.com/kongvungsovanreach/kongvungsovanreach/master/assets/icons/docker.svg" alt="Docker" width="40" height="40"/></a> -
   <a href="https://www.linux.org/" target="_blank"> <img src="https://raw.githubusercontent.com/kongvungsovanreach/kongvungsovanreach/master/assets/icons/linux.svg" alt="Linux" width="40" height="40"/></a> -
   <a href="https://www.mongodb.com/" target="_blank"> <img src="https://raw.githubusercontent.com/kongvungsovanreach/kongvungsovanreach/master/assets/icons/mongodb.svg" alt="MongoDB" width="40" height="40"/></a> -
-  <a href="https://www.mysql.com/" target="_blank"> <img src="https://raw.githubusercontent.com/kongvungsovanreach/kongvungsovanreach/master/assets/icons/mysql.svg" alt="MySQL" width="50" height="50"/></a> -
+  <a href="https://www.mysql.com/" target="_blank"> <img src="https://raw.githubusercontent.com/kongvungsovanreach/kongvungsovanreach/master/assets/icons/mysql.svg" alt="MySQL" width="50" height="50"/></a>
 </p>
 
 ## 📊 GitHub Stats
 
 <img  src="https://github-readme-stats.vercel.app/api/top-langs?username=kongvungsovanreach&show_icons=true&locale=en&layout=compact"  alt="kongvungsovanreach"/>
-
 <img  src="https://github-readme-stats.vercel.app/api?username=kongvungsovanreach&show_icons=true&locale=en"  alt="kongvungsovanreach"/>
-
 <img  src="https://github-readme-streak-stats.herokuapp.com/?user=kongvungsovanreach&"  alt="kongvungsovanreach"/>
 
 ## 🔗 Connect with Me
 
 <p align="left">
-  <a href="https://linkedin.com/in/kongvungsovanreach" target="blank">
-    <img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/linked-in-alt.svg" alt="LinkedIn" height="30" width="40"/></a>-
-  <a href="https://stackoverflow.com/users/vungsovanreach-kong" target="blank">
-    <img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/stack-overflow.svg" alt="Stack Overflow" height="30" width="40"/></a>-
-  <a href="https://kaggle.com/kongvungsovanreach" target="blank">
-    <img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/kaggle.svg" alt="Kaggle" height="30" width="40"/></a>-
-  <a href="https://www.leetcode.com/kongvungsovanreach" target="blank">
-    <img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/leet-code.svg" alt="LeetCode" height="30" width="40"/></a>-
-  <a href="https://scholar.google.com/citations?user=qZqSMicAAAAJ&hl=en" target="blank">
-    <img align="center" src="https://raw.githubusercontent.com/kongvungsovanreach/kongvungsovanreach/master/assets/icons/google-scholar.svg" alt="Google Scholar" height="30" width="40"/></a>
+  <a href="https://linkedin.com/in/kongvungsovanreach" target="blank"><img align="center" src="https://raw.githubusercontent.com/kongvungsovanreach/kongvungsovanreach/master/assets/icons/linkedin.svg" alt="LinkedIn" height="30" width="40"/></a>-
+  <a href="https://stackoverflow.com/users/11778534" target="blank"><img align="center" src="https://raw.githubusercontent.com/kongvungsovanreach/kongvungsovanreach/master/assets/icons/stackoverflow.svg" alt="Stack Overflow" height="30" width="40"/></a>-
+  <a href="https://www.kaggle.com/vungsovanreachkong" target="blank"><img align="center" src="https://raw.githubusercontent.com/kongvungsovanreach/kongvungsovanreach/master/assets/icons/kaggle.svg" alt="Kaggle" height="30" width="40"/></a>-
+  <a href="https://www.leetcode.com/kongvungsovanreach" target="blank"><img align="center" src="https://raw.githubusercontent.com/kongvungsovanreach/kongvungsovanreach/master/assets/icons/leetcode.svg" alt="LeetCode" height="30" width="40"/></a>-
+  <a href="https://scholar.google.com/citations?user=qZqSMicAAAAJ&hl=en" target="blank"><img align="center" src="https://raw.githubusercontent.com/kongvungsovanreach/kongvungsovanreach/master/assets/icons/google-scholar.svg" alt="Google Scholar" height="30" width="40"/></a>
 </p>
