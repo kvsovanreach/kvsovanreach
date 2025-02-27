@@ -1,6 +1,6 @@
 
 # 👋 Hi, I’m Sovanreach!
-- :boom: I am an Applied AI Researcher and PhD candidate in Engineering, Big Data from [CBNU](https://cbnu.ac.kr).
+- :boom: An applied AI researcher & developer interested in CV, LLM, and AI.
 - 🌱 I work as a research assistant at BigDataLabs.
 - :books: [Click here](https://scholar.google.com/citations?user=qZqSMicAAAAJ&hl=en) to know more about my research.
 - 📫 Reach me at [LinkedIn](https://www.linkedin.com/in/kongvungsovanreach).
