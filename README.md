@@ -1,6 +1,5 @@
 
 # 👋 Hi, I’m Sovanreach!
-
 - :boom: I am an Applied AI Researcher and PhD candidate in Engineering, Big Data from [CBNU](https://cbnu.ac.kr).
 - 🌱 I work as a research assistant at BigDataLabs.
 - :books: [Click here](https://scholar.google.com/citations?user=qZqSMicAAAAJ&hl=en) to know more about my research.
@@ -9,7 +8,7 @@
 - 💞️ I’m looking to collaborate on machine learning and deep learning-based projects.
 
 ## 🛠️ Languages and Tools
- <p align="left">
+ <p align="center">
   <a href="https://www.python.org" target="_blank"><img src="https://raw.githubusercontent.com/kongvungsovanreach/kongvungsovanreach/master/assets/icons/python.svg" alt="Python" width="40" height="40"/></a> -
   <a href="https://www.java.com" target="_blank"><img src="https://raw.githubusercontent.com/kongvungsovanreach/kongvungsovanreach/master/assets/icons/java.svg" alt="Java" width="40" height="40"/></a> -
   <a href="https://www.w3schools.com/cpp/" target="_blank"><img src="https://raw.githubusercontent.com/kongvungsovanreach/kongvungsovanreach/master/assets/icons/cplusplus.svg" alt="C++" width="40" height="40"/></a> -
@@ -28,17 +27,16 @@
 </p>
 
 ## 📊 GitHub Stats
-
-<img  src="https://github-readme-stats.vercel.app/api/top-langs?username=kongvungsovanreach&show_icons=true&locale=en&layout=compact"  alt="kongvungsovanreach"/>
-<img  src="https://github-readme-stats.vercel.app/api?username=kongvungsovanreach&show_icons=true&locale=en"  alt="kongvungsovanreach"/>
-<img  src="https://github-readme-streak-stats.herokuapp.com/?user=kongvungsovanreach&"  alt="kongvungsovanreach"/>
+<img src="https://github-readme-stats.vercel.app/api/top-langs?username=kongvungsovanreach&show_icons=true&locale=en&layout=compact"  alt="kongvungsovanreach"/>
+<img src="https://github-readme-stats.vercel.app/api?username=kongvungsovanreach&show_icons=true&locale=en"  alt="kongvungsovanreach"/>
+<img src="https://github-readme-streak-stats.herokuapp.com/?user=kongvungsovanreach&"  alt="kongvungsovanreach"/>
 
 ## 🔗 Connect with Me
-
-<p align="left">
-  <a href="https://linkedin.com/in/kongvungsovanreach" target="blank"><img align="center" src="https://raw.githubusercontent.com/kongvungsovanreach/kongvungsovanreach/master/assets/icons/linkedin.svg" alt="LinkedIn" height="30" width="40"/></a>-
-  <a href="https://stackoverflow.com/users/11778534" target="blank"><img align="center" src="https://raw.githubusercontent.com/kongvungsovanreach/kongvungsovanreach/master/assets/icons/stackoverflow.svg" alt="Stack Overflow" height="30" width="40"/></a>-
-  <a href="https://www.kaggle.com/vungsovanreachkong" target="blank"><img align="center" src="https://raw.githubusercontent.com/kongvungsovanreach/kongvungsovanreach/master/assets/icons/kaggle.svg" alt="Kaggle" height="30" width="40"/></a>-
-  <a href="https://www.leetcode.com/kongvungsovanreach" target="blank"><img align="center" src="https://raw.githubusercontent.com/kongvungsovanreach/kongvungsovanreach/master/assets/icons/leetcode.svg" alt="LeetCode" height="30" width="40"/></a>-
-  <a href="https://scholar.google.com/citations?user=qZqSMicAAAAJ&hl=en" target="blank"><img align="center" src="https://raw.githubusercontent.com/kongvungsovanreach/kongvungsovanreach/master/assets/icons/google-scholar.svg" alt="Google Scholar" height="30" width="40"/></a>
+<p align="center">
+  <a href="https://github.com/kongvungsovanreach" target="blank"><img align="center" src="https://raw.githubusercontent.com/kongvungsovanreach/kongvungsovanreach/master/assets/icons/github.svg" alt="Github" height="40" width="40"/></a>-
+  <a href="https://linkedin.com/in/kongvungsovanreach" target="blank"><img align="center" src="https://raw.githubusercontent.com/kongvungsovanreach/kongvungsovanreach/master/assets/icons/linkedin.svg" alt="LinkedIn" height="40" width="40"/></a>-
+  <a href="https://stackoverflow.com/users/11778534" target="blank"><img align="center" src="https://raw.githubusercontent.com/kongvungsovanreach/kongvungsovanreach/master/assets/icons/stackoverflow.svg" alt="Stack Overflow" height="40" width="40"/></a>-
+  <a href="https://www.kaggle.com/vungsovanreachkong" target="blank"><img align="center" src="https://raw.githubusercontent.com/kongvungsovanreach/kongvungsovanreach/master/assets/icons/kaggle.svg" alt="Kaggle" height="40" width="40"/></a>-
+  <a href="https://www.leetcode.com/kongvungsovanreach" target="blank"><img align="center" src="https://raw.githubusercontent.com/kongvungsovanreach/kongvungsovanreach/master/assets/icons/leetcode.svg" alt="LeetCode" height="40" width="40"/></a>-
+  <a href="https://scholar.google.com/citations?user=qZqSMicAAAAJ&hl=en" target="blank"><img align="center" src="https://raw.githubusercontent.com/kongvungsovanreach/kongvungsovanreach/master/assets/icons/google-scholar.svg" alt="Google Scholar" height="40" width="40"/></a>
 </p>
