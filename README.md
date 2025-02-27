@@ -1,3 +1,4 @@
+
 # 👋 Hi, I’m Sovanreach!
 
 - :boom: I am an Applied AI Researcher and PhD candidate in Engineering, Big Data from [CBNU](https://cbnu.ac.kr).
@@ -9,21 +10,21 @@
 
 ## 🛠️ Languages and Tools
  <p align="left">
-  <a href="https://www.python.org"><img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/python/python-original.svg" alt="Python" width="40" height="40"/></a>
-   <a href="https://www.java.com"><img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/java/java-original.svg" alt="Java" width="40" height="40"/></a>
-    <a href="https://www.w3schools.com/cpp/"><img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/cplusplus/cplusplus-original.svg" alt="C++" width="40" height="40"/></a>
-    <a href="https://www.gnu.org/software/bash/"><img src="https://www.vectorlogo.zone/logos/gnu_bash/gnu_bash-icon.svg" alt="Bash" width="40" height="40"/></a>
-     <a href="https://flask.palletsprojects.com/"><img src="https://raw.githubusercontent.com/devicons/devicon/refs/heads/master/icons/flask/flask-original.svg" alt="Flask" width="40" height="40"/></a>
-     <a href="https://nodejs.org"><img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/nodejs/nodejs-original-wordmark.svg" alt="Node.js" width="40" height="40"/></a>
-     <a href="https://expressjs.com"><img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/express/express-original-wordmark.svg" alt="Express.js" width="40" height="40"/></a>
-     <a href="https://spring.io/" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/springio/springio-icon.svg" alt="spring" width="40" height="40"/> </a>
-     <a href="https://pytorch.org/"><img src="https://www.vectorlogo.zone/logos/pytorch/pytorch-icon.svg" alt="PyTorch" width="40" height="40"/></a>
-     <a href="https://opencv.org/" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/opencv/opencv-icon.svg" alt="opencv" width="40" height="40"/> </a>
-     <a href="https://aws.amazon.com"><img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/amazonwebservices/amazonwebservices-original-wordmark.svg" alt="AWS" width="40" height="40"/></a>
-     <a href="https://www.docker.com/"><img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/docker/docker-original-wordmark.svg" alt="Docker" width="40" height="40"/></a>
-     <a href="https://www.linux.org/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/linux/linux-original.svg" alt="linux" width="40" height="40"/>
-     <a href="https://www.mongodb.com/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/mongodb/mongodb-original-wordmark.svg" alt="mongodb" width="40" height="40"/> </a> 
-     <a href="https://www.mysql.com/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/mysql/mysql-original-wordmark.svg" alt="mysql" width="40" height="40"/> </a>
+  <a href="https://www.python.org"><img src="https://raw.githubusercontent.com/kongvungsovanreach/kongvungsovanreach/master/assets/icons/python.svg" alt="Python" width="40" height="40"/></a>
+   <a href="https://www.java.com"><img src="https://raw.githubusercontent.com/kongvungsovanreach/kongvungsovanreach/master/assets/icons/java.svg" alt="Java" width="40" height="40"/></a>
+    <a href="https://www.w3schools.com/cpp/"><img src="https://raw.githubusercontent.com/kongvungsovanreach/kongvungsovanreach/master/assets/icons/cplusplus.svg" alt="C++" width="40" height="40"/></a>
+    <a href="https://www.gnu.org/software/bash/"><img src="https://raw.githubusercontent.com/kongvungsovanreach/kongvungsovanreach/master/assets/icons/bash.svg" alt="Bash" width="40" height="40"/></a>
+     <a href="https://flask.palletsprojects.com/"><img src="https://raw.githubusercontent.com/kongvungsovanreach/kongvungsovanreach/master/assets/icons/flask.svg" alt="Flask" width="40" height="40"/></a>
+     <a href="https://nodejs.org"><img src="https://raw.githubusercontent.com/kongvungsovanreach/kongvungsovanreach/master/assets/icons/nodejs.svg" alt="Node.js" width="50" height="50"/></a>
+     <a href="https://expressjs.com"><img src="https://raw.githubusercontent.com/kongvungsovanreach/kongvungsovanreach/master/assets/icons/express.svg" alt="Express.js" width="40" height="40"/></a>
+     <a href="https://spring.io/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/kongvungsovanreach/kongvungsovanreach/master/assets/icons/spring.svg" alt="spring" width="40" height="40"/> </a>
+     <a href="https://pytorch.org/"><img src="https://raw.githubusercontent.com/kongvungsovanreach/kongvungsovanreach/master/assets/icons/pytorch.svg" alt="PyTorch" width="40" height="40"/></a>
+     <a href="https://opencv.org/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/kongvungsovanreach/kongvungsovanreach/master/assets/icons/opencv.svg" alt="opencv" width="40" height="40"/> </a>
+     <a href="https://aws.amazon.com"><img src="https://raw.githubusercontent.com/kongvungsovanreach/kongvungsovanreach/master/assets/icons/aws.svg" alt="AWS" width="40" height="40"/></a>
+     <a href="https://www.docker.com/"><img src="https://raw.githubusercontent.com/kongvungsovanreach/kongvungsovanreach/master/assets/icons/docker.svg" alt="Docker" width="40" height="40"/></a>
+     <a href="https://www.linux.org/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/kongvungsovanreach/kongvungsovanreach/master/assets/icons/linux.svg" alt="linux" width="40" height="40"/>
+     <a href="https://www.mongodb.com/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/kongvungsovanreach/kongvungsovanreach/master/assets/icons/mongodb.svg" alt="mongodb" width="40" height="40"/> </a> 
+     <a href="https://www.mysql.com/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/kongvungsovanreach/kongvungsovanreach/master/assets/icons/mysql.svg" alt="mysql" width="50" height="50"/> </a>
 </p>
 
 ## 📊 GitHub Stats
@@ -48,5 +49,8 @@
   </a>
   <a href="https://www.leetcode.com/kongvungsovanreach" target="blank">
     <img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/leet-code.svg" alt="LeetCode" height="30" width="40" />
+  </a>
+  <a href="https://scholar.google.com/citations?user=qZqSMicAAAAJ&hl=en" target="blank">
+    <img align="center" src="https://raw.githubusercontent.com/kongvungsovanreach/kongvungsovanreach/master/assets/icons/google-scholar.svg" alt="Google Scholar" height="30" width="40" />
   </a>
 </p>
