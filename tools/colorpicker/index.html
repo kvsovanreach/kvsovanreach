@@ -1,0 +1,895 @@
+<!-- CREDIT: THIS THEME IS ORIGINALLY DEVELOPED BY https://github.com/rawatanimesh/portfolio-website-dark-light-themes-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TBMFYFBV00"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-TBMFYFBV00');
+  </script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Advanced color picker tool with color wheel, RGB, HSL, HEX, CMYK inputs, color palettes, color scheme generation, and accessibility checker." />
+  <meta property="og:image" content="/assets/img/thumbnail.jpg">
+  <title>Kong Vungsovanreach - Color Picker Tool</title>
+
+  <!--==================== OPEN GRAPH META TAGS ===================== -->
+  <meta property="og:title" content="Kong Vungsovanreach - Color Picker Tool" />
+  <meta property="og:image" content="/assets/img/pwa/ios/512.png" />
+  <meta property="og:description" content="Advanced color picker with color wheel, sliders, palettes, and accessibility features." />
+
+  <!--==================== TWITTER META TAGS ===================== -->
+  <meta name="twitter:title" content="Kong Vungsovanreach - Color Picker Tool" />
+  <meta name="twitter:description" content="Advanced color picker with color wheel, sliders, palettes, and accessibility features." />
+  <meta name="twitter:image" content="/assets/img/pwa/ios/512.png" />
+
+  <!--==================== FONT AWESOME ====================-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
+    integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <!-- ============FAVICONS============== -->
+  <link rel="apple-touch-icon" sizes="57x57" href="/assets/img/favicons/apple-touch-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="/assets/img/favicons/apple-touch-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/assets/img/favicons/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/assets/img/favicons/apple-touch-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/assets/img/favicons/apple-touch-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="/assets/img/favicons/apple-touch-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/assets/img/favicons/apple-touch-icon-144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/assets/img/favicons/apple-touch-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favicons/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicons/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicons/favicon-16x16.png">
+  <link rel="manifest" href="/assets/img/favicons/site.webmanifest">
+  <link rel="mask-icon" href="/assets/img/favicons/safari-pinned-tab.svg" color="#5bbad5">
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico" />
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
+
+  <!-- ====================PWA================== -->
+  <link rel="manifest" href="/assets/img/pwa/android/manifest.json" />
+  <!-- ios support -->
+  <link rel="apple-touch-icon" href="/assets/img/pwa/ios/32.png" />
+  <link rel="apple-touch-icon" href="/assets/img/pwa/ios/72.png" />
+  <link rel="apple-touch-icon" href="/assets/img/pwa/ios/100.png" />
+  <link rel="apple-touch-icon" href="/assets/img/pwa/ios/128.png" />
+  <link rel="apple-touch-icon" href="/assets/img/pwa/ios/144.png" />
+  <link rel="apple-touch-icon" href="/assets/img/pwa/ios/152.png" />
+  <link rel="apple-touch-icon" href="/assets/img/pwa/ios/192.png" />
+  <link rel="apple-touch-icon" href="/assets/img/pwa/ios/256.png" />
+  <link rel="apple-touch-icon" href="/assets/img/pwa/ios/512.png" />
+  <link rel="apple-touch-icon" href="/assets/img/pwa/ios/1024.png" />
+  <meta name="apple-mobile-web-app-status-bar" content="#6E57E0" />
+  <meta name="theme-color" content="#6E57E0" />
+
+  <!--==================== CSS ====================-->
+  <link rel="stylesheet" href="/assets/css/main.css" />
+  <link rel="stylesheet" href="css/colorpicker.css" />
+</head>
+
+<body>
+  <!-- ===================== LOADER ==================== -->
+  <div id="loading">
+    <div class="loader"><span>
+        &lt;</span><span>/&gt;</span></div>
+  </div>
+
+  <!--==================== HEADER ====================-->
+  <header class="header" id="header">
+    <nav class="nav kong-container">
+      <a href="/" class="nav__logo noSelect"></i>SOVANREACH&nbsp;&nbsp;<i
+          class="fa-solid fa-code-branch"></i>&nbsp;&nbsp;TOOLS</a>
+
+      <div class="nav__menu" id="nav-menu">
+        <ul class="nav__list grid">
+          <li class="nav__item">
+            <a href="#general" class="nav__link noSelect">
+              <i class="fa-solid fa-screwdriver-wrench nav__icon"></i> General
+            </a>
+          </li>
+
+          <li class="nav__item">
+            <a href="#ml_al" class="nav__link noSelect">
+              <i class="fa-solid fa-brain nav__icon"></i> ML/AI
+            </a>
+          </li>
+
+          <li class="nav__item">
+            <a href="/" class="nav__link noSelect active-link">
+              <i class="fa-solid fa-user-secret nav__icon"></i> Dev Profile
+            </a>
+          </li>
+        </ul>
+        <i class="fa-solid fa-xmark nav__close noSelect" id="nav-close"></i>
+      </div>
+
+      <div class="nav__btns">
+        <!-- theme change button -->
+        <i class="fa-solid fa-moon change-theme" id="theme-button"></i>
+
+        <div class="nav__toggle noSelect" id="nav-toggle">
+          <i class="fa-solid fa-bars"></i>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <!--==================== TOOLS SECTION ====================-->
+  <section class="section" id="about">
+    <!-- Color Picker Tool Header -->
+    <div class="cp-tool-header">
+      <h1>Color Picker Tool</h1>
+      <p>Create, explore, and manage colors with advanced features</p>
+    </div>
+
+    <!-- Color Picker Tool Tab Selection -->
+    <div class="cp-tab-navigation">
+      <div class="cp-tab-container">
+        <!-- Color Picker Feature Tab -->
+        <div class="cp-tab-item" id="pickerTab">
+          <div class="cp-tab-icon">
+            <i class="fas fa-eye-dropper"></i>
+          </div>
+          <span class="cp-tab-label">Picker</span>
+        </div>
+
+        <!-- Palettes Feature Tab -->
+        <div class="cp-tab-item" id="palettesTab">
+          <div class="cp-tab-icon">
+            <i class="fas fa-palette"></i>
+          </div>
+          <span class="cp-tab-label">Palettes</span>
+        </div>
+
+        <!-- Image Colors Feature Tab -->
+        <div class="cp-tab-item" id="imageTab">
+          <div class="cp-tab-icon">
+            <i class="fas fa-image"></i>
+          </div>
+          <span class="cp-tab-label">Image</span>
+        </div>
+
+        <!-- Accessibility Feature Tab -->
+        <div class="cp-tab-item" id="accessibilityTab">
+          <div class="cp-tab-icon">
+            <i class="fas fa-universal-access"></i>
+          </div>
+          <span class="cp-tab-label">Accessibility</span>
+        </div>
+
+        <!-- Collections Feature Tab -->
+        <div class="cp-tab-item" id="collectionsTab">
+          <div class="cp-tab-icon">
+            <i class="fas fa-layer-group"></i>
+          </div>
+          <span class="cp-tab-label">Collections</span>
+        </div>
+      </div>
+      
+      <!-- Feature descriptions that show on active tab -->
+      <div class="cp-tab-descriptions">
+        <div class="cp-tab-description active" id="pickerDescription">
+          <h3>Color Picker</h3>
+          <p>Select colors using a wheel, sliders, or input values in multiple formats</p>
+        </div>
+        <div class="cp-tab-description" id="palettesDescription">
+          <h3>Color Palettes</h3>
+          <p>Generate and explore harmonious color schemes based on color theory</p>
+        </div>
+        <div class="cp-tab-description" id="imageDescription">
+          <h3>Image Colors</h3>
+          <p>Extract colors from uploaded images and create palettes</p>
+        </div>
+        <div class="cp-tab-description" id="accessibilityDescription">
+          <h3>Accessibility Checker</h3>
+          <p>Check color contrast for accessibility compliance and readability</p>
+        </div>
+        <div class="cp-tab-description" id="collectionsDescription">
+          <h3>Color Collections</h3>
+          <p>Save and manage your color palettes and favorite colors</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Color Picker Tool Content Area (dynamically populated) -->
+    <div class="cp-tool-content" id="cpToolContent">
+      <!-- Content will be dynamically inserted here -->
+      <div class="cp-start-message">
+        <i class="fas fa-palette"></i>
+        <p>Ready to explore the world of colors</p>
+      </div>
+    </div>
+    
+    <!-- Color Picker Templates (Hidden) -->
+    <!-- Picker Template -->
+    <template id="pickerTemplate">
+      <div class="cp-picker-container">
+        <div class="cp-back-link">
+          <a href="#picker" id="backFromPicker"><i class="fas fa-redo"></i> Reset Picker Options</a>
+        </div>
+        <div class="cp-picker-header">
+          <h2>Select Color</h2>
+          <p>Use different methods to select the perfect color</p>
+        </div>
+        
+        <div class="cp-picker-content">
+          <div class="cp-color-selection-panel">
+            <!-- Color Wheel -->
+            <div class="cp-color-wheel-container">
+              <div class="cp-color-wheel" id="colorWheel">
+                <canvas id="colorWheelCanvas"></canvas>
+                <div class="cp-color-wheel-thumb" id="colorWheelThumb"></div>
+                <div class="cp-color-wheel-inner" id="colorWheelInner"></div>
+              </div>
+            </div>
+            
+            <!-- Color Information Tabs -->
+            <div class="cp-tabs">
+              <div class="cp-tab-header">
+                <button class="cp-tab-btn active" data-tab="rgb">RGB</button>
+                <button class="cp-tab-btn" data-tab="hsl">HSL</button>
+                <button class="cp-tab-btn" data-tab="hex">HEX</button>
+                <button class="cp-tab-btn" data-tab="cmyk">CMYK</button>
+              </div>
+              <div class="cp-tab-content">
+                <!-- RGB Tab -->
+                <div class="cp-tab-pane active" id="rgbTab">
+                  <div class="cp-field-group">
+                    <label for="redValue">Red (R)</label>
+                    <div class="cp-slider-input">
+                      <input type="range" id="redSlider" min="0" max="255" value="0">
+                      <input type="number" id="redValue" min="0" max="255" value="0">
+                    </div>
+                  </div>
+                  <div class="cp-field-group">
+                    <label for="greenValue">Green (G)</label>
+                    <div class="cp-slider-input">
+                      <input type="range" id="greenSlider" min="0" max="255" value="0">
+                      <input type="number" id="greenValue" min="0" max="255" value="0">
+                    </div>
+                  </div>
+                  <div class="cp-field-group">
+                    <label for="blueValue">Blue (B)</label>
+                    <div class="cp-slider-input">
+                      <input type="range" id="blueSlider" min="0" max="255" value="0">
+                      <input type="number" id="blueValue" min="0" max="255" value="0">
+                    </div>
+                  </div>
+                </div>
+                
+                <!-- HSL Tab -->
+                <div class="cp-tab-pane" id="hslTab">
+                  <div class="cp-field-group">
+                    <label for="hueValue">Hue (H)</label>
+                    <div class="cp-slider-input">
+                      <input type="range" id="hueSlider" min="0" max="360" value="0">
+                      <input type="number" id="hueValue" min="0" max="360" value="0">
+                    </div>
+                  </div>
+                  <div class="cp-field-group">
+                    <label for="saturationValue">Saturation (S)</label>
+                    <div class="cp-slider-input">
+                      <input type="range" id="saturationSlider" min="0" max="100" value="0">
+                      <input type="number" id="saturationValue" min="0" max="100" value="0">
+                    </div>
+                  </div>
+                  <div class="cp-field-group">
+                    <label for="lightnessValue">Lightness (L)</label>
+                    <div class="cp-slider-input">
+                      <input type="range" id="lightnessSlider" min="0" max="100" value="0">
+                      <input type="number" id="lightnessValue" min="0" max="100" value="0">
+                    </div>
+                  </div>
+                </div>
+                
+                <!-- HEX Tab -->
+                <div class="cp-tab-pane" id="hexTab">
+                  <div class="cp-field-group">
+                    <label for="hexValue">Hexadecimal Value</label>
+                    <div class="cp-hex-input">
+                      <span class="cp-hex-hash">#</span>
+                      <input type="text" id="hexValue" placeholder="000000">
+                    </div>
+                    <small>Enter 3 or 6 hexadecimal characters (0-9, A-F)</small>
+                  </div>
+                </div>
+                
+                <!-- CMYK Tab -->
+                <div class="cp-tab-pane" id="cmykTab">
+                  <div class="cp-field-group">
+                    <label for="cyanValue">Cyan (C)</label>
+                    <div class="cp-slider-input">
+                      <input type="range" id="cyanSlider" min="0" max="100" value="0">
+                      <input type="number" id="cyanValue" min="0" max="100" value="0">
+                    </div>
+                  </div>
+                  <div class="cp-field-group">
+                    <label for="magentaValue">Magenta (M)</label>
+                    <div class="cp-slider-input">
+                      <input type="range" id="magentaSlider" min="0" max="100" value="0">
+                      <input type="number" id="magentaValue" min="0" max="100" value="0">
+                    </div>
+                  </div>
+                  <div class="cp-field-group">
+                    <label for="yellowValue">Yellow (Y)</label>
+                    <div class="cp-slider-input">
+                      <input type="range" id="yellowSlider" min="0" max="100" value="0">
+                      <input type="number" id="yellowValue" min="0" max="100" value="0">
+                    </div>
+                  </div>
+                  <div class="cp-field-group">
+                    <label for="blackValue">Black (K)</label>
+                    <div class="cp-slider-input">
+                      <input type="range" id="blackSlider" min="0" max="100" value="0">
+                      <input type="number" id="blackValue" min="0" max="100" value="0">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="cp-result-panel">
+            <div class="cp-color-preview">
+              <h3>Color Preview</h3>
+              <div class="cp-preview-box" id="colorPreview"></div>
+              
+              <div class="cp-color-values">
+                <div class="cp-color-value-item">
+                  <span>RGB:</span>
+                  <code id="rgbValue">rgb(0, 0, 0)</code>
+                  <button class="cp-copy-btn" data-value="rgb"><i class="fas fa-copy"></i></button>
+                </div>
+                <div class="cp-color-value-item">
+                  <span>HEX:</span>
+                  <code id="hexCode">#000000</code>
+                  <button class="cp-copy-btn" data-value="hex"><i class="fas fa-copy"></i></button>
+                </div>
+                <div class="cp-color-value-item">
+                  <span>HSL:</span>
+                  <code id="hslValue">hsl(0, 0%, 0%)</code>
+                  <button class="cp-copy-btn" data-value="hsl"><i class="fas fa-copy"></i></button>
+                </div>
+                <div class="cp-color-value-item">
+                  <span>CMYK:</span>
+                  <code id="cmykValue">cmyk(0%, 0%, 0%, 100%)</code>
+                  <button class="cp-copy-btn" data-value="cmyk"><i class="fas fa-copy"></i></button>
+                </div>
+              </div>
+            </div>
+            
+            <div class="cp-preview-on-text">
+              <h3>Sample Text Preview</h3>
+              <div class="cp-text-sample">
+                <div class="cp-text-on-color">
+                  <h4>Text on Selected Color</h4>
+                  <p>The quick brown fox jumps over the lazy dog.</p>
+                </div>
+                <div class="cp-color-on-text">
+                  <h4>Selected Color on Background</h4>
+                  <p>The quick brown fox jumps over the lazy dog.</p>
+                </div>
+              </div>
+            </div>
+            
+            <div class="cp-action-buttons">
+              <button id="saveColorBtn" class="cp-primary-btn">
+                <i class="fas fa-save"></i> Add to Collection
+              </button>
+              <button id="randomColorBtn" class="cp-secondary-btn">
+                <i class="fas fa-random"></i> Random Color
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </template>
+    
+    <!-- Palettes Template -->
+    <template id="palettesTemplate">
+      <div class="cp-palettes-container">
+        <div class="cp-back-link">
+          <a href="#palettes" id="backFromPalettes"><i class="fas fa-redo"></i> Reset Palette Options</a>
+        </div>
+        <div class="cp-palettes-header">
+          <h2>Color Palettes</h2>
+          <p>Generate harmonious color combinations based on color theory</p>
+        </div>
+        
+        <div class="cp-palettes-content">
+          <div class="cp-base-color-section">
+            <h3>Base Color</h3>
+            <div class="cp-base-color-selection">
+              <div class="cp-base-color-preview" id="baseColorPreview"></div>
+              <div class="cp-base-color-inputs">
+                <div class="cp-field-group">
+                  <label for="baseColorPicker">Select Color</label>
+                  <input type="color" id="baseColorPicker" value="#6E57E0">
+                </div>
+                <div class="cp-field-group">
+                  <label for="baseColorHex">HEX Value</label>
+                  <div class="cp-hex-input">
+                    <span class="cp-hex-hash">#</span>
+                    <input type="text" id="baseColorHex" value="6E57E0">
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="cp-harmony-selection">
+              <label>Color Harmony</label>
+              <div class="cp-harmony-options">
+                <button class="cp-harmony-btn active" data-harmony="complementary">
+                  <span class="cp-harmony-icon complementary"></span>
+                  <span>Complementary</span>
+                </button>
+                <button class="cp-harmony-btn" data-harmony="analogous">
+                  <span class="cp-harmony-icon analogous"></span>
+                  <span>Analogous</span>
+                </button>
+                <button class="cp-harmony-btn" data-harmony="triadic">
+                  <span class="cp-harmony-icon triadic"></span>
+                  <span>Triadic</span>
+                </button>
+                <button class="cp-harmony-btn" data-harmony="tetradic">
+                  <span class="cp-harmony-icon tetradic"></span>
+                  <span>Tetradic</span>
+                </button>
+                <button class="cp-harmony-btn" data-harmony="monochromatic">
+                  <span class="cp-harmony-icon monochromatic"></span>
+                  <span>Monochromatic</span>
+                </button>
+                <button class="cp-harmony-btn" data-harmony="shades">
+                  <span class="cp-harmony-icon shades"></span>
+                  <span>Shades</span>
+                </button>
+              </div>
+            </div>
+            
+            <button id="generatePaletteBtn" class="cp-primary-btn">
+              <i class="fas fa-sync-alt"></i> Generate Palette
+            </button>
+            <button id="randomBaseColorBtn" class="cp-secondary-btn">
+              <i class="fas fa-random"></i> Random Base Color
+            </button>
+          </div>
+          
+          <div class="cp-generated-palette">
+            <h3>Generated Palette</h3>
+            <div class="cp-palette-display" id="generatedPalette">
+              <!-- Palette colors will be inserted here -->
+              <div class="cp-palette-placeholder">
+                <i class="fas fa-palette"></i>
+                <p>Generated colors will appear here</p>
+              </div>
+            </div>
+            
+            <div class="cp-palette-info">
+              <div class="cp-palette-description" id="paletteDescription">
+                <h4>Complementary</h4>
+                <p>Colors that are opposite each other on the color wheel. This creates a high-contrast, vibrant look.</p>
+              </div>
+              
+              <div class="cp-palette-actions">
+                <button id="savePaletteBtn" class="cp-primary-btn">
+                  <i class="fas fa-save"></i> Save Palette
+                </button>
+                <button id="exportPaletteBtn" class="cp-secondary-btn">
+                  <i class="fas fa-file-export"></i> Export
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </template>
+    
+    <!-- Image Colors Template -->
+    <template id="imageTemplate">
+      <div class="cp-image-container">
+        <div class="cp-back-link">
+          <a href="#image" id="backFromImage"><i class="fas fa-redo"></i> Reset Image Options</a>
+        </div>
+        <div class="cp-image-header">
+          <h2>Extract Colors from Image</h2>
+          <p>Upload an image to extract its dominant colors and create a palette</p>
+        </div>
+        
+        <div class="cp-image-content">
+          <div class="cp-upload-area">
+            <div class="cp-dropzone" id="imageDropzone">
+              <i class="fas fa-cloud-upload-alt"></i>
+              <p>Drag & drop an image or click to browse</p>
+              <small>Supports JPG, PNG, GIF files</small>
+              <input type="file" id="imageInput" accept="image/*" hidden>
+            </div>
+            
+            <div class="cp-image-options">
+              <div class="cp-field-group">
+                <label for="colorCount">Number of Colors</label>
+                <select id="colorCount">
+                  <option value="5">5 Colors</option>
+                  <option value="6" selected>6 Colors</option>
+                  <option value="8">8 Colors</option>
+                  <option value="10">10 Colors</option>
+                </select>
+                <small>How many colors to extract from the image</small>
+              </div>
+              
+              <div class="cp-field-group cp-checkbox-group">
+                <input type="checkbox" id="sortColorsByBrightness" checked>
+                <label for="sortColorsByBrightness">Sort by brightness</label>
+              </div>
+              
+              <button id="extractColorsBtn" class="cp-primary-btn" disabled>
+                <i class="fas fa-magic"></i> Extract Colors
+              </button>
+            </div>
+          </div>
+          
+          <div class="cp-image-result" style="display: none;">
+            <div class="cp-image-preview-container">
+              <h3>Image Preview</h3>
+              <div class="cp-image-preview">
+                <img id="uploadedImage" src="#" alt="Uploaded Image">
+              </div>
+            </div>
+            
+            <div class="cp-extracted-colors">
+              <h3>Extracted Colors</h3>
+              <div class="cp-color-palette" id="extractedColorPalette">
+                <!-- Extracted colors will be inserted here -->
+              </div>
+              
+              <div class="cp-palette-actions">
+                <button id="saveExtractedColorsBtn" class="cp-primary-btn">
+                  <i class="fas fa-save"></i> Save Palette
+                </button>
+                <button id="exportExtractedColorsBtn" class="cp-secondary-btn">
+                  <i class="fas fa-file-export"></i> Export
+                </button>
+              </div>
+            </div>
+          </div>
+          
+          <div class="cp-eyedropper-tool" style="display: none;">
+            <h3>Eyedropper Tool</h3>
+            <p>Click anywhere on the image to pick a specific color</p>
+            <div class="cp-eyedropper-canvas-container">
+              <canvas id="eyedropperCanvas"></canvas>
+              <div class="cp-eyedropper-info">
+                <div class="cp-eyedropper-color" id="eyedropperColor"></div>
+                <div class="cp-eyedropper-value" id="eyedropperValue">#FFFFFF</div>
+              </div>
+            </div>
+            <button id="addEyedropperColorBtn" class="cp-primary-btn">
+              <i class="fas fa-plus"></i> Add to Palette
+            </button>
+          </div>
+        </div>
+      </div>
+    </template>
+    
+    <!-- Accessibility Template -->
+    <template id="accessibilityTemplate">
+      <div class="cp-accessibility-container">
+        <div class="cp-back-link">
+          <a href="#accessibility" id="backFromAccessibility"><i class="fas fa-redo"></i> Reset Accessibility Options</a>
+        </div>
+        <div class="cp-accessibility-header">
+          <h2>Accessibility Checker</h2>
+          <p>Check color contrast for WCAG compliance and readability</p>
+        </div>
+        
+        <div class="cp-accessibility-content">
+          <div class="cp-contrast-checker">
+            <div class="cp-color-selection">
+              <div class="cp-foreground-color">
+                <h3>Text Color</h3>
+                <div class="cp-color-picker-mini">
+                  <div class="cp-color-preview-mini" id="foregroundColorPreview"></div>
+                  <div class="cp-color-inputs">
+                    <input type="color" id="foregroundColorPicker" value="#000000">
+                    <div class="cp-hex-input">
+                      <span class="cp-hex-hash">#</span>
+                      <input type="text" id="foregroundColorHex" value="000000">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="cp-color-swap">
+                <button id="swapColorsBtn" class="cp-icon-btn">
+                  <i class="fas fa-exchange-alt"></i>
+                </button>
+              </div>
+              
+              <div class="cp-background-color">
+                <h3>Background Color</h3>
+                <div class="cp-color-picker-mini">
+                  <div class="cp-color-preview-mini" id="backgroundColorPreview"></div>
+                  <div class="cp-color-inputs">
+                    <input type="color" id="backgroundColorPicker" value="#FFFFFF">
+                    <div class="cp-hex-input">
+                      <span class="cp-hex-hash">#</span>
+                      <input type="text" id="backgroundColorHex" value="FFFFFF">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="cp-text-preview">
+              <h3>Text Preview</h3>
+              <div class="cp-text-preview-box" id="textPreviewBox">
+                <p class="cp-text-normal">This is normal text at 16px.</p>
+                <p class="cp-text-large">This is large text at 24px.</p>
+                <p class="cp-text-bold">This is bold text using font-weight.</p>
+              </div>
+            </div>
+            
+            <div class="cp-contrast-results">
+              <h3>Contrast Results</h3>
+              <div class="cp-contrast-ratio">
+                <span>Contrast Ratio:</span>
+                <span id="contrastRatio" class="cp-contrast-value">21:1</span>
+              </div>
+              
+              <div class="cp-wcag-results">
+                <table class="cp-wcag-table">
+                  <thead>
+                    <tr>
+                      <th>WCAG Level</th>
+                      <th>Normal Text</th>
+                      <th>Large Text</th>
+                      <th>UI Components</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>AA (Minimum)</td>
+                      <td id="normalAA"><i class="fas fa-check-circle cp-pass"></i> Pass</td>
+                      <td id="largeAA"><i class="fas fa-check-circle cp-pass"></i> Pass</td>
+                      <td id="graphicsAA"><i class="fas fa-check-circle cp-pass"></i> Pass</td>
+                    </tr>
+                    <tr>
+                      <td>AAA (Enhanced)</td>
+                      <td id="normalAAA"><i class="fas fa-check-circle cp-pass"></i> Pass</td>
+                      <td id="largeAAA"><i class="fas fa-check-circle cp-pass"></i> Pass</td>
+                      <td>N/A</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              
+              <div class="cp-contrast-suggestions" id="contrastSuggestions">
+                <!-- Suggestions will appear here -->
+              </div>
+            </div>
+          </div>
+          
+          <div class="cp-accessibility-info">
+            <div class="cp-info-card">
+              <h3><i class="fas fa-info-circle"></i> WCAG Contrast Guidelines</h3>
+              <ul>
+                <li>
+                  <strong>AA Level (Minimum)</strong>
+                  <ul>
+                    <li>Normal text: 4.5:1 ratio</li>
+                    <li>Large text (18pt+): 3:1 ratio</li>
+                    <li>UI components and graphics: 3:1 ratio</li>
+                  </ul>
+                </li>
+                <li>
+                  <strong>AAA Level (Enhanced)</strong>
+                  <ul>
+                    <li>Normal text: 7:1 ratio</li>
+                    <li>Large text (18pt+): 4.5:1 ratio</li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+            
+            <div class="cp-accessibility-tips">
+              <h3>Accessibility Tips</h3>
+              <ul>
+                <li>Choose color combinations that exceed the AA level requirements</li>
+                <li>Pure black text on pure white backgrounds can cause eye strain - consider using dark gray on off-white</li>
+                <li>Avoid relying solely on color to convey information - combine with text, patterns, or icons</li>
+                <li>Consider users with color blindness when selecting color schemes</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </template>
+    
+    <!-- Collections Template -->
+    <template id="collectionsTemplate">
+      <div class="cp-collections-container">
+        <div class="cp-back-link">
+          <a href="#collections" id="backFromCollections"><i class="fas fa-redo"></i> Reset Collections Options</a>
+        </div>
+        <div class="cp-collections-header">
+          <h2>Color Collections</h2>
+          <p>Manage your saved colors and palettes</p>
+        </div>
+        
+        <div class="cp-collections-content">
+          <div class="cp-collections-controls">
+            <div class="cp-search-box">
+              <input type="text" id="collectionsSearch" placeholder="Search colors by name or hex...">
+              <i class="fas fa-search"></i>
+            </div>
+            
+            <div class="cp-view-options">
+              <button class="cp-view-btn active" data-view="grid">
+                <i class="fas fa-th"></i>
+              </button>
+              <button class="cp-view-btn" data-view="list">
+                <i class="fas fa-list"></i>
+              </button>
+            </div>
+            
+            <button id="createCollectionBtn" class="cp-primary-btn">
+              <i class="fas fa-plus"></i> New Collection
+            </button>
+          </div>
+          
+          <div class="cp-collections-tabs">
+            <button class="cp-collection-tab active" data-collection="favorites">Favorites</button>
+            <button class="cp-collection-tab" data-collection="palettes">Palettes</button>
+            <button class="cp-collection-tab" data-collection="custom">Custom Collections</button>
+          </div>
+          
+          <div class="cp-collections-display" id="collectionsDisplay">
+            <!-- Collections will be displayed here -->
+            <div class="cp-empty-collection">
+              <i class="fas fa-palette"></i>
+              <p>No saved colors found</p>
+              <p class="cp-empty-hint">Use the color picker to save colors to your collection</p>
+            </div>
+          </div>
+          
+          <div class="cp-export-options">
+            <h3>Export Options</h3>
+            <div class="cp-export-buttons">
+              <button id="exportCssBtn" class="cp-export-btn">
+                <i class="fas fa-file-code"></i> CSS Variables
+              </button>
+              <button id="exportSassBtn" class="cp-export-btn">
+                <i class="fas fa-file-code"></i> SCSS
+              </button>
+              <button id="exportJsonBtn" class="cp-export-btn">
+                <i class="fas fa-file-code"></i> JSON
+              </button>
+              <button id="exportTailwindBtn" class="cp-export-btn">
+                <i class="fas fa-file-code"></i> Tailwind
+              </button>
+              <button id="exportImageBtn" class="cp-export-btn">
+                <i class="fas fa-file-image"></i> PNG
+              </button>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Collection Details Modal -->
+        <div id="collectionModal" class="cp-modal">
+          <div class="cp-modal-content">
+            <span class="cp-close-modal">&times;</span>
+            <div class="cp-modal-header">
+              <h3 id="modalCollectionName">Collection Name</h3>
+              <span id="modalCollectionDate" class="cp-date-created">Created on: N/A</span>
+            </div>
+            <div class="cp-modal-body">
+              <div class="cp-modal-colors" id="modalColors">
+                <!-- Color swatches will be displayed here -->
+              </div>
+              <div class="cp-modal-details">
+                <div class="cp-field-group">
+                  <label for="collectionNameInput">Collection Name</label>
+                  <input type="text" id="collectionNameInput" placeholder="Enter collection name">
+                </div>
+                <div class="cp-field-group">
+                  <label for="collectionDescription">Description</label>
+                  <textarea id="collectionDescription" placeholder="Add a description for this collection"></textarea>
+                </div>
+              </div>
+            </div>
+            <div class="cp-modal-footer">
+              <button id="deleteCollectionBtn" class="cp-danger-btn">
+                <i class="fas fa-trash"></i> Delete
+              </button>
+              <button id="exportCollectionBtn" class="cp-secondary-btn">
+                <i class="fas fa-file-export"></i> Export
+              </button>
+              <button id="saveCollectionBtn" class="cp-primary-btn">
+                <i class="fas fa-save"></i> Save Changes
+              </button>
+            </div>
+          </div>
+        </div>
+        
+        <!-- New Collection Modal -->
+        <div id="newCollectionModal" class="cp-modal">
+          <div class="cp-modal-content">
+            <span class="cp-close-modal">&times;</span>
+            <div class="cp-modal-header">
+              <h3>Create New Collection</h3>
+            </div>
+            <div class="cp-modal-body">
+              <div class="cp-field-group">
+                <label for="newCollectionName">Collection Name</label>
+                <input type="text" id="newCollectionName" placeholder="Enter collection name">
+              </div>
+              <div class="cp-field-group">
+                <label for="newCollectionDescription">Description</label>
+                <textarea id="newCollectionDescription" placeholder="Add a description for this collection"></textarea>
+              </div>
+            </div>
+            <div class="cp-modal-footer">
+              <button id="cancelNewCollectionBtn" class="cp-secondary-btn">
+                <i class="fas fa-times"></i> Cancel
+              </button>
+              <button id="createNewCollectionBtn" class="cp-primary-btn">
+                <i class="fas fa-plus"></i> Create Collection
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </template>
+  </section>
+
+  <!--==================== SCROLL TOP ====================-->
+  <a href="#" class="scrollup" id="scroll-up">
+    <i class="fa-solid fa-arrow-up scrollup__icon"></i>
+  </a>
+
+  <!--==================== MAIN JS ====================-->
+  <script src="/assets/js/main.js"></script>
+  
+  <!-- Color Libraries -->
+  <script src="https://cdn.jsdelivr.net/npm/tinycolor2@1.6.0/dist/tinycolor-min.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@bjornlu/colorblind@1.0.3/dist/colorblind.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chroma-js@2.4.2/chroma.min.js"></script>
+  
+  <!-- Canvas and image processing -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/file-saver@2.0.5/dist/FileSaver.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.0/color-thief.umd.js"></script>
+  
+  <!-- Custom Scripts -->
+  <script src="js/colorpicker-ui.js"></script>
+  <script src="js/colorpicker-picker.js"></script>
+  <script src="js/colorpicker-palettes.js"></script>
+  <script src="js/colorpicker-image.js"></script>
+  <script src="js/colorpicker-accessibility.js"></script>
+  <script src="js/colorpicker-collections.js"></script>
+  <script src="js/colorpicker-main.js"></script>
+
+  <!-- ===================== SHOW/HIDE LOADER ==================== -->
+  <script>
+    window.onload = function () {
+      document.getElementById("loading").style.display = "none";
+    };
+  </script>
+
+  <!-- =====================REGISTER SERVICE WORKER================ -->
+  <script>
+    if (navigator && navigator.serviceWorker) {
+      window.addEventListener("load", function () {
+        navigator.serviceWorker
+          .register("/serviceWorker.js")
+          .then((res) => console.log("service worker registered"))
+          .catch((err) => console.log("service worker not registered", err));
+      });
+    }
+  </script>
+</body>
+
+</html>

@@ -61,13 +61,15 @@ function scrollActive() {
     sectionId = current.getAttribute("id");
 
     if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
-      document
-        .querySelector(".nav__menu a[href*=" + sectionId + "]")
-        .classList.add("active-link");
+      const activeLink = document.querySelector(".nav__menu a[href*=" + sectionId + "]");
+      if (activeLink) {
+        activeLink.classList.add("active-link");
+      }
     } else {
-      document
-        .querySelector(".nav__menu a[href*=" + sectionId + "]")
-        .classList.remove("active-link");
+      const inactiveLink = document.querySelector(".nav__menu a[href*=" + sectionId + "]");
+      if (inactiveLink) {
+        inactiveLink.classList.remove("active-link");
+      }
     }
   });
 }

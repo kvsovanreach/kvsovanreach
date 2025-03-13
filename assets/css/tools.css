@@ -1,67 +1,97 @@
+body {
+    display: none;
+}
+
 :root {
-    --color-text: #616161;
+    /* Core colors */
+    --color-text: #4a4a4a;
     --color-text-btn: #ffffff;
-    --card1-gradient-color1-general-tool: #7F00FF;
-    --card1-gradient-color2-general-tool: #3f2b96;
-    --card2-gradient-color1: #7F00FF;
-    --card2-gradient-color2: #E100FF;
-    --card3-gradient-color1: #3f2b96;
-    --card3-gradient-color2: #a8c0ff;
-    --card4-gradient-color1: #11998e;
-    --card4-gradient-color2: #38ef7d;
-    --col-div-back-dark-theme: #e9e9e9;
+    
+    /* Gradient colors for cards */
+    --card-gradient-general: linear-gradient(135deg, #7F00FF, #3f2b96);
+    --card-gradient-ai: linear-gradient(135deg, #FF4E50, #F9D423);
+    --card-gradient-data: linear-gradient(135deg, #11998e, #38ef7d);
+    --card-gradient-web: linear-gradient(135deg, #3f2b96, #a8c0ff);
+    
+    /* QR Code Tool colors (matching qrcode.css) */
+    --qr-primary: #7F00FF;
+    --qr-primary-dark: #3f2b96;
+    --qr-gradient-primary: linear-gradient(135deg, #7F00FF, #3f2b96);
+    --qr-gradient-scan: linear-gradient(135deg, #11998e, #38ef7d);
+    --qr-gradient-bulk: linear-gradient(135deg, #f46b45, #eea849);
+    --qr-gradient-history: linear-gradient(135deg, #4e54c8, #8f94fb);
+    
+    /* Color Picker Tool colors (matching colorpicker.css) */
+    --cp-primary: #FF5722;
+    --cp-primary-dark: #E64A19;
+    --cp-gradient-primary: linear-gradient(135deg, #FF5722, #E64A19);
+    --cp-gradient-palettes: linear-gradient(135deg, #FF9800, #F57C00);
+    --cp-gradient-image: linear-gradient(135deg, #4CAF50, #2E7D32);
+    --cp-gradient-accessibility: linear-gradient(135deg, #2196F3, #1976D2);
+    
+    /* UI elements */
     --card-border-radius: 16px;
-    --card-shadow: 0 10px 20px rgba(0, 0, 0, 0.12), 0 6px 6px rgba(0, 0, 0, 0.15);
+    --btn-border-radius: 50px;
+    --card-shadow: 0 10px 20px rgba(0, 0, 0, 0.08), 0 6px 6px rgba(0, 0, 0, 0.12);
+    --card-shadow-hover: 0 15px 30px rgba(0, 0, 0, 0.12), 0 10px 10px rgba(0, 0, 0, 0.09);
     --transition-speed: 0.3s;
+    
+    /* Spacing */
+    --section-spacing: 4rem;
+    --card-spacing: 1.5rem;
+    
+    /* Dark theme */
+    --col-div-back-dark-theme: #2d2d2d;
+    --text-dark-theme: #e6e6e6;
 }
 
-nav.kong-container ul {
-    padding-left: 0;
-    margin-bottom: 0;
-}
-
+/* Make section container match header container width from main.css */
 .section {
-    padding: 2rem 1rem;
-    margin: 0 auto;
-    max-width: 1400px;
+    max-width: 968px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 6rem 1.5rem 2rem;
+    width: 100%;
+    box-sizing: border-box;
 }
 
+/* Category section styling */
 .general-tools {
-    margin-bottom: 3rem;
+    margin-bottom: var(--section-spacing);
+    width: 100%;
 }
 
 .general-tools h4 {
-    margin-bottom: 1.5rem;
-    font-size: 1.5rem;
+    margin-bottom: 2rem;
+    font-size: 1.75rem;
     font-weight: 600;
     position: relative;
-    padding-left: 1rem;
+    padding-left: 1.25rem;
+    color: var(--color-text);
 }
 
 .general-tools h4:before {
     content: '';
     position: absolute;
     left: 0;
-    top: 0;
-    height: 100%;
-    width: 4px;
-    background: var(--card1-gradient-color1-general-tool);
+    top: 8px;
+    height: calc(100% - 15px);
+    width: 5px;
+    background: var(--first-color);
     border-radius: 4px;
 }
 
+/* Grid system improvement */
 .row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1.5rem;
-    margin: 0 -0.5rem;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--card-spacing);
+    width: 100%;
 }
 
-.row > [class*="col-"] {
-    padding: 0 0.5rem;
-    margin-bottom: 1.5rem;
-}
-
+/* Card design */
 .kong-tool-card-wrap {
+    position: relative;
     width: 100%;
     height: 100%;
     background: #fff;
@@ -69,103 +99,250 @@ nav.kong-container ul {
     overflow: hidden;
     color: var(--color-text);
     box-shadow: var(--card-shadow);
-    cursor: pointer;
-    transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+    transition: all var(--transition-speed);
     display: flex;
     flex-direction: column;
+    min-height: 270px;
 }
 
 .kong-tool-card-wrap:hover {
     transform: translateY(-8px);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15), 0 10px 10px rgba(0, 0, 0, 0.12);
+    box-shadow: var(--card-shadow-hover);
 }
 
+.kong-tool-card-wrap:active {
+    transform: translateY(-4px);
+}
+
+/* Card header with gradient */
 .kong-tool-card-header {
-    height: 120px;
+    position: relative;
+    height: 110px;
     width: 100%;
-    background: linear-gradient(to bottom left, var(--card1-gradient-color1-general-tool), var(--card1-gradient-color2-general-tool));
-    border-radius: 0 0 30% 0;
+    background: var(--card-gradient-general);
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 1rem;
+    padding: 1.25rem;
+    z-index: 2;
 }
 
+.kong-tool-card-header:after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    height: 40px;
+    width: 40px;
+    background: #fff;
+    border-radius: 100% 0 0 0;
+    z-index: 2;
+}
+
+.kong-tool-card-header.ai-tool {
+    background: var(--card-gradient-ai);
+}
+
+/* Card icon styling */
 .kong-tool-card-header img {
     height: 60px;
     width: auto;
-    filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
-    transition: transform 0.2s;
+    filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.15));
+    transition: transform 0.3s ease-out;
+    z-index: 3;
 }
 
 .kong-tool-card-wrap:hover .kong-tool-card-header img {
-    transform: scale(1.1);
+    transform: scale(1.15) rotate(5deg);
 }
 
+/* Card content area */
 .kong-tool-card-content {
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 1.5rem;
     flex-grow: 1;
+    background: #fff;
+    position: relative;
+    z-index: 5;
 }
 
 .kong-tool-card-title {
     text-align: center;
     text-transform: uppercase;
-    font-size: 1rem;
+    font-size: 1.125rem;
     font-weight: 600;
     margin-top: 0;
     margin-bottom: 1rem;
     color: #333;
+    letter-spacing: 0.5px;
 }
 
 .kong-tool-card-text {
     text-align: center;
-    font-size: 0.875rem;
-    line-height: 1.4;
-    margin-bottom: 1.5rem;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin-bottom: 1.75rem;
     flex-grow: 1;
+    color: #666;
 }
 
+/* Button styling */
 .kong-tool-card-btn {
     border: none;
-    border-radius: 50px;
-    padding: 0.5rem 1.5rem;
+    border-radius: var(--btn-border-radius);
+    padding: 0.6rem 1.75rem;
     color: #fff;
     font-weight: 500;
     text-transform: uppercase;
-    background: linear-gradient(to right, var(--card1-gradient-color1-general-tool), var(--card1-gradient-color2-general-tool));
-    transition: transform 0.2s, box-shadow 0.2s;
+    background: var(--card-gradient-general);
+    transition: all 0.25s;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     cursor: pointer;
+    letter-spacing: 0.5px;
+    font-size: 0.85rem;
+    position: relative;
+    overflow: hidden;
 }
 
 .kong-tool-card-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
 }
 
+.kong-tool-card-btn:active {
+    transform: translateY(-1px);
+}
+
+.ai-tool .kong-tool-card-btn {
+    background: var(--card-gradient-ai);
+}
+
+/* Dark theme support */
 .dark-theme .kong-tool-card-wrap {
     background-color: var(--col-div-back-dark-theme);
 }
 
+.dark-theme .kong-tool-card-content {
+    background-color: var(--col-div-back-dark-theme);
+}
+
+.dark-theme .kong-tool-card-header:after {
+    background-color: var(--col-div-back-dark-theme);
+}
+
 .dark-theme .kong-tool-card-title {
-    color: var(--color-text);
+    color: var(--text-dark-theme);
 }
 
 .dark-theme .kong-tool-card-text {
-    color: #444;
+    color: #b0b0b0;
+}
+
+.dark-theme .general-tools h4 {
+    color: var(--text-dark-theme);
+}
+
+/* QR Code Tool specific styles */
+.kong-tool-card-wrap.qr-tool-card .kong-tool-card-header {
+    background: var(--qr-gradient-primary);
+}
+
+.kong-tool-card-wrap.qr-tool-card .kong-tool-card-btn {
+    background: var(--qr-gradient-primary);
+    transition: all 0.3s ease;
+}
+
+.kong-tool-card-wrap.qr-tool-card:hover .kong-tool-card-btn {
+    background: var(--qr-gradient-scan);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+}
+
+.kong-tool-card-wrap.qr-tool-card .kong-tool-card-content {
+    transition: transform 0.3s ease;
+}
+
+.kong-tool-card-wrap.qr-tool-card:hover .kong-tool-card-content {
+    transform: scale(1.02);
+}
+
+/* Color Picker Tool specific styles */
+.kong-tool-card-wrap.color-picker-tool-card .kong-tool-card-header {
+    background: var(--cp-gradient-primary);
+}
+
+.kong-tool-card-wrap.color-picker-tool-card .kong-tool-card-btn {
+    background: var(--cp-gradient-primary);
+    transition: all 0.3s ease;
+}
+
+.kong-tool-card-wrap.color-picker-tool-card:hover .kong-tool-card-btn {
+    background: var(--cp-gradient-palettes);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+}
+
+.kong-tool-card-wrap.color-picker-tool-card .kong-tool-card-content {
+    transition: transform 0.3s ease;
+}
+
+.kong-tool-card-wrap.color-picker-tool-card:hover .kong-tool-card-content {
+    transform: scale(1.02);
+}
+
+/* Tools section transition effects */
+.kong-tool-card-wrap {
+    position: relative;
+    overflow: hidden;
+}
+
+.kong-tool-card-wrap::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateX(-100%);
+    transition: transform 0.5s ease;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.kong-tool-card-wrap:hover::after {
+    transform: translateX(100%);
+}
+
+.dark-theme .kong-tool-card-wrap::after {
+    background: rgba(255, 255, 255, 0.05);
 }
 
 /* Media Queries for Responsive Design */
-@media (max-width: 1200px) {
-    .row {
-        gap: 1rem;
+@media screen and (min-width: 968px) {
+    .section {
+        padding-left: var(--mb-1-5);
+        padding-right: var(--mb-1-5);
     }
 }
 
+/* Large tablets and small desktops */
+@media (max-width: 1200px) {
+    .row {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1.25rem;
+    }
+}
+
+/* Medium devices (tablets) */
 @media (max-width: 992px) {
+    .row {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.25rem;
+    }
+    
     .kong-tool-card-header {
         height: 100px;
     }
@@ -173,23 +350,62 @@ nav.kong-container ul {
     .kong-tool-card-header img {
         height: 50px;
     }
+    
+    .general-tools h4 {
+        font-size: 1.5rem;
+    }
+    
+    .section {
+        padding-top: 5.5rem;
+    }
 }
 
+/* Small devices (landscape phones, tablets) */
 @media (max-width: 768px) {
     .section {
-        padding: 1.5rem 1rem;
+        padding-top: 5rem;
+        padding-left: 1.25rem;
+        padding-right: 1.25rem;
     }
     
     .row {
-        gap: 0.75rem;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.25rem;
     }
     
-    .row > [class*="col-"] {
-        margin-bottom: 1rem;
+    .kong-tool-card-wrap {
+        min-height: 240px;
+    }
+    
+    .kong-tool-card-text {
+        font-size: 0.8rem;
+        line-height: 1.4;
+        margin-bottom: 1.25rem;
+    }
+    
+    .general-tools {
+        margin-bottom: 3rem;
     }
 }
 
+/* Extra small devices (portrait phones) */
 @media (max-width: 576px) {
+    .section {
+        padding-top: 4.5rem;
+        padding-left: 0.75rem;
+        padding-right: 0.75rem;
+        padding-bottom: 1.5rem;
+    }
+    
+    .row {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.75rem;
+    }
+    
+    .kong-tool-card-wrap {
+        min-height: 180px;
+    }
+    
     .kong-tool-card-text {
         display: none;
     }
@@ -198,21 +414,80 @@ nav.kong-container ul {
         height: 80px;
     }
     
+    .kong-tool-card-header:after {
+        height: 25px;
+        width: 25px;
+    }
+    
     .kong-tool-card-header img {
-        height: 40px;
+        height: 38px;
     }
     
     .kong-tool-card-content {
-        padding: 1rem;
+        padding: 0.75rem;
     }
     
     .kong-tool-card-title {
-        font-size: 0.875rem;
-        margin-bottom: 0.75rem;
+        font-size: 0.8rem;
+        margin-bottom: 0.5rem;
+        letter-spacing: 0.25px;
     }
     
     .kong-tool-card-btn {
-        padding: 0.4rem 1.2rem;
+        padding: 0.4rem 1rem;
+        font-size: 0.7rem;
+        letter-spacing: 0.25px;
+    }
+    
+    .general-tools h4 {
+        font-size: 1.2rem;
+        margin-bottom: 1rem;
+        padding-left: 1rem;
+    }
+    
+    .general-tools h4:before {
+        width: 4px;
+    }
+    
+    .general-tools {
+        margin-bottom: 2.5rem;
+    }
+}
+
+/* Very small devices */
+@media (max-width: 380px) {
+    .section {
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+    }
+    
+    .row {
+        gap: 0.5rem;
+    }
+    
+    .kong-tool-card-wrap {
+        min-height: 165px;
+    }
+    
+    .kong-tool-card-header {
+        height: 70px;
+    }
+    
+    .kong-tool-card-header img {
+        height: 32px;
+    }
+    
+    .kong-tool-card-content {
+        padding: 0.6rem;
+    }
+    
+    .kong-tool-card-title {
         font-size: 0.75rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    .kong-tool-card-btn {
+        padding: 0.35rem 0.75rem;
+        font-size: 0.65rem;
     }
 }
