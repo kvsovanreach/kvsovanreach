@@ -1,7 +1,3 @@
-body {
-    display: none;
-}
-
 :root {
     --color-text: #616161;
     --color-text-btn: #ffffff;
@@ -14,6 +10,9 @@ body {
     --card4-gradient-color1: #11998e;
     --card4-gradient-color2: #38ef7d;
     --col-div-back-dark-theme: #e9e9e9;
+    --card-border-radius: 16px;
+    --card-shadow: 0 10px 20px rgba(0, 0, 0, 0.12), 0 6px 6px rgba(0, 0, 0, 0.15);
+    --transition-speed: 0.3s;
 }
 
 nav.kong-container ul {
@@ -22,110 +21,198 @@ nav.kong-container ul {
 }
 
 .section {
-    margin: 0 1em;
+    padding: 2rem 1rem;
+    margin: 0 auto;
+    max-width: 1400px;
+}
+
+.general-tools {
+    margin-bottom: 3rem;
+}
+
+.general-tools h4 {
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+    position: relative;
+    padding-left: 1rem;
+}
+
+.general-tools h4:before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 4px;
+    background: var(--card1-gradient-color1-general-tool);
+    border-radius: 4px;
+}
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    margin: 0 -0.5rem;
+}
+
+.row > [class*="col-"] {
+    padding: 0 0.5rem;
+    margin-bottom: 1.5rem;
 }
 
 .kong-tool-card-wrap {
     width: 100%;
+    height: 100%;
     background: #fff;
-    border-radius: 20px;
-    border: 5px solid #fff;
+    border-radius: var(--card-border-radius);
     overflow: hidden;
     color: var(--color-text);
-    box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px,
-        rgba(0, 0, 0, 0.23) 0px 6px 6px;
-    cursor: default;
-    transition: all .2s ease-in-out;
-    margin-bottom: 1em;
+    box-shadow: var(--card-shadow);
+    cursor: pointer;
+    transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+    display: flex;
+    flex-direction: column;
 }
 
 .kong-tool-card-wrap:hover {
-    transform: scale(1.05);
+    transform: translateY(-8px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15), 0 10px 10px rgba(0, 0, 0, 0.12);
 }
 
 .kong-tool-card-header {
-    height: 100%;
+    height: 120px;
     width: 100%;
-    background: red;
-    border-radius: 100% 0% 100% 0% / 0% 50% 50% 100%;
-    display: grid;
-    place-items: center;
+    background: linear-gradient(to bottom left, var(--card1-gradient-color1-general-tool), var(--card1-gradient-color2-general-tool));
+    border-radius: 0 0 30% 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
 }
 
 .kong-tool-card-header img {
-    max-height: 70%;
-    max-width: 40%;
-    margin-top: -.5em;
+    height: 60px;
+    width: auto;
+    filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
+    transition: transform 0.2s;
+}
+
+.kong-tool-card-wrap:hover .kong-tool-card-header img {
+    transform: scale(1.1);
 }
 
 .kong-tool-card-content {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 90%;
-    margin: 0 auto;
-    /* justify-content: space-between; */
+    padding: 1.5rem;
+    flex-grow: 1;
 }
 
 .kong-tool-card-title {
     text-align: center;
     text-transform: uppercase;
-    font-size: 16px;
-    margin-top: 10px;
-    margin-bottom: 20px;
-
+    font-size: 1rem;
+    font-weight: 600;
+    margin-top: 0;
+    margin-bottom: 1rem;
+    color: #333;
 }
 
 .kong-tool-card-text {
     text-align: center;
-    font-size: 12px;
-    margin-bottom: 20px;
+    font-size: 0.875rem;
+    line-height: 1.4;
+    margin-bottom: 1.5rem;
+    flex-grow: 1;
 }
 
 .kong-tool-card-btn {
     border: none;
-    border-radius: 100px;
-    padding: 5px 30px;
+    border-radius: 50px;
+    padding: 0.5rem 1.5rem;
     color: #fff;
-    margin-bottom: 15px;
+    font-weight: 500;
     text-transform: uppercase;
+    background: linear-gradient(to right, var(--card1-gradient-color1-general-tool), var(--card1-gradient-color2-general-tool));
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
 }
 
-.kong-tool-card-header.general-tool {
-    background: linear-gradient(to bottom left, var(--card1-gradient-color1-general-tool), var(--card1-gradient-color2-general-tool));
+.kong-tool-card-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
 }
 
-.kong-tool-card-btn.general-tool {
-    background: linear-gradient(to left, var(--card1-gradient-color1-general-tool), var(--card1-gradient-color2-general-tool));
+.dark-theme .kong-tool-card-wrap {
+    background-color: var(--col-div-back-dark-theme);
 }
 
-.dark-theme h1.kong-tool-card-title {
+.dark-theme .kong-tool-card-title {
     color: var(--color-text);
 }
 
-.dark-theme div.kong-tool-card-wrap {
-    background-color: var(--col-div-back-dark-theme);
+.dark-theme .kong-tool-card-text {
+    color: #444;
+}
+
+/* Media Queries for Responsive Design */
+@media (max-width: 1200px) {
+    .row {
+        gap: 1rem;
+    }
+}
+
+@media (max-width: 992px) {
+    .kong-tool-card-header {
+        height: 100px;
+    }
+    
+    .kong-tool-card-header img {
+        height: 50px;
+    }
+}
+
+@media (max-width: 768px) {
+    .section {
+        padding: 1.5rem 1rem;
+    }
+    
+    .row {
+        gap: 0.75rem;
+    }
+    
+    .row > [class*="col-"] {
+        margin-bottom: 1rem;
+    }
 }
 
 @media (max-width: 576px) {
     .kong-tool-card-text {
         display: none;
     }
-
     
- }
-
- .table-row-equal {
-    display: table;
-    width: 100%;
-    table-layout: fixed;
-    border-spacing: 30px 0px;
-    word-wrap: break-word;
-}
-
-.table-row-equal .kong-tool-card-content {
-    float: none;
-    display: table-cell;
-    vertical-align: top;
-    width: 1%;
+    .kong-tool-card-header {
+        height: 80px;
+    }
+    
+    .kong-tool-card-header img {
+        height: 40px;
+    }
+    
+    .kong-tool-card-content {
+        padding: 1rem;
+    }
+    
+    .kong-tool-card-title {
+        font-size: 0.875rem;
+        margin-bottom: 0.75rem;
+    }
+    
+    .kong-tool-card-btn {
+        padding: 0.4rem 1.2rem;
+        font-size: 0.75rem;
+    }
 }
