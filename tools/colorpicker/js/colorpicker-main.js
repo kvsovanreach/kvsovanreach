@@ -34,6 +34,8 @@
       this.cacheElements();
       this.setupEventListeners();
       this.loadTemplates();
+      // Load the picker tab by default on first load
+      this.switchTab('picker');
     },
     
     // Cache DOM element references
@@ -130,7 +132,7 @@
         // Update URL hash without triggering hashchange event
         const newUrl = window.location.pathname + '#' + tabId;
         history.replaceState(null, '', newUrl);
-      }, 300);
+      }, 200);
     },
     
     // Load content for the specified tab

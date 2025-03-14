@@ -1,0 +1,947 @@
+<!-- CREDIT: THIS THEME IS ORIGINALLY DEVELOPED BY https://github.com/rawatanimesh/portfolio-website-dark-light-themes-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TBMFYFBV00"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-TBMFYFBV00');
+  </script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Encode and decode data with various formats including Base64, JWT, URL, Hex, and more." />
+  <meta property="og:image" content="/assets/img/thumbnail.jpg">
+  <title>Kong Vungsovanreach - Encoder & Decoder</title>
+
+  <!--==================== OPEN GRAPH META TAGS ===================== -->
+  <meta property="og:title" content="Kong Vungsovanreach - Encoder & Decoder" />
+  <meta property="og:image" content="/assets/img/pwa/ios/512.png" />
+  <meta property="og:description" content="Encode and decode data in multiple formats: Base64, JWT, URL, Hex, ASCII, Hash, HMAC, and more." />
+
+  <!--==================== TWITTER META TAGS ===================== -->
+  <meta name="twitter:title" content="Kong Vungsovanreach - Encoder & Decoder" />
+  <meta name="twitter:description" content="Encode and decode data in multiple formats: Base64, JWT, URL, Hex, ASCII, Hash, HMAC, and more." />
+  <meta name="twitter:image" content="/assets/img/pwa/ios/512.png" />
+
+  <!--==================== FONT AWESOME ====================-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
+    integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <!-- ============FAVICONS============== -->
+  <link rel="apple-touch-icon" sizes="57x57" href="/assets/img/favicons/apple-touch-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="/assets/img/favicons/apple-touch-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/assets/img/favicons/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/assets/img/favicons/apple-touch-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/assets/img/favicons/apple-touch-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="/assets/img/favicons/apple-touch-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/assets/img/favicons/apple-touch-icon-144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/assets/img/favicons/apple-touch-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favicons/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicons/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicons/favicon-16x16.png">
+  <link rel="manifest" href="/assets/img/favicons/site.webmanifest">
+  <link rel="mask-icon" href="/assets/img/favicons/safari-pinned-tab.svg" color="#5bbad5">
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico" />
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
+
+  <!-- ====================PWA================== -->
+  <link rel="manifest" href="/assets/img/pwa/android/manifest.json" />
+  <!-- ios support -->
+  <link rel="apple-touch-icon" href="/assets/img/pwa/ios/32.png" />
+  <link rel="apple-touch-icon" href="/assets/img/pwa/ios/72.png" />
+  <link rel="apple-touch-icon" href="/assets/img/pwa/ios/100.png" />
+  <link rel="apple-touch-icon" href="/assets/img/pwa/ios/128.png" />
+  <link rel="apple-touch-icon" href="/assets/img/pwa/ios/144.png" />
+  <link rel="apple-touch-icon" href="/assets/img/pwa/ios/152.png" />
+  <link rel="apple-touch-icon" href="/assets/img/pwa/ios/192.png" />
+  <link rel="apple-touch-icon" href="/assets/img/pwa/ios/256.png" />
+  <link rel="apple-touch-icon" href="/assets/img/pwa/ios/512.png" />
+  <link rel="apple-touch-icon" href="/assets/img/pwa/ios/1024.png" />
+  <meta name="apple-mobile-web-app-status-bar" content="#6E57E0" />
+  <meta name="theme-color" content="#6E57E0" />
+
+  <!--==================== CSS ====================-->
+  <link rel="stylesheet" href="/assets/css/main.css" />
+  <link rel="stylesheet" href="css/encoder.css" />
+</head>
+
+<body>
+  <!-- ===================== LOADER ==================== -->
+  <div id="loading">
+    <div class="loader"><span>
+        &lt;</span><span>/&gt;</span></div>
+  </div>
+
+  <!--==================== HEADER ====================-->
+  <header class="header" id="header">
+    <nav class="nav kong-container">
+      <a href="/" class="nav__logo noSelect"></i>SOVANREACH&nbsp;&nbsp;<i
+          class="fa-solid fa-code-branch"></i>&nbsp;&nbsp;TOOLS</a>
+
+      <div class="nav__menu" id="nav-menu">
+        <ul class="nav__list grid">
+          <li class="nav__item">
+            <a href="#general" class="nav__link noSelect">
+              <i class="fa-solid fa-screwdriver-wrench nav__icon"></i> General
+            </a>
+          </li>
+
+          <li class="nav__item">
+            <a href="#ml_al" class="nav__link noSelect">
+              <i class="fa-solid fa-brain nav__icon"></i> ML/AI
+            </a>
+          </li>
+
+          <li class="nav__item">
+            <a href="/" class="nav__link noSelect active-link">
+              <i class="fa-solid fa-user-secret nav__icon"></i> Dev Profile
+            </a>
+          </li>
+        </ul>
+        <i class="fa-solid fa-xmark nav__close noSelect" id="nav-close"></i>
+      </div>
+
+      <div class="nav__btns">
+        <!-- theme change button -->
+        <i class="fa-solid fa-moon change-theme" id="theme-button"></i>
+
+        <div class="nav__toggle noSelect" id="nav-toggle">
+          <i class="fa-solid fa-bars"></i>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <!--==================== TOOLS SECTION ====================-->
+  <section class="section" id="about">
+    <!-- Encoder Tool Header -->
+    <div class="enc-tool-header">
+      <h1>Encoder & Decoder</h1>
+      <p>Encode and decode data in various formats - all processing happens locally in your browser</p>
+    </div>
+
+    <!-- Encoder Tool Tab Selection -->
+    <div class="enc-tab-navigation">
+      <div class="enc-tab-container">
+        <!-- Base64 Feature Tab -->
+        <div class="enc-tab-item active" id="base64Tab">
+          <div class="enc-tab-icon">
+            <i class="fas fa-exchange-alt"></i>
+          </div>
+          <span class="enc-tab-label">Base64</span>
+        </div>
+
+        <!-- JWT Feature Tab -->
+        <div class="enc-tab-item" id="jwtTab">
+          <div class="enc-tab-icon">
+            <i class="fas fa-key"></i>
+          </div>
+          <span class="enc-tab-label">JWT</span>
+        </div>
+
+        <!-- URL Feature Tab -->
+        <div class="enc-tab-item" id="urlTab">
+          <div class="enc-tab-icon">
+            <i class="fas fa-link"></i>
+          </div>
+          <span class="enc-tab-label">URL</span>
+        </div>
+
+        <!-- Hash Feature Tab -->
+        <div class="enc-tab-item" id="hashTab">
+          <div class="enc-tab-icon">
+            <i class="fas fa-hashtag"></i>
+          </div>
+          <span class="enc-tab-label">Hash</span>
+        </div>
+        
+        <!-- More Feature Tab -->
+        <div class="enc-tab-item" id="moreTab">
+          <div class="enc-tab-icon">
+            <i class="fas fa-ellipsis-h"></i>
+          </div>
+          <span class="enc-tab-label">More</span>
+        </div>
+      </div>
+      
+      <!-- Feature descriptions that show on active tab -->
+      <div class="enc-tab-descriptions">
+        <div class="enc-tab-description active" id="base64Description">
+          <h3>Base64 Encoding/Decoding</h3>
+          <p>Convert text or binary data to Base64 format and vice versa</p>
+        </div>
+        <div class="enc-tab-description" id="jwtDescription">
+          <h3>JWT Token Processing</h3>
+          <p>Decode, verify, and create JSON Web Tokens</p>
+        </div>
+        <div class="enc-tab-description" id="urlDescription">
+          <h3>URL Encoding/Decoding</h3>
+          <p>Convert special characters for safe URL transmission</p>
+        </div>
+        <div class="enc-tab-description" id="hashDescription">
+          <h3>Hash Generation</h3>
+          <p>Generate hash values using MD5, SHA-1, SHA-256, SHA-512, and more</p>
+        </div>
+        <div class="enc-tab-description" id="moreDescription">
+          <h3>Additional Encoders/Decoders</h3>
+          <p>Access more encoding tools: Hex, ASCII, Binary, HTML Entity, and others</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Encoder Tool Content Area (dynamically populated) -->
+    <div class="enc-tool-content active" id="encToolContent">
+      <!-- Content will be dynamically inserted here -->
+      <div class="enc-encode-container">
+        <div class="enc-encode-header">
+          <h2>Base64 Encoder/Decoder</h2>
+          <p>Convert text to Base64 and vice versa</p>
+        </div>
+        
+        <div class="enc-encode-content">
+          <div class="enc-mode-selector">
+            <button class="enc-mode-btn active" data-mode="encode">Encode</button>
+            <button class="enc-mode-btn" data-mode="decode">Decode</button>
+          </div>
+          
+          <div class="enc-input-panel">
+            <div class="enc-field-group">
+              <label for="encodeInput">Input</label>
+              <textarea id="encodeInput" placeholder="Enter text to encode/decode..." rows="8"></textarea>
+            </div>
+            
+            <div class="enc-options-panel">
+              <button id="encodeButton" class="enc-primary-btn">Encode to Base64</button>
+              <button id="clearInputBtn" class="enc-secondary-btn">Clear</button>
+            </div>
+          </div>
+          
+          <div class="enc-divider">
+            <span class="enc-divider-icon"><i class="fas fa-arrows-alt-v"></i></span>
+          </div>
+          
+          <div class="enc-result-panel">
+            <div class="enc-field-group">
+              <label for="encodeOutput">Output</label>
+              <textarea id="encodeOutput" placeholder="Result will appear here..." rows="8" readonly></textarea>
+            </div>
+            
+            <div class="enc-options-panel">
+              <button id="copyOutputBtn" class="enc-secondary-btn">
+                <i class="fas fa-copy"></i> Copy
+              </button>
+              <button id="downloadOutputBtn" class="enc-secondary-btn">
+                <i class="fas fa-download"></i> Download
+              </button>
+              <button id="clearOutputBtn" class="enc-secondary-btn">Clear</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Encoder Templates (Hidden) -->
+    <!-- JWT Template -->
+    <template id="jwtTemplate">
+      <div class="enc-encode-container">
+        <div class="enc-encode-header">
+          <h2>JWT Token Encoder/Decoder</h2>
+          <p>Decode, verify, and create JSON Web Tokens</p>
+        </div>
+        
+        <div class="enc-encode-content">
+          <div class="enc-mode-selector">
+            <button class="enc-mode-btn active" data-mode="decode">Decode</button>
+            <button class="enc-mode-btn" data-mode="encode">Encode</button>
+            <button class="enc-mode-btn" data-mode="verify">Verify</button>
+          </div>
+          
+          <!-- Decode JWT Mode -->
+          <div class="enc-jwt-mode active" id="jwt-decode-mode">
+            <div class="enc-field-group">
+              <label for="jwtDecodeInput">JWT Token</label>
+              <textarea id="jwtDecodeInput" placeholder="Enter JWT token to decode..." rows="4"></textarea>
+            </div>
+            
+            <div class="enc-options-panel">
+              <button id="jwtDecodeButton" class="enc-primary-btn">Decode JWT</button>
+              <button id="jwtClearDecodeBtn" class="enc-secondary-btn">Clear</button>
+            </div>
+            
+            <div class="enc-jwt-sections">
+              <div class="enc-jwt-header">
+                <div class="enc-jwt-section-title">
+                  <span>HEADER</span>
+                </div>
+                <pre id="jwtHeaderOutput" class="enc-jwt-output"></pre>
+              </div>
+              
+              <div class="enc-jwt-payload">
+                <div class="enc-jwt-section-title">
+                  <span>PAYLOAD</span>
+                </div>
+                <pre id="jwtPayloadOutput" class="enc-jwt-output"></pre>
+              </div>
+              
+              <div class="enc-jwt-signature">
+                <div class="enc-jwt-section-title">
+                  <span>SIGNATURE</span>
+                </div>
+                <pre id="jwtSignatureOutput" class="enc-jwt-output"></pre>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Create JWT Mode -->
+          <div class="enc-jwt-mode" id="jwt-encode-mode">
+            <div class="enc-field-group">
+              <label for="jwtHeaderInput">Header</label>
+              <textarea id="jwtHeaderInput" placeholder='{"alg": "HS256", "typ": "JWT"}' rows="3"></textarea>
+            </div>
+            
+            <div class="enc-field-group">
+              <label for="jwtPayloadInput">Payload</label>
+              <textarea id="jwtPayloadInput" placeholder='{"sub": "1234567890", "name": "John Doe", "iat": 1516239022}' rows="5"></textarea>
+            </div>
+            
+            <div class="enc-field-group">
+              <label for="jwtSecretInput">Secret Key</label>
+              <input type="text" id="jwtSecretInput" placeholder="Enter your secret key">
+            </div>
+            
+            <div class="enc-options-panel">
+              <button id="jwtEncodeButton" class="enc-primary-btn">Generate JWT</button>
+              <button id="jwtClearEncodeBtn" class="enc-secondary-btn">Clear</button>
+            </div>
+            
+            <div class="enc-field-group">
+              <label for="jwtResult">Generated JWT Token</label>
+              <textarea id="jwtResult" placeholder="JWT will appear here..." rows="4" readonly></textarea>
+              <button id="jwtCopyBtn" class="enc-secondary-btn" style="margin-top: 10px;">
+                <i class="fas fa-copy"></i> Copy Token
+              </button>
+            </div>
+          </div>
+          
+          <!-- Verify JWT Mode -->
+          <div class="enc-jwt-mode" id="jwt-verify-mode">
+            <div class="enc-field-group">
+              <label for="jwtVerifyInput">JWT Token</label>
+              <textarea id="jwtVerifyInput" placeholder="Enter JWT token to verify..." rows="4"></textarea>
+            </div>
+            
+            <div class="enc-field-group">
+              <label for="jwtVerifySecret">Secret Key</label>
+              <input type="text" id="jwtVerifySecret" placeholder="Enter the secret key used to sign this token">
+            </div>
+            
+            <div class="enc-options-panel">
+              <button id="jwtVerifyButton" class="enc-primary-btn">Verify JWT</button>
+              <button id="jwtClearVerifyBtn" class="enc-secondary-btn">Clear</button>
+            </div>
+            
+            <div class="enc-verification-result">
+              <div id="jwtVerificationStatus" class="enc-verification-status">
+                <i class="fas fa-circle-question"></i>
+                <span>Enter a token to verify</span>
+              </div>
+              
+              <div class="enc-field-group">
+                <label>Verification Details</label>
+                <pre id="jwtVerificationDetails" class="enc-jwt-output"></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </template>
+
+    <!-- URL Template -->
+    <template id="urlTemplate">
+      <div class="enc-encode-container">
+        <div class="enc-encode-header">
+          <h2>URL Encoder/Decoder</h2>
+          <p>Convert text to URL-encoded format and vice versa</p>
+        </div>
+        
+        <div class="enc-encode-content">
+          <div class="enc-mode-selector">
+            <button class="enc-mode-btn active" data-mode="encode">Encode</button>
+            <button class="enc-mode-btn" data-mode="decode">Decode</button>
+            <button class="enc-mode-btn" data-mode="parse">Parse Query</button>
+          </div>
+          
+          <!-- Encode/Decode Mode -->
+          <div class="enc-url-mode active" id="url-encode-decode-mode">
+            <div class="enc-input-panel">
+              <div class="enc-field-group">
+                <label for="urlInput">Input</label>
+                <textarea id="urlInput" placeholder="Enter text to encode/decode..." rows="8"></textarea>
+              </div>
+              
+              <div class="enc-options-panel">
+                <button id="urlEncodeButton" class="enc-primary-btn">Encode URL</button>
+                <button id="urlClearInputBtn" class="enc-secondary-btn">Clear</button>
+              </div>
+            </div>
+            
+            <div class="enc-divider">
+              <span class="enc-divider-icon"><i class="fas fa-arrows-alt-v"></i></span>
+            </div>
+            
+            <div class="enc-result-panel">
+              <div class="enc-field-group">
+                <label for="urlOutput">Output</label>
+                <textarea id="urlOutput" placeholder="Result will appear here..." rows="8" readonly></textarea>
+              </div>
+              
+              <div class="enc-options-panel">
+                <button id="urlCopyOutputBtn" class="enc-secondary-btn">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+                <button id="urlClearOutputBtn" class="enc-secondary-btn">Clear</button>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Parse Query Mode -->
+          <div class="enc-url-mode" id="url-parse-mode">
+            <div class="enc-field-group">
+              <label for="urlQueryInput">URL with Query Parameters</label>
+              <textarea id="urlQueryInput" placeholder="Enter a full URL or just the query string (e.g., https://example.com?param1=value1&param2=value2 or param1=value1&param2=value2)" rows="4"></textarea>
+            </div>
+            
+            <div class="enc-options-panel">
+              <button id="urlParseButton" class="enc-primary-btn">Parse Query</button>
+              <button id="urlClearParseBtn" class="enc-secondary-btn">Clear</button>
+            </div>
+            
+            <div class="enc-url-parse-result">
+              <div class="enc-field-group">
+                <label>Parsed URL Components</label>
+                <div class="enc-url-components">
+                  <table class="enc-url-table">
+                    <tbody>
+                      <tr>
+                        <th>Protocol</th>
+                        <td id="urlProtocol"></td>
+                      </tr>
+                      <tr>
+                        <th>Host</th>
+                        <td id="urlHost"></td>
+                      </tr>
+                      <tr>
+                        <th>Path</th>
+                        <td id="urlPath"></td>
+                      </tr>
+                      <tr>
+                        <th>Hash</th>
+                        <td id="urlHash"></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              
+              <div class="enc-field-group">
+                <label>Query Parameters</label>
+                <div class="enc-query-params">
+                  <table class="enc-param-table" id="urlParamTable">
+                    <thead>
+                      <tr>
+                        <th>Parameter</th>
+                        <th>Value</th>
+                        <th>Decoded Value</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <!-- Query params will be inserted here -->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </template>
+
+    <!-- Hash Template -->
+    <template id="hashTemplate">
+      <div class="enc-encode-container">
+        <div class="enc-encode-header">
+          <h2>Hash Generator</h2>
+          <p>Generate hash values for your data</p>
+        </div>
+        
+        <div class="enc-encode-content">
+          <div class="enc-field-group">
+            <label for="hashInput">Input Data</label>
+            <textarea id="hashInput" placeholder="Enter text to hash..." rows="8"></textarea>
+          </div>
+          
+          <div class="enc-hash-options">
+            <div class="enc-hash-row">
+              <div class="enc-checkbox-group">
+                <input type="checkbox" id="hashMd5" checked>
+                <label for="hashMd5">MD5</label>
+              </div>
+              
+              <div class="enc-checkbox-group">
+                <input type="checkbox" id="hashSha1" checked>
+                <label for="hashSha1">SHA-1</label>
+              </div>
+              
+              <div class="enc-checkbox-group">
+                <input type="checkbox" id="hashSha256" checked>
+                <label for="hashSha256">SHA-256</label>
+              </div>
+              
+              <div class="enc-checkbox-group">
+                <input type="checkbox" id="hashSha512" checked>
+                <label for="hashSha512">SHA-512</label>
+              </div>
+            </div>
+            
+            <div class="enc-hash-row">
+              <div class="enc-checkbox-group">
+                <input type="checkbox" id="hashSha3">
+                <label for="hashSha3">SHA-3</label>
+              </div>
+              
+              <div class="enc-checkbox-group">
+                <input type="checkbox" id="hashRipemd160">
+                <label for="hashRipemd160">RIPEMD-160</label>
+              </div>
+              
+              <div class="enc-checkbox-group">
+                <input type="checkbox" id="hashCrc32">
+                <label for="hashCrc32">CRC32</label>
+              </div>
+            </div>
+          </div>
+          
+          <div class="enc-hmac-options">
+            <div class="enc-checkbox-group">
+              <input type="checkbox" id="useHmac">
+              <label for="useHmac">Use HMAC</label>
+            </div>
+            
+            <div class="enc-field-group" id="hmacKeyGroup" style="display: none;">
+              <label for="hmacKey">HMAC Secret Key</label>
+              <input type="text" id="hmacKey" placeholder="Enter your secret key">
+            </div>
+          </div>
+          
+          <div class="enc-options-panel">
+            <button id="generateHashButton" class="enc-primary-btn">Generate Hash</button>
+            <button id="clearHashInputBtn" class="enc-secondary-btn">Clear</button>
+          </div>
+          
+          <div class="enc-hash-results" id="hashResults">
+            <!-- Hash results will be displayed here -->
+          </div>
+        </div>
+      </div>
+    </template>
+
+    <!-- More Template -->
+    <template id="moreTemplate">
+      <div class="enc-encode-container">
+        <div class="enc-encode-header">
+          <h2>Additional Encoders/Decoders</h2>
+          <p>Choose from a variety of other encoding and decoding tools</p>
+        </div>
+        
+        <div class="enc-more-options">
+          <div class="enc-more-grid">
+            <!-- Hex Encoding/Decoding -->
+            <div class="enc-more-card" data-tool="hex">
+              <div class="enc-more-icon">
+                <i class="fas fa-calculator"></i>
+              </div>
+              <div class="enc-more-info">
+                <h3>Hex Encoding/Decoding</h3>
+                <p>Convert text to hexadecimal and back</p>
+              </div>
+            </div>
+            
+            <!-- ASCII Encoding/Decoding -->
+            <div class="enc-more-card" data-tool="ascii">
+              <div class="enc-more-icon">
+                <i class="fas fa-font"></i>
+              </div>
+              <div class="enc-more-info">
+                <h3>ASCII Encoding/Decoding</h3>
+                <p>Convert text to ASCII values</p>
+              </div>
+            </div>
+            
+            <!-- Binary Encoding/Decoding -->
+            <div class="enc-more-card" data-tool="binary">
+              <div class="enc-more-icon">
+                <i class="fas fa-binary"></i>
+              </div>
+              <div class="enc-more-info">
+                <h3>Binary Encoding/Decoding</h3>
+                <p>Convert text to binary format</p>
+              </div>
+            </div>
+            
+            <!-- HTML Entity Encoding/Decoding -->
+            <div class="enc-more-card" data-tool="html">
+              <div class="enc-more-icon">
+                <i class="fas fa-code"></i>
+              </div>
+              <div class="enc-more-info">
+                <h3>HTML Entity Encoding/Decoding</h3>
+                <p>Convert special characters to HTML entities</p>
+              </div>
+            </div>
+            
+            <!-- Base32 Encoding/Decoding -->
+            <div class="enc-more-card" data-tool="base32">
+              <div class="enc-more-icon">
+                <i class="fas fa-exchange-alt"></i>
+              </div>
+              <div class="enc-more-info">
+                <h3>Base32 Encoding/Decoding</h3>
+                <p>Convert data using the Base32 encoding</p>
+              </div>
+            </div>
+            
+            <!-- Base58 Encoding/Decoding -->
+            <div class="enc-more-card" data-tool="base58">
+              <div class="enc-more-icon">
+                <i class="fas fa-coins"></i>
+              </div>
+              <div class="enc-more-info">
+                <h3>Base58 Encoding/Decoding</h3>
+                <p>Bitcoin-style Base58 encoding</p>
+              </div>
+            </div>
+            
+            <!-- ROT13 Encoding/Decoding -->
+            <div class="enc-more-card" data-tool="rot13">
+              <div class="enc-more-icon">
+                <i class="fas fa-sync-alt"></i>
+              </div>
+              <div class="enc-more-info">
+                <h3>ROT13 Encoding/Decoding</h3>
+                <p>Simple letter substitution cipher</p>
+              </div>
+            </div>
+            
+            <!-- XOR Encoding/Decoding -->
+            <div class="enc-more-card" data-tool="xor">
+              <div class="enc-more-icon">
+                <i class="fas fa-random"></i>
+              </div>
+              <div class="enc-more-info">
+                <h3>XOR Encoding/Decoding</h3>
+                <p>Simple XOR encryption with a key</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </template>
+    
+    <!-- Additional Tool Templates -->
+    <!-- Hex Tool Template -->
+    <template id="hexToolTemplate">
+      <div class="enc-encode-container">
+        <div class="enc-back-link">
+          <a href="#more" id="backFromHex"><i class="fas fa-arrow-left"></i> Back to More Tools</a>
+        </div>
+        <div class="enc-encode-header">
+          <h2>Hex Encoder/Decoder</h2>
+          <p>Convert text to hexadecimal format and vice versa</p>
+        </div>
+        
+        <div class="enc-encode-content">
+          <div class="enc-mode-selector">
+            <button class="enc-mode-btn active" data-mode="encode">Text to Hex</button>
+            <button class="enc-mode-btn" data-mode="decode">Hex to Text</button>
+          </div>
+          
+          <div class="enc-input-panel">
+            <div class="enc-field-group">
+              <label for="hexInput">Input</label>
+              <textarea id="hexInput" placeholder="Enter text to convert to hex..." rows="8"></textarea>
+            </div>
+            
+            <div class="enc-options-panel">
+              <button id="hexEncodeButton" class="enc-primary-btn">Convert to Hex</button>
+              <button id="hexClearInputBtn" class="enc-secondary-btn">Clear</button>
+            </div>
+          </div>
+          
+          <div class="enc-divider">
+            <span class="enc-divider-icon"><i class="fas fa-arrows-alt-v"></i></span>
+          </div>
+          
+          <div class="enc-result-panel">
+            <div class="enc-field-group">
+              <label for="hexOutput">Output</label>
+              <textarea id="hexOutput" placeholder="Result will appear here..." rows="8" readonly></textarea>
+            </div>
+            
+            <div class="enc-options-panel">
+              <button id="hexCopyOutputBtn" class="enc-secondary-btn">
+                <i class="fas fa-copy"></i> Copy
+              </button>
+              <button id="hexClearOutputBtn" class="enc-secondary-btn">Clear</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </template>
+    
+    <!-- ASCII Tool Template -->
+    <template id="asciiToolTemplate">
+      <div class="enc-encode-container">
+        <div class="enc-back-link">
+          <a href="#more" id="backFromAscii"><i class="fas fa-arrow-left"></i> Back to More Tools</a>
+        </div>
+        <div class="enc-encode-header">
+          <h2>ASCII Converter</h2>
+          <p>Convert between text and ASCII decimal values</p>
+        </div>
+        
+        <div class="enc-encode-content">
+          <div class="enc-mode-selector">
+            <button class="enc-mode-btn active" data-mode="encode">Text to ASCII</button>
+            <button class="enc-mode-btn" data-mode="decode">ASCII to Text</button>
+          </div>
+          
+          <div class="enc-input-panel">
+            <div class="enc-field-group">
+              <label for="asciiInput">Input</label>
+              <textarea id="asciiInput" placeholder="Enter text to convert to ASCII codes..." rows="8"></textarea>
+              <small id="asciiInputHelp">For ASCII to Text mode, enter space or comma-separated decimal values (e.g., "72 101 108 108 111" or "72,101,108,108,111")</small>
+            </div>
+            
+            <div class="enc-options-panel">
+              <button id="asciiEncodeButton" class="enc-primary-btn">Convert to ASCII</button>
+              <button id="asciiClearInputBtn" class="enc-secondary-btn">Clear</button>
+            </div>
+          </div>
+          
+          <div class="enc-divider">
+            <span class="enc-divider-icon"><i class="fas fa-arrows-alt-v"></i></span>
+          </div>
+          
+          <div class="enc-result-panel">
+            <div class="enc-field-group">
+              <label for="asciiOutput">Output</label>
+              <textarea id="asciiOutput" placeholder="Result will appear here..." rows="8" readonly></textarea>
+            </div>
+            
+            <div class="enc-options-panel">
+              <button id="asciiCopyOutputBtn" class="enc-secondary-btn">
+                <i class="fas fa-copy"></i> Copy
+              </button>
+              <button id="asciiClearOutputBtn" class="enc-secondary-btn">Clear</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </template>
+    
+    <!-- Binary Tool Template -->
+    <template id="binaryToolTemplate">
+      <div class="enc-encode-container">
+        <div class="enc-back-link">
+          <a href="#more" id="backFromBinary"><i class="fas fa-arrow-left"></i> Back to More Tools</a>
+        </div>
+        <div class="enc-encode-header">
+          <h2>Binary Converter</h2>
+          <p>Convert between text and binary representation</p>
+        </div>
+        
+        <div class="enc-encode-content">
+          <div class="enc-mode-selector">
+            <button class="enc-mode-btn active" data-mode="encode">Text to Binary</button>
+            <button class="enc-mode-btn" data-mode="decode">Binary to Text</button>
+          </div>
+          
+          <div class="enc-input-panel">
+            <div class="enc-field-group">
+              <label for="binaryInput">Input</label>
+              <textarea id="binaryInput" placeholder="Enter text to convert to binary..." rows="8"></textarea>
+              <small id="binaryInputHelp">For Binary to Text mode, enter space-separated binary values (e.g., "01001000 01100101 01101100 01101100 01101111")</small>
+            </div>
+            
+            <div class="enc-format-options">
+              <div class="enc-radio-group">
+                <input type="radio" id="binaryFormatSpace" name="binaryFormat" value="space" checked>
+                <label for="binaryFormatSpace">Space separated</label>
+              </div>
+              <div class="enc-radio-group">
+                <input type="radio" id="binaryFormatNoSpace" name="binaryFormat" value="nospace">
+                <label for="binaryFormatNoSpace">No spaces</label>
+              </div>
+            </div>
+            
+            <div class="enc-options-panel">
+              <button id="binaryEncodeButton" class="enc-primary-btn">Convert to Binary</button>
+              <button id="binaryClearInputBtn" class="enc-secondary-btn">Clear</button>
+            </div>
+          </div>
+          
+          <div class="enc-divider">
+            <span class="enc-divider-icon"><i class="fas fa-arrows-alt-v"></i></span>
+          </div>
+          
+          <div class="enc-result-panel">
+            <div class="enc-field-group">
+              <label for="binaryOutput">Output</label>
+              <textarea id="binaryOutput" placeholder="Result will appear here..." rows="8" readonly></textarea>
+            </div>
+            
+            <div class="enc-options-panel">
+              <button id="binaryCopyOutputBtn" class="enc-secondary-btn">
+                <i class="fas fa-copy"></i> Copy
+              </button>
+              <button id="binaryClearOutputBtn" class="enc-secondary-btn">Clear</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </template>
+    
+    <!-- HTML Entity Tool Template -->
+    <template id="htmlToolTemplate">
+      <div class="enc-encode-container">
+        <div class="enc-back-link">
+          <a href="#more" id="backFromHtml"><i class="fas fa-arrow-left"></i> Back to More Tools</a>
+        </div>
+        <div class="enc-encode-header">
+          <h2>HTML Entity Encoder/Decoder</h2>
+          <p>Convert special characters to HTML entities and vice versa</p>
+        </div>
+        
+        <div class="enc-encode-content">
+          <div class="enc-mode-selector">
+            <button class="enc-mode-btn active" data-mode="encode">Encode to Entities</button>
+            <button class="enc-mode-btn" data-mode="decode">Decode from Entities</button>
+          </div>
+          
+          <div class="enc-input-panel">
+            <div class="enc-field-group">
+              <label for="htmlInput">Input</label>
+              <textarea id="htmlInput" placeholder="Enter text with special characters to encode..." rows="8"></textarea>
+            </div>
+            
+            <div class="enc-options-panel">
+              <button id="htmlEncodeButton" class="enc-primary-btn">Encode HTML Entities</button>
+              <button id="htmlClearInputBtn" class="enc-secondary-btn">Clear</button>
+            </div>
+          </div>
+          
+          <div class="enc-divider">
+            <span class="enc-divider-icon"><i class="fas fa-arrows-alt-v"></i></span>
+          </div>
+          
+          <div class="enc-result-panel">
+            <div class="enc-field-group">
+              <label for="htmlOutput">Output</label>
+              <textarea id="htmlOutput" placeholder="Result will appear here..." rows="8" readonly></textarea>
+            </div>
+            
+            <div class="enc-options-panel">
+              <button id="htmlCopyOutputBtn" class="enc-secondary-btn">
+                <i class="fas fa-copy"></i> Copy
+              </button>
+              <button id="htmlClearOutputBtn" class="enc-secondary-btn">Clear</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </template>
+  </section>
+
+  <!--==================== SCROLL TOP ====================-->
+  <a href="#" class="scrollup" id="scroll-up">
+    <i class="fa-solid fa-arrow-up scrollup__icon"></i>
+  </a>
+
+  <!--==================== MAIN JS ====================-->
+  <script src="/assets/js/main.js"></script>
+  
+  <!-- Crypto Libraries -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jsrsasign/10.5.27/jsrsasign-all-min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sha3/0.8.0/sha3.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/js-base64@3.7.7/base64.min.js"></script>
+  
+  <!-- Base58 & Base32 Libraries -->
+  <script src="https://cdn.jsdelivr.net/npm/base-58@0.0.1/Base58.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/hi-base32@0.5.1/build/base32.min.js"></script>
+  
+  <!-- Fix for Binary icon -->
+  <style>
+    .fa-binary:before {
+      font-family: 'Font Awesome 5 Free';
+      font-weight: 900;
+      content: "01";
+    }
+  </style>
+  
+  <!-- Custom Scripts -->
+  <script src="js/encoder-ui.js"></script>
+  <script src="js/encoder-base64.js"></script>
+  <script src="js/encoder-jwt.js"></script>
+  <script src="js/encoder-url.js"></script>
+  <script src="js/encoder-hash.js"></script>
+  <script src="js/encoder-more.js"></script>
+  <script src="js/encoder-main.js"></script>
+
+  <!-- ===================== SHOW/HIDE LOADER ==================== -->
+  <script>
+    window.onload = function () {
+      document.getElementById("loading").style.display = "none";
+      
+      // Initialize the Base64 functionality on load (since it's the default view)
+      setTimeout(function() {
+        if (window.EncoderTool && window.EncoderTool.initBase64Feature) {
+          window.EncoderTool.initBase64Feature();
+        }
+      }, 100); // Small delay to ensure DOM is ready
+      
+      // Add missing Binary font awesome icon (not present in standard collection)
+      if (!document.querySelector('.fa-binary')) {
+        const style = document.createElement('style');
+        style.innerHTML = `
+          .fa-binary:before {
+            font-family: 'Font Awesome 5 Free';
+            font-weight: 900;
+            content: "01";
+          }
+        `;
+        document.head.appendChild(style);
+      }
+    };
+  </script>
+
+  <!-- =====================REGISTER SERVICE WORKER================ -->
+  <script>
+    if (navigator && navigator.serviceWorker) {
+      window.addEventListener("load", function () {
+        navigator.serviceWorker
+          .register("/serviceWorker.js")
+          .then((res) => console.log("service worker registered"))
+          .catch((err) => console.log("service worker not registered", err));
+      });
+    }
+  </script>
+</body>
+
+</html>
