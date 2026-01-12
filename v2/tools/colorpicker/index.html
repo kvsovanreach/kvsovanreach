@@ -55,6 +55,11 @@
     <div class="container">
       <!-- Color Picker Container -->
       <div class="picker-wrapper" id="colorpicker">
+        <!-- Header -->
+        <div class="picker-header">
+          <h2><i class="fa-solid fa-palette"></i> Color Picker</h2>
+        </div>
+
         <!-- Tab Navigation -->
         <div class="picker-tabs">
           <button class="picker-tab active" data-tab="picker">
@@ -402,27 +407,30 @@
     </div>
   </main>
 
-  <!-- Keyboard Shortcuts Hint -->
-  <div class="shortcuts-hint" id="shortcutsHint">
-    <span>Press <kbd>?</kbd> for shortcuts</span>
-  </div>
-
   <!-- Footer -->
   <footer class="footer">
     <div class="container">
       <div class="footer-bottom">
         <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach. All rights reserved.</p>
-        <p class="footer-made">Made with <i class="fa-solid fa-heart"></i> in South Korea</p>
+        <p class="footer-made">Made with 💗 and Claude Code xD</p>
       </div>
     </div>
   </footer>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Keyboard Shortcuts Hint -->
+  <div class="shortcuts-hint" id="shortcutsHint">
+    <span>Press <kbd>?</kbd> for shortcuts</span>
+  </div>
 
   <!-- Keyboard Shortcuts Modal -->
   <div class="shortcuts-modal" id="shortcutsModal">
     <div class="shortcuts-content">
       <div class="shortcuts-header">
         <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
-        <button class="close-shortcuts-btn" id="shortcutsClose" aria-label="Close shortcuts">
+        <button class="close-shortcuts-btn" id="closeShortcutsBtn" aria-label="Close shortcuts">
           <i class="fa-solid fa-xmark"></i>
         </button>
       </div>
@@ -500,9 +508,6 @@
       </div>
     </div>
   </div>
-
-  <!-- Toast Notification -->
-  <div class="toast" id="toast"></div>
 
   <!-- Shared Tools JavaScript -->
   <script src="../../js/tools-common.js"></script>

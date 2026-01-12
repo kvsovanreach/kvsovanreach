@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Virtual coin toss with 3D animation. Fair random results with history tracking.">
+  <meta property="og:title" content="KVSOVANREACH | Coin Toss">
+  <meta property="og:description" content="Make decisions with a virtual coin flip.">
+  <meta property="og:image" content="/assets/img/pwa/ios/512.png">
+  <title>KVSOVANREACH | Coin Toss</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Common Tools CSS -->
+  <link rel="stylesheet" href="../../js/tools-common.css">
+  <!-- Coin Toss CSS -->
+  <link rel="stylesheet" href="cointoss.css">
+</head>
+<body>
+  <!-- Skip to Content -->
+  <a href="#cointoss" class="skip-link">Skip to Coin Toss</a>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">TOOLS</span>
+      </a>
+
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="tool-page">
+    <div class="container">
+      <!-- Coin Toss Wrapper -->
+      <div class="coin-wrapper" id="cointoss">
+        <!-- Header -->
+        <div class="coin-header">
+          <h2><i class="fa-solid fa-coins"></i> Coin Toss</h2>
+          <div class="coin-actions">
+            <button class="action-btn" id="clearHistoryBtn" title="Clear history" aria-label="Clear history">
+              <i class="fa-solid fa-trash"></i>
+              <span>Clear</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Content -->
+        <div class="coin-content">
+          <!-- Coin Section -->
+          <div class="coin-section">
+            <div class="coin-container">
+              <div class="coin" id="coin">
+                <div class="coin-side heads">
+                  <span>HEADS</span>
+                </div>
+                <div class="coin-side tails">
+                  <span>TAILS</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="result-display" id="resultDisplay">
+              <span>Click to flip!</span>
+            </div>
+
+            <button class="flip-btn" id="flipBtn">
+              <i class="fa-solid fa-rotate"></i>
+              <span>Flip Coin</span>
+            </button>
+          </div>
+
+          <!-- Stats Section -->
+          <div class="stats-section">
+            <h3>Statistics</h3>
+            <div class="stats-grid">
+              <div class="stat-card">
+                <div class="stat-value" id="totalFlips">0</div>
+                <div class="stat-label">Total Flips</div>
+              </div>
+              <div class="stat-card heads">
+                <div class="stat-value" id="headsCount">0</div>
+                <div class="stat-label">Heads</div>
+              </div>
+              <div class="stat-card tails">
+                <div class="stat-value" id="tailsCount">0</div>
+                <div class="stat-label">Tails</div>
+              </div>
+            </div>
+
+            <div class="probability-bar">
+              <div class="bar-fill heads" id="headsBar" style="width: 50%"></div>
+              <div class="bar-fill tails" id="tailsBar" style="width: 50%"></div>
+            </div>
+            <div class="probability-labels">
+              <span id="headsPercent">50%</span>
+              <span id="tailsPercent">50%</span>
+            </div>
+          </div>
+
+          <!-- History Section -->
+          <div class="history-section">
+            <h3>Recent History</h3>
+            <div class="history-list" id="historyList">
+              <div class="history-empty">No flips yet</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach. All rights reserved.</p>
+        <p class="footer-made">Made with 💗 and Claude Code xD</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Keyboard Shortcuts Modal -->
+  <div class="shortcuts-modal" id="shortcutsModal">
+    <div class="shortcuts-content">
+      <div class="shortcuts-header">
+        <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
+        <button class="close-shortcuts-btn" id="closeShortcutsBtn" aria-label="Close shortcuts">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="shortcuts-body">
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">Actions</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Space</kbd></div>
+            <div class="shortcut-desc">Flip coin</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>F</kbd></div>
+            <div class="shortcut-desc">Flip coin</div>
+          </div>
+        </div>
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">General</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>?</kbd></div>
+            <div class="shortcut-desc">Show shortcuts</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Escape</kbd></div>
+            <div class="shortcut-desc">Close modal</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Keyboard Shortcuts Hint -->
+  <div class="shortcuts-hint" id="shortcutsHint">
+    <span>Press <kbd>?</kbd> for shortcuts</span>
+  </div>
+
+  <!-- Shared Tools JavaScript -->
+  <script src="../../js/tools-common.js"></script>
+  <!-- Scripts -->
+  <script src="cointoss.js"></script>
+</body>
+</html>

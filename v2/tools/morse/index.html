@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Convert text to Morse code and vice versa. Listen to Morse code with audio playback.">
+  <meta property="og:title" content="KVSOVANREACH | Morse Code Translator">
+  <meta property="og:description" content="Translate text to Morse code dots and dashes, or decode Morse back to text.">
+  <meta property="og:image" content="/assets/img/pwa/ios/512.png">
+  <title>KVSOVANREACH | Morse Code</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Common Tools CSS -->
+  <link rel="stylesheet" href="../../js/tools-common.css">
+  <!-- Morse Code CSS -->
+  <link rel="stylesheet" href="morse.css">
+</head>
+<body>
+  <!-- Skip to Content -->
+  <a href="#morse" class="skip-link">Skip to Morse translator</a>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">TOOLS</span>
+      </a>
+
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="tool-page">
+    <div class="container">
+      <div class="morse-wrapper" id="morse">
+        <!-- Header -->
+        <div class="morse-header">
+          <h2><i class="fa-solid fa-tower-broadcast"></i> Morse Code</h2>
+        </div>
+
+        <!-- Tab Navigation -->
+        <div class="morse-tabs">
+          <button class="morse-tab active" data-tab="encode">
+            <i class="fa-solid fa-arrow-right"></i>
+            <span>Text to Morse</span>
+          </button>
+          <button class="morse-tab" data-tab="decode">
+            <i class="fa-solid fa-arrow-left"></i>
+            <span>Morse to Text</span>
+          </button>
+          <button class="morse-tab" data-tab="reference">
+            <i class="fa-solid fa-book"></i>
+            <span>Reference</span>
+          </button>
+        </div>
+
+        <!-- Main Content Area -->
+        <div class="morse-main">
+          <!-- Encode Panel -->
+          <div class="morse-panel active" id="encodePanel">
+            <div class="converter-section">
+              <div class="input-group">
+                <div class="input-header">
+                  <label>Text Input</label>
+                  <div class="input-actions">
+                    <button class="action-btn" id="encPasteBtn" title="Paste">
+                      <i class="fa-solid fa-paste"></i>
+                    </button>
+                    <button class="action-btn" id="encClearBtn" title="Clear">
+                      <i class="fa-solid fa-trash"></i>
+                    </button>
+                  </div>
+                </div>
+                <textarea id="encodeInput" placeholder="Enter text to convert to Morse code..." rows="4"></textarea>
+              </div>
+
+              <div class="swap-container">
+                <button class="swap-btn" id="swapToDecodeBtn" title="Switch to decode mode">
+                  <i class="fa-solid fa-arrow-down"></i>
+                </button>
+              </div>
+
+              <div class="output-group">
+                <div class="output-header">
+                  <label>Morse Code</label>
+                  <div class="output-actions">
+                    <button class="action-btn" id="playEncodeBtn" title="Play">
+                      <i class="fa-solid fa-play"></i>
+                    </button>
+                    <button class="action-btn" id="encCopyBtn" title="Copy">
+                      <i class="fa-solid fa-copy"></i>
+                    </button>
+                  </div>
+                </div>
+                <div class="morse-output" id="encodeOutput">
+                  <span class="placeholder">Morse code will appear here</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Decode Panel -->
+          <div class="morse-panel" id="decodePanel">
+            <div class="converter-section">
+              <div class="input-group">
+                <div class="input-header">
+                  <label>Morse Code Input</label>
+                  <div class="input-actions">
+                    <button class="action-btn" id="decPasteBtn" title="Paste">
+                      <i class="fa-solid fa-paste"></i>
+                    </button>
+                    <button class="action-btn" id="decClearBtn" title="Clear">
+                      <i class="fa-solid fa-trash"></i>
+                    </button>
+                  </div>
+                </div>
+                <textarea id="decodeInput" placeholder="Enter Morse code (use . and - or • and −)&#10;Separate letters with space, words with / or |" rows="4"></textarea>
+                <div class="morse-keyboard">
+                  <button class="morse-key" data-char=".">.</button>
+                  <button class="morse-key" data-char="-">-</button>
+                  <button class="morse-key" data-char=" ">Space</button>
+                  <button class="morse-key" data-char="/">/</button>
+                  <button class="morse-key" data-char="backspace"><i class="fa-solid fa-delete-left"></i></button>
+                </div>
+              </div>
+
+              <div class="swap-container">
+                <button class="swap-btn" id="swapToEncodeBtn" title="Switch to encode mode">
+                  <i class="fa-solid fa-arrow-down"></i>
+                </button>
+              </div>
+
+              <div class="output-group">
+                <div class="output-header">
+                  <label>Decoded Text</label>
+                  <div class="output-actions">
+                    <button class="action-btn" id="decCopyBtn" title="Copy">
+                      <i class="fa-solid fa-copy"></i>
+                    </button>
+                  </div>
+                </div>
+                <div class="text-output" id="decodeOutput">
+                  <span class="placeholder">Decoded text will appear here</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Reference Panel -->
+          <div class="morse-panel" id="referencePanel">
+            <div class="reference-section">
+              <div class="reference-group">
+                <h3>Letters</h3>
+                <div class="reference-grid" id="lettersGrid"></div>
+              </div>
+              <div class="reference-group">
+                <h3>Numbers</h3>
+                <div class="reference-grid" id="numbersGrid"></div>
+              </div>
+              <div class="reference-group">
+                <h3>Punctuation</h3>
+                <div class="reference-grid" id="punctuationGrid"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Audio Settings -->
+        <div class="audio-settings">
+          <div class="settings-row">
+            <label>
+              <i class="fa-solid fa-volume-high"></i>
+              Speed
+            </label>
+            <input type="range" id="speedSlider" min="5" max="25" value="15">
+            <span id="speedValue">15 WPM</span>
+          </div>
+          <div class="settings-row">
+            <label>
+              <i class="fa-solid fa-wave-square"></i>
+              Frequency
+            </label>
+            <input type="range" id="freqSlider" min="400" max="1000" value="700">
+            <span id="freqValue">700 Hz</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach. All rights reserved.</p>
+        <p class="footer-made">Made with 💗 and Claude Code xD</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Keyboard Shortcuts Hint -->
+  <div class="shortcuts-hint" id="shortcutsHint">
+    <span>Press <kbd>?</kbd> for shortcuts</span>
+  </div>
+
+  <!-- Keyboard Shortcuts Modal -->
+  <div class="shortcuts-modal" id="shortcutsModal">
+    <div class="shortcuts-content">
+      <div class="shortcuts-header">
+        <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
+        <button class="close-shortcuts-btn" id="closeShortcutsBtn">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="shortcuts-body">
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">Actions</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Space</kbd></div>
+            <div class="shortcut-desc">Play Morse</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>C</kbd></div>
+            <div class="shortcut-desc">Copy output</div>
+          </div>
+        </div>
+
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">Navigation</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>1</kbd></div>
+            <div class="shortcut-desc">Encode tab</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>2</kbd></div>
+            <div class="shortcut-desc">Decode tab</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>?</kbd></div>
+            <div class="shortcut-desc">Show shortcuts</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Shared Tools JavaScript -->
+  <script src="../../js/tools-common.js"></script>
+  <!-- Morse Code JavaScript -->
+  <script src="morse.js"></script>
+</body>
+</html>

@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Generate Lorem Ipsum placeholder text for your designs. Customize paragraphs, sentences, and words.">
+  <meta property="og:title" content="KVSOVANREACH | Lorem Ipsum Generator">
+  <meta property="og:description" content="Generate placeholder text for design mockups and prototypes.">
+  <meta property="og:image" content="/assets/img/pwa/ios/512.png">
+  <title>KVSOVANREACH | Lorem Ipsum Generator</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Common Tools CSS -->
+  <link rel="stylesheet" href="../../js/tools-common.css">
+  <!-- Lorem Ipsum CSS -->
+  <link rel="stylesheet" href="loremipsum.css">
+</head>
+<body>
+  <!-- Skip to Content -->
+  <a href="#loremipsum" class="skip-link">Skip to Lorem Ipsum generator</a>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">TOOLS</span>
+      </a>
+
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="tool-page">
+    <div class="container">
+      <div class="lorem-wrapper" id="loremipsum">
+        <!-- Header -->
+        <div class="lorem-header">
+          <h2><i class="fa-solid fa-paragraph"></i> Lorem Ipsum Generator</h2>
+        </div>
+
+        <!-- Tab Navigation -->
+        <div class="lorem-tabs">
+          <button class="lorem-tab active" data-tab="generator">
+            <i class="fa-solid fa-wand-magic-sparkles"></i>
+            <span>Generator</span>
+          </button>
+          <button class="lorem-tab" data-tab="preview">
+            <i class="fa-solid fa-eye"></i>
+            <span>Preview</span>
+          </button>
+        </div>
+
+        <!-- Main Content Area -->
+        <div class="lorem-main">
+          <!-- Generator Panel -->
+          <div class="lorem-panel active" id="generatorPanel">
+            <div class="generator-section">
+              <!-- Options -->
+              <div class="options-grid">
+                <div class="option-group">
+                  <label for="unitType">Generate</label>
+                  <select id="unitType">
+                    <option value="paragraphs">Paragraphs</option>
+                    <option value="sentences">Sentences</option>
+                    <option value="words">Words</option>
+                  </select>
+                </div>
+
+                <div class="option-group">
+                  <label for="unitCount">Count</label>
+                  <input type="number" id="unitCount" min="1" max="100" value="3">
+                </div>
+
+                <div class="option-group">
+                  <label for="textStyle">Style</label>
+                  <select id="textStyle">
+                    <option value="classic">Classic Lorem Ipsum</option>
+                    <option value="hipster">Hipster Ipsum</option>
+                    <option value="business">Business</option>
+                    <option value="tech">Tech/Dev</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- Additional Options -->
+              <div class="checkbox-options">
+                <label class="checkbox-label">
+                  <input type="checkbox" id="startWithLorem" checked>
+                  <span>Start with "Lorem ipsum dolor sit amet..."</span>
+                </label>
+                <label class="checkbox-label">
+                  <input type="checkbox" id="includeHtml">
+                  <span>Include HTML tags</span>
+                </label>
+              </div>
+
+              <!-- Generate Button -->
+              <button class="generate-btn" id="generateBtn">
+                <i class="fa-solid fa-wand-magic-sparkles"></i>
+                <span>Generate Lorem Ipsum</span>
+              </button>
+
+              <!-- Output -->
+              <div class="output-section">
+                <div class="output-header">
+                  <label>Generated Text</label>
+                  <div class="output-stats">
+                    <span><span id="wordStats">0</span> words</span>
+                    <span><span id="charStats">0</span> characters</span>
+                  </div>
+                </div>
+                <div class="output-actions">
+                  <button class="action-btn" id="copyBtn">
+                    <i class="fa-solid fa-copy"></i>
+                    <span>Copy</span>
+                  </button>
+                  <button class="action-btn" id="downloadBtn">
+                    <i class="fa-solid fa-download"></i>
+                    <span>Download</span>
+                  </button>
+                  <button class="action-btn" id="regenerateBtn">
+                    <i class="fa-solid fa-rotate"></i>
+                    <span>Regenerate</span>
+                  </button>
+                </div>
+                <textarea id="loremOutput" readonly placeholder="Generated text will appear here..."></textarea>
+              </div>
+            </div>
+          </div>
+
+          <!-- Preview Panel -->
+          <div class="lorem-panel" id="previewPanel">
+            <div class="preview-section">
+              <div class="preview-controls">
+                <div class="preview-option">
+                  <label>Font Size</label>
+                  <input type="range" id="previewFontSize" min="12" max="24" value="16">
+                  <span id="fontSizeValue">16px</span>
+                </div>
+                <div class="preview-option">
+                  <label>Line Height</label>
+                  <input type="range" id="previewLineHeight" min="1" max="2.5" step="0.1" value="1.6">
+                  <span id="lineHeightValue">1.6</span>
+                </div>
+              </div>
+              <div class="preview-content" id="previewContent">
+                <p class="placeholder">Generate text first to preview</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach. All rights reserved.</p>
+        <p class="footer-made">Made with 💗 and Claude Code xD</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Keyboard Shortcuts Hint -->
+  <div class="shortcuts-hint" id="shortcutsHint">
+    <span>Press <kbd>?</kbd> for shortcuts</span>
+  </div>
+
+  <!-- Keyboard Shortcuts Modal -->
+  <div class="shortcuts-modal" id="shortcutsModal">
+    <div class="shortcuts-content">
+      <div class="shortcuts-header">
+        <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
+        <button class="close-shortcuts-btn" id="closeShortcutsBtn">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="shortcuts-body">
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">Actions</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Ctrl</kbd><span class="key-plus">+</span><kbd>Enter</kbd></div>
+            <div class="shortcut-desc">Generate text</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Ctrl</kbd><span class="key-plus">+</span><kbd>C</kbd></div>
+            <div class="shortcut-desc">Copy output</div>
+          </div>
+        </div>
+
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">Navigation</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>1</kbd></div>
+            <div class="shortcut-desc">Generator tab</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>2</kbd></div>
+            <div class="shortcut-desc">Preview tab</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>?</kbd></div>
+            <div class="shortcut-desc">Show shortcuts</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Shared Tools JavaScript -->
+  <script src="../../js/tools-common.js"></script>
+  <!-- Lorem Ipsum JavaScript -->
+  <script src="loremipsum.js"></script>
+</body>
+</html>

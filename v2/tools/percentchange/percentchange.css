@@ -1,0 +1,270 @@
+/**
+ * KVSOVANREACH Percentage Change Tool
+ * Styles for percentage change calculator
+ */
+
+/* Wrapper */
+.percent-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+}
+
+/* Header */
+.percent-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-4) var(--space-5);
+  background-color: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.percent-header h2 {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-size: var(--font-size-xl);
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.percent-header h2 i {
+  color: var(--color-primary);
+}
+
+/* Content */
+.percent-content {
+  padding: var(--space-5);
+}
+
+/* Input Section */
+.input-section {
+  margin-bottom: var(--space-5);
+}
+
+.input-card {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--space-4);
+  padding: var(--space-5);
+  background-color: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+}
+
+.input-group {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.input-group label {
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  color: var(--color-text);
+}
+
+.input-group input {
+  padding: var(--space-3) var(--space-4);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  color: var(--color-text);
+  text-align: center;
+}
+
+.input-group input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+}
+
+.arrow-indicator {
+  padding-bottom: var(--space-3);
+  color: var(--color-text-muted);
+  font-size: var(--font-size-xl);
+}
+
+/* Result Section */
+.result-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.result-card.main-result {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-6);
+  border-radius: var(--radius-lg);
+  text-align: center;
+  transition: background-color var(--transition-base);
+}
+
+.result-card.main-result.increase {
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+}
+
+.result-card.main-result.decrease {
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+}
+
+.result-card.main-result.neutral {
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+}
+
+.result-direction {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  margin-bottom: var(--space-3);
+}
+
+.result-direction i {
+  font-size: var(--font-size-xl);
+  color: white;
+}
+
+.result-value {
+  font-size: 3rem;
+  font-weight: 700;
+  color: white;
+}
+
+.result-label {
+  font-size: var(--font-size-sm);
+  color: rgba(255, 255, 255, 0.8);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Result Details */
+.result-details {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-3);
+}
+
+.detail-card {
+  padding: var(--space-4);
+  background-color: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  text-align: center;
+}
+
+.detail-label {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-2);
+}
+
+.detail-value {
+  font-size: var(--font-size-xl);
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+/* Formula Card */
+.formula-card {
+  padding: var(--space-4);
+  background-color: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+}
+
+.formula-card h4 {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: var(--space-3);
+}
+
+.formula-card h4 i {
+  color: var(--color-primary);
+}
+
+.formula {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: var(--space-3);
+  background-color: var(--color-bg-tertiary);
+  border-radius: var(--radius-md);
+  font-family: monospace;
+  font-size: var(--font-size-sm);
+}
+
+.formula-fraction {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.numerator {
+  padding-bottom: var(--space-1);
+  border-bottom: 1px solid var(--color-text);
+}
+
+.denominator {
+  padding-top: var(--space-1);
+}
+
+.formula-example {
+  margin-top: var(--space-3);
+  padding: var(--space-2) var(--space-3);
+  background-color: var(--color-bg-tertiary);
+  border-radius: var(--radius-md);
+  font-family: monospace;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  text-align: center;
+}
+
+/* Responsive */
+@media screen and (max-width: 600px) {
+  .percent-content {
+    padding: var(--space-4);
+  }
+
+  .input-card {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .arrow-indicator {
+    text-align: center;
+    padding: var(--space-2) 0;
+    transform: rotate(90deg);
+  }
+
+  .result-value {
+    font-size: 2.5rem;
+  }
+
+  .result-details {
+    grid-template-columns: 1fr;
+  }
+
+  .formula {
+    flex-wrap: wrap;
+    font-size: var(--font-size-xs);
+  }
+}

@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Convert text between different cases: UPPERCASE, lowercase, Title Case, camelCase, snake_case, and more.">
+  <meta property="og:title" content="KVSOVANREACH | Case Converter">
+  <meta property="og:description" content="Quickly convert text between UPPERCASE, lowercase, Title Case, camelCase, and more.">
+  <meta property="og:image" content="/assets/img/pwa/ios/512.png">
+  <title>KVSOVANREACH | Case Converter</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Common Tools CSS -->
+  <link rel="stylesheet" href="../../js/tools-common.css">
+  <!-- Case Converter CSS -->
+  <link rel="stylesheet" href="caseconverter.css">
+</head>
+<body>
+  <!-- Skip to Content -->
+  <a href="#caseconverter" class="skip-link">Skip to case converter</a>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">TOOLS</span>
+      </a>
+
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="tool-page">
+    <div class="container">
+      <div class="case-wrapper" id="caseconverter">
+        <!-- Header -->
+        <div class="case-header">
+          <h2><i class="fa-solid fa-text-height"></i> Case Converter</h2>
+        </div>
+
+        <!-- Tab Navigation -->
+        <div class="case-tabs">
+          <button class="case-tab active" data-tab="converter">
+            <i class="fa-solid fa-text-height"></i>
+            <span>Converter</span>
+          </button>
+          <button class="case-tab" data-tab="batch">
+            <i class="fa-solid fa-list"></i>
+            <span>Batch</span>
+          </button>
+        </div>
+
+        <!-- Main Content Area -->
+        <div class="case-main">
+          <!-- Converter Panel -->
+          <div class="case-panel active" id="converterPanel">
+            <!-- Input Area -->
+            <div class="input-section">
+              <div class="input-header">
+                <label>Input Text</label>
+                <div class="input-actions">
+                  <button class="action-btn" id="pasteBtn" title="Paste">
+                    <i class="fa-solid fa-paste"></i>
+                    <span>Paste</span>
+                  </button>
+                  <button class="action-btn" id="clearBtn" title="Clear">
+                    <i class="fa-solid fa-trash"></i>
+                    <span>Clear</span>
+                  </button>
+                </div>
+              </div>
+              <textarea id="inputText" placeholder="Type or paste your text here..." rows="5"></textarea>
+              <div class="input-stats">
+                <span><span id="charCount">0</span> characters</span>
+                <span><span id="wordCount">0</span> words</span>
+              </div>
+            </div>
+
+            <!-- Case Buttons -->
+            <div class="case-buttons">
+              <button class="case-btn" data-case="uppercase">
+                <i class="fa-solid fa-arrow-up"></i>
+                <span>UPPERCASE</span>
+              </button>
+              <button class="case-btn" data-case="lowercase">
+                <i class="fa-solid fa-arrow-down"></i>
+                <span>lowercase</span>
+              </button>
+              <button class="case-btn" data-case="titlecase">
+                <i class="fa-solid fa-heading"></i>
+                <span>Title Case</span>
+              </button>
+              <button class="case-btn" data-case="sentencecase">
+                <i class="fa-solid fa-paragraph"></i>
+                <span>Sentence case</span>
+              </button>
+              <button class="case-btn" data-case="camelcase">
+                <i class="fa-solid fa-code"></i>
+                <span>camelCase</span>
+              </button>
+              <button class="case-btn" data-case="pascalcase">
+                <i class="fa-solid fa-code"></i>
+                <span>PascalCase</span>
+              </button>
+              <button class="case-btn" data-case="snakecase">
+                <i class="fa-solid fa-minus"></i>
+                <span>snake_case</span>
+              </button>
+              <button class="case-btn" data-case="kebabcase">
+                <i class="fa-solid fa-minus"></i>
+                <span>kebab-case</span>
+              </button>
+              <button class="case-btn" data-case="constantcase">
+                <i class="fa-solid fa-lock"></i>
+                <span>CONSTANT_CASE</span>
+              </button>
+              <button class="case-btn" data-case="togglecase">
+                <i class="fa-solid fa-shuffle"></i>
+                <span>tOGGLE cASE</span>
+              </button>
+              <button class="case-btn" data-case="alternatecase">
+                <i class="fa-solid fa-wave-square"></i>
+                <span>aLtErNaTe</span>
+              </button>
+              <button class="case-btn" data-case="dotcase">
+                <i class="fa-solid fa-circle"></i>
+                <span>dot.case</span>
+              </button>
+            </div>
+
+            <!-- Output Area -->
+            <div class="output-section">
+              <div class="output-header">
+                <label>Output</label>
+                <div class="output-actions">
+                  <button class="action-btn" id="copyBtn" title="Copy">
+                    <i class="fa-solid fa-copy"></i>
+                    <span>Copy</span>
+                  </button>
+                  <button class="action-btn" id="swapBtn" title="Use as input">
+                    <i class="fa-solid fa-arrow-up"></i>
+                    <span>Use as Input</span>
+                  </button>
+                </div>
+              </div>
+              <textarea id="outputText" readonly placeholder="Converted text will appear here..."></textarea>
+              <div class="output-info">
+                <span class="case-label" id="caseLabel">Select a case to convert</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Batch Panel -->
+          <div class="case-panel" id="batchPanel">
+            <div class="batch-section">
+              <div class="batch-header">
+                <label>Enter text (one item per line)</label>
+              </div>
+              <textarea id="batchInput" placeholder="Item 1&#10;Item 2&#10;Item 3" rows="8"></textarea>
+
+              <div class="batch-options">
+                <label>Convert to:</label>
+                <select id="batchCase">
+                  <option value="uppercase">UPPERCASE</option>
+                  <option value="lowercase">lowercase</option>
+                  <option value="titlecase">Title Case</option>
+                  <option value="sentencecase">Sentence case</option>
+                  <option value="camelcase">camelCase</option>
+                  <option value="pascalcase">PascalCase</option>
+                  <option value="snakecase">snake_case</option>
+                  <option value="kebabcase">kebab-case</option>
+                  <option value="constantcase">CONSTANT_CASE</option>
+                </select>
+                <button class="convert-btn" id="batchConvertBtn">
+                  <i class="fa-solid fa-wand-magic-sparkles"></i>
+                  <span>Convert All</span>
+                </button>
+              </div>
+
+              <div class="batch-output">
+                <div class="batch-output-header">
+                  <label>Output</label>
+                  <button class="action-btn" id="copyBatchBtn">
+                    <i class="fa-solid fa-copy"></i>
+                    <span>Copy All</span>
+                  </button>
+                </div>
+                <textarea id="batchOutput" readonly placeholder="Converted items will appear here..."></textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach. All rights reserved.</p>
+        <p class="footer-made">Made with 💗 and Claude Code xD</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Keyboard Shortcuts Hint -->
+  <div class="shortcuts-hint" id="shortcutsHint">
+    <span>Press <kbd>?</kbd> for shortcuts</span>
+  </div>
+
+  <!-- Keyboard Shortcuts Modal -->
+  <div class="shortcuts-modal" id="shortcutsModal">
+    <div class="shortcuts-content">
+      <div class="shortcuts-header">
+        <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
+        <button class="close-shortcuts-btn" id="closeShortcutsBtn">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="shortcuts-body">
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">Case Types</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>U</kbd></div>
+            <div class="shortcut-desc">UPPERCASE</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>L</kbd></div>
+            <div class="shortcut-desc">lowercase</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>T</kbd></div>
+            <div class="shortcut-desc">Title Case</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>S</kbd></div>
+            <div class="shortcut-desc">Sentence case</div>
+          </div>
+        </div>
+
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">Actions</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>C</kbd></div>
+            <div class="shortcut-desc">Copy output</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>?</kbd></div>
+            <div class="shortcut-desc">Show shortcuts</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Escape</kbd></div>
+            <div class="shortcut-desc">Close modal</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Shared Tools JavaScript -->
+  <script src="../../js/tools-common.js"></script>
+  <!-- Case Converter JavaScript -->
+  <script src="caseconverter.js"></script>
+</body>
+</html>

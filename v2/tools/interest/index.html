@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Calculate simple interest with principal, rate, and time. View total interest earned and final balance.">
+  <meta property="og:title" content="KVSOVANREACH | Simple Interest Calculator">
+  <meta property="og:description" content="Calculate non-compounding interest easily.">
+  <meta property="og:image" content="/assets/img/pwa/ios/512.png">
+  <title>KVSOVANREACH | Simple Interest Calculator</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Common Tools CSS -->
+  <link rel="stylesheet" href="../../js/tools-common.css">
+  <!-- Interest CSS -->
+  <link rel="stylesheet" href="interest.css">
+</head>
+<body>
+  <!-- Skip to Content -->
+  <a href="#interest" class="skip-link">Skip to Interest Calculator</a>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">TOOLS</span>
+      </a>
+
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="tool-page">
+    <div class="container">
+      <!-- Interest Wrapper -->
+      <div class="interest-wrapper" id="interest">
+        <!-- Header -->
+        <div class="interest-header">
+          <h2><i class="fa-solid fa-sack-dollar"></i> Simple Interest Calculator</h2>
+        </div>
+
+        <!-- Content -->
+        <div class="interest-content">
+          <!-- Input Section -->
+          <div class="input-section">
+            <div class="input-group">
+              <label for="principal">Principal Amount</label>
+              <div class="input-with-prefix">
+                <span class="prefix">$</span>
+                <input type="number" id="principal" value="10000" min="0" step="100" placeholder="10000">
+              </div>
+            </div>
+
+            <div class="input-group">
+              <label for="rate">Annual Interest Rate</label>
+              <div class="input-with-suffix">
+                <input type="number" id="rate" value="5" min="0" max="100" step="0.1" placeholder="5">
+                <span class="suffix">%</span>
+              </div>
+            </div>
+
+            <div class="input-group">
+              <label for="time">Time Period</label>
+              <div class="time-input">
+                <input type="number" id="time" value="3" min="0" step="1" placeholder="3">
+                <select id="timeUnit">
+                  <option value="years" selected>Years</option>
+                  <option value="months">Months</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- Result Section -->
+          <div class="result-section">
+            <div class="result-card main-result">
+              <div class="result-label">Final Balance</div>
+              <div class="result-value" id="finalBalance">$11,500.00</div>
+            </div>
+
+            <div class="result-details">
+              <div class="detail-card">
+                <div class="detail-icon"><i class="fa-solid fa-coins"></i></div>
+                <div class="detail-info">
+                  <div class="detail-label">Principal</div>
+                  <div class="detail-value" id="principalDisplay">$10,000.00</div>
+                </div>
+              </div>
+
+              <div class="detail-card highlight">
+                <div class="detail-icon"><i class="fa-solid fa-chart-line"></i></div>
+                <div class="detail-info">
+                  <div class="detail-label">Interest Earned</div>
+                  <div class="detail-value" id="interestEarned">$1,500.00</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Visual Bar -->
+            <div class="balance-visual">
+              <div class="visual-label">Composition</div>
+              <div class="visual-bar">
+                <div class="bar-principal" id="barPrincipal" style="width: 87%">
+                  <span>Principal</span>
+                </div>
+                <div class="bar-interest" id="barInterest" style="width: 13%">
+                  <span>Interest</span>
+                </div>
+              </div>
+              <div class="visual-legend">
+                <span><i class="fa-solid fa-square" style="color: var(--color-primary)"></i> Principal</span>
+                <span><i class="fa-solid fa-square" style="color: #22c55e"></i> Interest</span>
+              </div>
+            </div>
+
+            <!-- Formula -->
+            <div class="formula-card">
+              <h4>Simple Interest Formula</h4>
+              <div class="formula">I = P × R × T</div>
+              <div class="formula-desc">
+                <span><strong>I</strong> = Interest</span>
+                <span><strong>P</strong> = Principal</span>
+                <span><strong>R</strong> = Rate (decimal)</span>
+                <span><strong>T</strong> = Time (years)</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach. All rights reserved.</p>
+        <p class="footer-made">Made with 💗 and Claude Code xD</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Keyboard Shortcuts Modal -->
+  <div class="shortcuts-modal" id="shortcutsModal">
+    <div class="shortcuts-content">
+      <div class="shortcuts-header">
+        <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
+        <button class="close-shortcuts-btn" id="closeShortcutsBtn" aria-label="Close shortcuts">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="shortcuts-body">
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">General</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>?</kbd></div>
+            <div class="shortcut-desc">Show shortcuts</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Escape</kbd></div>
+            <div class="shortcut-desc">Close modal</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Keyboard Shortcuts Hint -->
+  <div class="shortcuts-hint" id="shortcutsHint">
+    <span>Press <kbd>?</kbd> for shortcuts</span>
+  </div>
+
+  <!-- Shared Tools JavaScript -->
+  <script src="../../js/tools-common.js"></script>
+  <!-- Scripts -->
+  <script src="interest.js"></script>
+</body>
+</html>

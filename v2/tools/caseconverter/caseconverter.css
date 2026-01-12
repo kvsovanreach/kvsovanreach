@@ -1,0 +1,342 @@
+/**
+ * Case Converter Tool Styles
+ */
+
+/* ==================== Wrapper ==================== */
+.case-wrapper {
+  width: 100%;
+}
+
+/* ==================== Header ==================== */
+.case-header {
+  display: flex;
+  align-items: center;
+  padding: var(--space-4) var(--space-5);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+}
+
+.case-header h2 {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-size: var(--font-size-xl);
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.case-header h2 i {
+  color: var(--color-primary);
+}
+
+/* ==================== Tabs ==================== */
+.case-tabs {
+  display: flex;
+  background-color: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-top: none;
+  overflow: hidden;
+}
+
+.case-tab {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-4);
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  position: relative;
+}
+
+.case-tab:hover {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+}
+
+.case-tab.active {
+  color: var(--color-primary);
+  background-color: var(--color-bg);
+}
+
+.case-tab.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-color: var(--color-primary);
+}
+
+.case-tab i {
+  font-size: var(--font-size-base);
+}
+
+/* ==================== Main Content ==================== */
+.case-main {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-top: none;
+  border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+  padding: var(--space-5);
+}
+
+.case-panel {
+  display: none;
+}
+
+.case-panel.active {
+  display: block;
+}
+
+/* ==================== Input Section ==================== */
+.input-section {
+  margin-bottom: var(--space-5);
+}
+
+.input-header,
+.output-header,
+.batch-header,
+.batch-output-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-2);
+}
+
+.input-header label,
+.output-header label,
+.batch-header label,
+.batch-output-header label {
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  color: var(--color-text-secondary);
+}
+
+.input-actions,
+.output-actions {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.input-section textarea,
+.output-section textarea,
+.batch-section textarea {
+  width: 100%;
+  padding: var(--space-4);
+  font-size: var(--font-size-base);
+  font-family: inherit;
+  line-height: 1.6;
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  resize: vertical;
+  transition: all var(--transition-fast);
+}
+
+.input-section textarea:focus,
+.batch-section textarea:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(55, 118, 161, 0.1);
+}
+
+.output-section textarea {
+  background-color: var(--color-bg-secondary);
+}
+
+.input-stats {
+  display: flex;
+  gap: var(--space-4);
+  margin-top: var(--space-2);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+}
+
+/* ==================== Case Buttons ==================== */
+.case-buttons {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: var(--space-3);
+  margin-bottom: var(--space-5);
+}
+
+.case-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-4);
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  background-color: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.case-btn:hover {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.case-btn.active {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+  color: #fff;
+}
+
+.case-btn i {
+  font-size: var(--font-size-xs);
+}
+
+/* ==================== Output Section ==================== */
+.output-section {
+  margin-bottom: var(--space-3);
+}
+
+.output-info {
+  margin-top: var(--space-2);
+}
+
+.case-label {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--space-1) var(--space-3);
+  font-size: var(--font-size-xs);
+  font-weight: 500;
+  color: var(--color-primary);
+  background-color: rgba(55, 118, 161, 0.1);
+  border-radius: var(--radius-full);
+}
+
+/* ==================== Batch Section ==================== */
+.batch-options {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin: var(--space-4) 0;
+  flex-wrap: wrap;
+}
+
+.batch-options label {
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  color: var(--color-text-secondary);
+}
+
+.batch-options select {
+  padding: var(--space-2) var(--space-6) var(--space-2) var(--space-3);
+  font-size: var(--font-size-sm);
+  font-family: inherit;
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right var(--space-2) center;
+  outline: none;
+}
+
+.convert-btn {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: #fff;
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  margin-left: auto;
+}
+
+.convert-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.batch-output {
+  margin-top: var(--space-4);
+}
+
+/* ==================== Responsive ==================== */
+@media screen and (max-width: 768px) {
+  .case-main {
+    padding: var(--space-4);
+    border-radius: 0 0 var(--radius-md) var(--radius-md);
+  }
+
+  .case-buttons {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .input-header,
+  .output-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-2);
+  }
+
+  .input-actions,
+  .output-actions {
+    width: 100%;
+  }
+
+  .input-actions .action-btn,
+  .output-actions .action-btn {
+    flex: 1;
+    justify-content: center;
+  }
+
+  .batch-options {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .batch-options select {
+    width: 100%;
+  }
+
+  .convert-btn {
+    width: 100%;
+    justify-content: center;
+    margin-left: 0;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .case-tab span {
+    display: none;
+  }
+
+  .case-buttons {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .case-btn span {
+    font-size: var(--font-size-xs);
+  }
+}

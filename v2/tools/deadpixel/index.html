@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Test your monitor for dead or stuck pixels using solid color screens. Fullscreen mode supported.">
+  <meta property="og:title" content="KVSOVANREACH | Dead Pixel Test">
+  <meta property="og:description" content="Identify dead pixels on your monitor.">
+  <meta property="og:image" content="/assets/img/pwa/ios/512.png">
+  <title>KVSOVANREACH | Dead Pixel Test</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Common Tools CSS -->
+  <link rel="stylesheet" href="../../js/tools-common.css">
+  <!-- Dead Pixel CSS -->
+  <link rel="stylesheet" href="deadpixel.css">
+</head>
+<body>
+  <!-- Skip to Content -->
+  <a href="#deadpixel" class="skip-link">Skip to Dead Pixel Test</a>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">TOOLS</span>
+      </a>
+
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="tool-page">
+    <div class="container">
+      <!-- Dead Pixel Wrapper -->
+      <div class="pixel-wrapper" id="deadpixel">
+        <!-- Header -->
+        <div class="pixel-header">
+          <h2><i class="fa-solid fa-desktop"></i> Dead Pixel Test</h2>
+        </div>
+
+        <!-- Content -->
+        <div class="pixel-content">
+          <!-- Instructions -->
+          <div class="instructions">
+            <h3><i class="fa-solid fa-info-circle"></i> How to Use</h3>
+            <ol>
+              <li>Click "Start Test" to enter fullscreen mode</li>
+              <li>Look carefully for any pixels that don't match the screen color</li>
+              <li>Click or press arrow keys to cycle through colors</li>
+              <li>Press Escape to exit fullscreen</li>
+            </ol>
+          </div>
+
+          <!-- Start Button -->
+          <button class="start-btn" id="startBtn">
+            <i class="fa-solid fa-play"></i>
+            <span>Start Test</span>
+          </button>
+
+          <!-- Color Selection -->
+          <div class="color-section">
+            <h3>Test Colors</h3>
+            <div class="color-buttons">
+              <button class="color-btn" data-color="#FF0000" style="background: #FF0000" title="Red">
+                <span>Red</span>
+              </button>
+              <button class="color-btn" data-color="#00FF00" style="background: #00FF00" title="Green">
+                <span>Green</span>
+              </button>
+              <button class="color-btn" data-color="#0000FF" style="background: #0000FF; color: white" title="Blue">
+                <span>Blue</span>
+              </button>
+              <button class="color-btn" data-color="#FFFFFF" style="background: #FFFFFF" title="White">
+                <span>White</span>
+              </button>
+              <button class="color-btn" data-color="#000000" style="background: #000000; color: white" title="Black">
+                <span>Black</span>
+              </button>
+              <button class="color-btn" data-color="#FFFF00" style="background: #FFFF00" title="Yellow">
+                <span>Yellow</span>
+              </button>
+              <button class="color-btn" data-color="#00FFFF" style="background: #00FFFF" title="Cyan">
+                <span>Cyan</span>
+              </button>
+              <button class="color-btn" data-color="#FF00FF" style="background: #FF00FF" title="Magenta">
+                <span>Magenta</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Info -->
+          <div class="info-section">
+            <div class="info-card">
+              <i class="fa-solid fa-circle-dot"></i>
+              <div>
+                <h4>Dead Pixels</h4>
+                <p>Appear as black dots on any color. The pixel is permanently off.</p>
+              </div>
+            </div>
+            <div class="info-card">
+              <i class="fa-solid fa-circle"></i>
+              <div>
+                <h4>Stuck Pixels</h4>
+                <p>Appear as a single color (usually red, green, or blue) regardless of the screen color.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Fullscreen Test Screen -->
+  <div class="test-screen" id="testScreen">
+    <div class="test-hint" id="testHint">
+      Click or press arrow keys to change color • Press ESC to exit
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach. All rights reserved.</p>
+        <p class="footer-made">Made with 💗 and Claude Code xD</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Keyboard Shortcuts Modal -->
+  <div class="shortcuts-modal" id="shortcutsModal">
+    <div class="shortcuts-content">
+      <div class="shortcuts-header">
+        <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
+        <button class="close-shortcuts-btn" id="closeShortcutsBtn" aria-label="Close shortcuts">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="shortcuts-body">
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">During Test</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>←</kbd> <kbd>→</kbd></div>
+            <div class="shortcut-desc">Change color</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Space</kbd></div>
+            <div class="shortcut-desc">Next color</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Escape</kbd></div>
+            <div class="shortcut-desc">Exit fullscreen</div>
+          </div>
+        </div>
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">General</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>?</kbd></div>
+            <div class="shortcut-desc">Show shortcuts</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Keyboard Shortcuts Hint -->
+  <div class="shortcuts-hint" id="shortcutsHint">
+    <span>Press <kbd>?</kbd> for shortcuts</span>
+  </div>
+
+  <!-- Shared Tools JavaScript -->
+  <script src="../../js/tools-common.js"></script>
+  <!-- Scripts -->
+  <script src="deadpixel.js"></script>
+</body>
+</html>

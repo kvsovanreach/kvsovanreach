@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Calculate discount amounts, final prices, and savings with optional tax. Perfect for shopping and retail.">
+  <meta property="og:title" content="KVSOVANREACH | Discount Calculator">
+  <meta property="og:description" content="Calculate sales prices and savings instantly.">
+  <meta property="og:image" content="/assets/img/pwa/ios/512.png">
+  <title>KVSOVANREACH | Discount Calculator</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Common Tools CSS -->
+  <link rel="stylesheet" href="../../js/tools-common.css">
+  <!-- Discount CSS -->
+  <link rel="stylesheet" href="discount.css">
+</head>
+<body>
+  <!-- Skip to Content -->
+  <a href="#discount" class="skip-link">Skip to Discount Calculator</a>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">TOOLS</span>
+      </a>
+
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="tool-page">
+    <div class="container">
+      <!-- Discount Wrapper -->
+      <div class="discount-wrapper" id="discount">
+        <!-- Header -->
+        <div class="discount-header">
+          <h2><i class="fa-solid fa-tags"></i> Discount Calculator</h2>
+          <div class="discount-actions">
+            <button class="action-btn" id="clearBtn" title="Reset" aria-label="Reset calculator">
+              <i class="fa-solid fa-rotate"></i>
+              <span>Reset</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Content -->
+        <div class="discount-content">
+          <!-- Input Section -->
+          <div class="input-section">
+            <div class="input-card">
+              <div class="input-group">
+                <label for="originalPrice">Original Price</label>
+                <div class="price-input">
+                  <span class="currency">$</span>
+                  <input type="number" id="originalPrice" value="100" min="0" step="0.01" placeholder="0.00">
+                </div>
+              </div>
+
+              <div class="input-group">
+                <label for="discountPercent">Discount Percentage</label>
+                <div class="percent-input">
+                  <input type="number" id="discountPercent" value="20" min="0" max="100" step="1" placeholder="0">
+                  <span class="percent">%</span>
+                </div>
+                <div class="quick-percents">
+                  <button class="percent-btn" data-value="10">10%</button>
+                  <button class="percent-btn active" data-value="20">20%</button>
+                  <button class="percent-btn" data-value="25">25%</button>
+                  <button class="percent-btn" data-value="30">30%</button>
+                  <button class="percent-btn" data-value="50">50%</button>
+                  <button class="percent-btn" data-value="75">75%</button>
+                </div>
+              </div>
+
+              <div class="input-group">
+                <label for="taxRate">Sales Tax (Optional)</label>
+                <div class="percent-input">
+                  <input type="number" id="taxRate" value="0" min="0" max="100" step="0.1" placeholder="0">
+                  <span class="percent">%</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Results Section -->
+          <div class="results-section">
+            <div class="result-card main-result">
+              <div class="result-label">Final Price</div>
+              <div class="result-value" id="finalPrice">$80.00</div>
+            </div>
+
+            <div class="result-cards-row">
+              <div class="result-card savings">
+                <div class="result-icon"><i class="fa-solid fa-piggy-bank"></i></div>
+                <div class="result-info">
+                  <div class="result-label">You Save</div>
+                  <div class="result-value" id="youSave">$20.00</div>
+                </div>
+              </div>
+
+              <div class="result-card">
+                <div class="result-icon"><i class="fa-solid fa-percent"></i></div>
+                <div class="result-info">
+                  <div class="result-label">Discount Amount</div>
+                  <div class="result-value" id="discountAmount">$20.00</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="result-cards-row" id="taxRow" style="display: none;">
+              <div class="result-card">
+                <div class="result-icon"><i class="fa-solid fa-receipt"></i></div>
+                <div class="result-info">
+                  <div class="result-label">Price After Discount</div>
+                  <div class="result-value" id="priceBeforeTax">$80.00</div>
+                </div>
+              </div>
+
+              <div class="result-card">
+                <div class="result-icon"><i class="fa-solid fa-landmark"></i></div>
+                <div class="result-info">
+                  <div class="result-label">Tax Amount</div>
+                  <div class="result-value" id="taxAmount">$0.00</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Breakdown -->
+            <div class="breakdown">
+              <h4>Price Breakdown</h4>
+              <div class="breakdown-row">
+                <span>Original Price</span>
+                <span id="breakdownOriginal">$100.00</span>
+              </div>
+              <div class="breakdown-row discount">
+                <span>Discount (<span id="breakdownPercent">20</span>%)</span>
+                <span id="breakdownDiscount">-$20.00</span>
+              </div>
+              <div class="breakdown-row" id="breakdownTaxRow" style="display: none;">
+                <span>Tax (<span id="breakdownTaxPercent">0</span>%)</span>
+                <span id="breakdownTax">+$0.00</span>
+              </div>
+              <div class="breakdown-row total">
+                <span>Final Price</span>
+                <span id="breakdownTotal">$80.00</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach. All rights reserved.</p>
+        <p class="footer-made">Made with 💗 and Claude Code xD</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Keyboard Shortcuts Modal -->
+  <div class="shortcuts-modal" id="shortcutsModal">
+    <div class="shortcuts-content">
+      <div class="shortcuts-header">
+        <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
+        <button class="close-shortcuts-btn" id="closeShortcutsBtn" aria-label="Close shortcuts">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="shortcuts-body">
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">General</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>?</kbd></div>
+            <div class="shortcut-desc">Show shortcuts</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Escape</kbd></div>
+            <div class="shortcut-desc">Close modal</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Keyboard Shortcuts Hint -->
+  <div class="shortcuts-hint" id="shortcutsHint">
+    <span>Press <kbd>?</kbd> for shortcuts</span>
+  </div>
+
+  <!-- Shared Tools JavaScript -->
+  <script src="../../js/tools-common.js"></script>
+  <!-- Scripts -->
+  <script src="discount.js"></script>
+</body>
+</html>

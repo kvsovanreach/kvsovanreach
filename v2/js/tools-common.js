@@ -155,9 +155,7 @@
 
       this.hint = document.getElementById('shortcutsHint');
       this.modal = document.getElementById('shortcutsModal');
-      // Support both ID variations
-      this.closeBtn = document.getElementById('closeShortcutsBtn') ||
-                      document.getElementById('shortcutsClose');
+      this.closeBtn = document.getElementById('closeShortcutsBtn');
 
       if (!this.modal) return;
 
@@ -266,11 +264,32 @@
     }
   }
 
+  // ==================== Back Button ====================
+  const BackButton = {
+    init() {
+      const backBtn = document.querySelector('.back-btn');
+      if (!backBtn) return;
+
+      backBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+
+        // Check if there's history to go back to
+        if (window.history.length > 1) {
+          window.history.back();
+        } else {
+          // Fallback to tools page if no history
+          window.location.href = backBtn.getAttribute('href') || '../../tools.html';
+        }
+      });
+    }
+  };
+
   // ==================== Initialize Common Features ====================
   function initCommon() {
     ThemeManager.init();
     Toast.init();
     ShortcutsModal.init();
+    BackButton.init();
     setCurrentYear();
   }
 
@@ -287,6 +306,7 @@
     ThemeManager,
     Toast,
     ShortcutsModal,
+    BackButton,
     Clipboard,
     FileDownload,
 

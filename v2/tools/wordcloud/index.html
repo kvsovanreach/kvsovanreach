@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Generate beautiful word clouds from any text. Visualize word frequency with customizable colors and layouts.">
+  <meta property="og:title" content="KVSOVANREACH | Word Cloud Generator">
+  <meta property="og:description" content="Create stunning word clouds from your text with customizable styles.">
+  <meta property="og:image" content="/assets/img/pwa/ios/512.png">
+  <title>KVSOVANREACH | Word Cloud Generator</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Common Tools CSS -->
+  <link rel="stylesheet" href="../../js/tools-common.css">
+  <!-- Word Cloud CSS -->
+  <link rel="stylesheet" href="wordcloud.css">
+</head>
+<body>
+  <!-- Skip to Content -->
+  <a href="#wordcloud" class="skip-link">Skip to word cloud generator</a>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">TOOLS</span>
+      </a>
+
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="tool-page">
+    <div class="container">
+      <div class="cloud-wrapper" id="wordcloud">
+        <!-- Header -->
+        <div class="cloud-header">
+          <h2><i class="fa-solid fa-cloud"></i> Word Cloud Generator</h2>
+        </div>
+
+        <div class="cloud-card">
+          <!-- Input Section -->
+          <div class="input-section">
+            <div class="input-header">
+              <label for="textInput">Enter your text:</label>
+              <div class="input-actions">
+                <button class="input-action-btn" id="pasteBtn" title="Paste">
+                  <i class="fa-solid fa-paste"></i>
+                </button>
+                <button class="input-action-btn" id="clearBtn" title="Clear">
+                  <i class="fa-solid fa-trash"></i>
+                </button>
+                <button class="input-action-btn" id="sampleBtn" title="Load Sample">
+                  <i class="fa-solid fa-file-lines"></i>
+                </button>
+              </div>
+            </div>
+            <textarea id="textInput" placeholder="Paste or type your text here to generate a word cloud..." rows="6"></textarea>
+            <div class="input-stats">
+              <span id="wordCount">0 words</span>
+              <span id="uniqueWords">0 unique</span>
+            </div>
+          </div>
+
+          <!-- Options Section -->
+          <div class="options-section">
+            <div class="options-row">
+              <div class="option-group">
+                <label for="colorScheme">Color Scheme</label>
+                <select id="colorScheme">
+                  <option value="default">Default (Blue)</option>
+                  <option value="sunset">Sunset</option>
+                  <option value="ocean">Ocean</option>
+                  <option value="forest">Forest</option>
+                  <option value="rainbow">Rainbow</option>
+                  <option value="monochrome">Monochrome</option>
+                  <option value="pastel">Pastel</option>
+                  <option value="neon">Neon</option>
+                </select>
+              </div>
+              <div class="option-group">
+                <label for="maxWords">Max Words</label>
+                <select id="maxWords">
+                  <option value="25">25</option>
+                  <option value="50" selected>50</option>
+                  <option value="75">75</option>
+                  <option value="100">100</option>
+                  <option value="150">150</option>
+                </select>
+              </div>
+              <div class="option-group">
+                <label for="minLength">Min Word Length</label>
+                <select id="minLength">
+                  <option value="2">2</option>
+                  <option value="3" selected>3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                </select>
+              </div>
+            </div>
+            <div class="checkbox-row">
+              <label class="checkbox-label">
+                <input type="checkbox" id="excludeCommon" checked>
+                <span>Exclude common words (the, is, at, etc.)</span>
+              </label>
+              <label class="checkbox-label">
+                <input type="checkbox" id="caseSensitive">
+                <span>Case sensitive</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Generate Button -->
+          <button class="generate-btn" id="generateBtn">
+            <i class="fa-solid fa-cloud"></i>
+            <span>Generate Word Cloud</span>
+          </button>
+
+          <!-- Word Cloud Display -->
+          <div class="cloud-section hidden" id="cloudSection">
+            <div class="cloud-header">
+              <h3>Word Cloud</h3>
+              <div class="cloud-actions">
+                <button class="cloud-action-btn" id="downloadPngBtn" title="Download PNG">
+                  <i class="fa-solid fa-image"></i>
+                </button>
+                <button class="cloud-action-btn" id="downloadSvgBtn" title="Download SVG">
+                  <i class="fa-solid fa-file-code"></i>
+                </button>
+                <button class="cloud-action-btn" id="copyListBtn" title="Copy Word List">
+                  <i class="fa-solid fa-list"></i>
+                </button>
+              </div>
+            </div>
+            <div class="cloud-canvas-wrapper">
+              <div class="cloud-canvas" id="cloudCanvas"></div>
+            </div>
+          </div>
+
+          <!-- Word List -->
+          <div class="wordlist-section hidden" id="wordlistSection">
+            <div class="wordlist-header">
+              <h3>Word Frequency</h3>
+              <span class="wordlist-count" id="listCount">0 words</span>
+            </div>
+            <div class="wordlist" id="wordlist"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach. All rights reserved.</p>
+        <p class="footer-made">Made with 💗 and Claude Code xD</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Keyboard Shortcuts Hint -->
+  <div class="shortcuts-hint" id="shortcutsHint">
+    <span>Press <kbd>?</kbd> for shortcuts</span>
+  </div>
+
+  <!-- Keyboard Shortcuts Modal -->
+  <div class="shortcuts-modal" id="shortcutsModal">
+    <div class="shortcuts-content">
+      <div class="shortcuts-header">
+        <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
+        <button class="close-shortcuts-btn" id="closeShortcutsBtn">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="shortcuts-body">
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">Actions</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Ctrl</kbd> + <kbd>Enter</kbd></div>
+            <div class="shortcut-desc">Generate word cloud</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Ctrl</kbd> + <kbd>V</kbd></div>
+            <div class="shortcut-desc">Paste text</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>?</kbd></div>
+            <div class="shortcut-desc">Show shortcuts</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Shared Tools JavaScript -->
+  <script src="../../js/tools-common.js"></script>
+  <!-- Word Cloud JavaScript -->
+  <script src="wordcloud.js"></script>
+</body>
+</html>

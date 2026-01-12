@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Preview how your website will appear on Google, Facebook, Twitter, and LinkedIn. Generate optimal meta tags for SEO.">
+  <meta property="og:title" content="KVSOVANREACH | Meta Tag Previewer">
+  <meta property="og:description" content="Preview and generate meta tags for better SEO and social sharing.">
+  <meta property="og:image" content="/assets/img/pwa/ios/512.png">
+  <title>KVSOVANREACH | Meta Tag Previewer</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Common Tools CSS -->
+  <link rel="stylesheet" href="../../js/tools-common.css">
+  <!-- Meta Tag CSS -->
+  <link rel="stylesheet" href="metatag.css">
+</head>
+<body>
+  <!-- Skip to Content -->
+  <a href="#metatag" class="skip-link">Skip to meta tag previewer</a>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">TOOLS</span>
+      </a>
+
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="tool-page">
+    <div class="container">
+      <div class="meta-wrapper" id="metatag">
+        <!-- Header -->
+        <div class="meta-header">
+          <h2><i class="fa-solid fa-tags"></i> Meta Tag Previewer</h2>
+        </div>
+
+        <div class="meta-layout">
+          <!-- Input Panel -->
+          <div class="meta-input-panel">
+            <div class="meta-card">
+              <h3>Meta Tag Information</h3>
+
+              <div class="form-group">
+                <label for="pageUrl">Page URL</label>
+                <input type="url" id="pageUrl" placeholder="https://example.com/page">
+              </div>
+
+              <div class="form-group">
+                <label for="pageTitle">
+                  Title
+                  <span class="char-count" id="titleCount">0/60</span>
+                </label>
+                <input type="text" id="pageTitle" placeholder="Your page title" maxlength="70">
+                <div class="field-hint">Recommended: 50-60 characters</div>
+              </div>
+
+              <div class="form-group">
+                <label for="pageDescription">
+                  Description
+                  <span class="char-count" id="descCount">0/160</span>
+                </label>
+                <textarea id="pageDescription" placeholder="A brief description of your page content" rows="3" maxlength="200"></textarea>
+                <div class="field-hint">Recommended: 150-160 characters</div>
+              </div>
+
+              <div class="form-group">
+                <label for="pageImage">Image URL</label>
+                <input type="url" id="pageImage" placeholder="https://example.com/image.jpg">
+                <div class="field-hint">Recommended: 1200x630 pixels for social sharing</div>
+              </div>
+
+              <div class="form-group">
+                <label for="siteName">Site Name</label>
+                <input type="text" id="siteName" placeholder="Your Website">
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="twitterHandle">Twitter Handle</label>
+                  <input type="text" id="twitterHandle" placeholder="@username">
+                </div>
+                <div class="form-group">
+                  <label for="twitterCard">Twitter Card Type</label>
+                  <select id="twitterCard">
+                    <option value="summary_large_image">Large Image</option>
+                    <option value="summary">Summary</option>
+                  </select>
+                </div>
+              </div>
+
+              <button class="generate-btn" id="generateBtn">
+                <i class="fa-solid fa-code"></i>
+                <span>Generate Meta Tags</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Preview Panel -->
+          <div class="meta-preview-panel">
+            <!-- Tabs -->
+            <div class="preview-tabs">
+              <button class="preview-tab active" data-tab="google">
+                <i class="fa-brands fa-google"></i>
+                <span>Google</span>
+              </button>
+              <button class="preview-tab" data-tab="facebook">
+                <i class="fa-brands fa-facebook"></i>
+                <span>Facebook</span>
+              </button>
+              <button class="preview-tab" data-tab="twitter">
+                <i class="fa-brands fa-twitter"></i>
+                <span>Twitter</span>
+              </button>
+              <button class="preview-tab" data-tab="linkedin">
+                <i class="fa-brands fa-linkedin"></i>
+                <span>LinkedIn</span>
+              </button>
+            </div>
+
+            <!-- Google Preview -->
+            <div class="preview-panel active" id="googlePanel">
+              <div class="google-preview">
+                <div class="google-url" id="googleUrl">example.com</div>
+                <div class="google-title" id="googleTitle">Page Title</div>
+                <div class="google-desc" id="googleDesc">This is a meta description that will appear in Google search results. It should be compelling and include relevant keywords.</div>
+              </div>
+            </div>
+
+            <!-- Facebook Preview -->
+            <div class="preview-panel" id="facebookPanel">
+              <div class="facebook-preview">
+                <div class="facebook-image" id="facebookImage">
+                  <i class="fa-solid fa-image"></i>
+                </div>
+                <div class="facebook-content">
+                  <div class="facebook-site" id="facebookSite">EXAMPLE.COM</div>
+                  <div class="facebook-title" id="facebookTitle">Page Title</div>
+                  <div class="facebook-desc" id="facebookDesc">This is a meta description that will appear when shared on Facebook.</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Twitter Preview -->
+            <div class="preview-panel" id="twitterPanel">
+              <div class="twitter-preview large" id="twitterPreview">
+                <div class="twitter-image" id="twitterImage">
+                  <i class="fa-solid fa-image"></i>
+                </div>
+                <div class="twitter-content">
+                  <div class="twitter-title" id="twitterTitle">Page Title</div>
+                  <div class="twitter-desc" id="twitterDesc">This is a meta description that will appear when shared on Twitter.</div>
+                  <div class="twitter-site" id="twitterSite">example.com</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- LinkedIn Preview -->
+            <div class="preview-panel" id="linkedinPanel">
+              <div class="linkedin-preview">
+                <div class="linkedin-image" id="linkedinImage">
+                  <i class="fa-solid fa-image"></i>
+                </div>
+                <div class="linkedin-content">
+                  <div class="linkedin-title" id="linkedinTitle">Page Title</div>
+                  <div class="linkedin-desc" id="linkedinDesc">This is a description that will appear when shared on LinkedIn.</div>
+                  <div class="linkedin-site" id="linkedinSite">example.com</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Generated Code -->
+            <div class="code-section hidden" id="codeSection">
+              <div class="code-header">
+                <h4>Generated Meta Tags</h4>
+                <button class="copy-code-btn" id="copyCodeBtn">
+                  <i class="fa-solid fa-copy"></i>
+                  <span>Copy</span>
+                </button>
+              </div>
+              <pre class="code-output" id="codeOutput"></pre>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach. All rights reserved.</p>
+        <p class="footer-made">Made with 💗 and Claude Code xD</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Keyboard Shortcuts Hint -->
+  <div class="shortcuts-hint" id="shortcutsHint">
+    <span>Press <kbd>?</kbd> for shortcuts</span>
+  </div>
+
+  <!-- Keyboard Shortcuts Modal -->
+  <div class="shortcuts-modal" id="shortcutsModal">
+    <div class="shortcuts-content">
+      <div class="shortcuts-header">
+        <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
+        <button class="close-shortcuts-btn" id="closeShortcutsBtn">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="shortcuts-body">
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">Navigation</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>1</kbd></div>
+            <div class="shortcut-desc">Google preview</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>2</kbd></div>
+            <div class="shortcut-desc">Facebook preview</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>3</kbd></div>
+            <div class="shortcut-desc">Twitter preview</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>4</kbd></div>
+            <div class="shortcut-desc">LinkedIn preview</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Ctrl</kbd> + <kbd>Enter</kbd></div>
+            <div class="shortcut-desc">Generate tags</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>?</kbd></div>
+            <div class="shortcut-desc">Show shortcuts</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Shared Tools JavaScript -->
+  <script src="../../js/tools-common.js"></script>
+  <!-- Meta Tag JavaScript -->
+  <script src="metatag.js"></script>
+</body>
+</html>

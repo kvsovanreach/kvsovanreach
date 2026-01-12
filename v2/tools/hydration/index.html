@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Track your daily water intake with visual progress. Set goals and build healthy hydration habits.">
+  <meta property="og:title" content="KVSOVANREACH | Hydration Log">
+  <meta property="og:description" content="Track your daily water intake with visual feedback.">
+  <meta property="og:image" content="/assets/img/pwa/ios/512.png">
+  <title>KVSOVANREACH | Hydration Log</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Common Tools CSS -->
+  <link rel="stylesheet" href="../../js/tools-common.css">
+  <!-- Hydration CSS -->
+  <link rel="stylesheet" href="hydration.css">
+</head>
+<body>
+  <!-- Skip to Content -->
+  <a href="#hydration" class="skip-link">Skip to Hydration Log</a>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">TOOLS</span>
+      </a>
+
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="tool-page">
+    <div class="container">
+      <!-- Hydration Wrapper -->
+      <div class="hydration-wrapper" id="hydration">
+        <!-- Header -->
+        <div class="hydration-header">
+          <h2><i class="fa-solid fa-droplet"></i> Hydration Log</h2>
+          <div class="hydration-actions">
+            <button class="action-btn" id="resetBtn" title="Reset today" aria-label="Reset today's progress">
+              <i class="fa-solid fa-rotate"></i>
+              <span>Reset</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Content -->
+        <div class="hydration-content">
+          <!-- Water Bottle Visualization -->
+          <div class="bottle-section">
+            <div class="bottle-container">
+              <div class="bottle">
+                <div class="water-fill" id="waterFill"></div>
+                <div class="bottle-marks">
+                  <span>100%</span>
+                  <span>75%</span>
+                  <span>50%</span>
+                  <span>25%</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="progress-info">
+              <div class="current-amount">
+                <span class="amount" id="currentAmount">0</span>
+                <span class="unit">ml</span>
+              </div>
+              <div class="goal-amount">
+                of <span id="goalAmount">2000</span> ml goal
+              </div>
+              <div class="percentage" id="percentage">0%</div>
+            </div>
+          </div>
+
+          <!-- Quick Add Buttons -->
+          <div class="quick-add-section">
+            <h3>Quick Add</h3>
+            <div class="quick-buttons">
+              <button class="quick-btn" data-amount="100">
+                <i class="fa-solid fa-glass-water"></i>
+                <span>100ml</span>
+              </button>
+              <button class="quick-btn" data-amount="200">
+                <i class="fa-solid fa-glass-water"></i>
+                <span>200ml</span>
+              </button>
+              <button class="quick-btn" data-amount="250">
+                <i class="fa-solid fa-mug-hot"></i>
+                <span>250ml</span>
+              </button>
+              <button class="quick-btn" data-amount="330">
+                <i class="fa-solid fa-bottle-water"></i>
+                <span>330ml</span>
+              </button>
+              <button class="quick-btn" data-amount="500">
+                <i class="fa-solid fa-bottle-water"></i>
+                <span>500ml</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Settings -->
+          <div class="settings-section">
+            <h3>Daily Goal</h3>
+            <div class="goal-input">
+              <input type="number" id="goalInput" value="2000" min="500" max="5000" step="100">
+              <span>ml</span>
+              <button class="action-btn" id="setGoalBtn">Set</button>
+            </div>
+            <div class="preset-goals">
+              <button class="preset-btn" data-goal="1500">1.5L</button>
+              <button class="preset-btn active" data-goal="2000">2L</button>
+              <button class="preset-btn" data-goal="2500">2.5L</button>
+              <button class="preset-btn" data-goal="3000">3L</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach. All rights reserved.</p>
+        <p class="footer-made">Made with 💗 and Claude Code xD</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Keyboard Shortcuts Modal -->
+  <div class="shortcuts-modal" id="shortcutsModal">
+    <div class="shortcuts-content">
+      <div class="shortcuts-header">
+        <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
+        <button class="close-shortcuts-btn" id="closeShortcutsBtn" aria-label="Close shortcuts">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="shortcuts-body">
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">Quick Add</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>1</kbd><span class="key-plus">-</span><kbd>5</kbd></div>
+            <div class="shortcut-desc">Add water (100-500ml)</div>
+          </div>
+        </div>
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">General</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>?</kbd></div>
+            <div class="shortcut-desc">Show shortcuts</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Escape</kbd></div>
+            <div class="shortcut-desc">Close modal</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Keyboard Shortcuts Hint -->
+  <div class="shortcuts-hint" id="shortcutsHint">
+    <span>Press <kbd>?</kbd> for shortcuts</span>
+  </div>
+
+  <!-- Shared Tools JavaScript -->
+  <script src="../../js/tools-common.js"></script>
+  <!-- Scripts -->
+  <script src="hydration.js"></script>
+</body>
+</html>

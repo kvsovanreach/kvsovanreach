@@ -69,7 +69,7 @@
 }
 
 .section-header h3 {
-  font-size: var(--font-size-sm);
+  font-size: var(--font-size-base);
   font-weight: 600;
   color: var(--color-text);
 }
@@ -772,7 +772,7 @@
   }
 
   .section-header h3 {
-    font-size: var(--font-size-xs);
+    font-size: var(--font-size-sm);
   }
 
   .pattern-input {

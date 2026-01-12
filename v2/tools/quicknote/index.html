@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="A simple and fast note-taking tool. Create, edit, and organize your notes with local storage.">
+  <meta property="og:title" content="KVSOVANREACH | Quick Note">
+  <meta property="og:description" content="Take quick notes and save them locally in your browser.">
+  <meta property="og:image" content="/assets/img/pwa/ios/512.png">
+  <title>KVSOVANREACH | Quick Note</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Common Tools CSS -->
+  <link rel="stylesheet" href="../../js/tools-common.css">
+  <!-- Quick Note CSS -->
+  <link rel="stylesheet" href="quicknote.css">
+</head>
+<body>
+  <!-- Skip to Content -->
+  <a href="#quicknote" class="skip-link">Skip to quick note</a>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">TOOLS</span>
+      </a>
+
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="tool-page">
+    <div class="container">
+      <div class="note-wrapper" id="quicknote">
+        <!-- Header -->
+        <div class="note-header">
+          <h2><i class="fa-solid fa-note-sticky"></i> Quick Note</h2>
+          <div class="header-actions">
+            <button class="header-btn secondary" id="toggleListBtn" title="Show/Hide Notes List">
+              <i class="fa-solid fa-list"></i>
+              <span class="note-count-badge" id="noteCountBadge">0</span>
+            </button>
+            <button class="header-btn" id="newNoteBtn" title="New Note">
+              <i class="fa-solid fa-plus"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Search Bar -->
+        <div class="search-bar">
+          <i class="fa-solid fa-search"></i>
+          <input type="text" class="search-input" id="searchInput" placeholder="Search notes...">
+          <button class="clear-search-btn" id="clearSearchBtn" title="Clear search">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+
+        <!-- Notes Container -->
+        <div class="notes-container">
+          <!-- Notes List -->
+          <div class="notes-list" id="notesList">
+            <div class="notes-empty" id="notesEmpty">
+              <i class="fa-solid fa-sticky-note"></i>
+              <p>No notes yet</p>
+              <span>Click the + button to create your first note</span>
+            </div>
+          </div>
+
+          <!-- Note Editor -->
+          <div class="note-editor" id="noteEditor">
+            <div class="editor-header">
+              <input type="text" class="note-title-input" id="noteTitleInput" placeholder="Note title...">
+              <div class="editor-actions">
+                <button class="editor-btn" id="saveNoteBtn" title="Save (Ctrl+S)">
+                  <i class="fa-solid fa-check"></i>
+                </button>
+                <button class="editor-btn danger" id="deleteNoteBtn" title="Delete">
+                  <i class="fa-solid fa-trash"></i>
+                </button>
+              </div>
+            </div>
+            <textarea class="note-content-input" id="noteContentInput" placeholder="Write your note here..."></textarea>
+            <div class="editor-footer">
+              <span class="note-meta" id="noteMeta"></span>
+              <div class="editor-counts">
+                <span class="word-count" id="wordCount">0 words</span>
+                <span class="count-divider">|</span>
+                <span class="char-count" id="charCount">0 characters</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stats Bar -->
+        <div class="stats-bar">
+          <div class="stat-item">
+            <i class="fa-solid fa-file-lines"></i>
+            <span id="totalNotes">0</span> notes
+          </div>
+          <div class="stat-item">
+            <i class="fa-solid fa-font"></i>
+            <span id="totalChars">0</span> total characters
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach. All rights reserved.</p>
+        <p class="footer-made">Made with 💗 and Claude Code xD</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Keyboard Shortcuts Hint -->
+  <div class="shortcuts-hint" id="shortcutsHint">
+    <span>Press <kbd>?</kbd> for shortcuts</span>
+  </div>
+
+  <!-- Keyboard Shortcuts Modal -->
+  <div class="shortcuts-modal" id="shortcutsModal">
+    <div class="shortcuts-content">
+      <div class="shortcuts-header">
+        <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
+        <button class="close-shortcuts-btn" id="closeShortcutsBtn">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="shortcuts-body">
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">Notes</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Ctrl</kbd>+<kbd>N</kbd></div>
+            <div class="shortcut-desc">New note</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Ctrl</kbd>+<kbd>S</kbd></div>
+            <div class="shortcut-desc">Save note</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Ctrl</kbd>+<kbd>F</kbd></div>
+            <div class="shortcut-desc">Focus search</div>
+          </div>
+        </div>
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">Navigation</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Esc</kbd></div>
+            <div class="shortcut-desc">Clear selection / Close modal</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>?</kbd></div>
+            <div class="shortcut-desc">Show shortcuts</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Delete Confirmation Modal -->
+  <div class="confirm-modal" id="confirmModal">
+    <div class="confirm-content">
+      <div class="confirm-header">
+        <i class="fa-solid fa-triangle-exclamation"></i>
+        <h3>Delete Note?</h3>
+      </div>
+      <p>Are you sure you want to delete this note? This action cannot be undone.</p>
+      <div class="confirm-actions">
+        <button class="confirm-btn cancel" id="cancelDeleteBtn">Cancel</button>
+        <button class="confirm-btn danger" id="confirmDeleteBtn">Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Shared Tools JavaScript -->
+  <script src="../../js/tools-common.js"></script>
+  <!-- Quick Note JavaScript -->
+  <script src="quicknote.js"></script>
+</body>
+</html>

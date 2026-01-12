@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Convert between Arabic numerals and Roman numerals. Bi-directional conversion with automatic detection.">
+  <meta property="og:title" content="KVSOVANREACH | Roman Numeral Converter">
+  <meta property="og:description" content="Convert numbers to Roman numerals and vice versa.">
+  <meta property="og:image" content="/assets/img/pwa/ios/512.png">
+  <title>KVSOVANREACH | Roman Numeral Converter</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Cinzel:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Common Tools CSS -->
+  <link rel="stylesheet" href="../../js/tools-common.css">
+  <!-- Roman Numeral CSS -->
+  <link rel="stylesheet" href="romannumeral.css">
+</head>
+<body>
+  <!-- Skip to Content -->
+  <a href="#romannumeral" class="skip-link">Skip to Roman Numeral Converter</a>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">TOOLS</span>
+      </a>
+
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="tool-page">
+    <div class="container">
+      <!-- Roman Numeral Wrapper -->
+      <div class="roman-wrapper" id="romannumeral">
+        <!-- Header -->
+        <div class="roman-header">
+          <h2><i class="fa-solid fa-landmark-dome"></i> Roman Numeral Converter</h2>
+        </div>
+
+        <!-- Content -->
+        <div class="roman-content">
+          <!-- Input Section -->
+          <div class="input-section">
+            <label for="inputValue">Enter a number or Roman numeral</label>
+            <input type="text" id="inputValue" value="2026" placeholder="e.g., 2026 or MMXXVI" autocomplete="off">
+            <div class="input-hint" id="inputHint">Type a number (1-3999) or Roman numeral</div>
+          </div>
+
+          <!-- Result Display -->
+          <div class="result-display">
+            <div class="result-card arabic" id="arabicCard">
+              <div class="result-label">Arabic Number</div>
+              <div class="result-value" id="arabicValue">2026</div>
+            </div>
+
+            <div class="convert-arrow">
+              <i class="fa-solid fa-arrows-left-right"></i>
+            </div>
+
+            <div class="result-card roman" id="romanCard">
+              <div class="result-label">Roman Numeral</div>
+              <div class="result-value roman-text" id="romanValue">MMXXVI</div>
+            </div>
+          </div>
+
+          <!-- Copy Buttons -->
+          <div class="copy-actions">
+            <button class="action-btn secondary" id="copyArabicBtn">
+              <i class="fa-solid fa-copy"></i>
+              <span>Copy Arabic</span>
+            </button>
+            <button class="action-btn secondary" id="copyRomanBtn">
+              <i class="fa-solid fa-copy"></i>
+              <span>Copy Roman</span>
+            </button>
+          </div>
+
+          <!-- Quick Reference -->
+          <div class="reference-section">
+            <h3>Quick Reference</h3>
+            <div class="reference-grid">
+              <div class="ref-item"><span class="ref-roman">I</span><span class="ref-arabic">1</span></div>
+              <div class="ref-item"><span class="ref-roman">V</span><span class="ref-arabic">5</span></div>
+              <div class="ref-item"><span class="ref-roman">X</span><span class="ref-arabic">10</span></div>
+              <div class="ref-item"><span class="ref-roman">L</span><span class="ref-arabic">50</span></div>
+              <div class="ref-item"><span class="ref-roman">C</span><span class="ref-arabic">100</span></div>
+              <div class="ref-item"><span class="ref-roman">D</span><span class="ref-arabic">500</span></div>
+              <div class="ref-item"><span class="ref-roman">M</span><span class="ref-arabic">1000</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach. All rights reserved.</p>
+        <p class="footer-made">Made with 💗 and Claude Code xD</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Keyboard Shortcuts Modal -->
+  <div class="shortcuts-modal" id="shortcutsModal">
+    <div class="shortcuts-content">
+      <div class="shortcuts-header">
+        <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
+        <button class="close-shortcuts-btn" id="closeShortcutsBtn" aria-label="Close shortcuts">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="shortcuts-body">
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">General</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>?</kbd></div>
+            <div class="shortcut-desc">Show shortcuts</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Escape</kbd></div>
+            <div class="shortcut-desc">Close modal</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Keyboard Shortcuts Hint -->
+  <div class="shortcuts-hint" id="shortcutsHint">
+    <span>Press <kbd>?</kbd> for shortcuts</span>
+  </div>
+
+  <!-- Shared Tools JavaScript -->
+  <script src="../../js/tools-common.js"></script>
+  <!-- Scripts -->
+  <script src="romannumeral.js"></script>
+</body>
+</html>

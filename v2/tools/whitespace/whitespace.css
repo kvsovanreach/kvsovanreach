@@ -1,0 +1,214 @@
+/**
+ * Whitespace Stripper Tool Styles
+ */
+
+/* ==================== Wrapper ==================== */
+.whitespace-wrapper {
+  width: 100%;
+}
+
+/* ==================== Header ==================== */
+.whitespace-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-4) var(--space-5);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+}
+
+.whitespace-header h2 {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-size: var(--font-size-xl);
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.whitespace-header h2 i {
+  color: var(--color-primary);
+}
+
+/* ==================== Main Card ==================== */
+.whitespace-card {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-top: none;
+  border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+  padding: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+/* ==================== Input/Output Section ==================== */
+.input-section,
+.output-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.input-header,
+.output-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.input-header label,
+.output-header label {
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  color: var(--color-text-secondary);
+}
+
+.input-actions,
+.output-actions {
+  display: flex;
+  gap: var(--space-2);
+}
+
+textarea {
+  width: 100%;
+  padding: var(--space-4);
+  font-size: var(--font-size-base);
+  font-family: 'Monaco', 'Menlo', monospace;
+  line-height: 1.6;
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  resize: vertical;
+  transition: all var(--transition-fast);
+}
+
+textarea:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(55, 118, 161, 0.1);
+}
+
+#outputText {
+  background-color: var(--color-bg-secondary);
+}
+
+.input-stats,
+.output-stats {
+  display: flex;
+  gap: var(--space-4);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+}
+
+.input-stats span span,
+.output-stats span span {
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.output-stats .removed {
+  color: #22c55e;
+}
+
+.output-stats .removed span {
+  color: #22c55e;
+}
+
+/* ==================== Options Section ==================== */
+.options-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.options-section h4 {
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.options-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-3);
+}
+
+.option-label {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+}
+
+.option-label input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--color-primary);
+  cursor: pointer;
+}
+
+.option-label:hover {
+  color: var(--color-text);
+}
+
+/* ==================== Clean Button ==================== */
+.clean-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: var(--space-4);
+  font-size: var(--font-size-base);
+  font-weight: 600;
+  color: #fff;
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+  border: none;
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.clean-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* ==================== Responsive ==================== */
+@media screen and (max-width: 768px) {
+  .whitespace-card {
+    padding: var(--space-4);
+  }
+
+  .options-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .input-header,
+  .output-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-2);
+  }
+
+  .input-actions,
+  .output-actions {
+    width: 100%;
+  }
+
+  .input-actions .action-btn,
+  .output-actions .action-btn {
+    flex: 1;
+    justify-content: center;
+  }
+
+  .input-stats,
+  .output-stats {
+    flex-wrap: wrap;
+    gap: var(--space-2);
+  }
+}

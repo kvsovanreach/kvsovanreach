@@ -1,0 +1,396 @@
+/**
+ * Lorem Ipsum Generator Styles
+ */
+
+/* ==================== Wrapper ==================== */
+.lorem-wrapper {
+  width: 100%;
+}
+
+/* ==================== Header ==================== */
+.lorem-header {
+  display: flex;
+  align-items: center;
+  padding: var(--space-4) var(--space-5);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+}
+
+.lorem-header h2 {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-size: var(--font-size-xl);
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.lorem-header h2 i {
+  color: var(--color-primary);
+}
+
+/* ==================== Tabs ==================== */
+.lorem-tabs {
+  display: flex;
+  background-color: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-top: none;
+  overflow: hidden;
+}
+
+.lorem-tab {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-4);
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  position: relative;
+}
+
+.lorem-tab:hover {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+}
+
+.lorem-tab.active {
+  color: var(--color-primary);
+  background-color: var(--color-bg);
+}
+
+.lorem-tab.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-color: var(--color-primary);
+}
+
+/* ==================== Main Content ==================== */
+.lorem-main {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-top: none;
+  border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+  padding: var(--space-5);
+}
+
+.lorem-panel {
+  display: none;
+}
+
+.lorem-panel.active {
+  display: block;
+}
+
+/* ==================== Generator Section ==================== */
+.generator-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.options-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-4);
+}
+
+.option-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.option-group label {
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  color: var(--color-text-secondary);
+}
+
+.option-group input[type="number"] {
+  padding: var(--space-3) var(--space-4);
+  font-size: var(--font-size-base);
+  font-family: inherit;
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.option-group select {
+  padding: var(--space-3) var(--space-6) var(--space-3) var(--space-4);
+  font-size: var(--font-size-base);
+  font-family: inherit;
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right var(--space-3) center;
+  outline: none;
+}
+
+.option-group input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(55, 118, 161, 0.1);
+}
+
+/* ==================== Checkbox Options ==================== */
+.checkbox-options {
+  display: flex;
+  gap: var(--space-6);
+  flex-wrap: wrap;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+}
+
+.checkbox-label input {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--color-primary);
+  cursor: pointer;
+}
+
+/* ==================== Generate Button ==================== */
+.generate-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: var(--space-4);
+  font-size: var(--font-size-base);
+  font-weight: 600;
+  color: #fff;
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+  border: none;
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.generate-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* ==================== Output Section ==================== */
+.output-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.output-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.output-header label {
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  color: var(--color-text-secondary);
+}
+
+.output-stats {
+  display: flex;
+  gap: var(--space-4);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+}
+
+.output-stats span span {
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.output-actions {
+  display: flex;
+  gap: var(--space-2);
+}
+
+#loremOutput {
+  width: 100%;
+  min-height: 250px;
+  padding: var(--space-4);
+  font-size: var(--font-size-base);
+  font-family: inherit;
+  line-height: 1.8;
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  resize: vertical;
+}
+
+/* ==================== Preview Section ==================== */
+.preview-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.preview-controls {
+  display: flex;
+  gap: var(--space-6);
+  padding: var(--space-4);
+  background-color: var(--color-bg);
+  border-radius: var(--radius-md);
+}
+
+.preview-option {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex: 1;
+}
+
+.preview-option label {
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  white-space: nowrap;
+}
+
+.preview-option input[type="range"] {
+  flex: 1;
+  height: 6px;
+  background-color: var(--color-border);
+  border-radius: var(--radius-full);
+  -webkit-appearance: none;
+  appearance: none;
+  cursor: pointer;
+  outline: none;
+}
+
+.preview-option input[type="range"]::-webkit-slider-runnable-track {
+  height: 6px;
+  border-radius: var(--radius-full);
+  background-color: var(--color-border);
+}
+
+.preview-option input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  background-color: var(--color-primary);
+  border-radius: 50%;
+  cursor: pointer;
+  margin-top: -5px;
+}
+
+.preview-option input[type="range"]::-moz-range-track {
+  height: 6px;
+  border-radius: var(--radius-full);
+  background-color: var(--color-border);
+}
+
+.preview-option input[type="range"]::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  background-color: var(--color-primary);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.preview-option span {
+  font-size: var(--font-size-xs);
+  font-family: 'Monaco', 'Menlo', monospace;
+  color: var(--color-text-muted);
+  min-width: 50px;
+}
+
+.preview-content {
+  min-height: 300px;
+  padding: var(--space-5);
+  background-color: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  overflow-y: auto;
+}
+
+.preview-content p {
+  margin-bottom: var(--space-4);
+  color: var(--color-text);
+}
+
+.preview-content p:last-child {
+  margin-bottom: 0;
+}
+
+.preview-content .placeholder {
+  color: var(--color-text-muted);
+  font-style: italic;
+}
+
+/* ==================== Responsive ==================== */
+@media screen and (max-width: 768px) {
+  .lorem-main {
+    padding: var(--space-4);
+    border-radius: 0 0 var(--radius-md) var(--radius-md);
+  }
+
+  .options-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .checkbox-options {
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .preview-controls {
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .output-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-2);
+  }
+
+  .output-actions {
+    width: 100%;
+  }
+
+  .output-actions .action-btn {
+    flex: 1;
+    justify-content: center;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .lorem-tab span {
+    display: none;
+  }
+}

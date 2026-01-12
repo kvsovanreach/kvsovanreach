@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Pali-English glossary for Buddhist philosophical terms. Search and explore terminology.">
+  <meta property="og:title" content="KVSOVANREACH | Pali Glossary">
+  <meta property="og:description" content="Buddhist terminology reference with instant search.">
+  <meta property="og:image" content="/assets/img/pwa/ios/512.png">
+  <title>KVSOVANREACH | Pali Glossary</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Common Tools CSS -->
+  <link rel="stylesheet" href="../../js/tools-common.css">
+  <!-- Pali Glossary CSS -->
+  <link rel="stylesheet" href="paliglossary.css">
+</head>
+<body>
+  <!-- Skip to Content -->
+  <a href="#paliglossary" class="skip-link">Skip to Pali Glossary</a>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">TOOLS</span>
+      </a>
+
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="tool-page">
+    <div class="container">
+      <!-- Glossary Wrapper -->
+      <div class="glossary-wrapper" id="paliglossary">
+        <!-- Header -->
+        <div class="glossary-header">
+          <h2><i class="fa-solid fa-om"></i> Pali Glossary</h2>
+          <div class="glossary-actions">
+            <button class="action-btn" id="toggleModeBtn" title="Toggle search mode" aria-label="Toggle search mode">
+              <i class="fa-solid fa-repeat"></i>
+              <span>Mode</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Content -->
+        <div class="glossary-content">
+          <!-- Search Section -->
+          <div class="search-section">
+            <div class="search-mode" id="searchMode">
+              <span class="mode-label">Search:</span>
+              <span class="mode-value" id="modeValue">English to Pali</span>
+            </div>
+            <div class="search-box">
+              <i class="fa-solid fa-search search-icon"></i>
+              <input
+                type="text"
+                class="search-input"
+                id="searchInput"
+                placeholder="Type to search terms..."
+                autocomplete="off"
+              >
+              <button class="clear-search-btn" id="clearSearchBtn" aria-label="Clear search">
+                <i class="fa-solid fa-xmark"></i>
+              </button>
+            </div>
+            <div class="search-stats" id="searchStats">
+              Showing <span id="resultsCount">0</span> of <span id="totalCount">0</span> terms
+            </div>
+          </div>
+
+          <!-- Results Section -->
+          <div class="results-section" id="resultsSection">
+            <div class="results-list" id="resultsList">
+              <!-- Results populated by JS -->
+            </div>
+            <div class="no-results" id="noResults">
+              <i class="fa-solid fa-search"></i>
+              <p>No terms found</p>
+              <span>Try a different search term</span>
+            </div>
+          </div>
+
+          <!-- Categories Section -->
+          <div class="categories-section">
+            <h3>Categories</h3>
+            <div class="category-tags" id="categoryTags">
+              <button class="category-tag active" data-category="all">All</button>
+              <button class="category-tag" data-category="core">Core Concepts</button>
+              <button class="category-tag" data-category="practice">Practice</button>
+              <button class="category-tag" data-category="mind">Mind & Mental</button>
+              <button class="category-tag" data-category="path">The Path</button>
+              <button class="category-tag" data-category="misc">Miscellaneous</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach. All rights reserved.</p>
+        <p class="footer-made">Made with 💗 and Claude Code xD</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Keyboard Shortcuts Modal -->
+  <div class="shortcuts-modal" id="shortcutsModal">
+    <div class="shortcuts-content">
+      <div class="shortcuts-header">
+        <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
+        <button class="close-shortcuts-btn" id="closeShortcutsBtn" aria-label="Close shortcuts">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="shortcuts-body">
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">Navigation</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>/</kbd></div>
+            <div class="shortcut-desc">Focus search</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>M</kbd></div>
+            <div class="shortcut-desc">Toggle search mode</div>
+          </div>
+        </div>
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">General</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>?</kbd></div>
+            <div class="shortcut-desc">Show shortcuts</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Escape</kbd></div>
+            <div class="shortcut-desc">Close modal / Clear search</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Keyboard Shortcuts Hint -->
+  <div class="shortcuts-hint" id="shortcutsHint">
+    <span>Press <kbd>?</kbd> for shortcuts</span>
+  </div>
+
+  <!-- Shared Tools JavaScript -->
+  <script src="../../js/tools-common.js"></script>
+  <!-- Scripts -->
+  <script src="paliglossary.js"></script>
+</body>
+</html>

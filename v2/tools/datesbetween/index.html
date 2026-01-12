@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Calculate the number of days, weeks, months, and years between two dates.">
+  <meta property="og:title" content="KVSOVANREACH | Days Between Dates">
+  <meta property="og:description" content="Find out exactly how many days are between any two dates.">
+  <meta property="og:image" content="/assets/img/pwa/ios/512.png">
+  <title>KVSOVANREACH | Days Between Dates</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Common Tools CSS -->
+  <link rel="stylesheet" href="../../js/tools-common.css">
+  <!-- Days Between CSS -->
+  <link rel="stylesheet" href="datesbetween.css">
+</head>
+<body>
+  <!-- Skip to Content -->
+  <a href="#datesbetween" class="skip-link">Skip to date calculator</a>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">TOOLS</span>
+      </a>
+
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="tool-page">
+    <div class="container">
+      <div class="dates-wrapper" id="datesbetween">
+        <!-- Header -->
+        <div class="dates-header">
+          <h2><i class="fa-solid fa-calendar-days"></i> Days Between Dates</h2>
+        </div>
+
+        <div class="dates-card">
+          <!-- Date Inputs -->
+          <div class="dates-inputs">
+            <div class="date-group">
+              <label for="startDate">Start Date</label>
+              <input type="date" id="startDate">
+              <button class="today-btn" id="startTodayBtn">Today</button>
+            </div>
+
+            <div class="date-arrow">
+              <i class="fa-solid fa-arrow-right"></i>
+            </div>
+
+            <div class="date-group">
+              <label for="endDate">End Date</label>
+              <input type="date" id="endDate">
+              <button class="today-btn" id="endTodayBtn">Today</button>
+            </div>
+          </div>
+
+          <!-- Options -->
+          <div class="options-row">
+            <label class="option-label">
+              <input type="checkbox" id="includeEndDate">
+              <span>Include end date in count</span>
+            </label>
+            <label class="option-label">
+              <input type="checkbox" id="workdaysOnly">
+              <span>Workdays only (Mon-Fri)</span>
+            </label>
+          </div>
+
+          <!-- Calculate Button -->
+          <button class="calculate-btn" id="calculateBtn">
+            <i class="fa-solid fa-calculator"></i>
+            <span>Calculate</span>
+          </button>
+
+          <!-- Results -->
+          <div class="results-section hidden" id="resultsSection">
+            <div class="main-result">
+              <div class="result-number" id="totalDays">0</div>
+              <div class="result-label">days</div>
+            </div>
+
+            <div class="detail-results">
+              <div class="detail-item">
+                <span class="detail-value" id="totalWeeks">0</span>
+                <span class="detail-label">weeks</span>
+              </div>
+              <div class="detail-item">
+                <span class="detail-value" id="totalMonths">0</span>
+                <span class="detail-label">months</span>
+              </div>
+              <div class="detail-item">
+                <span class="detail-value" id="totalYears">0</span>
+                <span class="detail-label">years</span>
+              </div>
+              <div class="detail-item">
+                <span class="detail-value" id="totalHours">0</span>
+                <span class="detail-label">hours</span>
+              </div>
+            </div>
+
+            <div class="breakdown-section">
+              <h4>Breakdown</h4>
+              <div class="breakdown-text" id="breakdownText">
+                0 years, 0 months, 0 days
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach. All rights reserved.</p>
+        <p class="footer-made">Made with 💗 and Claude Code xD</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Keyboard Shortcuts Hint -->
+  <div class="shortcuts-hint" id="shortcutsHint">
+    <span>Press <kbd>?</kbd> for shortcuts</span>
+  </div>
+
+  <!-- Keyboard Shortcuts Modal -->
+  <div class="shortcuts-modal" id="shortcutsModal">
+    <div class="shortcuts-content">
+      <div class="shortcuts-header">
+        <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
+        <button class="close-shortcuts-btn" id="closeShortcutsBtn">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="shortcuts-body">
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">Actions</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Enter</kbd></div>
+            <div class="shortcut-desc">Calculate</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>?</kbd></div>
+            <div class="shortcut-desc">Show shortcuts</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Shared Tools JavaScript -->
+  <script src="../../js/tools-common.js"></script>
+  <!-- Days Between JavaScript -->
+  <script src="datesbetween.js"></script>
+</body>
+</html>

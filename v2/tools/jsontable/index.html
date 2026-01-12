@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Convert JSON data to table view or CSV format. Visualize and export your JSON data easily.">
+  <meta property="og:title" content="KVSOVANREACH | JSON to Table">
+  <meta property="og:description" content="Convert JSON data to table view or CSV format. Visualize and export your JSON data easily.">
+  <meta property="og:image" content="/assets/img/pwa/ios/512.png">
+  <title>KVSOVANREACH | JSON to Table</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Common Tools CSS -->
+  <link rel="stylesheet" href="../../js/tools-common.css">
+  <!-- JSON to Table CSS -->
+  <link rel="stylesheet" href="jsontable.css">
+</head>
+<body>
+  <!-- Skip to Content -->
+  <a href="#jsontable" class="skip-link">Skip to JSON converter</a>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">TOOLS</span>
+      </a>
+
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="tool-page">
+    <div class="container">
+      <div class="json-wrapper" id="jsontable">
+        <!-- Header -->
+        <div class="json-header">
+          <h2><i class="fa-solid fa-table"></i> JSON to Table</h2>
+        </div>
+
+        <!-- Tab Navigation -->
+        <div class="json-tabs">
+          <button class="json-tab active" data-tab="converter">
+            <i class="fa-solid fa-table"></i>
+            <span>Converter</span>
+          </button>
+          <button class="json-tab" data-tab="table">
+            <i class="fa-solid fa-table-cells"></i>
+            <span>Table View</span>
+          </button>
+          <button class="json-tab" data-tab="csv">
+            <i class="fa-solid fa-file-csv"></i>
+            <span>CSV Export</span>
+          </button>
+        </div>
+
+        <!-- Main Content Area -->
+        <div class="json-main">
+          <!-- Converter Panel -->
+          <div class="json-panel active" id="converterPanel">
+            <div class="converter-layout">
+              <!-- Input Section -->
+              <div class="input-section">
+                <div class="input-header">
+                  <label for="jsonInput">Paste JSON Data</label>
+                  <div class="input-actions">
+                    <button class="action-btn" id="sampleBtn" title="Load sample">
+                      <i class="fa-solid fa-flask"></i>
+                      <span>Sample</span>
+                    </button>
+                    <button class="action-btn" id="pasteBtn" title="Paste">
+                      <i class="fa-solid fa-paste"></i>
+                    </button>
+                    <button class="action-btn" id="clearBtn" title="Clear">
+                      <i class="fa-solid fa-trash"></i>
+                    </button>
+                  </div>
+                </div>
+                <textarea id="jsonInput" placeholder='[{"name": "John", "age": 30}, {"name": "Jane", "age": 25}]' rows="12"></textarea>
+                <div class="input-error" id="inputError"></div>
+              </div>
+
+              <!-- Convert Button -->
+              <button class="convert-btn" id="convertBtn">
+                <i class="fa-solid fa-wand-magic-sparkles"></i>
+                <span>Convert to Table</span>
+              </button>
+
+              <!-- Stats -->
+              <div class="json-stats" id="jsonStats" style="display: none;">
+                <div class="stat-item">
+                  <i class="fa-solid fa-list"></i>
+                  <span><strong id="rowCount">0</strong> rows</span>
+                </div>
+                <div class="stat-item">
+                  <i class="fa-solid fa-table-columns"></i>
+                  <span><strong id="colCount">0</strong> columns</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Table View Panel -->
+          <div class="json-panel" id="tablePanel">
+            <div class="table-section">
+              <div class="table-controls">
+                <div class="table-search">
+                  <i class="fa-solid fa-search"></i>
+                  <input type="text" id="tableSearch" placeholder="Search in table...">
+                </div>
+                <div class="table-actions">
+                  <button class="action-btn" id="copyTableBtn" title="Copy as HTML">
+                    <i class="fa-solid fa-code"></i>
+                    <span>Copy HTML</span>
+                  </button>
+                </div>
+              </div>
+              <div class="table-wrapper" id="tableWrapper">
+                <div class="output-empty">
+                  <i class="fa-solid fa-table"></i>
+                  <p>Table will appear here</p>
+                  <span>Convert JSON in the Converter tab first</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- CSV Export Panel -->
+          <div class="json-panel" id="csvPanel">
+            <div class="csv-section">
+              <div class="csv-options">
+                <div class="option-group">
+                  <label class="option-label">
+                    <input type="checkbox" id="includeHeaders" checked>
+                    <span>Include Headers</span>
+                  </label>
+                </div>
+                <div class="option-group">
+                  <label>Delimiter:</label>
+                  <select id="delimiter">
+                    <option value=",">Comma (,)</option>
+                    <option value=";">Semicolon (;)</option>
+                    <option value="\t">Tab</option>
+                    <option value="|">Pipe (|)</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="csv-output">
+                <div class="csv-header">
+                  <label>CSV Output</label>
+                  <div class="csv-actions">
+                    <button class="action-btn" id="copyCsvBtn" title="Copy CSV">
+                      <i class="fa-solid fa-copy"></i>
+                      <span>Copy</span>
+                    </button>
+                    <button class="action-btn" id="downloadCsvBtn" title="Download CSV">
+                      <i class="fa-solid fa-download"></i>
+                      <span>Download</span>
+                    </button>
+                  </div>
+                </div>
+                <textarea id="csvOutput" readonly placeholder="CSV output will appear here..."></textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach. All rights reserved.</p>
+        <p class="footer-made">Made with 💗 and Claude Code xD</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Keyboard Shortcuts Hint -->
+  <div class="shortcuts-hint" id="shortcutsHint">
+    <span>Press <kbd>?</kbd> for shortcuts</span>
+  </div>
+
+  <!-- Keyboard Shortcuts Modal -->
+  <div class="shortcuts-modal" id="shortcutsModal">
+    <div class="shortcuts-content">
+      <div class="shortcuts-header">
+        <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
+        <button class="close-shortcuts-btn" id="closeShortcutsBtn">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="shortcuts-body">
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">Actions</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Ctrl</kbd><span class="key-plus">+</span><kbd>Enter</kbd></div>
+            <div class="shortcut-desc">Convert JSON</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Ctrl</kbd><span class="key-plus">+</span><kbd>S</kbd></div>
+            <div class="shortcut-desc">Download CSV</div>
+          </div>
+        </div>
+
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">Navigation</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>1</kbd></div>
+            <div class="shortcut-desc">Converter tab</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>2</kbd></div>
+            <div class="shortcut-desc">Table tab</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>3</kbd></div>
+            <div class="shortcut-desc">CSV tab</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>?</kbd></div>
+            <div class="shortcut-desc">Show shortcuts</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Shared Tools JavaScript -->
+  <script src="../../js/tools-common.js"></script>
+  <!-- JSON to Table JavaScript -->
+  <script src="jsontable.js"></script>
+</body>
+</html>

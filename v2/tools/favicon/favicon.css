@@ -255,9 +255,16 @@
   flex: 1;
   height: 6px;
   -webkit-appearance: none;
+  appearance: none;
   background: var(--color-border);
   border-radius: var(--radius-full);
   outline: none;
+}
+
+.padding-control input[type="range"]::-webkit-slider-runnable-track {
+  height: 6px;
+  border-radius: var(--radius-full);
+  background: var(--color-border);
 }
 
 .padding-control input[type="range"]::-webkit-slider-thumb {
@@ -265,6 +272,22 @@
   width: 16px;
   height: 16px;
   background: var(--color-primary);
+  border-radius: 50%;
+  cursor: pointer;
+  margin-top: -5px;
+}
+
+.padding-control input[type="range"]::-moz-range-track {
+  height: 6px;
+  border-radius: var(--radius-full);
+  background: var(--color-border);
+}
+
+.padding-control input[type="range"]::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  background: var(--color-primary);
+  border: none;
   border-radius: 50%;
   cursor: pointer;
 }
@@ -283,7 +306,7 @@
 .previews-section h3,
 .browser-preview-section h3,
 .download-section h3 {
-  font-size: var(--font-size-sm);
+  font-size: var(--font-size-base);
   font-weight: 600;
   color: var(--color-text);
   margin-bottom: var(--space-3);

@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Count tokens for LLM models like GPT-4, Claude, and more. Estimate costs and character counts.">
+  <meta property="og:title" content="KVSOVANREACH | Token Counter">
+  <meta property="og:description" content="Count tokens for LLM models like GPT-4, Claude, and more. Estimate costs instantly.">
+  <meta property="og:image" content="/assets/img/pwa/ios/512.png">
+  <title>KVSOVANREACH | Token Counter</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Common Tools CSS -->
+  <link rel="stylesheet" href="../../js/tools-common.css">
+  <!-- Token Counter CSS -->
+  <link rel="stylesheet" href="tokencount.css">
+</head>
+<body>
+  <!-- Skip to Content -->
+  <a href="#tokencount" class="skip-link">Skip to token counter</a>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">TOOLS</span>
+      </a>
+
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="tool-page">
+    <div class="container">
+      <div class="token-wrapper" id="tokencount">
+        <!-- Header -->
+        <div class="token-header">
+          <h2><i class="fa-solid fa-coins"></i> Token Counter</h2>
+        </div>
+
+        <!-- Tab Navigation -->
+        <div class="token-tabs">
+          <button class="token-tab active" data-tab="counter">
+            <i class="fa-solid fa-coins"></i>
+            <span>Counter</span>
+          </button>
+          <button class="token-tab" data-tab="visualizer">
+            <i class="fa-solid fa-eye"></i>
+            <span>Visualizer</span>
+          </button>
+          <button class="token-tab" data-tab="pricing">
+            <i class="fa-solid fa-dollar-sign"></i>
+            <span>Pricing</span>
+          </button>
+        </div>
+
+        <!-- Main Content Area -->
+        <div class="token-main">
+          <!-- Counter Panel -->
+          <div class="token-panel active" id="counterPanel">
+            <div class="counter-layout">
+              <!-- Left: Input Section -->
+              <div class="counter-input">
+                <!-- Model Selector -->
+                <div class="model-selector">
+                  <label for="modelSelect">Select Model</label>
+                  <select id="modelSelect">
+                    <optgroup label="OpenAI">
+                      <option value="gpt4o">GPT-4o</option>
+                      <option value="gpt4o-mini">GPT-4o Mini</option>
+                      <option value="gpt4-turbo">GPT-4 Turbo</option>
+                      <option value="gpt35-turbo">GPT-3.5 Turbo</option>
+                    </optgroup>
+                    <optgroup label="Anthropic">
+                      <option value="claude-opus" selected>Claude Opus</option>
+                      <option value="claude-sonnet">Claude Sonnet</option>
+                      <option value="claude-haiku">Claude Haiku</option>
+                    </optgroup>
+                    <optgroup label="Google">
+                      <option value="gemini-pro">Gemini Pro</option>
+                      <option value="gemini-flash">Gemini Flash</option>
+                    </optgroup>
+                  </select>
+                </div>
+
+                <!-- Input Area -->
+                <div class="input-section">
+                  <div class="input-header">
+                    <label for="textInput">Enter Text</label>
+                    <div class="input-actions">
+                      <button class="action-btn" id="pasteBtn" title="Paste">
+                        <i class="fa-solid fa-paste"></i>
+                      </button>
+                      <button class="action-btn" id="clearBtn" title="Clear">
+                        <i class="fa-solid fa-trash"></i>
+                      </button>
+                    </div>
+                  </div>
+                  <textarea id="textInput" placeholder="Paste or type your text here to count tokens..." rows="10"></textarea>
+                </div>
+              </div>
+
+              <!-- Right: Stats Section -->
+              <div class="counter-stats">
+                <!-- Stats Cards -->
+                <div class="stats-grid">
+                  <div class="stat-card primary">
+                    <div class="stat-icon">
+                      <i class="fa-solid fa-coins"></i>
+                    </div>
+                    <div class="stat-content">
+                      <span class="stat-value" id="tokenCount">0</span>
+                      <span class="stat-label">Tokens</span>
+                    </div>
+                  </div>
+
+                  <div class="stat-card">
+                    <div class="stat-icon">
+                      <i class="fa-solid fa-text-width"></i>
+                    </div>
+                    <div class="stat-content">
+                      <span class="stat-value" id="charCount">0</span>
+                      <span class="stat-label">Characters</span>
+                    </div>
+                  </div>
+
+                  <div class="stat-card">
+                    <div class="stat-icon">
+                      <i class="fa-solid fa-font"></i>
+                    </div>
+                    <div class="stat-content">
+                      <span class="stat-value" id="wordCount">0</span>
+                      <span class="stat-label">Words</span>
+                    </div>
+                  </div>
+
+                  <div class="stat-card">
+                    <div class="stat-icon">
+                      <i class="fa-solid fa-list"></i>
+                    </div>
+                    <div class="stat-content">
+                      <span class="stat-value" id="lineCount">0</span>
+                      <span class="stat-label">Lines</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Cost Estimation -->
+                <div class="cost-section">
+                  <h4><i class="fa-solid fa-calculator"></i> Cost Estimation</h4>
+                  <div class="cost-grid">
+                    <div class="cost-item">
+                      <span class="cost-label">Input</span>
+                      <span class="cost-value" id="inputCost">$0.0000</span>
+                    </div>
+                    <div class="cost-item">
+                      <span class="cost-label">Output (same length)</span>
+                      <span class="cost-value" id="outputCost">$0.0000</span>
+                    </div>
+                    <div class="cost-item highlight">
+                      <span class="cost-label">Total</span>
+                      <span class="cost-value" id="totalCost">$0.0000</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Visualizer Panel -->
+          <div class="token-panel" id="visualizerPanel">
+            <div class="visualizer-section">
+              <div class="visualizer-header">
+                <p>Each colored block represents an estimated token. Colors help distinguish adjacent tokens.</p>
+              </div>
+              <div class="token-display" id="tokenDisplay">
+                <div class="visualizer-placeholder">
+                  <i class="fa-solid fa-eye"></i>
+                  <p>Enter text in Counter tab to visualize tokens</p>
+                </div>
+              </div>
+              <div class="token-legend">
+                <div class="legend-item">
+                  <span class="legend-color color-1"></span>
+                  <span>Token Group 1</span>
+                </div>
+                <div class="legend-item">
+                  <span class="legend-color color-2"></span>
+                  <span>Token Group 2</span>
+                </div>
+                <div class="legend-item">
+                  <span class="legend-color color-3"></span>
+                  <span>Token Group 3</span>
+                </div>
+                <div class="legend-item">
+                  <span class="legend-color color-4"></span>
+                  <span>Token Group 4</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Pricing Panel -->
+          <div class="token-panel" id="pricingPanel">
+            <div class="pricing-section">
+              <h3>LLM Model Pricing (per 1M tokens)</h3>
+              <div class="pricing-table">
+                <div class="pricing-header">
+                  <span>Model</span>
+                  <span>Input</span>
+                  <span>Output</span>
+                </div>
+                <div class="pricing-group">
+                  <div class="pricing-group-title">OpenAI</div>
+                  <div class="pricing-row">
+                    <span>GPT-4o</span>
+                    <span>$2.50</span>
+                    <span>$10.00</span>
+                  </div>
+                  <div class="pricing-row">
+                    <span>GPT-4o Mini</span>
+                    <span>$0.15</span>
+                    <span>$0.60</span>
+                  </div>
+                  <div class="pricing-row">
+                    <span>GPT-4 Turbo</span>
+                    <span>$10.00</span>
+                    <span>$30.00</span>
+                  </div>
+                  <div class="pricing-row">
+                    <span>GPT-3.5 Turbo</span>
+                    <span>$0.50</span>
+                    <span>$1.50</span>
+                  </div>
+                </div>
+                <div class="pricing-group">
+                  <div class="pricing-group-title">Anthropic</div>
+                  <div class="pricing-row">
+                    <span>Claude Opus</span>
+                    <span>$15.00</span>
+                    <span>$75.00</span>
+                  </div>
+                  <div class="pricing-row">
+                    <span>Claude Sonnet</span>
+                    <span>$3.00</span>
+                    <span>$15.00</span>
+                  </div>
+                  <div class="pricing-row">
+                    <span>Claude Haiku</span>
+                    <span>$0.25</span>
+                    <span>$1.25</span>
+                  </div>
+                </div>
+                <div class="pricing-group">
+                  <div class="pricing-group-title">Google</div>
+                  <div class="pricing-row">
+                    <span>Gemini Pro</span>
+                    <span>$0.50</span>
+                    <span>$1.50</span>
+                  </div>
+                  <div class="pricing-row">
+                    <span>Gemini Flash</span>
+                    <span>$0.075</span>
+                    <span>$0.30</span>
+                  </div>
+                </div>
+              </div>
+              <p class="pricing-note">
+                <i class="fa-solid fa-info-circle"></i>
+                Prices are approximate and may change. Always check official documentation for current pricing.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach. All rights reserved.</p>
+        <p class="footer-made">Made with 💗 and Claude Code xD</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Keyboard Shortcuts Hint -->
+  <div class="shortcuts-hint" id="shortcutsHint">
+    <span>Press <kbd>?</kbd> for shortcuts</span>
+  </div>
+
+  <!-- Keyboard Shortcuts Modal -->
+  <div class="shortcuts-modal" id="shortcutsModal">
+    <div class="shortcuts-content">
+      <div class="shortcuts-header">
+        <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
+        <button class="close-shortcuts-btn" id="closeShortcutsBtn">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="shortcuts-body">
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">Actions</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Ctrl</kbd><span class="key-plus">+</span><kbd>V</kbd></div>
+            <div class="shortcut-desc">Paste text</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Delete</kbd></div>
+            <div class="shortcut-desc">Clear text</div>
+          </div>
+        </div>
+
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">Navigation</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>1</kbd></div>
+            <div class="shortcut-desc">Counter tab</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>2</kbd></div>
+            <div class="shortcut-desc">Visualizer tab</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>?</kbd></div>
+            <div class="shortcut-desc">Show shortcuts</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Shared Tools JavaScript -->
+  <script src="../../js/tools-common.js"></script>
+  <!-- Token Counter JavaScript -->
+  <script src="tokencount.js"></script>
+</body>
+</html>

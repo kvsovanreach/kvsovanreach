@@ -1,0 +1,447 @@
+/**
+ * JSON to Table Tool Styles
+ */
+
+/* ==================== Wrapper ==================== */
+.json-wrapper {
+  width: 100%;
+}
+
+/* ==================== Header ==================== */
+.json-header {
+  display: flex;
+  align-items: center;
+  padding: var(--space-4) var(--space-5);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+}
+
+.json-header h2 {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-size: var(--font-size-xl);
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.json-header h2 i {
+  color: var(--color-primary);
+}
+
+/* ==================== Tabs ==================== */
+.json-tabs {
+  display: flex;
+  background-color: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-top: none;
+  overflow: hidden;
+}
+
+.json-tab {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-4);
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  position: relative;
+}
+
+.json-tab:hover {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+}
+
+.json-tab.active {
+  color: var(--color-primary);
+  background-color: var(--color-bg);
+}
+
+.json-tab.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-color: var(--color-primary);
+}
+
+/* ==================== Main Content ==================== */
+.json-main {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-top: none;
+  border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+  padding: var(--space-5);
+}
+
+.json-panel {
+  display: none;
+}
+
+.json-panel.active {
+  display: block;
+}
+
+/* ==================== Input Section ==================== */
+.input-section {
+  margin-bottom: var(--space-4);
+}
+
+.input-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-2);
+}
+
+.input-header label {
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  color: var(--color-text-secondary);
+}
+
+.input-actions {
+  display: flex;
+  gap: var(--space-1);
+}
+
+.input-section textarea {
+  width: 100%;
+  padding: var(--space-4);
+  font-size: var(--font-size-sm);
+  font-family: 'Monaco', 'Menlo', 'Consolas', monospace;
+  line-height: 1.6;
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  resize: vertical;
+  transition: all var(--transition-fast);
+}
+
+.input-section textarea:hover {
+  border-color: var(--color-primary);
+}
+
+.input-section textarea:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(55, 118, 161, 0.1);
+}
+
+.input-error {
+  display: none;
+  margin-top: var(--space-2);
+  padding: var(--space-3);
+  font-size: var(--font-size-sm);
+  color: #ef4444;
+  background-color: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  border-radius: var(--radius-md);
+}
+
+.input-error.show {
+  display: block;
+}
+
+/* ==================== Convert Button ==================== */
+.convert-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  width: 100%;
+  padding: var(--space-4);
+  font-size: var(--font-size-base);
+  font-weight: 600;
+  color: #fff;
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+  border: none;
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  margin-bottom: var(--space-4);
+}
+
+.convert-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* ==================== JSON Stats ==================== */
+.json-stats {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-6);
+}
+
+.json-stats .stat-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+}
+
+.json-stats .stat-item i {
+  color: var(--color-primary);
+}
+
+.json-stats .stat-item strong {
+  color: var(--color-text);
+  font-weight: 600;
+}
+
+/* ==================== Table Section ==================== */
+.table-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.table-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.table-search {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex: 1;
+  max-width: 300px;
+  padding: var(--space-2) var(--space-3);
+  background-color: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+.table-search i {
+  color: var(--color-text-muted);
+}
+
+.table-search input {
+  flex: 1;
+  border: none;
+  background: none;
+  font-size: var(--font-size-sm);
+  color: var(--color-text);
+  outline: none;
+}
+
+.table-search input::placeholder {
+  color: var(--color-text-muted);
+}
+
+.table-wrapper {
+  max-height: 500px;
+  overflow: auto;
+  background-color: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+.table-wrapper table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--font-size-sm);
+}
+
+.table-wrapper th,
+.table-wrapper td {
+  padding: var(--space-3) var(--space-4);
+  text-align: left;
+  border: 1px solid var(--color-border);
+}
+
+.table-wrapper th {
+  background-color: var(--color-bg-tertiary);
+  font-weight: 600;
+  color: var(--color-text);
+  white-space: nowrap;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.table-wrapper td {
+  background-color: var(--color-surface);
+  color: var(--color-text-secondary);
+}
+
+.table-wrapper tr:hover td {
+  background-color: var(--color-bg);
+}
+
+.table-wrapper td.null-value {
+  color: var(--color-text-muted);
+  font-style: italic;
+}
+
+.table-wrapper td.number-value {
+  font-family: 'Monaco', 'Menlo', monospace;
+  color: #22c55e;
+}
+
+.table-wrapper td.boolean-value {
+  font-family: 'Monaco', 'Menlo', monospace;
+  color: #f59e0b;
+}
+
+.table-wrapper td.highlight {
+  background-color: rgba(55, 118, 161, 0.1);
+}
+
+/* ==================== CSV Section ==================== */
+.csv-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.csv-options {
+  display: flex;
+  align-items: center;
+  gap: var(--space-6);
+  padding: var(--space-4);
+  background-color: var(--color-bg);
+  border-radius: var(--radius-md);
+}
+
+.option-group {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.option-label {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+}
+
+.option-label input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+  accent-color: var(--color-primary);
+}
+
+.option-group label {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+}
+
+.option-group select {
+  padding: var(--space-2) var(--space-6) var(--space-2) var(--space-3);
+  font-size: var(--font-size-sm);
+  font-family: inherit;
+  color: var(--color-text);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right var(--space-2) center;
+  outline: none;
+}
+
+.csv-output {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.csv-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.csv-header label {
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  color: var(--color-text-secondary);
+}
+
+.csv-actions {
+  display: flex;
+  gap: var(--space-2);
+}
+
+#csvOutput {
+  width: 100%;
+  min-height: 300px;
+  padding: var(--space-4);
+  font-size: var(--font-size-sm);
+  font-family: 'Monaco', 'Menlo', 'Consolas', monospace;
+  line-height: 1.6;
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  resize: vertical;
+}
+
+/* ==================== Responsive ==================== */
+@media screen and (max-width: 768px) {
+  .json-main {
+    padding: var(--space-4);
+    border-radius: 0 0 var(--radius-md) var(--radius-md);
+  }
+
+  .input-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-2);
+  }
+
+  .input-actions {
+    width: 100%;
+  }
+
+  .table-controls {
+    flex-direction: column;
+  }
+
+  .table-search {
+    max-width: none;
+    width: 100%;
+  }
+
+  .table-actions {
+    width: 100%;
+    justify-content: flex-end;
+  }
+
+  .csv-options {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .json-tab span {
+    display: none;
+  }
+}

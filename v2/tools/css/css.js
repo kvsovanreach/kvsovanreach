@@ -61,6 +61,67 @@
     }
   };
 
+  // Store raw CSS code for copying
+  const rawCode = {
+    gradient: '',
+    shadow: '',
+    border: '',
+    flexbox: '',
+    grid: ''
+  };
+
+  // ============================================
+  // CSS Syntax Highlighter
+  // ============================================
+  function highlightCSS(code) {
+    // Escape HTML
+    let highlighted = code
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;');
+
+    // Tokenize and highlight
+    const lines = highlighted.split('\n');
+    const highlightedLines = lines.map(line => {
+      // Split by colon to separate property from value
+      const colonIndex = line.indexOf(':');
+      if (colonIndex === -1) return line;
+
+      const property = line.substring(0, colonIndex);
+      const rest = line.substring(colonIndex);
+
+      // Highlight property
+      const highlightedProperty = `<span class="css-property">${property}</span>`;
+
+      // Highlight value part
+      let value = rest;
+
+      // Highlight colon and semicolon
+      value = value.replace(/:/g, '<span class="css-punctuation">:</span>');
+      value = value.replace(/;/g, '<span class="css-punctuation">;</span>');
+      value = value.replace(/,/g, '<span class="css-punctuation">,</span>');
+
+      // Highlight colors (hex) - must be before numbers
+      value = value.replace(/(#[a-fA-F0-9]{3,8})/g, '<span class="css-color">$1</span>');
+
+      // Highlight rgba/hsla/rgb/hsl functions
+      value = value.replace(/\b(rgba?|hsla?)\(/gi, '<span class="css-function">$1</span>(');
+
+      // Highlight CSS functions
+      value = value.replace(/\b(linear-gradient|radial-gradient|conic-gradient|repeat|minmax|calc|var)\(/gi, '<span class="css-function">$1</span>(');
+
+      // Highlight numbers with units (but not inside hex colors)
+      value = value.replace(/(?<!#[a-fA-F0-9]*)(\d+\.?\d*)(px|em|rem|%|deg|vh|vw|fr|s|ms)?\b/g, '<span class="css-number">$1$2</span>');
+
+      // Highlight keywords (only as standalone values)
+      value = value.replace(/\b(none|auto|inherit|initial|unset|solid|dashed|dotted|double|inset|flex|grid|row|column|wrap|nowrap|center|start|end|flex-start|flex-end|space-between|space-around|space-evenly|stretch|baseline)\b/gi, '<span class="css-keyword">$1</span>');
+
+      return highlightedProperty + value;
+    });
+
+    return highlightedLines.join('\n');
+  }
+
   // ============================================
   // DOM Elements
   // ============================================
@@ -192,11 +253,11 @@
     initGridListeners();
 
     // Copy buttons
-    elements.copyGradient?.addEventListener('click', () => copyToClipboard(elements.gradientCode.textContent));
-    elements.copyShadow?.addEventListener('click', () => copyToClipboard(elements.shadowCode.textContent));
-    elements.copyBorder?.addEventListener('click', () => copyToClipboard(elements.borderCode.textContent));
-    elements.copyFlexbox?.addEventListener('click', () => copyToClipboard(elements.flexboxCode.textContent));
-    elements.copyGrid?.addEventListener('click', () => copyToClipboard(elements.gridCode.textContent));
+    elements.copyGradient?.addEventListener('click', () => copyToClipboard(rawCode.gradient));
+    elements.copyShadow?.addEventListener('click', () => copyToClipboard(rawCode.shadow));
+    elements.copyBorder?.addEventListener('click', () => copyToClipboard(rawCode.border));
+    elements.copyFlexbox?.addEventListener('click', () => copyToClipboard(rawCode.flexbox));
+    elements.copyGrid?.addEventListener('click', () => copyToClipboard(rawCode.grid));
 
     // Keyboard shortcuts
     document.addEventListener('keydown', handleKeyboard);
@@ -362,7 +423,8 @@
     elements.gradientPreview.style.background = gradient;
     cssCode = `background: ${gradient};`;
 
-    elements.gradientCode.textContent = cssCode;
+    rawCode.gradient = cssCode;
+    elements.gradientCode.innerHTML = highlightCSS(cssCode);
   }
 
   // ============================================
@@ -432,7 +494,9 @@
       if (btn) {
         const shadow = btn.dataset.shadow;
         elements.shadowDemoBox.style.boxShadow = shadow;
-        elements.shadowCode.textContent = `box-shadow: ${shadow};`;
+        const cssCode = `box-shadow: ${shadow};`;
+        rawCode.shadow = cssCode;
+        elements.shadowCode.innerHTML = highlightCSS(cssCode);
       }
     });
   }
@@ -456,7 +520,8 @@
       elements.shadowDemoBox.style.boxShadow = 'none';
     }
 
-    elements.shadowCode.textContent = cssCode;
+    rawCode.shadow = cssCode;
+    elements.shadowCode.innerHTML = highlightCSS(cssCode);
   }
 
   // ============================================
@@ -562,7 +627,8 @@
       `background-color: ${bgColor};`
     ].join('\n');
 
-    elements.borderCode.textContent = cssCode;
+    rawCode.border = cssCode;
+    elements.borderCode.innerHTML = highlightCSS(cssCode);
   }
 
   // ============================================
@@ -631,7 +697,8 @@
       `gap: ${gap}px;`
     ].join('\n');
 
-    elements.flexboxCode.textContent = cssCode;
+    rawCode.flexbox = cssCode;
+    elements.flexboxCode.innerHTML = highlightCSS(cssCode);
   }
 
   // ============================================
@@ -724,7 +791,8 @@
       `grid-auto-flow: ${autoFlow};`
     ].join('\n');
 
-    elements.gridCode.textContent = cssCode;
+    rawCode.grid = cssCode;
+    elements.gridCode.innerHTML = highlightCSS(cssCode);
   }
 
   // ============================================
@@ -769,24 +837,7 @@
   }
 
   function copyCurrentCSS() {
-    let code;
-    switch (state.currentTab) {
-      case 'gradient':
-        code = elements.gradientCode.textContent;
-        break;
-      case 'shadow':
-        code = elements.shadowCode.textContent;
-        break;
-      case 'border':
-        code = elements.borderCode.textContent;
-        break;
-      case 'flexbox':
-        code = elements.flexboxCode.textContent;
-        break;
-      case 'grid':
-        code = elements.gridCode.textContent;
-        break;
-    }
+    const code = rawCode[state.currentTab];
     if (code) copyToClipboard(code);
   }
 

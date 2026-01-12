@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Generate SVG placeholder images with custom dimensions, colors, and labels for web mockups.">
+  <meta property="og:title" content="KVSOVANREACH | Placeholder Image">
+  <meta property="og:description" content="Create placeholder images for web development.">
+  <meta property="og:image" content="/assets/img/pwa/ios/512.png">
+  <title>KVSOVANREACH | Placeholder Image</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Common Tools CSS -->
+  <link rel="stylesheet" href="../../js/tools-common.css">
+  <!-- Placeholder CSS -->
+  <link rel="stylesheet" href="placeholder.css">
+</head>
+<body>
+  <!-- Skip to Content -->
+  <a href="#placeholder" class="skip-link">Skip to Placeholder Image Generator</a>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">TOOLS</span>
+      </a>
+
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="tool-page">
+    <div class="container">
+      <!-- Placeholder Wrapper -->
+      <div class="placeholder-wrapper" id="placeholder">
+        <!-- Header -->
+        <div class="placeholder-header">
+          <h2><i class="fa-solid fa-image"></i> Placeholder Image</h2>
+        </div>
+
+        <!-- Content -->
+        <div class="placeholder-content">
+          <!-- Options Panel -->
+          <div class="options-panel">
+            <!-- Dimensions -->
+            <div class="option-section">
+              <h3>Dimensions</h3>
+              <div class="dimension-inputs">
+                <div class="input-group">
+                  <label for="widthInput">Width</label>
+                  <input type="number" id="widthInput" value="800" min="1" max="4000">
+                </div>
+                <span class="dimension-x">×</span>
+                <div class="input-group">
+                  <label for="heightInput">Height</label>
+                  <input type="number" id="heightInput" value="600" min="1" max="4000">
+                </div>
+              </div>
+              <div class="preset-sizes">
+                <button class="preset-btn" data-width="1920" data-height="1080">1920×1080</button>
+                <button class="preset-btn" data-width="1280" data-height="720">1280×720</button>
+                <button class="preset-btn" data-width="800" data-height="600">800×600</button>
+                <button class="preset-btn" data-width="400" data-height="300">400×300</button>
+                <button class="preset-btn" data-width="300" data-height="300">300×300</button>
+                <button class="preset-btn" data-width="150" data-height="150">150×150</button>
+              </div>
+            </div>
+
+            <!-- Colors -->
+            <div class="option-section">
+              <h3>Colors</h3>
+              <div class="color-inputs">
+                <div class="input-group">
+                  <label for="bgColor">Background</label>
+                  <div class="color-picker-wrap">
+                    <input type="color" id="bgColor" value="#cccccc">
+                    <input type="text" id="bgColorText" value="#cccccc" maxlength="7">
+                  </div>
+                </div>
+                <div class="input-group">
+                  <label for="textColor">Text</label>
+                  <div class="color-picker-wrap">
+                    <input type="color" id="textColor" value="#666666">
+                    <input type="text" id="textColorText" value="#666666" maxlength="7">
+                  </div>
+                </div>
+              </div>
+              <div class="color-presets">
+                <button class="color-preset" data-bg="#cccccc" data-text="#666666" title="Gray">
+                  <span style="background: #cccccc"></span>
+                </button>
+                <button class="color-preset" data-bg="#3776A1" data-text="#ffffff" title="Blue">
+                  <span style="background: #3776A1"></span>
+                </button>
+                <button class="color-preset" data-bg="#22c55e" data-text="#ffffff" title="Green">
+                  <span style="background: #22c55e"></span>
+                </button>
+                <button class="color-preset" data-bg="#ef4444" data-text="#ffffff" title="Red">
+                  <span style="background: #ef4444"></span>
+                </button>
+                <button class="color-preset" data-bg="#1e293b" data-text="#94a3b8" title="Dark">
+                  <span style="background: #1e293b"></span>
+                </button>
+                <button class="color-preset" data-bg="#fef3c7" data-text="#92400e" title="Warm">
+                  <span style="background: #fef3c7"></span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Label -->
+            <div class="option-section">
+              <h3>Label</h3>
+              <div class="input-group full">
+                <label for="labelInput">Custom Text (leave empty for dimensions)</label>
+                <input type="text" id="labelInput" placeholder="800 × 600">
+              </div>
+            </div>
+
+            <!-- Actions -->
+            <div class="action-buttons">
+              <button class="action-btn primary" id="copyDataUrlBtn">
+                <i class="fa-solid fa-link"></i>
+                <span>Copy Data URL</span>
+              </button>
+              <button class="action-btn secondary" id="copySvgBtn">
+                <i class="fa-solid fa-code"></i>
+                <span>Copy SVG</span>
+              </button>
+              <button class="action-btn secondary" id="downloadSvgBtn">
+                <i class="fa-solid fa-download"></i>
+                <span>Download SVG</span>
+              </button>
+              <button class="action-btn secondary" id="downloadPngBtn">
+                <i class="fa-solid fa-image"></i>
+                <span>Download PNG</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Preview Panel -->
+          <div class="preview-panel">
+            <div class="preview-header">
+              <h3>Preview</h3>
+              <span class="preview-size" id="previewSize">800 × 600</span>
+            </div>
+            <div class="preview-container" id="previewContainer">
+              <!-- SVG preview will be inserted here -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach. All rights reserved.</p>
+        <p class="footer-made">Made with 💗 and Claude Code xD</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Keyboard Shortcuts Modal -->
+  <div class="shortcuts-modal" id="shortcutsModal">
+    <div class="shortcuts-content">
+      <div class="shortcuts-header">
+        <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
+        <button class="close-shortcuts-btn" id="closeShortcutsBtn" aria-label="Close shortcuts">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="shortcuts-body">
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">Actions</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>C</kbd></div>
+            <div class="shortcut-desc">Copy Data URL</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>D</kbd></div>
+            <div class="shortcut-desc">Download SVG</div>
+          </div>
+        </div>
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">General</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>?</kbd></div>
+            <div class="shortcut-desc">Show shortcuts</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Escape</kbd></div>
+            <div class="shortcut-desc">Close modal</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Keyboard Shortcuts Hint -->
+  <div class="shortcuts-hint" id="shortcutsHint">
+    <span>Press <kbd>?</kbd> for shortcuts</span>
+  </div>
+
+  <!-- Shared Tools JavaScript -->
+  <script src="../../js/tools-common.js"></script>
+  <!-- Scripts -->
+  <script src="placeholder.js"></script>
+</body>
+</html>

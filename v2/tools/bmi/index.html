@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Calculate your Body Mass Index (BMI) with metric or imperial units. See your BMI category and health recommendations.">
+  <meta property="og:title" content="KVSOVANREACH | BMI Calculator">
+  <meta property="og:description" content="Calculate BMI using height and weight. Supports metric and imperial units.">
+  <meta property="og:image" content="/assets/img/pwa/ios/512.png">
+  <title>KVSOVANREACH | BMI Calculator</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Common Tools CSS -->
+  <link rel="stylesheet" href="../../js/tools-common.css">
+  <!-- BMI CSS -->
+  <link rel="stylesheet" href="bmi.css">
+</head>
+<body>
+  <!-- Skip to Content -->
+  <a href="#bmi" class="skip-link">Skip to BMI calculator</a>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">TOOLS</span>
+      </a>
+
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="tool-page">
+    <div class="container">
+      <div class="bmi-wrapper" id="bmi">
+        <!-- Header -->
+        <div class="bmi-header">
+          <h2><i class="fa-solid fa-weight-scale"></i> BMI Calculator</h2>
+        </div>
+
+        <!-- Tab Navigation -->
+        <div class="bmi-tabs">
+          <button class="bmi-tab active" data-unit="metric">
+            <i class="fa-solid fa-ruler"></i>
+            <span>Metric</span>
+          </button>
+          <button class="bmi-tab" data-unit="imperial">
+            <i class="fa-solid fa-ruler-horizontal"></i>
+            <span>Imperial</span>
+          </button>
+        </div>
+
+        <div class="bmi-card">
+          <!-- Input Section -->
+          <div class="input-section">
+            <!-- Metric Inputs -->
+            <div class="metric-inputs" id="metricInputs">
+              <div class="input-group">
+                <label for="heightCm">Height (cm)</label>
+                <input type="number" id="heightCm" placeholder="175" min="50" max="300">
+              </div>
+              <div class="input-group">
+                <label for="weightKg">Weight (kg)</label>
+                <input type="number" id="weightKg" placeholder="70" min="10" max="500">
+              </div>
+            </div>
+
+            <!-- Imperial Inputs -->
+            <div class="imperial-inputs hidden" id="imperialInputs">
+              <div class="input-group">
+                <label>Height</label>
+                <div class="dual-input">
+                  <input type="number" id="heightFt" placeholder="5" min="1" max="9">
+                  <span>ft</span>
+                  <input type="number" id="heightIn" placeholder="9" min="0" max="11">
+                  <span>in</span>
+                </div>
+              </div>
+              <div class="input-group">
+                <label for="weightLbs">Weight (lbs)</label>
+                <input type="number" id="weightLbs" placeholder="154" min="20" max="1000">
+              </div>
+            </div>
+          </div>
+
+          <!-- Calculate Button -->
+          <button class="calculate-btn" id="calculateBtn">
+            <i class="fa-solid fa-calculator"></i>
+            <span>Calculate BMI</span>
+          </button>
+
+          <!-- Results Section -->
+          <div class="results-section hidden" id="resultsSection">
+            <div class="bmi-result">
+              <div class="bmi-value" id="bmiValue">0.0</div>
+              <div class="bmi-category" id="bmiCategory">Normal Weight</div>
+            </div>
+
+            <!-- BMI Scale -->
+            <div class="bmi-scale">
+              <div class="scale-bar">
+                <div class="scale-fill" id="scaleFill"></div>
+                <div class="scale-marker" id="scaleMarker"></div>
+              </div>
+              <div class="scale-labels">
+                <span>Underweight<br><small>&lt;18.5</small></span>
+                <span>Normal<br><small>18.5-24.9</small></span>
+                <span>Overweight<br><small>25-29.9</small></span>
+                <span>Obese<br><small>&gt;30</small></span>
+              </div>
+            </div>
+
+            <!-- Additional Info -->
+            <div class="additional-info">
+              <div class="info-item">
+                <span class="info-label">Healthy BMI Range</span>
+                <span class="info-value">18.5 - 24.9</span>
+              </div>
+              <div class="info-item">
+                <span class="info-label">Healthy Weight for Your Height</span>
+                <span class="info-value" id="healthyWeight">-</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- BMI Categories Info -->
+          <div class="categories-info">
+            <h4>BMI Categories</h4>
+            <div class="category-list">
+              <div class="category-item underweight">
+                <span class="category-range">&lt; 18.5</span>
+                <span class="category-name">Underweight</span>
+              </div>
+              <div class="category-item normal">
+                <span class="category-range">18.5 - 24.9</span>
+                <span class="category-name">Normal Weight</span>
+              </div>
+              <div class="category-item overweight">
+                <span class="category-range">25 - 29.9</span>
+                <span class="category-name">Overweight</span>
+              </div>
+              <div class="category-item obese">
+                <span class="category-range">&ge; 30</span>
+                <span class="category-name">Obese</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach. All rights reserved.</p>
+        <p class="footer-made">Made with 💗 and Claude Code xD</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Keyboard Shortcuts Hint -->
+  <div class="shortcuts-hint" id="shortcutsHint">
+    <span>Press <kbd>?</kbd> for shortcuts</span>
+  </div>
+
+  <!-- Keyboard Shortcuts Modal -->
+  <div class="shortcuts-modal" id="shortcutsModal">
+    <div class="shortcuts-content">
+      <div class="shortcuts-header">
+        <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
+        <button class="close-shortcuts-btn" id="closeShortcutsBtn">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="shortcuts-body">
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">Actions</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Enter</kbd></div>
+            <div class="shortcut-desc">Calculate BMI</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>M</kbd></div>
+            <div class="shortcut-desc">Switch to Metric</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>I</kbd></div>
+            <div class="shortcut-desc">Switch to Imperial</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>?</kbd></div>
+            <div class="shortcut-desc">Show shortcuts</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Shared Tools JavaScript -->
+  <script src="../../js/tools-common.js"></script>
+  <!-- BMI JavaScript -->
+  <script src="bmi.js"></script>
+</body>
+</html>

@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Convert Unix timestamps to human-readable dates and vice versa. Support for milliseconds and multiple formats.">
+  <meta property="og:title" content="KVSOVANREACH | Unix Timestamp Converter">
+  <meta property="og:description" content="Convert Unix timestamps to dates and dates to timestamps with various format options.">
+  <meta property="og:image" content="/assets/img/pwa/ios/512.png">
+  <title>KVSOVANREACH | Unix Timestamp</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Common Tools CSS -->
+  <link rel="stylesheet" href="../../js/tools-common.css">
+  <!-- Timestamp CSS -->
+  <link rel="stylesheet" href="timestamp.css">
+</head>
+<body>
+  <!-- Skip to Content -->
+  <a href="#timestamp" class="skip-link">Skip to timestamp converter</a>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">TOOLS</span>
+      </a>
+
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="tool-page">
+    <div class="container">
+      <div class="timestamp-wrapper" id="timestamp">
+        <!-- Header -->
+        <div class="timestamp-header">
+          <h2><i class="fa-solid fa-clock"></i> Unix Timestamp</h2>
+        </div>
+
+        <!-- Tab Navigation -->
+        <div class="timestamp-tabs">
+          <button class="timestamp-tab active" data-tab="current">
+            <i class="fa-solid fa-clock"></i>
+            <span>Current Time</span>
+          </button>
+          <button class="timestamp-tab" data-tab="todate">
+            <i class="fa-solid fa-calendar"></i>
+            <span>To Date</span>
+          </button>
+          <button class="timestamp-tab" data-tab="totimestamp">
+            <i class="fa-solid fa-hashtag"></i>
+            <span>To Timestamp</span>
+          </button>
+        </div>
+
+        <!-- Main Content Area -->
+        <div class="timestamp-main">
+          <!-- Current Time Panel -->
+          <div class="timestamp-panel active" id="currentPanel">
+            <div class="current-time-section">
+              <div class="live-clock">
+                <div class="clock-display" id="liveClock">00:00:00</div>
+                <div class="clock-date" id="liveDate">January 1, 2024</div>
+              </div>
+
+              <div class="current-timestamps">
+                <div class="timestamp-card">
+                  <div class="card-label">Unix Timestamp (seconds)</div>
+                  <div class="card-value">
+                    <span id="currentSeconds">0</span>
+                    <button class="copy-btn" data-copy="currentSeconds" title="Copy">
+                      <i class="fa-solid fa-copy"></i>
+                    </button>
+                  </div>
+                </div>
+
+                <div class="timestamp-card">
+                  <div class="card-label">Unix Timestamp (milliseconds)</div>
+                  <div class="card-value">
+                    <span id="currentMilliseconds">0</span>
+                    <button class="copy-btn" data-copy="currentMilliseconds" title="Copy">
+                      <i class="fa-solid fa-copy"></i>
+                    </button>
+                  </div>
+                </div>
+
+                <div class="timestamp-card">
+                  <div class="card-label">ISO 8601</div>
+                  <div class="card-value">
+                    <span id="currentISO">2024-01-01T00:00:00.000Z</span>
+                    <button class="copy-btn" data-copy="currentISO" title="Copy">
+                      <i class="fa-solid fa-copy"></i>
+                    </button>
+                  </div>
+                </div>
+
+                <div class="timestamp-card">
+                  <div class="card-label">UTC String</div>
+                  <div class="card-value">
+                    <span id="currentUTC">Mon, 01 Jan 2024 00:00:00 GMT</span>
+                    <button class="copy-btn" data-copy="currentUTC" title="Copy">
+                      <i class="fa-solid fa-copy"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Timestamp to Date Panel -->
+          <div class="timestamp-panel" id="todatePanel">
+            <div class="convert-section">
+              <div class="input-group">
+                <label for="timestampInput">Enter Unix Timestamp</label>
+                <div class="input-row">
+                  <input type="text" id="timestampInput" placeholder="e.g., 1704067200 or 1704067200000">
+                  <button class="action-btn" id="nowBtn">
+                    <i class="fa-solid fa-clock"></i>
+                    <span>Now</span>
+                  </button>
+                </div>
+                <div class="input-options">
+                  <label class="radio-label">
+                    <input type="radio" name="timestampUnit" value="seconds" checked>
+                    <span>Seconds</span>
+                  </label>
+                  <label class="radio-label">
+                    <input type="radio" name="timestampUnit" value="milliseconds">
+                    <span>Milliseconds</span>
+                  </label>
+                  <label class="radio-label">
+                    <input type="radio" name="timestampUnit" value="auto">
+                    <span>Auto-detect</span>
+                  </label>
+                </div>
+              </div>
+
+              <button class="convert-btn" id="toDateBtn">
+                <i class="fa-solid fa-arrow-right"></i>
+                <span>Convert to Date</span>
+              </button>
+
+              <div class="results-section" id="toDateResults">
+                <div class="result-item">
+                  <span class="result-label">Local Time</span>
+                  <span class="result-value" id="resultLocal">-</span>
+                  <button class="copy-btn" data-copy="resultLocal" title="Copy">
+                    <i class="fa-solid fa-copy"></i>
+                  </button>
+                </div>
+                <div class="result-item">
+                  <span class="result-label">UTC Time</span>
+                  <span class="result-value" id="resultUTC">-</span>
+                  <button class="copy-btn" data-copy="resultUTC" title="Copy">
+                    <i class="fa-solid fa-copy"></i>
+                  </button>
+                </div>
+                <div class="result-item">
+                  <span class="result-label">ISO 8601</span>
+                  <span class="result-value" id="resultISO">-</span>
+                  <button class="copy-btn" data-copy="resultISO" title="Copy">
+                    <i class="fa-solid fa-copy"></i>
+                  </button>
+                </div>
+                <div class="result-item">
+                  <span class="result-label">Relative</span>
+                  <span class="result-value" id="resultRelative">-</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Date to Timestamp Panel -->
+          <div class="timestamp-panel" id="totimestampPanel">
+            <div class="convert-section">
+              <div class="date-inputs">
+                <div class="date-row">
+                  <div class="input-group">
+                    <label for="dateInput">Date</label>
+                    <input type="date" id="dateInput">
+                  </div>
+                  <div class="input-group">
+                    <label for="timeInput">Time</label>
+                    <input type="time" id="timeInput" step="1">
+                  </div>
+                </div>
+
+                <div class="input-group">
+                  <label for="timezoneSelect">Timezone</label>
+                  <select id="timezoneSelect">
+                    <option value="local">Local Time</option>
+                    <option value="UTC">UTC</option>
+                  </select>
+                </div>
+
+                <button class="action-btn" id="nowDateBtn">
+                  <i class="fa-solid fa-clock"></i>
+                  <span>Set to Now</span>
+                </button>
+              </div>
+
+              <button class="convert-btn" id="toTimestampBtn">
+                <i class="fa-solid fa-arrow-right"></i>
+                <span>Convert to Timestamp</span>
+              </button>
+
+              <div class="results-section" id="toTimestampResults">
+                <div class="result-item">
+                  <span class="result-label">Unix Timestamp (seconds)</span>
+                  <span class="result-value" id="resultSeconds">-</span>
+                  <button class="copy-btn" data-copy="resultSeconds" title="Copy">
+                    <i class="fa-solid fa-copy"></i>
+                  </button>
+                </div>
+                <div class="result-item">
+                  <span class="result-label">Unix Timestamp (milliseconds)</span>
+                  <span class="result-value" id="resultMs">-</span>
+                  <button class="copy-btn" data-copy="resultMs" title="Copy">
+                    <i class="fa-solid fa-copy"></i>
+                  </button>
+                </div>
+                <div class="result-item">
+                  <span class="result-label">ISO 8601</span>
+                  <span class="result-value" id="resultISOFromDate">-</span>
+                  <button class="copy-btn" data-copy="resultISOFromDate" title="Copy">
+                    <i class="fa-solid fa-copy"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach. All rights reserved.</p>
+        <p class="footer-made">Made with 💗 and Claude Code xD</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Keyboard Shortcuts Hint -->
+  <div class="shortcuts-hint" id="shortcutsHint">
+    <span>Press <kbd>?</kbd> for shortcuts</span>
+  </div>
+
+  <!-- Keyboard Shortcuts Modal -->
+  <div class="shortcuts-modal" id="shortcutsModal">
+    <div class="shortcuts-content">
+      <div class="shortcuts-header">
+        <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
+        <button class="close-shortcuts-btn" id="closeShortcutsBtn">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="shortcuts-body">
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">Actions</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Ctrl</kbd><span class="key-plus">+</span><kbd>Enter</kbd></div>
+            <div class="shortcut-desc">Convert</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>N</kbd></div>
+            <div class="shortcut-desc">Set to now</div>
+          </div>
+        </div>
+
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">Navigation</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>1</kbd></div>
+            <div class="shortcut-desc">Current Time tab</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>2</kbd></div>
+            <div class="shortcut-desc">To Date tab</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>3</kbd></div>
+            <div class="shortcut-desc">To Timestamp tab</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>?</kbd></div>
+            <div class="shortcut-desc">Show shortcuts</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Shared Tools JavaScript -->
+  <script src="../../js/tools-common.js"></script>
+  <!-- Timestamp JavaScript -->
+  <script src="timestamp.js"></script>
+</body>
+</html>

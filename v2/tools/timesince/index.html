@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Calculate how much time has passed since a specific date or event.">
+  <meta property="og:title" content="KVSOVANREACH | Time Since Calculator">
+  <meta property="og:description" content="Find out exactly how much time has passed since any date.">
+  <meta property="og:image" content="/assets/img/pwa/ios/512.png">
+  <title>KVSOVANREACH | Time Since Calculator</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Common Tools CSS -->
+  <link rel="stylesheet" href="../../js/tools-common.css">
+  <!-- Time Since CSS -->
+  <link rel="stylesheet" href="timesince.css">
+</head>
+<body>
+  <!-- Skip to Content -->
+  <a href="#timesince" class="skip-link">Skip to time calculator</a>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">TOOLS</span>
+      </a>
+
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="tool-page">
+    <div class="container">
+      <div class="time-wrapper" id="timesince">
+        <!-- Header -->
+        <div class="time-header">
+          <h2><i class="fa-solid fa-hourglass-half"></i> Time Since/Until</h2>
+        </div>
+
+        <div class="time-card">
+          <!-- Tabs -->
+          <div class="time-tabs">
+            <button class="time-tab active" data-tab="since">
+              <i class="fa-solid fa-hourglass-start"></i>
+              <span>Time Since</span>
+            </button>
+            <button class="time-tab" data-tab="until">
+              <i class="fa-solid fa-hourglass-end"></i>
+              <span>Time Until</span>
+            </button>
+            <button class="time-tab" data-tab="presets">
+              <i class="fa-solid fa-star"></i>
+              <span>Quick Dates</span>
+            </button>
+          </div>
+
+          <!-- Time Since Panel -->
+          <div class="time-panel active" id="sincePanel">
+            <div class="input-section">
+              <label for="sinceDate">Select a past date:</label>
+              <div class="date-input-row">
+                <input type="datetime-local" id="sinceDate">
+                <button class="preset-btn" id="sinceClearBtn" title="Clear">
+                  <i class="fa-solid fa-xmark"></i>
+                </button>
+              </div>
+              <div class="quick-presets">
+                <button class="quick-btn" data-days="1">Yesterday</button>
+                <button class="quick-btn" data-days="7">1 Week</button>
+                <button class="quick-btn" data-days="30">1 Month</button>
+                <button class="quick-btn" data-days="365">1 Year</button>
+              </div>
+            </div>
+
+            <div class="results-section" id="sinceResults">
+              <div class="result-header">
+                <h3>Time Elapsed</h3>
+                <span class="live-indicator"><i class="fa-solid fa-circle"></i> Live</span>
+              </div>
+
+              <div class="main-result">
+                <div class="result-grid">
+                  <div class="result-item large">
+                    <span class="result-value" id="sinceYears">0</span>
+                    <span class="result-label">Years</span>
+                  </div>
+                  <div class="result-item large">
+                    <span class="result-value" id="sinceMonths">0</span>
+                    <span class="result-label">Months</span>
+                  </div>
+                  <div class="result-item large">
+                    <span class="result-value" id="sinceDays">0</span>
+                    <span class="result-label">Days</span>
+                  </div>
+                </div>
+                <div class="result-grid small">
+                  <div class="result-item">
+                    <span class="result-value" id="sinceHours">0</span>
+                    <span class="result-label">Hours</span>
+                  </div>
+                  <div class="result-item">
+                    <span class="result-value" id="sinceMinutes">0</span>
+                    <span class="result-label">Minutes</span>
+                  </div>
+                  <div class="result-item">
+                    <span class="result-value" id="sinceSeconds">0</span>
+                    <span class="result-label">Seconds</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="total-section">
+                <h4>Total Time</h4>
+                <div class="total-grid">
+                  <div class="total-item">
+                    <span class="total-value" id="sinceTotalDays">0</span>
+                    <span class="total-label">days</span>
+                  </div>
+                  <div class="total-item">
+                    <span class="total-value" id="sinceTotalHours">0</span>
+                    <span class="total-label">hours</span>
+                  </div>
+                  <div class="total-item">
+                    <span class="total-value" id="sinceTotalMinutes">0</span>
+                    <span class="total-label">minutes</span>
+                  </div>
+                  <div class="total-item">
+                    <span class="total-value" id="sinceTotalSeconds">0</span>
+                    <span class="total-label">seconds</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Time Until Panel -->
+          <div class="time-panel" id="untilPanel">
+            <div class="input-section">
+              <label for="untilDate">Select a future date:</label>
+              <div class="date-input-row">
+                <input type="datetime-local" id="untilDate">
+                <button class="preset-btn" id="untilClearBtn" title="Clear">
+                  <i class="fa-solid fa-xmark"></i>
+                </button>
+              </div>
+              <div class="quick-presets">
+                <button class="quick-btn" data-future="1">Tomorrow</button>
+                <button class="quick-btn" data-future="7">1 Week</button>
+                <button class="quick-btn" data-future="30">1 Month</button>
+                <button class="quick-btn" data-future="365">1 Year</button>
+              </div>
+            </div>
+
+            <div class="results-section" id="untilResults">
+              <div class="result-header">
+                <h3>Time Remaining</h3>
+                <span class="live-indicator"><i class="fa-solid fa-circle"></i> Live</span>
+              </div>
+
+              <div class="main-result countdown">
+                <div class="result-grid">
+                  <div class="result-item large">
+                    <span class="result-value" id="untilYears">0</span>
+                    <span class="result-label">Years</span>
+                  </div>
+                  <div class="result-item large">
+                    <span class="result-value" id="untilMonths">0</span>
+                    <span class="result-label">Months</span>
+                  </div>
+                  <div class="result-item large">
+                    <span class="result-value" id="untilDays">0</span>
+                    <span class="result-label">Days</span>
+                  </div>
+                </div>
+                <div class="result-grid small">
+                  <div class="result-item">
+                    <span class="result-value" id="untilHours">0</span>
+                    <span class="result-label">Hours</span>
+                  </div>
+                  <div class="result-item">
+                    <span class="result-value" id="untilMinutes">0</span>
+                    <span class="result-label">Minutes</span>
+                  </div>
+                  <div class="result-item">
+                    <span class="result-value" id="untilSeconds">0</span>
+                    <span class="result-label">Seconds</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="total-section">
+                <h4>Total Time</h4>
+                <div class="total-grid">
+                  <div class="total-item">
+                    <span class="total-value" id="untilTotalDays">0</span>
+                    <span class="total-label">days</span>
+                  </div>
+                  <div class="total-item">
+                    <span class="total-value" id="untilTotalHours">0</span>
+                    <span class="total-label">hours</span>
+                  </div>
+                  <div class="total-item">
+                    <span class="total-value" id="untilTotalMinutes">0</span>
+                    <span class="total-label">minutes</span>
+                  </div>
+                  <div class="total-item">
+                    <span class="total-value" id="untilTotalSeconds">0</span>
+                    <span class="total-label">seconds</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick Dates Panel -->
+          <div class="time-panel" id="presetsPanel">
+            <div class="presets-grid">
+              <div class="preset-card" data-date="birthday">
+                <i class="fa-solid fa-cake-candles"></i>
+                <h4>My Birthday</h4>
+                <input type="date" id="birthdayDate" class="preset-date-input">
+                <div class="preset-result" id="birthdayResult">Enter your birthday</div>
+              </div>
+              <div class="preset-card" data-date="newyear">
+                <i class="fa-solid fa-champagne-glasses"></i>
+                <h4>New Year</h4>
+                <div class="preset-result" id="newyearResult">Calculating...</div>
+              </div>
+              <div class="preset-card" data-date="custom">
+                <i class="fa-solid fa-calendar-plus"></i>
+                <h4>Custom Event</h4>
+                <input type="text" id="customEventName" class="preset-text-input" placeholder="Event name">
+                <input type="datetime-local" id="customEventDate" class="preset-date-input">
+                <div class="preset-result" id="customResult">Set your event</div>
+              </div>
+              <div class="preset-card" data-date="millennium">
+                <i class="fa-solid fa-globe"></i>
+                <h4>Y2K (Jan 1, 2000)</h4>
+                <div class="preset-result" id="millenniumResult">Calculating...</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach. All rights reserved.</p>
+        <p class="footer-made">Made with 💗 and Claude Code xD</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Keyboard Shortcuts Hint -->
+  <div class="shortcuts-hint" id="shortcutsHint">
+    <span>Press <kbd>?</kbd> for shortcuts</span>
+  </div>
+
+  <!-- Keyboard Shortcuts Modal -->
+  <div class="shortcuts-modal" id="shortcutsModal">
+    <div class="shortcuts-content">
+      <div class="shortcuts-header">
+        <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
+        <button class="close-shortcuts-btn" id="closeShortcutsBtn">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="shortcuts-body">
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">Navigation</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>1</kbd></div>
+            <div class="shortcut-desc">Time Since tab</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>2</kbd></div>
+            <div class="shortcut-desc">Time Until tab</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>3</kbd></div>
+            <div class="shortcut-desc">Quick Dates tab</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>?</kbd></div>
+            <div class="shortcut-desc">Show shortcuts</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Shared Tools JavaScript -->
+  <script src="../../js/tools-common.js"></script>
+  <!-- Time Since JavaScript -->
+  <script src="timesince.js"></script>
+</body>
+</html>

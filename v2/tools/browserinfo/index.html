@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="View your browser and device information. Check your IP address, screen resolution, and more.">
+  <meta property="og:title" content="KVSOVANREACH | Browser Info">
+  <meta property="og:description" content="Discover your browser capabilities, IP address, screen info, and device details.">
+  <meta property="og:image" content="/assets/img/pwa/ios/512.png">
+  <title>KVSOVANREACH | Browser Info</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Common Tools CSS -->
+  <link rel="stylesheet" href="../../js/tools-common.css">
+  <!-- Browser Info CSS -->
+  <link rel="stylesheet" href="browserinfo.css">
+</head>
+<body>
+  <!-- Skip to Content -->
+  <a href="#browserinfo" class="skip-link">Skip to browser info</a>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">TOOLS</span>
+      </a>
+
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="tool-page">
+    <div class="container">
+      <div class="info-wrapper" id="browserinfo">
+        <!-- Header -->
+        <div class="info-header">
+          <h2><i class="fa-solid fa-globe"></i> Browser Info</h2>
+        </div>
+
+        <!-- Tab Navigation -->
+        <div class="info-tabs">
+          <button class="info-tab active" data-tab="browser">
+            <i class="fa-solid fa-globe"></i>
+            <span>Browser</span>
+          </button>
+          <button class="info-tab" data-tab="device">
+            <i class="fa-solid fa-display"></i>
+            <span>Device</span>
+          </button>
+          <button class="info-tab" data-tab="network">
+            <i class="fa-solid fa-wifi"></i>
+            <span>Network</span>
+          </button>
+          <button class="info-tab" data-tab="features">
+            <i class="fa-solid fa-check-circle"></i>
+            <span>Features</span>
+          </button>
+        </div>
+
+        <!-- Main Content Area -->
+        <div class="info-main">
+          <!-- Browser Panel -->
+          <div class="info-panel active" id="browserPanel">
+            <div class="info-grid">
+              <div class="info-card">
+                <div class="card-icon"><i class="fa-solid fa-browser"></i></div>
+                <div class="card-content">
+                  <div class="card-label">Browser</div>
+                  <div class="card-value" id="browserName">Detecting...</div>
+                </div>
+              </div>
+
+              <div class="info-card">
+                <div class="card-icon"><i class="fa-solid fa-code-branch"></i></div>
+                <div class="card-content">
+                  <div class="card-label">Browser Version</div>
+                  <div class="card-value" id="browserVersion">Detecting...</div>
+                </div>
+              </div>
+
+              <div class="info-card">
+                <div class="card-icon"><i class="fa-solid fa-desktop"></i></div>
+                <div class="card-content">
+                  <div class="card-label">Operating System</div>
+                  <div class="card-value" id="osName">Detecting...</div>
+                </div>
+              </div>
+
+              <div class="info-card">
+                <div class="card-icon"><i class="fa-solid fa-microchip"></i></div>
+                <div class="card-content">
+                  <div class="card-label">Platform</div>
+                  <div class="card-value" id="platform">Detecting...</div>
+                </div>
+              </div>
+
+              <div class="info-card">
+                <div class="card-icon"><i class="fa-solid fa-language"></i></div>
+                <div class="card-content">
+                  <div class="card-label">Language</div>
+                  <div class="card-value" id="language">Detecting...</div>
+                </div>
+              </div>
+
+              <div class="info-card">
+                <div class="card-icon"><i class="fa-solid fa-cookie-bite"></i></div>
+                <div class="card-content">
+                  <div class="card-label">Cookies Enabled</div>
+                  <div class="card-value" id="cookiesEnabled">Detecting...</div>
+                </div>
+              </div>
+
+              <div class="info-card full-width">
+                <div class="card-icon"><i class="fa-solid fa-fingerprint"></i></div>
+                <div class="card-content">
+                  <div class="card-label">User Agent</div>
+                  <div class="card-value small" id="userAgent">Detecting...</div>
+                </div>
+                <button class="copy-btn" data-copy="userAgent" aria-label="Copy user agent" title="Copy user agent"><i class="fa-solid fa-copy"></i></button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Device Panel -->
+          <div class="info-panel" id="devicePanel">
+            <div class="info-grid">
+              <div class="info-card">
+                <div class="card-icon"><i class="fa-solid fa-expand"></i></div>
+                <div class="card-content">
+                  <div class="card-label">Screen Resolution</div>
+                  <div class="card-value" id="screenRes">Detecting...</div>
+                </div>
+              </div>
+
+              <div class="info-card">
+                <div class="card-icon"><i class="fa-solid fa-window-maximize"></i></div>
+                <div class="card-content">
+                  <div class="card-label">Viewport Size</div>
+                  <div class="card-value" id="viewportSize">Detecting...</div>
+                </div>
+              </div>
+
+              <div class="info-card">
+                <div class="card-icon"><i class="fa-solid fa-palette"></i></div>
+                <div class="card-content">
+                  <div class="card-label">Color Depth</div>
+                  <div class="card-value" id="colorDepth">Detecting...</div>
+                </div>
+              </div>
+
+              <div class="info-card">
+                <div class="card-icon"><i class="fa-solid fa-up-right-and-down-left-from-center"></i></div>
+                <div class="card-content">
+                  <div class="card-label">Pixel Ratio</div>
+                  <div class="card-value" id="pixelRatio">Detecting...</div>
+                </div>
+              </div>
+
+              <div class="info-card">
+                <div class="card-icon"><i class="fa-solid fa-mobile-screen"></i></div>
+                <div class="card-content">
+                  <div class="card-label">Device Type</div>
+                  <div class="card-value" id="deviceType">Detecting...</div>
+                </div>
+              </div>
+
+              <div class="info-card">
+                <div class="card-icon"><i class="fa-solid fa-hand-pointer"></i></div>
+                <div class="card-content">
+                  <div class="card-label">Touch Support</div>
+                  <div class="card-value" id="touchSupport">Detecting...</div>
+                </div>
+              </div>
+
+              <div class="info-card">
+                <div class="card-icon"><i class="fa-solid fa-compass"></i></div>
+                <div class="card-content">
+                  <div class="card-label">Orientation</div>
+                  <div class="card-value" id="orientation">Detecting...</div>
+                </div>
+              </div>
+
+              <div class="info-card">
+                <div class="card-icon"><i class="fa-solid fa-memory"></i></div>
+                <div class="card-content">
+                  <div class="card-label">Device Memory</div>
+                  <div class="card-value" id="deviceMemory">Detecting...</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Network Panel -->
+          <div class="info-panel" id="networkPanel">
+            <div class="info-grid">
+              <div class="info-card highlight">
+                <div class="card-icon"><i class="fa-solid fa-location-dot"></i></div>
+                <div class="card-content">
+                  <div class="card-label">Your IP Address</div>
+                  <div class="card-value" id="ipAddress">Detecting...</div>
+                </div>
+                <button class="copy-btn" data-copy="ipAddress" aria-label="Copy IP address" title="Copy IP address"><i class="fa-solid fa-copy"></i></button>
+              </div>
+
+              <div class="info-card">
+                <div class="card-icon"><i class="fa-solid fa-signal"></i></div>
+                <div class="card-content">
+                  <div class="card-label">Connection Type</div>
+                  <div class="card-value" id="connectionType">Detecting...</div>
+                </div>
+              </div>
+
+              <div class="info-card">
+                <div class="card-icon"><i class="fa-solid fa-gauge-high"></i></div>
+                <div class="card-content">
+                  <div class="card-label">Effective Type</div>
+                  <div class="card-value" id="effectiveType">Detecting...</div>
+                </div>
+              </div>
+
+              <div class="info-card">
+                <div class="card-icon"><i class="fa-solid fa-download"></i></div>
+                <div class="card-content">
+                  <div class="card-label">Downlink</div>
+                  <div class="card-value" id="downlink">Detecting...</div>
+                </div>
+              </div>
+
+              <div class="info-card">
+                <div class="card-icon"><i class="fa-solid fa-clock"></i></div>
+                <div class="card-content">
+                  <div class="card-label">Round-Trip Time</div>
+                  <div class="card-value" id="rtt">Detecting...</div>
+                </div>
+              </div>
+
+              <div class="info-card">
+                <div class="card-icon"><i class="fa-solid fa-wifi"></i></div>
+                <div class="card-content">
+                  <div class="card-label">Online Status</div>
+                  <div class="card-value" id="onlineStatus">Detecting...</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Features Panel -->
+          <div class="info-panel" id="featuresPanel">
+            <div class="features-grid">
+              <div class="feature-item" id="featureLocalStorage">
+                <i class="fa-solid fa-database"></i>
+                <span>Local Storage</span>
+              </div>
+              <div class="feature-item" id="featureSessionStorage">
+                <i class="fa-solid fa-clock-rotate-left"></i>
+                <span>Session Storage</span>
+              </div>
+              <div class="feature-item" id="featureIndexedDB">
+                <i class="fa-solid fa-layer-group"></i>
+                <span>IndexedDB</span>
+              </div>
+              <div class="feature-item" id="featureWebGL">
+                <i class="fa-solid fa-cube"></i>
+                <span>WebGL</span>
+              </div>
+              <div class="feature-item" id="featureWebWorkers">
+                <i class="fa-solid fa-gears"></i>
+                <span>Web Workers</span>
+              </div>
+              <div class="feature-item" id="featureServiceWorker">
+                <i class="fa-solid fa-server"></i>
+                <span>Service Worker</span>
+              </div>
+              <div class="feature-item" id="featureWebSocket">
+                <i class="fa-solid fa-plug"></i>
+                <span>WebSocket</span>
+              </div>
+              <div class="feature-item" id="featureGeolocation">
+                <i class="fa-solid fa-location-crosshairs"></i>
+                <span>Geolocation</span>
+              </div>
+              <div class="feature-item" id="featureNotifications">
+                <i class="fa-solid fa-bell"></i>
+                <span>Notifications</span>
+              </div>
+              <div class="feature-item" id="featureClipboard">
+                <i class="fa-solid fa-clipboard"></i>
+                <span>Clipboard API</span>
+              </div>
+              <div class="feature-item" id="featureBluetooth">
+                <i class="fa-brands fa-bluetooth"></i>
+                <span>Web Bluetooth</span>
+              </div>
+              <div class="feature-item" id="featureWebUSB">
+                <i class="fa-brands fa-usb"></i>
+                <span>WebUSB</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Refresh Button -->
+        <button class="refresh-btn" id="refreshBtn">
+          <i class="fa-solid fa-rotate"></i>
+          <span>Refresh Info</span>
+        </button>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach. All rights reserved.</p>
+        <p class="footer-made">Made with 💗 and Claude Code xD</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Keyboard Shortcuts Hint -->
+  <div class="shortcuts-hint" id="shortcutsHint">
+    <span>Press <kbd>?</kbd> for shortcuts</span>
+  </div>
+
+  <!-- Keyboard Shortcuts Modal -->
+  <div class="shortcuts-modal" id="shortcutsModal">
+    <div class="shortcuts-content">
+      <div class="shortcuts-header">
+        <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
+        <button class="close-shortcuts-btn" id="closeShortcutsBtn">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="shortcuts-body">
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">Actions</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>R</kbd></div>
+            <div class="shortcut-desc">Refresh info</div>
+          </div>
+        </div>
+
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">Navigation</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>1</kbd></div>
+            <div class="shortcut-desc">Browser tab</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>2</kbd></div>
+            <div class="shortcut-desc">Device tab</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>3</kbd></div>
+            <div class="shortcut-desc">Network tab</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>4</kbd></div>
+            <div class="shortcut-desc">Features tab</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>?</kbd></div>
+            <div class="shortcut-desc">Show shortcuts</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Shared Tools JavaScript -->
+  <script src="../../js/tools-common.js"></script>
+  <!-- Browser Info JavaScript -->
+  <script src="browserinfo.js"></script>
+</body>
+</html>

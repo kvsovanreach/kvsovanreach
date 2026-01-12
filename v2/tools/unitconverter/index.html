@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Convert between different units of measurement including length, weight, temperature, volume, area, speed, time, and data storage.">
+  <meta property="og:title" content="KVSOVANREACH | Unit Converter">
+  <meta property="og:description" content="Convert between units of length, weight, temperature, volume, area, speed, time, and data.">
+  <meta property="og:image" content="/assets/img/pwa/ios/512.png">
+  <title>KVSOVANREACH | Unit Converter</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Common Tools CSS -->
+  <link rel="stylesheet" href="../../js/tools-common.css">
+  <!-- Unit Converter CSS -->
+  <link rel="stylesheet" href="unitconverter.css">
+</head>
+<body>
+  <!-- Skip to Content -->
+  <a href="#unitconverter" class="skip-link">Skip to unit converter</a>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">TOOLS</span>
+      </a>
+
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="tool-page">
+    <div class="container">
+      <div class="converter-wrapper" id="unitconverter">
+        <!-- Header -->
+        <div class="converter-header">
+          <h2><i class="fa-solid fa-arrows-rotate"></i> Unit Converter</h2>
+        </div>
+
+        <!-- Category Tabs -->
+        <div class="converter-tabs">
+          <button class="converter-tab active" data-category="length">
+            <i class="fa-solid fa-ruler"></i>
+            <span>Length</span>
+          </button>
+          <button class="converter-tab" data-category="weight">
+            <i class="fa-solid fa-weight-hanging"></i>
+            <span>Weight</span>
+          </button>
+          <button class="converter-tab" data-category="temperature">
+            <i class="fa-solid fa-temperature-half"></i>
+            <span>Temp</span>
+          </button>
+          <button class="converter-tab" data-category="volume">
+            <i class="fa-solid fa-flask"></i>
+            <span>Volume</span>
+          </button>
+          <button class="converter-tab" data-category="area">
+            <i class="fa-solid fa-vector-square"></i>
+            <span>Area</span>
+          </button>
+          <button class="converter-tab" data-category="speed">
+            <i class="fa-solid fa-gauge-high"></i>
+            <span>Speed</span>
+          </button>
+          <button class="converter-tab" data-category="time">
+            <i class="fa-solid fa-clock"></i>
+            <span>Time</span>
+          </button>
+          <button class="converter-tab" data-category="data">
+            <i class="fa-solid fa-database"></i>
+            <span>Data</span>
+          </button>
+        </div>
+
+        <!-- Converter Card -->
+        <div class="converter-card">
+          <!-- From Section -->
+          <div class="convert-section">
+            <label class="section-label">From</label>
+            <div class="input-row">
+              <input type="number" class="convert-input" id="fromValue" placeholder="Enter value" step="any">
+              <select class="convert-select" id="fromUnit"></select>
+            </div>
+          </div>
+
+          <!-- Swap Button -->
+          <button class="swap-btn" id="swapBtn" title="Swap units">
+            <i class="fa-solid fa-arrow-right-arrow-left"></i>
+          </button>
+
+          <!-- To Section -->
+          <div class="convert-section">
+            <label class="section-label">To</label>
+            <div class="input-row">
+              <div class="result-wrapper">
+                <input type="text" class="convert-input result" id="toValue" readonly placeholder="Result">
+                <button class="copy-result-btn" id="copyResultBtn" title="Copy result">
+                  <i class="fa-solid fa-copy"></i>
+                </button>
+              </div>
+              <select class="convert-select" id="toUnit"></select>
+            </div>
+          </div>
+
+          <!-- Formula Display -->
+          <div class="formula-display" id="formulaDisplay">
+            <span class="formula-label">Formula:</span>
+            <span class="formula-text" id="formulaText">-</span>
+          </div>
+        </div>
+
+        <!-- Quick Reference -->
+        <div class="quick-reference" id="quickReference">
+          <div class="reference-header">
+            <h3><i class="fa-solid fa-table"></i> Quick Reference</h3>
+          </div>
+          <div class="reference-table" id="referenceTable"></div>
+        </div>
+
+        <!-- History Section -->
+        <div class="history-section">
+          <div class="history-header">
+            <h3><i class="fa-solid fa-history"></i> Conversion History</h3>
+            <button class="clear-history-btn" id="clearHistoryBtn" title="Clear history">
+              <i class="fa-solid fa-trash"></i>
+            </button>
+          </div>
+          <div class="history-list" id="historyList">
+            <div class="history-empty">
+              <i class="fa-solid fa-clock-rotate-left"></i>
+              <p>No conversion history yet</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach. All rights reserved.</p>
+        <p class="footer-made">Made with 💗 and Claude Code xD</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Keyboard Shortcuts Hint -->
+  <div class="shortcuts-hint" id="shortcutsHint">
+    <span>Press <kbd>?</kbd> for shortcuts</span>
+  </div>
+
+  <!-- Keyboard Shortcuts Modal -->
+  <div class="shortcuts-modal" id="shortcutsModal">
+    <div class="shortcuts-content">
+      <div class="shortcuts-header">
+        <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
+        <button class="close-shortcuts-btn" id="closeShortcutsBtn">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="shortcuts-body">
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">Navigation</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>1</kbd>-<kbd>8</kbd></div>
+            <div class="shortcut-desc">Switch category</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Tab</kbd></div>
+            <div class="shortcut-desc">Move between fields</div>
+          </div>
+        </div>
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">Actions</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>S</kbd></div>
+            <div class="shortcut-desc">Swap units</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>C</kbd></div>
+            <div class="shortcut-desc">Copy result</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Esc</kbd></div>
+            <div class="shortcut-desc">Clear input</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>?</kbd></div>
+            <div class="shortcut-desc">Show shortcuts</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Shared Tools JavaScript -->
+  <script src="../../js/tools-common.js"></script>
+  <!-- Unit Converter JavaScript -->
+  <script src="unitconverter.js"></script>
+</body>
+</html>

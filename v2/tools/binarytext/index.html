@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Convert between binary, text, hexadecimal, and other formats. Encode and decode data easily.">
+  <meta property="og:title" content="KVSOVANREACH | Binary Text Converter">
+  <meta property="og:description" content="Convert text to binary, hex, decimal, and more. Decode binary back to text.">
+  <meta property="og:image" content="/assets/img/pwa/ios/512.png">
+  <title>KVSOVANREACH | Binary Converter</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Common Tools CSS -->
+  <link rel="stylesheet" href="../../js/tools-common.css">
+  <!-- Binary Text CSS -->
+  <link rel="stylesheet" href="binarytext.css">
+</head>
+<body>
+  <!-- Skip to Content -->
+  <a href="#binarytext" class="skip-link">Skip to binary converter</a>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">TOOLS</span>
+      </a>
+
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="tool-page">
+    <div class="container">
+      <div class="binary-wrapper" id="binarytext">
+        <!-- Header -->
+        <div class="binary-header">
+          <h2><i class="fa-solid fa-binary"></i> Binary Converter</h2>
+        </div>
+
+        <!-- Tab Navigation -->
+        <div class="binary-tabs">
+          <button class="binary-tab active" data-tab="encode">
+            <i class="fa-solid fa-arrow-right"></i>
+            <span>Text to Binary</span>
+          </button>
+          <button class="binary-tab" data-tab="decode">
+            <i class="fa-solid fa-arrow-left"></i>
+            <span>Binary to Text</span>
+          </button>
+          <button class="binary-tab" data-tab="multiformat">
+            <i class="fa-solid fa-exchange-alt"></i>
+            <span>Multi-Format</span>
+          </button>
+        </div>
+
+        <!-- Main Content Area -->
+        <div class="binary-main">
+          <!-- Encode Panel -->
+          <div class="binary-panel active" id="encodePanel">
+            <div class="convert-section">
+              <div class="input-section">
+                <div class="input-header">
+                  <label for="textToEncode">Enter Text</label>
+                  <div class="input-actions">
+                    <button class="action-btn" id="pasteTextBtn" title="Paste">
+                      <i class="fa-solid fa-paste"></i>
+                    </button>
+                    <button class="action-btn" id="clearTextBtn" title="Clear">
+                      <i class="fa-solid fa-trash"></i>
+                    </button>
+                  </div>
+                </div>
+                <textarea id="textToEncode" placeholder="Type or paste text here..." rows="5"></textarea>
+              </div>
+
+              <div class="format-options">
+                <label>Output Format:</label>
+                <div class="format-btns">
+                  <button class="format-btn active" data-format="binary">Binary</button>
+                  <button class="format-btn" data-format="hex">Hexadecimal</button>
+                  <button class="format-btn" data-format="decimal">Decimal</button>
+                  <button class="format-btn" data-format="octal">Octal</button>
+                </div>
+              </div>
+
+              <div class="separator-option">
+                <label>Separator:</label>
+                <select id="encodeSeparator">
+                  <option value=" ">Space</option>
+                  <option value="">None</option>
+                  <option value="-">Dash (-)</option>
+                  <option value=",">Comma (,)</option>
+                </select>
+              </div>
+
+              <button class="convert-btn" id="encodeBtn">
+                <i class="fa-solid fa-arrow-right"></i>
+                <span>Convert</span>
+              </button>
+
+              <div class="output-section">
+                <div class="output-header">
+                  <label>Output</label>
+                  <button class="action-btn" id="copyEncodedBtn">
+                    <i class="fa-solid fa-copy"></i>
+                    <span>Copy</span>
+                  </button>
+                </div>
+                <textarea id="encodedOutput" readonly placeholder="Encoded output will appear here..."></textarea>
+              </div>
+            </div>
+          </div>
+
+          <!-- Decode Panel -->
+          <div class="binary-panel" id="decodePanel">
+            <div class="convert-section">
+              <div class="input-section">
+                <div class="input-header">
+                  <label for="binaryToDecode">Enter Binary/Hex/Decimal</label>
+                  <div class="input-actions">
+                    <button class="action-btn" id="pasteBinaryBtn" title="Paste">
+                      <i class="fa-solid fa-paste"></i>
+                    </button>
+                    <button class="action-btn" id="clearBinaryBtn" title="Clear">
+                      <i class="fa-solid fa-trash"></i>
+                    </button>
+                  </div>
+                </div>
+                <textarea id="binaryToDecode" placeholder="Enter binary (01001000 01101001), hex (48 69), or decimal (72 105)..." rows="5"></textarea>
+              </div>
+
+              <div class="format-options">
+                <label>Input Format:</label>
+                <div class="format-btns" id="decodeFormatBtns">
+                  <button class="format-btn active" data-format="binary">Binary</button>
+                  <button class="format-btn" data-format="hex">Hexadecimal</button>
+                  <button class="format-btn" data-format="decimal">Decimal</button>
+                  <button class="format-btn" data-format="octal">Octal</button>
+                </div>
+              </div>
+
+              <button class="convert-btn" id="decodeBtn">
+                <i class="fa-solid fa-arrow-left"></i>
+                <span>Decode to Text</span>
+              </button>
+
+              <div class="output-section">
+                <div class="output-header">
+                  <label>Decoded Text</label>
+                  <button class="action-btn" id="copyDecodedBtn">
+                    <i class="fa-solid fa-copy"></i>
+                    <span>Copy</span>
+                  </button>
+                </div>
+                <textarea id="decodedOutput" readonly placeholder="Decoded text will appear here..."></textarea>
+              </div>
+            </div>
+          </div>
+
+          <!-- Multi-Format Panel -->
+          <div class="binary-panel" id="multiformatPanel">
+            <div class="multiformat-section">
+              <div class="input-section">
+                <div class="input-header">
+                  <label for="multiInput">Enter Text</label>
+                  <div class="input-actions">
+                    <button class="action-btn" id="pasteMultiBtn" title="Paste">
+                      <i class="fa-solid fa-paste"></i>
+                    </button>
+                    <button class="action-btn" id="clearMultiBtn" title="Clear">
+                      <i class="fa-solid fa-trash"></i>
+                    </button>
+                  </div>
+                </div>
+                <input type="text" id="multiInput" placeholder="Type text to see all formats...">
+              </div>
+
+              <div class="multi-results">
+                <div class="result-card">
+                  <div class="result-label">Binary</div>
+                  <div class="result-value" id="multiBinary">-</div>
+                  <button class="copy-btn" data-copy="multiBinary" aria-label="Copy binary" title="Copy binary"><i class="fa-solid fa-copy"></i></button>
+                </div>
+                <div class="result-card">
+                  <div class="result-label">Hexadecimal</div>
+                  <div class="result-value" id="multiHex">-</div>
+                  <button class="copy-btn" data-copy="multiHex" aria-label="Copy hexadecimal" title="Copy hexadecimal"><i class="fa-solid fa-copy"></i></button>
+                </div>
+                <div class="result-card">
+                  <div class="result-label">Decimal</div>
+                  <div class="result-value" id="multiDecimal">-</div>
+                  <button class="copy-btn" data-copy="multiDecimal" aria-label="Copy decimal" title="Copy decimal"><i class="fa-solid fa-copy"></i></button>
+                </div>
+                <div class="result-card">
+                  <div class="result-label">Octal</div>
+                  <div class="result-value" id="multiOctal">-</div>
+                  <button class="copy-btn" data-copy="multiOctal" aria-label="Copy octal" title="Copy octal"><i class="fa-solid fa-copy"></i></button>
+                </div>
+                <div class="result-card">
+                  <div class="result-label">ASCII Codes</div>
+                  <div class="result-value" id="multiAscii">-</div>
+                  <button class="copy-btn" data-copy="multiAscii" aria-label="Copy ASCII codes" title="Copy ASCII codes"><i class="fa-solid fa-copy"></i></button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach. All rights reserved.</p>
+        <p class="footer-made">Made with 💗 and Claude Code xD</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Keyboard Shortcuts Hint -->
+  <div class="shortcuts-hint" id="shortcutsHint">
+    <span>Press <kbd>?</kbd> for shortcuts</span>
+  </div>
+
+  <!-- Keyboard Shortcuts Modal -->
+  <div class="shortcuts-modal" id="shortcutsModal">
+    <div class="shortcuts-content">
+      <div class="shortcuts-header">
+        <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
+        <button class="close-shortcuts-btn" id="closeShortcutsBtn">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="shortcuts-body">
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">Actions</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Ctrl</kbd><span class="key-plus">+</span><kbd>Enter</kbd></div>
+            <div class="shortcut-desc">Convert</div>
+          </div>
+        </div>
+
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">Navigation</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>1</kbd></div>
+            <div class="shortcut-desc">Text to Binary tab</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>2</kbd></div>
+            <div class="shortcut-desc">Binary to Text tab</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>3</kbd></div>
+            <div class="shortcut-desc">Multi-Format tab</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>?</kbd></div>
+            <div class="shortcut-desc">Show shortcuts</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Shared Tools JavaScript -->
+  <script src="../../js/tools-common.js"></script>
+  <!-- Binary Text JavaScript -->
+  <script src="binarytext.js"></script>
+</body>
+</html>

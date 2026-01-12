@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="HTTP Status Code Reference - Quick lookup for all HTTP status codes with descriptions and examples.">
+  <meta property="og:title" content="KVSOVANREACH | HTTP Status Reference">
+  <meta property="og:description" content="Complete HTTP status code reference with descriptions and use cases.">
+  <meta property="og:image" content="/assets/img/pwa/ios/512.png">
+  <title>KVSOVANREACH | HTTP Status Reference</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Common Tools CSS -->
+  <link rel="stylesheet" href="../../js/tools-common.css">
+  <!-- HTTP Status CSS -->
+  <link rel="stylesheet" href="httpstatus.css">
+</head>
+<body>
+  <!-- Skip to Content -->
+  <a href="#httpstatus" class="skip-link">Skip to HTTP status reference</a>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">TOOLS</span>
+      </a>
+
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="tool-page">
+    <div class="container">
+      <div class="http-wrapper" id="httpstatus">
+        <!-- Header -->
+        <div class="http-header">
+          <h2><i class="fa-solid fa-server"></i> HTTP Status Reference</h2>
+        </div>
+
+        <div class="http-card">
+          <!-- Search Bar -->
+          <div class="search-section">
+            <div class="search-box">
+              <i class="fa-solid fa-search search-icon"></i>
+              <input type="text" id="searchInput" placeholder="Search by code or description (e.g., 404, not found)...">
+              <button class="clear-search-btn hidden" id="clearSearchBtn" aria-label="Clear search" title="Clear search">
+                <i class="fa-solid fa-xmark"></i>
+              </button>
+            </div>
+            <div class="search-stats" id="searchStats">Showing all status codes</div>
+          </div>
+
+          <!-- Category Tabs -->
+          <div class="http-tabs">
+            <button class="http-tab active" data-category="all">
+              <span class="tab-badge all">All</span>
+            </button>
+            <button class="http-tab" data-category="1xx">
+              <span class="tab-badge info">1xx</span>
+              <span class="tab-label">Informational</span>
+            </button>
+            <button class="http-tab" data-category="2xx">
+              <span class="tab-badge success">2xx</span>
+              <span class="tab-label">Success</span>
+            </button>
+            <button class="http-tab" data-category="3xx">
+              <span class="tab-badge redirect">3xx</span>
+              <span class="tab-label">Redirection</span>
+            </button>
+            <button class="http-tab" data-category="4xx">
+              <span class="tab-badge client">4xx</span>
+              <span class="tab-label">Client Error</span>
+            </button>
+            <button class="http-tab" data-category="5xx">
+              <span class="tab-badge server">5xx</span>
+              <span class="tab-label">Server Error</span>
+            </button>
+          </div>
+
+          <!-- Status Codes List -->
+          <div class="status-list" id="statusList">
+            <!-- Status codes will be rendered here -->
+          </div>
+
+          <!-- No Results -->
+          <div class="no-results hidden" id="noResults">
+            <i class="fa-solid fa-search"></i>
+            <p>No status codes found</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach. All rights reserved.</p>
+        <p class="footer-made">Made with 💗 and Claude Code xD</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Keyboard Shortcuts Hint -->
+  <div class="shortcuts-hint" id="shortcutsHint">
+    <span>Press <kbd>?</kbd> for shortcuts</span>
+  </div>
+
+  <!-- Keyboard Shortcuts Modal -->
+  <div class="shortcuts-modal" id="shortcutsModal">
+    <div class="shortcuts-content">
+      <div class="shortcuts-header">
+        <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
+        <button class="close-shortcuts-btn" id="closeShortcutsBtn">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="shortcuts-body">
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">Navigation</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>/</kbd></div>
+            <div class="shortcut-desc">Focus search</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Esc</kbd></div>
+            <div class="shortcut-desc">Clear search</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>1</kbd> - <kbd>6</kbd></div>
+            <div class="shortcut-desc">Switch category tabs</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>?</kbd></div>
+            <div class="shortcut-desc">Show shortcuts</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Status Detail Modal -->
+  <div class="status-modal" id="statusModal">
+    <div class="status-modal-content">
+      <div class="status-modal-header">
+        <div class="status-modal-badge" id="modalBadge">200</div>
+        <h3 class="status-modal-title" id="modalTitle">OK</h3>
+        <button class="close-modal-btn" id="closeModalBtn">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="status-modal-body">
+        <div class="modal-section">
+          <h4>Description</h4>
+          <p id="modalDescription"></p>
+        </div>
+        <div class="modal-section">
+          <h4>When to Use</h4>
+          <p id="modalUsage"></p>
+        </div>
+        <div class="modal-section">
+          <h4>Example Response</h4>
+          <pre class="modal-code" id="modalExample"></pre>
+        </div>
+      </div>
+      <div class="status-modal-footer">
+        <button class="copy-code-btn" id="copyCodeBtn">
+          <i class="fa-solid fa-copy"></i>
+          <span>Copy Code</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Shared Tools JavaScript -->
+  <script src="../../js/tools-common.js"></script>
+  <!-- HTTP Status JavaScript -->
+  <script src="httpstatus.js"></script>
+</body>
+</html>

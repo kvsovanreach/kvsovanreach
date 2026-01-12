@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Test visual hierarchy and contrast by viewing images in grayscale. Essential for accessibility testing.">
+  <meta property="og:title" content="KVSOVANREACH | Grayscale Tester">
+  <meta property="og:description" content="Check design contrast and hierarchy with grayscale filter.">
+  <meta property="og:image" content="/assets/img/pwa/ios/512.png">
+  <title>KVSOVANREACH | Grayscale Tester</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Common Tools CSS -->
+  <link rel="stylesheet" href="../../js/tools-common.css">
+  <!-- Grayscale CSS -->
+  <link rel="stylesheet" href="grayscale.css">
+</head>
+<body>
+  <!-- Skip to Content -->
+  <a href="#grayscale" class="skip-link">Skip to Grayscale Tester</a>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">TOOLS</span>
+      </a>
+
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="tool-page">
+    <div class="container">
+      <!-- Grayscale Wrapper -->
+      <div class="gray-wrapper" id="grayscale">
+        <!-- Header -->
+        <div class="gray-header">
+          <h2><i class="fa-solid fa-circle-half-stroke"></i> Grayscale Tester</h2>
+          <div class="gray-actions">
+            <button class="action-btn" id="clearBtn" title="Clear image" aria-label="Clear image">
+              <i class="fa-solid fa-trash"></i>
+              <span>Clear</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Content -->
+        <div class="gray-content">
+          <!-- Upload Section -->
+          <div class="upload-section" id="uploadSection">
+            <div class="upload-area" id="uploadArea">
+              <i class="fa-solid fa-cloud-arrow-up"></i>
+              <h3>Upload an Image</h3>
+              <p>Drag & drop or click to browse</p>
+              <p class="upload-hint">Supports JPG, PNG, GIF, WebP</p>
+              <input type="file" id="fileInput" accept="image/*" hidden>
+            </div>
+          </div>
+
+          <!-- Preview Section -->
+          <div class="preview-section" id="previewSection" hidden>
+            <!-- Controls -->
+            <div class="gray-controls">
+              <div class="control-group">
+                <label>Grayscale Amount</label>
+                <div class="slider-group">
+                  <input type="range" id="grayscaleSlider" min="0" max="100" value="100">
+                  <span class="slider-value" id="sliderValue">100%</span>
+                </div>
+              </div>
+              <div class="quick-buttons">
+                <button class="quick-btn" data-value="0">Color</button>
+                <button class="quick-btn" data-value="50">50%</button>
+                <button class="quick-btn active" data-value="100">Grayscale</button>
+              </div>
+            </div>
+
+            <!-- Image Preview -->
+            <div class="image-preview">
+              <div class="preview-container">
+                <img id="previewImage" alt="Uploaded image preview">
+              </div>
+            </div>
+
+            <!-- Info Panel -->
+            <div class="info-panel">
+              <div class="info-card">
+                <i class="fa-solid fa-lightbulb"></i>
+                <div>
+                  <h4>Why Test in Grayscale?</h4>
+                  <p>Removing color reveals true visual hierarchy. Important elements should stand out based on contrast alone, not color.</p>
+                </div>
+              </div>
+              <div class="info-card">
+                <i class="fa-solid fa-universal-access"></i>
+                <div>
+                  <h4>Accessibility Check</h4>
+                  <p>Approximately 8% of men and 0.5% of women have some form of color blindness. Ensure your design works without color.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach. All rights reserved.</p>
+        <p class="footer-made">Made with 💗 and Claude Code xD</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Keyboard Shortcuts Modal -->
+  <div class="shortcuts-modal" id="shortcutsModal">
+    <div class="shortcuts-content">
+      <div class="shortcuts-header">
+        <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
+        <button class="close-shortcuts-btn" id="closeShortcutsBtn" aria-label="Close shortcuts">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="shortcuts-body">
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">Actions</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>G</kbd></div>
+            <div class="shortcut-desc">Toggle grayscale</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>C</kbd></div>
+            <div class="shortcut-desc">Show color</div>
+          </div>
+        </div>
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">General</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>?</kbd></div>
+            <div class="shortcut-desc">Show shortcuts</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Escape</kbd></div>
+            <div class="shortcut-desc">Close modal</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Keyboard Shortcuts Hint -->
+  <div class="shortcuts-hint" id="shortcutsHint">
+    <span>Press <kbd>?</kbd> for shortcuts</span>
+  </div>
+
+  <!-- Shared Tools JavaScript -->
+  <script src="../../js/tools-common.js"></script>
+  <!-- Scripts -->
+  <script src="grayscale.js"></script>
+</body>
+</html>

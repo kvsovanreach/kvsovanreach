@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Remove extra whitespace, trim lines, and clean up text formatting easily.">
+  <meta property="og:title" content="KVSOVANREACH | Whitespace Stripper">
+  <meta property="og:description" content="Clean up text by removing extra spaces, blank lines, and trailing whitespace.">
+  <meta property="og:image" content="/assets/img/pwa/ios/512.png">
+  <title>KVSOVANREACH | Whitespace Stripper</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Common Tools CSS -->
+  <link rel="stylesheet" href="../../js/tools-common.css">
+  <!-- Whitespace CSS -->
+  <link rel="stylesheet" href="whitespace.css">
+</head>
+<body>
+  <!-- Skip to Content -->
+  <a href="#whitespace" class="skip-link">Skip to whitespace stripper</a>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">TOOLS</span>
+      </a>
+
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="tool-page">
+    <div class="container">
+      <div class="whitespace-wrapper" id="whitespace">
+        <!-- Header -->
+        <div class="whitespace-header">
+          <h2><i class="fa-solid fa-eraser"></i> Whitespace Stripper</h2>
+        </div>
+
+        <!-- Main Card -->
+        <div class="whitespace-card">
+          <!-- Input Section -->
+          <div class="input-section">
+            <div class="input-header">
+              <label for="inputText">Input Text</label>
+              <div class="input-actions">
+                <button class="action-btn" id="pasteBtn" title="Paste">
+                  <i class="fa-solid fa-paste"></i>
+                </button>
+                <button class="action-btn" id="clearBtn" title="Clear">
+                  <i class="fa-solid fa-trash"></i>
+                </button>
+              </div>
+            </div>
+            <textarea id="inputText" placeholder="Paste or type your text here..." rows="8"></textarea>
+            <div class="input-stats">
+              <span><span id="inputChars">0</span> characters</span>
+              <span><span id="inputLines">0</span> lines</span>
+              <span><span id="inputSpaces">0</span> spaces</span>
+            </div>
+          </div>
+
+          <!-- Options -->
+          <div class="options-section">
+            <h4>Cleaning Options</h4>
+            <div class="options-grid">
+              <label class="option-label">
+                <input type="checkbox" id="optTrimLines" checked>
+                <span>Trim leading/trailing spaces</span>
+              </label>
+              <label class="option-label">
+                <input type="checkbox" id="optMultipleSpaces" checked>
+                <span>Remove multiple spaces</span>
+              </label>
+              <label class="option-label">
+                <input type="checkbox" id="optBlankLines" checked>
+                <span>Remove empty lines</span>
+              </label>
+              <label class="option-label">
+                <input type="checkbox" id="optMultipleBlankLines">
+                <span>Collapse multiple blank lines</span>
+              </label>
+              <label class="option-label">
+                <input type="checkbox" id="optTabs">
+                <span>Convert tabs to spaces</span>
+              </label>
+              <label class="option-label">
+                <input type="checkbox" id="optNonBreaking">
+                <span>Remove non-breaking spaces</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Clean Button -->
+          <button class="clean-btn" id="cleanBtn">
+            <i class="fa-solid fa-broom"></i>
+            <span>Clean Text</span>
+          </button>
+
+          <!-- Output Section -->
+          <div class="output-section">
+            <div class="output-header">
+              <label>Cleaned Text</label>
+              <div class="output-actions">
+                <button class="action-btn" id="copyBtn">
+                  <i class="fa-solid fa-copy"></i>
+                  <span>Copy</span>
+                </button>
+                <button class="action-btn" id="useAsInputBtn">
+                  <i class="fa-solid fa-arrow-up"></i>
+                  <span>Use as Input</span>
+                </button>
+              </div>
+            </div>
+            <textarea id="outputText" readonly placeholder="Cleaned text will appear here..."></textarea>
+            <div class="output-stats">
+              <span><span id="outputChars">0</span> characters</span>
+              <span><span id="outputLines">0</span> lines</span>
+              <span class="removed"><span id="removedChars">0</span> removed</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach. All rights reserved.</p>
+        <p class="footer-made">Made with 💗 and Claude Code xD</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Keyboard Shortcuts Hint -->
+  <div class="shortcuts-hint" id="shortcutsHint">
+    <span>Press <kbd>?</kbd> for shortcuts</span>
+  </div>
+
+  <!-- Keyboard Shortcuts Modal -->
+  <div class="shortcuts-modal" id="shortcutsModal">
+    <div class="shortcuts-content">
+      <div class="shortcuts-header">
+        <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
+        <button class="close-shortcuts-btn" id="closeShortcutsBtn">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="shortcuts-body">
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">Actions</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Ctrl</kbd><span class="key-plus">+</span><kbd>Enter</kbd></div>
+            <div class="shortcut-desc">Clean text</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Ctrl</kbd><span class="key-plus">+</span><kbd>C</kbd></div>
+            <div class="shortcut-desc">Copy output</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>?</kbd></div>
+            <div class="shortcut-desc">Show shortcuts</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Shared Tools JavaScript -->
+  <script src="../../js/tools-common.js"></script>
+  <!-- Whitespace JavaScript -->
+  <script src="whitespace.js"></script>
+</body>
+</html>

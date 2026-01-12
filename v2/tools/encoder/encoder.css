@@ -25,6 +25,28 @@
   min-width: 0;
 }
 
+/* ==================== Header ==================== */
+.encoder-header {
+  display: flex;
+  align-items: center;
+  padding: var(--space-4) var(--space-5);
+  background-color: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.encoder-header h2 {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-size: var(--font-size-xl);
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.encoder-header h2 i {
+  color: var(--color-primary);
+}
+
 /* ==================== Tabs ==================== */
 .encoder-tabs {
   display: flex;
@@ -729,7 +751,7 @@
   display: flex;
   align-items: center;
   gap: var(--space-2);
-  font-size: var(--font-size-sm);
+  font-size: var(--font-size-base);
   font-weight: 600;
   color: var(--color-text);
   margin: 0;
