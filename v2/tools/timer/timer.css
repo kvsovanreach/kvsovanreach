@@ -685,40 +685,7 @@
   box-shadow: 0 8px 25px rgba(55, 118, 161, 0.3);
 }
 
-/* ==================== Toast ==================== */
-.toast {
-  position: fixed;
-  bottom: var(--space-6);
-  left: 50%;
-  transform: translateX(-50%) translateY(100px);
-  padding: var(--space-3) var(--space-5);
-  background-color: var(--color-text);
-  color: var(--color-bg);
-  border-radius: var(--radius-lg);
-  font-size: var(--font-size-sm);
-  font-weight: 500;
-  box-shadow: var(--shadow-lg);
-  z-index: 1100;
-  opacity: 0;
-  transition: all var(--transition-base);
-}
-
-.toast.show {
-  transform: translateX(-50%) translateY(0);
-  opacity: 1;
-}
-
-.toast.success {
-  background-color: #22c55e;
-  color: white;
-}
-
-.toast.error {
-  background-color: #ef4444;
-  color: white;
-}
-
-/* Shortcuts Hint & Modal styles are in tools.css */
+/* Toast, Shortcuts Modal & Hint styles are in tools-common.css */
 
 /* ==================== Responsive ==================== */
 @media screen and (max-width: 768px) {

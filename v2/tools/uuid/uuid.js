@@ -312,33 +312,11 @@
     elements.validateInput.value = '';
   }
 
-  // ==================== Theme ====================
-  function initTheme() {
-    const savedTheme = localStorage.getItem('theme');
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    const theme = savedTheme || (prefersDark ? 'dark' : 'light');
-    document.documentElement.setAttribute('data-theme', theme);
-  }
-
-  function toggleTheme() {
-    const currentTheme = document.documentElement.getAttribute('data-theme');
-    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-    document.documentElement.setAttribute('data-theme', newTheme);
-    localStorage.setItem('theme', newTheme);
-  }
+  // Theme & current year handled by tools-common.js
 
   // ==================== Initialize ====================
   function init() {
-    // Set current year
-    if (elements.currentYear) {
-      elements.currentYear.textContent = new Date().getFullYear();
-    }
-
-    // Initialize theme
-    initTheme();
-
     // Event listeners
-    elements.themeToggle.addEventListener('click', toggleTheme);
     elements.generateBtn.addEventListener('click', handleGenerate);
     elements.clearAllBtn.addEventListener('click', handleClearAll);
     elements.copyAllBtn.addEventListener('click', handleCopyAll);

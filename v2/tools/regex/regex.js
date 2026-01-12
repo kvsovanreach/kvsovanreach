@@ -69,26 +69,10 @@
   // ============================================
   // Initialization
   // ============================================
+  // Theme & footer year handled by tools-common.js
+
   function init() {
-    initTheme();
     initEventListeners();
-    initFooter();
-  }
-
-  function initTheme() {
-    if (state.isDarkMode) {
-      document.documentElement.setAttribute('data-theme', 'dark');
-    }
-
-    elements.themeToggle?.addEventListener('click', () => {
-      state.isDarkMode = !state.isDarkMode;
-      if (state.isDarkMode) {
-        document.documentElement.setAttribute('data-theme', 'dark');
-      } else {
-        document.documentElement.removeAttribute('data-theme');
-      }
-      localStorage.setItem('theme', state.isDarkMode ? 'dark' : 'light');
-    });
   }
 
   function initEventListeners() {
@@ -445,11 +429,6 @@
     }, 3000);
   }
 
-  function initFooter() {
-    if (elements.currentYear) {
-      elements.currentYear.textContent = new Date().getFullYear();
-    }
-  }
 
   // ============================================
   // Initialize

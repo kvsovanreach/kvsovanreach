@@ -139,25 +139,7 @@
   gap: var(--space-1);
 }
 
-.action-btn {
-  width: 32px;
-  height: 32px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: var(--color-bg-secondary);
-  color: var(--color-text-muted);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
-  cursor: pointer;
-  transition: all var(--transition-fast);
-}
-
-.action-btn:hover {
-  background-color: var(--color-primary);
-  color: #fff;
-  border-color: var(--color-primary);
-}
+/* action-btn styles are in tools-common.css */
 
 .encoder-section textarea {
   width: 100%;
@@ -687,46 +669,6 @@
   color: #fff;
 }
 
-/* ==================== Toast ==================== */
-.toast {
-  position: fixed;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%) translateY(100px);
-  padding: var(--space-3) var(--space-5);
-  background-color: var(--color-text);
-  color: var(--color-bg);
-  border-radius: var(--radius-full);
-  font-size: var(--font-size-sm);
-  box-shadow: var(--shadow-lg);
-  opacity: 0;
-  transition: all var(--transition-base);
-  z-index: 1000;
-  pointer-events: none;
-}
-
-.toast.show {
-  transform: translateX(-50%) translateY(0);
-  opacity: 1;
-}
-
-.toast.success {
-  background-color: #22c55e;
-  color: #fff;
-}
-
-.toast.error {
-  background-color: #ef4444;
-  color: #fff;
-}
-
-.toast.info {
-  background-color: var(--color-primary);
-  color: #fff;
-}
-
-/* Shortcuts Modal & Hint styles are in tools.css */
-
 /* ==================== History Sidebar ==================== */
 .history-show-btn {
   display: none;
@@ -1041,6 +983,8 @@
 .history-badge[data-count="0"] {
   display: none;
 }
+
+/* Toast, Shortcuts Modal & Hint styles are in tools-common.css */
 
 /* ==================== Responsive ==================== */
 @media screen and (max-width: 1024px) {

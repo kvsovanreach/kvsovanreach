@@ -27,6 +27,106 @@
     currentYear: document.getElementById('current-year')
   };
 
+  // ==================== URL Management ====================
+  const URLManager = {
+    /**
+     * Read URL parameters and update state
+     */
+    readFromURL() {
+      const params = new URLSearchParams(window.location.search);
+
+      // Read category
+      const category = params.get('category');
+      if (category && ['all', 'general', 'developer', 'ai'].includes(category)) {
+        currentCategory = category;
+      }
+
+      // Read page
+      const page = parseInt(params.get('page'));
+      if (page && page > 0) {
+        currentPage = page;
+      }
+
+      // Read search query
+      const q = params.get('q');
+      if (q) {
+        searchQuery = q;
+        if (elements.searchInput) {
+          elements.searchInput.value = q;
+          elements.searchClear?.classList.toggle('visible', q.length > 0);
+        }
+      }
+
+      // Update active nav link
+      elements.navLinks.forEach(link => {
+        link.classList.toggle('active', link.dataset.category === currentCategory);
+      });
+    },
+
+    /**
+     * Update URL to reflect current state
+     * @param {boolean} replace - Use replaceState instead of pushState
+     */
+    updateURL(replace = false) {
+      const params = new URLSearchParams();
+
+      // Only add params if they differ from defaults
+      if (currentCategory !== 'all') {
+        params.set('category', currentCategory);
+      }
+
+      if (currentPage > 1) {
+        params.set('page', currentPage);
+      }
+
+      if (searchQuery) {
+        params.set('q', searchQuery);
+      }
+
+      // Build new URL
+      const queryString = params.toString();
+      const newURL = queryString
+        ? `${window.location.pathname}?${queryString}`
+        : window.location.pathname;
+
+      // Update browser URL without reload
+      if (replace) {
+        history.replaceState({ category: currentCategory, page: currentPage, q: searchQuery }, '', newURL);
+      } else {
+        history.pushState({ category: currentCategory, page: currentPage, q: searchQuery }, '', newURL);
+      }
+    },
+
+    /**
+     * Initialize popstate listener for browser back/forward
+     */
+    init() {
+      window.addEventListener('popstate', (event) => {
+        if (event.state) {
+          currentCategory = event.state.category || 'all';
+          currentPage = event.state.page || 1;
+          searchQuery = event.state.q || '';
+
+          // Update UI
+          if (elements.searchInput) {
+            elements.searchInput.value = searchQuery;
+            elements.searchClear?.classList.toggle('visible', searchQuery.length > 0);
+          }
+
+          elements.navLinks.forEach(link => {
+            link.classList.toggle('active', link.dataset.category === currentCategory);
+          });
+
+          ToolsRenderer.render();
+        } else {
+          // No state, read from URL
+          this.readFromURL();
+          ToolsRenderer.render();
+        }
+      });
+    }
+  };
+
   // ==================== Theme Management ====================
   const ThemeManager = {
     init() {
@@ -60,6 +160,7 @@
           currentCategory = link.dataset.category;
           currentPage = 1;
           ToolsRenderer.render();
+          URLManager.updateURL();
           this.closeMenu();
         });
       });
@@ -100,12 +201,20 @@
 
   // ==================== Search ====================
   const Search = {
+    debounceTimer: null,
+
     init() {
       elements.searchInput?.addEventListener('input', (e) => {
         searchQuery = e.target.value;
         currentPage = 1;
         elements.searchClear?.classList.toggle('visible', searchQuery.length > 0);
         ToolsRenderer.render();
+
+        // Debounce URL update to avoid too many history entries while typing
+        clearTimeout(this.debounceTimer);
+        this.debounceTimer = setTimeout(() => {
+          URLManager.updateURL();
+        }, 500);
       });
 
       elements.searchClear?.addEventListener('click', () => {
@@ -115,6 +224,7 @@
         elements.searchClear.classList.remove('visible');
         elements.searchInput.focus();
         ToolsRenderer.render();
+        URLManager.updateURL();
       });
 
       // Keyboard shortcuts
@@ -133,6 +243,7 @@
           elements.searchClear?.classList.remove('visible');
           elements.searchInput.blur();
           ToolsRenderer.render();
+          URLManager.updateURL();
         }
       });
     }
@@ -149,6 +260,12 @@
       if (totalPages <= 1) {
         elements.pagination.innerHTML = '';
         return;
+      }
+
+      // Validate current page
+      if (currentPage > totalPages) {
+        currentPage = totalPages;
+        URLManager.updateURL(true); // Replace to fix invalid page
       }
 
       let html = '';
@@ -188,6 +305,7 @@
         btn.addEventListener('click', () => {
           currentPage = parseInt(btn.dataset.page);
           ToolsRenderer.render();
+          URLManager.updateURL();
           // Scroll to top of page
           window.scrollTo({ top: 0, behavior: 'smooth' });
         });
@@ -314,12 +432,21 @@
       elements.currentYear.textContent = new Date().getFullYear();
     }
 
+    // Initialize URL manager and read initial state from URL
+    URLManager.init();
+    URLManager.readFromURL();
+
     // Initialize modules
     ThemeManager.init();
     Navigation.init();
     Search.init();
     CategoryCounts.init();
+
+    // Initial render
     ToolsRenderer.render();
+
+    // Replace initial state (so back button works correctly)
+    URLManager.updateURL(true);
   }
 
   // Run initialization when DOM is ready

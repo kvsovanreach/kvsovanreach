@@ -642,11 +642,7 @@
     }, 3000);
   }
 
-  function initFooter() {
-    if (elements.currentYear) {
-      elements.currentYear.textContent = new Date().getFullYear();
-    }
-  }
+
 
   // ============================================
   // Initialize

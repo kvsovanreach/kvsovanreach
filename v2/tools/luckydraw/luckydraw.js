@@ -1257,11 +1257,7 @@
   // ============================================
   // Footer
   // ============================================
-  function initFooter() {
-    if (elements.currentYear) {
-      elements.currentYear.textContent = new Date().getFullYear();
-    }
-  }
+
 
   // ============================================
   // Utilities

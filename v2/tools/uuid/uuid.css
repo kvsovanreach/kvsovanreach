@@ -41,26 +41,7 @@
   gap: var(--space-2);
 }
 
-.action-btn {
-  display: flex;
-  align-items: center;
-  gap: var(--space-2);
-  padding: var(--space-2) var(--space-3);
-  background-color: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
-  font-size: var(--font-size-sm);
-  font-weight: 500;
-  color: var(--color-text-secondary);
-  cursor: pointer;
-  transition: all var(--transition-fast);
-}
-
-.action-btn:hover {
-  background-color: var(--color-primary);
-  border-color: var(--color-primary);
-  color: white;
-}
+/* action-btn styles are in tools-common.css */
 
 /* ==================== Content ==================== */
 .uuid-content {
@@ -534,35 +515,7 @@
   color: var(--color-text-secondary);
 }
 
-/* ==================== Toast ==================== */
-.toast {
-  position: fixed;
-  bottom: var(--space-6);
-  left: 50%;
-  transform: translateX(-50%) translateY(100px);
-  padding: var(--space-3) var(--space-5);
-  background-color: var(--color-text);
-  color: var(--color-bg);
-  border-radius: var(--radius-lg);
-  font-size: var(--font-size-sm);
-  font-weight: 500;
-  box-shadow: var(--shadow-lg);
-  z-index: 1100;
-  opacity: 0;
-  transition: all var(--transition-base);
-}
-
-.toast.show {
-  transform: translateX(-50%) translateY(0);
-  opacity: 1;
-}
-
-.toast.success {
-  background-color: #22c55e;
-  color: white;
-}
-
-/* Shortcuts Hint & Modal styles are in tools.css */
+/* Toast, Shortcuts Modal & Hint styles are in tools-common.css */
 
 /* ==================== Responsive ==================== */
 @media screen and (max-width: 768px) {

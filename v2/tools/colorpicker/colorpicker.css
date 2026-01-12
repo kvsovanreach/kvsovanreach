@@ -1216,40 +1216,7 @@
   color: var(--color-text-secondary);
 }
 
-/* ==================== Toast Notification ==================== */
-.toast {
-  position: fixed;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%) translateY(100px);
-  padding: var(--space-3) var(--space-5);
-  background-color: var(--color-text);
-  color: var(--color-bg);
-  border-radius: var(--radius-full);
-  font-size: var(--font-size-sm);
-  box-shadow: var(--shadow-lg);
-  opacity: 0;
-  transition: all var(--transition-base);
-  z-index: 1000;
-  pointer-events: none;
-}
-
-.toast.show {
-  transform: translateX(-50%) translateY(0);
-  opacity: 1;
-}
-
-.toast.success {
-  background-color: #22c55e;
-  color: #fff;
-}
-
-.toast.error {
-  background-color: #ef4444;
-  color: #fff;
-}
-
-/* Shortcuts Hint & Modal styles are in tools.css */
+/* Toast, Shortcuts Modal & Hint styles are in tools-common.css */
 
 /* ==================== Responsive ==================== */
 @media screen and (max-width: 900px) {

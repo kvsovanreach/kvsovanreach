@@ -1774,11 +1774,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // ============================================
   // Footer
   // ============================================
-  function initFooter() {
-    if (elements.currentYear) {
-      elements.currentYear.textContent = new Date().getFullYear();
-    }
-  }
+
 
   // Initialize the application
   init();
