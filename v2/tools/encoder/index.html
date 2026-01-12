@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Encode and decode text in various formats: Base64, URL, HTML entities, JWT, Hash, and more.">
+  <meta property="og:title" content="KVSOVANREACH | Encoder/Decoder">
+  <meta property="og:description" content="A powerful text encoding and decoding tool supporting multiple formats.">
+  <meta property="og:image" content="/assets/img/pwa/ios/512.png">
+  <title>KVSOVANREACH | Encoder/Decoder</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Common Tools CSS -->
+  <link rel="stylesheet" href="../../css/tools.css">
+  <!-- Encoder CSS -->
+  <link rel="stylesheet" href="encoder.css">
+</head>
+<body>
+  <!-- Skip to Content -->
+  <a href="#encoder" class="skip-link">Skip to encoder tool</a>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">TOOLS</span>
+      </a>
+
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="tool-page">
+    <div class="container">
+      <!-- Encoder Container -->
+      <div class="encoder-wrapper" id="encoder">
+        <!-- Tab Navigation -->
+        <div class="encoder-tabs">
+          <button class="encoder-tab active" data-tab="base64">
+            <i class="fa-solid fa-code"></i>
+            <span>Base64</span>
+          </button>
+          <button class="encoder-tab" data-tab="url">
+            <i class="fa-solid fa-link"></i>
+            <span>URL</span>
+          </button>
+          <button class="encoder-tab" data-tab="hash">
+            <i class="fa-solid fa-fingerprint"></i>
+            <span>Hash</span>
+          </button>
+          <button class="encoder-tab" data-tab="jwt">
+            <i class="fa-solid fa-key"></i>
+            <span>JWT</span>
+          </button>
+          <button class="encoder-tab" data-tab="more">
+            <i class="fa-solid fa-ellipsis"></i>
+            <span>More</span>
+          </button>
+        </div>
+
+        <!-- Main Content Area -->
+        <div class="encoder-content">
+        <div class="encoder-main">
+          <!-- Base64 Panel -->
+          <div class="encoder-panel active" id="base64Panel">
+            <div class="panel-header">
+              <h2>Base64 Encoder/Decoder</h2>
+              <p>Encode text to Base64 or decode Base64 back to text</p>
+            </div>
+            <div class="encoder-layout">
+              <div class="encoder-section">
+                <div class="section-header">
+                  <label for="base64Input">Input</label>
+                  <div class="section-actions">
+                    <span class="detected-format" id="base64DetectedFormat"></span>
+                    <button class="action-btn sample-btn" id="base64SampleBtn" title="Load sample">
+                      <i class="fa-solid fa-flask"></i>
+                    </button>
+                    <button class="action-btn" id="base64FileBtn" title="Upload file">
+                      <i class="fa-solid fa-file-arrow-up"></i>
+                    </button>
+                    <input type="file" id="base64FileInput" hidden>
+                    <button class="action-btn" id="base64PasteBtn" title="Paste">
+                      <i class="fa-solid fa-paste"></i>
+                    </button>
+                    <button class="action-btn" id="base64ClearInputBtn" title="Clear">
+                      <i class="fa-solid fa-xmark"></i>
+                    </button>
+                  </div>
+                </div>
+                <textarea id="base64Input" placeholder="Enter text to encode or Base64 to decode..."></textarea>
+                <div class="input-info">
+                  <span class="char-count"><span id="base64InputCount">0</span> characters</span>
+                  <span class="byte-count">(<span id="base64InputBytes">0</span> bytes)</span>
+                </div>
+              </div>
+              <div class="encoder-actions">
+                <button class="encode-btn" id="base64EncodeBtn">
+                  <i class="fa-solid fa-arrow-down"></i>
+                  <span>Encode</span>
+                </button>
+                <button class="decode-btn" id="base64DecodeBtn">
+                  <i class="fa-solid fa-arrow-up"></i>
+                  <span>Decode</span>
+                </button>
+                <button class="swap-btn" id="base64SwapBtn" title="Swap input/output">
+                  <i class="fa-solid fa-arrow-right-arrow-left fa-rotate-90"></i>
+                </button>
+              </div>
+              <div class="encoder-section">
+                <div class="section-header">
+                  <label for="base64Output">Output</label>
+                  <div class="section-actions">
+                    <button class="action-btn" id="base64CopyBtn" title="Copy">
+                      <i class="fa-solid fa-copy"></i>
+                    </button>
+                    <button class="action-btn" id="base64ClearOutputBtn" title="Clear">
+                      <i class="fa-solid fa-xmark"></i>
+                    </button>
+                  </div>
+                </div>
+                <textarea id="base64Output" placeholder="Result will appear here..." readonly></textarea>
+                <div class="input-info">
+                  <span class="char-count"><span id="base64OutputCount">0</span> characters</span>
+                  <span class="byte-count">(<span id="base64OutputBytes">0</span> bytes)</span>
+                </div>
+              </div>
+            </div>
+            <div class="encoding-options">
+              <label class="option-checkbox">
+                <input type="checkbox" id="base64UrlSafe">
+                <span>URL-safe Base64 (Base64URL)</span>
+              </label>
+              <label class="option-checkbox">
+                <input type="checkbox" id="base64RealTime">
+                <span>Real-time encoding</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- URL Panel -->
+          <div class="encoder-panel" id="urlPanel">
+            <div class="panel-header">
+              <h2>URL Encoder/Decoder</h2>
+              <p>Encode special characters for URLs or decode URL-encoded strings</p>
+            </div>
+            <div class="encoder-layout">
+              <div class="encoder-section">
+                <div class="section-header">
+                  <label for="urlInput">Input</label>
+                  <div class="section-actions">
+                    <span class="detected-format" id="urlDetectedFormat"></span>
+                    <button class="action-btn sample-btn" id="urlSampleBtn" title="Load sample">
+                      <i class="fa-solid fa-flask"></i>
+                    </button>
+                    <button class="action-btn" id="urlPasteBtn" title="Paste">
+                      <i class="fa-solid fa-paste"></i>
+                    </button>
+                    <button class="action-btn" id="urlClearInputBtn" title="Clear">
+                      <i class="fa-solid fa-xmark"></i>
+                    </button>
+                  </div>
+                </div>
+                <textarea id="urlInput" placeholder="Enter text or URL to encode/decode..."></textarea>
+                <div class="input-info">
+                  <span class="char-count"><span id="urlInputCount">0</span> characters</span>
+                  <span class="byte-count">(<span id="urlInputBytes">0</span> bytes)</span>
+                </div>
+              </div>
+              <div class="encoder-actions">
+                <button class="encode-btn" id="urlEncodeBtn">
+                  <i class="fa-solid fa-arrow-down"></i>
+                  <span>Encode</span>
+                </button>
+                <button class="decode-btn" id="urlDecodeBtn">
+                  <i class="fa-solid fa-arrow-up"></i>
+                  <span>Decode</span>
+                </button>
+                <button class="swap-btn" id="urlSwapBtn" title="Swap input/output">
+                  <i class="fa-solid fa-arrow-right-arrow-left fa-rotate-90"></i>
+                </button>
+              </div>
+              <div class="encoder-section">
+                <div class="section-header">
+                  <label for="urlOutput">Output</label>
+                  <div class="section-actions">
+                    <button class="action-btn" id="urlCopyBtn" title="Copy">
+                      <i class="fa-solid fa-copy"></i>
+                    </button>
+                    <button class="action-btn" id="urlClearOutputBtn" title="Clear">
+                      <i class="fa-solid fa-xmark"></i>
+                    </button>
+                  </div>
+                </div>
+                <textarea id="urlOutput" placeholder="Result will appear here..." readonly></textarea>
+                <div class="input-info">
+                  <span class="char-count"><span id="urlOutputCount">0</span> characters</span>
+                  <span class="byte-count">(<span id="urlOutputBytes">0</span> bytes)</span>
+                </div>
+              </div>
+            </div>
+            <div class="encoding-options">
+              <label class="option-checkbox">
+                <input type="checkbox" id="urlEncodeComponent" checked>
+                <span>Encode URI Component (recommended)</span>
+              </label>
+              <label class="option-checkbox">
+                <input type="checkbox" id="urlRealTime">
+                <span>Real-time encoding</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Hash Panel -->
+          <div class="encoder-panel" id="hashPanel">
+            <div class="panel-header">
+              <h2>Hash Generator</h2>
+              <p>Generate cryptographic hashes from text (one-way, cannot be decoded)</p>
+            </div>
+            <div class="hash-layout">
+              <div class="encoder-section">
+                <div class="section-header">
+                  <label for="hashInput">Input Text</label>
+                  <div class="section-actions">
+                    <button class="action-btn sample-btn" id="hashSampleBtn" title="Load sample">
+                      <i class="fa-solid fa-flask"></i>
+                    </button>
+                    <button class="action-btn" id="hashPasteBtn" title="Paste">
+                      <i class="fa-solid fa-paste"></i>
+                    </button>
+                    <button class="action-btn" id="hashClearBtn" title="Clear">
+                      <i class="fa-solid fa-xmark"></i>
+                    </button>
+                  </div>
+                </div>
+                <textarea id="hashInput" placeholder="Enter text to hash..."></textarea>
+                <div class="input-info">
+                  <span class="char-count"><span id="hashInputCount">0</span> characters</span>
+                  <span class="byte-count">(<span id="hashInputBytes">0</span> bytes)</span>
+                </div>
+              </div>
+              <button class="generate-btn" id="hashGenerateBtn">
+                <i class="fa-solid fa-fingerprint"></i>
+                <span>Generate Hashes</span>
+              </button>
+              <div class="hash-results" id="hashResults">
+                <div class="hash-results-header">
+                  <span>Results</span>
+                  <button class="copy-all-btn" id="hashCopyAllBtn" title="Copy all hashes">
+                    <i class="fa-solid fa-copy"></i>
+                    <span>Copy All</span>
+                  </button>
+                </div>
+                <div class="hash-result">
+                  <div class="hash-label">
+                    <span>MD5</span>
+                    <button class="copy-hash-btn" data-hash="md5" title="Copy">
+                      <i class="fa-solid fa-copy"></i>
+                    </button>
+                  </div>
+                  <input type="text" id="hashMd5" readonly placeholder="—">
+                </div>
+                <div class="hash-result">
+                  <div class="hash-label">
+                    <span>SHA-1</span>
+                    <button class="copy-hash-btn" data-hash="sha1" title="Copy">
+                      <i class="fa-solid fa-copy"></i>
+                    </button>
+                  </div>
+                  <input type="text" id="hashSha1" readonly placeholder="—">
+                </div>
+                <div class="hash-result">
+                  <div class="hash-label">
+                    <span>SHA-256</span>
+                    <button class="copy-hash-btn" data-hash="sha256" title="Copy">
+                      <i class="fa-solid fa-copy"></i>
+                    </button>
+                  </div>
+                  <input type="text" id="hashSha256" readonly placeholder="—">
+                </div>
+                <div class="hash-result">
+                  <div class="hash-label">
+                    <span>SHA-512</span>
+                    <button class="copy-hash-btn" data-hash="sha512" title="Copy">
+                      <i class="fa-solid fa-copy"></i>
+                    </button>
+                  </div>
+                  <input type="text" id="hashSha512" readonly placeholder="—">
+                </div>
+              </div>
+              <!-- Hash Comparison -->
+              <div class="hash-compare">
+                <div class="section-header">
+                  <label for="hashCompareInput">Compare Hash</label>
+                  <span class="hash-compare-result" id="hashCompareResult"></span>
+                </div>
+                <input type="text" id="hashCompareInput" placeholder="Paste expected hash to compare...">
+              </div>
+            </div>
+          </div>
+
+          <!-- JWT Panel -->
+          <div class="encoder-panel" id="jwtPanel">
+            <div class="panel-header">
+              <h2>JWT Decoder</h2>
+              <p>Decode and inspect JSON Web Tokens (header, payload, signature)</p>
+            </div>
+            <div class="jwt-layout">
+              <div class="encoder-section">
+                <div class="section-header">
+                  <label for="jwtInput">JWT Token</label>
+                  <div class="section-actions">
+                    <button class="action-btn sample-btn" id="jwtSampleBtn" title="Load sample JWT">
+                      <i class="fa-solid fa-flask"></i>
+                    </button>
+                    <button class="action-btn" id="jwtPasteBtn" title="Paste">
+                      <i class="fa-solid fa-paste"></i>
+                    </button>
+                    <button class="action-btn" id="jwtClearBtn" title="Clear">
+                      <i class="fa-solid fa-xmark"></i>
+                    </button>
+                  </div>
+                </div>
+                <textarea id="jwtInput" placeholder="Paste your JWT token here (eyJhbGciOiJIUzI1NiIs...)"></textarea>
+                <div class="input-info">
+                  <span class="char-count"><span id="jwtInputCount">0</span> characters</span>
+                </div>
+              </div>
+              <button class="decode-btn full-width" id="jwtDecodeBtn">
+                <i class="fa-solid fa-unlock"></i>
+                <span>Decode JWT</span>
+              </button>
+              <div class="jwt-results" id="jwtResults" style="display: none;">
+                <div class="jwt-section">
+                  <div class="jwt-section-header">
+                    <span class="jwt-label header">HEADER</span>
+                    <span class="jwt-alg" id="jwtAlg"></span>
+                    <button class="action-btn" id="jwtCopyHeader" title="Copy Header">
+                      <i class="fa-solid fa-copy"></i>
+                    </button>
+                  </div>
+                  <pre id="jwtHeader" class="jwt-code"></pre>
+                </div>
+                <div class="jwt-section">
+                  <div class="jwt-section-header">
+                    <span class="jwt-label payload">PAYLOAD</span>
+                    <button class="action-btn" id="jwtCopyPayload" title="Copy Payload">
+                      <i class="fa-solid fa-copy"></i>
+                    </button>
+                  </div>
+                  <pre id="jwtPayload" class="jwt-code"></pre>
+                  <div class="jwt-claims" id="jwtClaims"></div>
+                </div>
+                <div class="jwt-section">
+                  <div class="jwt-section-header">
+                    <span class="jwt-label signature">SIGNATURE</span>
+                  </div>
+                  <div class="jwt-signature" id="jwtSignature"></div>
+                </div>
+              </div>
+              <div class="jwt-error" id="jwtError" style="display: none;">
+                <i class="fa-solid fa-circle-exclamation"></i>
+                <span>Invalid JWT token format</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- More Panel -->
+          <div class="encoder-panel" id="morePanel">
+            <div class="panel-header">
+              <h2>More Encodings</h2>
+              <p>Additional encoding and decoding formats</p>
+            </div>
+            <div class="more-layout">
+              <!-- Encoding Type Selector -->
+              <div class="encoding-type-selector">
+                <button class="encoding-type-btn active" data-type="hex">
+                  <i class="fa-solid fa-hashtag"></i>
+                  <span>Hex</span>
+                </button>
+                <button class="encoding-type-btn" data-type="binary">
+                  <i class="fa-solid fa-barcode"></i>
+                  <span>Binary</span>
+                </button>
+                <button class="encoding-type-btn" data-type="html">
+                  <i class="fa-solid fa-code"></i>
+                  <span>HTML</span>
+                </button>
+                <button class="encoding-type-btn" data-type="unicode">
+                  <i class="fa-solid fa-globe"></i>
+                  <span>Unicode</span>
+                </button>
+              </div>
+
+              <div class="encoder-layout">
+                <div class="encoder-section">
+                  <div class="section-header">
+                    <label for="moreInput">Input</label>
+                    <div class="section-actions">
+                      <span class="detected-format" id="moreDetectedFormat"></span>
+                      <button class="action-btn sample-btn" id="moreSampleBtn" title="Load sample">
+                        <i class="fa-solid fa-flask"></i>
+                      </button>
+                      <button class="action-btn" id="morePasteBtn" title="Paste">
+                        <i class="fa-solid fa-paste"></i>
+                      </button>
+                      <button class="action-btn" id="moreClearInputBtn" title="Clear">
+                        <i class="fa-solid fa-xmark"></i>
+                      </button>
+                    </div>
+                  </div>
+                  <textarea id="moreInput" placeholder="Enter text to encode or decode..."></textarea>
+                  <div class="input-info">
+                    <span class="char-count"><span id="moreInputCount">0</span> characters</span>
+                    <span class="byte-count">(<span id="moreInputBytes">0</span> bytes)</span>
+                  </div>
+                </div>
+                <div class="encoder-actions">
+                  <button class="encode-btn" id="moreEncodeBtn">
+                    <i class="fa-solid fa-arrow-down"></i>
+                    <span>Encode</span>
+                  </button>
+                  <button class="decode-btn" id="moreDecodeBtn">
+                    <i class="fa-solid fa-arrow-up"></i>
+                    <span>Decode</span>
+                  </button>
+                  <button class="swap-btn" id="moreSwapBtn" title="Swap input/output">
+                    <i class="fa-solid fa-arrow-right-arrow-left fa-rotate-90"></i>
+                  </button>
+                </div>
+                <div class="encoder-section">
+                  <div class="section-header">
+                    <label for="moreOutput">Output</label>
+                    <div class="section-actions">
+                      <button class="action-btn" id="moreCopyBtn" title="Copy">
+                        <i class="fa-solid fa-copy"></i>
+                      </button>
+                      <button class="action-btn" id="moreClearOutputBtn" title="Clear">
+                        <i class="fa-solid fa-xmark"></i>
+                      </button>
+                    </div>
+                  </div>
+                  <textarea id="moreOutput" placeholder="Result will appear here..." readonly></textarea>
+                  <div class="input-info">
+                    <span class="char-count"><span id="moreOutputCount">0</span> characters</span>
+                    <span class="byte-count">(<span id="moreOutputBytes">0</span> bytes)</span>
+                  </div>
+                </div>
+              </div>
+              <div class="encoding-options">
+                <label class="option-checkbox">
+                  <input type="checkbox" id="moreRealTime">
+                  <span>Real-time encoding</span>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- History Toggle (when collapsed) -->
+        <button class="history-show-btn" id="historyShowBtn" title="Show history">
+          <i class="fa-solid fa-clock-rotate-left"></i>
+        </button>
+
+        <!-- History Sidebar -->
+        <aside class="history-sidebar" id="historySidebar">
+          <div class="history-header">
+            <h3><i class="fa-solid fa-clock-rotate-left"></i> History</h3>
+            <div class="history-actions">
+              <button class="history-clear-btn" id="historyClearBtn" title="Clear history">
+                <i class="fa-solid fa-trash"></i>
+              </button>
+              <button class="history-toggle-btn" id="historyToggleBtn" title="Toggle history">
+                <i class="fa-solid fa-chevron-right"></i>
+              </button>
+            </div>
+          </div>
+          <div class="history-list" id="historyList">
+            <div class="history-empty" id="historyEmpty">
+              <i class="fa-solid fa-inbox"></i>
+              <p>No history yet</p>
+              <span>Your encoding history will appear here</span>
+            </div>
+          </div>
+        </aside>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- History Toggle Button (Mobile) -->
+  <button class="history-fab" id="historyFab" title="Show history">
+    <i class="fa-solid fa-clock-rotate-left"></i>
+    <span class="history-badge" id="historyBadge">0</span>
+  </button>
+
+  <!-- History Overlay (Mobile) -->
+  <div class="history-overlay" id="historyOverlay"></div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach. All rights reserved.</p>
+        <p class="footer-made">Made with <i class="fa-solid fa-heart"></i> in South Korea</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Keyboard Shortcuts Hint -->
+  <div class="shortcuts-hint" id="shortcutsHint">
+    <span>Press <kbd>?</kbd> for shortcuts</span>
+  </div>
+
+  <!-- Keyboard Shortcuts Modal -->
+  <div class="shortcuts-modal" id="shortcutsModal">
+    <div class="shortcuts-content">
+      <div class="shortcuts-header">
+        <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
+        <button class="close-shortcuts-btn" id="closeShortcutsBtn">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="shortcuts-body">
+        <!-- Navigation Section -->
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">Navigation</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>1</kbd><span class="key-separator">-</span><kbd>5</kbd></div>
+            <div class="shortcut-desc">Switch tab</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>?</kbd></div>
+            <div class="shortcut-desc">Show shortcuts</div>
+          </div>
+        </div>
+
+        <!-- Actions Section -->
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">Actions</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>E</kbd></div>
+            <div class="shortcut-desc">Encode</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>D</kbd></div>
+            <div class="shortcut-desc">Decode</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>C</kbd></div>
+            <div class="shortcut-desc">Copy output</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>V</kbd></div>
+            <div class="shortcut-desc">Paste input</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>X</kbd></div>
+            <div class="shortcut-desc">Clear all</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>S</kbd></div>
+            <div class="shortcut-desc">Load sample</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Shared Tools JavaScript -->
+  <script src="../../js/tools-common.js"></script>
+  <!-- Encoder JavaScript -->
+  <script src="encoder.js"></script>
+</body>
+</html>

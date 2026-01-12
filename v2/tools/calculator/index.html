@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Advanced scientific calculator with multiple functions, unit conversions, and memory features.">
+  <meta property="og:title" content="KVSOVANREACH | Calculator">
+  <meta property="og:description" content="Powerful scientific calculator with arithmetic operations, advanced functions, memory features, unit conversions and more.">
+  <meta property="og:image" content="/assets/img/pwa/ios/512.png">
+  <title>KVSOVANREACH | Calculator</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Common Tools CSS -->
+  <link rel="stylesheet" href="../../css/tools.css">
+  <!-- Calculator-specific CSS -->
+  <link rel="stylesheet" href="calculator.css">
+</head>
+<body>
+  <!-- Skip to Content -->
+  <a href="#calculator" class="skip-link">Skip to calculator</a>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">TOOLS</span>
+      </a>
+
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="tool-page">
+    <div class="container">
+      <!-- Calculator Container -->
+      <div class="calc-wrapper" id="calculator">
+        <!-- Tab Navigation -->
+        <div class="calc-tabs">
+          <button class="calc-tab active" data-tab="standard">
+            <i class="fa-solid fa-calculator"></i>
+            <span>Standard</span>
+          </button>
+          <button class="calc-tab" data-tab="scientific">
+            <i class="fa-solid fa-square-root-variable"></i>
+            <span>Scientific</span>
+          </button>
+          <button class="calc-tab" data-tab="converter">
+            <i class="fa-solid fa-arrows-rotate"></i>
+            <span>Converter</span>
+          </button>
+        </div>
+
+        <!-- Calculator Display -->
+        <div class="calc-display">
+          <div class="calc-screen">
+            <div class="calc-history-mini" id="historyMini"></div>
+            <div class="calc-expression" id="expression"></div>
+            <div class="calc-result" id="result">0</div>
+          </div>
+          <div class="calc-memory-indicators">
+            <span class="memory-slot" data-slot="1" title="Memory 1 (empty)">M1</span>
+            <span class="memory-slot" data-slot="2" title="Memory 2 (empty)">M2</span>
+            <span class="memory-slot" data-slot="3" title="Memory 3 (empty)">M3</span>
+          </div>
+        </div>
+
+        <!-- Tab Contents -->
+        <div class="calc-content">
+          <!-- Standard Calculator -->
+          <div class="calc-panel active" id="standardPanel">
+            <div class="calc-keypad standard-keypad">
+              <button class="calc-btn special" data-action="clear">AC</button>
+              <button class="calc-btn special" data-action="backspace" aria-label="Backspace"><i class="fa-solid fa-delete-left"></i></button>
+              <button class="calc-btn special" data-action="percent">%</button>
+              <button class="calc-btn operator" data-op="/">&divide;</button>
+
+              <button class="calc-btn number" data-num="7">7</button>
+              <button class="calc-btn number" data-num="8">8</button>
+              <button class="calc-btn number" data-num="9">9</button>
+              <button class="calc-btn operator" data-op="*">&times;</button>
+
+              <button class="calc-btn number" data-num="4">4</button>
+              <button class="calc-btn number" data-num="5">5</button>
+              <button class="calc-btn number" data-num="6">6</button>
+              <button class="calc-btn operator" data-op="-">&minus;</button>
+
+              <button class="calc-btn number" data-num="1">1</button>
+              <button class="calc-btn number" data-num="2">2</button>
+              <button class="calc-btn number" data-num="3">3</button>
+              <button class="calc-btn operator" data-op="+">+</button>
+
+              <button class="calc-btn number" data-num="0">0</button>
+              <button class="calc-btn number" data-num=".">.</button>
+              <button class="calc-btn number" data-num="00">00</button>
+              <button class="calc-btn equals" data-action="equals">=</button>
+            </div>
+
+            <!-- Memory Buttons -->
+            <div class="calc-memory-row">
+              <button class="calc-btn memory" data-action="mc" title="Clear all memory" aria-label="Clear memory">MC</button>
+              <button class="calc-btn memory" data-action="mr" data-slot="1" title="Recall M1" aria-label="Recall memory 1">MR1</button>
+              <button class="calc-btn memory" data-action="ms" data-slot="1" title="Store to M1" aria-label="Store to memory 1">M1+</button>
+              <button class="calc-btn memory" data-action="mr" data-slot="2" title="Recall M2" aria-label="Recall memory 2">MR2</button>
+              <button class="calc-btn memory" data-action="ms" data-slot="2" title="Store to M2" aria-label="Store to memory 2">M2+</button>
+              <button class="calc-btn memory" data-action="mr" data-slot="3" title="Recall M3" aria-label="Recall memory 3">MR3</button>
+              <button class="calc-btn memory" data-action="ms" data-slot="3" title="Store to M3" aria-label="Store to memory 3">M3+</button>
+            </div>
+          </div>
+
+          <!-- Scientific Calculator -->
+          <div class="calc-panel" id="scientificPanel">
+            <div class="scientific-layout">
+              <!-- Left: Scientific Functions -->
+              <div class="scientific-functions">
+                <!-- Trigonometry -->
+                <div class="func-group">
+                  <span class="func-group-label">Trig</span>
+                  <div class="func-group-btns">
+                    <button class="calc-btn func" data-func="sin">sin</button>
+                    <button class="calc-btn func" data-func="cos">cos</button>
+                    <button class="calc-btn func" data-func="tan">tan</button>
+                    <button class="calc-btn func" data-func="asin">sin<sup>-1</sup></button>
+                    <button class="calc-btn func" data-func="acos">cos<sup>-1</sup></button>
+                    <button class="calc-btn func" data-func="atan">tan<sup>-1</sup></button>
+                  </div>
+                </div>
+
+                <!-- Powers & Roots -->
+                <div class="func-group">
+                  <span class="func-group-label">Power</span>
+                  <div class="func-group-btns">
+                    <button class="calc-btn func" data-func="square">x<sup>2</sup></button>
+                    <button class="calc-btn func" data-func="cube">x<sup>3</sup></button>
+                    <button class="calc-btn func" data-func="power">x<sup>y</sup></button>
+                    <button class="calc-btn func" data-func="sqrt">&radic;x</button>
+                    <button class="calc-btn func" data-func="cbrt"><sup>3</sup>&radic;x</button>
+                    <button class="calc-btn func" data-func="factorial">x!</button>
+                  </div>
+                </div>
+
+                <!-- Logarithms & Constants -->
+                <div class="func-group">
+                  <span class="func-group-label">Log</span>
+                  <div class="func-group-btns">
+                    <button class="calc-btn func" data-func="log">log</button>
+                    <button class="calc-btn func" data-func="ln">ln</button>
+                    <button class="calc-btn special" data-action="pi">&pi;</button>
+                    <button class="calc-btn special" data-action="euler">e</button>
+                    <button class="calc-btn paren" data-paren="(">(</button>
+                    <button class="calc-btn paren" data-paren=")">)</button>
+                  </div>
+                </div>
+
+                <!-- Mode Controls -->
+                <div class="func-group mode-controls">
+                  <button class="calc-btn mode-btn" data-action="deg-rad" id="degRadBtn">DEG</button>
+                  <button class="calc-btn mode-btn" data-action="fraction">a/b</button>
+                  <button class="calc-btn mode-btn" data-action="ans">ANS</button>
+                </div>
+
+                <!-- Precision & Notation -->
+                <div class="calc-controls">
+                  <div class="calc-control-group">
+                    <label for="precision">Precision</label>
+                    <select id="precision">
+                      <option value="2">2</option>
+                      <option value="4">4</option>
+                      <option value="6" selected>6</option>
+                      <option value="8">8</option>
+                      <option value="10">10</option>
+                    </select>
+                  </div>
+                  <div class="calc-control-group">
+                    <label for="notation">Notation</label>
+                    <select id="notation">
+                      <option value="standard" selected>Standard</option>
+                      <option value="scientific">Scientific</option>
+                      <option value="engineering">Engineering</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Right: Standard Keypad -->
+              <div class="scientific-keypad">
+                <div class="calc-keypad">
+                  <button class="calc-btn special" data-action="clear">AC</button>
+                  <button class="calc-btn special" data-action="backspace" aria-label="Backspace"><i class="fa-solid fa-delete-left"></i></button>
+                  <button class="calc-btn special" data-action="percent">%</button>
+                  <button class="calc-btn operator" data-op="/">&divide;</button>
+
+                  <button class="calc-btn number" data-num="7">7</button>
+                  <button class="calc-btn number" data-num="8">8</button>
+                  <button class="calc-btn number" data-num="9">9</button>
+                  <button class="calc-btn operator" data-op="*">&times;</button>
+
+                  <button class="calc-btn number" data-num="4">4</button>
+                  <button class="calc-btn number" data-num="5">5</button>
+                  <button class="calc-btn number" data-num="6">6</button>
+                  <button class="calc-btn operator" data-op="-">&minus;</button>
+
+                  <button class="calc-btn number" data-num="1">1</button>
+                  <button class="calc-btn number" data-num="2">2</button>
+                  <button class="calc-btn number" data-num="3">3</button>
+                  <button class="calc-btn operator" data-op="+">+</button>
+
+                  <button class="calc-btn number zero-wide" data-num="0">0</button>
+                  <button class="calc-btn number" data-num=".">.</button>
+                  <button class="calc-btn equals" data-action="equals">=</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Unit Converter -->
+          <div class="calc-panel" id="converterPanel">
+            <div class="converter-container">
+              <!-- Category Selector -->
+              <div class="converter-category">
+                <select id="unitCategory">
+                  <option value="length">Length</option>
+                  <option value="weight">Weight</option>
+                  <option value="temperature">Temperature</option>
+                  <option value="time">Time</option>
+                  <option value="area">Area</option>
+                  <option value="volume">Volume</option>
+                  <option value="speed">Speed</option>
+                  <option value="pressure">Pressure</option>
+                  <option value="energy">Energy</option>
+                </select>
+              </div>
+
+              <!-- Conversion Inputs -->
+              <div class="converter-inputs">
+                <div class="converter-input-group">
+                  <input type="number" id="fromValue" placeholder="Enter value" autocomplete="off">
+                  <select id="fromUnit"></select>
+                </div>
+
+                <button class="converter-swap" id="swapUnits" title="Swap units">
+                  <i class="fa-solid fa-arrows-rotate"></i>
+                </button>
+
+                <div class="converter-input-group">
+                  <input type="number" id="toValue" placeholder="Result" readonly>
+                  <select id="toUnit"></select>
+                </div>
+              </div>
+
+              <!-- Formula Display -->
+              <div class="converter-formula" id="formula">
+                <p>1 meter = 3.28084 feet</p>
+              </div>
+
+              <!-- Converter Keypad -->
+              <div class="calc-keypad converter-keypad">
+                <button class="calc-btn number" data-key="7">7</button>
+                <button class="calc-btn number" data-key="8">8</button>
+                <button class="calc-btn number" data-key="9">9</button>
+                <button class="calc-btn special" data-key="backspace" aria-label="Backspace"><i class="fa-solid fa-delete-left"></i></button>
+
+                <button class="calc-btn number" data-key="4">4</button>
+                <button class="calc-btn number" data-key="5">5</button>
+                <button class="calc-btn number" data-key="6">6</button>
+                <button class="calc-btn special" data-key="clear">C</button>
+
+                <button class="calc-btn number" data-key="1">1</button>
+                <button class="calc-btn number" data-key="2">2</button>
+                <button class="calc-btn number" data-key="3">3</button>
+                <button class="calc-btn special" data-key="copy" title="Copy result" aria-label="Copy result"><i class="fa-solid fa-copy"></i></button>
+
+                <button class="calc-btn number" data-key="0">0</button>
+                <button class="calc-btn number" data-key=".">.</button>
+                <button class="calc-btn special" data-key="negate">&plusmn;</button>
+                <button class="calc-btn equals" data-key="convert">Convert</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Footer Actions -->
+        <div class="calc-footer">
+          <button class="calc-footer-btn" id="historyBtn">
+            <i class="fa-solid fa-clock-rotate-left"></i>
+            <span>History</span>
+          </button>
+          <button class="calc-footer-btn" id="copyBtn">
+            <i class="fa-solid fa-copy"></i>
+            <span>Copy</span>
+          </button>
+          <div class="calc-keyboard-toggle">
+            <input type="checkbox" id="keyboardToggle" checked>
+            <label for="keyboardToggle">Keyboard</label>
+          </div>
+        </div>
+
+        <!-- History Panel -->
+        <div class="calc-history-panel" id="historyPanel">
+          <div class="calc-history-header">
+            <button class="history-back-btn" id="historyBackBtn" aria-label="Close history">
+              <i class="fa-solid fa-arrow-left"></i>
+            </button>
+            <h3>History</h3>
+            <button id="clearHistory" title="Clear history" aria-label="Clear all history">
+              <i class="fa-solid fa-trash"></i>
+            </button>
+          </div>
+          <div class="calc-history-list" id="historyList">
+            <div class="calc-history-empty">
+              <p>No calculation history</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Keyboard Shortcuts Hint -->
+  <div class="shortcuts-hint" id="shortcutsHint">
+    <span>Press <kbd>?</kbd> for shortcuts</span>
+  </div>
+
+  <!-- Keyboard Shortcuts Modal -->
+  <div class="shortcuts-modal" id="shortcutsModal">
+    <div class="shortcuts-content">
+      <div class="shortcuts-header">
+        <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
+        <button class="close-shortcuts-btn" id="closeShortcutsBtn">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="shortcuts-body">
+        <!-- Input Section -->
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">Input</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys">
+              <kbd>0</kbd><span class="key-separator">-</span><kbd>9</kbd>
+            </div>
+            <div class="shortcut-desc">Enter digits</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys">
+              <kbd>.</kbd>
+            </div>
+            <div class="shortcut-desc">Decimal point</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys">
+              <kbd>(</kbd> <kbd>)</kbd>
+            </div>
+            <div class="shortcut-desc">Parentheses</div>
+          </div>
+        </div>
+
+        <!-- Operations Section -->
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">Operations</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys">
+              <kbd>+</kbd>
+            </div>
+            <div class="shortcut-desc">Addition</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys">
+              <kbd>-</kbd>
+            </div>
+            <div class="shortcut-desc">Subtraction</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys">
+              <kbd>*</kbd>
+            </div>
+            <div class="shortcut-desc">Multiplication</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys">
+              <kbd>/</kbd>
+            </div>
+            <div class="shortcut-desc">Division</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys">
+              <kbd>%</kbd>
+            </div>
+            <div class="shortcut-desc">Percentage</div>
+          </div>
+        </div>
+
+        <!-- Actions Section -->
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">Actions</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys">
+              <kbd>Enter</kbd>
+            </div>
+            <div class="shortcut-desc">Calculate result</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys">
+              <kbd>Backspace</kbd>
+            </div>
+            <div class="shortcut-desc">Delete last character</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys">
+              <kbd>Escape</kbd>
+            </div>
+            <div class="shortcut-desc">Clear all</div>
+          </div>
+        </div>
+
+        <!-- Navigation Section -->
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">Navigation</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys">
+              <kbd>Alt</kbd><span class="key-plus">+</span><kbd>1</kbd>
+            </div>
+            <div class="shortcut-desc">Standard calculator</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys">
+              <kbd>Alt</kbd><span class="key-plus">+</span><kbd>2</kbd>
+            </div>
+            <div class="shortcut-desc">Scientific calculator</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys">
+              <kbd>Alt</kbd><span class="key-plus">+</span><kbd>3</kbd>
+            </div>
+            <div class="shortcut-desc">Unit converter</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys">
+              <kbd>Alt</kbd><span class="key-plus">+</span><kbd>H</kbd>
+            </div>
+            <div class="shortcut-desc">Toggle history</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach. All rights reserved.</p>
+        <p class="footer-made">Made with <i class="fa-solid fa-heart"></i> in South Korea</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Shared Tools JavaScript -->
+  <script src="../../js/tools-common.js"></script>
+  <!-- Calculator JavaScript -->
+  <script src="calculator.js"></script>
+</body>
+</html>

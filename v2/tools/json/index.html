@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Format, validate, minify, and beautify JSON with syntax highlighting.">
+  <meta property="og:title" content="KVSOVANREACH | JSON Formatter">
+  <meta property="og:description" content="Format, validate, and minify JSON data with syntax highlighting and tree view.">
+  <meta property="og:image" content="/assets/img/pwa/ios/512.png">
+  <title>KVSOVANREACH | JSON Formatter</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Common Tools CSS -->
+  <link rel="stylesheet" href="../../css/tools.css">
+  <!-- JSON Formatter CSS -->
+  <link rel="stylesheet" href="json.css">
+</head>
+<body>
+  <!-- Skip to Content -->
+  <a href="#json" class="skip-link">Skip to JSON formatter</a>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">TOOLS</span>
+      </a>
+
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="tool-page">
+    <div class="container">
+      <!-- JSON Formatter Wrapper -->
+      <div class="json-wrapper" id="json">
+        <!-- Header -->
+        <div class="json-header">
+          <h2><i class="fa-solid fa-code"></i> JSON Formatter</h2>
+          <div class="json-actions">
+            <button class="action-btn" id="sampleBtn" title="Load sample JSON">
+              <i class="fa-solid fa-flask"></i>
+              <span>Sample</span>
+            </button>
+            <button class="action-btn" id="clearBtn" title="Clear all">
+              <i class="fa-solid fa-trash"></i>
+              <span>Clear</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Editor Container -->
+        <div class="json-content">
+          <!-- Input Panel -->
+          <div class="json-panel input-panel">
+            <div class="panel-header">
+              <h3>Input</h3>
+              <div class="panel-actions">
+                <button class="panel-btn" id="pasteBtn" title="Paste from clipboard">
+                  <i class="fa-solid fa-paste"></i>
+                </button>
+                <button class="panel-btn" id="uploadBtn" title="Upload JSON file">
+                  <i class="fa-solid fa-upload"></i>
+                </button>
+                <input type="file" id="fileInput" accept=".json,.txt" hidden>
+              </div>
+            </div>
+            <div class="editor-container">
+              <div class="line-numbers" id="inputLineNumbers"></div>
+              <textarea id="jsonInput" placeholder="Paste or type your JSON here..." spellcheck="false"></textarea>
+            </div>
+            <div class="panel-status">
+              <span class="status-indicator" id="statusIndicator">
+                <i class="fa-solid fa-circle"></i>
+                <span id="statusText">Ready</span>
+              </span>
+              <span class="char-count" id="charCount">0 chars</span>
+            </div>
+          </div>
+
+          <!-- Controls -->
+          <div class="json-controls">
+            <button class="control-btn primary" id="formatBtn">
+              <i class="fa-solid fa-wand-magic-sparkles"></i>
+              <span>Format</span>
+            </button>
+            <button class="control-btn" id="minifyBtn">
+              <i class="fa-solid fa-compress"></i>
+              <span>Minify</span>
+            </button>
+            <button class="control-btn" id="validateBtn">
+              <i class="fa-solid fa-check-double"></i>
+              <span>Validate</span>
+            </button>
+
+            <div class="control-divider"></div>
+
+            <div class="indent-control">
+              <label>Indent:</label>
+              <select id="indentSelect">
+                <option value="2">2 spaces</option>
+                <option value="4">4 spaces</option>
+                <option value="tab">Tab</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Output Panel -->
+          <div class="json-panel output-panel">
+            <div class="panel-header">
+              <h3>Output</h3>
+              <div class="panel-tabs">
+                <button class="panel-tab active" data-view="formatted">Formatted</button>
+                <button class="panel-tab" data-view="tree">Tree</button>
+              </div>
+              <div class="panel-actions">
+                <button class="panel-btn" id="copyBtn" title="Copy to clipboard">
+                  <i class="fa-solid fa-copy"></i>
+                </button>
+                <button class="panel-btn" id="downloadBtn" title="Download JSON file">
+                  <i class="fa-solid fa-download"></i>
+                </button>
+              </div>
+            </div>
+
+            <!-- Formatted View -->
+            <div class="output-view active" id="formattedView">
+              <div class="editor-container">
+                <div class="line-numbers" id="outputLineNumbers"></div>
+                <pre id="jsonOutput" class="json-output"></pre>
+              </div>
+            </div>
+
+            <!-- Tree View -->
+            <div class="output-view" id="treeView">
+              <div class="json-path-bar" id="jsonPathBar">
+                <span class="json-path-label">Path:</span>
+                <span class="json-path-value" id="jsonPathValue">$</span>
+                <button class="json-path-copy" id="jsonPathCopy" title="Copy path">
+                  <i class="fa-solid fa-copy"></i>
+                </button>
+              </div>
+              <div class="tree-actions">
+                <button class="tree-action-btn" id="expandAllBtn">
+                  <i class="fa-solid fa-expand"></i> Expand All
+                </button>
+                <button class="tree-action-btn" id="collapseAllBtn">
+                  <i class="fa-solid fa-compress"></i> Collapse All
+                </button>
+              </div>
+              <div class="tree-container" id="treeContainer">
+                <div class="tree-empty">
+                  <i class="fa-solid fa-sitemap"></i>
+                  <p>Format JSON to see tree view</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="panel-status">
+              <span class="output-stats" id="outputStats">-</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Error Panel -->
+        <div class="error-panel" id="errorPanel">
+          <div class="error-header">
+            <i class="fa-solid fa-triangle-exclamation"></i>
+            <span>Error</span>
+          </div>
+          <div class="error-message" id="errorMessage"></div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach. All rights reserved.</p>
+        <p class="footer-made">Made with <i class="fa-solid fa-heart"></i> in South Korea</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Keyboard Shortcuts Hint -->
+  <div class="shortcuts-hint" id="shortcutsHint">
+    <span>Press <kbd>?</kbd> for shortcuts</span>
+  </div>
+
+  <!-- Keyboard Shortcuts Modal -->
+  <div class="shortcuts-modal" id="shortcutsModal">
+    <div class="shortcuts-content">
+      <div class="shortcuts-header">
+        <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
+        <button class="close-shortcuts-btn" id="closeShortcutsBtn">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="shortcuts-body">
+        <!-- Actions Section -->
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">Actions</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Ctrl</kbd><span class="key-separator">+</span><kbd>Enter</kbd></div>
+            <div class="shortcut-desc">Format JSON</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Ctrl</kbd><span class="key-separator">+</span><kbd>Shift</kbd><span class="key-separator">+</span><kbd>M</kbd></div>
+            <div class="shortcut-desc">Minify</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Ctrl</kbd><span class="key-separator">+</span><kbd>Shift</kbd><span class="key-separator">+</span><kbd>C</kbd></div>
+            <div class="shortcut-desc">Copy output</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Ctrl</kbd><span class="key-separator">+</span><kbd>Shift</kbd><span class="key-separator">+</span><kbd>V</kbd></div>
+            <div class="shortcut-desc">Paste & format</div>
+          </div>
+        </div>
+
+        <!-- General Section -->
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">General</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>?</kbd></div>
+            <div class="shortcut-desc">Show shortcuts</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Escape</kbd></div>
+            <div class="shortcut-desc">Close modal</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Shared Tools JavaScript -->
+  <script src="../../js/tools-common.js"></script>
+  <!-- Scripts -->
+  <script src="json.js"></script>
+</body>
+</html>

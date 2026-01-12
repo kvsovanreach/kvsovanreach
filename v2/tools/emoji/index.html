@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Search and copy emojis with categories, skin tone variants, and recent history.">
+  <meta property="og:title" content="KVSOVANREACH | Emoji Picker">
+  <meta property="og:description" content="Find and copy emojis easily. Browse by category or search by name.">
+  <meta property="og:image" content="/assets/img/pwa/ios/512.png">
+  <title>KVSOVANREACH | Emoji Picker</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Common Tools CSS -->
+  <link rel="stylesheet" href="../../css/tools.css">
+  <!-- Emoji Picker CSS -->
+  <link rel="stylesheet" href="emoji.css">
+</head>
+<body>
+  <!-- Skip to Content -->
+  <a href="#emoji-picker" class="skip-link">Skip to emoji picker</a>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">TOOLS</span>
+      </a>
+
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="tool-page">
+    <div class="container">
+      <!-- Emoji Picker Container -->
+      <div class="emoji-wrapper" id="emoji-picker">
+        <!-- Header -->
+        <div class="emoji-header">
+          <h2><i class="fa-solid fa-face-smile"></i> Emoji Picker</h2>
+        </div>
+
+        <!-- Search -->
+        <div class="emoji-search">
+          <i class="fa-solid fa-search"></i>
+          <input type="text" id="searchInput" placeholder="Search emojis..." autocomplete="off">
+          <button class="clear-search" id="clearSearch" style="display: none;">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+
+        <!-- Categories -->
+        <div class="emoji-categories">
+          <button class="category-btn active" data-category="recent" title="Recent">
+            <i class="fa-solid fa-clock-rotate-left"></i>
+          </button>
+          <button class="category-btn" data-category="smileys" title="Smileys & Emotion">
+            <i class="fa-solid fa-face-smile"></i>
+          </button>
+          <button class="category-btn" data-category="people" title="People & Body">
+            <i class="fa-solid fa-hand"></i>
+          </button>
+          <button class="category-btn" data-category="animals" title="Animals & Nature">
+            <i class="fa-solid fa-paw"></i>
+          </button>
+          <button class="category-btn" data-category="food" title="Food & Drink">
+            <i class="fa-solid fa-utensils"></i>
+          </button>
+          <button class="category-btn" data-category="travel" title="Travel & Places">
+            <i class="fa-solid fa-plane"></i>
+          </button>
+          <button class="category-btn" data-category="activities" title="Activities">
+            <i class="fa-solid fa-futbol"></i>
+          </button>
+          <button class="category-btn" data-category="objects" title="Objects">
+            <i class="fa-solid fa-lightbulb"></i>
+          </button>
+          <button class="category-btn" data-category="symbols" title="Symbols">
+            <i class="fa-solid fa-heart"></i>
+          </button>
+          <button class="category-btn" data-category="flags" title="Flags">
+            <i class="fa-solid fa-flag"></i>
+          </button>
+        </div>
+
+        <!-- Emoji Grid -->
+        <div class="emoji-content">
+          <div class="category-title" id="categoryTitle">Recent</div>
+          <div class="emoji-grid" id="emojiGrid">
+            <!-- Emojis will be rendered here -->
+          </div>
+          <div class="no-results" id="noResults" style="display: none;">
+            <i class="fa-solid fa-face-sad-tear"></i>
+            <p>No emojis found</p>
+          </div>
+        </div>
+
+        <!-- Preview -->
+        <div class="emoji-preview" id="emojiPreview">
+          <div class="preview-emoji" id="previewEmoji">😊</div>
+          <div class="preview-info">
+            <span class="preview-name" id="previewName">smiling face with smiling eyes</span>
+            <span class="preview-code" id="previewCode">:blush:</span>
+          </div>
+          <button class="copy-emoji-btn" id="copyEmojiBtn">
+            <i class="fa-solid fa-copy"></i>
+            Copy
+          </button>
+        </div>
+
+        <!-- Copied Collection -->
+        <div class="copied-section">
+          <div class="copied-header">
+            <h3>Copied Emojis</h3>
+            <button class="clear-copied-btn" id="clearCopiedBtn" title="Clear all">
+              <i class="fa-solid fa-trash"></i>
+            </button>
+          </div>
+          <div class="copied-list" id="copiedList">
+            <span class="copied-placeholder">Click an emoji to copy</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach. All rights reserved.</p>
+        <p class="footer-made">Made with <i class="fa-solid fa-heart"></i> in South Korea</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Keyboard Shortcuts Modal -->
+  <div class="shortcuts-modal" id="shortcutsModal">
+    <div class="shortcuts-content">
+      <div class="shortcuts-header">
+        <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
+        <button class="close-shortcuts-btn" id="closeShortcutsBtn">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="shortcuts-body">
+        <!-- Navigation Section -->
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">Navigation</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>/</kbd></div>
+            <div class="shortcut-desc">Focus search</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>1</kbd><span class="key-separator">-</span><kbd>0</kbd></div>
+            <div class="shortcut-desc">Switch category</div>
+          </div>
+        </div>
+
+        <!-- General Section -->
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">General</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>?</kbd></div>
+            <div class="shortcut-desc">Show shortcuts</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Escape</kbd></div>
+            <div class="shortcut-desc">Clear / Close</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Keyboard Shortcuts Hint -->
+  <div class="shortcuts-hint" id="shortcutsHint">
+    <span>Press <kbd>?</kbd> for shortcuts</span>
+  </div>
+
+  <!-- Shared Tools JavaScript -->
+  <script src="../../js/tools-common.js"></script>
+  <!-- Emoji Picker JavaScript -->
+  <script src="emoji.js"></script>
+</body>
+</html>

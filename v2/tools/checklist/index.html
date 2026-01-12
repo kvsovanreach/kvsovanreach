@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Create, manage, and export checklists with drag-and-drop reordering and local storage.">
+  <meta property="og:title" content="KVSOVANREACH | Checklist Maker">
+  <meta property="og:description" content="Create and manage checklists with easy organization and export options.">
+  <meta property="og:image" content="/assets/img/pwa/ios/512.png">
+  <title>KVSOVANREACH | Checklist Maker</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Common Tools CSS -->
+  <link rel="stylesheet" href="../../css/tools.css">
+  <!-- Checklist Maker CSS -->
+  <link rel="stylesheet" href="checklist.css">
+</head>
+<body>
+  <!-- Skip to Content -->
+  <a href="#checklist-maker" class="skip-link">Skip to checklist maker</a>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">TOOLS</span>
+      </a>
+
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="tool-page">
+    <div class="container">
+      <!-- Checklist Container -->
+      <div class="checklist-wrapper" id="checklist-maker">
+        <!-- Header -->
+        <div class="checklist-header">
+          <h2><i class="fa-solid fa-list-check"></i> Checklist Maker</h2>
+          <div class="header-actions">
+            <button class="header-btn" id="newListBtn" title="New List">
+              <i class="fa-solid fa-plus"></i>
+            </button>
+            <button class="header-btn" id="clearCompletedBtn" title="Clear Completed">
+              <i class="fa-solid fa-check-double"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Lists Tabs -->
+        <div class="lists-tabs" id="listsTabs">
+          <!-- Tabs will be rendered here -->
+        </div>
+
+        <!-- Add Item -->
+        <div class="add-item-section">
+          <div class="add-item-input">
+            <i class="fa-solid fa-plus"></i>
+            <input type="text" id="newItemInput" placeholder="Add a new item..." autocomplete="off">
+          </div>
+          <button class="add-item-btn" id="addItemBtn">
+            <i class="fa-solid fa-plus"></i>
+            Add
+          </button>
+        </div>
+
+        <!-- Progress -->
+        <div class="progress-section">
+          <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+          </div>
+          <div class="progress-text">
+            <span id="completedCount">0</span> of <span id="totalCount">0</span> completed
+          </div>
+        </div>
+
+        <!-- Checklist Items -->
+        <div class="checklist-content" id="checklistContent">
+          <!-- Items will be rendered here -->
+          <div class="empty-state" id="emptyState">
+            <i class="fa-solid fa-clipboard-list"></i>
+            <p>No items yet. Add your first task above!</p>
+          </div>
+        </div>
+
+        <!-- Actions -->
+        <div class="checklist-actions">
+          <div class="action-group">
+            <button class="action-btn" id="uncheckAllBtn">
+              <i class="fa-regular fa-square"></i>
+              Uncheck All
+            </button>
+            <button class="action-btn" id="checkAllBtn">
+              <i class="fa-solid fa-check-square"></i>
+              Check All
+            </button>
+          </div>
+          <div class="action-group">
+            <button class="action-btn" id="exportTextBtn">
+              <i class="fa-solid fa-file-lines"></i>
+              Text
+            </button>
+            <button class="action-btn" id="exportMarkdownBtn">
+              <i class="fa-brands fa-markdown"></i>
+              Markdown
+            </button>
+            <button class="action-btn danger" id="clearAllBtn">
+              <i class="fa-solid fa-trash"></i>
+              Clear All
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach. All rights reserved.</p>
+        <p class="footer-made">Made with <i class="fa-solid fa-heart"></i> in South Korea</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- New List Modal -->
+  <div class="modal" id="newListModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Create New List</h3>
+        <button class="close-modal-btn" id="closeNewListModal">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <input type="text" id="newListName" placeholder="List name..." autocomplete="off">
+      </div>
+      <div class="modal-footer">
+        <button class="modal-btn secondary" id="cancelNewList">Cancel</button>
+        <button class="modal-btn primary" id="confirmNewList">Create</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Edit Item Modal -->
+  <div class="modal" id="editItemModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Edit Item</h3>
+        <button class="close-modal-btn" id="closeEditItemModal">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <input type="text" id="editItemInput" placeholder="Item text..." autocomplete="off">
+      </div>
+      <div class="modal-footer">
+        <button class="modal-btn secondary" id="cancelEditItem">Cancel</button>
+        <button class="modal-btn primary" id="confirmEditItem">Save</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Keyboard Shortcuts Modal -->
+  <div class="shortcuts-modal" id="shortcutsModal">
+    <div class="shortcuts-content">
+      <div class="shortcuts-header">
+        <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
+        <button class="close-shortcuts-btn" id="closeShortcutsBtn">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="shortcuts-body">
+        <!-- Items Section -->
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">Items</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Enter</kbd></div>
+            <div class="shortcut-desc">Add new item</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Ctrl</kbd><span class="key-plus">+</span><kbd>A</kbd></div>
+            <div class="shortcut-desc">Check all items</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Ctrl</kbd><span class="key-plus">+</span><kbd>U</kbd></div>
+            <div class="shortcut-desc">Uncheck all items</div>
+          </div>
+        </div>
+
+        <!-- Lists Section -->
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">Lists</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Ctrl</kbd><span class="key-plus">+</span><kbd>N</kbd></div>
+            <div class="shortcut-desc">Create new list</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>?</kbd></div>
+            <div class="shortcut-desc">Show shortcuts</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Escape</kbd></div>
+            <div class="shortcut-desc">Close modal</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Keyboard Shortcuts Hint -->
+  <div class="shortcuts-hint" id="shortcutsHint">
+    <span>Press <kbd>?</kbd> for shortcuts</span>
+  </div>
+
+  <!-- Shared Tools JavaScript -->
+  <script src="../../js/tools-common.js"></script>
+  <!-- Checklist Maker JavaScript -->
+  <script src="checklist.js"></script>
+</body>
+</html>

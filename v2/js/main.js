@@ -36,7 +36,7 @@
     ],
     typingSpeed: 100,
     typingDelay: 2000,
-    particleCount: 30 // Reduced for better performance
+    particleCount: 15 // Reduced for better performance
   };
 
   // ==================== Theme Management ====================

@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Advanced color picker with format conversions, palettes, image picker, and accessibility tools.">
+  <meta property="og:title" content="KVSOVANREACH | Color Picker">
+  <meta property="og:description" content="Pick colors from wheel, images, or palettes. Convert between HEX, RGB, HSL, HSV, and CMYK formats.">
+  <meta property="og:image" content="/assets/img/pwa/ios/512.png">
+  <title>KVSOVANREACH | Color Picker</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Common Tools CSS -->
+  <link rel="stylesheet" href="../../css/tools.css">
+  <!-- Color Picker CSS -->
+  <link rel="stylesheet" href="colorpicker.css">
+</head>
+<body>
+  <!-- Skip to Content -->
+  <a href="#colorpicker" class="skip-link">Skip to color picker</a>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">TOOLS</span>
+      </a>
+
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="tool-page">
+    <div class="container">
+      <!-- Color Picker Container -->
+      <div class="picker-wrapper" id="colorpicker">
+        <!-- Tab Navigation -->
+        <div class="picker-tabs">
+          <button class="picker-tab active" data-tab="picker">
+            <i class="fa-solid fa-palette"></i>
+            <span>Picker</span>
+          </button>
+          <button class="picker-tab" data-tab="image">
+            <i class="fa-solid fa-image"></i>
+            <span>Image</span>
+          </button>
+          <button class="picker-tab" data-tab="palettes">
+            <i class="fa-solid fa-swatchbook"></i>
+            <span>Palettes</span>
+          </button>
+          <button class="picker-tab" data-tab="accessibility">
+            <i class="fa-solid fa-universal-access"></i>
+            <span>A11y</span>
+          </button>
+        </div>
+
+        <!-- Main Content Area -->
+        <div class="picker-main">
+          <!-- Left: Color Display & Preview -->
+          <div class="picker-preview-section">
+            <!-- Color Preview -->
+            <div class="color-preview-card">
+              <div class="color-preview-large" id="colorPreview">
+                <div class="color-preview-half current" id="currentColor"></div>
+                <div class="color-preview-half previous" id="previousColor"></div>
+              </div>
+              <div class="color-preview-labels">
+                <span>Current</span>
+                <span>Previous</span>
+              </div>
+            </div>
+
+            <!-- HEX Display -->
+            <div class="hex-display" id="hexDisplay">
+              <span class="hex-value" id="hexValue">#3776A1</span>
+              <button class="hex-copy-btn" id="hexCopyBtn" title="Copy HEX">
+                <i class="fa-solid fa-copy"></i>
+              </button>
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="quick-actions">
+              <button class="quick-action-btn" id="randomColor" title="Random Color (R)">
+                <i class="fa-solid fa-shuffle"></i>
+                <span>Random</span>
+              </button>
+              <button class="quick-action-btn" id="eyeDropper" title="Pick from Screen (I)">
+                <i class="fa-solid fa-eye-dropper"></i>
+                <span>Pick</span>
+              </button>
+              <button class="quick-action-btn" id="saveColor" title="Save to History (S)">
+                <i class="fa-solid fa-bookmark"></i>
+                <span>Save</span>
+              </button>
+            </div>
+
+            <!-- Color History -->
+            <div class="color-history">
+              <div class="color-history-header">
+                <h4>History</h4>
+                <button id="clearHistory" title="Clear History" aria-label="Clear color history">
+                  <i class="fa-solid fa-trash"></i>
+                </button>
+              </div>
+              <div class="color-history-swatches" id="historySwatches">
+                <div class="history-empty">No colors saved</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: Tab Content -->
+          <div class="picker-content">
+            <!-- Picker Panel -->
+            <div class="picker-panel active" id="pickerPanel">
+              <!-- Color Area (Saturation/Brightness) -->
+              <div class="color-area-container">
+                <div class="color-area" id="colorArea">
+                  <div class="color-area-gradient-white"></div>
+                  <div class="color-area-gradient-black"></div>
+                  <div class="color-area-cursor" id="colorAreaCursor"></div>
+                </div>
+              </div>
+
+              <!-- Hue Slider -->
+              <div class="slider-container">
+                <label>Hue</label>
+                <div class="hue-slider" id="hueSlider">
+                  <div class="hue-slider-cursor" id="hueCursor"></div>
+                </div>
+              </div>
+
+              <!-- Alpha Slider -->
+              <div class="slider-container">
+                <label>Opacity</label>
+                <div class="alpha-slider" id="alphaSlider">
+                  <div class="alpha-slider-gradient" id="alphaGradient"></div>
+                  <div class="alpha-slider-cursor" id="alphaCursor"></div>
+                </div>
+                <span class="alpha-value" id="alphaValue">100%</span>
+              </div>
+
+              <!-- Color Harmonies -->
+              <div class="color-harmonies">
+                <div class="harmonies-header">
+                  <h4>Color Harmonies</h4>
+                  <select id="harmonyType">
+                    <option value="complementary">Complementary</option>
+                    <option value="triadic">Triadic</option>
+                    <option value="analogous">Analogous</option>
+                    <option value="split">Split Complementary</option>
+                    <option value="tetradic">Tetradic</option>
+                    <option value="monochromatic">Monochromatic</option>
+                  </select>
+                </div>
+                <div class="harmonies-swatches" id="harmoniesSwatches"></div>
+              </div>
+
+              <!-- Color Formats -->
+              <div class="color-formats">
+                <button class="formats-toggle active" id="formatsToggle">
+                  <span>Color Formats</span>
+                  <i class="fa-solid fa-chevron-down"></i>
+                </button>
+                <div class="formats-content active" id="formatsContent">
+                  <!-- HEX -->
+                  <div class="format-group">
+                    <label>HEX</label>
+                    <div class="format-input-wrapper">
+                      <span class="format-prefix">#</span>
+                      <input type="text" id="hexInput" maxlength="8" placeholder="000000">
+                      <button class="format-copy" data-format="hex" aria-label="Copy HEX">
+                        <i class="fa-solid fa-copy"></i>
+                      </button>
+                    </div>
+                  </div>
+
+                  <!-- RGB -->
+                  <div class="format-group">
+                    <label>RGB</label>
+                    <div class="format-inputs-row">
+                      <input type="number" id="rgbR" min="0" max="255" placeholder="R">
+                      <input type="number" id="rgbG" min="0" max="255" placeholder="G">
+                      <input type="number" id="rgbB" min="0" max="255" placeholder="B">
+                      <button class="format-copy" data-format="rgb" aria-label="Copy RGB">
+                        <i class="fa-solid fa-copy"></i>
+                      </button>
+                    </div>
+                  </div>
+
+                  <!-- HSL -->
+                  <div class="format-group">
+                    <label>HSL</label>
+                    <div class="format-inputs-row">
+                      <input type="number" id="hslH" min="0" max="360" placeholder="H">
+                      <input type="number" id="hslS" min="0" max="100" placeholder="S">
+                      <input type="number" id="hslL" min="0" max="100" placeholder="L">
+                      <button class="format-copy" data-format="hsl" aria-label="Copy HSL">
+                        <i class="fa-solid fa-copy"></i>
+                      </button>
+                    </div>
+                  </div>
+
+                  <!-- HSV/HSB -->
+                  <div class="format-group">
+                    <label>HSV</label>
+                    <div class="format-inputs-row">
+                      <input type="number" id="hsvH" min="0" max="360" placeholder="H">
+                      <input type="number" id="hsvS" min="0" max="100" placeholder="S">
+                      <input type="number" id="hsvV" min="0" max="100" placeholder="V">
+                      <button class="format-copy" data-format="hsv" aria-label="Copy HSV">
+                        <i class="fa-solid fa-copy"></i>
+                      </button>
+                    </div>
+                  </div>
+
+                  <!-- CMYK -->
+                  <div class="format-group">
+                    <label>CMYK</label>
+                    <div class="format-inputs-row cmyk">
+                      <input type="number" id="cmykC" min="0" max="100" placeholder="C">
+                      <input type="number" id="cmykM" min="0" max="100" placeholder="M">
+                      <input type="number" id="cmykY" min="0" max="100" placeholder="Y">
+                      <input type="number" id="cmykK" min="0" max="100" placeholder="K">
+                      <button class="format-copy" data-format="cmyk" aria-label="Copy CMYK">
+                        <i class="fa-solid fa-copy"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Image Picker Panel -->
+            <div class="picker-panel" id="imagePanel">
+              <div class="image-picker-container">
+                <!-- Upload Area -->
+                <div class="image-upload-area" id="imageUploadArea">
+                  <i class="fa-solid fa-cloud-arrow-up"></i>
+                  <p>Drop image here or click to upload</p>
+                  <span>Supports JPG, PNG, GIF, WebP</span>
+                  <input type="file" id="imageInput" accept="image/*" hidden>
+                </div>
+
+                <!-- Image Canvas -->
+                <div class="image-canvas-container" id="imageCanvasContainer">
+                  <canvas id="imageCanvas"></canvas>
+                  <div class="image-magnifier" id="imageMagnifier">
+                    <canvas id="magnifierCanvas" width="100" height="100"></canvas>
+                    <div class="magnifier-crosshair"></div>
+                    <div class="magnifier-color" id="magnifierColor"></div>
+                  </div>
+                  <button class="image-remove-btn" id="removeImage" title="Remove Image">
+                    <i class="fa-solid fa-xmark"></i>
+                  </button>
+                </div>
+
+                <!-- Picked Colors -->
+                <div class="picked-colors">
+                  <h4>Picked Colors</h4>
+                  <div class="picked-colors-list" id="pickedColorsList">
+                    <div class="picked-empty">Click on the image to pick colors</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Palettes Panel -->
+            <div class="picker-panel" id="palettesPanel">
+              <div class="palettes-container">
+                <!-- Palette Categories -->
+                <div class="palette-categories">
+                  <button class="palette-category active" data-category="material">Material</button>
+                  <button class="palette-category" data-category="tailwind">Tailwind</button>
+                  <button class="palette-category" data-category="flat">Flat UI</button>
+                  <button class="palette-category" data-category="social">Social</button>
+                  <button class="palette-category" data-category="gradients">Gradients</button>
+                </div>
+
+                <!-- Palette Grid -->
+                <div class="palette-grid" id="paletteGrid"></div>
+              </div>
+            </div>
+
+            <!-- Accessibility Panel -->
+            <div class="picker-panel" id="accessibilityPanel">
+              <div class="a11y-container">
+                <!-- Contrast Checker -->
+                <div class="contrast-checker">
+                  <h4>Contrast Checker</h4>
+                  <div class="contrast-colors">
+                    <div class="contrast-color-box">
+                      <label>Foreground</label>
+                      <div class="contrast-color-input">
+                        <div class="contrast-swatch" id="fgSwatch"></div>
+                        <input type="text" id="fgColor" placeholder="#000000">
+                        <button class="use-current" id="useFgCurrent" title="Use current color">
+                          <i class="fa-solid fa-arrow-left"></i>
+                        </button>
+                      </div>
+                    </div>
+                    <button class="swap-colors-btn" id="swapContrastColors" title="Swap colors">
+                      <i class="fa-solid fa-arrows-up-down"></i>
+                    </button>
+                    <div class="contrast-color-box">
+                      <label>Background</label>
+                      <div class="contrast-color-input">
+                        <div class="contrast-swatch" id="bgSwatch"></div>
+                        <input type="text" id="bgColor" placeholder="#FFFFFF">
+                        <button class="use-current" id="useBgCurrent" title="Use current color">
+                          <i class="fa-solid fa-arrow-left"></i>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Contrast Preview -->
+                  <div class="contrast-preview" id="contrastPreview">
+                    <div class="contrast-preview-text">
+                      <span class="preview-large">Large Text</span>
+                      <span class="preview-normal">Normal text sample for contrast testing</span>
+                    </div>
+                  </div>
+
+                  <!-- Contrast Results -->
+                  <div class="contrast-results">
+                    <div class="contrast-ratio">
+                      <span class="ratio-label">Contrast Ratio</span>
+                      <span class="ratio-value" id="contrastRatio">21:1</span>
+                    </div>
+                    <div class="contrast-scores">
+                      <div class="wcag-score" id="wcagAA">
+                        <span class="score-level">WCAG AA</span>
+                        <div class="score-badges">
+                          <span class="badge" data-test="aa-normal">Normal</span>
+                          <span class="badge" data-test="aa-large">Large</span>
+                        </div>
+                      </div>
+                      <div class="wcag-score" id="wcagAAA">
+                        <span class="score-level">WCAG AAA</span>
+                        <div class="score-badges">
+                          <span class="badge" data-test="aaa-normal">Normal</span>
+                          <span class="badge" data-test="aaa-large">Large</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Color Blindness Simulator -->
+                <div class="colorblind-simulator">
+                  <h4>Color Blindness Preview</h4>
+                  <div class="colorblind-grid" id="colorblindGrid">
+                    <div class="colorblind-preview" data-type="normal">
+                      <div class="colorblind-swatch"></div>
+                      <span>Normal</span>
+                    </div>
+                    <div class="colorblind-preview" data-type="protanopia">
+                      <div class="colorblind-swatch"></div>
+                      <span>Protanopia</span>
+                    </div>
+                    <div class="colorblind-preview" data-type="deuteranopia">
+                      <div class="colorblind-swatch"></div>
+                      <span>Deuteranopia</span>
+                    </div>
+                    <div class="colorblind-preview" data-type="tritanopia">
+                      <div class="colorblind-swatch"></div>
+                      <span>Tritanopia</span>
+                    </div>
+                    <div class="colorblind-preview" data-type="achromatopsia">
+                      <div class="colorblind-swatch"></div>
+                      <span>Achromatopsia</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Keyboard Shortcuts Hint -->
+  <div class="shortcuts-hint" id="shortcutsHint">
+    <span>Press <kbd>?</kbd> for shortcuts</span>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach. All rights reserved.</p>
+        <p class="footer-made">Made with <i class="fa-solid fa-heart"></i> in South Korea</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Keyboard Shortcuts Modal -->
+  <div class="shortcuts-modal" id="shortcutsModal">
+    <div class="shortcuts-content">
+      <div class="shortcuts-header">
+        <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
+        <button class="close-shortcuts-btn" id="shortcutsClose" aria-label="Close shortcuts">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="shortcuts-body">
+        <!-- General Section -->
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">General</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>R</kbd></div>
+            <div class="shortcut-desc">Random color</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>I</kbd></div>
+            <div class="shortcut-desc">EyeDropper</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>S</kbd></div>
+            <div class="shortcut-desc">Save to history</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>C</kbd></div>
+            <div class="shortcut-desc">Copy HEX</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>?</kbd></div>
+            <div class="shortcut-desc">Show shortcuts</div>
+          </div>
+        </div>
+
+        <!-- Navigation Section -->
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">Navigation</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>1</kbd></div>
+            <div class="shortcut-desc">Picker tab</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>2</kbd></div>
+            <div class="shortcut-desc">Image tab</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>3</kbd></div>
+            <div class="shortcut-desc">Palettes tab</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>4</kbd></div>
+            <div class="shortcut-desc">Accessibility tab</div>
+          </div>
+        </div>
+
+        <!-- Color Adjustment Section -->
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">Adjustment</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>&uarr;</kbd></div>
+            <div class="shortcut-desc">Increase brightness</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>&darr;</kbd></div>
+            <div class="shortcut-desc">Decrease brightness</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>&larr;</kbd></div>
+            <div class="shortcut-desc">Decrease saturation</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>&rarr;</kbd></div>
+            <div class="shortcut-desc">Increase saturation</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Shift</kbd><span class="key-plus">+</span><kbd>&larr;/&rarr;</kbd></div>
+            <div class="shortcut-desc">Adjust hue</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Shared Tools JavaScript -->
+  <script src="../../js/tools-common.js"></script>
+  <!-- Color Picker JavaScript -->
+  <script src="colorpicker.js"></script>
+</body>
+</html>

@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Compare two texts and find differences. Side-by-side and inline diff views available.">
+  <meta property="og:title" content="KVSOVANREACH | Diff Checker">
+  <meta property="og:description" content="Compare texts and find differences instantly with highlighted output.">
+  <meta property="og:image" content="/assets/img/pwa/ios/512.png">
+  <title>KVSOVANREACH | Diff Checker</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Common Tools CSS -->
+  <link rel="stylesheet" href="../../css/tools.css">
+  <!-- Diff CSS -->
+  <link rel="stylesheet" href="diff.css">
+</head>
+<body>
+  <!-- Skip to Content -->
+  <a href="#diff" class="skip-link">Skip to diff checker</a>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">TOOLS</span>
+      </a>
+
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="tool-page">
+    <div class="container">
+      <!-- Diff Wrapper -->
+      <div class="diff-wrapper" id="diff">
+        <!-- Header -->
+        <div class="diff-header">
+          <h2><i class="fa-solid fa-code-compare"></i> Diff Checker</h2>
+          <div class="diff-actions">
+            <button class="action-btn" id="swapBtn" title="Swap texts">
+              <i class="fa-solid fa-arrow-right-arrow-left"></i>
+              <span>Swap</span>
+            </button>
+            <button class="action-btn" id="clearBtn" title="Clear all">
+              <i class="fa-solid fa-trash"></i>
+              <span>Clear</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Options Bar -->
+        <div class="diff-options">
+          <div class="view-toggle">
+            <button class="view-btn active" data-view="split">
+              <i class="fa-solid fa-columns"></i>
+              <span>Split View</span>
+            </button>
+            <button class="view-btn" data-view="unified">
+              <i class="fa-solid fa-bars"></i>
+              <span>Unified</span>
+            </button>
+          </div>
+          <div class="diff-settings">
+            <label class="setting-option">
+              <input type="checkbox" id="ignoreCase">
+              <span>Ignore case</span>
+            </label>
+            <label class="setting-option">
+              <input type="checkbox" id="ignoreWhitespace">
+              <span>Ignore whitespace</span>
+            </label>
+            <label class="setting-option">
+              <input type="checkbox" id="wordLevel">
+              <span>Word-level diff</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Input Section -->
+        <div class="diff-input-section">
+          <div class="input-panel">
+            <div class="input-header">
+              <h3>Original Text</h3>
+              <div class="input-actions">
+                <label class="input-btn file-upload-btn" title="Upload file">
+                  <i class="fa-solid fa-upload"></i>
+                  <input type="file" id="uploadOriginal" accept=".txt,.json,.js,.css,.html,.md,.xml,.csv" hidden>
+                </label>
+                <button class="input-btn" id="pasteOriginal" title="Paste">
+                  <i class="fa-solid fa-paste"></i>
+                </button>
+                <button class="input-btn" id="clearOriginal" title="Clear">
+                  <i class="fa-solid fa-xmark"></i>
+                </button>
+              </div>
+            </div>
+            <textarea id="originalText" placeholder="Paste, type, or drag & drop a file here..."></textarea>
+            <div class="input-stats">
+              <span id="originalLines">0 lines</span>
+              <span id="originalChars">0 chars</span>
+            </div>
+          </div>
+
+          <div class="input-panel">
+            <div class="input-header">
+              <h3>Modified Text</h3>
+              <div class="input-actions">
+                <label class="input-btn file-upload-btn" title="Upload file">
+                  <i class="fa-solid fa-upload"></i>
+                  <input type="file" id="uploadModified" accept=".txt,.json,.js,.css,.html,.md,.xml,.csv" hidden>
+                </label>
+                <button class="input-btn" id="pasteModified" title="Paste">
+                  <i class="fa-solid fa-paste"></i>
+                </button>
+                <button class="input-btn" id="clearModified" title="Clear">
+                  <i class="fa-solid fa-xmark"></i>
+                </button>
+              </div>
+            </div>
+            <textarea id="modifiedText" placeholder="Paste, type, or drag & drop a file here..."></textarea>
+            <div class="input-stats">
+              <span id="modifiedLines">0 lines</span>
+              <span id="modifiedChars">0 chars</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Compare Button -->
+        <button class="compare-btn" id="compareBtn">
+          <i class="fa-solid fa-code-compare"></i>
+          <span>Compare</span>
+        </button>
+
+        <!-- Result Section -->
+        <div class="diff-result" id="diffResult">
+          <!-- Stats -->
+          <div class="diff-stats" id="diffStats">
+            <div class="stats-left">
+              <div class="stat-item additions">
+                <i class="fa-solid fa-plus"></i>
+                <span id="additionsCount">0</span> additions
+              </div>
+              <div class="stat-item deletions">
+                <i class="fa-solid fa-minus"></i>
+                <span id="deletionsCount">0</span> deletions
+              </div>
+              <div class="stat-item changes">
+                <i class="fa-solid fa-pencil"></i>
+                <span id="changesCount">0</span> changes
+              </div>
+            </div>
+            <div class="stats-right">
+              <button class="export-btn" id="copyDiff" title="Copy diff to clipboard">
+                <i class="fa-solid fa-copy"></i>
+                <span>Copy Diff</span>
+              </button>
+              <button class="export-btn" id="downloadDiff" title="Download diff as file">
+                <i class="fa-solid fa-download"></i>
+                <span>Download</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Output -->
+          <div class="diff-output" id="diffOutput">
+            <div class="output-empty">
+              <i class="fa-solid fa-code-compare"></i>
+              <p>Enter text in both panels and click "Compare" to see differences</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach. All rights reserved.</p>
+        <p class="footer-made">Made with <i class="fa-solid fa-heart"></i> in South Korea</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Keyboard Shortcuts Modal -->
+  <div class="shortcuts-modal" id="shortcutsModal">
+    <div class="shortcuts-content">
+      <div class="shortcuts-header">
+        <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
+        <button class="close-shortcuts-btn" id="closeShortcutsBtn">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="shortcuts-body">
+        <!-- Actions Section -->
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">Actions</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Ctrl</kbd><span class="key-separator">+</span><kbd>Enter</kbd></div>
+            <div class="shortcut-desc">Compare texts</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>S</kbd></div>
+            <div class="shortcut-desc">Swap texts</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>C</kbd></div>
+            <div class="shortcut-desc">Copy diff</div>
+          </div>
+        </div>
+
+        <!-- General Section -->
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">General</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>?</kbd></div>
+            <div class="shortcut-desc">Show shortcuts</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Escape</kbd></div>
+            <div class="shortcut-desc">Close modal</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Keyboard Shortcuts Hint -->
+  <div class="shortcuts-hint" id="shortcutsHint">
+    <span>Press <kbd>?</kbd> for shortcuts</span>
+  </div>
+
+  <!-- Shared Tools JavaScript -->
+  <script src="../../js/tools-common.js"></script>
+  <!-- Scripts -->
+  <script src="diff.js"></script>
+</body>
+</html>

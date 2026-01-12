@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Compress and resize images while maintaining quality. Support for JPG, PNG, and WebP.">
+  <meta property="og:title" content="KVSOVANREACH | Image Compressor">
+  <meta property="og:description" content="Compress images, reduce file size, and convert formats without losing quality.">
+  <meta property="og:image" content="/assets/img/pwa/ios/512.png">
+  <title>KVSOVANREACH | Image Compressor</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Common Tools CSS -->
+  <link rel="stylesheet" href="../../css/tools.css">
+  <!-- Image Compressor CSS -->
+  <link rel="stylesheet" href="image.css">
+</head>
+<body>
+  <!-- Skip to Content -->
+  <a href="#image" class="skip-link">Skip to image compressor</a>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">TOOLS</span>
+      </a>
+
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="tool-page">
+    <div class="container">
+      <!-- Image Compressor Wrapper -->
+      <div class="image-wrapper" id="image">
+        <!-- Header -->
+        <div class="image-header">
+          <h2><i class="fa-solid fa-compress"></i> Image Compressor</h2>
+          <div class="image-header-actions">
+            <button class="header-btn danger" id="headerClearBtn" title="Clear All" style="display: none;">
+              <i class="fa-solid fa-trash"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Upload Zone -->
+        <div class="upload-zone" id="uploadZone">
+          <input type="file" id="fileInput" accept="image/*" multiple hidden>
+          <div class="upload-content">
+            <i class="fa-solid fa-cloud-arrow-up"></i>
+            <h3>Drop images here</h3>
+            <p>or click to browse</p>
+            <span class="upload-formats">Supports: JPG, PNG, WebP, GIF</span>
+          </div>
+        </div>
+
+        <!-- Settings -->
+        <div class="compress-settings" id="compressSettings">
+          <div class="settings-row">
+            <div class="setting-group">
+              <label>Quality</label>
+              <div class="quality-slider">
+                <input type="range" id="qualitySlider" min="10" max="100" value="80">
+                <span class="quality-value" id="qualityValue">80%</span>
+              </div>
+            </div>
+            <div class="setting-group">
+              <label>Output Format</label>
+              <select id="formatSelect">
+                <option value="original">Original</option>
+                <option value="jpeg">JPEG</option>
+                <option value="png">PNG</option>
+                <option value="webp" selected>WebP</option>
+              </select>
+            </div>
+            <div class="setting-group">
+              <label>Max Width (px)</label>
+              <input type="number" id="maxWidth" placeholder="Original" min="1" max="10000">
+            </div>
+          </div>
+        </div>
+
+        <!-- Image List -->
+        <div class="image-list" id="imageList">
+          <!-- Images will be added here -->
+        </div>
+
+        <!-- Actions -->
+        <div class="image-actions" id="imageActions" style="display: none;">
+          <button class="action-btn primary" id="compressAllBtn">
+            <i class="fa-solid fa-compress"></i>
+            <span>Compress All</span>
+          </button>
+          <button class="action-btn" id="downloadAllBtn">
+            <i class="fa-solid fa-download"></i>
+            <span>Download All</span>
+          </button>
+          <button class="action-btn danger" id="clearAllBtn">
+            <i class="fa-solid fa-trash"></i>
+            <span>Clear All</span>
+          </button>
+        </div>
+
+        <!-- Summary -->
+        <div class="compression-summary" id="compressionSummary" style="display: none;">
+          <div class="summary-item">
+            <span class="summary-label">Total Images</span>
+            <span class="summary-value" id="totalImages">0</span>
+          </div>
+          <div class="summary-item">
+            <span class="summary-label">Original Size</span>
+            <span class="summary-value" id="originalSize">0 KB</span>
+          </div>
+          <div class="summary-item">
+            <span class="summary-label">Compressed Size</span>
+            <span class="summary-value highlight" id="compressedSize">0 KB</span>
+          </div>
+          <div class="summary-item">
+            <span class="summary-label">Saved</span>
+            <span class="summary-value success" id="savedSize">0 KB (0%)</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Keyboard Shortcuts Hint -->
+  <div class="shortcuts-hint" id="shortcutsHint">
+    <span>Press <kbd>?</kbd> for shortcuts</span>
+  </div>
+
+  <!-- Keyboard Shortcuts Modal -->
+  <div class="shortcuts-modal" id="shortcutsModal">
+    <div class="shortcuts-content">
+      <div class="shortcuts-header">
+        <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
+        <button class="close-shortcuts-btn" id="closeShortcutsBtn">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="shortcuts-body">
+        <!-- Actions Section -->
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">Actions</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>C</kbd></div>
+            <div class="shortcut-desc">Compress all</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>D</kbd></div>
+            <div class="shortcut-desc">Download all</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Delete</kbd></div>
+            <div class="shortcut-desc">Clear all</div>
+          </div>
+        </div>
+
+        <!-- General Section -->
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">General</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>?</kbd></div>
+            <div class="shortcut-desc">Show shortcuts</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Escape</kbd></div>
+            <div class="shortcut-desc">Close modal</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach. All rights reserved.</p>
+        <p class="footer-made">Made with <i class="fa-solid fa-heart"></i> in South Korea</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Shared Tools JavaScript -->
+  <script src="../../js/tools-common.js"></script>
+  <!-- Scripts -->
+  <script src="image.js"></script>
+</body>
+</html>

@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Stopwatch and countdown timer with lap tracking and presets.">
+  <meta property="og:title" content="KVSOVANREACH | Timer & Stopwatch">
+  <meta property="og:description" content="Precise stopwatch and customizable countdown timer with lap times.">
+  <meta property="og:image" content="/assets/img/pwa/ios/512.png">
+  <title>KVSOVANREACH | Timer & Stopwatch</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Common Tools CSS -->
+  <link rel="stylesheet" href="../../css/tools.css">
+  <!-- Timer CSS -->
+  <link rel="stylesheet" href="timer.css">
+</head>
+<body>
+  <!-- Skip to Content -->
+  <a href="#timer" class="skip-link">Skip to timer</a>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">TOOLS</span>
+      </a>
+
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="tool-page">
+    <div class="container">
+      <!-- Timer Wrapper -->
+      <div class="timer-wrapper" id="timer">
+        <!-- Fullscreen Button -->
+        <button class="fullscreen-btn" id="fullscreenBtn" title="Toggle fullscreen">
+          <i class="fa-solid fa-expand"></i>
+        </button>
+
+        <!-- Mode Tabs -->
+        <div class="mode-tabs">
+          <button class="mode-tab active" data-mode="stopwatch">
+            <i class="fa-solid fa-stopwatch"></i>
+            <span>Stopwatch</span>
+          </button>
+          <button class="mode-tab" data-mode="timer">
+            <i class="fa-solid fa-hourglass-half"></i>
+            <span>Timer</span>
+          </button>
+        </div>
+
+        <!-- Stopwatch Mode -->
+        <div class="mode-content active" id="stopwatchMode">
+          <div class="time-display">
+            <div class="time-main" id="stopwatchDisplay">00:00:00</div>
+            <div class="time-ms" id="stopwatchMs">.000</div>
+          </div>
+
+          <div class="controls">
+            <button class="control-btn secondary" id="stopwatchReset" disabled>
+              <i class="fa-solid fa-rotate-left"></i>
+              <span>Reset</span>
+            </button>
+            <button class="control-btn primary large" id="stopwatchStart">
+              <i class="fa-solid fa-play"></i>
+            </button>
+            <button class="control-btn secondary" id="stopwatchLap" disabled>
+              <i class="fa-solid fa-flag"></i>
+              <span>Lap</span>
+            </button>
+          </div>
+
+          <!-- Laps -->
+          <div class="laps-section" id="lapsSection">
+            <div class="laps-header">
+              <h3>Lap Times</h3>
+              <button class="clear-laps-btn" id="clearLapsBtn" title="Clear all laps">
+                <i class="fa-solid fa-trash"></i>
+              </button>
+            </div>
+            <div class="laps-list" id="lapsList">
+              <div class="laps-empty" id="lapsEmpty">
+                <i class="fa-solid fa-flag-checkered"></i>
+                <p>No laps recorded</p>
+              </div>
+            </div>
+            <div class="lap-stats" id="lapStats" style="display: none;">
+              <div class="lap-stat">
+                <span class="lap-stat-label">Average</span>
+                <span class="lap-stat-value" id="lapAverage">-</span>
+              </div>
+              <div class="lap-stat">
+                <span class="lap-stat-label">Best</span>
+                <span class="lap-stat-value" id="lapBest">-</span>
+              </div>
+              <div class="lap-stat">
+                <span class="lap-stat-label">Total</span>
+                <span class="lap-stat-value" id="lapTotal">-</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Timer Mode -->
+        <div class="mode-content" id="timerMode">
+          <!-- Timer Input (shown when not running) -->
+          <div class="timer-input" id="timerInput">
+            <div class="time-input-group">
+              <div class="time-input-field">
+                <input type="number" id="hoursInput" min="0" max="99" value="0" placeholder="00">
+                <label>Hours</label>
+              </div>
+              <span class="time-separator">:</span>
+              <div class="time-input-field">
+                <input type="number" id="minutesInput" min="0" max="59" value="5" placeholder="00">
+                <label>Minutes</label>
+              </div>
+              <span class="time-separator">:</span>
+              <div class="time-input-field">
+                <input type="number" id="secondsInput" min="0" max="59" value="0" placeholder="00">
+                <label>Seconds</label>
+              </div>
+            </div>
+
+            <!-- Quick Presets -->
+            <div class="presets">
+              <button class="preset-btn" data-minutes="1">1 min</button>
+              <button class="preset-btn" data-minutes="3">3 min</button>
+              <button class="preset-btn" data-minutes="5">5 min</button>
+              <button class="preset-btn" data-minutes="10">10 min</button>
+              <button class="preset-btn" data-minutes="15">15 min</button>
+              <button class="preset-btn" data-minutes="25">25 min</button>
+              <button class="preset-btn" data-minutes="30">30 min</button>
+              <button class="preset-btn" data-minutes="60">1 hour</button>
+            </div>
+          </div>
+
+          <!-- Timer Display (shown when running) -->
+          <div class="timer-display" id="timerDisplay" style="display: none;">
+            <div class="time-display countdown">
+              <div class="time-main" id="timerCountdown">00:00:00</div>
+            </div>
+            <div class="timer-progress">
+              <div class="progress-ring">
+                <svg viewBox="0 0 100 100">
+                  <circle class="progress-bg" cx="50" cy="50" r="45"></circle>
+                  <circle class="progress-fill" id="progressFill" cx="50" cy="50" r="45"></circle>
+                </svg>
+              </div>
+            </div>
+          </div>
+
+          <div class="controls">
+            <button class="control-btn secondary" id="timerReset" disabled>
+              <i class="fa-solid fa-rotate-left"></i>
+              <span>Reset</span>
+            </button>
+            <button class="control-btn primary large" id="timerStart">
+              <i class="fa-solid fa-play"></i>
+            </button>
+            <button class="control-btn secondary" id="timerAdd" disabled title="Add 1 minute">
+              <i class="fa-solid fa-plus"></i>
+              <span>+1 min</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Sound Settings -->
+        <div class="sound-settings">
+          <label class="sound-toggle">
+            <input type="checkbox" id="soundEnabled" checked>
+            <span class="toggle-switch"></span>
+            <span class="toggle-label">
+              <i class="fa-solid fa-bell"></i>
+              Sound
+            </span>
+          </label>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Timer Complete Modal -->
+  <div class="timer-complete-modal" id="timerCompleteModal">
+    <div class="modal-content">
+      <div class="modal-icon">
+        <i class="fa-solid fa-bell"></i>
+      </div>
+      <h2>Time's Up!</h2>
+      <p>Your timer has completed</p>
+      <button class="modal-btn" id="dismissModal">
+        <i class="fa-solid fa-check"></i>
+        <span>Dismiss</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach. All rights reserved.</p>
+        <p class="footer-made">Made with <i class="fa-solid fa-heart"></i> in South Korea</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Keyboard Shortcuts Hint -->
+  <div class="shortcuts-hint" id="shortcutsHint">
+    <span>Press <kbd>?</kbd> for shortcuts</span>
+  </div>
+
+  <!-- Keyboard Shortcuts Modal -->
+  <div class="shortcuts-modal" id="shortcutsModal">
+    <div class="shortcuts-content">
+      <div class="shortcuts-header">
+        <h3>Keyboard Shortcuts</h3>
+        <button class="close-shortcuts-btn" id="closeShortcutsBtn">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="shortcuts-list">
+        <div class="shortcut-item">
+          <kbd>Space</kbd>
+          <span>Start/Pause</span>
+        </div>
+        <div class="shortcut-item">
+          <kbd>R</kbd>
+          <span>Reset</span>
+        </div>
+        <div class="shortcut-item">
+          <kbd>L</kbd>
+          <span>Lap (Stopwatch)</span>
+        </div>
+        <div class="shortcut-item">
+          <kbd>Tab</kbd>
+          <span>Switch mode</span>
+        </div>
+        <div class="shortcut-item">
+          <kbd>M</kbd>
+          <span>Toggle sound</span>
+        </div>
+        <div class="shortcut-item">
+          <kbd>F</kbd>
+          <span>Toggle fullscreen</span>
+        </div>
+        <div class="shortcut-item">
+          <kbd>?</kbd>
+          <span>Show shortcuts</span>
+        </div>
+        <div class="shortcut-item">
+          <kbd>Esc</kbd>
+          <span>Close modals</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Shared Tools JavaScript -->
+  <script src="../../js/tools-common.js"></script>
+  <!-- Scripts -->
+  <script src="timer.js"></script>
+</body>
+</html>

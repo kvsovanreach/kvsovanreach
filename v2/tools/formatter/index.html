@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Beautify and minify HTML, CSS, and JavaScript code with syntax highlighting.">
+  <meta property="og:title" content="KVSOVANREACH | Code Formatter">
+  <meta property="og:description" content="Format, beautify, and minify your code with real-time preview and syntax highlighting.">
+  <meta property="og:image" content="/assets/img/pwa/ios/512.png">
+  <title>KVSOVANREACH | Code Formatter</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Prettier for formatting -->
+  <script src="https://unpkg.com/prettier@3.2.4/standalone.js"></script>
+  <script src="https://unpkg.com/prettier@3.2.4/plugins/html.js"></script>
+  <script src="https://unpkg.com/prettier@3.2.4/plugins/babel.js"></script>
+  <script src="https://unpkg.com/prettier@3.2.4/plugins/estree.js"></script>
+  <script src="https://unpkg.com/prettier@3.2.4/plugins/postcss.js"></script>
+
+  <!-- Common Tools CSS -->
+  <link rel="stylesheet" href="../../css/tools.css">
+  <!-- Code Formatter CSS -->
+  <link rel="stylesheet" href="formatter.css">
+</head>
+<body>
+  <!-- Skip to Content -->
+  <a href="#formatter" class="skip-link">Skip to code formatter</a>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">TOOLS</span>
+      </a>
+
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="tool-page">
+    <div class="container">
+      <!-- Code Formatter Container -->
+      <div class="formatter-wrapper" id="formatter">
+        <!-- Header -->
+        <div class="formatter-header">
+          <h2><i class="fa-solid fa-wand-magic-sparkles"></i> Code Formatter</h2>
+          <div class="header-actions">
+            <button class="action-btn" id="clearBtn" title="Clear">
+              <i class="fa-solid fa-trash"></i>
+              <span>Clear</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Language Tabs -->
+        <div class="language-tabs">
+          <button class="lang-tab active" data-lang="html">
+            <i class="fa-brands fa-html5"></i>
+            <span>HTML</span>
+          </button>
+          <button class="lang-tab" data-lang="css">
+            <i class="fa-brands fa-css3-alt"></i>
+            <span>CSS</span>
+          </button>
+          <button class="lang-tab" data-lang="javascript">
+            <i class="fa-brands fa-js"></i>
+            <span>JavaScript</span>
+          </button>
+          <button class="lang-tab" data-lang="json">
+            <i class="fa-solid fa-brackets-curly"></i>
+            <span>JSON</span>
+          </button>
+        </div>
+
+        <!-- Main Content -->
+        <div class="formatter-content">
+          <!-- Input Section -->
+          <div class="formatter-section">
+            <div class="section-header">
+              <h3>Input</h3>
+              <div class="section-actions">
+                <button class="section-btn" id="pasteBtn" title="Paste from clipboard">
+                  <i class="fa-solid fa-paste"></i>
+                </button>
+                <button class="section-btn" id="sampleBtn" title="Load sample code">
+                  <i class="fa-solid fa-file-code"></i>
+                </button>
+              </div>
+            </div>
+            <div class="code-input-wrapper">
+              <textarea id="codeInput" placeholder="Paste your code here..." spellcheck="false"></textarea>
+              <div class="input-stats">
+                <span id="inputChars">0 characters</span>
+                <span id="inputLines">0 lines</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Options Section -->
+          <div class="formatter-options">
+            <div class="options-row">
+              <div class="option-group">
+                <label for="indentSize">Indent Size</label>
+                <select id="indentSize">
+                  <option value="2" selected>2 spaces</option>
+                  <option value="4">4 spaces</option>
+                  <option value="tab">Tab</option>
+                </select>
+              </div>
+              <div class="option-group">
+                <label for="lineWidth">Line Width</label>
+                <select id="lineWidth">
+                  <option value="80">80</option>
+                  <option value="100">100</option>
+                  <option value="120" selected>120</option>
+                  <option value="150">150</option>
+                </select>
+              </div>
+              <div class="option-group js-only" id="semicolonsGroup">
+                <label class="checkbox-label">
+                  <input type="checkbox" id="semicolons" checked>
+                  <span>Semicolons</span>
+                </label>
+              </div>
+              <div class="option-group js-only" id="singleQuoteGroup">
+                <label class="checkbox-label">
+                  <input type="checkbox" id="singleQuote">
+                  <span>Single Quotes</span>
+                </label>
+              </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="format-actions">
+              <button class="format-btn primary" id="beautifyBtn">
+                <i class="fa-solid fa-wand-magic-sparkles"></i>
+                <span>Beautify</span>
+              </button>
+              <button class="format-btn" id="minifyBtn">
+                <i class="fa-solid fa-compress"></i>
+                <span>Minify</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Output Section -->
+          <div class="formatter-section">
+            <div class="section-header">
+              <h3>Output</h3>
+              <div class="section-actions">
+                <button class="section-btn" id="copyBtn" title="Copy to clipboard">
+                  <i class="fa-solid fa-copy"></i>
+                </button>
+                <button class="section-btn" id="downloadBtn" title="Download file">
+                  <i class="fa-solid fa-download"></i>
+                </button>
+              </div>
+            </div>
+            <div class="code-output-wrapper">
+              <pre id="codeOutput" class="code-output"></pre>
+              <div class="output-stats">
+                <span id="outputChars">0 characters</span>
+                <span id="outputLines">0 lines</span>
+                <span id="sizeDiff" class="size-diff"></span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Error Display -->
+          <div class="error-display" id="errorDisplay" style="display: none;">
+            <i class="fa-solid fa-exclamation-triangle"></i>
+            <span id="errorMessage"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach. All rights reserved.</p>
+        <p class="footer-made">Made with <i class="fa-solid fa-heart"></i> in South Korea</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Keyboard Shortcuts Modal -->
+  <div class="shortcuts-modal" id="shortcutsModal">
+    <div class="shortcuts-content">
+      <div class="shortcuts-header">
+        <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
+        <button class="close-shortcuts-btn" id="closeShortcutsBtn">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="shortcuts-body">
+        <!-- Actions Section -->
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">Actions</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Ctrl</kbd><span class="key-separator">+</span><kbd>Enter</kbd></div>
+            <div class="shortcut-desc">Beautify</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Ctrl</kbd><span class="key-separator">+</span><kbd>Shift</kbd><span class="key-separator">+</span><kbd>Enter</kbd></div>
+            <div class="shortcut-desc">Minify</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Ctrl</kbd><span class="key-separator">+</span><kbd>C</kbd></div>
+            <div class="shortcut-desc">Copy output</div>
+          </div>
+        </div>
+
+        <!-- Navigation Section -->
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">Navigation</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>1</kbd><span class="key-separator">-</span><kbd>4</kbd></div>
+            <div class="shortcut-desc">Switch language</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>?</kbd></div>
+            <div class="shortcut-desc">Show shortcuts</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Escape</kbd></div>
+            <div class="shortcut-desc">Close modal</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Keyboard Shortcuts Hint -->
+  <div class="shortcuts-hint" id="shortcutsHint">
+    <span>Press <kbd>?</kbd> for shortcuts</span>
+  </div>
+
+  <!-- Shared Tools JavaScript -->
+  <script src="../../js/tools-common.js"></script>
+  <!-- Code Formatter JavaScript -->
+  <script src="formatter.js"></script>
+</body>
+</html>

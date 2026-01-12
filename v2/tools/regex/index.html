@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Test and debug regular expressions with real-time matching and highlighting.">
+  <meta property="og:title" content="KVSOVANREACH | Regex Tester">
+  <meta property="og:description" content="Test regular expressions with live matching, capture groups, and common patterns.">
+  <meta property="og:image" content="/assets/img/pwa/ios/512.png">
+  <title>KVSOVANREACH | Regex Tester</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Common Tools CSS -->
+  <link rel="stylesheet" href="../../css/tools.css">
+  <!-- Regex Tester CSS -->
+  <link rel="stylesheet" href="regex.css">
+</head>
+<body>
+  <!-- Skip to Content -->
+  <a href="#regex" class="skip-link">Skip to regex tester</a>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">TOOLS</span>
+      </a>
+
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="tool-page">
+    <div class="container">
+      <!-- Regex Tester Wrapper -->
+      <div class="regex-wrapper" id="regex">
+        <!-- Header -->
+        <div class="regex-header">
+          <h2><i class="fa-solid fa-asterisk"></i> Regex Tester</h2>
+          <div class="regex-actions">
+            <button class="action-btn" id="clearBtn" title="Clear all">
+              <i class="fa-solid fa-trash"></i>
+              <span>Clear</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="regex-content">
+          <!-- Pattern Section -->
+          <div class="regex-section">
+            <div class="section-header">
+              <h3>Regular Expression</h3>
+              <button class="help-btn" id="helpBtn" title="Regex cheatsheet">
+                <i class="fa-solid fa-question-circle"></i>
+              </button>
+            </div>
+            <div class="pattern-input">
+              <span class="pattern-delimiter">/</span>
+              <input type="text" id="patternInput" placeholder="Enter regex pattern..." autocomplete="off" spellcheck="false">
+              <span class="pattern-delimiter">/</span>
+              <div class="flags-input">
+                <label class="flag-option" title="Global search">
+                  <input type="checkbox" id="flagG" checked>
+                  <span>g</span>
+                </label>
+                <label class="flag-option" title="Case-insensitive">
+                  <input type="checkbox" id="flagI">
+                  <span>i</span>
+                </label>
+                <label class="flag-option" title="Multiline">
+                  <input type="checkbox" id="flagM">
+                  <span>m</span>
+                </label>
+                <label class="flag-option" title="Single line (dotall)">
+                  <input type="checkbox" id="flagS">
+                  <span>s</span>
+                </label>
+              </div>
+            </div>
+            <div class="pattern-error" id="patternError"></div>
+          </div>
+
+          <!-- Test String Section -->
+          <div class="regex-section">
+            <div class="section-header">
+              <h3>Test String</h3>
+              <span class="match-count" id="matchCount">0 matches</span>
+            </div>
+            <div class="test-string-container">
+              <div class="test-string-wrapper">
+                <div class="highlighted-text" id="highlightedText"></div>
+                <textarea id="testString" placeholder="Enter text to test against the pattern..." spellcheck="false"></textarea>
+              </div>
+            </div>
+          </div>
+
+          <!-- Results Section -->
+          <div class="regex-section results-section">
+            <div class="results-tabs">
+              <button class="results-tab active" data-tab="matches">
+                <i class="fa-solid fa-list"></i>
+                Matches
+              </button>
+              <button class="results-tab" data-tab="groups">
+                <i class="fa-solid fa-object-group"></i>
+                Groups
+              </button>
+              <button class="results-tab" data-tab="replace">
+                <i class="fa-solid fa-exchange-alt"></i>
+                Replace
+              </button>
+            </div>
+
+            <!-- Matches Tab -->
+            <div class="results-content active" id="matchesTab">
+              <div class="matches-list" id="matchesList">
+                <div class="results-empty">
+                  <i class="fa-solid fa-search"></i>
+                  <p>Enter a pattern and test string to see matches</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Groups Tab -->
+            <div class="results-content" id="groupsTab">
+              <div class="groups-list" id="groupsList">
+                <div class="results-empty">
+                  <i class="fa-solid fa-object-group"></i>
+                  <p>Capture groups will appear here</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Replace Tab -->
+            <div class="results-content" id="replaceTab">
+              <div class="replace-input-group">
+                <label>Replacement pattern:</label>
+                <input type="text" id="replacePattern" placeholder="Enter replacement (use $1, $2 for groups)">
+              </div>
+              <div class="replace-output">
+                <div class="replace-header">
+                  <h4>Result:</h4>
+                  <button class="copy-btn" id="copyReplaceBtn" title="Copy result">
+                    <i class="fa-solid fa-copy"></i>
+                  </button>
+                </div>
+                <pre id="replaceResult" class="replace-result"></pre>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick Patterns -->
+          <div class="regex-section">
+            <div class="section-header">
+              <h3>Common Patterns</h3>
+            </div>
+            <div class="quick-patterns" id="quickPatterns">
+              <button class="pattern-chip" data-pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}">Email</button>
+              <button class="pattern-chip" data-pattern="https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)">URL</button>
+              <button class="pattern-chip" data-pattern="\+?[1-9]\d{1,14}">Phone</button>
+              <button class="pattern-chip" data-pattern="\b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b">IPv4</button>
+              <button class="pattern-chip" data-pattern="^#?([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$">Hex Color</button>
+              <button class="pattern-chip" data-pattern="\d{4}-\d{2}-\d{2}">Date (YYYY-MM-DD)</button>
+              <button class="pattern-chip" data-pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}">Strong Password</button>
+              <button class="pattern-chip" data-pattern="<[^>]+>">HTML Tags</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Cheatsheet Modal -->
+  <div class="cheatsheet-modal" id="cheatsheetModal">
+    <div class="cheatsheet-content">
+      <div class="cheatsheet-header">
+        <h3>Regex Cheatsheet</h3>
+        <button class="close-cheatsheet-btn" id="closeCheatsheetBtn">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="cheatsheet-body">
+        <div class="cheatsheet-section">
+          <h4>Character Classes</h4>
+          <div class="cheatsheet-items">
+            <div class="cheatsheet-item"><code>.</code><span>Any character</span></div>
+            <div class="cheatsheet-item"><code>\d</code><span>Digit [0-9]</span></div>
+            <div class="cheatsheet-item"><code>\D</code><span>Not a digit</span></div>
+            <div class="cheatsheet-item"><code>\w</code><span>Word char [a-zA-Z0-9_]</span></div>
+            <div class="cheatsheet-item"><code>\W</code><span>Not a word char</span></div>
+            <div class="cheatsheet-item"><code>\s</code><span>Whitespace</span></div>
+            <div class="cheatsheet-item"><code>\S</code><span>Not whitespace</span></div>
+          </div>
+        </div>
+        <div class="cheatsheet-section">
+          <h4>Anchors</h4>
+          <div class="cheatsheet-items">
+            <div class="cheatsheet-item"><code>^</code><span>Start of string</span></div>
+            <div class="cheatsheet-item"><code>$</code><span>End of string</span></div>
+            <div class="cheatsheet-item"><code>\b</code><span>Word boundary</span></div>
+            <div class="cheatsheet-item"><code>\B</code><span>Not word boundary</span></div>
+          </div>
+        </div>
+        <div class="cheatsheet-section">
+          <h4>Quantifiers</h4>
+          <div class="cheatsheet-items">
+            <div class="cheatsheet-item"><code>*</code><span>0 or more</span></div>
+            <div class="cheatsheet-item"><code>+</code><span>1 or more</span></div>
+            <div class="cheatsheet-item"><code>?</code><span>0 or 1</span></div>
+            <div class="cheatsheet-item"><code>{n}</code><span>Exactly n</span></div>
+            <div class="cheatsheet-item"><code>{n,}</code><span>n or more</span></div>
+            <div class="cheatsheet-item"><code>{n,m}</code><span>Between n and m</span></div>
+          </div>
+        </div>
+        <div class="cheatsheet-section">
+          <h4>Groups</h4>
+          <div class="cheatsheet-items">
+            <div class="cheatsheet-item"><code>(...)</code><span>Capture group</span></div>
+            <div class="cheatsheet-item"><code>(?:...)</code><span>Non-capture group</span></div>
+            <div class="cheatsheet-item"><code>(?=...)</code><span>Positive lookahead</span></div>
+            <div class="cheatsheet-item"><code>(?!...)</code><span>Negative lookahead</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Keyboard Shortcuts Hint -->
+  <div class="shortcuts-hint" id="shortcutsHint">
+    <span>Press <kbd>?</kbd> for shortcuts</span>
+  </div>
+
+  <!-- Keyboard Shortcuts Modal -->
+  <div class="shortcuts-modal" id="shortcutsModal">
+    <div class="shortcuts-content">
+      <div class="shortcuts-header">
+        <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
+        <button class="close-shortcuts-btn" id="closeShortcutsBtn">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="shortcuts-body">
+        <!-- Actions Section -->
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">Actions</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Ctrl</kbd><span class="key-separator">+</span><kbd>Enter</kbd></div>
+            <div class="shortcut-desc">Test regex</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>C</kbd></div>
+            <div class="shortcut-desc">Clear all</div>
+          </div>
+        </div>
+
+        <!-- General Section -->
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">General</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>H</kbd></div>
+            <div class="shortcut-desc">Cheatsheet</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>?</kbd></div>
+            <div class="shortcut-desc">Show shortcuts</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Escape</kbd></div>
+            <div class="shortcut-desc">Close modal</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach. All rights reserved.</p>
+        <p class="footer-made">Made with <i class="fa-solid fa-heart"></i> in South Korea</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Shared Tools JavaScript -->
+  <script src="../../js/tools-common.js"></script>
+  <!-- Scripts -->
+  <script src="regex.js"></script>
+</body>
+</html>

@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Generate CSS code for gradients, shadows, borders, flexbox, and grid layouts with live preview.">
+  <meta property="og:title" content="KVSOVANREACH | CSS Generator">
+  <meta property="og:description" content="Create CSS gradients, shadows, borders, and layouts with real-time preview and copy-ready code.">
+  <meta property="og:image" content="/assets/img/pwa/ios/512.png">
+  <title>KVSOVANREACH | CSS Generator</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Common Tools CSS -->
+  <link rel="stylesheet" href="../../css/tools.css">
+  <!-- CSS Generator CSS -->
+  <link rel="stylesheet" href="css.css">
+</head>
+<body>
+  <!-- Skip to Content -->
+  <a href="#css-generator" class="skip-link">Skip to CSS generator</a>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">TOOLS</span>
+      </a>
+
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="tool-page">
+    <div class="container">
+      <!-- CSS Generator Container -->
+      <div class="css-wrapper" id="css-generator">
+        <!-- Header -->
+        <div class="css-header">
+          <h2><i class="fa-brands fa-css3-alt"></i> CSS Generator</h2>
+        </div>
+
+        <!-- Tab Navigation -->
+        <div class="css-tabs">
+          <button class="css-tab active" data-tab="gradient">
+            <i class="fa-solid fa-palette"></i>
+            <span>Gradient</span>
+          </button>
+          <button class="css-tab" data-tab="shadow">
+            <i class="fa-solid fa-clone"></i>
+            <span>Shadow</span>
+          </button>
+          <button class="css-tab" data-tab="border">
+            <i class="fa-solid fa-border-all"></i>
+            <span>Border</span>
+          </button>
+          <button class="css-tab" data-tab="flexbox">
+            <i class="fa-solid fa-arrows-left-right-to-line"></i>
+            <span>Flexbox</span>
+          </button>
+          <button class="css-tab" data-tab="grid">
+            <i class="fa-solid fa-table-cells"></i>
+            <span>Grid</span>
+          </button>
+        </div>
+
+        <!-- Main Content Area -->
+        <div class="css-main">
+          <!-- Gradient Panel -->
+          <div class="css-panel active" id="gradientPanel">
+            <div class="panel-layout">
+              <!-- Controls -->
+              <div class="panel-controls">
+                <div class="control-group">
+                  <label>Gradient Type</label>
+                  <div class="type-buttons">
+                    <button class="type-btn active" data-type="linear">Linear</button>
+                    <button class="type-btn" data-type="radial">Radial</button>
+                    <button class="type-btn" data-type="conic">Conic</button>
+                  </div>
+                </div>
+
+                <div class="control-group" id="gradientAngleGroup">
+                  <label for="gradientAngle">Angle: <span id="gradientAngleValue">90</span>°</label>
+                  <input type="range" id="gradientAngle" min="0" max="360" value="90">
+                </div>
+
+                <div class="control-group" id="gradientPositionGroup" style="display: none;">
+                  <label>Position</label>
+                  <div class="position-grid">
+                    <button class="position-btn" data-pos="top left"></button>
+                    <button class="position-btn" data-pos="top center"></button>
+                    <button class="position-btn" data-pos="top right"></button>
+                    <button class="position-btn" data-pos="center left"></button>
+                    <button class="position-btn active" data-pos="center center"></button>
+                    <button class="position-btn" data-pos="center right"></button>
+                    <button class="position-btn" data-pos="bottom left"></button>
+                    <button class="position-btn" data-pos="bottom center"></button>
+                    <button class="position-btn" data-pos="bottom right"></button>
+                  </div>
+                </div>
+
+                <div class="control-group">
+                  <label>Color Stops</label>
+                  <div class="color-stops" id="colorStops">
+                    <div class="color-stop" data-index="0">
+                      <input type="color" class="stop-color" value="#667eea">
+                      <input type="number" class="stop-position" value="0" min="0" max="100">
+                      <span class="stop-percent">%</span>
+                      <button class="remove-stop-btn" title="Remove"><i class="fa-solid fa-xmark"></i></button>
+                    </div>
+                    <div class="color-stop" data-index="1">
+                      <input type="color" class="stop-color" value="#764ba2">
+                      <input type="number" class="stop-position" value="100" min="0" max="100">
+                      <span class="stop-percent">%</span>
+                      <button class="remove-stop-btn" title="Remove"><i class="fa-solid fa-xmark"></i></button>
+                    </div>
+                  </div>
+                  <button class="add-stop-btn" id="addColorStop">
+                    <i class="fa-solid fa-plus"></i> Add Color Stop
+                  </button>
+                </div>
+
+                <div class="control-group">
+                  <label>Presets</label>
+                  <div class="gradient-presets" id="gradientPresets">
+                    <button class="preset-btn" data-colors="#667eea,#764ba2" title="Purple"></button>
+                    <button class="preset-btn" data-colors="#f093fb,#f5576c" title="Pink"></button>
+                    <button class="preset-btn" data-colors="#4facfe,#00f2fe" title="Blue"></button>
+                    <button class="preset-btn" data-colors="#43e97b,#38f9d7" title="Green"></button>
+                    <button class="preset-btn" data-colors="#fa709a,#fee140" title="Sunset"></button>
+                    <button class="preset-btn" data-colors="#a8edea,#fed6e3" title="Soft"></button>
+                    <button class="preset-btn" data-colors="#ff9a9e,#fecfef" title="Rose"></button>
+                    <button class="preset-btn" data-colors="#667eea,#764ba2,#f093fb" title="Multi"></button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Preview -->
+              <div class="panel-preview">
+                <div class="preview-box" id="gradientPreview"></div>
+                <div class="code-output">
+                  <div class="code-header">
+                    <span>CSS Code</span>
+                    <button class="copy-btn" id="copyGradient" title="Copy CSS">
+                      <i class="fa-solid fa-copy"></i>
+                    </button>
+                  </div>
+                  <pre class="code-block" id="gradientCode"></pre>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Shadow Panel -->
+          <div class="css-panel" id="shadowPanel">
+            <div class="panel-layout">
+              <!-- Controls -->
+              <div class="panel-controls">
+                <div class="control-group">
+                  <label>Shadow Type</label>
+                  <div class="type-buttons">
+                    <button class="type-btn active" data-type="box">Box Shadow</button>
+                    <button class="type-btn" data-type="text">Text Shadow</button>
+                  </div>
+                </div>
+
+                <div class="control-group">
+                  <label for="shadowOffsetX">Offset X: <span id="shadowOffsetXValue">5</span>px</label>
+                  <input type="range" id="shadowOffsetX" min="-100" max="100" value="5">
+                </div>
+
+                <div class="control-group">
+                  <label for="shadowOffsetY">Offset Y: <span id="shadowOffsetYValue">5</span>px</label>
+                  <input type="range" id="shadowOffsetY" min="-100" max="100" value="5">
+                </div>
+
+                <div class="control-group">
+                  <label for="shadowBlur">Blur: <span id="shadowBlurValue">15</span>px</label>
+                  <input type="range" id="shadowBlur" min="0" max="100" value="15">
+                </div>
+
+                <div class="control-group" id="shadowSpreadGroup">
+                  <label for="shadowSpread">Spread: <span id="shadowSpreadValue">0</span>px</label>
+                  <input type="range" id="shadowSpread" min="-50" max="50" value="0">
+                </div>
+
+                <div class="control-group">
+                  <label for="shadowColor">Color</label>
+                  <div class="color-input-row">
+                    <input type="color" id="shadowColor" value="#000000">
+                    <input type="range" id="shadowOpacity" min="0" max="100" value="30">
+                    <span id="shadowOpacityValue">30%</span>
+                  </div>
+                </div>
+
+                <div class="control-group" id="shadowInsetGroup">
+                  <label class="checkbox-label">
+                    <input type="checkbox" id="shadowInset">
+                    <span>Inset Shadow</span>
+                  </label>
+                </div>
+
+                <div class="control-group">
+                  <label>Presets</label>
+                  <div class="shadow-presets" id="shadowPresets">
+                    <button class="shadow-preset-btn" data-shadow="0 1px 3px rgba(0,0,0,0.12)" title="Subtle">
+                      <div class="preset-demo"></div>
+                    </button>
+                    <button class="shadow-preset-btn" data-shadow="0 4px 6px rgba(0,0,0,0.1)" title="Small">
+                      <div class="preset-demo"></div>
+                    </button>
+                    <button class="shadow-preset-btn" data-shadow="0 10px 15px rgba(0,0,0,0.1)" title="Medium">
+                      <div class="preset-demo"></div>
+                    </button>
+                    <button class="shadow-preset-btn" data-shadow="0 20px 25px rgba(0,0,0,0.15)" title="Large">
+                      <div class="preset-demo"></div>
+                    </button>
+                    <button class="shadow-preset-btn" data-shadow="0 25px 50px rgba(0,0,0,0.25)" title="XL">
+                      <div class="preset-demo"></div>
+                    </button>
+                    <button class="shadow-preset-btn" data-shadow="inset 0 2px 4px rgba(0,0,0,0.1)" title="Inset">
+                      <div class="preset-demo"></div>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Preview -->
+              <div class="panel-preview">
+                <div class="preview-box shadow-preview" id="shadowPreview">
+                  <div class="shadow-demo-box" id="shadowDemoBox">Shadow</div>
+                </div>
+                <div class="code-output">
+                  <div class="code-header">
+                    <span>CSS Code</span>
+                    <button class="copy-btn" id="copyShadow" title="Copy CSS">
+                      <i class="fa-solid fa-copy"></i>
+                    </button>
+                  </div>
+                  <pre class="code-block" id="shadowCode"></pre>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Border Panel -->
+          <div class="css-panel" id="borderPanel">
+            <div class="panel-layout">
+              <!-- Controls -->
+              <div class="panel-controls">
+                <div class="control-group">
+                  <label>Border Radius</label>
+                  <div class="radius-mode">
+                    <button class="mode-btn active" data-mode="all">All Corners</button>
+                    <button class="mode-btn" data-mode="individual">Individual</button>
+                  </div>
+                </div>
+
+                <div class="control-group" id="radiusAllGroup">
+                  <label for="radiusAll">Radius: <span id="radiusAllValue">16</span>px</label>
+                  <input type="range" id="radiusAll" min="0" max="150" value="16">
+                </div>
+
+                <div class="control-group individual-radius" id="radiusIndividualGroup" style="display: none;">
+                  <div class="radius-inputs">
+                    <div class="radius-input">
+                      <label>Top Left</label>
+                      <input type="number" id="radiusTL" value="16" min="0" max="150">
+                    </div>
+                    <div class="radius-input">
+                      <label>Top Right</label>
+                      <input type="number" id="radiusTR" value="16" min="0" max="150">
+                    </div>
+                    <div class="radius-input">
+                      <label>Bottom Right</label>
+                      <input type="number" id="radiusBR" value="16" min="0" max="150">
+                    </div>
+                    <div class="radius-input">
+                      <label>Bottom Left</label>
+                      <input type="number" id="radiusBL" value="16" min="0" max="150">
+                    </div>
+                  </div>
+                </div>
+
+                <div class="control-group">
+                  <label for="borderWidth">Border Width: <span id="borderWidthValue">2</span>px</label>
+                  <input type="range" id="borderWidth" min="0" max="20" value="2">
+                </div>
+
+                <div class="control-group">
+                  <label for="borderStyle">Border Style</label>
+                  <select id="borderStyle">
+                    <option value="solid">Solid</option>
+                    <option value="dashed">Dashed</option>
+                    <option value="dotted">Dotted</option>
+                    <option value="double">Double</option>
+                    <option value="groove">Groove</option>
+                    <option value="ridge">Ridge</option>
+                    <option value="inset">Inset</option>
+                    <option value="outset">Outset</option>
+                    <option value="none">None</option>
+                  </select>
+                </div>
+
+                <div class="control-group">
+                  <label for="borderColor">Border Color</label>
+                  <input type="color" id="borderColor" value="#3776a1">
+                </div>
+
+                <div class="control-group">
+                  <label for="bgColor">Background Color</label>
+                  <input type="color" id="bgColor" value="#ffffff">
+                </div>
+
+                <div class="control-group">
+                  <label>Presets</label>
+                  <div class="border-presets" id="borderPresets">
+                    <button class="border-preset-btn" data-radius="0" title="Square"></button>
+                    <button class="border-preset-btn" data-radius="8" title="Rounded"></button>
+                    <button class="border-preset-btn" data-radius="16" title="More Rounded"></button>
+                    <button class="border-preset-btn" data-radius="24" title="Pill"></button>
+                    <button class="border-preset-btn" data-radius="50" title="Circle"></button>
+                    <button class="border-preset-btn" data-radius="100" title="Full"></button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Preview -->
+              <div class="panel-preview">
+                <div class="preview-box border-preview">
+                  <div class="border-demo-box" id="borderDemoBox"></div>
+                </div>
+                <div class="code-output">
+                  <div class="code-header">
+                    <span>CSS Code</span>
+                    <button class="copy-btn" id="copyBorder" title="Copy CSS">
+                      <i class="fa-solid fa-copy"></i>
+                    </button>
+                  </div>
+                  <pre class="code-block" id="borderCode"></pre>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Flexbox Panel -->
+          <div class="css-panel" id="flexboxPanel">
+            <div class="panel-layout">
+              <!-- Controls -->
+              <div class="panel-controls">
+                <div class="control-group">
+                  <label for="flexDirection">Direction</label>
+                  <select id="flexDirection">
+                    <option value="row">Row</option>
+                    <option value="row-reverse">Row Reverse</option>
+                    <option value="column">Column</option>
+                    <option value="column-reverse">Column Reverse</option>
+                  </select>
+                </div>
+
+                <div class="control-group">
+                  <label for="justifyContent">Justify Content</label>
+                  <select id="justifyContent">
+                    <option value="flex-start">Flex Start</option>
+                    <option value="flex-end">Flex End</option>
+                    <option value="center">Center</option>
+                    <option value="space-between">Space Between</option>
+                    <option value="space-around">Space Around</option>
+                    <option value="space-evenly">Space Evenly</option>
+                  </select>
+                </div>
+
+                <div class="control-group">
+                  <label for="alignItems">Align Items</label>
+                  <select id="alignItems">
+                    <option value="stretch">Stretch</option>
+                    <option value="flex-start">Flex Start</option>
+                    <option value="flex-end">Flex End</option>
+                    <option value="center">Center</option>
+                    <option value="baseline">Baseline</option>
+                  </select>
+                </div>
+
+                <div class="control-group">
+                  <label for="flexWrap">Wrap</label>
+                  <select id="flexWrap">
+                    <option value="nowrap">No Wrap</option>
+                    <option value="wrap">Wrap</option>
+                    <option value="wrap-reverse">Wrap Reverse</option>
+                  </select>
+                </div>
+
+                <div class="control-group">
+                  <label for="flexGap">Gap: <span id="flexGapValue">10</span>px</label>
+                  <input type="range" id="flexGap" min="0" max="50" value="10">
+                </div>
+
+                <div class="control-group">
+                  <label for="flexItems">Items: <span id="flexItemsValue">5</span></label>
+                  <input type="range" id="flexItems" min="1" max="12" value="5">
+                </div>
+              </div>
+
+              <!-- Preview -->
+              <div class="panel-preview">
+                <div class="preview-box flexbox-preview">
+                  <div class="flexbox-container" id="flexboxContainer">
+                    <div class="flex-item">1</div>
+                    <div class="flex-item">2</div>
+                    <div class="flex-item">3</div>
+                    <div class="flex-item">4</div>
+                    <div class="flex-item">5</div>
+                  </div>
+                </div>
+                <div class="code-output">
+                  <div class="code-header">
+                    <span>CSS Code</span>
+                    <button class="copy-btn" id="copyFlexbox" title="Copy CSS">
+                      <i class="fa-solid fa-copy"></i>
+                    </button>
+                  </div>
+                  <pre class="code-block" id="flexboxCode"></pre>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Grid Panel -->
+          <div class="css-panel" id="gridPanel">
+            <div class="panel-layout">
+              <!-- Controls -->
+              <div class="panel-controls">
+                <div class="control-group">
+                  <label for="gridColumns">Columns: <span id="gridColumnsValue">3</span></label>
+                  <input type="range" id="gridColumns" min="1" max="12" value="3">
+                </div>
+
+                <div class="control-group">
+                  <label for="gridRows">Rows: <span id="gridRowsValue">2</span></label>
+                  <input type="range" id="gridRows" min="1" max="6" value="2">
+                </div>
+
+                <div class="control-group">
+                  <label for="gridGap">Gap: <span id="gridGapValue">10</span>px</label>
+                  <input type="range" id="gridGap" min="0" max="50" value="10">
+                </div>
+
+                <div class="control-group">
+                  <label for="gridColumnGap">Column Gap: <span id="gridColumnGapValue">10</span>px</label>
+                  <input type="range" id="gridColumnGap" min="0" max="50" value="10">
+                </div>
+
+                <div class="control-group">
+                  <label for="gridRowGap">Row Gap: <span id="gridRowGapValue">10</span>px</label>
+                  <input type="range" id="gridRowGap" min="0" max="50" value="10">
+                </div>
+
+                <div class="control-group">
+                  <label for="gridAutoFlow">Auto Flow</label>
+                  <select id="gridAutoFlow">
+                    <option value="row">Row</option>
+                    <option value="column">Column</option>
+                    <option value="dense">Dense</option>
+                    <option value="row dense">Row Dense</option>
+                    <option value="column dense">Column Dense</option>
+                  </select>
+                </div>
+
+                <div class="control-group">
+                  <label>Presets</label>
+                  <div class="grid-presets" id="gridPresets">
+                    <button class="grid-preset-btn" data-cols="2" data-rows="2" title="2x2">2x2</button>
+                    <button class="grid-preset-btn" data-cols="3" data-rows="2" title="3x2">3x2</button>
+                    <button class="grid-preset-btn" data-cols="4" data-rows="2" title="4x2">4x2</button>
+                    <button class="grid-preset-btn" data-cols="3" data-rows="3" title="3x3">3x3</button>
+                    <button class="grid-preset-btn" data-cols="4" data-rows="3" title="4x3">4x3</button>
+                    <button class="grid-preset-btn" data-cols="12" data-rows="1" title="12 col">12</button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Preview -->
+              <div class="panel-preview">
+                <div class="preview-box grid-preview">
+                  <div class="grid-container" id="gridContainer"></div>
+                </div>
+                <div class="code-output">
+                  <div class="code-header">
+                    <span>CSS Code</span>
+                    <button class="copy-btn" id="copyGrid" title="Copy CSS">
+                      <i class="fa-solid fa-copy"></i>
+                    </button>
+                  </div>
+                  <pre class="code-block" id="gridCode"></pre>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach. All rights reserved.</p>
+        <p class="footer-made">Made with <i class="fa-solid fa-heart"></i> in South Korea</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Keyboard Shortcuts Modal -->
+  <div class="shortcuts-modal" id="shortcutsModal">
+    <div class="shortcuts-content">
+      <div class="shortcuts-header">
+        <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
+        <button class="close-shortcuts-btn" id="closeShortcutsBtn">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="shortcuts-body">
+        <!-- Navigation Section -->
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">Navigation</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>1</kbd><span class="key-separator">-</span><kbd>5</kbd></div>
+            <div class="shortcut-desc">Switch tabs</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>?</kbd></div>
+            <div class="shortcut-desc">Show shortcuts</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Escape</kbd></div>
+            <div class="shortcut-desc">Close modal</div>
+          </div>
+        </div>
+
+        <!-- Actions Section -->
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">Actions</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>C</kbd></div>
+            <div class="shortcut-desc">Copy CSS</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>R</kbd></div>
+            <div class="shortcut-desc">Reset defaults</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Keyboard Shortcuts Hint -->
+  <div class="shortcuts-hint" id="shortcutsHint">
+    <span>Press <kbd>?</kbd> for shortcuts</span>
+  </div>
+
+  <!-- Shared Tools JavaScript -->
+  <script src="../../js/tools-common.js"></script>
+  <!-- CSS Generator JavaScript -->
+  <script src="css.js"></script>
+</body>
+</html>

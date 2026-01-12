@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Generate UUIDs (v1, v4, v7) and GUIDs instantly. Bulk generation and validation supported.">
+  <meta property="og:title" content="KVSOVANREACH | UUID Generator">
+  <meta property="og:description" content="Generate unique identifiers (UUID/GUID) for your applications.">
+  <meta property="og:image" content="/assets/img/pwa/ios/512.png">
+  <title>KVSOVANREACH | UUID Generator</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Common Tools CSS -->
+  <link rel="stylesheet" href="../../css/tools.css">
+  <!-- UUID CSS -->
+  <link rel="stylesheet" href="uuid.css">
+</head>
+<body>
+  <!-- Skip to Content -->
+  <a href="#uuid" class="skip-link">Skip to UUID generator</a>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">TOOLS</span>
+      </a>
+
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="tool-page">
+    <div class="container">
+      <!-- UUID Wrapper -->
+      <div class="uuid-wrapper" id="uuid">
+        <!-- Header -->
+        <div class="uuid-header">
+          <h2><i class="fa-solid fa-fingerprint"></i> UUID Generator</h2>
+          <div class="uuid-actions">
+            <button class="action-btn" id="clearAllBtn" title="Clear all">
+              <i class="fa-solid fa-trash"></i>
+              <span>Clear</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Generator Section -->
+        <div class="uuid-content">
+          <!-- Options -->
+          <div class="uuid-options">
+            <div class="option-group">
+              <label class="option-label">UUID Version</label>
+              <div class="version-tabs">
+                <button class="version-tab active" data-version="4" title="RFC 4122 compliant random UUID. Best for general use.">
+                  <span class="version-name">v4</span>
+                  <span class="version-desc">Random</span>
+                </button>
+                <button class="version-tab" data-version="1" title="Time-based UUID using timestamp and node ID.">
+                  <span class="version-name">v1</span>
+                  <span class="version-desc">Timestamp</span>
+                </button>
+                <button class="version-tab" data-version="7" title="Unix epoch time-based UUID. Sortable and database-friendly.">
+                  <span class="version-name">v7</span>
+                  <span class="version-desc">Unix Epoch</span>
+                </button>
+                <button class="version-tab" data-version="nil" title="All zeros UUID for null/empty reference.">
+                  <span class="version-name">NIL</span>
+                  <span class="version-desc">Null UUID</span>
+                </button>
+              </div>
+            </div>
+
+            <div class="option-row">
+              <div class="option-group">
+                <label class="option-label">Quantity</label>
+                <div class="quantity-control">
+                  <button class="qty-btn" id="qtyMinus"><i class="fa-solid fa-minus"></i></button>
+                  <input type="number" id="quantity" value="1" min="1" max="100">
+                  <button class="qty-btn" id="qtyPlus"><i class="fa-solid fa-plus"></i></button>
+                </div>
+              </div>
+
+              <div class="option-group">
+                <label class="option-label">Format</label>
+                <div class="format-options">
+                  <label class="format-option">
+                    <input type="radio" name="format" value="lowercase" checked>
+                    <span>lowercase</span>
+                  </label>
+                  <label class="format-option">
+                    <input type="radio" name="format" value="uppercase">
+                    <span>UPPERCASE</span>
+                  </label>
+                </div>
+              </div>
+
+              <div class="option-group">
+                <label class="option-label">Options</label>
+                <div class="extra-options">
+                  <label class="checkbox-option">
+                    <input type="checkbox" id="includeBraces">
+                    <span>Add braces {}</span>
+                  </label>
+                  <label class="checkbox-option">
+                    <input type="checkbox" id="noHyphens">
+                    <span>No hyphens</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Generate Buttons -->
+          <div class="generate-actions">
+            <button class="generate-btn" id="generateBtn">
+              <i class="fa-solid fa-shuffle"></i>
+              <span>Generate UUID</span>
+            </button>
+            <button class="quick-generate-btn" id="quickGenerateBtn" title="Generate and copy to clipboard (Shift+G)">
+              <i class="fa-solid fa-bolt"></i>
+              <span>Quick Copy</span>
+            </button>
+          </div>
+
+          <!-- Output Section -->
+          <div class="uuid-output" id="uuidOutput">
+            <div class="output-header">
+              <h3>Generated UUIDs</h3>
+              <div class="output-actions">
+                <button class="output-btn" id="copyAllBtn" title="Copy all">
+                  <i class="fa-solid fa-copy"></i>
+                  <span>Copy All</span>
+                </button>
+                <button class="output-btn" id="downloadBtn" title="Download as TXT">
+                  <i class="fa-solid fa-download"></i>
+                  <span>Download</span>
+                </button>
+              </div>
+            </div>
+            <div class="output-list" id="outputList">
+              <div class="output-empty">
+                <i class="fa-solid fa-fingerprint"></i>
+                <p>Click "Generate UUID" to create unique identifiers</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Validator Section -->
+          <div class="uuid-validator">
+            <div class="validator-header">
+              <h3><i class="fa-solid fa-check-circle"></i> UUID Validator</h3>
+            </div>
+            <div class="validator-content">
+              <input type="text" id="validateInput" placeholder="Paste a UUID to validate...">
+              <button class="validate-btn" id="validateBtn">Validate</button>
+            </div>
+            <div class="validator-result" id="validatorResult"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach. All rights reserved.</p>
+        <p class="footer-made">Made with <i class="fa-solid fa-heart"></i> in South Korea</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Keyboard Shortcuts Modal -->
+  <div class="shortcuts-modal" id="shortcutsModal">
+    <div class="shortcuts-content">
+      <div class="shortcuts-header">
+        <h3>Keyboard Shortcuts</h3>
+        <button class="close-shortcuts-btn" id="closeShortcutsBtn">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="shortcuts-list">
+        <div class="shortcut-item">
+          <kbd>G</kbd>
+          <span>Generate UUID</span>
+        </div>
+        <div class="shortcut-item">
+          <kbd>Shift</kbd> + <kbd>G</kbd>
+          <span>Quick generate and copy</span>
+        </div>
+        <div class="shortcut-item">
+          <kbd>1</kbd> - <kbd>4</kbd>
+          <span>Switch UUID version</span>
+        </div>
+        <div class="shortcut-item">
+          <kbd>?</kbd>
+          <span>Toggle shortcuts</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Keyboard Shortcuts Hint -->
+  <div class="shortcuts-hint" id="shortcutsHint">
+    <span>Press <kbd>?</kbd> for shortcuts</span>
+  </div>
+
+  <!-- Shared Tools JavaScript -->
+  <script src="../../js/tools-common.js"></script>
+  <!-- Scripts -->
+  <script src="uuid.js"></script>
+</body>
+</html>

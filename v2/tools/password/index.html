@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Generate strong, secure passwords with customizable options.">
+  <meta property="og:title" content="KVSOVANREACH | Password Generator">
+  <meta property="og:description" content="Create strong, secure passwords with customizable length and character options.">
+  <meta property="og:image" content="/assets/img/pwa/ios/512.png">
+  <title>KVSOVANREACH | Password Generator</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Common Tools CSS -->
+  <link rel="stylesheet" href="../../css/tools.css">
+  <!-- Password Generator CSS -->
+  <link rel="stylesheet" href="password.css">
+</head>
+<body>
+  <!-- Skip to Content -->
+  <a href="#password" class="skip-link">Skip to password generator</a>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">TOOLS</span>
+      </a>
+
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="tool-page">
+    <div class="container">
+      <!-- Password Generator Container -->
+      <div class="password-wrapper" id="password">
+        <!-- Tab Navigation -->
+        <div class="password-tabs">
+          <button class="password-tab active" data-tab="generator">
+            <i class="fa-solid fa-key"></i>
+            <span>Generator</span>
+          </button>
+          <button class="password-tab" data-tab="history">
+            <i class="fa-solid fa-clock-rotate-left"></i>
+            <span>History</span>
+          </button>
+        </div>
+
+        <!-- Main Content Area -->
+        <div class="password-main">
+          <!-- Generator Panel -->
+          <div class="password-panel active" id="generatorPanel">
+
+            <!-- Generated Password Display -->
+            <div class="password-display">
+              <div class="password-output" id="passwordOutput">
+                <span class="password-text" id="passwordText">Click Generate</span>
+                <div class="password-actions">
+                  <button class="password-action-btn" id="copyBtn" title="Copy password">
+                    <i class="fa-solid fa-copy"></i>
+                  </button>
+                  <button class="password-action-btn" id="regenerateBtn" title="Regenerate">
+                    <i class="fa-solid fa-rotate"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="password-strength" id="passwordStrength">
+                <div class="strength-bar">
+                  <div class="strength-fill" id="strengthFill"></div>
+                </div>
+                <span class="strength-label" id="strengthLabel">-</span>
+              </div>
+              <div class="password-stats" id="passwordStats">
+                <div class="stat-item">
+                  <span class="stat-label">Entropy</span>
+                  <span class="stat-value" id="entropyValue">-</span>
+                </div>
+                <div class="stat-item">
+                  <span class="stat-label">Crack Time</span>
+                  <span class="stat-value highlight" id="crackTimeValue">-</span>
+                </div>
+                <div class="stat-item">
+                  <span class="stat-label">Length</span>
+                  <span class="stat-value" id="lengthStat">-</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Generate Button -->
+            <button class="generate-btn" id="generateBtn">
+              <i class="fa-solid fa-key"></i>
+              <span>Generate Password</span>
+            </button>
+
+            <!-- Options -->
+            <div class="password-options">
+              <!-- Length Slider -->
+              <div class="option-group">
+                <div class="option-header">
+                  <label for="lengthSlider">Password Length</label>
+                  <span class="length-value" id="lengthValue">16</span>
+                </div>
+                <div class="slider-container">
+                  <input type="range" id="lengthSlider" min="4" max="64" value="16" class="length-slider">
+                  <div class="slider-labels">
+                    <span>4</span>
+                    <span>64</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Character Types -->
+              <div class="option-group">
+                <label class="option-label">Character Types</label>
+                <div class="character-options">
+                  <label class="char-option">
+                    <input type="checkbox" id="uppercase" checked>
+                    <span class="char-checkbox"></span>
+                    <span class="char-label">
+                      <span class="char-name">Uppercase</span>
+                      <span class="char-example">A-Z</span>
+                    </span>
+                  </label>
+                  <label class="char-option">
+                    <input type="checkbox" id="lowercase" checked>
+                    <span class="char-checkbox"></span>
+                    <span class="char-label">
+                      <span class="char-name">Lowercase</span>
+                      <span class="char-example">a-z</span>
+                    </span>
+                  </label>
+                  <label class="char-option">
+                    <input type="checkbox" id="numbers" checked>
+                    <span class="char-checkbox"></span>
+                    <span class="char-label">
+                      <span class="char-name">Numbers</span>
+                      <span class="char-example">0-9</span>
+                    </span>
+                  </label>
+                  <label class="char-option">
+                    <input type="checkbox" id="symbols" checked>
+                    <span class="char-checkbox"></span>
+                    <span class="char-label">
+                      <span class="char-name">Symbols</span>
+                      <span class="char-example">!@#$%</span>
+                    </span>
+                  </label>
+                </div>
+              </div>
+
+              <!-- Additional Options -->
+              <div class="option-group">
+                <label class="option-label">Additional Options</label>
+                <div class="additional-options">
+                  <label class="toggle-option">
+                    <input type="checkbox" id="excludeSimilar">
+                    <span class="toggle-switch"></span>
+                    <span class="toggle-label">
+                      <span class="toggle-name">Exclude similar characters</span>
+                      <span class="toggle-desc">i, l, 1, L, o, 0, O</span>
+                    </span>
+                  </label>
+                  <label class="toggle-option">
+                    <input type="checkbox" id="excludeAmbiguous">
+                    <span class="toggle-switch"></span>
+                    <span class="toggle-label">
+                      <span class="toggle-name">Exclude ambiguous symbols</span>
+                      <span class="toggle-desc">{ } [ ] ( ) / \ ' " ` ~</span>
+                    </span>
+                  </label>
+                  <label class="toggle-option">
+                    <input type="checkbox" id="beginWithLetter">
+                    <span class="toggle-switch"></span>
+                    <span class="toggle-label">
+                      <span class="toggle-name">Begin with a letter</span>
+                      <span class="toggle-desc">Password starts with a-z or A-Z</span>
+                    </span>
+                  </label>
+                </div>
+              </div>
+
+              <!-- Bulk Generation -->
+              <div class="option-group">
+                <div class="option-header">
+                  <label for="bulkCount">Generate Multiple</label>
+                  <span class="bulk-value" id="bulkValue">1</span>
+                </div>
+                <div class="bulk-controls">
+                  <input type="range" id="bulkSlider" min="1" max="10" value="1" class="bulk-slider">
+                  <button class="bulk-generate-btn" id="bulkGenerateBtn">
+                    <i class="fa-solid fa-list"></i>
+                    <span>Generate <span id="bulkCount">1</span></span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Bulk Results -->
+            <div class="bulk-results" id="bulkResults" style="display: none;">
+              <div class="bulk-header">
+                <h3>Generated Passwords</h3>
+                <button class="copy-all-btn" id="copyAllBtn">
+                  <i class="fa-solid fa-copy"></i>
+                  <span>Copy All</span>
+                </button>
+              </div>
+              <div class="bulk-list" id="bulkList"></div>
+            </div>
+          </div>
+
+          <!-- History Panel -->
+          <div class="password-panel" id="historyPanel">
+            <div class="history-container">
+              <div class="history-header">
+                <h4>Recent Passwords</h4>
+                <button class="clear-history-btn" id="clearHistoryBtn">
+                  <i class="fa-solid fa-trash"></i>
+                  <span>Clear All</span>
+                </button>
+              </div>
+              <div class="history-list" id="historyList">
+                <div class="history-empty" id="historyEmpty">
+                  <i class="fa-solid fa-clock-rotate-left"></i>
+                  <p>No passwords generated yet</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach. All rights reserved.</p>
+        <p class="footer-made">Made with <i class="fa-solid fa-heart"></i> in South Korea</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Keyboard Shortcuts Hint -->
+  <div class="shortcuts-hint" id="shortcutsHint">
+    <span>Press <kbd>?</kbd> for shortcuts</span>
+  </div>
+
+  <!-- Keyboard Shortcuts Modal -->
+  <div class="shortcuts-modal" id="shortcutsModal">
+    <div class="shortcuts-content">
+      <div class="shortcuts-header">
+        <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
+        <button class="close-shortcuts-btn" id="closeShortcutsBtn">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="shortcuts-body">
+        <!-- Actions Section -->
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">Actions</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Space</kbd></div>
+            <div class="shortcut-desc">Generate</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>C</kbd></div>
+            <div class="shortcut-desc">Copy password</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>R</kbd></div>
+            <div class="shortcut-desc">Regenerate</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>+</kbd><span class="key-separator">/</span><kbd>-</kbd></div>
+            <div class="shortcut-desc">Length +/-</div>
+          </div>
+        </div>
+
+        <!-- General Section -->
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">General</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>H</kbd></div>
+            <div class="shortcut-desc">Toggle history</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>?</kbd></div>
+            <div class="shortcut-desc">Show shortcuts</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Escape</kbd></div>
+            <div class="shortcut-desc">Close modal</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Shared Tools JavaScript -->
+  <script src="../../js/tools-common.js"></script>
+  <!-- Scripts -->
+  <script src="password.js"></script>
+</body>
+</html>
