@@ -137,40 +137,24 @@
     // Copy replace
     elements.copyReplaceBtn?.addEventListener('click', copyReplaceResult);
 
-    // Shortcuts hint and modal
-    elements.shortcutsHint?.addEventListener('click', () => {
-      elements.shortcutsModal?.classList.add('show');
-    });
-    elements.closeShortcutsBtn?.addEventListener('click', () => {
-      elements.shortcutsModal?.classList.remove('show');
-    });
-    elements.shortcutsModal?.addEventListener('click', (e) => {
-      if (e.target === elements.shortcutsModal) {
-        elements.shortcutsModal.classList.remove('show');
-      }
-    });
-
-    // Keyboard shortcuts
+    // Keyboard shortcuts (shortcut modal handled by tools-common.js)
     document.addEventListener('keydown', (e) => {
-      // Open shortcuts modal with '?'
-      if (e.key === '?' && !e.target.matches('input, textarea')) {
-        e.preventDefault();
-        elements.shortcutsModal?.classList.add('show');
-      }
+      // Skip if typing in input
+      if (e.target.matches('input, textarea')) return;
+
       // Open cheatsheet with 'H'
-      if (e.key.toLowerCase() === 'h' && !e.target.matches('input, textarea')) {
+      if (e.key.toLowerCase() === 'h') {
         e.preventDefault();
         elements.cheatsheetModal?.classList.add('show');
       }
       // Clear all with 'C'
-      if (e.key.toLowerCase() === 'c' && !e.target.matches('input, textarea')) {
+      if (e.key.toLowerCase() === 'c') {
         e.preventDefault();
         clearAll();
       }
-      // Close modals with Escape
+      // Close cheatsheet with Escape
       if (e.key === 'Escape') {
         elements.cheatsheetModal?.classList.remove('show');
-        elements.shortcutsModal?.classList.remove('show');
       }
     });
   }

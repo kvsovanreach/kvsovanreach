@@ -276,31 +276,40 @@
   <div class="shortcuts-modal" id="shortcutsModal">
     <div class="shortcuts-content">
       <div class="shortcuts-header">
-        <h3>Keyboard Shortcuts</h3>
+        <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
         <button class="close-shortcuts-btn" id="closeShortcutsBtn">
           <i class="fa-solid fa-xmark"></i>
         </button>
       </div>
-      <div class="shortcuts-list">
-        <div class="shortcut-item">
-          <kbd>Ctrl</kbd> + <kbd>V</kbd>
-          <span>Paste text</span>
+      <div class="shortcuts-body">
+        <!-- Actions Section -->
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">Actions</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Ctrl</kbd><span class="key-plus">+</span><kbd>V</kbd></div>
+            <div class="shortcut-desc">Paste text</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Ctrl</kbd><span class="key-plus">+</span><kbd>C</kbd></div>
+            <div class="shortcut-desc">Copy output</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Ctrl</kbd><span class="key-plus">+</span><kbd>S</kbd></div>
+            <div class="shortcut-desc">Swap input/output</div>
+          </div>
         </div>
-        <div class="shortcut-item">
-          <kbd>Ctrl</kbd> + <kbd>C</kbd>
-          <span>Copy output</span>
-        </div>
-        <div class="shortcut-item">
-          <kbd>Ctrl</kbd> + <kbd>S</kbd>
-          <span>Swap input/output</span>
-        </div>
-        <div class="shortcut-item">
-          <kbd>?</kbd>
-          <span>Toggle shortcuts</span>
-        </div>
-        <div class="shortcut-item">
-          <kbd>Escape</kbd>
-          <span>Close modal</span>
+
+        <!-- General Section -->
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">General</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>?</kbd></div>
+            <div class="shortcut-desc">Show shortcuts</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Escape</kbd></div>
+            <div class="shortcut-desc">Close modal</div>
+          </div>
         </div>
       </div>
     </div>

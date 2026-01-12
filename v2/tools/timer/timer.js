@@ -632,20 +632,7 @@
   // Keyboard Shortcuts
   // ============================================
   function initKeyboardShortcuts() {
-    elements.shortcutsHint?.addEventListener('click', () => {
-      elements.shortcutsModal.classList.add('show');
-    });
-
-    elements.closeShortcutsBtn?.addEventListener('click', () => {
-      elements.shortcutsModal.classList.remove('show');
-    });
-
-    elements.shortcutsModal?.addEventListener('click', (e) => {
-      if (e.target === elements.shortcutsModal) {
-        elements.shortcutsModal.classList.remove('show');
-      }
-    });
-
+    // Shortcut modal handled by tools-common.js
     document.addEventListener('keydown', (e) => {
       // Don't trigger shortcuts when typing in inputs
       if (e.target.tagName === 'INPUT') {
@@ -689,11 +676,7 @@
         case 'f':
           toggleFullscreen();
           break;
-        case '?':
-          elements.shortcutsModal.classList.toggle('show');
-          break;
         case 'escape':
-          elements.shortcutsModal.classList.remove('show');
           hideCompleteModal();
           break;
       }

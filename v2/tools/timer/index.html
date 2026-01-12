@@ -240,43 +240,57 @@
   <div class="shortcuts-modal" id="shortcutsModal">
     <div class="shortcuts-content">
       <div class="shortcuts-header">
-        <h3>Keyboard Shortcuts</h3>
+        <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
         <button class="close-shortcuts-btn" id="closeShortcutsBtn">
           <i class="fa-solid fa-xmark"></i>
         </button>
       </div>
-      <div class="shortcuts-list">
-        <div class="shortcut-item">
-          <kbd>Space</kbd>
-          <span>Start/Pause</span>
+      <div class="shortcuts-body">
+        <!-- Controls Section -->
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">Controls</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Space</kbd></div>
+            <div class="shortcut-desc">Start/Pause</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>R</kbd></div>
+            <div class="shortcut-desc">Reset</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>L</kbd></div>
+            <div class="shortcut-desc">Lap (Stopwatch)</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Tab</kbd></div>
+            <div class="shortcut-desc">Switch mode</div>
+          </div>
         </div>
-        <div class="shortcut-item">
-          <kbd>R</kbd>
-          <span>Reset</span>
+
+        <!-- Settings Section -->
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">Settings</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>M</kbd></div>
+            <div class="shortcut-desc">Toggle sound</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>F</kbd></div>
+            <div class="shortcut-desc">Toggle fullscreen</div>
+          </div>
         </div>
-        <div class="shortcut-item">
-          <kbd>L</kbd>
-          <span>Lap (Stopwatch)</span>
-        </div>
-        <div class="shortcut-item">
-          <kbd>Tab</kbd>
-          <span>Switch mode</span>
-        </div>
-        <div class="shortcut-item">
-          <kbd>M</kbd>
-          <span>Toggle sound</span>
-        </div>
-        <div class="shortcut-item">
-          <kbd>F</kbd>
-          <span>Toggle fullscreen</span>
-        </div>
-        <div class="shortcut-item">
-          <kbd>?</kbd>
-          <span>Show shortcuts</span>
-        </div>
-        <div class="shortcut-item">
-          <kbd>Esc</kbd>
-          <span>Close modals</span>
+
+        <!-- General Section -->
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">General</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>?</kbd></div>
+            <div class="shortcut-desc">Show shortcuts</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Escape</kbd></div>
+            <div class="shortcut-desc">Close modal</div>
+          </div>
         </div>
       </div>
     </div>

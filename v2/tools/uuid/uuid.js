@@ -392,38 +392,11 @@
       if (e.key === 'Enter') handleValidate();
     });
 
-    // Keyboard shortcuts
-    const shortcutsModal = document.getElementById('shortcutsModal');
-    const closeShortcutsBtn = document.getElementById('closeShortcutsBtn');
-    const shortcutsHint = document.getElementById('shortcutsHint');
-
-    function toggleShortcutsModal() {
-      shortcutsModal.classList.toggle('show');
-    }
-
-    if (closeShortcutsBtn) {
-      closeShortcutsBtn.addEventListener('click', toggleShortcutsModal);
-    }
-
-    if (shortcutsHint) {
-      shortcutsHint.addEventListener('click', toggleShortcutsModal);
-    }
-
-    if (shortcutsModal) {
-      shortcutsModal.addEventListener('click', (e) => {
-        if (e.target === shortcutsModal) toggleShortcutsModal();
-      });
-    }
-
+    // Keyboard shortcuts (shortcut modal handled by tools-common.js)
     document.addEventListener('keydown', (e) => {
       if (e.target.tagName === 'INPUT') return;
 
-      if (e.key === '?') {
-        e.preventDefault();
-        toggleShortcutsModal();
-      } else if (e.key === 'Escape' && shortcutsModal.classList.contains('show')) {
-        toggleShortcutsModal();
-      } else if (e.shiftKey && (e.key === 'g' || e.key === 'G')) {
+      if (e.shiftKey && (e.key === 'g' || e.key === 'G')) {
         e.preventDefault();
         handleQuickGenerate();
       } else if (e.key === 'g' || e.key === 'G') {

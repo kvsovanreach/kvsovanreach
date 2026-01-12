@@ -112,20 +112,7 @@
     elements.copyBtn?.addEventListener('click', copyOutput);
     elements.downloadBtn?.addEventListener('click', downloadOutput);
 
-    // Shortcuts
-    elements.shortcutsHint?.addEventListener('click', () => {
-      elements.shortcutsModal?.classList.add('show');
-    });
-    elements.closeShortcutsBtn?.addEventListener('click', () => {
-      elements.shortcutsModal?.classList.remove('show');
-    });
-    elements.shortcutsModal?.addEventListener('click', (e) => {
-      if (e.target === elements.shortcutsModal) {
-        elements.shortcutsModal.classList.remove('show');
-      }
-    });
-
-    // Keyboard shortcuts
+    // Keyboard shortcuts (shortcut modal handled by tools-common.js)
     document.addEventListener('keydown', handleKeyboard);
   }
 

@@ -200,27 +200,45 @@
   <div class="shortcuts-modal" id="shortcutsModal">
     <div class="shortcuts-content">
       <div class="shortcuts-header">
-        <h3>Keyboard Shortcuts</h3>
+        <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
         <button class="close-shortcuts-btn" id="closeShortcutsBtn">
           <i class="fa-solid fa-xmark"></i>
         </button>
       </div>
-      <div class="shortcuts-list">
-        <div class="shortcut-item">
-          <kbd>G</kbd>
-          <span>Generate UUID</span>
+      <div class="shortcuts-body">
+        <!-- Actions Section -->
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">Actions</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>G</kbd></div>
+            <div class="shortcut-desc">Generate UUID</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Shift</kbd><span class="key-plus">+</span><kbd>G</kbd></div>
+            <div class="shortcut-desc">Quick generate & copy</div>
+          </div>
         </div>
-        <div class="shortcut-item">
-          <kbd>Shift</kbd> + <kbd>G</kbd>
-          <span>Quick generate and copy</span>
+
+        <!-- Navigation Section -->
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">Navigation</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>1</kbd><span class="key-plus">-</span><kbd>4</kbd></div>
+            <div class="shortcut-desc">Switch UUID version</div>
+          </div>
         </div>
-        <div class="shortcut-item">
-          <kbd>1</kbd> - <kbd>4</kbd>
-          <span>Switch UUID version</span>
-        </div>
-        <div class="shortcut-item">
-          <kbd>?</kbd>
-          <span>Toggle shortcuts</span>
+
+        <!-- General Section -->
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">General</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>?</kbd></div>
+            <div class="shortcut-desc">Show shortcuts</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Escape</kbd></div>
+            <div class="shortcut-desc">Close modal</div>
+          </div>
         </div>
       </div>
     </div>
