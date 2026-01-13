@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Generate a cookie policy for your website.">
+  <meta property="og:title" content="KVSOVANREACH | Cookie Policy Generator">
+  <meta property="og:description" content="Create GDPR-compliant cookie policies.">
+  <meta property="og:image" content="/assets/img/pwa/ios/512.png">
+  <title>KVSOVANREACH | Cookie Policy</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Common Tools CSS -->
+  <link rel="stylesheet" href="../../js/tools-common.css">
+  <!-- Cookie Policy CSS -->
+  <link rel="stylesheet" href="cookiepolicy.css">
+</head>
+<body>
+  <!-- Skip to Content -->
+  <a href="#cookiepolicy" class="skip-link">Skip to Cookie Policy Generator</a>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">TOOLS</span>
+      </a>
+
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="tool-page">
+    <div class="container">
+      <!-- Cookie Policy Wrapper -->
+      <div class="cookie-wrapper" id="cookiepolicy">
+        <!-- Header -->
+        <div class="cookie-header">
+          <h2><i class="fa-solid fa-cookie-bite"></i> Cookie Policy Generator</h2>
+          <div class="cookie-actions">
+            <button class="action-btn" id="resetBtn" title="Reset" aria-label="Reset">
+              <i class="fa-solid fa-rotate"></i>
+              <span>Reset</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Content -->
+        <div class="cookie-content">
+          <!-- Website Info -->
+          <div class="config-section">
+            <h3><i class="fa-solid fa-globe"></i> Website Information</h3>
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="websiteName">Website Name *</label>
+                <input type="text" id="websiteName" placeholder="My Website" required>
+              </div>
+              <div class="form-group">
+                <label for="websiteUrl">Website URL *</label>
+                <input type="url" id="websiteUrl" placeholder="https://example.com" required>
+              </div>
+              <div class="form-group">
+                <label for="companyName">Company/Owner Name</label>
+                <input type="text" id="companyName" placeholder="Company Inc.">
+              </div>
+              <div class="form-group">
+                <label for="contactEmail">Contact Email</label>
+                <input type="email" id="contactEmail" placeholder="privacy@example.com">
+              </div>
+            </div>
+          </div>
+
+          <!-- Cookie Types -->
+          <div class="config-section">
+            <h3><i class="fa-solid fa-list-check"></i> Cookie Types Used</h3>
+            <div class="cookie-types">
+              <label class="cookie-type-card">
+                <input type="checkbox" id="essentialCookies" checked disabled>
+                <div class="type-content">
+                  <span class="type-name">Essential Cookies</span>
+                  <span class="type-desc">Required for basic website functionality</span>
+                  <span class="type-badge required">Required</span>
+                </div>
+              </label>
+              <label class="cookie-type-card">
+                <input type="checkbox" id="performanceCookies">
+                <div class="type-content">
+                  <span class="type-name">Performance Cookies</span>
+                  <span class="type-desc">Analytics and performance monitoring</span>
+                </div>
+              </label>
+              <label class="cookie-type-card">
+                <input type="checkbox" id="functionalCookies">
+                <div class="type-content">
+                  <span class="type-name">Functional Cookies</span>
+                  <span class="type-desc">Enhanced features and personalization</span>
+                </div>
+              </label>
+              <label class="cookie-type-card">
+                <input type="checkbox" id="targetingCookies">
+                <div class="type-content">
+                  <span class="type-name">Targeting/Advertising Cookies</span>
+                  <span class="type-desc">Personalized ads and marketing</span>
+                </div>
+              </label>
+            </div>
+          </div>
+
+          <!-- Third Party Services -->
+          <div class="config-section">
+            <h3><i class="fa-solid fa-plug"></i> Third-Party Services</h3>
+            <div class="services-grid">
+              <label class="service-item">
+                <input type="checkbox" id="googleAnalytics">
+                <span>Google Analytics</span>
+              </label>
+              <label class="service-item">
+                <input type="checkbox" id="googleAds">
+                <span>Google Ads</span>
+              </label>
+              <label class="service-item">
+                <input type="checkbox" id="facebook">
+                <span>Facebook Pixel</span>
+              </label>
+              <label class="service-item">
+                <input type="checkbox" id="hotjar">
+                <span>Hotjar</span>
+              </label>
+              <label class="service-item">
+                <input type="checkbox" id="intercom">
+                <span>Intercom</span>
+              </label>
+              <label class="service-item">
+                <input type="checkbox" id="stripe">
+                <span>Stripe</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Additional Options -->
+          <div class="config-section">
+            <h3><i class="fa-solid fa-sliders"></i> Additional Options</h3>
+            <div class="options-grid">
+              <label class="option-item">
+                <input type="checkbox" id="gdprCompliance" checked>
+                <span>GDPR Compliance (EU)</span>
+              </label>
+              <label class="option-item">
+                <input type="checkbox" id="ccpaCompliance">
+                <span>CCPA Compliance (California)</span>
+              </label>
+              <label class="option-item">
+                <input type="checkbox" id="includeDataRetention">
+                <span>Include Data Retention Info</span>
+              </label>
+              <label class="option-item">
+                <input type="checkbox" id="includeUserRights" checked>
+                <span>Include User Rights Section</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Generate Button -->
+          <button class="generate-btn" id="generateBtn">
+            <i class="fa-solid fa-wand-magic-sparkles"></i>
+            <span>Generate Cookie Policy</span>
+          </button>
+
+          <!-- Output Section -->
+          <div class="output-section hidden" id="outputSection">
+            <div class="output-header">
+              <h3><i class="fa-solid fa-file-lines"></i> Generated Policy</h3>
+              <div class="output-actions">
+                <button class="action-btn" id="copyHtmlBtn">
+                  <i class="fa-solid fa-code"></i>
+                  <span>Copy HTML</span>
+                </button>
+                <button class="action-btn" id="copyTextBtn">
+                  <i class="fa-solid fa-copy"></i>
+                  <span>Copy Text</span>
+                </button>
+              </div>
+            </div>
+            <div class="output-preview" id="outputPreview">
+              <!-- Generated policy will appear here -->
+            </div>
+          </div>
+
+          <!-- Info Panel -->
+          <div class="info-panel">
+            <div class="info-header">
+              <i class="fa-solid fa-circle-info"></i>
+              <span>Important Notice</span>
+            </div>
+            <div class="info-content">
+              <ul>
+                <li>This tool generates a template - customize for your needs</li>
+                <li>Consult a legal professional for compliance</li>
+                <li>Update your policy when you change cookie usage</li>
+                <li>GDPR requires active consent for non-essential cookies</li>
+              </ul>
+              <p class="tip"><strong>Disclaimer:</strong> This generator provides a template only. It does not constitute legal advice.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach. All rights reserved.</p>
+        <p class="footer-made">Made with 💗 and Claude Code xD</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Keyboard Shortcuts Modal -->
+  <div class="shortcuts-modal" id="shortcutsModal">
+    <div class="shortcuts-content">
+      <div class="shortcuts-header">
+        <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
+        <button class="close-shortcuts-btn" id="closeShortcutsBtn" aria-label="Close shortcuts">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="shortcuts-body">
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">Actions</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Ctrl</kbd>+<kbd>Enter</kbd></div>
+            <div class="shortcut-desc">Generate policy</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>R</kbd></div>
+            <div class="shortcut-desc">Reset form</div>
+          </div>
+        </div>
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">General</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>?</kbd></div>
+            <div class="shortcut-desc">Show shortcuts</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Keyboard Shortcuts Hint -->
+  <div class="shortcuts-hint" id="shortcutsHint">
+    <span>Press <kbd>?</kbd> for shortcuts</span>
+  </div>
+
+  <!-- Shared Tools JavaScript -->
+  <script src="../../js/tools-common.js"></script>
+  <!-- Scripts -->
+  <script src="cookiepolicy.js"></script>
+</body>
+</html>

@@ -50,9 +50,12 @@
           <li class="nav-item">
             <a href="#" class="nav-link" data-category="ai">AI & ML</a>
           </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link" data-category="fun">For Fun</a>
+          </li>
           <li class="nav-item nav-item-divider"></li>
           <li class="nav-item">
-            <a href="about.html" class="nav-link">About</a>
+            <a href="#" class="nav-link" id="about-link">About</a>
           </li>
         </ul>
         <button class="nav-close" id="nav-close">
@@ -101,12 +104,80 @@
     </div>
   </main>
 
+  <!-- About Modal -->
+  <div class="about-modal" id="about-modal">
+    <div class="about-overlay" id="about-overlay"></div>
+    <div class="about-content">
+      <button class="about-close" id="about-close" aria-label="Close">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <div class="about-header">
+        <div class="about-logo">
+          <span class="logo-text">KVSOVANREACH</span>
+          <span class="logo-divider">|</span>
+          <span class="logo-tools">TOOLS</span>
+        </div>
+        <p class="about-tagline">A collection of free, fast, and privacy-focused online tools</p>
+      </div>
+
+      <div class="about-body">
+        <div class="about-section">
+          <h3><i class="fa-solid fa-rocket"></i> What is this?</h3>
+          <p>KVSOVANREACH Tools is a curated collection of useful utilities designed to help developers, designers, and everyday users accomplish tasks quickly and efficiently — all without ads, tracking, or data collection.</p>
+        </div>
+
+        <div class="about-section">
+          <h3><i class="fa-solid fa-sparkles"></i> Features</h3>
+          <ul class="about-features">
+            <li><i class="fa-solid fa-check"></i> 100% Free & Open Source</li>
+            <li><i class="fa-solid fa-check"></i> No Ads or Tracking</li>
+            <li><i class="fa-solid fa-check"></i> Works Offline (PWA)</li>
+            <li><i class="fa-solid fa-check"></i> Mobile Friendly</li>
+            <li><i class="fa-solid fa-check"></i> Dark Mode Support</li>
+            <li><i class="fa-solid fa-check"></i> Keyboard Shortcuts</li>
+          </ul>
+        </div>
+
+        <div class="about-section">
+          <h3><i class="fa-solid fa-layer-group"></i> Categories</h3>
+          <div class="about-categories">
+            <span class="about-category"><i class="fa-solid fa-wrench"></i> General</span>
+            <span class="about-category"><i class="fa-solid fa-code"></i> Developer</span>
+            <span class="about-category"><i class="fa-solid fa-brain"></i> AI & ML</span>
+            <span class="about-category"><i class="fa-solid fa-gamepad"></i> For Fun</span>
+          </div>
+        </div>
+
+        <div class="about-section">
+          <h3><i class="fa-solid fa-user"></i> About Me</h3>
+          <p>Hi! I'm <strong>Kong Vungsovanreach</strong>, a developer passionate about building useful tools. This project was built with the help of Claude Code.</p>
+          <div class="about-links">
+            <a href="https://sovanreach.com" target="_blank" rel="noopener" class="about-link-btn">
+              <i class="fa-solid fa-globe"></i> Portfolio
+            </a>
+            <a href="https://github.com/kvsovanreach" target="_blank" rel="noopener" class="about-link-btn">
+              <i class="fa-brands fa-github"></i> GitHub
+            </a>
+            <a href="https://linkedin.com/in/kvsovanreach" target="_blank" rel="noopener" class="about-link-btn">
+              <i class="fa-brands fa-linkedin"></i> LinkedIn
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="about-footer">
+        <p>Made with 💗 and Claude Code xD</p>
+      </div>
+    </div>
+  </div>
+
   <!-- Footer -->
   <footer class="footer">
     <div class="container">
       <div class="footer-bottom">
         <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach. All rights reserved.</p>
-        <p class="footer-made">Made with <i class="fa-solid fa-heart"></i> in South Korea</p>
+        <p class="footer-made">Made with 💗 and Claude Code xD</p>
       </div>
     </div>
   </footer>

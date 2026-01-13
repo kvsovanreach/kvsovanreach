@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Interactive neural network activation function visualizer.">
+  <meta property="og:title" content="KVSOVANREACH | Neural Activation Visualizer">
+  <meta property="og:description" content="Explore neural network activation functions.">
+  <meta property="og:image" content="/assets/img/pwa/ios/512.png">
+  <title>KVSOVANREACH | Neural Activation</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Common Tools CSS -->
+  <link rel="stylesheet" href="../../js/tools-common.css">
+  <!-- Neural Viz CSS -->
+  <link rel="stylesheet" href="neuralviz.css">
+</head>
+<body>
+  <!-- Skip to Content -->
+  <a href="#neuralviz" class="skip-link">Skip to Neural Activation Visualizer</a>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">TOOLS</span>
+      </a>
+
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="tool-page">
+    <div class="container">
+      <!-- Neural Viz Wrapper -->
+      <div class="neural-wrapper" id="neuralviz">
+        <!-- Header -->
+        <div class="neural-header">
+          <h2><i class="fa-solid fa-brain"></i> Activation Functions</h2>
+        </div>
+
+        <!-- Content -->
+        <div class="neural-content">
+          <!-- Chart Section -->
+          <div class="chart-section">
+            <div class="chart-container">
+              <canvas id="activationChart"></canvas>
+            </div>
+            <div class="chart-legend" id="chartLegend">
+              <!-- Legend will be generated -->
+            </div>
+          </div>
+
+          <!-- Function Selector -->
+          <div class="function-selector">
+            <div class="function-btn active" data-function="sigmoid">
+              <span class="fn-name">Sigmoid</span>
+              <span class="fn-formula">σ(x) = 1/(1+e⁻ˣ)</span>
+            </div>
+            <div class="function-btn" data-function="tanh">
+              <span class="fn-name">Tanh</span>
+              <span class="fn-formula">tanh(x)</span>
+            </div>
+            <div class="function-btn" data-function="relu">
+              <span class="fn-name">ReLU</span>
+              <span class="fn-formula">max(0, x)</span>
+            </div>
+            <div class="function-btn" data-function="leakyrelu">
+              <span class="fn-name">Leaky ReLU</span>
+              <span class="fn-formula">max(0.01x, x)</span>
+            </div>
+            <div class="function-btn" data-function="elu">
+              <span class="fn-name">ELU</span>
+              <span class="fn-formula">x if x>0 else α(eˣ-1)</span>
+            </div>
+            <div class="function-btn" data-function="swish">
+              <span class="fn-name">Swish</span>
+              <span class="fn-formula">x · σ(x)</span>
+            </div>
+            <div class="function-btn" data-function="softplus">
+              <span class="fn-name">Softplus</span>
+              <span class="fn-formula">ln(1+eˣ)</span>
+            </div>
+            <div class="function-btn" data-function="gelu">
+              <span class="fn-name">GELU</span>
+              <span class="fn-formula">x·Φ(x)</span>
+            </div>
+          </div>
+
+          <!-- Calculator Section -->
+          <div class="calculator-section">
+            <h3>Calculate Activation</h3>
+            <div class="calc-row">
+              <div class="calc-input">
+                <label>Input Value (x)</label>
+                <input type="number" id="inputValue" value="0" step="0.1">
+              </div>
+              <div class="calc-result">
+                <label>Output</label>
+                <span id="outputValue">--</span>
+              </div>
+              <div class="calc-result">
+                <label>Derivative</label>
+                <span id="derivativeValue">--</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Function Details -->
+          <div class="details-section" id="detailsSection">
+            <div class="details-header">
+              <i class="fa-solid fa-circle-info"></i>
+              <span id="detailsTitle">Sigmoid</span>
+            </div>
+            <div class="details-content">
+              <div class="details-grid">
+                <div class="detail-item">
+                  <span class="detail-label">Range</span>
+                  <span class="detail-value" id="detailRange">(0, 1)</span>
+                </div>
+                <div class="detail-item">
+                  <span class="detail-label">Vanishing Gradient</span>
+                  <span class="detail-value" id="detailVanishing">Yes</span>
+                </div>
+                <div class="detail-item">
+                  <span class="detail-label">Zero Centered</span>
+                  <span class="detail-value" id="detailZeroCentered">No</span>
+                </div>
+                <div class="detail-item">
+                  <span class="detail-label">Computationally</span>
+                  <span class="detail-value" id="detailComputation">Expensive</span>
+                </div>
+              </div>
+              <p class="detail-desc" id="detailDesc">
+                The sigmoid function squashes input values to a range between 0 and 1. It's commonly used in binary classification and in the output layer of neural networks.
+              </p>
+              <div class="detail-pros-cons">
+                <div class="pros">
+                  <h4><i class="fa-solid fa-check"></i> Pros</h4>
+                  <ul id="detailPros">
+                    <li>Smooth gradient</li>
+                    <li>Output bound between 0 and 1</li>
+                  </ul>
+                </div>
+                <div class="cons">
+                  <h4><i class="fa-solid fa-xmark"></i> Cons</h4>
+                  <ul id="detailCons">
+                    <li>Vanishing gradient problem</li>
+                    <li>Not zero-centered</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Comparison Table -->
+          <div class="comparison-section">
+            <h3>Quick Comparison</h3>
+            <div class="comparison-table-wrapper">
+              <table class="comparison-table">
+                <thead>
+                  <tr>
+                    <th>Function</th>
+                    <th>Range</th>
+                    <th>Best For</th>
+                    <th>Issues</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Sigmoid</strong></td>
+                    <td>(0, 1)</td>
+                    <td>Binary classification, output</td>
+                    <td>Vanishing gradient</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Tanh</strong></td>
+                    <td>(-1, 1)</td>
+                    <td>Hidden layers (old NNs)</td>
+                    <td>Vanishing gradient</td>
+                  </tr>
+                  <tr>
+                    <td><strong>ReLU</strong></td>
+                    <td>[0, ∞)</td>
+                    <td>Deep networks, CNNs</td>
+                    <td>Dying ReLU</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Leaky ReLU</strong></td>
+                    <td>(-∞, ∞)</td>
+                    <td>Addressing dying ReLU</td>
+                    <td>Inconsistent results</td>
+                  </tr>
+                  <tr>
+                    <td><strong>ELU</strong></td>
+                    <td>(-α, ∞)</td>
+                    <td>Faster learning</td>
+                    <td>Slower computation</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Swish</strong></td>
+                    <td>(-∞, ∞)</td>
+                    <td>Deep networks</td>
+                    <td>Computationally expensive</td>
+                  </tr>
+                  <tr>
+                    <td><strong>GELU</strong></td>
+                    <td>(-∞, ∞)</td>
+                    <td>Transformers, NLP</td>
+                    <td>Computationally expensive</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach. All rights reserved.</p>
+        <p class="footer-made">Made with 💗 and Claude Code xD</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Keyboard Shortcuts Modal -->
+  <div class="shortcuts-modal" id="shortcutsModal">
+    <div class="shortcuts-content">
+      <div class="shortcuts-header">
+        <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
+        <button class="close-shortcuts-btn" id="closeShortcutsBtn" aria-label="Close shortcuts">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="shortcuts-body">
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">General</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>?</kbd></div>
+            <div class="shortcut-desc">Show shortcuts</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Keyboard Shortcuts Hint -->
+  <div class="shortcuts-hint" id="shortcutsHint">
+    <span>Press <kbd>?</kbd> for shortcuts</span>
+  </div>
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- Shared Tools JavaScript -->
+  <script src="../../js/tools-common.js"></script>
+  <!-- Scripts -->
+  <script src="neuralviz.js"></script>
+</body>
+</html>

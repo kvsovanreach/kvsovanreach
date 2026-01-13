@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Visualize how convolutional neural networks process images. Draw and apply filters in real-time!">
+  <meta property="og:title" content="KVSOVANREACH | Kernel Painter">
+  <meta property="og:description" content="Interactive CNN convolution visualization.">
+  <meta property="og:image" content="/assets/img/pwa/ios/512.png">
+  <title>KVSOVANREACH | Kernel Painter</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Orbitron:wght@400;500;600;700&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Common Tools CSS -->
+  <link rel="stylesheet" href="../../js/tools-common.css">
+  <!-- Kernel Painter CSS -->
+  <link rel="stylesheet" href="kernelpainter.css">
+</head>
+<body>
+  <!-- Skip to Content -->
+  <a href="#kernelpainter" class="skip-link">Skip to Kernel Painter</a>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">GAMES</span>
+      </a>
+
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="tool-page">
+    <div class="container">
+      <!-- Game Wrapper -->
+      <div class="game-wrapper" id="kernelpainter">
+        <!-- Header -->
+        <div class="game-header">
+          <h2><i class="fa-solid fa-brain"></i> Kernel Painter</h2>
+          <div class="game-actions">
+            <button class="action-btn" id="clearBtn" title="Clear canvas">
+              <i class="fa-solid fa-eraser"></i>
+              <span>Clear</span>
+            </button>
+            <button class="action-btn" id="randomBtn" title="Random pattern">
+              <i class="fa-solid fa-dice"></i>
+              <span>Random</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Game Content -->
+        <div class="game-content">
+          <!-- Main Grid Area -->
+          <div class="grid-area">
+            <!-- Input Grid -->
+            <div class="grid-section">
+              <h3 class="grid-title">
+                <i class="fa-solid fa-paintbrush"></i>
+                Input Image
+              </h3>
+              <p class="grid-subtitle">Click and drag to draw</p>
+              <div class="pixel-grid" id="inputGrid">
+                <!-- Pixels will be generated here -->
+              </div>
+              <div class="brush-controls">
+                <span class="brush-label">Brush:</span>
+                <button class="brush-btn active" data-value="255" title="White">
+                  <span class="brush-preview white"></span>
+                </button>
+                <button class="brush-btn" data-value="0" title="Black">
+                  <span class="brush-preview black"></span>
+                </button>
+                <button class="brush-btn" data-value="128" title="Gray">
+                  <span class="brush-preview gray"></span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Kernel/Filter -->
+            <div class="kernel-section">
+              <h3 class="grid-title">
+                <i class="fa-solid fa-filter"></i>
+                Convolution Kernel
+              </h3>
+              <div class="kernel-grid" id="kernelGrid">
+                <!-- Kernel cells will be generated here -->
+              </div>
+              <div class="kernel-presets">
+                <select id="kernelPreset" class="kernel-select">
+                  <option value="identity">Identity</option>
+                  <option value="edge">Edge Detection</option>
+                  <option value="sharpen">Sharpen</option>
+                  <option value="blur">Box Blur</option>
+                  <option value="gaussian">Gaussian Blur</option>
+                  <option value="emboss">Emboss</option>
+                  <option value="sobel_x">Sobel X</option>
+                  <option value="sobel_y">Sobel Y</option>
+                </select>
+              </div>
+              <div class="kernel-info">
+                <span class="kernel-sum">Sum: <strong id="kernelSum">1</strong></span>
+              </div>
+            </div>
+
+            <!-- Output Grid -->
+            <div class="grid-section">
+              <h3 class="grid-title">
+                <i class="fa-solid fa-image"></i>
+                Output (Convolved)
+              </h3>
+              <p class="grid-subtitle">Result after applying kernel</p>
+              <div class="pixel-grid output" id="outputGrid">
+                <!-- Output pixels will be generated here -->
+              </div>
+            </div>
+          </div>
+
+          <!-- Animation Section -->
+          <div class="animation-section">
+            <div class="animation-controls">
+              <button class="action-btn" id="animateBtn">
+                <i class="fa-solid fa-play"></i>
+                <span>Animate Convolution</span>
+              </button>
+              <button class="action-btn" id="stopBtn" disabled>
+                <i class="fa-solid fa-stop"></i>
+                <span>Stop</span>
+              </button>
+            </div>
+            <div class="animation-progress" id="animationProgress">
+              <span class="progress-text">Click "Animate" to see the convolution process</span>
+            </div>
+          </div>
+
+          <!-- Info Panel -->
+          <div class="info-panel">
+            <div class="info-header">
+              <i class="fa-solid fa-graduation-cap"></i>
+              <span>About Convolution</span>
+            </div>
+            <div class="info-content">
+              <p>
+                <strong>Convolution</strong> is a fundamental operation in image processing and neural networks.
+                A small matrix (kernel) slides over the image, computing a weighted sum at each position.
+              </p>
+              <div class="info-grid">
+                <div class="info-item">
+                  <i class="fa-solid fa-border-all"></i>
+                  <span><strong>Edge Detection:</strong> Finds boundaries between regions</span>
+                </div>
+                <div class="info-item">
+                  <i class="fa-solid fa-circle-dot"></i>
+                  <span><strong>Blur:</strong> Smooths the image by averaging neighbors</span>
+                </div>
+                <div class="info-item">
+                  <i class="fa-solid fa-diamond"></i>
+                  <span><strong>Sharpen:</strong> Enhances edges and details</span>
+                </div>
+              </div>
+              <p class="tip">
+                <strong>Try it:</strong> Draw a simple shape, then switch between kernels to see how each filter transforms your image differently!
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach. All rights reserved.</p>
+        <p class="footer-made">Made with 💗 and Claude Code xD</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Keyboard Shortcuts Modal -->
+  <div class="shortcuts-modal" id="shortcutsModal">
+    <div class="shortcuts-content">
+      <div class="shortcuts-header">
+        <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
+        <button class="close-shortcuts-btn" id="closeShortcutsBtn" aria-label="Close shortcuts">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="shortcuts-body">
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">Actions</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>C</kbd></div>
+            <div class="shortcut-desc">Clear canvas</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>R</kbd></div>
+            <div class="shortcut-desc">Random pattern</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Space</kbd></div>
+            <div class="shortcut-desc">Animate convolution</div>
+          </div>
+        </div>
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">Brush</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>1</kbd></div>
+            <div class="shortcut-desc">White brush</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>2</kbd></div>
+            <div class="shortcut-desc">Black brush</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>3</kbd></div>
+            <div class="shortcut-desc">Gray brush</div>
+          </div>
+        </div>
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">General</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>?</kbd></div>
+            <div class="shortcut-desc">Show shortcuts</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Keyboard Shortcuts Hint -->
+  <div class="shortcuts-hint" id="shortcutsHint">
+    <span>Press <kbd>?</kbd> for shortcuts</span>
+  </div>
+
+  <!-- Shared Tools JavaScript -->
+  <script src="../../js/tools-common.js"></script>
+  <!-- Scripts -->
+  <script src="kernelpainter.js"></script>
+</body>
+</html>

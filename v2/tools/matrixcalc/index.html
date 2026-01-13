@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Perform matrix operations: addition, subtraction, multiplication, transpose, and determinant.">
+  <meta property="og:title" content="KVSOVANREACH | Matrix Calculator">
+  <meta property="og:description" content="Matrix calculator with visual results.">
+  <meta property="og:image" content="/assets/img/pwa/ios/512.png">
+  <title>KVSOVANREACH | Matrix Calculator</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Common Tools CSS -->
+  <link rel="stylesheet" href="../../js/tools-common.css">
+  <!-- Matrix Calculator CSS -->
+  <link rel="stylesheet" href="matrixcalc.css">
+</head>
+<body>
+  <!-- Skip to Content -->
+  <a href="#matrixcalc" class="skip-link">Skip to Matrix Calculator</a>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">TOOLS</span>
+      </a>
+
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="tool-page">
+    <div class="container">
+      <!-- Matrix Calculator Wrapper -->
+      <div class="matrix-wrapper" id="matrixcalc">
+        <!-- Header -->
+        <div class="matrix-header">
+          <h2><i class="fa-solid fa-table-cells"></i> Matrix Calculator</h2>
+          <div class="matrix-actions">
+            <button class="action-btn" id="clearBtn" title="Clear all" aria-label="Clear all">
+              <i class="fa-solid fa-trash"></i>
+              <span>Clear</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Content -->
+        <div class="matrix-content">
+          <!-- Matrices Input -->
+          <div class="matrices-section">
+            <!-- Matrix A -->
+            <div class="matrix-input-section">
+              <div class="matrix-label">
+                <span class="matrix-name">Matrix A</span>
+                <div class="matrix-size">
+                  <select id="rowsA" aria-label="Rows for Matrix A">
+                    <option value="2" selected>2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                  </select>
+                  <span>×</span>
+                  <select id="colsA" aria-label="Columns for Matrix A">
+                    <option value="2" selected>2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                  </select>
+                </div>
+              </div>
+              <div class="matrix-grid" id="matrixA"></div>
+              <div class="matrix-quick-actions">
+                <button class="quick-action" data-action="identity" data-matrix="A" title="Identity matrix">I</button>
+                <button class="quick-action" data-action="zeros" data-matrix="A" title="Zero matrix">0</button>
+                <button class="quick-action" data-action="random" data-matrix="A" title="Random values">?</button>
+              </div>
+            </div>
+
+            <!-- Operation Selector -->
+            <div class="operation-section">
+              <div class="operation-label">Operation</div>
+              <div class="operation-buttons">
+                <button class="op-btn active" data-op="add" title="Addition">+</button>
+                <button class="op-btn" data-op="subtract" title="Subtraction">−</button>
+                <button class="op-btn" data-op="multiply" title="Multiplication">×</button>
+              </div>
+              <div class="single-ops">
+                <button class="single-op-btn" data-op="transpose" data-matrix="A">Aᵀ</button>
+                <button class="single-op-btn" data-op="transpose" data-matrix="B">Bᵀ</button>
+                <button class="single-op-btn" data-op="determinant" data-matrix="A">det(A)</button>
+                <button class="single-op-btn" data-op="determinant" data-matrix="B">det(B)</button>
+              </div>
+            </div>
+
+            <!-- Matrix B -->
+            <div class="matrix-input-section">
+              <div class="matrix-label">
+                <span class="matrix-name">Matrix B</span>
+                <div class="matrix-size">
+                  <select id="rowsB" aria-label="Rows for Matrix B">
+                    <option value="2" selected>2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                  </select>
+                  <span>×</span>
+                  <select id="colsB" aria-label="Columns for Matrix B">
+                    <option value="2" selected>2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                  </select>
+                </div>
+              </div>
+              <div class="matrix-grid" id="matrixB"></div>
+              <div class="matrix-quick-actions">
+                <button class="quick-action" data-action="identity" data-matrix="B" title="Identity matrix">I</button>
+                <button class="quick-action" data-action="zeros" data-matrix="B" title="Zero matrix">0</button>
+                <button class="quick-action" data-action="random" data-matrix="B" title="Random values">?</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Calculate Button -->
+          <div class="calculate-section">
+            <button class="action-btn primary" id="calculateBtn">
+              <i class="fa-solid fa-calculator"></i>
+              <span>Calculate</span>
+            </button>
+          </div>
+
+          <!-- Result Section -->
+          <div class="result-section hidden" id="resultSection">
+            <div class="result-header">
+              <h3><i class="fa-solid fa-equals"></i> Result</h3>
+              <button class="action-btn" id="copyResultBtn" title="Copy result" aria-label="Copy result">
+                <i class="fa-solid fa-copy"></i>
+              </button>
+            </div>
+            <div class="result-display" id="resultDisplay"></div>
+            <div class="result-info" id="resultInfo"></div>
+          </div>
+
+          <!-- Error Message -->
+          <div class="error-message hidden" id="errorMessage">
+            <i class="fa-solid fa-circle-exclamation"></i>
+            <span id="errorText"></span>
+          </div>
+
+          <!-- Info Panel -->
+          <div class="info-panel">
+            <div class="info-header">
+              <i class="fa-solid fa-circle-info"></i>
+              <span>Matrix Operations</span>
+            </div>
+            <div class="info-content">
+              <div class="info-grid">
+                <div class="info-item">
+                  <strong>Addition/Subtraction</strong>
+                  <span>Same dimensions required</span>
+                </div>
+                <div class="info-item">
+                  <strong>Multiplication</strong>
+                  <span>A cols = B rows</span>
+                </div>
+                <div class="info-item">
+                  <strong>Transpose</strong>
+                  <span>Rows ↔ Columns</span>
+                </div>
+                <div class="info-item">
+                  <strong>Determinant</strong>
+                  <span>Square matrices only</span>
+                </div>
+              </div>
+              <p class="tip"><strong>Tip:</strong> Click on cells to enter values. Use Tab to move to the next cell.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach. All rights reserved.</p>
+        <p class="footer-made">Made with 💗 and Claude Code xD</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Keyboard Shortcuts Modal -->
+  <div class="shortcuts-modal" id="shortcutsModal">
+    <div class="shortcuts-content">
+      <div class="shortcuts-header">
+        <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
+        <button class="close-shortcuts-btn" id="closeShortcutsBtn" aria-label="Close shortcuts">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="shortcuts-body">
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">Actions</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Enter</kbd></div>
+            <div class="shortcut-desc">Calculate</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Tab</kbd></div>
+            <div class="shortcut-desc">Next cell</div>
+          </div>
+        </div>
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">General</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>?</kbd></div>
+            <div class="shortcut-desc">Show shortcuts</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Keyboard Shortcuts Hint -->
+  <div class="shortcuts-hint" id="shortcutsHint">
+    <span>Press <kbd>?</kbd> for shortcuts</span>
+  </div>
+
+  <!-- Shared Tools JavaScript -->
+  <script src="../../js/tools-common.js"></script>
+  <!-- Scripts -->
+  <script src="matrixcalc.js"></script>
+</body>
+</html>

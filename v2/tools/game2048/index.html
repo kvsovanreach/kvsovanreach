@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Play 2048 - slide tiles to combine them and reach 2048!">
+  <meta property="og:title" content="KVSOVANREACH | 2048 Game">
+  <meta property="og:description" content="Classic 2048 puzzle game.">
+  <meta property="og:image" content="/assets/img/pwa/ios/512.png">
+  <title>KVSOVANREACH | 2048</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Common Tools CSS -->
+  <link rel="stylesheet" href="../../js/tools-common.css">
+  <!-- 2048 CSS -->
+  <link rel="stylesheet" href="game2048.css">
+</head>
+<body>
+  <!-- Skip to Content -->
+  <a href="#game2048" class="skip-link">Skip to 2048</a>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">TOOLS</span>
+      </a>
+
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="tool-page">
+    <div class="container">
+      <!-- 2048 Wrapper -->
+      <div class="game-wrapper" id="game2048">
+        <!-- Header -->
+        <div class="game-header">
+          <h2><i class="fa-solid fa-gamepad"></i> 2048</h2>
+          <div class="game-actions">
+            <button class="action-btn" id="undoBtn" title="Undo" aria-label="Undo" disabled>
+              <i class="fa-solid fa-rotate-left"></i>
+            </button>
+            <button class="action-btn" id="newGameBtn" title="New Game" aria-label="New Game">
+              <i class="fa-solid fa-rotate"></i>
+              <span>New</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Content -->
+        <div class="game-content">
+          <!-- Stats Bar -->
+          <div class="stats-bar">
+            <div class="stat-item">
+              <span class="stat-label">Score</span>
+              <span class="stat-value" id="scoreDisplay">0</span>
+            </div>
+            <div class="stat-item best">
+              <span class="stat-label">Best</span>
+              <span class="stat-value" id="bestDisplay">0</span>
+            </div>
+          </div>
+
+          <!-- Settings -->
+          <div class="settings-section">
+            <div class="setting-group">
+              <label>Grid Size</label>
+              <div class="size-buttons">
+                <button class="size-btn" data-size="3">3×3</button>
+                <button class="size-btn active" data-size="4">4×4</button>
+                <button class="size-btn" data-size="5">5×5</button>
+                <button class="size-btn" data-size="6">6×6</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Game Board -->
+          <div class="board-container">
+            <div class="game-board" id="gameBoard">
+              <!-- Tiles will be generated here -->
+            </div>
+
+            <!-- Game Over Overlay -->
+            <div class="game-overlay hidden" id="gameOverlay">
+              <div class="overlay-content">
+                <h3 id="overlayTitle">Game Over!</h3>
+                <p id="overlayScore">Score: 0</p>
+                <button class="action-btn primary" id="tryAgainBtn">
+                  <i class="fa-solid fa-rotate"></i>
+                  <span>Try Again</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Info Panel -->
+          <div class="info-panel">
+            <div class="info-header">
+              <i class="fa-solid fa-circle-info"></i>
+              <span>How to Play</span>
+            </div>
+            <div class="info-content">
+              <ul>
+                <li>Use <strong>arrow keys</strong> or <strong>swipe</strong> to move tiles</li>
+                <li>Tiles with the same number <strong>merge</strong> into one</li>
+                <li>Create a tile with <strong>2048</strong> to win!</li>
+                <li>Game ends when no moves are possible</li>
+              </ul>
+              <p class="tip"><strong>Tip:</strong> Keep your highest tile in a corner and build around it!</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach. All rights reserved.</p>
+        <p class="footer-made">Made with 💗 and Claude Code xD</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Keyboard Shortcuts Modal -->
+  <div class="shortcuts-modal" id="shortcutsModal">
+    <div class="shortcuts-content">
+      <div class="shortcuts-header">
+        <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
+        <button class="close-shortcuts-btn" id="closeShortcutsBtn" aria-label="Close shortcuts">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="shortcuts-body">
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">Movement</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>↑</kbd> <kbd>↓</kbd> <kbd>←</kbd> <kbd>→</kbd></div>
+            <div class="shortcut-desc">Move tiles</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>W</kbd> <kbd>A</kbd> <kbd>S</kbd> <kbd>D</kbd></div>
+            <div class="shortcut-desc">Alternative movement</div>
+          </div>
+        </div>
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">Actions</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>U</kbd></div>
+            <div class="shortcut-desc">Undo last move</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>N</kbd></div>
+            <div class="shortcut-desc">New game</div>
+          </div>
+        </div>
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">General</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>?</kbd></div>
+            <div class="shortcut-desc">Show shortcuts</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Keyboard Shortcuts Hint -->
+  <div class="shortcuts-hint" id="shortcutsHint">
+    <span>Press <kbd>?</kbd> for shortcuts</span>
+  </div>
+
+  <!-- Shared Tools JavaScript -->
+  <script src="../../js/tools-common.js"></script>
+  <!-- Scripts -->
+  <script src="game2048.js"></script>
+</body>
+</html>

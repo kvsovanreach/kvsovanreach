@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Watch creatures evolve through natural selection. Guide evolution by changing the environment!">
+  <meta property="og:title" content="KVSOVANREACH | Critter Evolution">
+  <meta property="og:description" content="Genetic algorithm evolution simulation.">
+  <meta property="og:image" content="/assets/img/pwa/ios/512.png">
+  <title>KVSOVANREACH | Critter Evolution</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Orbitron:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Common Tools CSS -->
+  <link rel="stylesheet" href="../../js/tools-common.css">
+  <!-- Evolution CSS -->
+  <link rel="stylesheet" href="evolution.css">
+</head>
+<body>
+  <!-- Skip to Content -->
+  <a href="#evolution" class="skip-link">Skip to Evolution</a>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">GAMES</span>
+      </a>
+
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="tool-page">
+    <div class="container">
+      <!-- Game Wrapper -->
+      <div class="game-wrapper" id="evolution">
+        <!-- Header -->
+        <div class="game-header">
+          <h2><i class="fa-solid fa-dna"></i> Critter Evolution</h2>
+          <div class="game-actions">
+            <button class="action-btn" id="pauseBtn" title="Pause">
+              <i class="fa-solid fa-pause"></i>
+              <span>Pause</span>
+            </button>
+            <button class="action-btn" id="resetBtn" title="Reset">
+              <i class="fa-solid fa-rotate-left"></i>
+              <span>Reset</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Game Content -->
+        <div class="game-content">
+          <!-- Stats Bar -->
+          <div class="stats-bar">
+            <div class="stat-item">
+              <i class="fa-solid fa-clock"></i>
+              <span class="stat-label">Generation</span>
+              <span class="stat-value" id="generationDisplay">1</span>
+            </div>
+            <div class="stat-item">
+              <i class="fa-solid fa-bug"></i>
+              <span class="stat-label">Population</span>
+              <span class="stat-value" id="populationDisplay">20</span>
+            </div>
+            <div class="stat-item">
+              <i class="fa-solid fa-trophy"></i>
+              <span class="stat-label">Best Fitness</span>
+              <span class="stat-value highlight" id="fitnessDisplay">0</span>
+            </div>
+            <div class="stat-item">
+              <i class="fa-solid fa-chart-line"></i>
+              <span class="stat-label">Avg Fitness</span>
+              <span class="stat-value" id="avgFitnessDisplay">0</span>
+            </div>
+          </div>
+
+          <!-- Generation Progress -->
+          <div class="generation-progress">
+            <div class="progress-label">
+              <span>Generation Progress</span>
+              <span id="progressPercent">0%</span>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-fill" id="progressFill"></div>
+            </div>
+          </div>
+
+          <!-- Simulation Area -->
+          <div class="simulation-container">
+            <canvas id="simulationCanvas"></canvas>
+            <div class="food-indicator">
+              <i class="fa-solid fa-apple-whole"></i>
+              <span id="foodCount">10</span> food
+            </div>
+          </div>
+
+          <!-- Environment Controls -->
+          <div class="controls-panel">
+            <div class="control-group">
+              <label>
+                <i class="fa-solid fa-apple-whole"></i>
+                Food Amount
+                <span class="control-hint">More food = easier survival</span>
+              </label>
+              <div class="slider-row">
+                <input type="range" id="foodAmount" min="5" max="30" value="15">
+                <span class="slider-value" id="foodAmountValue">15</span>
+              </div>
+            </div>
+            <div class="control-group">
+              <label>
+                <i class="fa-solid fa-bolt"></i>
+                Mutation Rate
+                <span class="control-hint">Higher = more variation</span>
+              </label>
+              <div class="slider-row">
+                <input type="range" id="mutationRate" min="1" max="30" value="10">
+                <span class="slider-value" id="mutationRateValue">10%</span>
+              </div>
+            </div>
+            <div class="control-group">
+              <label>
+                <i class="fa-solid fa-forward"></i>
+                Speed
+                <span class="control-hint">Simulation speed</span>
+              </label>
+              <div class="slider-row">
+                <input type="range" id="simSpeed" min="1" max="5" value="2">
+                <span class="slider-value" id="simSpeedValue">2x</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Best Critter Display -->
+          <div class="best-critter-section">
+            <h3><i class="fa-solid fa-crown"></i> Fittest Critter</h3>
+            <div class="critter-display" id="bestCritterDisplay">
+              <div class="critter-preview" id="bestCritterPreview"></div>
+              <div class="critter-genes">
+                <div class="gene">
+                  <span class="gene-label">Speed</span>
+                  <div class="gene-bar"><div class="gene-fill" id="geneSpeed"></div></div>
+                </div>
+                <div class="gene">
+                  <span class="gene-label">Size</span>
+                  <div class="gene-bar"><div class="gene-fill" id="geneSize"></div></div>
+                </div>
+                <div class="gene">
+                  <span class="gene-label">Sense</span>
+                  <div class="gene-bar"><div class="gene-fill" id="geneSense"></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Info Panel -->
+          <div class="info-panel">
+            <div class="info-header">
+              <i class="fa-solid fa-dna"></i>
+              <span>About Evolution</span>
+            </div>
+            <div class="info-content">
+              <p>Watch natural selection in action! Critters with better genes survive longer, eat more food, and pass their traits to the next generation.</p>
+              <div class="info-grid">
+                <div class="info-item">
+                  <i class="fa-solid fa-gauge-high"></i>
+                  <span><strong>Speed:</strong> How fast they move (costs energy)</span>
+                </div>
+                <div class="info-item">
+                  <i class="fa-solid fa-circle"></i>
+                  <span><strong>Size:</strong> Larger = more energy storage</span>
+                </div>
+                <div class="info-item">
+                  <i class="fa-solid fa-eye"></i>
+                  <span><strong>Sense:</strong> Detection range for food</span>
+                </div>
+              </div>
+              <p class="tip"><strong>Try:</strong> Reduce food to see which traits help survival. Increase mutation to speed up adaptation!</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach. All rights reserved.</p>
+        <p class="footer-made">Made with 💗 and Claude Code xD</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Keyboard Shortcuts Modal -->
+  <div class="shortcuts-modal" id="shortcutsModal">
+    <div class="shortcuts-content">
+      <div class="shortcuts-header">
+        <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
+        <button class="close-shortcuts-btn" id="closeShortcutsBtn" aria-label="Close shortcuts">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="shortcuts-body">
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">Simulation</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Space</kbd></div>
+            <div class="shortcut-desc">Pause / Resume</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>R</kbd></div>
+            <div class="shortcut-desc">Reset simulation</div>
+          </div>
+        </div>
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">General</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>?</kbd></div>
+            <div class="shortcut-desc">Show shortcuts</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Keyboard Shortcuts Hint -->
+  <div class="shortcuts-hint" id="shortcutsHint">
+    <span>Press <kbd>?</kbd> for shortcuts</span>
+  </div>
+
+  <!-- Shared Tools JavaScript -->
+  <script src="../../js/tools-common.js"></script>
+  <!-- Scripts -->
+  <script src="evolution.js"></script>
+</body>
+</html>

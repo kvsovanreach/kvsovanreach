@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Solve systems of linear equations with step-by-step solutions.">
+  <meta property="og:title" content="KVSOVANREACH | Linear Solver">
+  <meta property="og:description" content="Linear equation system solver.">
+  <meta property="og:image" content="/assets/img/pwa/ios/512.png">
+  <title>KVSOVANREACH | Linear Solver</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Common Tools CSS -->
+  <link rel="stylesheet" href="../../js/tools-common.css">
+  <!-- Linear Solver CSS -->
+  <link rel="stylesheet" href="linearsolver.css">
+</head>
+<body>
+  <!-- Skip to Content -->
+  <a href="#linearsolver" class="skip-link">Skip to Linear Solver</a>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">TOOLS</span>
+      </a>
+
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="tool-page">
+    <div class="container">
+      <!-- Linear Solver Wrapper -->
+      <div class="solver-wrapper" id="linearsolver">
+        <!-- Header -->
+        <div class="solver-header">
+          <h2><i class="fa-solid fa-superscript"></i> Linear Solver</h2>
+          <div class="solver-actions">
+            <button class="action-btn" id="clearBtn" title="Clear all" aria-label="Clear all">
+              <i class="fa-solid fa-trash"></i>
+              <span>Clear</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Content -->
+        <div class="solver-content">
+          <!-- System Size Selector -->
+          <div class="size-selector">
+            <label>Number of Equations</label>
+            <div class="size-buttons">
+              <button class="size-btn" data-size="1">1</button>
+              <button class="size-btn active" data-size="2">2</button>
+              <button class="size-btn" data-size="3">3</button>
+            </div>
+          </div>
+
+          <!-- Equations Input -->
+          <div class="equations-section" id="equationsSection">
+            <!-- Equations will be generated here -->
+          </div>
+
+          <!-- Solve Button -->
+          <div class="solve-section">
+            <button class="action-btn primary" id="solveBtn">
+              <i class="fa-solid fa-calculator"></i>
+              <span>Solve</span>
+            </button>
+          </div>
+
+          <!-- Result Section -->
+          <div class="result-section hidden" id="resultSection">
+            <div class="result-header">
+              <h3><i class="fa-solid fa-check-circle"></i> Solution</h3>
+            </div>
+            <div class="result-content" id="resultContent"></div>
+          </div>
+
+          <!-- Steps Section -->
+          <div class="steps-section hidden" id="stepsSection">
+            <div class="steps-header">
+              <h3><i class="fa-solid fa-list-ol"></i> Step-by-Step Solution</h3>
+              <button class="action-btn secondary" id="toggleSteps">
+                <i class="fa-solid fa-chevron-down"></i>
+              </button>
+            </div>
+            <div class="steps-content" id="stepsContent"></div>
+          </div>
+
+          <!-- Error Message -->
+          <div class="error-message hidden" id="errorMessage">
+            <i class="fa-solid fa-circle-exclamation"></i>
+            <span id="errorText"></span>
+          </div>
+
+          <!-- Examples -->
+          <div class="examples-section">
+            <h3><i class="fa-solid fa-lightbulb"></i> Examples</h3>
+            <div class="examples-grid">
+              <button class="example-btn" data-example="1">
+                <span>2x + y = 5</span>
+                <span>x - y = 1</span>
+              </button>
+              <button class="example-btn" data-example="2">
+                <span>x + y + z = 6</span>
+                <span>2x - y + z = 3</span>
+                <span>x + 2y - z = 2</span>
+              </button>
+              <button class="example-btn" data-example="3">
+                <span>3x + 2y = 12</span>
+                <span>x - y = 1</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Info Panel -->
+          <div class="info-panel">
+            <div class="info-header">
+              <i class="fa-solid fa-circle-info"></i>
+              <span>About Linear Systems</span>
+            </div>
+            <div class="info-content">
+              <p>A system of linear equations can have:</p>
+              <ul>
+                <li><strong>One unique solution</strong> - Lines intersect at one point</li>
+                <li><strong>No solution</strong> - Parallel lines (inconsistent)</li>
+                <li><strong>Infinite solutions</strong> - Same line (dependent)</li>
+              </ul>
+              <p class="tip"><strong>Tip:</strong> Enter coefficients and constants. Leave empty for 0.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach. All rights reserved.</p>
+        <p class="footer-made">Made with 💗 and Claude Code xD</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Keyboard Shortcuts Modal -->
+  <div class="shortcuts-modal" id="shortcutsModal">
+    <div class="shortcuts-content">
+      <div class="shortcuts-header">
+        <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
+        <button class="close-shortcuts-btn" id="closeShortcutsBtn" aria-label="Close shortcuts">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="shortcuts-body">
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">Actions</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Enter</kbd></div>
+            <div class="shortcut-desc">Solve system</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Tab</kbd></div>
+            <div class="shortcut-desc">Next field</div>
+          </div>
+        </div>
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">General</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>?</kbd></div>
+            <div class="shortcut-desc">Show shortcuts</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Keyboard Shortcuts Hint -->
+  <div class="shortcuts-hint" id="shortcutsHint">
+    <span>Press <kbd>?</kbd> for shortcuts</span>
+  </div>
+
+  <!-- Shared Tools JavaScript -->
+  <script src="../../js/tools-common.js"></script>
+  <!-- Scripts -->
+  <script src="linearsolver.js"></script>
+</body>
+</html>

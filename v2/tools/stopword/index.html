@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Remove common stopwords from text for NLP preprocessing and text analysis.">
+  <meta property="og:title" content="KVSOVANREACH | Stopword Remover">
+  <meta property="og:description" content="Remove stopwords from text.">
+  <meta property="og:image" content="/assets/img/pwa/ios/512.png">
+  <title>KVSOVANREACH | Stopword Remover</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Common Tools CSS -->
+  <link rel="stylesheet" href="../../js/tools-common.css">
+  <!-- Stopword Remover CSS -->
+  <link rel="stylesheet" href="stopword.css">
+</head>
+<body>
+  <!-- Skip to Content -->
+  <a href="#stopword" class="skip-link">Skip to Stopword Remover</a>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">TOOLS</span>
+      </a>
+
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="tool-page">
+    <div class="container">
+      <!-- Stopword Remover Wrapper -->
+      <div class="stopword-wrapper" id="stopword">
+        <!-- Header -->
+        <div class="stopword-header">
+          <h2><i class="fa-solid fa-filter"></i> Stopword Remover</h2>
+          <div class="stopword-actions">
+            <button class="action-btn" id="clearBtn" title="Clear all" aria-label="Clear all">
+              <i class="fa-solid fa-trash"></i>
+              <span>Clear</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Content -->
+        <div class="stopword-content">
+          <!-- Options -->
+          <div class="options-section">
+            <div class="option-group">
+              <label for="languageSelect">Language</label>
+              <select id="languageSelect">
+                <option value="english" selected>English</option>
+                <option value="custom">Custom List</option>
+              </select>
+            </div>
+            <div class="option-group">
+              <label class="checkbox-label">
+                <input type="checkbox" id="preserveCase">
+                <span>Preserve original case</span>
+              </label>
+            </div>
+            <div class="option-group">
+              <label class="checkbox-label">
+                <input type="checkbox" id="preservePunct" checked>
+                <span>Preserve punctuation</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Custom Stopwords -->
+          <div class="custom-section hidden" id="customSection">
+            <label for="customStopwords">Custom Stopwords (comma separated)</label>
+            <textarea id="customStopwords" placeholder="the, a, an, is, are, was, were..."></textarea>
+          </div>
+
+          <!-- Text Areas -->
+          <div class="text-areas">
+            <!-- Input -->
+            <div class="text-section">
+              <div class="text-header">
+                <h3><i class="fa-solid fa-file-lines"></i> Input Text</h3>
+                <div class="text-stats">
+                  <span id="inputWordCount">0</span> words
+                </div>
+              </div>
+              <textarea id="inputText" placeholder="Enter or paste your text here..."></textarea>
+              <div class="text-actions">
+                <button class="action-btn" id="pasteBtn" title="Paste" aria-label="Paste">
+                  <i class="fa-solid fa-paste"></i>
+                </button>
+                <button class="action-btn" id="sampleBtn" title="Load sample" aria-label="Load sample">
+                  <i class="fa-solid fa-file-import"></i>
+                </button>
+              </div>
+            </div>
+
+            <!-- Process Arrow -->
+            <div class="process-arrow">
+              <button class="action-btn primary" id="processBtn">
+                <i class="fa-solid fa-arrow-right"></i>
+              </button>
+            </div>
+
+            <!-- Output -->
+            <div class="text-section">
+              <div class="text-header">
+                <h3><i class="fa-solid fa-file-circle-check"></i> Cleaned Text</h3>
+                <div class="text-stats">
+                  <span id="outputWordCount">0</span> words
+                </div>
+              </div>
+              <textarea id="outputText" readonly placeholder="Cleaned text will appear here..."></textarea>
+              <div class="text-actions">
+                <button class="action-btn" id="copyBtn" title="Copy" aria-label="Copy">
+                  <i class="fa-solid fa-copy"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Statistics -->
+          <div class="stats-section hidden" id="statsSection">
+            <div class="stats-grid">
+              <div class="stat-item">
+                <span class="stat-label">Words Removed</span>
+                <span class="stat-value" id="wordsRemoved">0</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-label">Reduction</span>
+                <span class="stat-value" id="reduction">0%</span>
+              </div>
+              <div class="stat-item highlight">
+                <span class="stat-label">Most Common Removed</span>
+                <span class="stat-value" id="mostCommon">-</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Removed Words -->
+          <div class="removed-section hidden" id="removedSection">
+            <h3><i class="fa-solid fa-minus-circle"></i> Removed Words</h3>
+            <div class="removed-list" id="removedList"></div>
+          </div>
+
+          <!-- Info Panel -->
+          <div class="info-panel">
+            <div class="info-header">
+              <i class="fa-solid fa-circle-info"></i>
+              <span>About Stopwords</span>
+            </div>
+            <div class="info-content">
+              <p><strong>Stopwords</strong> are common words that carry little meaning on their own, like "the", "is", "at", etc. Removing them is useful for:</p>
+              <ul>
+                <li>Natural Language Processing (NLP)</li>
+                <li>Text analysis and mining</li>
+                <li>Search engine optimization</li>
+                <li>Reducing noise in datasets</li>
+              </ul>
+              <p class="tip"><strong>Note:</strong> All processing happens locally. Your text is never sent to any server.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach. All rights reserved.</p>
+        <p class="footer-made">Made with 💗 and Claude Code xD</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Keyboard Shortcuts Modal -->
+  <div class="shortcuts-modal" id="shortcutsModal">
+    <div class="shortcuts-content">
+      <div class="shortcuts-header">
+        <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
+        <button class="close-shortcuts-btn" id="closeShortcutsBtn" aria-label="Close shortcuts">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="shortcuts-body">
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">Actions</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Ctrl</kbd><span class="key-plus">+</span><kbd>Enter</kbd></div>
+            <div class="shortcut-desc">Process text</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Ctrl</kbd><span class="key-plus">+</span><kbd>C</kbd></div>
+            <div class="shortcut-desc">Copy output</div>
+          </div>
+        </div>
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">General</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>?</kbd></div>
+            <div class="shortcut-desc">Show shortcuts</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Keyboard Shortcuts Hint -->
+  <div class="shortcuts-hint" id="shortcutsHint">
+    <span>Press <kbd>?</kbd> for shortcuts</span>
+  </div>
+
+  <!-- Shared Tools JavaScript -->
+  <script src="../../js/tools-common.js"></script>
+  <!-- Scripts -->
+  <script src="stopword.js"></script>
+</body>
+</html>

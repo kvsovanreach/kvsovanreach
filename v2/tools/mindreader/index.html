@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Can an AI predict your next move? Play Rock-Paper-Scissors against a Markov Chain mind reader.">
+  <meta property="og:title" content="KVSOVANREACH | Mind Reader">
+  <meta property="og:description" content="AI-powered Rock-Paper-Scissors that learns your patterns.">
+  <meta property="og:image" content="/assets/img/pwa/ios/512.png">
+  <title>KVSOVANREACH | Mind Reader</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Orbitron:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Common Tools CSS -->
+  <link rel="stylesheet" href="../../js/tools-common.css">
+  <!-- Mind Reader CSS -->
+  <link rel="stylesheet" href="mindreader.css">
+</head>
+<body>
+  <!-- Skip to Content -->
+  <a href="#mindreader" class="skip-link">Skip to Mind Reader</a>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">GAMES</span>
+      </a>
+
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="tool-page">
+    <div class="container">
+      <!-- Game Wrapper -->
+      <div class="game-wrapper" id="mindreader">
+        <!-- Header -->
+        <div class="game-header">
+          <h2><i class="fa-solid fa-brain"></i> Mind Reader</h2>
+          <div class="game-actions">
+            <button class="action-btn" id="resetBtn" title="Reset game">
+              <i class="fa-solid fa-rotate-left"></i>
+              <span>Reset</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Game Content -->
+        <div class="game-content">
+          <!-- Score Panel -->
+          <div class="score-panel">
+            <div class="score-card you">
+              <div class="score-label">YOU</div>
+              <div class="score-value" id="playerScore">0</div>
+            </div>
+            <div class="score-card vs">
+              <div class="streak-display">
+                <span id="streakType"></span>
+                <span id="streakCount">0</span>
+              </div>
+              <div class="round-display">Round <span id="roundNumber">1</span></div>
+            </div>
+            <div class="score-card ai">
+              <div class="score-label">AI</div>
+              <div class="score-value" id="aiScore">0</div>
+            </div>
+          </div>
+
+          <!-- Battle Arena -->
+          <div class="battle-arena">
+            <div class="hand-container player-hand">
+              <div class="hand-label">Your Choice</div>
+              <div class="hand-display" id="playerHand">
+                <i class="fa-solid fa-question"></i>
+              </div>
+            </div>
+
+            <div class="vs-display">
+              <span class="vs-text">VS</span>
+              <div class="result-display" id="resultDisplay"></div>
+            </div>
+
+            <div class="hand-container ai-hand">
+              <div class="hand-label">AI Prediction</div>
+              <div class="hand-display" id="aiHand">
+                <i class="fa-solid fa-robot"></i>
+              </div>
+            </div>
+          </div>
+
+          <!-- Choice Buttons -->
+          <div class="choice-section">
+            <p class="choice-prompt">Make your move!</p>
+            <div class="choice-buttons">
+              <button class="choice-btn" data-choice="rock" title="Rock">
+                <i class="fa-solid fa-hand-back-fist"></i>
+                <span>Rock</span>
+              </button>
+              <button class="choice-btn" data-choice="paper" title="Paper">
+                <i class="fa-solid fa-hand"></i>
+                <span>Paper</span>
+              </button>
+              <button class="choice-btn" data-choice="scissors" title="Scissors">
+                <i class="fa-solid fa-hand-scissors"></i>
+                <span>Scissors</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- AI Insight Panel -->
+          <div class="insight-panel">
+            <div class="insight-header">
+              <i class="fa-solid fa-chart-line"></i>
+              <span>AI Insight</span>
+            </div>
+            <div class="insight-content">
+              <div class="prediction-bars">
+                <div class="prediction-item">
+                  <div class="pred-label"><i class="fa-solid fa-hand-back-fist"></i> Rock</div>
+                  <div class="pred-bar">
+                    <div class="pred-fill" id="predRock" style="width: 33%"></div>
+                  </div>
+                  <div class="pred-percent" id="predRockPct">33%</div>
+                </div>
+                <div class="prediction-item">
+                  <div class="pred-label"><i class="fa-solid fa-hand"></i> Paper</div>
+                  <div class="pred-bar">
+                    <div class="pred-fill" id="predPaper" style="width: 33%"></div>
+                  </div>
+                  <div class="pred-percent" id="predPaperPct">33%</div>
+                </div>
+                <div class="prediction-item">
+                  <div class="pred-label"><i class="fa-solid fa-hand-scissors"></i> Scissors</div>
+                  <div class="pred-bar">
+                    <div class="pred-fill" id="predScissors" style="width: 33%"></div>
+                  </div>
+                  <div class="pred-percent" id="predScissorsPct">33%</div>
+                </div>
+              </div>
+              <div class="ai-confidence">
+                <span class="confidence-label">AI Confidence:</span>
+                <span class="confidence-value" id="aiConfidence">33%</span>
+              </div>
+              <div class="ai-message" id="aiMessage">
+                I'm still learning your patterns...
+              </div>
+            </div>
+          </div>
+
+          <!-- History Panel -->
+          <div class="history-panel">
+            <div class="history-header">
+              <i class="fa-solid fa-clock-rotate-left"></i>
+              <span>Recent History</span>
+            </div>
+            <div class="history-list" id="historyList">
+              <div class="history-empty">No games played yet</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach. All rights reserved.</p>
+        <p class="footer-made">Made with 💗 and Claude Code xD</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Keyboard Shortcuts Modal -->
+  <div class="shortcuts-modal" id="shortcutsModal">
+    <div class="shortcuts-content">
+      <div class="shortcuts-header">
+        <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
+        <button class="close-shortcuts-btn" id="closeShortcutsBtn" aria-label="Close shortcuts">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="shortcuts-body">
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">Game Controls</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>1</kbd> or <kbd>R</kbd></div>
+            <div class="shortcut-desc">Choose Rock</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>2</kbd> or <kbd>P</kbd></div>
+            <div class="shortcut-desc">Choose Paper</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>3</kbd> or <kbd>S</kbd></div>
+            <div class="shortcut-desc">Choose Scissors</div>
+          </div>
+        </div>
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">General</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>N</kbd></div>
+            <div class="shortcut-desc">New game / Reset</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>?</kbd></div>
+            <div class="shortcut-desc">Show shortcuts</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Keyboard Shortcuts Hint -->
+  <div class="shortcuts-hint" id="shortcutsHint">
+    <span>Press <kbd>?</kbd> for shortcuts</span>
+  </div>
+
+  <!-- Shared Tools JavaScript -->
+  <script src="../../js/tools-common.js"></script>
+  <!-- Scripts -->
+  <script src="mindreader.js"></script>
+</body>
+</html>

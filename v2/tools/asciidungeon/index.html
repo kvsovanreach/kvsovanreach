@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Explore procedurally generated ASCII dungeons. Collect treasures, avoid enemies, and find the exit!">
+  <meta property="og:title" content="KVSOVANREACH | ASCII Dungeon">
+  <meta property="og:description" content="Text-based rogue-lite dungeon crawler.">
+  <meta property="og:image" content="/assets/img/pwa/ios/512.png">
+  <title>KVSOVANREACH | ASCII Dungeon</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Orbitron:wght@400;500;600;700&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Common Tools CSS -->
+  <link rel="stylesheet" href="../../js/tools-common.css">
+  <!-- ASCII Dungeon CSS -->
+  <link rel="stylesheet" href="asciidungeon.css">
+</head>
+<body>
+  <!-- Skip to Content -->
+  <a href="#asciidungeon" class="skip-link">Skip to ASCII Dungeon</a>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">GAMES</span>
+      </a>
+
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="tool-page">
+    <div class="container">
+      <!-- Game Wrapper -->
+      <div class="game-wrapper" id="asciidungeon">
+        <!-- Header -->
+        <div class="game-header">
+          <h2><i class="fa-solid fa-dungeon"></i> ASCII Dungeon</h2>
+          <div class="game-actions">
+            <button class="action-btn" id="newGameBtn" title="New game">
+              <i class="fa-solid fa-rotate-left"></i>
+              <span>New Game</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Game Content -->
+        <div class="game-content">
+          <!-- Stats Bar -->
+          <div class="stats-bar">
+            <div class="stat-item health">
+              <i class="fa-solid fa-heart"></i>
+              <span class="stat-label">HP</span>
+              <div class="health-bar">
+                <div class="health-fill" id="healthFill"></div>
+              </div>
+              <span class="stat-value" id="healthDisplay">100</span>
+            </div>
+            <div class="stat-item">
+              <i class="fa-solid fa-coins"></i>
+              <span class="stat-label">Gold</span>
+              <span class="stat-value gold" id="goldDisplay">0</span>
+            </div>
+            <div class="stat-item">
+              <i class="fa-solid fa-stairs"></i>
+              <span class="stat-label">Floor</span>
+              <span class="stat-value" id="floorDisplay">1</span>
+            </div>
+            <div class="stat-item">
+              <i class="fa-solid fa-skull"></i>
+              <span class="stat-label">Kills</span>
+              <span class="stat-value" id="killsDisplay">0</span>
+            </div>
+          </div>
+
+          <!-- Game Display -->
+          <div class="dungeon-container">
+            <pre class="dungeon-display" id="dungeonDisplay">Loading...</pre>
+            <div class="game-overlay" id="gameOverlay">
+              <div class="overlay-content">
+                <h3 id="overlayTitle">Game Over</h3>
+                <p id="overlayMessage">You have been defeated!</p>
+                <div class="overlay-stats">
+                  <div class="overlay-stat">
+                    <span class="label">Final Floor</span>
+                    <span class="value" id="finalFloor">1</span>
+                  </div>
+                  <div class="overlay-stat">
+                    <span class="label">Gold Collected</span>
+                    <span class="value" id="finalGold">0</span>
+                  </div>
+                  <div class="overlay-stat">
+                    <span class="label">Enemies Slain</span>
+                    <span class="value" id="finalKills">0</span>
+                  </div>
+                </div>
+                <button class="action-btn primary" id="restartBtn">
+                  <i class="fa-solid fa-play"></i>
+                  <span>Play Again</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Message Log -->
+          <div class="message-log" id="messageLog">
+            <div class="message">Welcome to the dungeon! Find the stairs (>) to descend.</div>
+          </div>
+
+          <!-- Controls -->
+          <div class="controls-section">
+            <div class="control-buttons">
+              <button class="control-btn" data-dir="up" title="Move up">
+                <i class="fa-solid fa-arrow-up"></i>
+              </button>
+              <div class="control-row">
+                <button class="control-btn" data-dir="left" title="Move left">
+                  <i class="fa-solid fa-arrow-left"></i>
+                </button>
+                <button class="control-btn wait" data-dir="wait" title="Wait">
+                  <i class="fa-solid fa-hourglass"></i>
+                </button>
+                <button class="control-btn" data-dir="right" title="Move right">
+                  <i class="fa-solid fa-arrow-right"></i>
+                </button>
+              </div>
+              <button class="control-btn" data-dir="down" title="Move down">
+                <i class="fa-solid fa-arrow-down"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Legend -->
+          <div class="legend-section">
+            <div class="legend-header">
+              <i class="fa-solid fa-book"></i>
+              <span>Legend</span>
+            </div>
+            <div class="legend-content">
+              <div class="legend-item">
+                <span class="legend-char player">@</span>
+                <span>You</span>
+              </div>
+              <div class="legend-item">
+                <span class="legend-char wall">#</span>
+                <span>Wall</span>
+              </div>
+              <div class="legend-item">
+                <span class="legend-char floor">.</span>
+                <span>Floor</span>
+              </div>
+              <div class="legend-item">
+                <span class="legend-char gold">$</span>
+                <span>Gold</span>
+              </div>
+              <div class="legend-item">
+                <span class="legend-char health">+</span>
+                <span>Health</span>
+              </div>
+              <div class="legend-item">
+                <span class="legend-char enemy">G</span>
+                <span>Goblin</span>
+              </div>
+              <div class="legend-item">
+                <span class="legend-char enemy">S</span>
+                <span>Skeleton</span>
+              </div>
+              <div class="legend-item">
+                <span class="legend-char stairs">></span>
+                <span>Stairs</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Info Panel -->
+          <div class="info-panel">
+            <div class="info-header">
+              <i class="fa-solid fa-gamepad"></i>
+              <span>How to Play</span>
+            </div>
+            <div class="info-content">
+              <ol>
+                <li>Navigate the dungeon using <strong>Arrow Keys</strong> or <strong>WASD</strong></li>
+                <li>Collect <strong>gold ($)</strong> and <strong>health potions (+)</strong></li>
+                <li>Attack enemies by moving into them</li>
+                <li>Find the <strong>stairs (>)</strong> to descend deeper</li>
+                <li>Survive as long as you can!</li>
+              </ol>
+              <p class="tip"><strong>Tip:</strong> Enemies move after you do. Plan your path carefully and don't get surrounded!</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach. All rights reserved.</p>
+        <p class="footer-made">Made with 💗 and Claude Code xD</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Keyboard Shortcuts Modal -->
+  <div class="shortcuts-modal" id="shortcutsModal">
+    <div class="shortcuts-content">
+      <div class="shortcuts-header">
+        <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
+        <button class="close-shortcuts-btn" id="closeShortcutsBtn" aria-label="Close shortcuts">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="shortcuts-body">
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">Movement</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>W</kbd> / <kbd>Up</kbd></div>
+            <div class="shortcut-desc">Move up</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>S</kbd> / <kbd>Down</kbd></div>
+            <div class="shortcut-desc">Move down</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>A</kbd> / <kbd>Left</kbd></div>
+            <div class="shortcut-desc">Move left</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>D</kbd> / <kbd>Right</kbd></div>
+            <div class="shortcut-desc">Move right</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Space</kbd></div>
+            <div class="shortcut-desc">Wait (skip turn)</div>
+          </div>
+        </div>
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">General</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>N</kbd></div>
+            <div class="shortcut-desc">New game</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>?</kbd></div>
+            <div class="shortcut-desc">Show shortcuts</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Keyboard Shortcuts Hint -->
+  <div class="shortcuts-hint" id="shortcutsHint">
+    <span>Press <kbd>?</kbd> for shortcuts</span>
+  </div>
+
+  <!-- Shared Tools JavaScript -->
+  <script src="../../js/tools-common.js"></script>
+  <!-- Scripts -->
+  <script src="asciidungeon.js"></script>
+</body>
+</html>

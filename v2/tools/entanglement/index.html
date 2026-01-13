@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Toggle tiles and their entangled partners to solve the puzzle. Can you light them all up?">
+  <meta property="og:title" content="KVSOVANREACH | Entanglement">
+  <meta property="og:description" content="Quantum-inspired tile puzzle game.">
+  <meta property="og:image" content="/assets/img/pwa/ios/512.png">
+  <title>KVSOVANREACH | Entanglement</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Orbitron:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Common Tools CSS -->
+  <link rel="stylesheet" href="../../js/tools-common.css">
+  <!-- Entanglement CSS -->
+  <link rel="stylesheet" href="entanglement.css">
+</head>
+<body>
+  <!-- Skip to Content -->
+  <a href="#entanglement" class="skip-link">Skip to Entanglement</a>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">GAMES</span>
+      </a>
+
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="tool-page">
+    <div class="container">
+      <!-- Game Wrapper -->
+      <div class="game-wrapper" id="entanglement">
+        <!-- Header -->
+        <div class="game-header">
+          <h2><i class="fa-solid fa-atom"></i> Entanglement</h2>
+          <div class="game-actions">
+            <button class="action-btn" id="undoBtn" title="Undo last move">
+              <i class="fa-solid fa-rotate-left"></i>
+              <span>Undo</span>
+            </button>
+            <button class="action-btn" id="newGameBtn" title="New puzzle">
+              <i class="fa-solid fa-shuffle"></i>
+              <span>New Puzzle</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Game Content -->
+        <div class="game-content">
+          <!-- Level & Stats -->
+          <div class="stats-bar">
+            <div class="stat-item">
+              <i class="fa-solid fa-layer-group"></i>
+              <span class="stat-label">Level</span>
+              <span class="stat-value" id="levelDisplay">1</span>
+            </div>
+            <div class="stat-item">
+              <i class="fa-solid fa-hand-pointer"></i>
+              <span class="stat-label">Moves</span>
+              <span class="stat-value" id="movesDisplay">0</span>
+            </div>
+            <div class="stat-item">
+              <i class="fa-solid fa-bullseye"></i>
+              <span class="stat-label">Target</span>
+              <span class="stat-value target" id="targetDisplay">--</span>
+            </div>
+            <div class="stat-item">
+              <i class="fa-solid fa-trophy"></i>
+              <span class="stat-label">Best</span>
+              <span class="stat-value highlight" id="bestDisplay">--</span>
+            </div>
+          </div>
+
+          <!-- Difficulty Selector -->
+          <div class="difficulty-section">
+            <span class="difficulty-label">Grid Size:</span>
+            <div class="difficulty-buttons">
+              <button class="difficulty-btn active" data-size="3">3x3</button>
+              <button class="difficulty-btn" data-size="4">4x4</button>
+              <button class="difficulty-btn" data-size="5">5x5</button>
+            </div>
+          </div>
+
+          <!-- Game Board -->
+          <div class="board-container">
+            <div class="game-board" id="gameBoard">
+              <!-- Tiles will be generated here -->
+            </div>
+            <div class="win-overlay" id="winOverlay">
+              <div class="win-content">
+                <i class="fa-solid fa-trophy"></i>
+                <h3>Puzzle Solved!</h3>
+                <p>Completed in <span id="winMoves">0</span> moves</p>
+                <button class="action-btn primary" id="nextLevelBtn">
+                  <i class="fa-solid fa-arrow-right"></i>
+                  <span>Next Level</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Pattern Legend -->
+          <div class="legend-section">
+            <div class="legend-header">
+              <i class="fa-solid fa-circle-info"></i>
+              <span>Entanglement Pattern</span>
+            </div>
+            <div class="legend-content">
+              <div class="legend-item">
+                <div class="legend-icon clicked"></div>
+                <span>Clicked tile</span>
+              </div>
+              <div class="legend-item">
+                <div class="legend-icon entangled"></div>
+                <span>Also toggles (cross pattern)</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Info Panel -->
+          <div class="info-panel">
+            <div class="info-header">
+              <i class="fa-solid fa-lightbulb"></i>
+              <span>How to Play</span>
+            </div>
+            <div class="info-content">
+              <ol>
+                <li>Click any tile to toggle it ON/OFF</li>
+                <li>Adjacent tiles (up, down, left, right) also toggle!</li>
+                <li><strong>Goal:</strong> Turn ALL tiles ON (glowing)</li>
+                <li>Try to solve it in the <strong>fewest moves</strong></li>
+              </ol>
+              <p class="tip"><strong>Tip:</strong> Sometimes you need to "undo" progress to make real progress. Think several steps ahead!</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach. All rights reserved.</p>
+        <p class="footer-made">Made with 💗 and Claude Code xD</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Keyboard Shortcuts Modal -->
+  <div class="shortcuts-modal" id="shortcutsModal">
+    <div class="shortcuts-content">
+      <div class="shortcuts-header">
+        <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
+        <button class="close-shortcuts-btn" id="closeShortcutsBtn" aria-label="Close shortcuts">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="shortcuts-body">
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">Game Controls</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>1</kbd>-<kbd>9</kbd></div>
+            <div class="shortcut-desc">Click tile (3x3 numpad layout)</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Z</kbd></div>
+            <div class="shortcut-desc">Undo last move</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>N</kbd></div>
+            <div class="shortcut-desc">New puzzle</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>R</kbd></div>
+            <div class="shortcut-desc">Reset current puzzle</div>
+          </div>
+        </div>
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">General</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>?</kbd></div>
+            <div class="shortcut-desc">Show shortcuts</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Keyboard Shortcuts Hint -->
+  <div class="shortcuts-hint" id="shortcutsHint">
+    <span>Press <kbd>?</kbd> for shortcuts</span>
+  </div>
+
+  <!-- Shared Tools JavaScript -->
+  <script src="../../js/tools-common.js"></script>
+  <!-- Scripts -->
+  <script src="entanglement.js"></script>
+</body>
+</html>

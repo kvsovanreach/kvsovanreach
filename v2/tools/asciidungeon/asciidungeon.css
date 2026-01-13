@@ -1,0 +1,476 @@
+/**
+ * KVSOVANREACH ASCII Dungeon
+ * Text-based rogue-lite dungeon crawler
+ */
+
+/* Wrapper */
+.game-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+}
+
+/* Header */
+.game-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-4) var(--space-5);
+  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.game-header h2 {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-size: var(--font-size-xl);
+  font-weight: 600;
+  color: white;
+  font-family: 'Orbitron', sans-serif;
+}
+
+.game-header h2 i {
+  color: #a855f7;
+  text-shadow: 0 0 10px rgba(168, 85, 247, 0.5);
+}
+
+.game-actions {
+  display: flex;
+  gap: var(--space-2);
+}
+
+/* Content */
+.game-content {
+  padding: var(--space-5);
+  background: linear-gradient(180deg, var(--color-bg-secondary) 0%, var(--color-surface) 100%);
+}
+
+/* Stats Bar */
+.stats-bar {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-4);
+  margin-bottom: var(--space-4);
+  padding: var(--space-3) var(--space-4);
+  background-color: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  flex-wrap: wrap;
+}
+
+.stat-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--font-size-sm);
+}
+
+.stat-item i {
+  color: #a855f7;
+}
+
+.stat-item.health i {
+  color: #ef4444;
+}
+
+.stat-label {
+  color: var(--color-text-secondary);
+}
+
+.stat-value {
+  font-weight: 600;
+  color: var(--color-text);
+  font-family: 'Orbitron', sans-serif;
+}
+
+.stat-value.gold {
+  color: #fbbf24;
+}
+
+/* Health Bar */
+.health-bar {
+  width: 80px;
+  height: 12px;
+  background-color: var(--color-bg-tertiary);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+}
+
+.health-fill {
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(90deg, #ef4444, #f87171);
+  transition: width 0.3s ease;
+}
+
+/* Dungeon Container */
+.dungeon-container {
+  position: relative;
+  margin-bottom: var(--space-4);
+}
+
+.dungeon-display {
+  font-family: 'Fira Code', 'Courier New', monospace;
+  font-size: clamp(10px, 2.5vw, 16px);
+  line-height: 1.2;
+  background-color: #0a0a0a;
+  color: #888;
+  padding: var(--space-4);
+  border-radius: var(--radius-lg);
+  border: 2px solid #333;
+  overflow-x: auto;
+  overflow-y: hidden;
+  text-align: center;
+  min-height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.8);
+  white-space: pre;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* ASCII Character Colors */
+.char-player { color: #22c55e; font-weight: bold; text-shadow: 0 0 5px rgba(34, 197, 94, 0.8); }
+.char-wall { color: #555; }
+.char-floor { color: #333; }
+.char-gold { color: #fbbf24; text-shadow: 0 0 3px rgba(251, 191, 36, 0.5); }
+.char-health { color: #ef4444; text-shadow: 0 0 3px rgba(239, 68, 68, 0.5); }
+.char-enemy { color: #ef4444; font-weight: bold; }
+.char-stairs { color: #60a5fa; font-weight: bold; text-shadow: 0 0 5px rgba(96, 165, 250, 0.5); }
+
+/* Game Overlay */
+.game-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.9);
+  border-radius: var(--radius-lg);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease;
+}
+
+.game-overlay.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.overlay-content {
+  text-align: center;
+  color: white;
+  padding: var(--space-4);
+}
+
+.overlay-content h3 {
+  font-size: var(--font-size-2xl);
+  font-weight: 700;
+  font-family: 'Orbitron', sans-serif;
+  margin-bottom: var(--space-3);
+  color: #ef4444;
+}
+
+.overlay-content h3.win {
+  color: #22c55e;
+}
+
+.overlay-content p {
+  font-size: var(--font-size-base);
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-4);
+}
+
+.overlay-stats {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-4);
+  margin-bottom: var(--space-4);
+  flex-wrap: wrap;
+}
+
+.overlay-stat {
+  text-align: center;
+}
+
+.overlay-stat .label {
+  display: block;
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-1);
+}
+
+.overlay-stat .value {
+  font-size: var(--font-size-xl);
+  font-weight: 700;
+  font-family: 'Orbitron', sans-serif;
+  color: #a855f7;
+}
+
+.action-btn.primary {
+  background: linear-gradient(135deg, #a855f7, #7c3aed);
+  border-color: transparent;
+}
+
+.action-btn.primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(168, 85, 247, 0.4);
+}
+
+/* Message Log */
+.message-log {
+  max-height: 80px;
+  overflow-y: auto;
+  padding: var(--space-3);
+  background-color: #0a0a0a;
+  border: 1px solid #333;
+  border-radius: var(--radius-md);
+  margin-bottom: var(--space-4);
+  font-family: 'Fira Code', monospace;
+  font-size: var(--font-size-xs);
+}
+
+.message-log .message {
+  color: #888;
+  margin-bottom: var(--space-1);
+}
+
+.message-log .message:last-child {
+  color: #fff;
+}
+
+.message-log .message.damage {
+  color: #ef4444;
+}
+
+.message-log .message.heal {
+  color: #22c55e;
+}
+
+.message-log .message.gold {
+  color: #fbbf24;
+}
+
+.message-log .message.info {
+  color: #60a5fa;
+}
+
+/* Controls Section */
+.controls-section {
+  margin-bottom: var(--space-4);
+  text-align: center;
+}
+
+.control-buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.control-row {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.control-btn {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #1a1a1a;
+  border: 2px solid #333;
+  border-radius: var(--radius-md);
+  color: var(--color-text);
+  font-size: var(--font-size-lg);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.control-btn:hover {
+  border-color: #a855f7;
+  color: #a855f7;
+}
+
+.control-btn:active {
+  transform: scale(0.95);
+  background-color: #a855f7;
+  color: white;
+}
+
+.control-btn.wait {
+  background-color: #2d2d2d;
+}
+
+/* Legend Section */
+.legend-section {
+  margin-bottom: var(--space-4);
+  padding: var(--space-3) var(--space-4);
+  background-color: #0a0a0a;
+  border: 1px solid #333;
+  border-radius: var(--radius-lg);
+}
+
+.legend-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: var(--space-3);
+}
+
+.legend-header i {
+  color: #a855f7;
+}
+
+.legend-content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-4);
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+}
+
+.legend-char {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  line-height: 24px;
+  text-align: center;
+  font-family: 'Fira Code', monospace;
+  font-weight: bold;
+  background-color: #1a1a1a;
+  border-radius: var(--radius-sm);
+}
+
+.legend-char.player { color: #22c55e; }
+.legend-char.wall { color: #555; }
+.legend-char.floor { color: #333; }
+.legend-char.gold { color: #fbbf24; }
+.legend-char.health { color: #ef4444; }
+.legend-char.enemy { color: #ef4444; }
+.legend-char.stairs { color: #60a5fa; }
+
+/* Info Panel */
+.info-panel {
+  background-color: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.info-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-4);
+  background-color: var(--color-bg-tertiary);
+  border-bottom: 1px solid var(--color-border);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.info-header i {
+  color: #f59e0b;
+}
+
+.info-content {
+  padding: var(--space-4);
+}
+
+.info-content ol {
+  padding-left: var(--space-5);
+  margin-bottom: var(--space-3);
+}
+
+.info-content li {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-2);
+  line-height: 1.5;
+}
+
+.info-content .tip {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  padding: var(--space-3);
+  background-color: var(--color-bg-tertiary);
+  border-radius: var(--radius-md);
+  border-left: 3px solid #a855f7;
+}
+
+/* Responsive */
+@media screen and (max-width: 768px) {
+  .game-content {
+    padding: var(--space-4);
+  }
+
+  .dungeon-display {
+    font-size: 12px;
+    padding: var(--space-3);
+  }
+
+  .stats-bar {
+    gap: var(--space-2);
+  }
+
+  .stat-item {
+    font-size: var(--font-size-xs);
+  }
+
+  .health-bar {
+    width: 60px;
+  }
+
+  .control-btn {
+    width: 45px;
+    height: 45px;
+  }
+
+  .legend-content {
+    gap: var(--space-2);
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .game-header {
+    padding: var(--space-3) var(--space-4);
+  }
+
+  .game-header h2 {
+    font-size: var(--font-size-base);
+    gap: var(--space-2);
+  }
+
+  .dungeon-display {
+    font-size: 10px;
+    min-height: 200px;
+  }
+
+  .control-btn {
+    width: 40px;
+    height: 40px;
+    font-size: var(--font-size-base);
+  }
+}

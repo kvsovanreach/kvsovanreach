@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Interactive Big-O complexity cheat sheet with visual comparisons.">
+  <meta property="og:title" content="KVSOVANREACH | Big-O Cheat Sheet">
+  <meta property="og:description" content="Learn algorithm complexity visually.">
+  <meta property="og:image" content="/assets/img/pwa/ios/512.png">
+  <title>KVSOVANREACH | Big-O Cheat Sheet</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Common Tools CSS -->
+  <link rel="stylesheet" href="../../js/tools-common.css">
+  <!-- Big-O CSS -->
+  <link rel="stylesheet" href="bigocheat.css">
+</head>
+<body>
+  <!-- Skip to Content -->
+  <a href="#bigocheat" class="skip-link">Skip to Big-O Cheat Sheet</a>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">TOOLS</span>
+      </a>
+
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="tool-page">
+    <div class="container">
+      <!-- Big-O Wrapper -->
+      <div class="bigo-wrapper" id="bigocheat">
+        <!-- Header -->
+        <div class="bigo-header">
+          <h2><i class="fa-solid fa-chart-line"></i> Big-O Cheat Sheet</h2>
+        </div>
+
+        <!-- Content -->
+        <div class="bigo-content">
+          <!-- Complexity Chart -->
+          <div class="chart-section">
+            <h3>Complexity Growth Comparison</h3>
+            <div class="chart-container">
+              <canvas id="complexityChart"></canvas>
+            </div>
+            <div class="chart-controls">
+              <label>Input Size (n): <span id="nValue">50</span></label>
+              <input type="range" id="nSlider" min="10" max="100" value="50">
+            </div>
+          </div>
+
+          <!-- Complexity Cards -->
+          <div class="complexity-grid">
+            <div class="complexity-card excellent" data-complexity="O(1)">
+              <div class="card-header">
+                <span class="notation">O(1)</span>
+                <span class="badge">Excellent</span>
+              </div>
+              <h4>Constant</h4>
+              <p>Always takes the same time regardless of input size.</p>
+              <div class="examples">
+                <span>Array access</span>
+                <span>Hash lookup</span>
+                <span>Stack push/pop</span>
+              </div>
+            </div>
+
+            <div class="complexity-card excellent" data-complexity="O(log n)">
+              <div class="card-header">
+                <span class="notation">O(log n)</span>
+                <span class="badge">Excellent</span>
+              </div>
+              <h4>Logarithmic</h4>
+              <p>Cuts the problem in half each step.</p>
+              <div class="examples">
+                <span>Binary search</span>
+                <span>BST lookup</span>
+                <span>Heap operations</span>
+              </div>
+            </div>
+
+            <div class="complexity-card good" data-complexity="O(n)">
+              <div class="card-header">
+                <span class="notation">O(n)</span>
+                <span class="badge">Good</span>
+              </div>
+              <h4>Linear</h4>
+              <p>Time grows proportionally to input size.</p>
+              <div class="examples">
+                <span>Linear search</span>
+                <span>Array traversal</span>
+                <span>Finding min/max</span>
+              </div>
+            </div>
+
+            <div class="complexity-card fair" data-complexity="O(n log n)">
+              <div class="card-header">
+                <span class="notation">O(n log n)</span>
+                <span class="badge">Fair</span>
+              </div>
+              <h4>Linearithmic</h4>
+              <p>Efficient divide-and-conquer algorithms.</p>
+              <div class="examples">
+                <span>Merge sort</span>
+                <span>Quick sort</span>
+                <span>Heap sort</span>
+              </div>
+            </div>
+
+            <div class="complexity-card bad" data-complexity="O(n²)">
+              <div class="card-header">
+                <span class="notation">O(n²)</span>
+                <span class="badge">Bad</span>
+              </div>
+              <h4>Quadratic</h4>
+              <p>Nested iterations over the data.</p>
+              <div class="examples">
+                <span>Bubble sort</span>
+                <span>Selection sort</span>
+                <span>Insertion sort</span>
+              </div>
+            </div>
+
+            <div class="complexity-card horrible" data-complexity="O(2^n)">
+              <div class="card-header">
+                <span class="notation">O(2ⁿ)</span>
+                <span class="badge">Horrible</span>
+              </div>
+              <h4>Exponential</h4>
+              <p>Doubles with each addition to input.</p>
+              <div class="examples">
+                <span>Recursive Fibonacci</span>
+                <span>Power set</span>
+                <span>Traveling salesman</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Data Structures Section -->
+          <div class="ds-section">
+            <h3>Common Data Structure Operations</h3>
+            <div class="ds-table-wrapper">
+              <table class="ds-table">
+                <thead>
+                  <tr>
+                    <th>Data Structure</th>
+                    <th>Access</th>
+                    <th>Search</th>
+                    <th>Insert</th>
+                    <th>Delete</th>
+                    <th>Space</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Array</strong></td>
+                    <td class="excellent">O(1)</td>
+                    <td class="good">O(n)</td>
+                    <td class="good">O(n)</td>
+                    <td class="good">O(n)</td>
+                    <td>O(n)</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Linked List</strong></td>
+                    <td class="good">O(n)</td>
+                    <td class="good">O(n)</td>
+                    <td class="excellent">O(1)</td>
+                    <td class="excellent">O(1)</td>
+                    <td>O(n)</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Hash Table</strong></td>
+                    <td class="excellent">O(1)</td>
+                    <td class="excellent">O(1)</td>
+                    <td class="excellent">O(1)</td>
+                    <td class="excellent">O(1)</td>
+                    <td>O(n)</td>
+                  </tr>
+                  <tr>
+                    <td><strong>BST</strong></td>
+                    <td class="excellent">O(log n)</td>
+                    <td class="excellent">O(log n)</td>
+                    <td class="excellent">O(log n)</td>
+                    <td class="excellent">O(log n)</td>
+                    <td>O(n)</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Heap</strong></td>
+                    <td class="good">O(n)</td>
+                    <td class="good">O(n)</td>
+                    <td class="excellent">O(log n)</td>
+                    <td class="excellent">O(log n)</td>
+                    <td>O(n)</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Stack</strong></td>
+                    <td class="good">O(n)</td>
+                    <td class="good">O(n)</td>
+                    <td class="excellent">O(1)</td>
+                    <td class="excellent">O(1)</td>
+                    <td>O(n)</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Queue</strong></td>
+                    <td class="good">O(n)</td>
+                    <td class="good">O(n)</td>
+                    <td class="excellent">O(1)</td>
+                    <td class="excellent">O(1)</td>
+                    <td>O(n)</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Sorting Algorithms Section -->
+          <div class="sort-section">
+            <h3>Sorting Algorithm Complexities</h3>
+            <div class="sort-table-wrapper">
+              <table class="sort-table">
+                <thead>
+                  <tr>
+                    <th>Algorithm</th>
+                    <th>Best</th>
+                    <th>Average</th>
+                    <th>Worst</th>
+                    <th>Space</th>
+                    <th>Stable</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Bubble Sort</strong></td>
+                    <td class="good">O(n)</td>
+                    <td class="bad">O(n²)</td>
+                    <td class="bad">O(n²)</td>
+                    <td class="excellent">O(1)</td>
+                    <td>✓</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Selection Sort</strong></td>
+                    <td class="bad">O(n²)</td>
+                    <td class="bad">O(n²)</td>
+                    <td class="bad">O(n²)</td>
+                    <td class="excellent">O(1)</td>
+                    <td>✗</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Insertion Sort</strong></td>
+                    <td class="good">O(n)</td>
+                    <td class="bad">O(n²)</td>
+                    <td class="bad">O(n²)</td>
+                    <td class="excellent">O(1)</td>
+                    <td>✓</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Merge Sort</strong></td>
+                    <td class="fair">O(n log n)</td>
+                    <td class="fair">O(n log n)</td>
+                    <td class="fair">O(n log n)</td>
+                    <td class="good">O(n)</td>
+                    <td>✓</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Quick Sort</strong></td>
+                    <td class="fair">O(n log n)</td>
+                    <td class="fair">O(n log n)</td>
+                    <td class="bad">O(n²)</td>
+                    <td class="excellent">O(log n)</td>
+                    <td>✗</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Heap Sort</strong></td>
+                    <td class="fair">O(n log n)</td>
+                    <td class="fair">O(n log n)</td>
+                    <td class="fair">O(n log n)</td>
+                    <td class="excellent">O(1)</td>
+                    <td>✗</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Quick Reference -->
+          <div class="reference-section">
+            <h3>Quick Reference</h3>
+            <div class="reference-grid">
+              <div class="reference-item">
+                <span class="ref-badge excellent">O(1)</span>
+                <span>Constant - <em>Best possible</em></span>
+              </div>
+              <div class="reference-item">
+                <span class="ref-badge excellent">O(log n)</span>
+                <span>Logarithmic - <em>Very efficient</em></span>
+              </div>
+              <div class="reference-item">
+                <span class="ref-badge good">O(n)</span>
+                <span>Linear - <em>Generally acceptable</em></span>
+              </div>
+              <div class="reference-item">
+                <span class="ref-badge fair">O(n log n)</span>
+                <span>Linearithmic - <em>Optimal for comparison sorts</em></span>
+              </div>
+              <div class="reference-item">
+                <span class="ref-badge bad">O(n²)</span>
+                <span>Quadratic - <em>Avoid for large n</em></span>
+              </div>
+              <div class="reference-item">
+                <span class="ref-badge horrible">O(2ⁿ)</span>
+                <span>Exponential - <em>Only for small n</em></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach. All rights reserved.</p>
+        <p class="footer-made">Made with 💗 and Claude Code xD</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Keyboard Shortcuts Modal -->
+  <div class="shortcuts-modal" id="shortcutsModal">
+    <div class="shortcuts-content">
+      <div class="shortcuts-header">
+        <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
+        <button class="close-shortcuts-btn" id="closeShortcutsBtn" aria-label="Close shortcuts">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="shortcuts-body">
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">General</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>?</kbd></div>
+            <div class="shortcut-desc">Show shortcuts</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Keyboard Shortcuts Hint -->
+  <div class="shortcuts-hint" id="shortcutsHint">
+    <span>Press <kbd>?</kbd> for shortcuts</span>
+  </div>
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- Shared Tools JavaScript -->
+  <script src="../../js/tools-common.js"></script>
+  <!-- Scripts -->
+  <script src="bigocheat.js"></script>
+</body>
+</html>

@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Test your memory with this classic card matching game.">
+  <meta property="og:title" content="KVSOVANREACH | Memory Match">
+  <meta property="og:description" content="Classic memory card matching game.">
+  <meta property="og:image" content="/assets/img/pwa/ios/512.png">
+  <title>KVSOVANREACH | Memory Match</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Common Tools CSS -->
+  <link rel="stylesheet" href="../../js/tools-common.css">
+  <!-- Memory Match CSS -->
+  <link rel="stylesheet" href="memorymatch.css">
+</head>
+<body>
+  <!-- Skip to Content -->
+  <a href="#memorymatch" class="skip-link">Skip to Memory Match</a>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">TOOLS</span>
+      </a>
+
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="tool-page">
+    <div class="container">
+      <!-- Memory Match Wrapper -->
+      <div class="memory-wrapper" id="memorymatch">
+        <!-- Header -->
+        <div class="memory-header">
+          <h2><i class="fa-solid fa-brain"></i> Memory Match</h2>
+          <div class="memory-actions">
+            <button class="action-btn" id="newGameBtn" title="New Game" aria-label="New Game">
+              <i class="fa-solid fa-rotate"></i>
+              <span>New Game</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Content -->
+        <div class="memory-content">
+          <!-- Settings -->
+          <div class="settings-section">
+            <div class="setting-group">
+              <label>Grid Size</label>
+              <div class="size-buttons">
+                <button class="size-btn" data-size="4">4×4</button>
+                <button class="size-btn active" data-size="6">4×6</button>
+                <button class="size-btn" data-size="8">4×8</button>
+              </div>
+            </div>
+            <div class="setting-group">
+              <label>Theme</label>
+              <select id="themeSelect">
+                <option value="emoji">Emoji</option>
+                <option value="animals">Animals</option>
+                <option value="food">Food</option>
+                <option value="sports">Sports</option>
+                <option value="numbers">Numbers</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Stats Bar -->
+          <div class="stats-bar">
+            <div class="stat-item">
+              <i class="fa-solid fa-hand-pointer"></i>
+              <span class="stat-label">Moves</span>
+              <span class="stat-value" id="movesDisplay">0</span>
+            </div>
+            <div class="stat-item">
+              <i class="fa-solid fa-check-double"></i>
+              <span class="stat-label">Matches</span>
+              <span class="stat-value" id="matchesDisplay">0/0</span>
+            </div>
+            <div class="stat-item timer">
+              <i class="fa-solid fa-clock"></i>
+              <span class="stat-label">Time</span>
+              <span class="stat-value" id="timerDisplay">0:00</span>
+            </div>
+            <div class="stat-item">
+              <i class="fa-solid fa-trophy"></i>
+              <span class="stat-label">Best</span>
+              <span class="stat-value" id="bestDisplay">--</span>
+            </div>
+          </div>
+
+          <!-- Game Board -->
+          <div class="game-board" id="gameBoard">
+            <!-- Cards will be generated here -->
+          </div>
+
+          <!-- Victory Section -->
+          <div class="victory-section hidden" id="victorySection">
+            <div class="victory-card">
+              <h3><i class="fa-solid fa-trophy"></i> Congratulations!</h3>
+              <div class="victory-stats">
+                <div class="victory-stat">
+                  <span class="victory-value" id="finalMoves">0</span>
+                  <span class="victory-label">Moves</span>
+                </div>
+                <div class="victory-stat">
+                  <span class="victory-value" id="finalTime">0:00</span>
+                  <span class="victory-label">Time</span>
+                </div>
+                <div class="victory-stat">
+                  <span class="victory-value" id="finalScore">0</span>
+                  <span class="victory-label">Score</span>
+                </div>
+              </div>
+              <button class="action-btn primary" id="playAgainBtn">
+                <i class="fa-solid fa-rotate"></i>
+                <span>Play Again</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Info Panel -->
+          <div class="info-panel">
+            <div class="info-header">
+              <i class="fa-solid fa-circle-info"></i>
+              <span>How to Play</span>
+            </div>
+            <div class="info-content">
+              <ul>
+                <li>Click cards to flip them over</li>
+                <li>Find matching pairs of cards</li>
+                <li>Match all pairs to win the game</li>
+                <li>Try to complete with fewer moves and less time!</li>
+              </ul>
+              <p class="tip"><strong>Tip:</strong> Focus on remembering card positions. Try to match in as few moves as possible!</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach. All rights reserved.</p>
+        <p class="footer-made">Made with 💗 and Claude Code xD</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Keyboard Shortcuts Modal -->
+  <div class="shortcuts-modal" id="shortcutsModal">
+    <div class="shortcuts-content">
+      <div class="shortcuts-header">
+        <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
+        <button class="close-shortcuts-btn" id="closeShortcutsBtn" aria-label="Close shortcuts">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="shortcuts-body">
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">Actions</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>N</kbd></div>
+            <div class="shortcut-desc">New game</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>R</kbd></div>
+            <div class="shortcut-desc">Restart game</div>
+          </div>
+        </div>
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">General</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>?</kbd></div>
+            <div class="shortcut-desc">Show shortcuts</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Keyboard Shortcuts Hint -->
+  <div class="shortcuts-hint" id="shortcutsHint">
+    <span>Press <kbd>?</kbd> for shortcuts</span>
+  </div>
+
+  <!-- Shared Tools JavaScript -->
+  <script src="../../js/tools-common.js"></script>
+  <!-- Scripts -->
+  <script src="memorymatch.js"></script>
+</body>
+</html>

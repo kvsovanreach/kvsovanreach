@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Remove tracking parameters from URLs like utm_*, fbclid, gclid and more.">
+  <meta property="og:title" content="KVSOVANREACH | URL Cleaner">
+  <meta property="og:description" content="Clean URLs by removing tracking parameters.">
+  <meta property="og:image" content="/assets/img/pwa/ios/512.png">
+  <title>KVSOVANREACH | URL Cleaner</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Common Tools CSS -->
+  <link rel="stylesheet" href="../../js/tools-common.css">
+  <!-- URL Cleaner CSS -->
+  <link rel="stylesheet" href="urlcleaner.css">
+</head>
+<body>
+  <!-- Skip to Content -->
+  <a href="#urlcleaner" class="skip-link">Skip to URL Cleaner</a>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">TOOLS</span>
+      </a>
+
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="tool-page">
+    <div class="container">
+      <!-- URL Cleaner Wrapper -->
+      <div class="cleaner-wrapper" id="urlcleaner">
+        <!-- Header -->
+        <div class="cleaner-header">
+          <h2><i class="fa-solid fa-broom"></i> URL Cleaner</h2>
+          <div class="cleaner-actions">
+            <button class="action-btn" id="clearBtn" title="Clear" aria-label="Clear">
+              <i class="fa-solid fa-trash"></i>
+              <span>Clear</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Content -->
+        <div class="cleaner-content">
+          <!-- Input Section -->
+          <div class="input-section">
+            <label for="urlInput">Paste URL with tracking parameters</label>
+            <div class="input-wrapper">
+              <input type="text" id="urlInput" placeholder="https://example.com/?utm_source=...&fbclid=..." autocomplete="off" spellcheck="false">
+              <button class="action-btn" id="pasteBtn" title="Paste" aria-label="Paste">
+                <i class="fa-solid fa-paste"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Result Section -->
+          <div class="result-section hidden" id="resultSection">
+            <div class="result-header">
+              <h3><i class="fa-solid fa-check-circle"></i> Cleaned URL</h3>
+            </div>
+            <div class="result-url">
+              <code id="cleanedUrl"></code>
+              <button class="action-btn primary" id="copyBtn" title="Copy" aria-label="Copy">
+                <i class="fa-solid fa-copy"></i>
+                <span>Copy</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Removed Parameters -->
+          <div class="removed-section hidden" id="removedSection">
+            <h3><i class="fa-solid fa-filter-circle-xmark"></i> Removed Parameters</h3>
+            <div class="removed-list" id="removedList"></div>
+          </div>
+
+          <!-- Kept Parameters -->
+          <div class="kept-section hidden" id="keptSection">
+            <h3><i class="fa-solid fa-filter"></i> Kept Parameters</h3>
+            <div class="kept-list" id="keptList"></div>
+          </div>
+
+          <!-- Filter Options -->
+          <div class="filters-section">
+            <h3><i class="fa-solid fa-sliders"></i> Tracking Parameters to Remove</h3>
+            <div class="filters-grid" id="filtersGrid">
+              <!-- Filters will be generated here -->
+            </div>
+          </div>
+
+          <!-- Info Panel -->
+          <div class="info-panel">
+            <div class="info-header">
+              <i class="fa-solid fa-circle-info"></i>
+              <span>About Tracking Parameters</span>
+            </div>
+            <div class="info-content">
+              <p>Tracking parameters are added to URLs by various services to track where visitors come from:</p>
+              <ul>
+                <li><strong>utm_*</strong> - Google Analytics campaign tracking</li>
+                <li><strong>fbclid</strong> - Facebook click identifier</li>
+                <li><strong>gclid</strong> - Google Ads click identifier</li>
+                <li><strong>ref</strong> - Referral source tracking</li>
+              </ul>
+              <p class="tip"><strong>Privacy tip:</strong> Removing these parameters helps protect your privacy when sharing links.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach. All rights reserved.</p>
+        <p class="footer-made">Made with 💗 and Claude Code xD</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Keyboard Shortcuts Modal -->
+  <div class="shortcuts-modal" id="shortcutsModal">
+    <div class="shortcuts-content">
+      <div class="shortcuts-header">
+        <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
+        <button class="close-shortcuts-btn" id="closeShortcutsBtn" aria-label="Close shortcuts">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="shortcuts-body">
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">Actions</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Ctrl</kbd><span class="key-plus">+</span><kbd>V</kbd></div>
+            <div class="shortcut-desc">Paste URL</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Ctrl</kbd><span class="key-plus">+</span><kbd>C</kbd></div>
+            <div class="shortcut-desc">Copy cleaned URL</div>
+          </div>
+        </div>
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">General</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>?</kbd></div>
+            <div class="shortcut-desc">Show shortcuts</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Keyboard Shortcuts Hint -->
+  <div class="shortcuts-hint" id="shortcutsHint">
+    <span>Press <kbd>?</kbd> for shortcuts</span>
+  </div>
+
+  <!-- Shared Tools JavaScript -->
+  <script src="../../js/tools-common.js"></script>
+  <!-- Scripts -->
+  <script src="urlcleaner.js"></script>
+</body>
+</html>

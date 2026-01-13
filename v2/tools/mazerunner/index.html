@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Navigate through a 3D maze using CSS transforms. Can you find the exit?">
+  <meta property="og:title" content="KVSOVANREACH | Maze Runner">
+  <meta property="og:description" content="CSS 3D maze navigation game.">
+  <meta property="og:image" content="/assets/img/pwa/ios/512.png">
+  <title>KVSOVANREACH | Maze Runner</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Orbitron:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Common Tools CSS -->
+  <link rel="stylesheet" href="../../js/tools-common.css">
+  <!-- Maze Runner CSS -->
+  <link rel="stylesheet" href="mazerunner.css">
+</head>
+<body>
+  <!-- Skip to Content -->
+  <a href="#mazerunner" class="skip-link">Skip to Maze Runner</a>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">GAMES</span>
+      </a>
+
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="tool-page">
+    <div class="container">
+      <!-- Game Wrapper -->
+      <div class="game-wrapper" id="mazerunner">
+        <!-- Header -->
+        <div class="game-header">
+          <h2><i class="fa-solid fa-cube"></i> Maze Runner</h2>
+          <div class="game-actions">
+            <button class="action-btn" id="newMazeBtn" title="New maze">
+              <i class="fa-solid fa-shuffle"></i>
+              <span>New Maze</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Game Content -->
+        <div class="game-content">
+          <!-- Stats Bar -->
+          <div class="stats-bar">
+            <div class="stat-item">
+              <i class="fa-solid fa-layer-group"></i>
+              <span class="stat-label">Level</span>
+              <span class="stat-value" id="levelDisplay">1</span>
+            </div>
+            <div class="stat-item">
+              <i class="fa-solid fa-shoe-prints"></i>
+              <span class="stat-label">Steps</span>
+              <span class="stat-value" id="stepsDisplay">0</span>
+            </div>
+            <div class="stat-item">
+              <i class="fa-solid fa-clock"></i>
+              <span class="stat-label">Time</span>
+              <span class="stat-value" id="timeDisplay">0:00</span>
+            </div>
+            <div class="stat-item">
+              <i class="fa-solid fa-trophy"></i>
+              <span class="stat-label">Best</span>
+              <span class="stat-value highlight" id="bestDisplay">--</span>
+            </div>
+          </div>
+
+          <!-- View Toggle -->
+          <div class="view-toggle">
+            <button class="view-btn active" data-view="3d">
+              <i class="fa-solid fa-cube"></i>
+              3D View
+            </button>
+            <button class="view-btn" data-view="map">
+              <i class="fa-solid fa-map"></i>
+              Map View
+            </button>
+          </div>
+
+          <!-- Game Container -->
+          <div class="maze-container">
+            <!-- 3D View -->
+            <div class="maze-viewport" id="mazeViewport">
+              <div class="maze-scene" id="mazeScene">
+                <!-- Maze walls will be generated here -->
+              </div>
+              <div class="player-indicator">
+                <i class="fa-solid fa-user"></i>
+              </div>
+            </div>
+
+            <!-- Map View -->
+            <div class="minimap" id="minimap">
+              <!-- Minimap will be generated here -->
+            </div>
+
+            <!-- Win Overlay -->
+            <div class="win-overlay" id="winOverlay">
+              <div class="win-content">
+                <i class="fa-solid fa-flag-checkered"></i>
+                <h3>Maze Complete!</h3>
+                <p>Time: <span id="winTime">0:00</span> | Steps: <span id="winSteps">0</span></p>
+                <button class="action-btn primary" id="nextLevelBtn">
+                  <i class="fa-solid fa-arrow-right"></i>
+                  <span>Next Level</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Controls -->
+          <div class="controls-section">
+            <div class="control-buttons">
+              <button class="control-btn" data-dir="forward" title="Move forward">
+                <i class="fa-solid fa-arrow-up"></i>
+              </button>
+              <div class="control-row">
+                <button class="control-btn" data-dir="left" title="Turn left">
+                  <i class="fa-solid fa-arrow-rotate-left"></i>
+                </button>
+                <button class="control-btn" data-dir="backward" title="Move backward">
+                  <i class="fa-solid fa-arrow-down"></i>
+                </button>
+                <button class="control-btn" data-dir="right" title="Turn right">
+                  <i class="fa-solid fa-arrow-rotate-right"></i>
+                </button>
+              </div>
+            </div>
+            <div class="controls-hint">
+              Use <kbd>Arrow Keys</kbd> or <kbd>WASD</kbd> to navigate
+            </div>
+          </div>
+
+          <!-- Info Panel -->
+          <div class="info-panel">
+            <div class="info-header">
+              <i class="fa-solid fa-lightbulb"></i>
+              <span>How to Play</span>
+            </div>
+            <div class="info-content">
+              <ol>
+                <li>Navigate through the 3D maze to find the <strong>green exit</strong></li>
+                <li>Use arrow keys or WASD to move and turn</li>
+                <li>Switch to <strong>Map View</strong> to see the maze layout</li>
+                <li>Try to complete in the <strong>fewest steps</strong>!</li>
+              </ol>
+              <p class="tip"><strong>Tip:</strong> Keep track of where you've been. Dead ends are marked - use the map when stuck!</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach. All rights reserved.</p>
+        <p class="footer-made">Made with 💗 and Claude Code xD</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Keyboard Shortcuts Modal -->
+  <div class="shortcuts-modal" id="shortcutsModal">
+    <div class="shortcuts-content">
+      <div class="shortcuts-header">
+        <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
+        <button class="close-shortcuts-btn" id="closeShortcutsBtn" aria-label="Close shortcuts">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="shortcuts-body">
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">Movement</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>W</kbd> / <kbd>Up</kbd></div>
+            <div class="shortcut-desc">Move forward</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>S</kbd> / <kbd>Down</kbd></div>
+            <div class="shortcut-desc">Move backward</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>A</kbd> / <kbd>Left</kbd></div>
+            <div class="shortcut-desc">Turn left</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>D</kbd> / <kbd>Right</kbd></div>
+            <div class="shortcut-desc">Turn right</div>
+          </div>
+        </div>
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">General</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>M</kbd></div>
+            <div class="shortcut-desc">Toggle map view</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>N</kbd></div>
+            <div class="shortcut-desc">New maze</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>?</kbd></div>
+            <div class="shortcut-desc">Show shortcuts</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Keyboard Shortcuts Hint -->
+  <div class="shortcuts-hint" id="shortcutsHint">
+    <span>Press <kbd>?</kbd> for shortcuts</span>
+  </div>
+
+  <!-- Shared Tools JavaScript -->
+  <script src="../../js/tools-common.js"></script>
+  <!-- Scripts -->
+  <script src="mazerunner.js"></script>
+</body>
+</html>

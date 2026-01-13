@@ -1,0 +1,307 @@
+/**
+ * KVSOVANREACH Big-O Cheat Sheet
+ * Interactive complexity reference
+ */
+
+/* Wrapper */
+.bigo-wrapper {
+  max-width: 1000px;
+  margin: 0 auto;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+}
+
+/* Header */
+.bigo-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-4) var(--space-5);
+  background-color: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.bigo-header h2 {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-size: var(--font-size-xl);
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.bigo-header h2 i {
+  color: var(--color-primary);
+}
+
+/* Content */
+.bigo-content {
+  padding: var(--space-5);
+}
+
+.bigo-content h3 {
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: var(--space-4);
+}
+
+/* Chart Section */
+.chart-section {
+  margin-bottom: var(--space-5);
+  padding: var(--space-4);
+  background-color: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+}
+
+.chart-container {
+  height: 300px;
+  margin-bottom: var(--space-4);
+}
+
+.chart-controls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.chart-controls label {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+}
+
+.chart-controls input[type="range"] {
+  width: 300px;
+  max-width: 100%;
+}
+
+/* Complexity Grid */
+.complexity-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-4);
+  margin-bottom: var(--space-5);
+}
+
+/* Complexity Card */
+.complexity-card {
+  padding: var(--space-4);
+  background-color: var(--color-bg-secondary);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.complexity-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.complexity-card.excellent { border-left-color: #22c55e; }
+.complexity-card.good { border-left-color: #84cc16; }
+.complexity-card.fair { border-left-color: #f59e0b; }
+.complexity-card.bad { border-left-color: #f97316; }
+.complexity-card.horrible { border-left-color: #ef4444; }
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-2);
+}
+
+.notation {
+  font-family: 'Fira Code', monospace;
+  font-size: var(--font-size-lg);
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
+.badge {
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+}
+
+.complexity-card.excellent .badge { background-color: rgba(34, 197, 94, 0.15); color: #22c55e; }
+.complexity-card.good .badge { background-color: rgba(132, 204, 22, 0.15); color: #84cc16; }
+.complexity-card.fair .badge { background-color: rgba(245, 158, 11, 0.15); color: #f59e0b; }
+.complexity-card.bad .badge { background-color: rgba(249, 115, 22, 0.15); color: #f97316; }
+.complexity-card.horrible .badge { background-color: rgba(239, 68, 68, 0.15); color: #ef4444; }
+
+.complexity-card h4 {
+  font-size: var(--font-size-base);
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: var(--space-1);
+}
+
+.complexity-card p {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-3);
+}
+
+.examples {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+}
+
+.examples span {
+  padding: var(--space-1) var(--space-2);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+}
+
+/* Tables */
+.ds-section,
+.sort-section {
+  margin-bottom: var(--space-5);
+}
+
+.ds-table-wrapper,
+.sort-table-wrapper {
+  overflow-x: auto;
+}
+
+.ds-table,
+.sort-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+}
+
+.ds-table th,
+.ds-table td,
+.sort-table th,
+.sort-table td {
+  padding: var(--space-3) var(--space-4);
+  text-align: center;
+  border-bottom: 1px solid var(--color-border);
+  font-size: var(--font-size-sm);
+}
+
+.ds-table th,
+.sort-table th {
+  background-color: var(--color-bg-tertiary);
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.ds-table td:first-child,
+.sort-table td:first-child {
+  text-align: left;
+}
+
+.ds-table td.excellent,
+.sort-table td.excellent {
+  color: #22c55e;
+  font-weight: 600;
+}
+
+.ds-table td.good,
+.sort-table td.good {
+  color: #84cc16;
+}
+
+.ds-table td.fair,
+.sort-table td.fair {
+  color: #f59e0b;
+}
+
+.ds-table td.bad,
+.sort-table td.bad {
+  color: #f97316;
+}
+
+/* Reference Section */
+.reference-section {
+  margin-bottom: var(--space-4);
+}
+
+.reference-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-3);
+}
+
+.reference-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3);
+  background-color: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+.ref-badge {
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-sm);
+  font-family: 'Fira Code', monospace;
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  min-width: 80px;
+  text-align: center;
+}
+
+.ref-badge.excellent { background-color: rgba(34, 197, 94, 0.15); color: #22c55e; }
+.ref-badge.good { background-color: rgba(132, 204, 22, 0.15); color: #84cc16; }
+.ref-badge.fair { background-color: rgba(245, 158, 11, 0.15); color: #f59e0b; }
+.ref-badge.bad { background-color: rgba(249, 115, 22, 0.15); color: #f97316; }
+.ref-badge.horrible { background-color: rgba(239, 68, 68, 0.15); color: #ef4444; }
+
+.reference-item span:last-child {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+}
+
+.reference-item em {
+  color: var(--color-text-muted);
+}
+
+/* Responsive */
+@media screen and (max-width: 768px) {
+  .complexity-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .reference-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .chart-container {
+    height: 250px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .bigo-content {
+    padding: var(--space-4);
+  }
+
+  .complexity-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ds-table th,
+  .ds-table td,
+  .sort-table th,
+  .sort-table td {
+    padding: var(--space-2);
+    font-size: var(--font-size-xs);
+  }
+}

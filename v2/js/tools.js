@@ -24,7 +24,11 @@
     navToggle: document.getElementById('nav-toggle'),
     navClose: document.getElementById('nav-close'),
     navMenu: document.getElementById('nav-menu'),
-    currentYear: document.getElementById('current-year')
+    currentYear: document.getElementById('current-year'),
+    aboutLink: document.getElementById('about-link'),
+    aboutModal: document.getElementById('about-modal'),
+    aboutOverlay: document.getElementById('about-overlay'),
+    aboutClose: document.getElementById('about-close')
   };
 
   // ==================== URL Management ====================
@@ -37,7 +41,7 @@
 
       // Read category
       const category = params.get('category');
-      if (category && ['all', 'general', 'developer', 'ai'].includes(category)) {
+      if (category && ['all', 'general', 'developer', 'ai', 'fun'].includes(category)) {
         currentCategory = category;
       }
 
@@ -268,11 +272,18 @@
         URLManager.updateURL(true); // Replace to fix invalid page
       }
 
-      let html = '';
+      let html = '<div class="pagination-buttons">';
 
-      // Previous button
+      // First button (<<)
       html += `
-        <button class="pagination-btn" ${currentPage === 1 ? 'disabled' : ''} data-page="${currentPage - 1}">
+        <button class="pagination-btn" ${currentPage === 1 ? 'disabled' : ''} data-page="1" title="First page">
+          <i class="fa-solid fa-angles-left"></i>
+        </button>
+      `;
+
+      // Previous button (<)
+      html += `
+        <button class="pagination-btn" ${currentPage === 1 ? 'disabled' : ''} data-page="${currentPage - 1}" title="Previous page">
           <i class="fa-solid fa-chevron-left"></i>
         </button>
       `;
@@ -280,22 +291,36 @@
       // Page numbers
       const pages = this.getPageNumbers(totalPages);
       pages.forEach(page => {
-        if (page === '...') {
-          html += '<span class="pagination-ellipsis">...</span>';
-        } else {
-          html += `
-            <button class="pagination-btn ${page === currentPage ? 'active' : ''}" data-page="${page}">
-              ${page}
-            </button>
-          `;
-        }
+        html += `
+          <button class="pagination-btn ${page === currentPage ? 'active' : ''}" data-page="${page}">
+            ${page}
+          </button>
+        `;
       });
 
-      // Next button
+      // Next button (>)
       html += `
-        <button class="pagination-btn" ${currentPage === totalPages ? 'disabled' : ''} data-page="${currentPage + 1}">
+        <button class="pagination-btn" ${currentPage === totalPages ? 'disabled' : ''} data-page="${currentPage + 1}" title="Next page">
           <i class="fa-solid fa-chevron-right"></i>
         </button>
+      `;
+
+      // Last button (>>)
+      html += `
+        <button class="pagination-btn" ${currentPage === totalPages ? 'disabled' : ''} data-page="${totalPages}" title="Last page">
+          <i class="fa-solid fa-angles-right"></i>
+        </button>
+      `;
+
+      html += '</div>';
+
+      // Pagination info
+      const startItem = (currentPage - 1) * itemsPerPage + 1;
+      const endItem = Math.min(currentPage * itemsPerPage, totalItems);
+      html += `
+        <div class="pagination-info">
+          Showing ${startItem}-${endItem} of ${totalItems} tools · Page ${currentPage} of ${totalPages}
+        </div>
       `;
 
       elements.pagination.innerHTML = html;
@@ -314,26 +339,36 @@
 
     getPageNumbers(totalPages) {
       const pages = [];
-      const showPages = 5; // Max visible page numbers
+      // Use 3 pages on mobile, 5 on desktop
+      const isMobile = window.innerWidth < 640;
+      const windowSize = isMobile ? 3 : 5;
+      const offset = Math.floor(windowSize / 2);
 
-      if (totalPages <= showPages + 2) {
-        // Show all pages
+      if (totalPages <= windowSize) {
+        // Show all pages if total is within window size
         for (let i = 1; i <= totalPages; i++) {
           pages.push(i);
         }
       } else {
-        // Always show first page
-        pages.push(1);
+        // Calculate window with current page in the middle
+        let start = currentPage - offset;
+        let end = currentPage + offset;
 
-        if (currentPage <= 3) {
-          // Near start
-          pages.push(2, 3, 4, '...', totalPages);
-        } else if (currentPage >= totalPages - 2) {
-          // Near end
-          pages.push('...', totalPages - 3, totalPages - 2, totalPages - 1, totalPages);
-        } else {
-          // Middle
-          pages.push('...', currentPage - 1, currentPage, currentPage + 1, '...', totalPages);
+        // Adjust if at the beginning
+        if (start < 1) {
+          start = 1;
+          end = windowSize;
+        }
+
+        // Adjust if at the end
+        if (end > totalPages) {
+          end = totalPages;
+          start = totalPages - windowSize + 1;
+        }
+
+        // Generate page numbers
+        for (let i = start; i <= end; i++) {
+          pages.push(i);
         }
       }
 
@@ -403,6 +438,43 @@
     }
   };
 
+  // ==================== About Modal ====================
+  const AboutModal = {
+    scrollPosition: 0,
+
+    init() {
+      elements.aboutLink?.addEventListener('click', (e) => {
+        e.preventDefault();
+        this.open();
+        Navigation.closeMenu();
+      });
+
+      elements.aboutClose?.addEventListener('click', () => this.close());
+      elements.aboutOverlay?.addEventListener('click', () => this.close());
+
+      // Close on Escape key
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && elements.aboutModal?.classList.contains('active')) {
+          this.close();
+        }
+      });
+    },
+
+    open() {
+      this.scrollPosition = window.scrollY;
+      document.body.classList.add('modal-open');
+      document.body.style.top = `-${this.scrollPosition}px`;
+      elements.aboutModal?.classList.add('active');
+    },
+
+    close() {
+      elements.aboutModal?.classList.remove('active');
+      document.body.classList.remove('modal-open');
+      document.body.style.top = '';
+      window.scrollTo(0, this.scrollPosition);
+    }
+  };
+
   // ==================== Category Counts ====================
   const CategoryCounts = {
     init() {
@@ -410,7 +482,8 @@
         all: toolsData.length,
         general: toolsData.filter(t => t.category === 'general').length,
         developer: toolsData.filter(t => t.category === 'developer').length,
-        ai: toolsData.filter(t => t.category === 'ai').length
+        ai: toolsData.filter(t => t.category === 'ai').length,
+        fun: toolsData.filter(t => t.category === 'fun').length
       };
 
       elements.navLinks.forEach(link => {
@@ -441,6 +514,7 @@
     Navigation.init();
     Search.init();
     CategoryCounts.init();
+    AboutModal.init();
 
     // Initial render
     ToolsRenderer.render();

@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Visualize sorting algorithms step by step.">
+  <meta property="og:title" content="KVSOVANREACH | Algorithm Visualizer">
+  <meta property="og:description" content="Watch sorting algorithms in action.">
+  <meta property="og:image" content="/assets/img/pwa/ios/512.png">
+  <title>KVSOVANREACH | Algorithm Visualizer</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Common Tools CSS -->
+  <link rel="stylesheet" href="../../js/tools-common.css">
+  <!-- Algorithm Visualizer CSS -->
+  <link rel="stylesheet" href="algorithmviz.css">
+</head>
+<body>
+  <!-- Skip to Content -->
+  <a href="#algorithmviz" class="skip-link">Skip to Algorithm Visualizer</a>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">TOOLS</span>
+      </a>
+
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="tool-page">
+    <div class="container">
+      <!-- Algorithm Visualizer Wrapper -->
+      <div class="algo-wrapper" id="algorithmviz">
+        <!-- Header -->
+        <div class="algo-header">
+          <h2><i class="fa-solid fa-chart-bar"></i> Algorithm Visualizer</h2>
+          <div class="algo-actions">
+            <button class="action-btn" id="shuffleBtn" title="Shuffle" aria-label="Shuffle">
+              <i class="fa-solid fa-shuffle"></i>
+              <span>Shuffle</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Content -->
+        <div class="algo-content">
+          <!-- Controls -->
+          <div class="controls-section">
+            <div class="control-group">
+              <label>Algorithm</label>
+              <select id="algorithmSelect">
+                <option value="bubble">Bubble Sort</option>
+                <option value="selection">Selection Sort</option>
+                <option value="insertion">Insertion Sort</option>
+                <option value="merge">Merge Sort</option>
+                <option value="quick">Quick Sort</option>
+                <option value="heap">Heap Sort</option>
+              </select>
+            </div>
+            <div class="control-group">
+              <label>Array Size: <span id="sizeValue">30</span></label>
+              <input type="range" id="sizeSlider" min="10" max="100" value="30">
+            </div>
+            <div class="control-group">
+              <label>Speed: <span id="speedValue">50</span>ms</label>
+              <input type="range" id="speedSlider" min="1" max="200" value="50">
+            </div>
+          </div>
+
+          <!-- Visualization Area -->
+          <div class="viz-container">
+            <div class="viz-bars" id="vizBars">
+              <!-- Bars will be generated here -->
+            </div>
+          </div>
+
+          <!-- Playback Controls -->
+          <div class="playback-section">
+            <button class="playback-btn" id="prevBtn" disabled>
+              <i class="fa-solid fa-backward-step"></i>
+            </button>
+            <button class="playback-btn primary" id="playBtn">
+              <i class="fa-solid fa-play"></i>
+            </button>
+            <button class="playback-btn" id="nextBtn" disabled>
+              <i class="fa-solid fa-forward-step"></i>
+            </button>
+          </div>
+
+          <!-- Stats Bar -->
+          <div class="stats-bar">
+            <div class="stat-item">
+              <span class="stat-label">Comparisons</span>
+              <span class="stat-value" id="comparisonsDisplay">0</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">Swaps</span>
+              <span class="stat-value" id="swapsDisplay">0</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">Step</span>
+              <span class="stat-value" id="stepDisplay">0/0</span>
+            </div>
+          </div>
+
+          <!-- Algorithm Info -->
+          <div class="algo-info" id="algoInfo">
+            <div class="info-header">
+              <i class="fa-solid fa-circle-info"></i>
+              <span id="algoName">Bubble Sort</span>
+            </div>
+            <div class="info-content">
+              <div class="complexity-grid">
+                <div class="complexity-item">
+                  <span class="complexity-label">Time (Best)</span>
+                  <span class="complexity-value" id="timeBest">O(n)</span>
+                </div>
+                <div class="complexity-item">
+                  <span class="complexity-label">Time (Avg)</span>
+                  <span class="complexity-value" id="timeAvg">O(n²)</span>
+                </div>
+                <div class="complexity-item">
+                  <span class="complexity-label">Time (Worst)</span>
+                  <span class="complexity-value" id="timeWorst">O(n²)</span>
+                </div>
+                <div class="complexity-item">
+                  <span class="complexity-label">Space</span>
+                  <span class="complexity-value" id="space">O(1)</span>
+                </div>
+              </div>
+              <p class="algo-desc" id="algoDesc">Repeatedly steps through the list, compares adjacent elements and swaps them if they are in the wrong order.</p>
+            </div>
+          </div>
+
+          <!-- Legend -->
+          <div class="legend">
+            <div class="legend-item">
+              <span class="legend-color comparing"></span>
+              <span>Comparing</span>
+            </div>
+            <div class="legend-item">
+              <span class="legend-color swapping"></span>
+              <span>Swapping</span>
+            </div>
+            <div class="legend-item">
+              <span class="legend-color sorted"></span>
+              <span>Sorted</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach. All rights reserved.</p>
+        <p class="footer-made">Made with 💗 and Claude Code xD</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Keyboard Shortcuts Modal -->
+  <div class="shortcuts-modal" id="shortcutsModal">
+    <div class="shortcuts-content">
+      <div class="shortcuts-header">
+        <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
+        <button class="close-shortcuts-btn" id="closeShortcutsBtn" aria-label="Close shortcuts">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="shortcuts-body">
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">Playback</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Space</kbd></div>
+            <div class="shortcut-desc">Play/Pause</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>←</kbd> <kbd>→</kbd></div>
+            <div class="shortcut-desc">Previous/Next step</div>
+          </div>
+        </div>
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">Actions</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>S</kbd></div>
+            <div class="shortcut-desc">Shuffle array</div>
+          </div>
+        </div>
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">General</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>?</kbd></div>
+            <div class="shortcut-desc">Show shortcuts</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Keyboard Shortcuts Hint -->
+  <div class="shortcuts-hint" id="shortcutsHint">
+    <span>Press <kbd>?</kbd> for shortcuts</span>
+  </div>
+
+  <!-- Shared Tools JavaScript -->
+  <script src="../../js/tools-common.js"></script>
+  <!-- Scripts -->
+  <script src="algorithmviz.js"></script>
+</body>
+</html>

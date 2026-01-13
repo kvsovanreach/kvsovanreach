@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Convert numbers between different bases with step-by-step visualization.">
+  <meta property="og:title" content="KVSOVANREACH | Base Converter">
+  <meta property="og:description" content="Number base converter with visual explanation.">
+  <meta property="og:image" content="/assets/img/pwa/ios/512.png">
+  <title>KVSOVANREACH | Base Converter</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Common Tools CSS -->
+  <link rel="stylesheet" href="../../js/tools-common.css">
+  <!-- Base Converter CSS -->
+  <link rel="stylesheet" href="baseconverter.css">
+</head>
+<body>
+  <!-- Skip to Content -->
+  <a href="#baseconverter" class="skip-link">Skip to Base Converter</a>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">TOOLS</span>
+      </a>
+
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="tool-page">
+    <div class="container">
+      <!-- Base Converter Wrapper -->
+      <div class="base-wrapper" id="baseconverter">
+        <!-- Header -->
+        <div class="base-header">
+          <h2><i class="fa-solid fa-arrows-rotate"></i> Base Converter</h2>
+          <div class="base-actions">
+            <button class="action-btn" id="swapBtn" title="Swap bases" aria-label="Swap bases">
+              <i class="fa-solid fa-right-left"></i>
+              <span>Swap</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Content -->
+        <div class="base-content">
+          <!-- Converter Section -->
+          <div class="converter-section">
+            <!-- From -->
+            <div class="converter-input">
+              <label>From</label>
+              <div class="input-row">
+                <select id="fromBase">
+                  <option value="2">Binary (2)</option>
+                  <option value="8">Octal (8)</option>
+                  <option value="10" selected>Decimal (10)</option>
+                  <option value="16">Hexadecimal (16)</option>
+                </select>
+                <input type="text" id="fromValue" placeholder="Enter number" autocomplete="off" spellcheck="false">
+              </div>
+              <div class="valid-chars" id="validChars">Valid: 0-9</div>
+            </div>
+
+            <!-- Arrow -->
+            <div class="converter-arrow">
+              <i class="fa-solid fa-arrow-down"></i>
+            </div>
+
+            <!-- To -->
+            <div class="converter-input">
+              <label>To</label>
+              <div class="input-row">
+                <select id="toBase">
+                  <option value="2" selected>Binary (2)</option>
+                  <option value="8">Octal (8)</option>
+                  <option value="10">Decimal (10)</option>
+                  <option value="16">Hexadecimal (16)</option>
+                </select>
+                <input type="text" id="toValue" readonly>
+              </div>
+              <button class="copy-btn" id="copyBtn" title="Copy result" aria-label="Copy result">
+                <i class="fa-solid fa-copy"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Quick Presets -->
+          <div class="quick-presets">
+            <span class="preset-label">Common:</span>
+            <button class="preset-btn" data-from="10" data-to="2">Dec → Bin</button>
+            <button class="preset-btn" data-from="10" data-to="16">Dec → Hex</button>
+            <button class="preset-btn" data-from="2" data-to="10">Bin → Dec</button>
+            <button class="preset-btn" data-from="16" data-to="10">Hex → Dec</button>
+            <button class="preset-btn" data-from="2" data-to="16">Bin → Hex</button>
+          </div>
+
+          <!-- All Bases Display -->
+          <div class="all-bases" id="allBases">
+            <h3><i class="fa-solid fa-table-cells"></i> All Representations</h3>
+            <div class="bases-grid">
+              <div class="base-item">
+                <span class="base-label">Binary</span>
+                <span class="base-value" id="binaryValue">-</span>
+              </div>
+              <div class="base-item">
+                <span class="base-label">Octal</span>
+                <span class="base-value" id="octalValue">-</span>
+              </div>
+              <div class="base-item">
+                <span class="base-label">Decimal</span>
+                <span class="base-value" id="decimalValue">-</span>
+              </div>
+              <div class="base-item">
+                <span class="base-label">Hexadecimal</span>
+                <span class="base-value" id="hexValue">-</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Step by Step Visualization -->
+          <div class="steps-section hidden" id="stepsSection">
+            <h3><i class="fa-solid fa-list-ol"></i> Step-by-Step Conversion</h3>
+            <div class="steps-content" id="stepsContent"></div>
+          </div>
+
+          <!-- Bit Visualization -->
+          <div class="bit-viz hidden" id="bitViz">
+            <h3><i class="fa-solid fa-cubes"></i> Bit Visualization</h3>
+            <div class="bit-container" id="bitContainer"></div>
+            <div class="bit-legend">
+              <span>Position values (powers of 2)</span>
+            </div>
+          </div>
+
+          <!-- Info Panel -->
+          <div class="info-panel">
+            <div class="info-header">
+              <i class="fa-solid fa-circle-info"></i>
+              <span>Number Systems</span>
+            </div>
+            <div class="info-content">
+              <div class="info-grid">
+                <div class="info-item">
+                  <strong>Binary (Base 2)</strong>
+                  <span>0, 1</span>
+                </div>
+                <div class="info-item">
+                  <strong>Octal (Base 8)</strong>
+                  <span>0-7</span>
+                </div>
+                <div class="info-item">
+                  <strong>Decimal (Base 10)</strong>
+                  <span>0-9</span>
+                </div>
+                <div class="info-item">
+                  <strong>Hex (Base 16)</strong>
+                  <span>0-9, A-F</span>
+                </div>
+              </div>
+              <p class="tip"><strong>Tip:</strong> Each digit position represents a power of the base. For example, in decimal 123 = 1×10² + 2×10¹ + 3×10⁰</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach. All rights reserved.</p>
+        <p class="footer-made">Made with 💗 and Claude Code xD</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Keyboard Shortcuts Modal -->
+  <div class="shortcuts-modal" id="shortcutsModal">
+    <div class="shortcuts-content">
+      <div class="shortcuts-header">
+        <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
+        <button class="close-shortcuts-btn" id="closeShortcutsBtn" aria-label="Close shortcuts">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="shortcuts-body">
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">Actions</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Ctrl</kbd><span class="key-plus">+</span><kbd>C</kbd></div>
+            <div class="shortcut-desc">Copy result</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>S</kbd></div>
+            <div class="shortcut-desc">Swap bases</div>
+          </div>
+        </div>
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">General</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>?</kbd></div>
+            <div class="shortcut-desc">Show shortcuts</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Keyboard Shortcuts Hint -->
+  <div class="shortcuts-hint" id="shortcutsHint">
+    <span>Press <kbd>?</kbd> for shortcuts</span>
+  </div>
+
+  <!-- Shared Tools JavaScript -->
+  <script src="../../js/tools-common.js"></script>
+  <!-- Scripts -->
+  <script src="baseconverter.js"></script>
+</body>
+</html>

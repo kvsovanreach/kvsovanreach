@@ -1,0 +1,27 @@
+- Sentence Length Analyzer – Visualize sentence length distribution in a text.
+- Repetition Heatmap for Text – Visualize repeated words and phrases using heat colors.
+- API Request Flow Diagram Builder – Draw client-side API request sequences visually.
+- JSON Schema Visualizer – Convert JSON schemas into expandable visual trees.
+- HTTP Request Lifecycle Visualizer – Show each stage of an HTTP request flow.
+- Naming Convention Checker – Validate variable and function naming consistency.
+- Chain-of-Thought Visual Mapper – Map reasoning steps as a flow diagram.
+- RAG Pipeline Diagram Builder – Visualize retrieval-augmented generation pipelines.
+- Evaluation Metric Selector – Guide metric selection based on task type.
+- Local File Metadata Viewer – Inspect file metadata directly in the browser.
+- Filename Normalizer – Preview standardized filenames before renaming.
+- CSV Schema Explorer – Explore column types and structure of CSV files.
+- Algorithm Step Animator – Animate algorithm steps frame-by-frame using predefined states.
+- Data Structure Visual Playground – Interactively visualize stacks, queues, trees, and graphs.
+- Sorting Algorithm Visualizer – Show how different sorting algorithms rearrange elements over time.
+- Search Algorithm Explorer – Visualize linear, binary, and graph search processes step by step.
+- Graph Traversal Visualizer – Animate DFS, BFS, and shortest-path traversals on graphs.
+- Neural Network Layer Visualizer – Display neural network layers, weights, and activations abstractly.
+- Backpropagation Flow Visualizer – Illustrate gradient flow through network layers conceptually.
+- Transformer Attention Visualizer – Visualize attention matrices and token relationships.
+- Embedding Space Explorer – Plot vectors in 2D/3D to illustrate semantic similarity.
+- Dimensionality Reduction Visualizer – Show PCA / t-SNE concepts using animated projections.
+- Class Imbalance Simulator – Show effects of skewed class distributions.
+- Memory Allocation Visualizer – Illustrate stack vs heap usage conceptually.
+- Version Control Graph Explorer – Visualize branches, merges, and commits.
+- Protocol Handshake Visualizer – Animate TCP, TLS, or auth handshakes.
+- Load Balancing Strategy Viewer – Visualize request distribution strategies.

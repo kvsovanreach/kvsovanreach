@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Generate HTTP security headers for your website.">
+  <meta property="og:title" content="KVSOVANREACH | HTTP Header Generator">
+  <meta property="og:description" content="Create secure HTTP headers easily.">
+  <meta property="og:image" content="/assets/img/pwa/ios/512.png">
+  <title>KVSOVANREACH | HTTP Headers</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Common Tools CSS -->
+  <link rel="stylesheet" href="../../js/tools-common.css">
+  <!-- Header Generator CSS -->
+  <link rel="stylesheet" href="headergenerator.css">
+</head>
+<body>
+  <!-- Skip to Content -->
+  <a href="#headergenerator" class="skip-link">Skip to Header Generator</a>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">TOOLS</span>
+      </a>
+
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="tool-page">
+    <div class="container">
+      <!-- Header Generator Wrapper -->
+      <div class="header-wrapper" id="headergenerator">
+        <!-- Header -->
+        <div class="header-section">
+          <h2><i class="fa-solid fa-shield-halved"></i> HTTP Header Generator</h2>
+          <div class="header-actions">
+            <button class="action-btn" id="resetBtn" title="Reset All" aria-label="Reset All">
+              <i class="fa-solid fa-rotate"></i>
+              <span>Reset</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Content -->
+        <div class="header-content">
+          <!-- Presets -->
+          <div class="presets-section">
+            <label>Quick Presets</label>
+            <div class="presets-buttons">
+              <button class="preset-btn" data-preset="basic">Basic</button>
+              <button class="preset-btn" data-preset="secure">Secure</button>
+              <button class="preset-btn" data-preset="strict">Strict</button>
+            </div>
+          </div>
+
+          <!-- Headers Configuration -->
+          <div class="config-section">
+            <!-- Content-Security-Policy -->
+            <div class="config-card">
+              <div class="config-header">
+                <div class="config-title">
+                  <input type="checkbox" id="cspEnabled" checked>
+                  <label for="cspEnabled">Content-Security-Policy</label>
+                </div>
+                <span class="config-tag security">Security</span>
+              </div>
+              <div class="config-body">
+                <p class="config-desc">Controls resources the browser is allowed to load.</p>
+                <div class="config-options">
+                  <div class="option-group">
+                    <label>default-src</label>
+                    <input type="text" id="cspDefault" value="'self'" placeholder="'self'">
+                  </div>
+                  <div class="option-group">
+                    <label>script-src</label>
+                    <input type="text" id="cspScript" value="'self'" placeholder="'self' 'unsafe-inline'">
+                  </div>
+                  <div class="option-group">
+                    <label>style-src</label>
+                    <input type="text" id="cspStyle" value="'self' 'unsafe-inline'" placeholder="'self' 'unsafe-inline'">
+                  </div>
+                  <div class="option-group">
+                    <label>img-src</label>
+                    <input type="text" id="cspImg" value="'self' data:" placeholder="'self' data: https:">
+                  </div>
+                  <div class="option-group">
+                    <label>font-src</label>
+                    <input type="text" id="cspFont" value="'self'" placeholder="'self' https://fonts.gstatic.com">
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Strict-Transport-Security -->
+            <div class="config-card">
+              <div class="config-header">
+                <div class="config-title">
+                  <input type="checkbox" id="hstsEnabled" checked>
+                  <label for="hstsEnabled">Strict-Transport-Security</label>
+                </div>
+                <span class="config-tag security">Security</span>
+              </div>
+              <div class="config-body">
+                <p class="config-desc">Forces HTTPS connections for the specified duration.</p>
+                <div class="config-options">
+                  <div class="option-group">
+                    <label>max-age (seconds)</label>
+                    <input type="number" id="hstsMaxAge" value="31536000" min="0">
+                  </div>
+                  <div class="option-row">
+                    <label class="checkbox-label">
+                      <input type="checkbox" id="hstsSubdomains" checked>
+                      <span>includeSubDomains</span>
+                    </label>
+                    <label class="checkbox-label">
+                      <input type="checkbox" id="hstsPreload">
+                      <span>preload</span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- X-Frame-Options -->
+            <div class="config-card">
+              <div class="config-header">
+                <div class="config-title">
+                  <input type="checkbox" id="xfoEnabled" checked>
+                  <label for="xfoEnabled">X-Frame-Options</label>
+                </div>
+                <span class="config-tag security">Security</span>
+              </div>
+              <div class="config-body">
+                <p class="config-desc">Prevents clickjacking by controlling iframe embedding.</p>
+                <div class="config-options">
+                  <div class="option-group">
+                    <label>Value</label>
+                    <select id="xfoValue">
+                      <option value="DENY">DENY</option>
+                      <option value="SAMEORIGIN" selected>SAMEORIGIN</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- X-Content-Type-Options -->
+            <div class="config-card">
+              <div class="config-header">
+                <div class="config-title">
+                  <input type="checkbox" id="xctoEnabled" checked>
+                  <label for="xctoEnabled">X-Content-Type-Options</label>
+                </div>
+                <span class="config-tag security">Security</span>
+              </div>
+              <div class="config-body">
+                <p class="config-desc">Prevents MIME type sniffing.</p>
+                <div class="config-value">nosniff</div>
+              </div>
+            </div>
+
+            <!-- Referrer-Policy -->
+            <div class="config-card">
+              <div class="config-header">
+                <div class="config-title">
+                  <input type="checkbox" id="rpEnabled" checked>
+                  <label for="rpEnabled">Referrer-Policy</label>
+                </div>
+                <span class="config-tag privacy">Privacy</span>
+              </div>
+              <div class="config-body">
+                <p class="config-desc">Controls how much referrer information is sent.</p>
+                <div class="config-options">
+                  <div class="option-group">
+                    <label>Value</label>
+                    <select id="rpValue">
+                      <option value="no-referrer">no-referrer</option>
+                      <option value="no-referrer-when-downgrade">no-referrer-when-downgrade</option>
+                      <option value="origin">origin</option>
+                      <option value="origin-when-cross-origin">origin-when-cross-origin</option>
+                      <option value="same-origin">same-origin</option>
+                      <option value="strict-origin" selected>strict-origin</option>
+                      <option value="strict-origin-when-cross-origin">strict-origin-when-cross-origin</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Permissions-Policy -->
+            <div class="config-card">
+              <div class="config-header">
+                <div class="config-title">
+                  <input type="checkbox" id="ppEnabled">
+                  <label for="ppEnabled">Permissions-Policy</label>
+                </div>
+                <span class="config-tag privacy">Privacy</span>
+              </div>
+              <div class="config-body">
+                <p class="config-desc">Controls browser features and APIs.</p>
+                <div class="config-options">
+                  <div class="option-row">
+                    <label class="checkbox-label">
+                      <input type="checkbox" id="ppCamera">
+                      <span>camera=()</span>
+                    </label>
+                    <label class="checkbox-label">
+                      <input type="checkbox" id="ppMic">
+                      <span>microphone=()</span>
+                    </label>
+                    <label class="checkbox-label">
+                      <input type="checkbox" id="ppGeo">
+                      <span>geolocation=()</span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Cache-Control -->
+            <div class="config-card">
+              <div class="config-header">
+                <div class="config-title">
+                  <input type="checkbox" id="ccEnabled">
+                  <label for="ccEnabled">Cache-Control</label>
+                </div>
+                <span class="config-tag performance">Performance</span>
+              </div>
+              <div class="config-body">
+                <p class="config-desc">Controls caching behavior.</p>
+                <div class="config-options">
+                  <div class="option-group">
+                    <label>Directive</label>
+                    <select id="ccValue">
+                      <option value="no-store">no-store (no caching)</option>
+                      <option value="no-cache">no-cache (revalidate)</option>
+                      <option value="public, max-age=31536000">public, max-age=31536000 (1 year)</option>
+                      <option value="private, max-age=3600">private, max-age=3600 (1 hour)</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Output Section -->
+          <div class="output-section">
+            <div class="output-header">
+              <div class="output-tabs">
+                <button class="output-tab active" data-format="raw">Raw Headers</button>
+                <button class="output-tab" data-format="nginx">Nginx</button>
+                <button class="output-tab" data-format="apache">Apache</button>
+                <button class="output-tab" data-format="json">JSON</button>
+              </div>
+              <button class="action-btn" id="copyBtn">
+                <i class="fa-solid fa-copy"></i>
+                <span>Copy</span>
+              </button>
+            </div>
+            <pre class="output-code"><code id="outputCode"></code></pre>
+          </div>
+
+          <!-- Info Panel -->
+          <div class="info-panel">
+            <div class="info-header">
+              <i class="fa-solid fa-circle-info"></i>
+              <span>About HTTP Security Headers</span>
+            </div>
+            <div class="info-content">
+              <ul>
+                <li><strong>CSP</strong> prevents XSS and data injection attacks</li>
+                <li><strong>HSTS</strong> enforces secure HTTPS connections</li>
+                <li><strong>X-Frame-Options</strong> prevents clickjacking</li>
+                <li><strong>Referrer-Policy</strong> controls privacy of URLs</li>
+              </ul>
+              <p class="tip"><strong>Tip:</strong> Test your headers at securityheaders.com before deploying!</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach. All rights reserved.</p>
+        <p class="footer-made">Made with 💗 and Claude Code xD</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Keyboard Shortcuts Modal -->
+  <div class="shortcuts-modal" id="shortcutsModal">
+    <div class="shortcuts-content">
+      <div class="shortcuts-header">
+        <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
+        <button class="close-shortcuts-btn" id="closeShortcutsBtn" aria-label="Close shortcuts">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="shortcuts-body">
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">Actions</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Ctrl</kbd>+<kbd>C</kbd></div>
+            <div class="shortcut-desc">Copy output</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>R</kbd></div>
+            <div class="shortcut-desc">Reset all</div>
+          </div>
+        </div>
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">General</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>?</kbd></div>
+            <div class="shortcut-desc">Show shortcuts</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Keyboard Shortcuts Hint -->
+  <div class="shortcuts-hint" id="shortcutsHint">
+    <span>Press <kbd>?</kbd> for shortcuts</span>
+  </div>
+
+  <!-- Shared Tools JavaScript -->
+  <script src="../../js/tools-common.js"></script>
+  <!-- Scripts -->
+  <script src="headergenerator.js"></script>
+</body>
+</html>

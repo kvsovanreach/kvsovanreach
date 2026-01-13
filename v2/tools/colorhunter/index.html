@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Guess the hexadecimal color code! How well do you know your colors?">
+  <meta property="og:title" content="KVSOVANREACH | Color Hunter">
+  <meta property="og:description" content="Hexadecimal color guessing game.">
+  <meta property="og:image" content="/assets/img/pwa/ios/512.png">
+  <title>KVSOVANREACH | Color Hunter</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Orbitron:wght@400;500;600;700&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Common Tools CSS -->
+  <link rel="stylesheet" href="../../js/tools-common.css">
+  <!-- Color Hunter CSS -->
+  <link rel="stylesheet" href="colorhunter.css">
+</head>
+<body>
+  <!-- Skip to Content -->
+  <a href="#colorhunter" class="skip-link">Skip to Color Hunter</a>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">GAMES</span>
+      </a>
+
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="tool-page">
+    <div class="container">
+      <!-- Game Wrapper -->
+      <div class="game-wrapper" id="colorhunter">
+        <!-- Header -->
+        <div class="game-header">
+          <h2><i class="fa-solid fa-palette"></i> Color Hunter</h2>
+          <div class="game-actions">
+            <button class="action-btn" id="skipBtn" title="Skip this color">
+              <i class="fa-solid fa-forward"></i>
+              <span>Skip</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Game Content -->
+        <div class="game-content">
+          <!-- Stats Bar -->
+          <div class="stats-bar">
+            <div class="stat-item">
+              <i class="fa-solid fa-bullseye"></i>
+              <span class="stat-label">Score</span>
+              <span class="stat-value highlight" id="scoreDisplay">0</span>
+            </div>
+            <div class="stat-item">
+              <i class="fa-solid fa-fire"></i>
+              <span class="stat-label">Streak</span>
+              <span class="stat-value" id="streakDisplay">0</span>
+            </div>
+            <div class="stat-item">
+              <i class="fa-solid fa-hashtag"></i>
+              <span class="stat-label">Round</span>
+              <span class="stat-value" id="roundDisplay">1</span>
+            </div>
+            <div class="stat-item">
+              <i class="fa-solid fa-trophy"></i>
+              <span class="stat-label">Best</span>
+              <span class="stat-value" id="bestDisplay">0</span>
+            </div>
+          </div>
+
+          <!-- Color Display -->
+          <div class="color-section">
+            <div class="color-display" id="colorDisplay">
+              <!-- Target color will be shown here -->
+            </div>
+            <div class="color-hint" id="colorHint">What's the hex code?</div>
+          </div>
+
+          <!-- Input Section -->
+          <div class="input-section">
+            <div class="hex-input-wrapper">
+              <span class="hex-prefix">#</span>
+              <input
+                type="text"
+                id="hexInput"
+                maxlength="6"
+                placeholder="FFFFFF"
+                autocomplete="off"
+                spellcheck="false"
+              >
+            </div>
+            <button class="submit-btn" id="submitBtn">
+              <i class="fa-solid fa-check"></i>
+              Guess
+            </button>
+          </div>
+
+          <!-- RGB Sliders (Helper) -->
+          <div class="rgb-helper">
+            <div class="helper-header">
+              <i class="fa-solid fa-sliders"></i>
+              <span>RGB Helper</span>
+              <label class="helper-toggle">
+                <input type="checkbox" id="showHelper">
+                <span class="toggle-label">Show Sliders <span class="toggle-hint">(Press H)</span></span>
+              </label>
+            </div>
+            <div class="rgb-sliders hidden" id="rgbSliders">
+              <div class="rgb-slider">
+                <span class="rgb-label" style="color: #ef4444;">R</span>
+                <input type="range" id="redSlider" min="0" max="255" value="128">
+                <span class="rgb-value" id="redValue">128</span>
+              </div>
+              <div class="rgb-slider">
+                <span class="rgb-label" style="color: #22c55e;">G</span>
+                <input type="range" id="greenSlider" min="0" max="255" value="128">
+                <span class="rgb-value" id="greenValue">128</span>
+              </div>
+              <div class="rgb-slider">
+                <span class="rgb-label" style="color: #3b82f6;">B</span>
+                <input type="range" id="blueSlider" min="0" max="255" value="128">
+                <span class="rgb-value" id="blueValue">128</span>
+              </div>
+              <div class="preview-color" id="previewColor"></div>
+            </div>
+          </div>
+
+          <!-- Result Display -->
+          <div class="result-section hidden" id="resultSection">
+            <div class="result-comparison">
+              <div class="result-color">
+                <div class="color-box" id="targetColorBox"></div>
+                <span class="color-label">Target</span>
+                <span class="color-code" id="targetCode">#000000</span>
+              </div>
+              <div class="result-arrow">
+                <i class="fa-solid fa-right-left"></i>
+              </div>
+              <div class="result-color">
+                <div class="color-box" id="guessColorBox"></div>
+                <span class="color-label">Your Guess</span>
+                <span class="color-code" id="guessCode">#000000</span>
+              </div>
+            </div>
+            <div class="result-accuracy">
+              <span class="accuracy-label">Accuracy:</span>
+              <span class="accuracy-value" id="accuracyValue">0%</span>
+            </div>
+            <button class="action-btn primary" id="nextBtn">
+              <i class="fa-solid fa-arrow-right"></i>
+              <span>Next Color</span>
+            </button>
+          </div>
+
+          <!-- Info Panel -->
+          <div class="info-panel">
+            <div class="info-header">
+              <i class="fa-solid fa-circle-info"></i>
+              <span>How to Play</span>
+            </div>
+            <div class="info-content">
+              <ol>
+                <li>Look at the displayed <strong>color</strong></li>
+                <li>Guess the <strong>hex code</strong> (e.g., FF5733)</li>
+                <li>Get points based on <strong>accuracy</strong></li>
+                <li>Build your <strong>streak</strong> for bonus points!</li>
+              </ol>
+              <p class="tip"><strong>Tip:</strong> Use the RGB helper sliders to match the color, then convert to hex. Remember: R=00-FF, G=00-FF, B=00-FF</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach. All rights reserved.</p>
+        <p class="footer-made">Made with 💗 and Claude Code xD</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Keyboard Shortcuts Modal -->
+  <div class="shortcuts-modal" id="shortcutsModal">
+    <div class="shortcuts-content">
+      <div class="shortcuts-header">
+        <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
+        <button class="close-shortcuts-btn" id="closeShortcutsBtn" aria-label="Close shortcuts">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="shortcuts-body">
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">Game</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Enter</kbd></div>
+            <div class="shortcut-desc">Submit guess / Next</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>S</kbd></div>
+            <div class="shortcut-desc">Skip color</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>H</kbd></div>
+            <div class="shortcut-desc">Toggle RGB helper</div>
+          </div>
+        </div>
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">General</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>?</kbd></div>
+            <div class="shortcut-desc">Show shortcuts</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Keyboard Shortcuts Hint -->
+  <div class="shortcuts-hint" id="shortcutsHint">
+    <span>Press <kbd>?</kbd> for shortcuts</span>
+  </div>
+
+  <!-- Shared Tools JavaScript -->
+  <script src="../../js/tools-common.js"></script>
+  <!-- Scripts -->
+  <script src="colorhunter.js"></script>
+</body>
+</html>

@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Test your typing speed and accuracy with timed typing challenges.">
+  <meta property="og:title" content="KVSOVANREACH | Typing Test">
+  <meta property="og:description" content="Measure your typing speed in WPM.">
+  <meta property="og:image" content="/assets/img/pwa/ios/512.png">
+  <title>KVSOVANREACH | Typing Test</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Common Tools CSS -->
+  <link rel="stylesheet" href="../../js/tools-common.css">
+  <!-- Typing Test CSS -->
+  <link rel="stylesheet" href="typingtest.css">
+</head>
+<body>
+  <!-- Skip to Content -->
+  <a href="#typingtest" class="skip-link">Skip to Typing Test</a>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">TOOLS</span>
+      </a>
+
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="tool-page">
+    <div class="container">
+      <!-- Typing Test Wrapper -->
+      <div class="typing-wrapper" id="typingtest">
+        <!-- Header -->
+        <div class="typing-header">
+          <h2><i class="fa-solid fa-keyboard"></i> Typing Test</h2>
+          <div class="typing-actions">
+            <button class="action-btn" id="newTestBtn" title="New Test" aria-label="New Test">
+              <i class="fa-solid fa-rotate"></i>
+              <span>New Test</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Content -->
+        <div class="typing-content">
+          <!-- Settings -->
+          <div class="settings-section">
+            <div class="setting-group">
+              <label>Duration</label>
+              <div class="duration-buttons">
+                <button class="duration-btn" data-duration="15">15s</button>
+                <button class="duration-btn" data-duration="30">30s</button>
+                <button class="duration-btn active" data-duration="60">60s</button>
+                <button class="duration-btn" data-duration="120">2m</button>
+              </div>
+            </div>
+            <div class="setting-group">
+              <label>Difficulty</label>
+              <select id="difficultySelect">
+                <option value="easy">Easy (common words)</option>
+                <option value="medium" selected>Medium (mixed)</option>
+                <option value="hard">Hard (complex)</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Stats Bar -->
+          <div class="stats-bar">
+            <div class="stat-item">
+              <i class="fa-solid fa-gauge-high"></i>
+              <span class="stat-label">WPM</span>
+              <span class="stat-value" id="wpmDisplay">0</span>
+            </div>
+            <div class="stat-item">
+              <i class="fa-solid fa-bullseye"></i>
+              <span class="stat-label">Accuracy</span>
+              <span class="stat-value" id="accuracyDisplay">100%</span>
+            </div>
+            <div class="stat-item timer">
+              <i class="fa-solid fa-clock"></i>
+              <span class="stat-label">Time</span>
+              <span class="stat-value" id="timerDisplay">60</span>
+            </div>
+            <div class="stat-item">
+              <i class="fa-solid fa-keyboard"></i>
+              <span class="stat-label">Characters</span>
+              <span class="stat-value" id="charsDisplay">0</span>
+            </div>
+          </div>
+
+          <!-- Text Display -->
+          <div class="text-display" id="textDisplay">
+            <!-- Text will be generated here -->
+          </div>
+
+          <!-- Input Area -->
+          <div class="input-section">
+            <input
+              type="text"
+              id="typingInput"
+              class="typing-input"
+              placeholder="Click here and start typing..."
+              autocomplete="off"
+              autocapitalize="off"
+              autocorrect="off"
+              spellcheck="false"
+            >
+            <div class="input-hint" id="inputHint">Press any key to start</div>
+          </div>
+
+          <!-- Results Section -->
+          <div class="results-section hidden" id="resultsSection">
+            <div class="results-card">
+              <h3><i class="fa-solid fa-trophy"></i> Test Complete!</h3>
+              <div class="results-grid">
+                <div class="result-item main">
+                  <span class="result-value" id="finalWpm">0</span>
+                  <span class="result-label">WPM</span>
+                </div>
+                <div class="result-item">
+                  <span class="result-value" id="finalAccuracy">0%</span>
+                  <span class="result-label">Accuracy</span>
+                </div>
+                <div class="result-item">
+                  <span class="result-value" id="finalChars">0</span>
+                  <span class="result-label">Characters</span>
+                </div>
+                <div class="result-item">
+                  <span class="result-value" id="finalErrors">0</span>
+                  <span class="result-label">Errors</span>
+                </div>
+              </div>
+              <button class="action-btn primary" id="tryAgainBtn">
+                <i class="fa-solid fa-rotate"></i>
+                <span>Try Again</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Info Panel -->
+          <div class="info-panel">
+            <div class="info-header">
+              <i class="fa-solid fa-circle-info"></i>
+              <span>Typing Tips</span>
+            </div>
+            <div class="info-content">
+              <ul>
+                <li>Keep your fingers on the home row (ASDF JKL;)</li>
+                <li>Look at the screen, not the keyboard</li>
+                <li>Focus on accuracy first, speed comes with practice</li>
+                <li>Take breaks to avoid fatigue</li>
+              </ul>
+              <p class="tip"><strong>Average typing speed:</strong> 40 WPM (casual), 65-75 WPM (professional)</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach. All rights reserved.</p>
+        <p class="footer-made">Made with 💗 and Claude Code xD</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Keyboard Shortcuts Modal -->
+  <div class="shortcuts-modal" id="shortcutsModal">
+    <div class="shortcuts-content">
+      <div class="shortcuts-header">
+        <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
+        <button class="close-shortcuts-btn" id="closeShortcutsBtn" aria-label="Close shortcuts">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="shortcuts-body">
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">Actions</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Escape</kbd></div>
+            <div class="shortcut-desc">Reset test</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Tab</kbd></div>
+            <div class="shortcut-desc">New test</div>
+          </div>
+        </div>
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">General</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>?</kbd></div>
+            <div class="shortcut-desc">Show shortcuts</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Keyboard Shortcuts Hint -->
+  <div class="shortcuts-hint" id="shortcutsHint">
+    <span>Press <kbd>?</kbd> for shortcuts</span>
+  </div>
+
+  <!-- Shared Tools JavaScript -->
+  <script src="../../js/tools-common.js"></script>
+  <!-- Scripts -->
+  <script src="typingtest.js"></script>
+</body>
+</html>

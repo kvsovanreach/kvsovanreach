@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Check if a number is prime and see all its factors with step-by-step explanation.">
+  <meta property="og:title" content="KVSOVANREACH | Prime Checker">
+  <meta property="og:description" content="Prime number checker with factor analysis.">
+  <meta property="og:image" content="/assets/img/pwa/ios/512.png">
+  <title>KVSOVANREACH | Prime Checker</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Common Tools CSS -->
+  <link rel="stylesheet" href="../../js/tools-common.css">
+  <!-- Prime Checker CSS -->
+  <link rel="stylesheet" href="primechecker.css">
+</head>
+<body>
+  <!-- Skip to Content -->
+  <a href="#primechecker" class="skip-link">Skip to Prime Checker</a>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">TOOLS</span>
+      </a>
+
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="tool-page">
+    <div class="container">
+      <!-- Prime Checker Wrapper -->
+      <div class="prime-wrapper" id="primechecker">
+        <!-- Header -->
+        <div class="prime-header">
+          <h2><i class="fa-solid fa-hashtag"></i> Prime Checker</h2>
+          <div class="prime-actions">
+            <button class="action-btn" id="clearBtn" title="Clear" aria-label="Clear input">
+              <i class="fa-solid fa-trash"></i>
+              <span>Clear</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Content -->
+        <div class="prime-content">
+          <!-- Input Section -->
+          <div class="input-section">
+            <label for="numberInput" class="input-label">Enter a positive integer</label>
+            <div class="input-wrapper">
+              <input
+                type="text"
+                id="numberInput"
+                placeholder="e.g., 97"
+                autocomplete="off"
+                inputmode="numeric"
+              >
+              <button class="action-btn primary" id="checkBtn">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <span>Check</span>
+              </button>
+            </div>
+            <div class="input-hint" id="inputHint"></div>
+          </div>
+
+          <!-- Quick Tests -->
+          <div class="quick-tests">
+            <span class="quick-label">Try:</span>
+            <button class="quick-btn" data-value="2">2</button>
+            <button class="quick-btn" data-value="17">17</button>
+            <button class="quick-btn" data-value="97">97</button>
+            <button class="quick-btn" data-value="100">100</button>
+            <button class="quick-btn" data-value="1009">1009</button>
+            <button class="quick-btn" data-value="7919">7919</button>
+          </div>
+
+          <!-- Result Section -->
+          <div class="result-section hidden" id="resultSection">
+            <!-- Result Card -->
+            <div class="result-card" id="resultCard">
+              <div class="result-icon" id="resultIcon">
+                <i class="fa-solid fa-check"></i>
+              </div>
+              <div class="result-number" id="resultNumber">97</div>
+              <div class="result-label" id="resultLabel">is a prime number</div>
+            </div>
+
+            <!-- Factors Section -->
+            <div class="factors-section" id="factorsSection">
+              <h3><i class="fa-solid fa-divide"></i> Factors</h3>
+              <div class="factors-list" id="factorsList"></div>
+            </div>
+
+            <!-- Explanation Section -->
+            <div class="explanation-section" id="explanationSection">
+              <h3><i class="fa-solid fa-book-open"></i> Explanation</h3>
+              <div class="explanation-content" id="explanationContent"></div>
+            </div>
+
+            <!-- Number Info -->
+            <div class="number-info" id="numberInfo">
+              <div class="info-item">
+                <span class="info-label">Digits</span>
+                <span class="info-value" id="digitCount">0</span>
+              </div>
+              <div class="info-item">
+                <span class="info-label">Even/Odd</span>
+                <span class="info-value" id="evenOdd">-</span>
+              </div>
+              <div class="info-item">
+                <span class="info-label">Divisible by 3</span>
+                <span class="info-value" id="divBy3">-</span>
+              </div>
+              <div class="info-item">
+                <span class="info-label">Divisible by 5</span>
+                <span class="info-value" id="divBy5">-</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Empty State -->
+          <div class="empty-state" id="emptyState">
+            <i class="fa-solid fa-calculator"></i>
+            <p>Enter a number to check</p>
+            <span>Find out if it's prime and see all its factors</span>
+          </div>
+
+          <!-- Info Panel -->
+          <div class="info-panel">
+            <div class="info-header">
+              <i class="fa-solid fa-circle-info"></i>
+              <span>About Prime Numbers</span>
+            </div>
+            <div class="info-content">
+              <p>A <strong>prime number</strong> is a natural number greater than 1 that has no positive divisors other than 1 and itself.</p>
+              <div class="prime-examples">
+                <span class="example-label">First 10 primes:</span>
+                <div class="example-numbers">
+                  <span>2</span><span>3</span><span>5</span><span>7</span><span>11</span>
+                  <span>13</span><span>17</span><span>19</span><span>23</span><span>29</span>
+                </div>
+              </div>
+              <p class="tip"><strong>Fun fact:</strong> 2 is the only even prime number. All other even numbers are divisible by 2.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach. All rights reserved.</p>
+        <p class="footer-made">Made with 💗 and Claude Code xD</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Keyboard Shortcuts Modal -->
+  <div class="shortcuts-modal" id="shortcutsModal">
+    <div class="shortcuts-content">
+      <div class="shortcuts-header">
+        <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
+        <button class="close-shortcuts-btn" id="closeShortcutsBtn" aria-label="Close shortcuts">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="shortcuts-body">
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">Actions</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Enter</kbd></div>
+            <div class="shortcut-desc">Check number</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Escape</kbd></div>
+            <div class="shortcut-desc">Clear input</div>
+          </div>
+        </div>
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">General</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>?</kbd></div>
+            <div class="shortcut-desc">Show shortcuts</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Keyboard Shortcuts Hint -->
+  <div class="shortcuts-hint" id="shortcutsHint">
+    <span>Press <kbd>?</kbd> for shortcuts</span>
+  </div>
+
+  <!-- Shared Tools JavaScript -->
+  <script src="../../js/tools-common.js"></script>
+  <!-- Scripts -->
+  <script src="primechecker.js"></script>
+</body>
+</html>

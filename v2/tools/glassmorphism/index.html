@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Generate glassmorphism UI effects with live preview and CSS code output.">
+  <meta property="og:title" content="KVSOVANREACH | Glassmorphism Generator">
+  <meta property="og:description" content="Create beautiful glassmorphism effects.">
+  <meta property="og:image" content="/assets/img/pwa/ios/512.png">
+  <title>KVSOVANREACH | Glassmorphism Generator</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Common Tools CSS -->
+  <link rel="stylesheet" href="../../js/tools-common.css">
+  <!-- Glassmorphism Generator CSS -->
+  <link rel="stylesheet" href="glassmorphism.css">
+</head>
+<body>
+  <!-- Skip to Content -->
+  <a href="#glassmorphism" class="skip-link">Skip to Glassmorphism Generator</a>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">TOOLS</span>
+      </a>
+
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="tool-page">
+    <div class="container">
+      <!-- Glassmorphism Wrapper -->
+      <div class="glass-wrapper" id="glassmorphism">
+        <!-- Header -->
+        <div class="glass-header">
+          <h2><i class="fa-solid fa-layer-group"></i> Glassmorphism Generator</h2>
+          <div class="glass-actions">
+            <button class="action-btn" id="resetBtn" title="Reset" aria-label="Reset">
+              <i class="fa-solid fa-rotate"></i>
+              <span>Reset</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Content -->
+        <div class="glass-content">
+          <!-- Preview Section -->
+          <div class="preview-section">
+            <div class="preview-container" id="previewContainer">
+              <div class="preview-bg">
+                <div class="shape shape-1"></div>
+                <div class="shape shape-2"></div>
+                <div class="shape shape-3"></div>
+              </div>
+              <div class="glass-card" id="glassCard">
+                <div class="card-content">
+                  <h3>Glass Card</h3>
+                  <p>Adjust the sliders to customize the glassmorphism effect.</p>
+                  <button class="card-btn">Action</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Controls Section -->
+          <div class="controls-section">
+            <!-- Blur -->
+            <div class="control-group">
+              <div class="control-header">
+                <label for="blurSlider">Blur</label>
+                <span class="control-value" id="blurValue">10px</span>
+              </div>
+              <input type="range" id="blurSlider" min="0" max="30" value="10">
+            </div>
+
+            <!-- Transparency -->
+            <div class="control-group">
+              <div class="control-header">
+                <label for="transparencySlider">Transparency</label>
+                <span class="control-value" id="transparencyValue">0.25</span>
+              </div>
+              <input type="range" id="transparencySlider" min="0" max="100" value="25">
+            </div>
+
+            <!-- Saturation -->
+            <div class="control-group">
+              <div class="control-header">
+                <label for="saturationSlider">Saturation</label>
+                <span class="control-value" id="saturationValue">180%</span>
+              </div>
+              <input type="range" id="saturationSlider" min="100" max="300" value="180">
+            </div>
+
+            <!-- Border Opacity -->
+            <div class="control-group">
+              <div class="control-header">
+                <label for="borderSlider">Border Opacity</label>
+                <span class="control-value" id="borderValue">0.18</span>
+              </div>
+              <input type="range" id="borderSlider" min="0" max="100" value="18">
+            </div>
+
+            <!-- Border Radius -->
+            <div class="control-group">
+              <div class="control-header">
+                <label for="radiusSlider">Border Radius</label>
+                <span class="control-value" id="radiusValue">16px</span>
+              </div>
+              <input type="range" id="radiusSlider" min="0" max="50" value="16">
+            </div>
+
+            <!-- Background Color -->
+            <div class="control-group color-group">
+              <div class="control-header">
+                <label>Background Color</label>
+              </div>
+              <div class="color-inputs">
+                <input type="color" id="bgColor" value="#ffffff">
+                <input type="text" id="bgColorText" value="#ffffff" maxlength="7">
+              </div>
+            </div>
+
+            <!-- Presets -->
+            <div class="presets-group">
+              <label>Presets</label>
+              <div class="presets-grid">
+                <button class="preset-btn" data-preset="light">Light</button>
+                <button class="preset-btn" data-preset="dark">Dark</button>
+                <button class="preset-btn" data-preset="frosted">Frosted</button>
+                <button class="preset-btn" data-preset="subtle">Subtle</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Accessibility Warning -->
+          <div class="warning-section hidden" id="warningSection">
+            <i class="fa-solid fa-triangle-exclamation"></i>
+            <span>Low contrast may affect accessibility. Consider adjusting transparency or using darker text.</span>
+          </div>
+
+          <!-- CSS Output -->
+          <div class="output-section">
+            <div class="output-header">
+              <h3><i class="fa-solid fa-code"></i> CSS Code</h3>
+              <button class="action-btn primary" id="copyBtn" title="Copy CSS" aria-label="Copy CSS">
+                <i class="fa-solid fa-copy"></i>
+                <span>Copy</span>
+              </button>
+            </div>
+            <pre class="output-code"><code id="cssOutput"></code></pre>
+          </div>
+
+          <!-- Info Panel -->
+          <div class="info-panel">
+            <div class="info-header">
+              <i class="fa-solid fa-circle-info"></i>
+              <span>About Glassmorphism</span>
+            </div>
+            <div class="info-content">
+              <p><strong>Glassmorphism</strong> is a modern UI design trend featuring:</p>
+              <ul>
+                <li>Frosted glass transparency effect</li>
+                <li>Blurred background (backdrop-filter)</li>
+                <li>Subtle border for edge visibility</li>
+                <li>Multi-layered backgrounds with depth</li>
+              </ul>
+              <p class="tip"><strong>Note:</strong> backdrop-filter is not supported in all browsers. Consider fallbacks for older browsers.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach. All rights reserved.</p>
+        <p class="footer-made">Made with 💗 and Claude Code xD</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Keyboard Shortcuts Modal -->
+  <div class="shortcuts-modal" id="shortcutsModal">
+    <div class="shortcuts-content">
+      <div class="shortcuts-header">
+        <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
+        <button class="close-shortcuts-btn" id="closeShortcutsBtn" aria-label="Close shortcuts">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="shortcuts-body">
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">Actions</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>C</kbd></div>
+            <div class="shortcut-desc">Copy CSS</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>R</kbd></div>
+            <div class="shortcut-desc">Reset to defaults</div>
+          </div>
+        </div>
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">General</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>?</kbd></div>
+            <div class="shortcut-desc">Show shortcuts</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Keyboard Shortcuts Hint -->
+  <div class="shortcuts-hint" id="shortcutsHint">
+    <span>Press <kbd>?</kbd> for shortcuts</span>
+  </div>
+
+  <!-- Shared Tools JavaScript -->
+  <script src="../../js/tools-common.js"></script>
+  <!-- Scripts -->
+  <script src="glassmorphism.js"></script>
+</body>
+</html>
