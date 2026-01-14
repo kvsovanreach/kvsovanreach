@@ -1,0 +1,443 @@
+/**
+ * KVSOVANREACH CSV Schema Explorer
+ * Analyze CSV structure and data types
+ */
+
+/* Wrapper */
+.csv-wrapper {
+  max-width: 1100px;
+  margin: 0 auto;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+}
+
+/* Header */
+.csv-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-4) var(--space-5);
+  background: linear-gradient(135deg, #14b8a6 0%, #0d9488 100%);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.csv-header h2 {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-size: var(--font-size-xl);
+  font-weight: 600;
+  color: white;
+}
+
+.csv-header h2 i {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.csv-actions {
+  display: flex;
+  gap: var(--space-2);
+}
+
+/* Content */
+.csv-content {
+  padding: var(--space-5);
+}
+
+/* Upload Section */
+.upload-section {
+  margin-bottom: var(--space-4);
+}
+
+.upload-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-6);
+  background-color: var(--color-bg-secondary);
+  border: 2px dashed var(--color-border);
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  margin-bottom: var(--space-3);
+}
+
+.upload-area:hover,
+.upload-area.dragover {
+  border-color: #14b8a6;
+  background-color: rgba(20, 184, 166, 0.05);
+}
+
+.upload-icon {
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-bg-tertiary);
+  border-radius: 50%;
+  margin-bottom: var(--space-3);
+}
+
+.upload-icon i {
+  font-size: 1.5rem;
+  color: #14b8a6;
+}
+
+.upload-area h3 {
+  font-size: var(--font-size-base);
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: var(--space-1);
+}
+
+.upload-area p {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}
+
+.upload-section textarea {
+  width: 100%;
+  min-height: 120px;
+  padding: var(--space-4);
+  background-color: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  font-family: 'Fira Code', monospace;
+  font-size: var(--font-size-sm);
+  color: var(--color-text);
+  resize: vertical;
+}
+
+.upload-section textarea:focus {
+  outline: none;
+  border-color: #14b8a6;
+}
+
+/* Stats Section */
+.stats-section {
+  margin-bottom: var(--space-4);
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-3);
+}
+
+.stat-card {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  background-color: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+}
+
+.stat-icon {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-bg-tertiary);
+  border-radius: var(--radius-md);
+  color: #14b8a6;
+  font-size: var(--font-size-lg);
+}
+
+.stat-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.stat-value {
+  font-family: 'Fira Code', monospace;
+  font-size: var(--font-size-xl);
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.stat-label {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+}
+
+/* Schema Section */
+.schema-section {
+  background-color: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  margin-bottom: var(--space-4);
+  overflow: hidden;
+}
+
+.schema-header {
+  display: flex;
+  align-items: center;
+  padding: var(--space-3) var(--space-4);
+  background-color: var(--color-bg-tertiary);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.schema-header h3 {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.schema-header h3 i {
+  color: #14b8a6;
+}
+
+.schema-content {
+  padding: var(--space-4);
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: var(--space-3);
+}
+
+.schema-card {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-4);
+}
+
+.schema-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-3);
+}
+
+.column-name {
+  font-family: 'Fira Code', monospace;
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.type-badge {
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-xs);
+  font-weight: 500;
+}
+
+.type-badge.string {
+  background-color: rgba(34, 197, 94, 0.15);
+  color: #22c55e;
+}
+
+.type-badge.number {
+  background-color: rgba(59, 130, 246, 0.15);
+  color: #3b82f6;
+}
+
+.type-badge.boolean {
+  background-color: rgba(168, 85, 247, 0.15);
+  color: #a855f7;
+}
+
+.type-badge.date {
+  background-color: rgba(249, 115, 22, 0.15);
+  color: #f97316;
+}
+
+.type-badge.email {
+  background-color: rgba(236, 72, 153, 0.15);
+  color: #ec4899;
+}
+
+.type-badge.mixed {
+  background-color: rgba(148, 163, 184, 0.15);
+  color: #94a3b8;
+}
+
+.schema-card-stats {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.card-stat {
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--font-size-xs);
+}
+
+.card-stat-label {
+  color: var(--color-text-muted);
+}
+
+.card-stat-value {
+  font-family: 'Fira Code', monospace;
+  color: var(--color-text-secondary);
+}
+
+/* Preview Section */
+.preview-section {
+  background-color: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  margin-bottom: var(--space-4);
+  overflow: hidden;
+}
+
+.preview-header {
+  display: flex;
+  align-items: center;
+  padding: var(--space-3) var(--space-4);
+  background-color: var(--color-bg-tertiary);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.preview-header h3 {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.preview-header h3 i {
+  color: #14b8a6;
+}
+
+.preview-content {
+  padding: var(--space-4);
+}
+
+.table-wrapper {
+  overflow-x: auto;
+}
+
+.preview-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--font-size-sm);
+}
+
+.preview-table th,
+.preview-table td {
+  padding: var(--space-2) var(--space-3);
+  text-align: left;
+  border-bottom: 1px solid var(--color-border);
+  white-space: nowrap;
+}
+
+.preview-table th {
+  background-color: var(--color-bg-tertiary);
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.preview-table td {
+  font-family: 'Fira Code', monospace;
+  color: var(--color-text-secondary);
+}
+
+.preview-table tr:last-child td {
+  border-bottom: none;
+}
+
+/* Info Panel */
+.info-panel {
+  background-color: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.info-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-4);
+  background-color: var(--color-bg-tertiary);
+  border-bottom: 1px solid var(--color-border);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.info-header i {
+  color: #14b8a6;
+}
+
+.info-content {
+  padding: var(--space-4);
+}
+
+.type-legend {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-2);
+}
+
+.type-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+}
+
+/* Responsive */
+@media screen and (max-width: 1024px) {
+  .csv-wrapper {
+    border-radius: var(--radius-lg);
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .csv-content {
+    padding: var(--space-4);
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .schema-content {
+    grid-template-columns: 1fr;
+  }
+
+  .type-legend {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .csv-header {
+    padding: var(--space-3) var(--space-4);
+  }
+
+  .csv-header h2 {
+    font-size: var(--font-size-base);
+    gap: var(--space-2);
+  }
+
+  .upload-area {
+    padding: var(--space-4);
+  }
+
+  .upload-icon {
+    width: 50px;
+    height: 50px;
+  }
+
+  .type-legend {
+    grid-template-columns: 1fr;
+  }
+}

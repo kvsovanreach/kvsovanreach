@@ -328,6 +328,12 @@
 }
 
 /* Responsive */
+@media screen and (max-width: 1024px) {
+  .memory-wrapper {
+    border-radius: var(--radius-lg);
+  }
+}
+
 @media screen and (max-width: 768px) {
   .settings-section {
     flex-direction: column;

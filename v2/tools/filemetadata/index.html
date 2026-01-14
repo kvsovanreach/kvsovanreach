@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="View detailed metadata information about any file including size, type, and modification date.">
+  <meta property="og:title" content="KVSOVANREACH | File Metadata Viewer">
+  <meta property="og:description" content="Extract and view file metadata instantly.">
+  <meta property="og:image" content="/assets/img/pwa/ios/512.png">
+  <title>KVSOVANREACH | File Metadata Viewer</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Common Tools CSS -->
+  <link rel="stylesheet" href="../../js/tools-common.css">
+  <!-- File Metadata CSS -->
+  <link rel="stylesheet" href="filemetadata.css">
+</head>
+<body>
+  <!-- Skip to Content -->
+  <a href="#filemetadata" class="skip-link">Skip to File Metadata Viewer</a>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">TOOLS</span>
+      </a>
+
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="tool-page">
+    <div class="container">
+      <div class="metadata-wrapper" id="filemetadata">
+        <!-- Header -->
+        <div class="metadata-header">
+          <h2><i class="fa-solid fa-file-lines"></i> File Metadata Viewer</h2>
+          <div class="metadata-actions">
+            <button class="action-btn" id="clearBtn" title="Clear" aria-label="Clear">
+              <i class="fa-solid fa-trash"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Content -->
+        <div class="metadata-content">
+          <!-- Upload Section -->
+          <div class="upload-section">
+            <div class="upload-area" id="uploadArea">
+              <input type="file" id="fileInput" multiple hidden>
+              <div class="upload-icon">
+                <i class="fa-solid fa-cloud-arrow-up"></i>
+              </div>
+              <h3>Drop files here or click to browse</h3>
+              <p>Supports any file type</p>
+            </div>
+          </div>
+
+          <!-- Files List -->
+          <div class="files-section" id="filesSection" style="display: none;">
+            <div class="files-header">
+              <h3><i class="fa-solid fa-list"></i> Selected Files (<span id="fileCount">0</span>)</h3>
+            </div>
+            <div class="files-list" id="filesList">
+              <!-- Files will be rendered here -->
+            </div>
+          </div>
+
+          <!-- Metadata Display -->
+          <div class="details-section" id="detailsSection" style="display: none;">
+            <div class="details-header">
+              <h3><i class="fa-solid fa-circle-info"></i> File Details</h3>
+            </div>
+            <div class="details-content" id="detailsContent">
+              <!-- Metadata details -->
+            </div>
+          </div>
+
+          <!-- Summary Section -->
+          <div class="summary-section" id="summarySection" style="display: none;">
+            <div class="summary-header">
+              <h3><i class="fa-solid fa-chart-pie"></i> Summary</h3>
+            </div>
+            <div class="summary-content">
+              <div class="summary-grid">
+                <div class="summary-item">
+                  <span class="summary-label">Total Files</span>
+                  <span class="summary-value" id="totalFiles">0</span>
+                </div>
+                <div class="summary-item">
+                  <span class="summary-label">Total Size</span>
+                  <span class="summary-value" id="totalSize">0 B</span>
+                </div>
+                <div class="summary-item">
+                  <span class="summary-label">Average Size</span>
+                  <span class="summary-value" id="avgSize">0 B</span>
+                </div>
+                <div class="summary-item">
+                  <span class="summary-label">File Types</span>
+                  <span class="summary-value" id="fileTypes">0</span>
+                </div>
+              </div>
+              <div class="type-breakdown" id="typeBreakdown">
+                <!-- Type breakdown will be rendered here -->
+              </div>
+            </div>
+          </div>
+
+          <!-- Info Panel -->
+          <div class="info-panel">
+            <div class="info-header">
+              <i class="fa-solid fa-circle-info"></i>
+              <span>About File Metadata</span>
+            </div>
+            <div class="info-content">
+              <p>File metadata provides information about a file without accessing its content:</p>
+              <ul>
+                <li><strong>Name:</strong> The file's name including extension</li>
+                <li><strong>Size:</strong> File size in bytes (converted to KB/MB/GB)</li>
+                <li><strong>Type:</strong> MIME type identifying the file format</li>
+                <li><strong>Modified:</strong> Last modification timestamp</li>
+              </ul>
+              <p class="tip"><strong>Note:</strong> Files are processed locally. No data is uploaded to any server.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach. All rights reserved.</p>
+        <p class="footer-made">Made with 💗 and Claude Code xD</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Keyboard Shortcuts Hint -->
+  <div class="shortcuts-hint" id="shortcutsHint">
+    <span>Press <kbd>?</kbd> for shortcuts</span>
+  </div>
+
+  <!-- Keyboard Shortcuts Modal -->
+  <div class="shortcuts-modal" id="shortcutsModal">
+    <div class="shortcuts-content">
+      <div class="shortcuts-header">
+        <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
+        <button class="close-shortcuts-btn" id="closeShortcutsBtn" aria-label="Close shortcuts">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="shortcuts-body">
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">Actions</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Ctrl</kbd><span class="key-plus">+</span><kbd>O</kbd></div>
+            <div class="shortcut-desc">Open file picker</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Escape</kbd></div>
+            <div class="shortcut-desc">Clear files</div>
+          </div>
+        </div>
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">General</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>?</kbd></div>
+            <div class="shortcut-desc">Show shortcuts</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Shared Tools JavaScript -->
+  <script src="../../js/tools-common.js"></script>
+  <!-- File Metadata JavaScript -->
+  <script src="filemetadata.js"></script>
+</body>
+</html>

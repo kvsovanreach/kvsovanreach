@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Simulate and visualize effects of class imbalance on machine learning models.">
+  <meta property="og:title" content="KVSOVANREACH | Class Imbalance Simulator">
+  <title>KVSOVANREACH | Class Imbalance Simulator</title>
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../js/tools-common.css">
+  <link rel="stylesheet" href="classimbalance.css">
+</head>
+<body>
+  <a href="#classimbalance" class="skip-link">Skip to Class Imbalance Simulator</a>
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span><span class="logo-divider">|</span><span class="logo-tools">TOOLS</span>
+      </a>
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools"><i class="fa-solid fa-arrow-left"></i></a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode"><i class="fa-solid fa-moon"></i><i class="fa-solid fa-sun"></i></button>
+      </div>
+    </div>
+  </nav>
+
+  <main class="tool-page">
+    <div class="container">
+      <div class="imbalance-wrapper" id="classimbalance">
+        <div class="imbalance-header">
+          <h2><i class="fa-solid fa-scale-unbalanced"></i> Class Imbalance Simulator</h2>
+        </div>
+
+        <div class="imbalance-content">
+          <div class="controls-section">
+            <div class="section-header"><h3><i class="fa-solid fa-sliders"></i> Distribution Settings</h3></div>
+            <div class="controls-grid">
+              <div class="control-group">
+                <label>Imbalance Ratio</label>
+                <input type="range" id="imbalanceRatio" min="1" max="100" value="10">
+                <span class="ratio-display">1:<span id="ratioValue">10</span></span>
+              </div>
+              <div class="control-group">
+                <label>Total Samples</label>
+                <input type="number" id="totalSamples" value="1000" min="100" max="10000">
+              </div>
+              <div class="control-group">
+                <label>Handling Strategy</label>
+                <select id="strategy">
+                  <option value="none">None (Original)</option>
+                  <option value="oversample">Oversampling</option>
+                  <option value="undersample">Undersampling</option>
+                  <option value="smote">SMOTE</option>
+                  <option value="weighted">Class Weights</option>
+                </select>
+              </div>
+            </div>
+            <div class="controls-actions">
+              <button class="action-btn primary" id="simulateBtn"><i class="fa-solid fa-play"></i><span>Simulate</span></button>
+            </div>
+          </div>
+
+          <div class="viz-section">
+            <div class="viz-row">
+              <div class="viz-panel">
+                <div class="panel-header"><h4><i class="fa-solid fa-chart-pie"></i> Class Distribution</h4></div>
+                <div class="panel-content"><canvas id="distributionCanvas"></canvas></div>
+              </div>
+              <div class="viz-panel">
+                <div class="panel-header"><h4><i class="fa-solid fa-bullseye"></i> Decision Boundary</h4></div>
+                <div class="panel-content"><canvas id="boundaryCanvas"></canvas></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="metrics-section">
+            <div class="section-header"><h3><i class="fa-solid fa-chart-bar"></i> Performance Metrics</h3></div>
+            <div class="metrics-grid">
+              <div class="metric-card"><span class="metric-label">Accuracy</span><span class="metric-value" id="accuracy">--</span></div>
+              <div class="metric-card"><span class="metric-label">Precision</span><span class="metric-value" id="precision">--</span></div>
+              <div class="metric-card"><span class="metric-label">Recall</span><span class="metric-value" id="recall">--</span></div>
+              <div class="metric-card"><span class="metric-label">F1 Score</span><span class="metric-value" id="f1score">--</span></div>
+            </div>
+          </div>
+
+          <div class="confusion-section">
+            <div class="section-header"><h3><i class="fa-solid fa-table-cells"></i> Confusion Matrix</h3></div>
+            <div class="confusion-container" id="confusionMatrix">
+              <div class="confusion-grid">
+                <div class="confusion-cell header"></div>
+                <div class="confusion-cell header">Pred: Neg</div>
+                <div class="confusion-cell header">Pred: Pos</div>
+                <div class="confusion-cell header">Actual: Neg</div>
+                <div class="confusion-cell tn" id="tn">--</div>
+                <div class="confusion-cell fp" id="fp">--</div>
+                <div class="confusion-cell header">Actual: Pos</div>
+                <div class="confusion-cell fn" id="fn">--</div>
+                <div class="confusion-cell tp" id="tp">--</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="info-panel">
+            <div class="info-header"><i class="fa-solid fa-lightbulb"></i><span>Understanding Class Imbalance</span></div>
+            <div class="info-content">
+              <p>Class imbalance occurs when one class significantly outnumbers others. This causes models to be biased toward the majority class.</p>
+              <ul class="info-list">
+                <li><strong>Oversampling:</strong> Duplicate minority class samples</li>
+                <li><strong>Undersampling:</strong> Remove majority class samples</li>
+                <li><strong>SMOTE:</strong> Generate synthetic minority samples</li>
+                <li><strong>Class Weights:</strong> Penalize errors on minority class</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer"><div class="container"><div class="footer-bottom">
+    <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach. All rights reserved.</p>
+    <p class="footer-made">Made with Claude Code</p>
+  </div></div></footer>
+
+  <div class="toast" id="toast"></div>
+  <div class="shortcuts-hint" id="shortcutsHint"><span>Press <kbd>?</kbd> for shortcuts</span></div>
+  <div class="shortcuts-modal" id="shortcutsModal">
+    <div class="shortcuts-content">
+      <div class="shortcuts-header"><h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3><button class="close-shortcuts-btn" id="closeShortcutsBtn" aria-label="Close"><i class="fa-solid fa-xmark"></i></button></div>
+      <div class="shortcuts-body">
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">Actions</div>
+          <div class="shortcut-row"><div class="shortcut-keys"><kbd>Space</kbd></div><div class="shortcut-desc">Run simulation</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="../../js/tools-common.js"></script>
+  <script src="classimbalance.js"></script>
+</body>
+</html>

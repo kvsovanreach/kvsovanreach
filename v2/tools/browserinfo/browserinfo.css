@@ -4,7 +4,13 @@
 
 /* ==================== Wrapper ==================== */
 .info-wrapper {
-  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
 }
 
 /* ==================== Header ==================== */
@@ -13,8 +19,7 @@
   align-items: center;
   padding: var(--space-4) var(--space-5);
   background-color: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  border-bottom: 1px solid var(--color-border);
 }
 
 .info-header h2 {
@@ -34,8 +39,7 @@
 .info-tabs {
   display: flex;
   background-color: var(--color-bg-secondary);
-  border: 1px solid var(--color-border);
-  border-top: none;
+  border-bottom: 1px solid var(--color-border);
   overflow: hidden;
 }
 
@@ -79,9 +83,6 @@
 /* ==================== Main Content ==================== */
 .info-main {
   background-color: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-top: none;
-  border-radius: 0 0 var(--radius-lg) var(--radius-lg);
   padding: var(--space-5);
 }
 
@@ -289,10 +290,15 @@
 }
 
 /* ==================== Responsive ==================== */
+@media screen and (max-width: 1024px) {
+  .info-wrapper {
+    border-radius: var(--radius-lg);
+  }
+}
+
 @media screen and (max-width: 768px) {
   .info-main {
     padding: var(--space-4);
-    border-radius: 0 0 var(--radius-md) var(--radius-md);
   }
 
   .info-grid {
@@ -310,8 +316,27 @@
 }
 
 @media screen and (max-width: 480px) {
+  .info-wrapper {
+    border-radius: var(--radius-md);
+    margin: 0 calc(-1 * var(--space-3));
+    border-left: none;
+    border-right: none;
+  }
+
+  .info-header {
+    padding: var(--space-3) var(--space-4);
+  }
+
+  .info-header h2 {
+    font-size: var(--font-size-base);
+  }
+
   .info-tab span {
     display: none;
+  }
+
+  .info-main {
+    padding: var(--space-3);
   }
 
   .features-grid {

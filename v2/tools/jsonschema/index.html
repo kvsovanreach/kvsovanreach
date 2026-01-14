@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Convert JSON schemas into expandable visual trees. Explore schema structure interactively.">
+  <meta property="og:title" content="KVSOVANREACH | JSON Schema Visualizer">
+  <meta property="og:description" content="Visualize JSON schemas as expandable tree structures.">
+  <meta property="og:image" content="/assets/img/pwa/ios/512.png">
+  <title>KVSOVANREACH | JSON Schema Visualizer</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Common Tools CSS -->
+  <link rel="stylesheet" href="../../js/tools-common.css">
+  <!-- JSON Schema CSS -->
+  <link rel="stylesheet" href="jsonschema.css">
+</head>
+<body>
+  <!-- Skip to Content -->
+  <a href="#jsonschema" class="skip-link">Skip to JSON Schema Visualizer</a>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">TOOLS</span>
+      </a>
+
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="tool-page">
+    <div class="container">
+      <div class="schema-wrapper" id="jsonschema">
+        <!-- Header -->
+        <div class="schema-header">
+          <h2><i class="fa-solid fa-diagram-project"></i> JSON Schema Visualizer</h2>
+          <div class="schema-actions">
+            <button class="action-btn" id="sampleBtn" title="Load Sample" aria-label="Load sample schema">
+              <i class="fa-solid fa-file-code"></i>
+              <span>Sample</span>
+            </button>
+            <button class="action-btn" id="expandAllBtn" title="Expand All" aria-label="Expand all nodes">
+              <i class="fa-solid fa-expand"></i>
+            </button>
+            <button class="action-btn" id="collapseAllBtn" title="Collapse All" aria-label="Collapse all nodes">
+              <i class="fa-solid fa-compress"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Content -->
+        <div class="schema-content">
+          <!-- Input Section -->
+          <div class="input-section">
+            <div class="input-header">
+              <label for="schemaInput">JSON Schema</label>
+              <div class="input-actions">
+                <button class="action-btn" id="pasteBtn" title="Paste" aria-label="Paste from clipboard">
+                  <i class="fa-solid fa-paste"></i>
+                </button>
+                <button class="action-btn" id="clearBtn" title="Clear" aria-label="Clear input">
+                  <i class="fa-solid fa-trash"></i>
+                </button>
+              </div>
+            </div>
+            <textarea id="schemaInput" placeholder='Paste your JSON Schema here...
+
+Example:
+{
+  "type": "object",
+  "properties": {
+    "name": { "type": "string" },
+    "age": { "type": "integer" }
+  }
+}'></textarea>
+            <div class="input-error hidden" id="inputError">
+              <i class="fa-solid fa-exclamation-triangle"></i>
+              <span id="errorMessage">Invalid JSON</span>
+            </div>
+          </div>
+
+          <!-- Stats Section -->
+          <div class="stats-section">
+            <div class="stats-grid">
+              <div class="stat-card">
+                <div class="stat-icon"><i class="fa-solid fa-cube"></i></div>
+                <div class="stat-content">
+                  <span class="stat-value" id="propertyCount">0</span>
+                  <span class="stat-label">Properties</span>
+                </div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-icon"><i class="fa-solid fa-layer-group"></i></div>
+                <div class="stat-content">
+                  <span class="stat-value" id="depthCount">0</span>
+                  <span class="stat-label">Max Depth</span>
+                </div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-icon"><i class="fa-solid fa-asterisk"></i></div>
+                <div class="stat-content">
+                  <span class="stat-value" id="requiredCount">0</span>
+                  <span class="stat-label">Required</span>
+                </div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-icon"><i class="fa-solid fa-shapes"></i></div>
+                <div class="stat-content">
+                  <span class="stat-value" id="typeCount">0</span>
+                  <span class="stat-label">Types</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tree Visualization Section -->
+          <div class="tree-section">
+            <div class="tree-header">
+              <h3><i class="fa-solid fa-sitemap"></i> Schema Tree</h3>
+              <div class="tree-search">
+                <i class="fa-solid fa-search"></i>
+                <input type="text" id="searchInput" placeholder="Search properties...">
+              </div>
+            </div>
+            <div class="tree-container" id="treeContainer">
+              <div class="tree-placeholder">
+                <i class="fa-solid fa-diagram-project"></i>
+                <p>Paste a JSON Schema to visualize its structure</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Info Panel -->
+          <div class="info-panel">
+            <div class="info-header">
+              <i class="fa-solid fa-circle-info"></i>
+              <span>How to Use</span>
+            </div>
+            <div class="info-content">
+              <ul>
+                <li>Paste a valid JSON Schema in the input area</li>
+                <li>Click on nodes to expand/collapse nested properties</li>
+                <li>Use search to find specific properties</li>
+                <li>Color-coded types: string (green), number (blue), boolean (purple), object (orange), array (cyan)</li>
+              </ul>
+              <p class="tip"><strong>Tip:</strong> JSON Schema defines the structure and validation rules for JSON data. It supports types, required fields, patterns, and more!</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach. All rights reserved.</p>
+        <p class="footer-made">Made with 💗 and Claude Code xD</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Keyboard Shortcuts Hint -->
+  <div class="shortcuts-hint" id="shortcutsHint">
+    <span>Press <kbd>?</kbd> for shortcuts</span>
+  </div>
+
+  <!-- Keyboard Shortcuts Modal -->
+  <div class="shortcuts-modal" id="shortcutsModal">
+    <div class="shortcuts-content">
+      <div class="shortcuts-header">
+        <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
+        <button class="close-shortcuts-btn" id="closeShortcutsBtn" aria-label="Close shortcuts">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="shortcuts-body">
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">Actions</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Ctrl</kbd><span class="key-plus">+</span><kbd>E</kbd></div>
+            <div class="shortcut-desc">Expand all</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Ctrl</kbd><span class="key-plus">+</span><kbd>W</kbd></div>
+            <div class="shortcut-desc">Collapse all</div>
+          </div>
+        </div>
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">General</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>?</kbd></div>
+            <div class="shortcut-desc">Show shortcuts</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Shared Tools JavaScript -->
+  <script src="../../js/tools-common.js"></script>
+  <!-- JSON Schema JavaScript -->
+  <script src="jsonschema.js"></script>
+</body>
+</html>

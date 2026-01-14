@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Visualize retrieval-augmented generation (RAG) pipelines with an interactive diagram builder.">
+  <meta property="og:title" content="KVSOVANREACH | RAG Pipeline Builder">
+  <meta property="og:description" content="Build and visualize RAG pipeline diagrams interactively.">
+  <meta property="og:image" content="/assets/img/pwa/ios/512.png">
+  <title>KVSOVANREACH | RAG Pipeline Builder</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Common Tools CSS -->
+  <link rel="stylesheet" href="../../js/tools-common.css">
+  <!-- RAG Pipeline CSS -->
+  <link rel="stylesheet" href="ragpipeline.css">
+</head>
+<body>
+  <!-- Skip to Content -->
+  <a href="#ragpipeline" class="skip-link">Skip to RAG Pipeline Builder</a>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">TOOLS</span>
+      </a>
+
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="tool-page">
+    <div class="container">
+      <div class="rag-wrapper" id="ragpipeline">
+        <!-- Header -->
+        <div class="rag-header">
+          <h2><i class="fa-solid fa-diagram-successor"></i> RAG Pipeline Builder</h2>
+          <div class="rag-actions">
+            <button class="action-btn" id="exportBtn" title="Export as PNG" aria-label="Export as PNG">
+              <i class="fa-solid fa-download"></i>
+            </button>
+            <button class="action-btn" id="clearBtn" title="Clear All" aria-label="Clear all">
+              <i class="fa-solid fa-trash"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Content -->
+        <div class="rag-content">
+          <!-- Pipeline Stages -->
+          <div class="stages-section">
+            <div class="section-header">
+              <h3><i class="fa-solid fa-layer-group"></i> Pipeline Stages</h3>
+            </div>
+            <div class="stages-container">
+              <!-- Query Stage -->
+              <div class="stage-card" data-stage="query">
+                <div class="stage-icon query">
+                  <i class="fa-solid fa-keyboard"></i>
+                </div>
+                <div class="stage-info">
+                  <h4>Query Input</h4>
+                  <p>User question or prompt</p>
+                </div>
+                <div class="stage-config">
+                  <input type="text" id="queryText" placeholder="Enter sample query..." value="What is machine learning?">
+                </div>
+              </div>
+
+              <!-- Embedding Stage -->
+              <div class="stage-card" data-stage="embedding">
+                <div class="stage-icon embedding">
+                  <i class="fa-solid fa-vector-square"></i>
+                </div>
+                <div class="stage-info">
+                  <h4>Query Embedding</h4>
+                  <p>Convert to vector representation</p>
+                </div>
+                <div class="stage-config">
+                  <select id="embeddingModel">
+                    <option value="openai">OpenAI Ada-002</option>
+                    <option value="cohere">Cohere Embed</option>
+                    <option value="sentence">Sentence-BERT</option>
+                    <option value="custom">Custom Model</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- Retrieval Stage -->
+              <div class="stage-card" data-stage="retrieval">
+                <div class="stage-icon retrieval">
+                  <i class="fa-solid fa-magnifying-glass"></i>
+                </div>
+                <div class="stage-info">
+                  <h4>Retrieval</h4>
+                  <p>Search knowledge base</p>
+                </div>
+                <div class="stage-config">
+                  <select id="retrievalMethod">
+                    <option value="dense">Dense Retrieval</option>
+                    <option value="sparse">Sparse (BM25)</option>
+                    <option value="hybrid">Hybrid Search</option>
+                    <option value="rerank">With Reranker</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- Vector DB Stage -->
+              <div class="stage-card" data-stage="vectordb">
+                <div class="stage-icon vectordb">
+                  <i class="fa-solid fa-database"></i>
+                </div>
+                <div class="stage-info">
+                  <h4>Vector Database</h4>
+                  <p>Store & retrieve embeddings</p>
+                </div>
+                <div class="stage-config">
+                  <select id="vectorDb">
+                    <option value="pinecone">Pinecone</option>
+                    <option value="weaviate">Weaviate</option>
+                    <option value="chroma">ChromaDB</option>
+                    <option value="qdrant">Qdrant</option>
+                    <option value="milvus">Milvus</option>
+                    <option value="pgvector">pgvector</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- Context Stage -->
+              <div class="stage-card" data-stage="context">
+                <div class="stage-icon context">
+                  <i class="fa-solid fa-file-lines"></i>
+                </div>
+                <div class="stage-info">
+                  <h4>Context Building</h4>
+                  <p>Assemble retrieved chunks</p>
+                </div>
+                <div class="stage-config">
+                  <div class="config-row">
+                    <label>Top K:</label>
+                    <input type="number" id="topK" value="5" min="1" max="20">
+                  </div>
+                </div>
+              </div>
+
+              <!-- LLM Stage -->
+              <div class="stage-card" data-stage="llm">
+                <div class="stage-icon llm">
+                  <i class="fa-solid fa-brain"></i>
+                </div>
+                <div class="stage-info">
+                  <h4>LLM Generation</h4>
+                  <p>Generate final response</p>
+                </div>
+                <div class="stage-config">
+                  <select id="llmModel">
+                    <option value="gpt4">GPT-4</option>
+                    <option value="gpt35">GPT-3.5 Turbo</option>
+                    <option value="claude">Claude 3</option>
+                    <option value="llama">Llama 2</option>
+                    <option value="mistral">Mistral</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- Response Stage -->
+              <div class="stage-card" data-stage="response">
+                <div class="stage-icon response">
+                  <i class="fa-solid fa-comment-dots"></i>
+                </div>
+                <div class="stage-info">
+                  <h4>Response</h4>
+                  <p>Generated answer</p>
+                </div>
+                <div class="stage-config">
+                  <div class="response-preview" id="responsePreview">
+                    Response will appear here...
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Flow Diagram -->
+          <div class="diagram-section">
+            <div class="section-header">
+              <h3><i class="fa-solid fa-diagram-project"></i> Pipeline Flow</h3>
+              <button class="action-btn primary" id="runPipelineBtn">
+                <i class="fa-solid fa-play"></i>
+                <span>Run Simulation</span>
+              </button>
+            </div>
+            <div class="diagram-container" id="diagramContainer">
+              <div class="pipeline-flow" id="pipelineFlow">
+                <!-- Flow nodes will be rendered here -->
+              </div>
+            </div>
+          </div>
+
+          <!-- Metrics Section -->
+          <div class="metrics-section">
+            <div class="section-header">
+              <h3><i class="fa-solid fa-chart-bar"></i> Pipeline Metrics</h3>
+            </div>
+            <div class="metrics-grid">
+              <div class="metric-card">
+                <div class="metric-icon">
+                  <i class="fa-solid fa-clock"></i>
+                </div>
+                <div class="metric-info">
+                  <span class="metric-label">Total Latency</span>
+                  <span class="metric-value" id="totalLatency">--</span>
+                </div>
+              </div>
+              <div class="metric-card">
+                <div class="metric-icon">
+                  <i class="fa-solid fa-coins"></i>
+                </div>
+                <div class="metric-info">
+                  <span class="metric-label">Est. Cost</span>
+                  <span class="metric-value" id="estCost">--</span>
+                </div>
+              </div>
+              <div class="metric-card">
+                <div class="metric-icon">
+                  <i class="fa-solid fa-file-alt"></i>
+                </div>
+                <div class="metric-info">
+                  <span class="metric-label">Tokens Used</span>
+                  <span class="metric-value" id="tokensUsed">--</span>
+                </div>
+              </div>
+              <div class="metric-card">
+                <div class="metric-icon">
+                  <i class="fa-solid fa-bullseye"></i>
+                </div>
+                <div class="metric-info">
+                  <span class="metric-label">Relevance Score</span>
+                  <span class="metric-value" id="relevanceScore">--</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Info Panel -->
+          <div class="info-panel">
+            <div class="info-header">
+              <i class="fa-solid fa-lightbulb"></i>
+              <span>About RAG Pipelines</span>
+            </div>
+            <div class="info-content">
+              <p>Retrieval-Augmented Generation (RAG) combines the power of large language models with external knowledge retrieval to provide accurate, up-to-date responses.</p>
+              <ul class="info-list">
+                <li><strong>Query Embedding:</strong> Converts text to vector representations</li>
+                <li><strong>Retrieval:</strong> Finds relevant documents from knowledge base</li>
+                <li><strong>Context Building:</strong> Assembles retrieved information</li>
+                <li><strong>Generation:</strong> LLM produces final response with context</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach. All rights reserved.</p>
+        <p class="footer-made">Made with Claude Code</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Keyboard Shortcuts Hint -->
+  <div class="shortcuts-hint" id="shortcutsHint">
+    <span>Press <kbd>?</kbd> for shortcuts</span>
+  </div>
+
+  <!-- Keyboard Shortcuts Modal -->
+  <div class="shortcuts-modal" id="shortcutsModal">
+    <div class="shortcuts-content">
+      <div class="shortcuts-header">
+        <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
+        <button class="close-shortcuts-btn" id="closeShortcutsBtn" aria-label="Close shortcuts">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="shortcuts-body">
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">Actions</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Space</kbd></div>
+            <div class="shortcut-desc">Run simulation</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Ctrl</kbd><span class="key-plus">+</span><kbd>S</kbd></div>
+            <div class="shortcut-desc">Export diagram</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>R</kbd></div>
+            <div class="shortcut-desc">Reset pipeline</div>
+          </div>
+        </div>
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">General</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>?</kbd></div>
+            <div class="shortcut-desc">Show shortcuts</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Shared Tools JavaScript -->
+  <script src="../../js/tools-common.js"></script>
+  <!-- RAG Pipeline JavaScript -->
+  <script src="ragpipeline.js"></script>
+</body>
+</html>

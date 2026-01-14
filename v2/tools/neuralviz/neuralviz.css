@@ -345,6 +345,12 @@
 }
 
 /* Responsive */
+@media screen and (max-width: 1024px) {
+  .neural-wrapper {
+    border-radius: var(--radius-lg);
+  }
+}
+
 @media screen and (max-width: 768px) {
   .function-selector {
     grid-template-columns: repeat(2, 1fr);

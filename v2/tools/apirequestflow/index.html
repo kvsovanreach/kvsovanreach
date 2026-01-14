@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Draw and visualize client-side API request sequences with an interactive diagram builder.">
+  <meta property="og:title" content="KVSOVANREACH | API Request Flow Builder">
+  <meta property="og:description" content="Build and visualize API request flow diagrams interactively.">
+  <meta property="og:image" content="/assets/img/pwa/ios/512.png">
+  <title>KVSOVANREACH | API Request Flow Builder</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Common Tools CSS -->
+  <link rel="stylesheet" href="../../js/tools-common.css">
+  <!-- API Request Flow CSS -->
+  <link rel="stylesheet" href="apirequestflow.css">
+</head>
+<body>
+  <!-- Skip to Content -->
+  <a href="#apirequestflow" class="skip-link">Skip to API Request Flow Builder</a>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">TOOLS</span>
+      </a>
+
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="tool-page">
+    <div class="container">
+      <div class="apiflow-wrapper" id="apirequestflow">
+        <!-- Header -->
+        <div class="apiflow-header">
+          <h2><i class="fa-solid fa-diagram-project"></i> API Request Flow Builder</h2>
+          <div class="apiflow-actions">
+            <button class="action-btn" id="exportBtn" title="Export as PNG" aria-label="Export as PNG">
+              <i class="fa-solid fa-download"></i>
+            </button>
+            <button class="action-btn" id="clearBtn" title="Clear All" aria-label="Clear all">
+              <i class="fa-solid fa-trash"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Content -->
+        <div class="apiflow-content">
+          <!-- Add Node Section -->
+          <div class="add-section">
+            <div class="add-header">
+              <h3><i class="fa-solid fa-plus-circle"></i> Add Node</h3>
+            </div>
+            <div class="add-controls">
+              <div class="control-group">
+                <label for="nodeType">Node Type</label>
+                <select id="nodeType">
+                  <option value="client">Client</option>
+                  <option value="server">Server/API</option>
+                  <option value="database">Database</option>
+                  <option value="cache">Cache</option>
+                  <option value="service">Microservice</option>
+                  <option value="gateway">API Gateway</option>
+                  <option value="queue">Message Queue</option>
+                  <option value="cdn">CDN</option>
+                </select>
+              </div>
+              <div class="control-group">
+                <label for="nodeName">Node Name</label>
+                <input type="text" id="nodeName" placeholder="e.g., User Service" maxlength="20">
+              </div>
+              <button class="action-btn primary" id="addNodeBtn">
+                <i class="fa-solid fa-plus"></i>
+                <span>Add Node</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Add Connection Section -->
+          <div class="connection-section">
+            <div class="connection-header">
+              <h3><i class="fa-solid fa-arrow-right-arrow-left"></i> Add Connection</h3>
+            </div>
+            <div class="connection-controls">
+              <div class="control-group">
+                <label for="fromNode">From</label>
+                <select id="fromNode">
+                  <option value="">Select source...</option>
+                </select>
+              </div>
+              <div class="control-group">
+                <label for="toNode">To</label>
+                <select id="toNode">
+                  <option value="">Select target...</option>
+                </select>
+              </div>
+              <div class="control-group">
+                <label for="requestMethod">Method</label>
+                <select id="requestMethod">
+                  <option value="GET">GET</option>
+                  <option value="POST">POST</option>
+                  <option value="PUT">PUT</option>
+                  <option value="DELETE">DELETE</option>
+                  <option value="PATCH">PATCH</option>
+                  <option value="WS">WebSocket</option>
+                  <option value="QUERY">Query</option>
+                  <option value="EVENT">Event</option>
+                </select>
+              </div>
+              <div class="control-group">
+                <label for="requestLabel">Label</label>
+                <input type="text" id="requestLabel" placeholder="e.g., /api/users" maxlength="30">
+              </div>
+              <button class="action-btn primary" id="addConnectionBtn">
+                <i class="fa-solid fa-link"></i>
+                <span>Connect</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Diagram Canvas -->
+          <div class="canvas-section">
+            <div class="canvas-header">
+              <h3><i class="fa-solid fa-draw-polygon"></i> Flow Diagram</h3>
+              <div class="canvas-actions">
+                <button class="action-btn" id="zoomInBtn" title="Zoom In" aria-label="Zoom in">
+                  <i class="fa-solid fa-magnifying-glass-plus"></i>
+                </button>
+                <button class="action-btn" id="zoomOutBtn" title="Zoom Out" aria-label="Zoom out">
+                  <i class="fa-solid fa-magnifying-glass-minus"></i>
+                </button>
+                <button class="action-btn" id="resetViewBtn" title="Reset View" aria-label="Reset view">
+                  <i class="fa-solid fa-expand"></i>
+                </button>
+              </div>
+            </div>
+            <div class="canvas-container" id="canvasContainer">
+              <div class="canvas-content" id="canvasContent">
+                <svg class="connections-svg" id="connectionsSvg"></svg>
+                <div class="nodes-container" id="nodesContainer">
+                  <!-- Nodes will be rendered here -->
+                </div>
+                <div class="canvas-placeholder" id="canvasPlaceholder">
+                  <i class="fa-solid fa-diagram-project"></i>
+                  <p>Add nodes to start building your API flow diagram</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Sequence View -->
+          <div class="sequence-section">
+            <div class="sequence-header">
+              <h3><i class="fa-solid fa-list-ol"></i> Request Sequence</h3>
+            </div>
+            <div class="sequence-content" id="sequenceContent">
+              <div class="sequence-placeholder">
+                Add connections to see request sequence
+              </div>
+            </div>
+          </div>
+
+          <!-- Info Panel -->
+          <div class="info-panel">
+            <div class="info-header">
+              <i class="fa-solid fa-lightbulb"></i>
+              <span>Tips</span>
+            </div>
+            <div class="info-content">
+              <ul class="tips-list">
+                <li><strong>Drag nodes</strong> to reposition them on the canvas</li>
+                <li><strong>Click a node</strong> to select it for deletion</li>
+                <li><strong>Click a connection</strong> to remove it</li>
+                <li>Use <strong>zoom controls</strong> for larger diagrams</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach. All rights reserved.</p>
+        <p class="footer-made">Made with Claude Code</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Keyboard Shortcuts Hint -->
+  <div class="shortcuts-hint" id="shortcutsHint">
+    <span>Press <kbd>?</kbd> for shortcuts</span>
+  </div>
+
+  <!-- Keyboard Shortcuts Modal -->
+  <div class="shortcuts-modal" id="shortcutsModal">
+    <div class="shortcuts-content">
+      <div class="shortcuts-header">
+        <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
+        <button class="close-shortcuts-btn" id="closeShortcutsBtn" aria-label="Close shortcuts">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="shortcuts-body">
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">Actions</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Delete</kbd></div>
+            <div class="shortcut-desc">Delete selected node</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Ctrl</kbd><span class="key-plus">+</span><kbd>S</kbd></div>
+            <div class="shortcut-desc">Export diagram</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Escape</kbd></div>
+            <div class="shortcut-desc">Deselect node</div>
+          </div>
+        </div>
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">View</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>+</kbd></div>
+            <div class="shortcut-desc">Zoom in</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>-</kbd></div>
+            <div class="shortcut-desc">Zoom out</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>0</kbd></div>
+            <div class="shortcut-desc">Reset view</div>
+          </div>
+        </div>
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">General</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>?</kbd></div>
+            <div class="shortcut-desc">Show shortcuts</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Shared Tools JavaScript -->
+  <script src="../../js/tools-common.js"></script>
+  <!-- API Request Flow JavaScript -->
+  <script src="apirequestflow.js"></script>
+</body>
+</html>

@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Clean and normalize filenames by removing special characters, spaces, and converting to standard formats.">
+  <meta property="og:title" content="KVSOVANREACH | Filename Normalizer">
+  <meta property="og:description" content="Sanitize filenames for web, URLs, and cross-platform compatibility.">
+  <meta property="og:image" content="/assets/img/pwa/ios/512.png">
+  <title>KVSOVANREACH | Filename Normalizer</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Common Tools CSS -->
+  <link rel="stylesheet" href="../../js/tools-common.css">
+  <!-- Filename Normalizer CSS -->
+  <link rel="stylesheet" href="filenamenormalizer.css">
+</head>
+<body>
+  <!-- Skip to Content -->
+  <a href="#filenamenormalizer" class="skip-link">Skip to Filename Normalizer</a>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">TOOLS</span>
+      </a>
+
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="tool-page">
+    <div class="container">
+      <div class="normalizer-wrapper" id="filenamenormalizer">
+        <!-- Header -->
+        <div class="normalizer-header">
+          <h2><i class="fa-solid fa-file-signature"></i> Filename Normalizer</h2>
+          <div class="normalizer-actions">
+            <button class="action-btn" id="clearBtn" title="Clear" aria-label="Clear">
+              <i class="fa-solid fa-trash"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Content -->
+        <div class="normalizer-content">
+          <!-- Input Section -->
+          <div class="input-section">
+            <div class="input-header">
+              <label for="filenameInput">Enter filename(s)</label>
+              <span class="input-hint">One filename per line for batch processing</span>
+            </div>
+            <textarea id="filenameInput" placeholder="my document (final).pdf
+Report 2024-Q1 [DRAFT].xlsx
+image_001 copy (2).jpg"></textarea>
+          </div>
+
+          <!-- Options Section -->
+          <div class="options-section">
+            <div class="options-header">
+              <h3><i class="fa-solid fa-sliders"></i> Options</h3>
+            </div>
+            <div class="options-grid">
+              <div class="option-group">
+                <label for="formatSelect">Output Format</label>
+                <select id="formatSelect">
+                  <option value="kebab">kebab-case (my-file-name)</option>
+                  <option value="snake">snake_case (my_file_name)</option>
+                  <option value="camel">camelCase (myFileName)</option>
+                  <option value="pascal">PascalCase (MyFileName)</option>
+                  <option value="lower">lowercase (myfilename)</option>
+                </select>
+              </div>
+              <div class="option-group checkboxes">
+                <label class="checkbox-label">
+                  <input type="checkbox" id="removeSpecial" checked>
+                  <span class="checkbox-custom"></span>
+                  <span>Remove special characters</span>
+                </label>
+                <label class="checkbox-label">
+                  <input type="checkbox" id="removeDuplicates" checked>
+                  <span class="checkbox-custom"></span>
+                  <span>Remove duplicate separators</span>
+                </label>
+                <label class="checkbox-label">
+                  <input type="checkbox" id="preserveExtension" checked>
+                  <span class="checkbox-custom"></span>
+                  <span>Preserve file extension</span>
+                </label>
+                <label class="checkbox-label">
+                  <input type="checkbox" id="trimNumbers">
+                  <span class="checkbox-custom"></span>
+                  <span>Remove leading numbers</span>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <!-- Results Section -->
+          <div class="results-section" id="resultsSection">
+            <div class="results-header">
+              <h3><i class="fa-solid fa-check-double"></i> Normalized Results</h3>
+              <button class="action-btn small" id="copyAllBtn" title="Copy all">
+                <i class="fa-solid fa-copy"></i>
+                <span>Copy All</span>
+              </button>
+            </div>
+            <div class="results-content" id="resultsContent">
+              <div class="results-placeholder">Enter filenames above to normalize</div>
+            </div>
+          </div>
+
+          <!-- Preview Section -->
+          <div class="preview-section" id="previewSection" style="display: none;">
+            <div class="preview-header">
+              <h3><i class="fa-solid fa-eye"></i> Before & After</h3>
+            </div>
+            <div class="preview-content" id="previewContent">
+              <!-- Preview items will be rendered here -->
+            </div>
+          </div>
+
+          <!-- Info Panel -->
+          <div class="info-panel">
+            <div class="info-header">
+              <i class="fa-solid fa-circle-info"></i>
+              <span>Best Practices for Filenames</span>
+            </div>
+            <div class="info-content">
+              <div class="tips-grid">
+                <div class="tip-item">
+                  <i class="fa-solid fa-check"></i>
+                  <span>Use lowercase letters</span>
+                </div>
+                <div class="tip-item">
+                  <i class="fa-solid fa-check"></i>
+                  <span>Replace spaces with hyphens or underscores</span>
+                </div>
+                <div class="tip-item">
+                  <i class="fa-solid fa-check"></i>
+                  <span>Avoid special characters (!@#$%^&*)</span>
+                </div>
+                <div class="tip-item">
+                  <i class="fa-solid fa-check"></i>
+                  <span>Keep filenames short but descriptive</span>
+                </div>
+                <div class="tip-item">
+                  <i class="fa-solid fa-xmark"></i>
+                  <span>Avoid spaces in URLs and web files</span>
+                </div>
+                <div class="tip-item">
+                  <i class="fa-solid fa-xmark"></i>
+                  <span>Don't use reserved characters (\/:*?"<>|)</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach. All rights reserved.</p>
+        <p class="footer-made">Made with 💗 and Claude Code xD</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Keyboard Shortcuts Hint -->
+  <div class="shortcuts-hint" id="shortcutsHint">
+    <span>Press <kbd>?</kbd> for shortcuts</span>
+  </div>
+
+  <!-- Keyboard Shortcuts Modal -->
+  <div class="shortcuts-modal" id="shortcutsModal">
+    <div class="shortcuts-content">
+      <div class="shortcuts-header">
+        <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
+        <button class="close-shortcuts-btn" id="closeShortcutsBtn" aria-label="Close shortcuts">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="shortcuts-body">
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">Actions</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Ctrl</kbd><span class="key-plus">+</span><kbd>C</kbd></div>
+            <div class="shortcut-desc">Copy all results</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Escape</kbd></div>
+            <div class="shortcut-desc">Clear input</div>
+          </div>
+        </div>
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">General</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>?</kbd></div>
+            <div class="shortcut-desc">Show shortcuts</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Shared Tools JavaScript -->
+  <script src="../../js/tools-common.js"></script>
+  <!-- Filename Normalizer JavaScript -->
+  <script src="filenamenormalizer.js"></script>
+</body>
+</html>

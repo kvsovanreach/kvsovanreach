@@ -404,6 +404,12 @@
 }
 
 /* ==================== Responsive ==================== */
+@media screen and (max-width: 1024px) {
+  .json-wrapper {
+    border-radius: var(--radius-lg);
+  }
+}
+
 @media screen and (max-width: 768px) {
   .json-main {
     padding: var(--space-4);

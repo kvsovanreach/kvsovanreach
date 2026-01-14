@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Check and convert between different naming conventions: camelCase, PascalCase, snake_case, kebab-case, and more.">
+  <meta property="og:title" content="KVSOVANREACH | Naming Convention Checker">
+  <meta property="og:description" content="Validate and convert variable names between naming conventions.">
+  <meta property="og:image" content="/assets/img/pwa/ios/512.png">
+  <title>KVSOVANREACH | Naming Convention Checker</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Common Tools CSS -->
+  <link rel="stylesheet" href="../../js/tools-common.css">
+  <!-- Naming Convention CSS -->
+  <link rel="stylesheet" href="namingconvention.css">
+</head>
+<body>
+  <!-- Skip to Content -->
+  <a href="#namingconvention" class="skip-link">Skip to Naming Convention Checker</a>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">TOOLS</span>
+      </a>
+
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="tool-page">
+    <div class="container">
+      <div class="naming-wrapper" id="namingconvention">
+        <!-- Header -->
+        <div class="naming-header">
+          <h2><i class="fa-solid fa-text-slash"></i> Naming Convention Checker</h2>
+          <div class="naming-actions">
+            <button class="action-btn" id="sampleBtn" title="Load Sample" aria-label="Load sample">
+              <i class="fa-solid fa-file-code"></i>
+              <span>Sample</span>
+            </button>
+            <button class="action-btn" id="clearBtn" title="Clear" aria-label="Clear input">
+              <i class="fa-solid fa-trash"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Content -->
+        <div class="naming-content">
+          <!-- Input Section -->
+          <div class="input-section">
+            <div class="input-header">
+              <label for="nameInput">Enter identifier name</label>
+            </div>
+            <div class="input-container">
+              <input type="text" id="nameInput" placeholder="e.g., getUserName, user_name, UserName..." autocomplete="off">
+              <button class="action-btn" id="pasteBtn" title="Paste" aria-label="Paste from clipboard">
+                <i class="fa-solid fa-paste"></i>
+              </button>
+            </div>
+            <p class="input-hint">Enter a variable name, function name, or any identifier to check its naming convention</p>
+          </div>
+
+          <!-- Detection Section -->
+          <div class="detection-section" id="detectionSection">
+            <div class="detection-header">
+              <h3><i class="fa-solid fa-magnifying-glass-chart"></i> Detected Convention</h3>
+            </div>
+            <div class="detection-content">
+              <div class="detection-result" id="detectionResult">
+                <span class="detection-placeholder">Enter a name to detect its convention</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Conversions Section -->
+          <div class="conversions-section" id="conversionsSection">
+            <div class="conversions-header">
+              <h3><i class="fa-solid fa-arrows-rotate"></i> Convert To</h3>
+            </div>
+            <div class="conversions-grid">
+              <div class="conversion-card" data-convention="camelCase">
+                <div class="convention-header">
+                  <span class="convention-name">camelCase</span>
+                  <span class="convention-badge">JavaScript/Java</span>
+                </div>
+                <div class="convention-value">
+                  <code id="camelCaseValue">-</code>
+                  <button class="copy-btn" data-target="camelCaseValue" title="Copy">
+                    <i class="fa-solid fa-copy"></i>
+                  </button>
+                </div>
+                <p class="convention-desc">First word lowercase, subsequent words capitalized</p>
+              </div>
+
+              <div class="conversion-card" data-convention="PascalCase">
+                <div class="convention-header">
+                  <span class="convention-name">PascalCase</span>
+                  <span class="convention-badge">C#/Classes</span>
+                </div>
+                <div class="convention-value">
+                  <code id="PascalCaseValue">-</code>
+                  <button class="copy-btn" data-target="PascalCaseValue" title="Copy">
+                    <i class="fa-solid fa-copy"></i>
+                  </button>
+                </div>
+                <p class="convention-desc">Every word capitalized, no separators</p>
+              </div>
+
+              <div class="conversion-card" data-convention="snake_case">
+                <div class="convention-header">
+                  <span class="convention-name">snake_case</span>
+                  <span class="convention-badge">Python/Ruby</span>
+                </div>
+                <div class="convention-value">
+                  <code id="snake_caseValue">-</code>
+                  <button class="copy-btn" data-target="snake_caseValue" title="Copy">
+                    <i class="fa-solid fa-copy"></i>
+                  </button>
+                </div>
+                <p class="convention-desc">All lowercase with underscores</p>
+              </div>
+
+              <div class="conversion-card" data-convention="SCREAMING_SNAKE_CASE">
+                <div class="convention-header">
+                  <span class="convention-name">SCREAMING_SNAKE_CASE</span>
+                  <span class="convention-badge">Constants</span>
+                </div>
+                <div class="convention-value">
+                  <code id="SCREAMING_SNAKE_CASEValue">-</code>
+                  <button class="copy-btn" data-target="SCREAMING_SNAKE_CASEValue" title="Copy">
+                    <i class="fa-solid fa-copy"></i>
+                  </button>
+                </div>
+                <p class="convention-desc">All uppercase with underscores</p>
+              </div>
+
+              <div class="conversion-card" data-convention="kebab-case">
+                <div class="convention-header">
+                  <span class="convention-name">kebab-case</span>
+                  <span class="convention-badge">CSS/URLs</span>
+                </div>
+                <div class="convention-value">
+                  <code id="kebab-caseValue">-</code>
+                  <button class="copy-btn" data-target="kebab-caseValue" title="Copy">
+                    <i class="fa-solid fa-copy"></i>
+                  </button>
+                </div>
+                <p class="convention-desc">All lowercase with hyphens</p>
+              </div>
+
+              <div class="conversion-card" data-convention="flatcase">
+                <div class="convention-header">
+                  <span class="convention-name">flatcase</span>
+                  <span class="convention-badge">Packages</span>
+                </div>
+                <div class="convention-value">
+                  <code id="flatcaseValue">-</code>
+                  <button class="copy-btn" data-target="flatcaseValue" title="Copy">
+                    <i class="fa-solid fa-copy"></i>
+                  </button>
+                </div>
+                <p class="convention-desc">All lowercase, no separators</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Validation Section -->
+          <div class="validation-section" id="validationSection">
+            <div class="validation-header">
+              <h3><i class="fa-solid fa-check-double"></i> Validation</h3>
+            </div>
+            <div class="validation-content">
+              <div class="validation-item">
+                <i class="fa-solid fa-circle-check"></i>
+                <span id="validationMessage">Enter a name to validate</span>
+              </div>
+              <div class="validation-rules" id="validationRules">
+                <!-- Rules will be populated -->
+              </div>
+            </div>
+          </div>
+
+          <!-- Info Panel -->
+          <div class="info-panel">
+            <div class="info-header">
+              <i class="fa-solid fa-circle-info"></i>
+              <span>Convention Guide</span>
+            </div>
+            <div class="info-content">
+              <div class="info-table">
+                <div class="info-row header">
+                  <span>Convention</span>
+                  <span>Example</span>
+                  <span>Common Use</span>
+                </div>
+                <div class="info-row">
+                  <span>camelCase</span>
+                  <code>getUserName</code>
+                  <span>Variables, functions</span>
+                </div>
+                <div class="info-row">
+                  <span>PascalCase</span>
+                  <code>UserProfile</code>
+                  <span>Classes, components</span>
+                </div>
+                <div class="info-row">
+                  <span>snake_case</span>
+                  <code>user_name</code>
+                  <span>Python, databases</span>
+                </div>
+                <div class="info-row">
+                  <span>SCREAMING_SNAKE</span>
+                  <code>MAX_VALUE</code>
+                  <span>Constants</span>
+                </div>
+                <div class="info-row">
+                  <span>kebab-case</span>
+                  <code>user-profile</code>
+                  <span>CSS, URLs, files</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach. All rights reserved.</p>
+        <p class="footer-made">Made with 💗 and Claude Code xD</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Keyboard Shortcuts Hint -->
+  <div class="shortcuts-hint" id="shortcutsHint">
+    <span>Press <kbd>?</kbd> for shortcuts</span>
+  </div>
+
+  <!-- Keyboard Shortcuts Modal -->
+  <div class="shortcuts-modal" id="shortcutsModal">
+    <div class="shortcuts-content">
+      <div class="shortcuts-header">
+        <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
+        <button class="close-shortcuts-btn" id="closeShortcutsBtn" aria-label="Close shortcuts">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="shortcuts-body">
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">Actions</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Ctrl</kbd><span class="key-plus">+</span><kbd>V</kbd></div>
+            <div class="shortcut-desc">Paste from clipboard</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Escape</kbd></div>
+            <div class="shortcut-desc">Clear input</div>
+          </div>
+        </div>
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">General</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>?</kbd></div>
+            <div class="shortcut-desc">Show shortcuts</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Shared Tools JavaScript -->
+  <script src="../../js/tools-common.js"></script>
+  <!-- Naming Convention JavaScript -->
+  <script src="namingconvention.js"></script>
+</body>
+</html>

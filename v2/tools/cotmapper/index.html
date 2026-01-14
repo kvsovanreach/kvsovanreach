@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Map reasoning steps as a visual flow diagram. Visualize chain-of-thought processes for problem-solving and analysis.">
+  <meta property="og:title" content="KVSOVANREACH | Chain-of-Thought Mapper">
+  <meta property="og:description" content="Visualize reasoning steps as flow diagrams.">
+  <meta property="og:image" content="/assets/img/pwa/ios/512.png">
+  <title>KVSOVANREACH | Chain-of-Thought Mapper</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Common Tools CSS -->
+  <link rel="stylesheet" href="../../js/tools-common.css">
+  <!-- CoT Mapper CSS -->
+  <link rel="stylesheet" href="cotmapper.css">
+</head>
+<body>
+  <!-- Skip to Content -->
+  <a href="#cotmapper" class="skip-link">Skip to Chain-of-Thought Mapper</a>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">TOOLS</span>
+      </a>
+
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="tool-page">
+    <div class="container">
+      <div class="cot-wrapper" id="cotmapper">
+        <!-- Header -->
+        <div class="cot-header">
+          <h2><i class="fa-solid fa-brain"></i> Chain-of-Thought Mapper</h2>
+          <div class="cot-actions">
+            <button class="action-btn" id="exportBtn" title="Export as PNG" aria-label="Export as PNG">
+              <i class="fa-solid fa-download"></i>
+            </button>
+            <button class="action-btn" id="clearBtn" title="Clear All" aria-label="Clear all">
+              <i class="fa-solid fa-trash"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Content -->
+        <div class="cot-content">
+          <!-- Problem Input -->
+          <div class="problem-section">
+            <div class="section-header">
+              <h3><i class="fa-solid fa-question-circle"></i> Problem Statement</h3>
+            </div>
+            <div class="section-content">
+              <textarea id="problemInput" placeholder="Enter the problem or question you want to reason through..." rows="3"></textarea>
+            </div>
+          </div>
+
+          <!-- Add Step Section -->
+          <div class="add-section">
+            <div class="section-header">
+              <h3><i class="fa-solid fa-plus-circle"></i> Add Reasoning Step</h3>
+            </div>
+            <div class="add-controls">
+              <div class="control-row">
+                <div class="control-group flex-1">
+                  <label for="stepType">Step Type</label>
+                  <select id="stepType">
+                    <option value="thought">Thought</option>
+                    <option value="observation">Observation</option>
+                    <option value="analysis">Analysis</option>
+                    <option value="hypothesis">Hypothesis</option>
+                    <option value="evidence">Evidence</option>
+                    <option value="conclusion">Conclusion</option>
+                    <option value="question">Sub-Question</option>
+                    <option value="action">Action</option>
+                  </select>
+                </div>
+                <div class="control-group flex-2">
+                  <label for="stepContent">Content</label>
+                  <input type="text" id="stepContent" placeholder="Enter reasoning step..." maxlength="200">
+                </div>
+              </div>
+              <div class="control-row">
+                <div class="control-group flex-1">
+                  <label for="parentStep">Parent Step</label>
+                  <select id="parentStep">
+                    <option value="">Root (Start)</option>
+                  </select>
+                </div>
+                <button class="action-btn primary" id="addStepBtn">
+                  <i class="fa-solid fa-plus"></i>
+                  <span>Add Step</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Flow Diagram -->
+          <div class="diagram-section">
+            <div class="section-header">
+              <h3><i class="fa-solid fa-sitemap"></i> Reasoning Flow</h3>
+              <div class="diagram-actions">
+                <button class="action-btn" id="autoLayoutBtn" title="Auto Layout" aria-label="Auto layout">
+                  <i class="fa-solid fa-wand-magic-sparkles"></i>
+                </button>
+                <button class="action-btn" id="zoomInBtn" title="Zoom In" aria-label="Zoom in">
+                  <i class="fa-solid fa-magnifying-glass-plus"></i>
+                </button>
+                <button class="action-btn" id="zoomOutBtn" title="Zoom Out" aria-label="Zoom out">
+                  <i class="fa-solid fa-magnifying-glass-minus"></i>
+                </button>
+              </div>
+            </div>
+            <div class="diagram-container" id="diagramContainer">
+              <div class="diagram-content" id="diagramContent">
+                <svg class="connections-svg" id="connectionsSvg"></svg>
+                <div class="steps-container" id="stepsContainer">
+                  <!-- Steps will be rendered here -->
+                </div>
+                <div class="diagram-placeholder" id="diagramPlaceholder">
+                  <i class="fa-solid fa-brain"></i>
+                  <p>Add reasoning steps to visualize your chain of thought</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Summary Section -->
+          <div class="summary-section">
+            <div class="section-header">
+              <h3><i class="fa-solid fa-list-check"></i> Reasoning Summary</h3>
+              <button class="action-btn" id="copySummaryBtn" title="Copy Summary" aria-label="Copy summary">
+                <i class="fa-solid fa-copy"></i>
+              </button>
+            </div>
+            <div class="summary-content" id="summaryContent">
+              <div class="summary-placeholder">
+                Add steps to see reasoning summary
+              </div>
+            </div>
+          </div>
+
+          <!-- Templates -->
+          <div class="templates-section">
+            <div class="section-header">
+              <h3><i class="fa-solid fa-shapes"></i> Quick Templates</h3>
+            </div>
+            <div class="templates-grid">
+              <button class="template-btn" data-template="problem-solving">
+                <i class="fa-solid fa-puzzle-piece"></i>
+                <span>Problem Solving</span>
+              </button>
+              <button class="template-btn" data-template="decision-making">
+                <i class="fa-solid fa-scale-balanced"></i>
+                <span>Decision Making</span>
+              </button>
+              <button class="template-btn" data-template="analysis">
+                <i class="fa-solid fa-magnifying-glass-chart"></i>
+                <span>Analysis</span>
+              </button>
+              <button class="template-btn" data-template="debugging">
+                <i class="fa-solid fa-bug"></i>
+                <span>Debugging</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach. All rights reserved.</p>
+        <p class="footer-made">Made with Claude Code</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Keyboard Shortcuts Hint -->
+  <div class="shortcuts-hint" id="shortcutsHint">
+    <span>Press <kbd>?</kbd> for shortcuts</span>
+  </div>
+
+  <!-- Keyboard Shortcuts Modal -->
+  <div class="shortcuts-modal" id="shortcutsModal">
+    <div class="shortcuts-content">
+      <div class="shortcuts-header">
+        <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
+        <button class="close-shortcuts-btn" id="closeShortcutsBtn" aria-label="Close shortcuts">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="shortcuts-body">
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">Actions</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Enter</kbd></div>
+            <div class="shortcut-desc">Add step (when input focused)</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Delete</kbd></div>
+            <div class="shortcut-desc">Delete selected step</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Ctrl</kbd><span class="key-plus">+</span><kbd>S</kbd></div>
+            <div class="shortcut-desc">Export diagram</div>
+          </div>
+        </div>
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">View</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>+</kbd></div>
+            <div class="shortcut-desc">Zoom in</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>-</kbd></div>
+            <div class="shortcut-desc">Zoom out</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>L</kbd></div>
+            <div class="shortcut-desc">Auto layout</div>
+          </div>
+        </div>
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">General</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>?</kbd></div>
+            <div class="shortcut-desc">Show shortcuts</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Shared Tools JavaScript -->
+  <script src="../../js/tools-common.js"></script>
+  <!-- CoT Mapper JavaScript -->
+  <script src="cotmapper.js"></script>
+</body>
+</html>

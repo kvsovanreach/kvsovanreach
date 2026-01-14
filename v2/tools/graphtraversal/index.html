@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Visualize BFS and DFS graph traversal algorithms with interactive animations.">
+  <meta property="og:title" content="KVSOVANREACH | Graph Traversal Visualizer">
+  <meta property="og:description" content="Interactive visualization of graph traversal algorithms.">
+  <meta property="og:image" content="/assets/img/pwa/ios/512.png">
+  <title>KVSOVANREACH | Graph Traversal Visualizer</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Common Tools CSS -->
+  <link rel="stylesheet" href="../../js/tools-common.css">
+  <!-- Graph Traversal CSS -->
+  <link rel="stylesheet" href="graphtraversal.css">
+</head>
+<body>
+  <!-- Skip to Content -->
+  <a href="#graphtraversal" class="skip-link">Skip to Graph Traversal Visualizer</a>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">TOOLS</span>
+      </a>
+
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="tool-page">
+    <div class="container">
+      <div class="graph-wrapper" id="graphtraversal">
+        <!-- Header -->
+        <div class="graph-header">
+          <h2><i class="fa-solid fa-diagram-project"></i> Graph Traversal Visualizer</h2>
+          <div class="graph-actions">
+            <button class="action-btn" id="sampleBtn" title="Load Sample Graph" aria-label="Load sample graph">
+              <i class="fa-solid fa-file-code"></i>
+              <span>Sample</span>
+            </button>
+            <button class="action-btn" id="clearBtn" title="Clear Graph" aria-label="Clear graph">
+              <i class="fa-solid fa-trash"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Content -->
+        <div class="graph-content">
+          <!-- Controls Section -->
+          <div class="controls-section">
+            <div class="control-group">
+              <label for="algorithmSelect">Algorithm</label>
+              <select id="algorithmSelect">
+                <option value="bfs">Breadth-First Search (BFS)</option>
+                <option value="dfs">Depth-First Search (DFS)</option>
+              </select>
+            </div>
+
+            <div class="control-group">
+              <label for="startNode">Start Node</label>
+              <select id="startNode">
+                <option value="">Select...</option>
+              </select>
+            </div>
+
+            <div class="control-group">
+              <label for="speedSlider">Speed: <span id="speedValue">500</span>ms</label>
+              <input type="range" id="speedSlider" min="100" max="2000" value="500" step="100">
+            </div>
+
+            <div class="control-buttons">
+              <button class="action-btn primary" id="startBtn">
+                <i class="fa-solid fa-play"></i>
+                <span>Start</span>
+              </button>
+              <button class="action-btn" id="stepBtn" title="Step">
+                <i class="fa-solid fa-forward-step"></i>
+              </button>
+              <button class="action-btn" id="resetBtn" title="Reset">
+                <i class="fa-solid fa-rotate"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Graph Builder Section -->
+          <div class="builder-section">
+            <div class="builder-header">
+              <h3><i class="fa-solid fa-plus-circle"></i> Build Graph</h3>
+            </div>
+            <div class="builder-content">
+              <div class="builder-row">
+                <div class="builder-input">
+                  <label for="nodeInput">Add Node</label>
+                  <div class="input-with-btn">
+                    <input type="text" id="nodeInput" placeholder="Node name (A, B, C...)" maxlength="3">
+                    <button class="action-btn small" id="addNodeBtn" title="Add node">
+                      <i class="fa-solid fa-plus"></i>
+                    </button>
+                  </div>
+                </div>
+                <div class="builder-input">
+                  <label>Add Edge</label>
+                  <div class="edge-inputs">
+                    <select id="edgeFrom">
+                      <option value="">From</option>
+                    </select>
+                    <span class="edge-arrow"><i class="fa-solid fa-arrow-right"></i></span>
+                    <select id="edgeTo">
+                      <option value="">To</option>
+                    </select>
+                    <button class="action-btn small" id="addEdgeBtn" title="Add edge">
+                      <i class="fa-solid fa-plus"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Visualization Section -->
+          <div class="visualization-section">
+            <div class="vis-header">
+              <h3><i class="fa-solid fa-project-diagram"></i> Graph</h3>
+              <div class="vis-stats">
+                <span class="stat"><strong id="nodeCount">0</strong> nodes</span>
+                <span class="stat"><strong id="edgeCount">0</strong> edges</span>
+              </div>
+            </div>
+            <div class="vis-container">
+              <svg id="graphCanvas" width="100%" height="100%"></svg>
+              <div class="vis-placeholder" id="visPlaceholder">
+                <i class="fa-solid fa-diagram-project"></i>
+                <p>Add nodes and edges to build your graph</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Traversal Output Section -->
+          <div class="output-section">
+            <div class="output-header">
+              <h3><i class="fa-solid fa-route"></i> Traversal Order</h3>
+            </div>
+            <div class="output-content">
+              <div class="traversal-path" id="traversalPath">
+                <span class="path-placeholder">Run traversal to see the order</span>
+              </div>
+              <div class="traversal-queue" id="traversalQueue" style="display: none;">
+                <span class="queue-label">Queue/Stack:</span>
+                <div class="queue-items" id="queueItems"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Legend Section -->
+          <div class="legend-section">
+            <div class="legend-item">
+              <span class="legend-color unvisited"></span>
+              <span>Unvisited</span>
+            </div>
+            <div class="legend-item">
+              <span class="legend-color current"></span>
+              <span>Current</span>
+            </div>
+            <div class="legend-item">
+              <span class="legend-color visited"></span>
+              <span>Visited</span>
+            </div>
+            <div class="legend-item">
+              <span class="legend-color queued"></span>
+              <span>In Queue/Stack</span>
+            </div>
+          </div>
+
+          <!-- Info Panel -->
+          <div class="info-panel">
+            <div class="info-header">
+              <i class="fa-solid fa-circle-info"></i>
+              <span id="algorithmName">Breadth-First Search (BFS)</span>
+            </div>
+            <div class="info-content">
+              <p id="algorithmDesc">BFS explores nodes level by level, visiting all neighbors before moving to the next depth. Uses a queue data structure.</p>
+              <div class="complexity-info">
+                <div class="complexity-item">
+                  <span class="complexity-label">Time</span>
+                  <span class="complexity-value">O(V + E)</span>
+                </div>
+                <div class="complexity-item">
+                  <span class="complexity-label">Space</span>
+                  <span class="complexity-value">O(V)</span>
+                </div>
+                <div class="complexity-item">
+                  <span class="complexity-label">Structure</span>
+                  <span class="complexity-value" id="dataStructure">Queue</span>
+                </div>
+                <div class="complexity-item">
+                  <span class="complexity-label">Complete</span>
+                  <span class="complexity-value">Yes</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach. All rights reserved.</p>
+        <p class="footer-made">Made with 💗 and Claude Code xD</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Keyboard Shortcuts Hint -->
+  <div class="shortcuts-hint" id="shortcutsHint">
+    <span>Press <kbd>?</kbd> for shortcuts</span>
+  </div>
+
+  <!-- Keyboard Shortcuts Modal -->
+  <div class="shortcuts-modal" id="shortcutsModal">
+    <div class="shortcuts-content">
+      <div class="shortcuts-header">
+        <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
+        <button class="close-shortcuts-btn" id="closeShortcutsBtn" aria-label="Close shortcuts">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="shortcuts-body">
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">Controls</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Space</kbd></div>
+            <div class="shortcut-desc">Start / Pause</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>N</kbd></div>
+            <div class="shortcut-desc">Next step</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>R</kbd></div>
+            <div class="shortcut-desc">Reset</div>
+          </div>
+        </div>
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">General</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>?</kbd></div>
+            <div class="shortcut-desc">Show shortcuts</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Shared Tools JavaScript -->
+  <script src="../../js/tools-common.js"></script>
+  <!-- Graph Traversal JavaScript -->
+  <script src="graphtraversal.js"></script>
+</body>
+</html>

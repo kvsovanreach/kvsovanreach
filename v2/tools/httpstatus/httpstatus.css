@@ -4,7 +4,13 @@
 
 /* ==================== Wrapper ==================== */
 .http-wrapper {
-  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
 }
 
 /* ==================== Header ==================== */
@@ -14,8 +20,7 @@
   justify-content: space-between;
   padding: var(--space-4) var(--space-5);
   background-color: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  border-bottom: 1px solid var(--color-border);
 }
 
 .http-header h2 {
@@ -34,9 +39,6 @@
 /* ==================== Main Card ==================== */
 .http-card {
   background-color: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-top: none;
-  border-radius: 0 0 var(--radius-lg) var(--radius-lg);
   padding: var(--space-5);
   display: flex;
   flex-direction: column;
@@ -486,6 +488,12 @@
 }
 
 /* ==================== Responsive ==================== */
+@media screen and (max-width: 1024px) {
+  .http-wrapper {
+    border-radius: var(--radius-lg);
+  }
+}
+
 @media screen and (max-width: 768px) {
   .http-card {
     padding: var(--space-4);
@@ -518,5 +526,53 @@
 
   .status-modal-title {
     font-size: var(--font-size-lg);
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .http-wrapper {
+    border-radius: var(--radius-md);
+    margin: 0 calc(-1 * var(--space-3));
+    border-left: none;
+    border-right: none;
+  }
+
+  .http-header {
+    padding: var(--space-3) var(--space-4);
+  }
+
+  .http-header h2 {
+    font-size: var(--font-size-base);
+  }
+
+  .http-card {
+    padding: var(--space-3);
+  }
+
+  .http-tabs {
+    gap: var(--space-1);
+  }
+
+  .http-tab {
+    padding: var(--space-2) var(--space-3);
+    font-size: var(--font-size-xs);
+  }
+
+  .status-item {
+    gap: var(--space-2);
+    padding: var(--space-2);
+  }
+
+  .status-code {
+    min-width: 45px;
+    font-size: var(--font-size-sm);
+  }
+
+  .status-name {
+    font-size: var(--font-size-sm);
+  }
+
+  .status-desc {
+    font-size: var(--font-size-xs);
   }
 }

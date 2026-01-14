@@ -348,6 +348,12 @@
 }
 
 /* Responsive */
+@media screen and (max-width: 1024px) {
+  .cookie-wrapper {
+    border-radius: var(--radius-lg);
+  }
+}
+
 @media screen and (max-width: 768px) {
   .form-grid {
     grid-template-columns: 1fr;

@@ -283,6 +283,12 @@
 }
 
 /* ==================== Responsive ==================== */
+@media screen and (max-width: 1024px) {
+  .case-wrapper {
+    border-radius: var(--radius-lg);
+  }
+}
+
 @media screen and (max-width: 768px) {
   .case-main {
     padding: var(--space-4);

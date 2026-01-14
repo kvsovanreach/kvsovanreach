@@ -360,6 +360,12 @@
 }
 
 /* Responsive */
+@media screen and (max-width: 1024px) {
+  .logic-wrapper {
+    border-radius: var(--radius-lg);
+  }
+}
+
 @media screen and (max-width: 768px) {
   .clues-list {
     grid-template-columns: 1fr;

@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Visualize memory allocation strategies including stack and heap operations with interactive animations.">
+  <meta property="og:title" content="KVSOVANREACH | Memory Allocation Visualizer">
+  <meta property="og:description" content="Interactive visualization of memory management concepts.">
+  <meta property="og:image" content="/assets/img/pwa/ios/512.png">
+  <title>KVSOVANREACH | Memory Allocation Visualizer</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Common Tools CSS -->
+  <link rel="stylesheet" href="../../js/tools-common.css">
+  <!-- Memory Visualizer CSS -->
+  <link rel="stylesheet" href="memoryvisualizer.css">
+</head>
+<body>
+  <!-- Skip to Content -->
+  <a href="#memoryvisualizer" class="skip-link">Skip to Memory Visualizer</a>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">TOOLS</span>
+      </a>
+
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="tool-page">
+    <div class="container">
+      <div class="memory-wrapper" id="memoryvisualizer">
+        <!-- Header -->
+        <div class="memory-header">
+          <h2><i class="fa-solid fa-memory"></i> Memory Allocation Visualizer</h2>
+          <div class="memory-actions">
+            <button class="action-btn" id="resetBtn" title="Reset Memory" aria-label="Reset memory">
+              <i class="fa-solid fa-rotate"></i>
+              <span>Reset</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Content -->
+        <div class="memory-content">
+          <!-- Controls Section -->
+          <div class="controls-section">
+            <div class="control-group">
+              <label for="varName">Variable Name</label>
+              <input type="text" id="varName" placeholder="myVar" maxlength="10">
+            </div>
+            <div class="control-group">
+              <label for="varSize">Size (bytes)</label>
+              <input type="number" id="varSize" min="1" max="64" value="4">
+            </div>
+            <div class="control-group">
+              <label for="allocType">Allocation Type</label>
+              <select id="allocType">
+                <option value="stack">Stack (Local)</option>
+                <option value="heap">Heap (Dynamic)</option>
+              </select>
+            </div>
+            <div class="control-buttons">
+              <button class="action-btn primary" id="allocateBtn">
+                <i class="fa-solid fa-plus"></i>
+                <span>Allocate</span>
+              </button>
+              <button class="action-btn" id="freeBtn">
+                <i class="fa-solid fa-minus"></i>
+                <span>Free</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Stats Section -->
+          <div class="stats-section">
+            <div class="stat-card">
+              <div class="stat-icon"><i class="fa-solid fa-microchip"></i></div>
+              <div class="stat-content">
+                <span class="stat-value" id="totalMemory">256</span>
+                <span class="stat-label">Total (bytes)</span>
+              </div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon"><i class="fa-solid fa-layer-group"></i></div>
+              <div class="stat-content">
+                <span class="stat-value" id="stackUsed">0</span>
+                <span class="stat-label">Stack Used</span>
+              </div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon"><i class="fa-solid fa-database"></i></div>
+              <div class="stat-content">
+                <span class="stat-value" id="heapUsed">0</span>
+                <span class="stat-label">Heap Used</span>
+              </div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon"><i class="fa-solid fa-puzzle-piece"></i></div>
+              <div class="stat-content">
+                <span class="stat-value" id="fragmentation">0%</span>
+                <span class="stat-label">Fragmentation</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Memory Visualization -->
+          <div class="visualization-section">
+            <div class="memory-regions">
+              <!-- Stack Region -->
+              <div class="memory-region stack-region">
+                <div class="region-header">
+                  <h3><i class="fa-solid fa-layer-group"></i> Stack</h3>
+                  <span class="region-info">Grows downward</span>
+                </div>
+                <div class="memory-blocks" id="stackBlocks">
+                  <!-- Stack blocks will be rendered here -->
+                </div>
+                <div class="region-pointer">
+                  <span class="pointer-label">SP</span>
+                  <div class="pointer-arrow"></div>
+                </div>
+              </div>
+
+              <!-- Heap Region -->
+              <div class="memory-region heap-region">
+                <div class="region-header">
+                  <h3><i class="fa-solid fa-database"></i> Heap</h3>
+                  <span class="region-info">Dynamic allocation</span>
+                </div>
+                <div class="memory-blocks" id="heapBlocks">
+                  <!-- Heap blocks will be rendered here -->
+                </div>
+              </div>
+            </div>
+
+            <!-- Address Bar -->
+            <div class="address-bar">
+              <span class="address high">0xFFFF</span>
+              <div class="address-line"></div>
+              <span class="address low">0x0000</span>
+            </div>
+          </div>
+
+          <!-- Variables List -->
+          <div class="variables-section">
+            <div class="variables-header">
+              <h3><i class="fa-solid fa-list"></i> Allocated Variables</h3>
+            </div>
+            <div class="variables-content" id="variablesList">
+              <div class="variables-placeholder">No variables allocated yet</div>
+            </div>
+          </div>
+
+          <!-- Info Panel -->
+          <div class="info-panel">
+            <div class="info-header">
+              <i class="fa-solid fa-circle-info"></i>
+              <span>Memory Concepts</span>
+            </div>
+            <div class="info-content">
+              <div class="concept-grid">
+                <div class="concept-item">
+                  <h4><i class="fa-solid fa-layer-group"></i> Stack</h4>
+                  <p>LIFO structure for local variables. Fast allocation, automatic cleanup. Fixed size.</p>
+                </div>
+                <div class="concept-item">
+                  <h4><i class="fa-solid fa-database"></i> Heap</h4>
+                  <p>Dynamic memory for runtime allocation. Manual management required. Flexible size.</p>
+                </div>
+                <div class="concept-item">
+                  <h4><i class="fa-solid fa-puzzle-piece"></i> Fragmentation</h4>
+                  <p>Memory gaps from allocation/deallocation cycles. Reduces usable memory.</p>
+                </div>
+                <div class="concept-item">
+                  <h4><i class="fa-solid fa-skull-crossbones"></i> Memory Leak</h4>
+                  <p>Heap memory not freed. Accumulates over time. Causes performance issues.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach. All rights reserved.</p>
+        <p class="footer-made">Made with 💗 and Claude Code xD</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Keyboard Shortcuts Hint -->
+  <div class="shortcuts-hint" id="shortcutsHint">
+    <span>Press <kbd>?</kbd> for shortcuts</span>
+  </div>
+
+  <!-- Keyboard Shortcuts Modal -->
+  <div class="shortcuts-modal" id="shortcutsModal">
+    <div class="shortcuts-content">
+      <div class="shortcuts-header">
+        <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
+        <button class="close-shortcuts-btn" id="closeShortcutsBtn" aria-label="Close shortcuts">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="shortcuts-body">
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">Actions</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Enter</kbd></div>
+            <div class="shortcut-desc">Allocate memory</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Delete</kbd></div>
+            <div class="shortcut-desc">Free memory</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>R</kbd></div>
+            <div class="shortcut-desc">Reset memory</div>
+          </div>
+        </div>
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">General</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>?</kbd></div>
+            <div class="shortcut-desc">Show shortcuts</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Shared Tools JavaScript -->
+  <script src="../../js/tools-common.js"></script>
+  <!-- Memory Visualizer JavaScript -->
+  <script src="memoryvisualizer.js"></script>
+</body>
+</html>

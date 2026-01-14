@@ -262,6 +262,12 @@
 }
 
 /* Responsive */
+@media screen and (max-width: 1024px) {
+  .discount-wrapper {
+    border-radius: var(--radius-lg);
+  }
+}
+
 @media screen and (max-width: 768px) {
   .discount-content {
     grid-template-columns: 1fr;

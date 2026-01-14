@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Interactive visualization of data structures. Explore Stack, Queue, Linked List, and Binary Tree operations.">
+  <meta property="og:title" content="KVSOVANREACH | Data Structure Playground">
+  <meta property="og:description" content="Visualize and interact with fundamental data structures.">
+  <meta property="og:image" content="/assets/img/pwa/ios/512.png">
+  <title>KVSOVANREACH | Data Structure Playground</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Common Tools CSS -->
+  <link rel="stylesheet" href="../../js/tools-common.css">
+  <!-- Data Structure CSS -->
+  <link rel="stylesheet" href="datastructure.css">
+</head>
+<body>
+  <!-- Skip to Content -->
+  <a href="#datastructure" class="skip-link">Skip to Data Structure Playground</a>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">TOOLS</span>
+      </a>
+
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="tool-page">
+    <div class="container">
+      <div class="ds-wrapper" id="datastructure">
+        <!-- Header -->
+        <div class="ds-header">
+          <h2><i class="fa-solid fa-cubes"></i> Data Structure Playground</h2>
+          <div class="ds-actions">
+            <button class="action-btn" id="resetBtn" title="Reset" aria-label="Reset structure">
+              <i class="fa-solid fa-rotate"></i>
+              <span>Reset</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Content -->
+        <div class="ds-content">
+          <!-- Structure Selector -->
+          <div class="structure-tabs">
+            <button class="structure-tab active" data-structure="stack">
+              <i class="fa-solid fa-layer-group"></i>
+              <span>Stack</span>
+            </button>
+            <button class="structure-tab" data-structure="queue">
+              <i class="fa-solid fa-arrows-left-right"></i>
+              <span>Queue</span>
+            </button>
+            <button class="structure-tab" data-structure="linkedlist">
+              <i class="fa-solid fa-link"></i>
+              <span>Linked List</span>
+            </button>
+            <button class="structure-tab" data-structure="binarytree">
+              <i class="fa-solid fa-sitemap"></i>
+              <span>Binary Tree</span>
+            </button>
+          </div>
+
+          <!-- Controls Section -->
+          <div class="controls-section">
+            <div class="input-group">
+              <input type="text" id="valueInput" placeholder="Enter value..." maxlength="10">
+              <button class="action-btn primary" id="addBtn">
+                <i class="fa-solid fa-plus"></i>
+                <span id="addBtnText">Push</span>
+              </button>
+              <button class="action-btn" id="removeBtn">
+                <i class="fa-solid fa-minus"></i>
+                <span id="removeBtnText">Pop</span>
+              </button>
+            </div>
+            <div class="extra-controls" id="extraControls">
+              <!-- Extra controls for specific structures -->
+            </div>
+          </div>
+
+          <!-- Stats Section -->
+          <div class="stats-section">
+            <div class="stat-item">
+              <i class="fa-solid fa-hashtag"></i>
+              <span class="stat-label">Size</span>
+              <span class="stat-value" id="sizeValue">0</span>
+            </div>
+            <div class="stat-item" id="topStat">
+              <i class="fa-solid fa-arrow-up"></i>
+              <span class="stat-label">Top</span>
+              <span class="stat-value" id="topValue">-</span>
+            </div>
+            <div class="stat-item" id="capacityStat" style="display: none;">
+              <i class="fa-solid fa-database"></i>
+              <span class="stat-label">Capacity</span>
+              <span class="stat-value" id="capacityValue">10</span>
+            </div>
+          </div>
+
+          <!-- Visualization Section -->
+          <div class="visualization-section">
+            <div class="vis-container" id="visContainer">
+              <!-- Visualization will be rendered here -->
+            </div>
+          </div>
+
+          <!-- Operations Log -->
+          <div class="log-section">
+            <div class="log-header">
+              <h3><i class="fa-solid fa-terminal"></i> Operations Log</h3>
+              <button class="action-btn small" id="clearLogBtn" title="Clear log">
+                <i class="fa-solid fa-trash"></i>
+              </button>
+            </div>
+            <div class="log-container" id="logContainer">
+              <div class="log-placeholder">Perform operations to see the log</div>
+            </div>
+          </div>
+
+          <!-- Info Panel -->
+          <div class="info-panel" id="infoPanel">
+            <div class="info-header">
+              <i class="fa-solid fa-circle-info"></i>
+              <span id="structureName">Stack</span>
+            </div>
+            <div class="info-content">
+              <p id="structureDesc">A Stack is a linear data structure that follows the LIFO (Last In First Out) principle. The last element added is the first one to be removed.</p>
+              <div class="complexity-info" id="complexityInfo">
+                <div class="complexity-item">
+                  <span class="complexity-label">Push</span>
+                  <span class="complexity-value">O(1)</span>
+                </div>
+                <div class="complexity-item">
+                  <span class="complexity-label">Pop</span>
+                  <span class="complexity-value">O(1)</span>
+                </div>
+                <div class="complexity-item">
+                  <span class="complexity-label">Peek</span>
+                  <span class="complexity-value">O(1)</span>
+                </div>
+                <div class="complexity-item">
+                  <span class="complexity-label">Search</span>
+                  <span class="complexity-value">O(n)</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach. All rights reserved.</p>
+        <p class="footer-made">Made with 💗 and Claude Code xD</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Keyboard Shortcuts Hint -->
+  <div class="shortcuts-hint" id="shortcutsHint">
+    <span>Press <kbd>?</kbd> for shortcuts</span>
+  </div>
+
+  <!-- Keyboard Shortcuts Modal -->
+  <div class="shortcuts-modal" id="shortcutsModal">
+    <div class="shortcuts-content">
+      <div class="shortcuts-header">
+        <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
+        <button class="close-shortcuts-btn" id="closeShortcutsBtn" aria-label="Close shortcuts">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="shortcuts-body">
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">Actions</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Enter</kbd></div>
+            <div class="shortcut-desc">Add element</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Delete</kbd></div>
+            <div class="shortcut-desc">Remove element</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>R</kbd></div>
+            <div class="shortcut-desc">Reset structure</div>
+          </div>
+        </div>
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">Navigation</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>1</kbd><span class="key-separator">-</span><kbd>4</kbd></div>
+            <div class="shortcut-desc">Switch structure</div>
+          </div>
+        </div>
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">General</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>?</kbd></div>
+            <div class="shortcut-desc">Show shortcuts</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Shared Tools JavaScript -->
+  <script src="../../js/tools-common.js"></script>
+  <!-- Data Structure JavaScript -->
+  <script src="datastructure.js"></script>
+</body>
+</html>

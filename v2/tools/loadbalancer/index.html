@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Visualize load balancing strategies including Round Robin, Least Connections, Weighted, and more.">
+  <meta property="og:title" content="KVSOVANREACH | Load Balancer Visualizer">
+  <title>KVSOVANREACH | Load Balancer Visualizer</title>
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../js/tools-common.css">
+  <link rel="stylesheet" href="loadbalancer.css">
+</head>
+<body>
+  <a href="#loadbalancer" class="skip-link">Skip to Load Balancer Visualizer</a>
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span><span class="logo-divider">|</span><span class="logo-tools">TOOLS</span>
+      </a>
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools"><i class="fa-solid fa-arrow-left"></i></a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode"><i class="fa-solid fa-moon"></i><i class="fa-solid fa-sun"></i></button>
+      </div>
+    </div>
+  </nav>
+
+  <main class="tool-page">
+    <div class="container">
+      <div class="lb-wrapper" id="loadbalancer">
+        <div class="lb-header">
+          <h2><i class="fa-solid fa-scale-balanced"></i> Load Balancer Visualizer</h2>
+          <div class="header-actions">
+            <button class="action-btn" id="exportBtn" title="Export Stats" aria-label="Export"><i class="fa-solid fa-download"></i></button>
+          </div>
+        </div>
+
+        <div class="lb-content">
+          <div class="controls-section">
+            <div class="section-header"><h3><i class="fa-solid fa-sliders"></i> Configuration</h3></div>
+            <div class="controls-grid">
+              <div class="control-group">
+                <label>Strategy</label>
+                <select id="strategy">
+                  <option value="roundrobin">Round Robin</option>
+                  <option value="leastconn">Least Connections</option>
+                  <option value="weighted">Weighted Round Robin</option>
+                  <option value="random">Random</option>
+                  <option value="iphash">IP Hash</option>
+                </select>
+              </div>
+              <div class="control-group">
+                <label>Server Count</label>
+                <select id="serverCount">
+                  <option value="3">3 Servers</option>
+                  <option value="4" selected>4 Servers</option>
+                  <option value="5">5 Servers</option>
+                  <option value="6">6 Servers</option>
+                </select>
+              </div>
+              <div class="control-group">
+                <label>Request Rate</label>
+                <select id="requestRate">
+                  <option value="slow">Slow (2s)</option>
+                  <option value="normal" selected>Normal (1s)</option>
+                  <option value="fast">Fast (0.5s)</option>
+                  <option value="burst">Burst (0.2s)</option>
+                </select>
+              </div>
+            </div>
+            <div class="controls-actions">
+              <button class="action-btn primary" id="startBtn"><i class="fa-solid fa-play"></i> Start</button>
+              <button class="action-btn secondary" id="sendBtn"><i class="fa-solid fa-paper-plane"></i> Send Request</button>
+              <button class="action-btn danger" id="resetBtn"><i class="fa-solid fa-rotate-left"></i> Reset</button>
+            </div>
+          </div>
+
+          <div class="diagram-section">
+            <div class="section-header"><h3><i class="fa-solid fa-diagram-project"></i> Traffic Flow</h3></div>
+            <div class="diagram-container">
+              <div class="clients-zone">
+                <div class="zone-label">Clients</div>
+                <div class="clients-list" id="clientsList"></div>
+              </div>
+              <div class="lb-zone">
+                <div class="lb-box" id="lbBox">
+                  <i class="fa-solid fa-scale-balanced"></i>
+                  <span>Load Balancer</span>
+                  <div class="lb-algorithm" id="lbAlgorithm">Round Robin</div>
+                </div>
+              </div>
+              <div class="servers-zone">
+                <div class="zone-label">Servers</div>
+                <div class="servers-list" id="serversList"></div>
+              </div>
+              <svg class="connections-svg" id="connectionsSvg"></svg>
+            </div>
+          </div>
+
+          <div class="stats-section">
+            <div class="section-header"><h3><i class="fa-solid fa-chart-bar"></i> Statistics</h3></div>
+            <div class="stats-grid">
+              <div class="stat-card">
+                <div class="stat-label">Total Requests</div>
+                <div class="stat-value" id="totalRequests">0</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-label">Active Connections</div>
+                <div class="stat-value" id="activeConnections">0</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-label">Avg Response Time</div>
+                <div class="stat-value" id="avgResponseTime">0ms</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-label">Requests/sec</div>
+                <div class="stat-value" id="requestsPerSec">0</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="servers-section">
+            <div class="section-header"><h3><i class="fa-solid fa-server"></i> Server Metrics</h3></div>
+            <div class="server-metrics" id="serverMetrics"></div>
+          </div>
+
+          <div class="info-panel">
+            <div class="info-header"><i class="fa-solid fa-lightbulb"></i><span>Load Balancing Strategies</span></div>
+            <div class="info-content">
+              <ul class="info-list">
+                <li><strong>Round Robin:</strong> Distributes requests sequentially across servers</li>
+                <li><strong>Least Connections:</strong> Routes to server with fewest active connections</li>
+                <li><strong>Weighted:</strong> Servers with higher weights receive more traffic</li>
+                <li><strong>Random:</strong> Randomly selects a server for each request</li>
+                <li><strong>IP Hash:</strong> Routes based on client IP for session persistence</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer"><div class="container"><div class="footer-bottom">
+    <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach. All rights reserved.</p>
+    <p class="footer-made">Made with Claude Code</p>
+  </div></div></footer>
+
+  <div class="toast" id="toast"></div>
+  <div class="shortcuts-hint" id="shortcutsHint"><span>Press <kbd>?</kbd> for shortcuts</span></div>
+  <div class="shortcuts-modal" id="shortcutsModal">
+    <div class="shortcuts-content">
+      <div class="shortcuts-header"><h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3><button class="close-shortcuts-btn" id="closeShortcutsBtn" aria-label="Close"><i class="fa-solid fa-xmark"></i></button></div>
+      <div class="shortcuts-body">
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">Controls</div>
+          <div class="shortcut-row"><div class="shortcut-keys"><kbd>Space</kbd></div><div class="shortcut-desc">Start/Stop simulation</div></div>
+          <div class="shortcut-row"><div class="shortcut-keys"><kbd>S</kbd></div><div class="shortcut-desc">Send single request</div></div>
+          <div class="shortcut-row"><div class="shortcut-keys"><kbd>R</kbd></div><div class="shortcut-desc">Reset</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="../../js/tools-common.js"></script>
+  <script src="loadbalancer.js"></script>
+</body>
+</html>

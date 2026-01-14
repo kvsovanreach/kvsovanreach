@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Choose the right evaluation metrics for your ML model based on problem type and requirements.">
+  <meta property="og:title" content="KVSOVANREACH | Evaluation Metric Selector">
+  <meta property="og:description" content="ML metric selection guide with formulas and use cases.">
+  <meta property="og:image" content="/assets/img/pwa/ios/512.png">
+  <title>KVSOVANREACH | Evaluation Metric Selector</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Common Tools CSS -->
+  <link rel="stylesheet" href="../../js/tools-common.css">
+  <!-- Metric Selector CSS -->
+  <link rel="stylesheet" href="metricselector.css">
+</head>
+<body>
+  <!-- Skip to Content -->
+  <a href="#metricselector" class="skip-link">Skip to Metric Selector</a>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">TOOLS</span>
+      </a>
+
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="tool-page">
+    <div class="container">
+      <div class="metric-wrapper" id="metricselector">
+        <!-- Header -->
+        <div class="metric-header">
+          <h2><i class="fa-solid fa-chart-line"></i> Evaluation Metric Selector</h2>
+        </div>
+
+        <!-- Content -->
+        <div class="metric-content">
+          <!-- Problem Type Selection -->
+          <div class="selection-section">
+            <div class="selection-header">
+              <h3><i class="fa-solid fa-bullseye"></i> Select Problem Type</h3>
+            </div>
+            <div class="problem-types">
+              <button class="problem-btn active" data-type="binary">
+                <i class="fa-solid fa-toggle-on"></i>
+                <span>Binary Classification</span>
+              </button>
+              <button class="problem-btn" data-type="multiclass">
+                <i class="fa-solid fa-list-check"></i>
+                <span>Multi-class Classification</span>
+              </button>
+              <button class="problem-btn" data-type="regression">
+                <i class="fa-solid fa-chart-line"></i>
+                <span>Regression</span>
+              </button>
+              <button class="problem-btn" data-type="ranking">
+                <i class="fa-solid fa-ranking-star"></i>
+                <span>Ranking</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Considerations -->
+          <div class="considerations-section">
+            <div class="considerations-header">
+              <h3><i class="fa-solid fa-sliders"></i> Considerations</h3>
+            </div>
+            <div class="considerations-grid" id="considerationsGrid">
+              <!-- Dynamic considerations -->
+            </div>
+          </div>
+
+          <!-- Recommended Metrics -->
+          <div class="metrics-section">
+            <div class="metrics-header">
+              <h3><i class="fa-solid fa-star"></i> Recommended Metrics</h3>
+            </div>
+            <div class="metrics-grid" id="metricsGrid">
+              <!-- Dynamic metrics -->
+            </div>
+          </div>
+
+          <!-- Selected Metric Detail -->
+          <div class="detail-section" id="detailSection" style="display: none;">
+            <div class="detail-header">
+              <h3><i class="fa-solid fa-info-circle"></i> <span id="detailTitle">Metric Details</span></h3>
+              <button class="close-detail-btn" id="closeDetailBtn">
+                <i class="fa-solid fa-xmark"></i>
+              </button>
+            </div>
+            <div class="detail-content" id="detailContent">
+              <!-- Dynamic detail content -->
+            </div>
+          </div>
+
+          <!-- Quick Reference -->
+          <div class="reference-section">
+            <div class="reference-header">
+              <h3><i class="fa-solid fa-book"></i> Quick Reference</h3>
+            </div>
+            <div class="reference-content">
+              <div class="reference-item">
+                <h4>When to use Accuracy</h4>
+                <p>Balanced datasets with equal importance for all classes</p>
+              </div>
+              <div class="reference-item">
+                <h4>When to use Precision</h4>
+                <p>When false positives are costly (spam detection)</p>
+              </div>
+              <div class="reference-item">
+                <h4>When to use Recall</h4>
+                <p>When false negatives are costly (disease detection)</p>
+              </div>
+              <div class="reference-item">
+                <h4>When to use F1-Score</h4>
+                <p>Imbalanced datasets, need balance between precision/recall</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach. All rights reserved.</p>
+        <p class="footer-made">Made with 💗 and Claude Code xD</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Keyboard Shortcuts Hint -->
+  <div class="shortcuts-hint" id="shortcutsHint">
+    <span>Press <kbd>?</kbd> for shortcuts</span>
+  </div>
+
+  <!-- Keyboard Shortcuts Modal -->
+  <div class="shortcuts-modal" id="shortcutsModal">
+    <div class="shortcuts-content">
+      <div class="shortcuts-header">
+        <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
+        <button class="close-shortcuts-btn" id="closeShortcutsBtn" aria-label="Close shortcuts">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="shortcuts-body">
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">Navigation</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>1</kbd> - <kbd>4</kbd></div>
+            <div class="shortcut-desc">Select problem type</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Escape</kbd></div>
+            <div class="shortcut-desc">Close detail panel</div>
+          </div>
+        </div>
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">General</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>?</kbd></div>
+            <div class="shortcut-desc">Show shortcuts</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Shared Tools JavaScript -->
+  <script src="../../js/tools-common.js"></script>
+  <!-- Metric Selector JavaScript -->
+  <script src="metricselector.js"></script>
+</body>
+</html>

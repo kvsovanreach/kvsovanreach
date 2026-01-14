@@ -420,6 +420,12 @@
 }
 
 /* Responsive */
+@media screen and (max-width: 1024px) {
+  .game-wrapper {
+    border-radius: var(--radius-lg);
+  }
+}
+
 @media screen and (max-width: 768px) {
   .game-content {
     padding: var(--space-4);

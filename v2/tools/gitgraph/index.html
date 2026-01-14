@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Visualize Git branches, merges, and commits with an interactive graph explorer.">
+  <meta property="og:title" content="KVSOVANREACH | Git Graph Explorer">
+  <title>KVSOVANREACH | Git Graph Explorer</title>
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../js/tools-common.css">
+  <link rel="stylesheet" href="gitgraph.css">
+</head>
+<body>
+  <a href="#gitgraph" class="skip-link">Skip to Git Graph Explorer</a>
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span><span class="logo-divider">|</span><span class="logo-tools">TOOLS</span>
+      </a>
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools"><i class="fa-solid fa-arrow-left"></i></a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode"><i class="fa-solid fa-moon"></i><i class="fa-solid fa-sun"></i></button>
+      </div>
+    </div>
+  </nav>
+
+  <main class="tool-page">
+    <div class="container">
+      <div class="git-wrapper" id="gitgraph">
+        <div class="git-header">
+          <h2><i class="fa-brands fa-git-alt"></i> Git Graph Explorer</h2>
+          <div class="git-actions">
+            <button class="action-btn" id="exportBtn" title="Export" aria-label="Export"><i class="fa-solid fa-download"></i></button>
+          </div>
+        </div>
+
+        <div class="git-content">
+          <div class="actions-section">
+            <div class="section-header"><h3><i class="fa-solid fa-code-branch"></i> Git Actions</h3></div>
+            <div class="actions-grid">
+              <button class="action-btn primary" id="commitBtn"><i class="fa-solid fa-plus"></i> Commit</button>
+              <button class="action-btn secondary" id="branchBtn"><i class="fa-solid fa-code-branch"></i> Branch</button>
+              <button class="action-btn secondary" id="mergeBtn"><i class="fa-solid fa-code-merge"></i> Merge</button>
+              <button class="action-btn secondary" id="checkoutBtn"><i class="fa-solid fa-arrow-right-arrow-left"></i> Checkout</button>
+              <button class="action-btn danger" id="resetBtn"><i class="fa-solid fa-rotate-left"></i> Reset</button>
+            </div>
+          </div>
+
+          <div class="graph-section">
+            <div class="section-header"><h3><i class="fa-solid fa-diagram-project"></i> Commit Graph</h3></div>
+            <div class="graph-container" id="graphContainer">
+              <canvas id="graphCanvas"></canvas>
+            </div>
+          </div>
+
+          <div class="branches-section">
+            <div class="section-header"><h3><i class="fa-solid fa-list"></i> Branches</h3></div>
+            <div class="branches-list" id="branchesList"></div>
+          </div>
+
+          <div class="commits-section">
+            <div class="section-header"><h3><i class="fa-solid fa-clock-rotate-left"></i> Commit Log</h3></div>
+            <div class="commits-list" id="commitsList"></div>
+          </div>
+
+          <div class="info-panel">
+            <div class="info-header"><i class="fa-solid fa-lightbulb"></i><span>Git Workflow</span></div>
+            <div class="info-content">
+              <ul class="info-list">
+                <li><strong>Commit:</strong> Save changes to current branch</li>
+                <li><strong>Branch:</strong> Create a new branch from HEAD</li>
+                <li><strong>Merge:</strong> Combine branches together</li>
+                <li><strong>Checkout:</strong> Switch between branches</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer"><div class="container"><div class="footer-bottom">
+    <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach. All rights reserved.</p>
+    <p class="footer-made">Made with Claude Code</p>
+  </div></div></footer>
+
+  <div class="toast" id="toast"></div>
+  <div class="shortcuts-hint" id="shortcutsHint"><span>Press <kbd>?</kbd> for shortcuts</span></div>
+  <div class="shortcuts-modal" id="shortcutsModal">
+    <div class="shortcuts-content">
+      <div class="shortcuts-header"><h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3><button class="close-shortcuts-btn" id="closeShortcutsBtn" aria-label="Close"><i class="fa-solid fa-xmark"></i></button></div>
+      <div class="shortcuts-body">
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">Actions</div>
+          <div class="shortcut-row"><div class="shortcut-keys"><kbd>C</kbd></div><div class="shortcut-desc">New commit</div></div>
+          <div class="shortcut-row"><div class="shortcut-keys"><kbd>B</kbd></div><div class="shortcut-desc">New branch</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="../../js/tools-common.js"></script>
+  <script src="gitgraph.js"></script>
+</body>
+</html>

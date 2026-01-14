@@ -828,6 +828,12 @@
 /* Toast, Shortcuts Modal & Hint styles are in tools-common.css */
 
 /* ==================== Responsive ==================== */
+@media screen and (max-width: 1024px) {
+  .css-wrapper {
+    border-radius: var(--radius-lg);
+  }
+}
+
 @media screen and (max-width: 900px) {
   .panel-layout {
     grid-template-columns: 1fr;

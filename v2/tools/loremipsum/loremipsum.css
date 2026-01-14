@@ -353,6 +353,12 @@
 }
 
 /* ==================== Responsive ==================== */
+@media screen and (max-width: 1024px) {
+  .lorem-wrapper {
+    border-radius: var(--radius-lg);
+  }
+}
+
 @media screen and (max-width: 768px) {
   .lorem-main {
     padding: var(--space-4);

@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Visualize repeated words and phrases in text using heat colors. Find overused words easily.">
+  <meta property="og:title" content="KVSOVANREACH | Repetition Heatmap">
+  <meta property="og:description" content="Visualize word repetition patterns using heat colors.">
+  <meta property="og:image" content="/assets/img/pwa/ios/512.png">
+  <title>KVSOVANREACH | Repetition Heatmap</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Common Tools CSS -->
+  <link rel="stylesheet" href="../../js/tools-common.css">
+  <!-- Repetition Heatmap CSS -->
+  <link rel="stylesheet" href="repetitionheatmap.css">
+</head>
+<body>
+  <!-- Skip to Content -->
+  <a href="#repetitionheatmap" class="skip-link">Skip to Repetition Heatmap</a>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">TOOLS</span>
+      </a>
+
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="tool-page">
+    <div class="container">
+      <div class="heatmap-wrapper" id="repetitionheatmap">
+        <!-- Header -->
+        <div class="heatmap-header">
+          <h2><i class="fa-solid fa-fire"></i> Repetition Heatmap</h2>
+          <div class="heatmap-actions">
+            <button class="action-btn" id="sampleBtn" title="Load Sample" aria-label="Load sample text">
+              <i class="fa-solid fa-file-lines"></i>
+              <span>Sample</span>
+            </button>
+            <button class="action-btn" id="clearBtn" title="Clear" aria-label="Clear all">
+              <i class="fa-solid fa-trash"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Content -->
+        <div class="heatmap-content">
+          <!-- Input Section -->
+          <div class="input-section">
+            <div class="input-header">
+              <label for="textInput">Enter Text</label>
+              <div class="input-actions">
+                <button class="action-btn" id="pasteBtn" title="Paste" aria-label="Paste from clipboard">
+                  <i class="fa-solid fa-paste"></i>
+                </button>
+              </div>
+            </div>
+            <textarea id="textInput" placeholder="Paste or type your text here to visualize word repetition..."></textarea>
+          </div>
+
+          <!-- Options Section -->
+          <div class="options-section">
+            <div class="option-group">
+              <label for="minLengthSelect">Min Word Length</label>
+              <select id="minLengthSelect">
+                <option value="1">1 character</option>
+                <option value="2">2 characters</option>
+                <option value="3" selected>3 characters</option>
+                <option value="4">4 characters</option>
+                <option value="5">5 characters</option>
+              </select>
+            </div>
+            <div class="option-group">
+              <label for="minCountSelect">Min Occurrences</label>
+              <select id="minCountSelect">
+                <option value="1">1 time</option>
+                <option value="2" selected>2 times</option>
+                <option value="3">3 times</option>
+                <option value="5">5 times</option>
+              </select>
+            </div>
+            <div class="option-group checkbox-group">
+              <label>
+                <input type="checkbox" id="ignoreCommonCheck" checked>
+                Ignore common words
+              </label>
+            </div>
+          </div>
+
+          <!-- Stats Section -->
+          <div class="stats-section">
+            <div class="stats-grid">
+              <div class="stat-card">
+                <div class="stat-icon"><i class="fa-solid fa-font"></i></div>
+                <div class="stat-content">
+                  <span class="stat-value" id="totalWords">0</span>
+                  <span class="stat-label">Total Words</span>
+                </div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-icon"><i class="fa-solid fa-fingerprint"></i></div>
+                <div class="stat-content">
+                  <span class="stat-value" id="uniqueWords">0</span>
+                  <span class="stat-label">Unique Words</span>
+                </div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-icon"><i class="fa-solid fa-repeat"></i></div>
+                <div class="stat-content">
+                  <span class="stat-value" id="repeatedWords">0</span>
+                  <span class="stat-label">Repeated</span>
+                </div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-icon"><i class="fa-solid fa-fire"></i></div>
+                <div class="stat-content">
+                  <span class="stat-value" id="maxRepeat">0</span>
+                  <span class="stat-label">Max Repeat</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Heatmap Display Section -->
+          <div class="display-section">
+            <div class="display-header">
+              <h3><i class="fa-solid fa-eye"></i> Text Heatmap</h3>
+              <div class="legend">
+                <span class="legend-label">Low</span>
+                <div class="legend-gradient"></div>
+                <span class="legend-label">High</span>
+              </div>
+            </div>
+            <div class="display-content" id="heatmapDisplay">
+              <div class="display-placeholder">
+                <i class="fa-solid fa-fire"></i>
+                <p>Enter text to visualize word repetition</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Top Words Section -->
+          <div class="topwords-section">
+            <div class="topwords-header">
+              <h3><i class="fa-solid fa-ranking-star"></i> Most Repeated Words</h3>
+            </div>
+            <div class="topwords-content" id="topWordsList">
+              <div class="topwords-placeholder">
+                <p>Top repeated words will appear here</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Info Panel -->
+          <div class="info-panel">
+            <div class="info-header">
+              <i class="fa-solid fa-circle-info"></i>
+              <span>How to Use</span>
+            </div>
+            <div class="info-content">
+              <ul>
+                <li>Paste or type text to analyze word repetition</li>
+                <li>Words are colored from blue (low) to red (high) based on frequency</li>
+                <li>Hover over words to see their count</li>
+                <li>Click on a word to highlight all occurrences</li>
+                <li>Adjust filters to focus on specific word types</li>
+              </ul>
+              <p class="tip"><strong>Tip:</strong> Use this to identify overused words in your writing and improve variety!</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach. All rights reserved.</p>
+        <p class="footer-made">Made with 💗 and Claude Code xD</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Keyboard Shortcuts Hint -->
+  <div class="shortcuts-hint" id="shortcutsHint">
+    <span>Press <kbd>?</kbd> for shortcuts</span>
+  </div>
+
+  <!-- Keyboard Shortcuts Modal -->
+  <div class="shortcuts-modal" id="shortcutsModal">
+    <div class="shortcuts-content">
+      <div class="shortcuts-header">
+        <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
+        <button class="close-shortcuts-btn" id="closeShortcutsBtn" aria-label="Close shortcuts">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="shortcuts-body">
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">Actions</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Ctrl</kbd><span class="key-plus">+</span><kbd>V</kbd></div>
+            <div class="shortcut-desc">Paste text</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Delete</kbd></div>
+            <div class="shortcut-desc">Clear all</div>
+          </div>
+        </div>
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">General</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>?</kbd></div>
+            <div class="shortcut-desc">Show shortcuts</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Shared Tools JavaScript -->
+  <script src="../../js/tools-common.js"></script>
+  <!-- Repetition Heatmap JavaScript -->
+  <script src="repetitionheatmap.js"></script>
+</body>
+</html>

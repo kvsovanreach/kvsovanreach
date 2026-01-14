@@ -637,6 +637,176 @@ const toolsData = [
     tags: ["cookie", "policy", "gdpr", "privacy", "legal", "generator"],
     status: "active"
   },
+  {
+    id: "sentence-length",
+    name: "Sentence Length Analyzer",
+    description: "Visualize sentence length distribution in text with charts and statistics.",
+    category: "developer",
+    icon: "fa-solid fa-chart-simple",
+    url: "/v2/tools/sentencelength/",
+    tags: ["sentence", "length", "analyze", "text", "distribution", "writing"],
+    status: "active"
+  },
+  {
+    id: "repetition-heatmap",
+    name: "Repetition Heatmap",
+    description: "Visualize repeated words and phrases in text using heat colors.",
+    category: "developer",
+    icon: "fa-solid fa-fire",
+    url: "/v2/tools/repetitionheatmap/",
+    tags: ["repetition", "heatmap", "words", "phrases", "text", "analysis"],
+    status: "active"
+  },
+  {
+    id: "api-request-flow",
+    name: "API Request Flow Builder",
+    description: "Draw and visualize client-side API request sequences with interactive diagrams.",
+    category: "developer",
+    icon: "fa-solid fa-diagram-project",
+    url: "/v2/tools/apirequestflow/",
+    tags: ["api", "request", "flow", "diagram", "sequence", "http"],
+    status: "active"
+  },
+  {
+    id: "json-schema-viz",
+    name: "JSON Schema Visualizer",
+    description: "Convert JSON schemas into expandable visual trees for easy exploration.",
+    category: "developer",
+    icon: "fa-solid fa-sitemap",
+    url: "/v2/tools/jsonschema/",
+    tags: ["json", "schema", "visualize", "tree", "structure", "data"],
+    status: "active"
+  },
+  {
+    id: "http-lifecycle",
+    name: "HTTP Lifecycle Visualizer",
+    description: "Visualize each stage of an HTTP request flow from DNS to response.",
+    category: "developer",
+    icon: "fa-solid fa-arrows-spin",
+    url: "/v2/tools/httplifecycle/",
+    tags: ["http", "request", "lifecycle", "dns", "tcp", "tls", "response"],
+    status: "active"
+  },
+  {
+    id: "naming-convention",
+    name: "Naming Convention Checker",
+    description: "Validate variable and function naming consistency across different conventions.",
+    category: "developer",
+    icon: "fa-solid fa-spell-check",
+    url: "/v2/tools/namingconvention/",
+    tags: ["naming", "convention", "camelCase", "snake_case", "validate", "code"],
+    status: "active"
+  },
+  {
+    id: "file-metadata",
+    name: "File Metadata Viewer",
+    description: "Inspect file metadata like size, type, and dates directly in the browser.",
+    category: "developer",
+    icon: "fa-solid fa-file-lines",
+    url: "/v2/tools/filemetadata/",
+    tags: ["file", "metadata", "inspect", "size", "type", "properties"],
+    status: "active"
+  },
+  {
+    id: "filename-normalizer",
+    name: "Filename Normalizer",
+    description: "Preview and standardize filenames before renaming with custom rules.",
+    category: "developer",
+    icon: "fa-solid fa-file-signature",
+    url: "/v2/tools/filenamenormalizer/",
+    tags: ["filename", "normalize", "rename", "batch", "standardize"],
+    status: "active"
+  },
+  {
+    id: "csv-schema",
+    name: "CSV Schema Explorer",
+    description: "Explore column types, structure, and statistics of CSV files.",
+    category: "developer",
+    icon: "fa-solid fa-file-csv",
+    url: "/v2/tools/csvschema/",
+    tags: ["csv", "schema", "columns", "data", "explore", "structure"],
+    status: "active"
+  },
+  {
+    id: "data-structure",
+    name: "Data Structure Playground",
+    description: "Interactively visualize stacks, queues, trees, and graphs with operations.",
+    category: "developer",
+    icon: "fa-solid fa-layer-group",
+    url: "/v2/tools/datastructure/",
+    tags: ["data", "structure", "stack", "queue", "tree", "graph", "visualize"],
+    status: "active"
+  },
+  {
+    id: "sorting-visualizer",
+    name: "Sorting Algorithm Visualizer",
+    description: "Watch how different sorting algorithms rearrange elements over time.",
+    category: "developer",
+    icon: "fa-solid fa-sort",
+    url: "/v2/tools/sortingvisualizer/",
+    tags: ["sorting", "algorithm", "bubble", "quick", "merge", "visualize"],
+    status: "active"
+  },
+  {
+    id: "search-explorer",
+    name: "Search Algorithm Explorer",
+    description: "Visualize linear, binary, and graph search processes step by step.",
+    category: "developer",
+    icon: "fa-solid fa-magnifying-glass-chart",
+    url: "/v2/tools/searchexplorer/",
+    tags: ["search", "algorithm", "binary", "linear", "graph", "visualize"],
+    status: "active"
+  },
+  {
+    id: "graph-traversal",
+    name: "Graph Traversal Visualizer",
+    description: "Animate DFS, BFS, and shortest-path traversals on interactive graphs.",
+    category: "developer",
+    icon: "fa-solid fa-share-nodes",
+    url: "/v2/tools/graphtraversal/",
+    tags: ["graph", "traversal", "dfs", "bfs", "dijkstra", "algorithm"],
+    status: "active"
+  },
+  {
+    id: "memory-visualizer",
+    name: "Memory Allocation Visualizer",
+    description: "Illustrate stack vs heap memory usage with interactive concepts.",
+    category: "developer",
+    icon: "fa-solid fa-memory",
+    url: "/v2/tools/memoryvisualizer/",
+    tags: ["memory", "stack", "heap", "allocation", "visualize", "pointer"],
+    status: "active"
+  },
+  {
+    id: "git-graph",
+    name: "Git Graph Explorer",
+    description: "Visualize git branches, merges, and commits with interactive graphs.",
+    category: "developer",
+    icon: "fa-brands fa-git-alt",
+    url: "/v2/tools/gitgraph/",
+    tags: ["git", "graph", "branch", "merge", "commit", "version-control"],
+    status: "active"
+  },
+  {
+    id: "protocol-handshake",
+    name: "Protocol Handshake Visualizer",
+    description: "Animate TCP, TLS, and authentication handshake sequences.",
+    category: "developer",
+    icon: "fa-solid fa-handshake",
+    url: "/v2/tools/protocolhandshake/",
+    tags: ["protocol", "handshake", "tcp", "tls", "ssl", "network"],
+    status: "active"
+  },
+  {
+    id: "load-balancer",
+    name: "Load Balancer Visualizer",
+    description: "Visualize request distribution strategies like round-robin and least connections.",
+    category: "developer",
+    icon: "fa-solid fa-scale-balanced",
+    url: "/v2/tools/loadbalancer/",
+    tags: ["load", "balancer", "distribution", "round-robin", "server", "network"],
+    status: "active"
+  },
 
   // ==================== AI & ML TOOLS ====================
   {
@@ -717,6 +887,96 @@ const toolsData = [
     icon: "fa-solid fa-dna",
     url: "/v2/tools/evolution/",
     tags: ["game", "evolution", "genetic", "algorithm", "simulation", "biology"],
+    status: "active"
+  },
+  {
+    id: "cot-mapper",
+    name: "Chain-of-Thought Mapper",
+    description: "Map reasoning steps as a visual flow diagram for AI thought processes.",
+    category: "ai",
+    icon: "fa-solid fa-route",
+    url: "/v2/tools/cotmapper/",
+    tags: ["chain-of-thought", "reasoning", "flow", "diagram", "ai", "llm"],
+    status: "active"
+  },
+  {
+    id: "rag-pipeline",
+    name: "RAG Pipeline Builder",
+    description: "Visualize retrieval-augmented generation pipelines with interactive components.",
+    category: "ai",
+    icon: "fa-solid fa-diagram-next",
+    url: "/v2/tools/ragpipeline/",
+    tags: ["rag", "retrieval", "augmented", "generation", "pipeline", "ai"],
+    status: "active"
+  },
+  {
+    id: "metric-selector",
+    name: "Evaluation Metric Selector",
+    description: "Guide metric selection based on ML task type with recommendations.",
+    category: "ai",
+    icon: "fa-solid fa-bullseye",
+    url: "/v2/tools/metricselector/",
+    tags: ["metric", "evaluation", "accuracy", "precision", "recall", "f1", "ml"],
+    status: "active"
+  },
+  {
+    id: "nn-layer",
+    name: "Neural Network Layer Visualizer",
+    description: "Display neural network layers, weights, and activations with interactive diagrams.",
+    category: "ai",
+    icon: "fa-solid fa-network-wired",
+    url: "/v2/tools/nnlayer/",
+    tags: ["neural", "network", "layer", "weights", "activations", "deep-learning"],
+    status: "active"
+  },
+  {
+    id: "backprop-viz",
+    name: "Backpropagation Visualizer",
+    description: "Illustrate gradient flow through network layers with step-by-step animation.",
+    category: "ai",
+    icon: "fa-solid fa-arrows-left-right",
+    url: "/v2/tools/backpropviz/",
+    tags: ["backpropagation", "gradient", "neural", "network", "training", "ml"],
+    status: "active"
+  },
+  {
+    id: "attention-viz",
+    name: "Attention Mechanism Visualizer",
+    description: "Visualize transformer attention matrices and token relationships.",
+    category: "ai",
+    icon: "fa-solid fa-eye",
+    url: "/v2/tools/attentionviz/",
+    tags: ["attention", "transformer", "tokens", "matrix", "nlp", "gpt"],
+    status: "active"
+  },
+  {
+    id: "embedding-space",
+    name: "Embedding Space Explorer",
+    description: "Plot word vectors in 2D/3D to illustrate semantic similarity relationships.",
+    category: "ai",
+    icon: "fa-solid fa-cube",
+    url: "/v2/tools/embeddingspace/",
+    tags: ["embedding", "vector", "semantic", "similarity", "nlp", "word2vec"],
+    status: "active"
+  },
+  {
+    id: "dim-reduction",
+    name: "Dimensionality Reduction Visualizer",
+    description: "Visualize PCA and t-SNE concepts with animated projections.",
+    category: "ai",
+    icon: "fa-solid fa-compress",
+    url: "/v2/tools/dimreduction/",
+    tags: ["dimensionality", "reduction", "pca", "tsne", "umap", "ml"],
+    status: "active"
+  },
+  {
+    id: "class-imbalance",
+    name: "Class Imbalance Simulator",
+    description: "Explore effects of skewed class distributions on ML model performance.",
+    category: "ai",
+    icon: "fa-solid fa-scale-unbalanced",
+    url: "/v2/tools/classimbalance/",
+    tags: ["class", "imbalance", "sampling", "smote", "classification", "ml"],
     status: "active"
   },
 

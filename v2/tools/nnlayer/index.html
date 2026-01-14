@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Visualize neural network layer architectures with interactive diagrams.">
+  <meta property="og:title" content="KVSOVANREACH | Neural Network Layer Visualizer">
+  <meta property="og:description" content="Build and visualize neural network architectures.">
+  <meta property="og:image" content="/assets/img/pwa/ios/512.png">
+  <title>KVSOVANREACH | Neural Network Layer Visualizer</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Common Tools CSS -->
+  <link rel="stylesheet" href="../../js/tools-common.css">
+  <!-- NN Layer CSS -->
+  <link rel="stylesheet" href="nnlayer.css">
+</head>
+<body>
+  <!-- Skip to Content -->
+  <a href="#nnlayer" class="skip-link">Skip to Neural Network Visualizer</a>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">TOOLS</span>
+      </a>
+
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="tool-page">
+    <div class="container">
+      <div class="nn-wrapper" id="nnlayer">
+        <!-- Header -->
+        <div class="nn-header">
+          <h2><i class="fa-solid fa-brain"></i> Neural Network Layer Visualizer</h2>
+          <div class="nn-actions">
+            <button class="action-btn" id="presetBtn" title="Load Preset" aria-label="Load preset">
+              <i class="fa-solid fa-shapes"></i>
+              <span>Presets</span>
+            </button>
+            <button class="action-btn" id="clearBtn" title="Clear All" aria-label="Clear all">
+              <i class="fa-solid fa-trash"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Content -->
+        <div class="nn-content">
+          <!-- Builder Section -->
+          <div class="builder-section">
+            <div class="builder-header">
+              <h3><i class="fa-solid fa-layer-group"></i> Add Layers</h3>
+            </div>
+            <div class="layer-options">
+              <button class="layer-btn" data-type="input" title="Input Layer">
+                <i class="fa-solid fa-arrow-right-to-bracket"></i>
+                <span>Input</span>
+              </button>
+              <button class="layer-btn" data-type="dense" title="Dense/Fully Connected">
+                <i class="fa-solid fa-table-cells"></i>
+                <span>Dense</span>
+              </button>
+              <button class="layer-btn" data-type="conv2d" title="Convolutional 2D">
+                <i class="fa-solid fa-border-all"></i>
+                <span>Conv2D</span>
+              </button>
+              <button class="layer-btn" data-type="pooling" title="Pooling Layer">
+                <i class="fa-solid fa-compress"></i>
+                <span>Pooling</span>
+              </button>
+              <button class="layer-btn" data-type="dropout" title="Dropout Layer">
+                <i class="fa-solid fa-droplet-slash"></i>
+                <span>Dropout</span>
+              </button>
+              <button class="layer-btn" data-type="flatten" title="Flatten Layer">
+                <i class="fa-solid fa-bars"></i>
+                <span>Flatten</span>
+              </button>
+              <button class="layer-btn" data-type="output" title="Output Layer">
+                <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                <span>Output</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Layer Config Modal -->
+          <div class="config-modal" id="configModal">
+            <div class="config-content">
+              <div class="config-header">
+                <h3 id="configTitle">Configure Layer</h3>
+                <button class="close-config-btn" id="closeConfigBtn">
+                  <i class="fa-solid fa-xmark"></i>
+                </button>
+              </div>
+              <div class="config-body" id="configBody">
+                <!-- Dynamic config fields -->
+              </div>
+              <div class="config-footer">
+                <button class="action-btn" id="cancelConfigBtn">Cancel</button>
+                <button class="action-btn primary" id="addLayerBtn">Add Layer</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Preset Modal -->
+          <div class="preset-modal" id="presetModal">
+            <div class="preset-content">
+              <div class="preset-header">
+                <h3><i class="fa-solid fa-shapes"></i> Network Presets</h3>
+                <button class="close-preset-btn" id="closePresetBtn">
+                  <i class="fa-solid fa-xmark"></i>
+                </button>
+              </div>
+              <div class="preset-body">
+                <button class="preset-option" data-preset="mlp">
+                  <i class="fa-solid fa-diagram-project"></i>
+                  <span>MLP Classifier</span>
+                  <small>Simple feedforward network</small>
+                </button>
+                <button class="preset-option" data-preset="cnn">
+                  <i class="fa-solid fa-image"></i>
+                  <span>CNN Image Classifier</span>
+                  <small>Convolutional neural network</small>
+                </button>
+                <button class="preset-option" data-preset="autoencoder">
+                  <i class="fa-solid fa-compress-arrows-alt"></i>
+                  <span>Autoencoder</span>
+                  <small>Encoder-decoder architecture</small>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Visualization Section -->
+          <div class="visualization-section">
+            <div class="viz-header">
+              <h3><i class="fa-solid fa-project-diagram"></i> Network Architecture</h3>
+              <div class="viz-controls">
+                <button class="action-btn small" id="zoomInBtn" title="Zoom In">
+                  <i class="fa-solid fa-magnifying-glass-plus"></i>
+                </button>
+                <button class="action-btn small" id="zoomOutBtn" title="Zoom Out">
+                  <i class="fa-solid fa-magnifying-glass-minus"></i>
+                </button>
+              </div>
+            </div>
+            <div class="viz-container" id="vizContainer">
+              <div class="network-diagram" id="networkDiagram">
+                <div class="empty-state" id="emptyState">
+                  <i class="fa-solid fa-network-wired"></i>
+                  <p>Add layers to build your neural network</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Stats Section -->
+          <div class="stats-section" id="statsSection" style="display: none;">
+            <div class="stat-card">
+              <i class="fa-solid fa-layer-group"></i>
+              <div class="stat-info">
+                <span class="stat-value" id="totalLayers">0</span>
+                <span class="stat-label">Total Layers</span>
+              </div>
+            </div>
+            <div class="stat-card">
+              <i class="fa-solid fa-circle-nodes"></i>
+              <div class="stat-info">
+                <span class="stat-value" id="totalParams">0</span>
+                <span class="stat-label">Parameters</span>
+              </div>
+            </div>
+            <div class="stat-card">
+              <i class="fa-solid fa-memory"></i>
+              <div class="stat-info">
+                <span class="stat-value" id="memorySize">0 MB</span>
+                <span class="stat-label">Est. Memory</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Layer List -->
+          <div class="layer-list-section" id="layerListSection" style="display: none;">
+            <div class="layer-list-header">
+              <h3><i class="fa-solid fa-list"></i> Layer Details</h3>
+            </div>
+            <div class="layer-list" id="layerList">
+              <!-- Dynamic layer items -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach. All rights reserved.</p>
+        <p class="footer-made">Made with 💗 and Claude Code xD</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Keyboard Shortcuts Hint -->
+  <div class="shortcuts-hint" id="shortcutsHint">
+    <span>Press <kbd>?</kbd> for shortcuts</span>
+  </div>
+
+  <!-- Keyboard Shortcuts Modal -->
+  <div class="shortcuts-modal" id="shortcutsModal">
+    <div class="shortcuts-content">
+      <div class="shortcuts-header">
+        <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
+        <button class="close-shortcuts-btn" id="closeShortcutsBtn" aria-label="Close shortcuts">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="shortcuts-body">
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">Actions</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Escape</kbd></div>
+            <div class="shortcut-desc">Clear all layers</div>
+          </div>
+        </div>
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">General</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>?</kbd></div>
+            <div class="shortcut-desc">Show shortcuts</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Shared Tools JavaScript -->
+  <script src="../../js/tools-common.js"></script>
+  <!-- NN Layer JavaScript -->
+  <script src="nnlayer.js"></script>
+</body>
+</html>

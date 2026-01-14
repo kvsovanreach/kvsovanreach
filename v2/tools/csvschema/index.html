@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Analyze CSV files to discover schema, column types, and data statistics.">
+  <meta property="og:title" content="KVSOVANREACH | CSV Schema Explorer">
+  <meta property="og:description" content="Explore CSV structure and infer column data types.">
+  <meta property="og:image" content="/assets/img/pwa/ios/512.png">
+  <title>KVSOVANREACH | CSV Schema Explorer</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Common Tools CSS -->
+  <link rel="stylesheet" href="../../js/tools-common.css">
+  <!-- CSV Schema CSS -->
+  <link rel="stylesheet" href="csvschema.css">
+</head>
+<body>
+  <!-- Skip to Content -->
+  <a href="#csvschema" class="skip-link">Skip to CSV Schema Explorer</a>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">TOOLS</span>
+      </a>
+
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="tool-page">
+    <div class="container">
+      <div class="csv-wrapper" id="csvschema">
+        <!-- Header -->
+        <div class="csv-header">
+          <h2><i class="fa-solid fa-table-columns"></i> CSV Schema Explorer</h2>
+          <div class="csv-actions">
+            <button class="action-btn" id="sampleBtn" title="Load Sample" aria-label="Load sample">
+              <i class="fa-solid fa-file-csv"></i>
+              <span>Sample</span>
+            </button>
+            <button class="action-btn" id="clearBtn" title="Clear" aria-label="Clear">
+              <i class="fa-solid fa-trash"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Content -->
+        <div class="csv-content">
+          <!-- Upload Section -->
+          <div class="upload-section">
+            <div class="upload-area" id="uploadArea">
+              <input type="file" id="fileInput" accept=".csv,.tsv" hidden>
+              <div class="upload-icon">
+                <i class="fa-solid fa-file-csv"></i>
+              </div>
+              <h3>Drop CSV file here or click to browse</h3>
+              <p>Or paste CSV data below</p>
+            </div>
+            <textarea id="csvInput" placeholder="Paste CSV data here...
+
+name,age,city,score
+Alice,28,New York,95.5
+Bob,35,Los Angeles,87.3
+Charlie,42,Chicago,92.1"></textarea>
+          </div>
+
+          <!-- Stats Section -->
+          <div class="stats-section" id="statsSection" style="display: none;">
+            <div class="stats-grid">
+              <div class="stat-card">
+                <div class="stat-icon"><i class="fa-solid fa-table-cells"></i></div>
+                <div class="stat-content">
+                  <span class="stat-value" id="rowCount">0</span>
+                  <span class="stat-label">Rows</span>
+                </div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-icon"><i class="fa-solid fa-table-columns"></i></div>
+                <div class="stat-content">
+                  <span class="stat-value" id="columnCount">0</span>
+                  <span class="stat-label">Columns</span>
+                </div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-icon"><i class="fa-solid fa-circle-xmark"></i></div>
+                <div class="stat-content">
+                  <span class="stat-value" id="nullCount">0</span>
+                  <span class="stat-label">Empty Values</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Schema Section -->
+          <div class="schema-section" id="schemaSection" style="display: none;">
+            <div class="schema-header">
+              <h3><i class="fa-solid fa-diagram-project"></i> Detected Schema</h3>
+            </div>
+            <div class="schema-content" id="schemaContent">
+              <!-- Schema cards will be rendered here -->
+            </div>
+          </div>
+
+          <!-- Preview Section -->
+          <div class="preview-section" id="previewSection" style="display: none;">
+            <div class="preview-header">
+              <h3><i class="fa-solid fa-eye"></i> Data Preview (first 10 rows)</h3>
+            </div>
+            <div class="preview-content">
+              <div class="table-wrapper">
+                <table class="preview-table" id="previewTable">
+                  <!-- Table will be rendered here -->
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- Info Panel -->
+          <div class="info-panel">
+            <div class="info-header">
+              <i class="fa-solid fa-circle-info"></i>
+              <span>Detected Data Types</span>
+            </div>
+            <div class="info-content">
+              <div class="type-legend">
+                <div class="type-item">
+                  <span class="type-badge string">String</span>
+                  <span>Text values</span>
+                </div>
+                <div class="type-item">
+                  <span class="type-badge number">Number</span>
+                  <span>Integer or decimal</span>
+                </div>
+                <div class="type-item">
+                  <span class="type-badge boolean">Boolean</span>
+                  <span>true/false values</span>
+                </div>
+                <div class="type-item">
+                  <span class="type-badge date">Date</span>
+                  <span>Date/time values</span>
+                </div>
+                <div class="type-item">
+                  <span class="type-badge email">Email</span>
+                  <span>Email addresses</span>
+                </div>
+                <div class="type-item">
+                  <span class="type-badge mixed">Mixed</span>
+                  <span>Multiple types</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach. All rights reserved.</p>
+        <p class="footer-made">Made with 💗 and Claude Code xD</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Keyboard Shortcuts Hint -->
+  <div class="shortcuts-hint" id="shortcutsHint">
+    <span>Press <kbd>?</kbd> for shortcuts</span>
+  </div>
+
+  <!-- Keyboard Shortcuts Modal -->
+  <div class="shortcuts-modal" id="shortcutsModal">
+    <div class="shortcuts-content">
+      <div class="shortcuts-header">
+        <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
+        <button class="close-shortcuts-btn" id="closeShortcutsBtn" aria-label="Close shortcuts">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="shortcuts-body">
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">Actions</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Ctrl</kbd><span class="key-plus">+</span><kbd>O</kbd></div>
+            <div class="shortcut-desc">Open file</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Escape</kbd></div>
+            <div class="shortcut-desc">Clear</div>
+          </div>
+        </div>
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">General</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>?</kbd></div>
+            <div class="shortcut-desc">Show shortcuts</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Shared Tools JavaScript -->
+  <script src="../../js/tools-common.js"></script>
+  <!-- CSV Schema JavaScript -->
+  <script src="csvschema.js"></script>
+</body>
+</html>

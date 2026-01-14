@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Visualize the complete HTTP request lifecycle: DNS lookup, TCP connection, TLS handshake, and response phases.">
+  <meta property="og:title" content="KVSOVANREACH | HTTP Lifecycle Visualizer">
+  <meta property="og:description" content="Understand HTTP request flow with interactive visualization.">
+  <meta property="og:image" content="/assets/img/pwa/ios/512.png">
+  <title>KVSOVANREACH | HTTP Lifecycle Visualizer</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Common Tools CSS -->
+  <link rel="stylesheet" href="../../js/tools-common.css">
+  <!-- HTTP Lifecycle CSS -->
+  <link rel="stylesheet" href="httplifecycle.css">
+</head>
+<body>
+  <!-- Skip to Content -->
+  <a href="#httplifecycle" class="skip-link">Skip to HTTP Lifecycle Visualizer</a>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">TOOLS</span>
+      </a>
+
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="tool-page">
+    <div class="container">
+      <div class="http-wrapper" id="httplifecycle">
+        <!-- Header -->
+        <div class="http-header">
+          <h2><i class="fa-solid fa-globe"></i> HTTP Lifecycle Visualizer</h2>
+          <div class="http-actions">
+            <button class="action-btn" id="resetBtn" title="Reset" aria-label="Reset visualization">
+              <i class="fa-solid fa-rotate"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Content -->
+        <div class="http-content">
+          <!-- Options Section -->
+          <div class="options-section">
+            <div class="option-group">
+              <label class="option-label">
+                <input type="checkbox" id="httpsEnabled" checked>
+                <span class="checkbox-custom"></span>
+                <span>HTTPS (TLS)</span>
+              </label>
+            </div>
+            <div class="option-group">
+              <label class="option-label">
+                <input type="checkbox" id="dnsCached">
+                <span class="checkbox-custom"></span>
+                <span>DNS Cached</span>
+              </label>
+            </div>
+            <div class="option-group">
+              <label class="option-label">
+                <input type="checkbox" id="keepAlive" checked>
+                <span class="checkbox-custom"></span>
+                <span>Keep-Alive</span>
+              </label>
+            </div>
+            <div class="option-group">
+              <label class="option-label">
+                <input type="checkbox" id="http2">
+                <span class="checkbox-custom"></span>
+                <span>HTTP/2</span>
+              </label>
+            </div>
+            <div class="control-buttons">
+              <button class="action-btn primary" id="simulateBtn">
+                <i class="fa-solid fa-play"></i>
+                <span>Simulate</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Timeline Visualization -->
+          <div class="timeline-section">
+            <div class="timeline-header">
+              <h3><i class="fa-solid fa-timeline"></i> Request Timeline</h3>
+              <span class="total-time" id="totalTime">Total: 0ms</span>
+            </div>
+            <div class="timeline-container" id="timelineContainer">
+              <!-- DNS Lookup -->
+              <div class="timeline-phase" id="phaseDns" data-phase="dns">
+                <div class="phase-icon">
+                  <i class="fa-solid fa-magnifying-glass"></i>
+                </div>
+                <div class="phase-info">
+                  <div class="phase-header">
+                    <span class="phase-name">DNS Lookup</span>
+                    <span class="phase-time" id="dnsTime">-</span>
+                  </div>
+                  <div class="phase-bar">
+                    <div class="bar-fill dns" id="dnsBar"></div>
+                  </div>
+                  <p class="phase-desc">Resolve domain name to IP address</p>
+                </div>
+              </div>
+
+              <!-- TCP Connection -->
+              <div class="timeline-phase" id="phaseTcp" data-phase="tcp">
+                <div class="phase-icon">
+                  <i class="fa-solid fa-plug"></i>
+                </div>
+                <div class="phase-info">
+                  <div class="phase-header">
+                    <span class="phase-name">TCP Connection</span>
+                    <span class="phase-time" id="tcpTime">-</span>
+                  </div>
+                  <div class="phase-bar">
+                    <div class="bar-fill tcp" id="tcpBar"></div>
+                  </div>
+                  <p class="phase-desc">Establish TCP three-way handshake</p>
+                </div>
+              </div>
+
+              <!-- TLS Handshake -->
+              <div class="timeline-phase" id="phaseTls" data-phase="tls">
+                <div class="phase-icon">
+                  <i class="fa-solid fa-lock"></i>
+                </div>
+                <div class="phase-info">
+                  <div class="phase-header">
+                    <span class="phase-name">TLS Handshake</span>
+                    <span class="phase-time" id="tlsTime">-</span>
+                  </div>
+                  <div class="phase-bar">
+                    <div class="bar-fill tls" id="tlsBar"></div>
+                  </div>
+                  <p class="phase-desc">Secure connection with SSL/TLS</p>
+                </div>
+              </div>
+
+              <!-- Request Sent -->
+              <div class="timeline-phase" id="phaseRequest" data-phase="request">
+                <div class="phase-icon">
+                  <i class="fa-solid fa-paper-plane"></i>
+                </div>
+                <div class="phase-info">
+                  <div class="phase-header">
+                    <span class="phase-name">Request Sent</span>
+                    <span class="phase-time" id="requestTime">-</span>
+                  </div>
+                  <div class="phase-bar">
+                    <div class="bar-fill request" id="requestBar"></div>
+                  </div>
+                  <p class="phase-desc">Send HTTP request to server</p>
+                </div>
+              </div>
+
+              <!-- Waiting (TTFB) -->
+              <div class="timeline-phase" id="phaseWaiting" data-phase="waiting">
+                <div class="phase-icon">
+                  <i class="fa-solid fa-hourglass-half"></i>
+                </div>
+                <div class="phase-info">
+                  <div class="phase-header">
+                    <span class="phase-name">Waiting (TTFB)</span>
+                    <span class="phase-time" id="waitingTime">-</span>
+                  </div>
+                  <div class="phase-bar">
+                    <div class="bar-fill waiting" id="waitingBar"></div>
+                  </div>
+                  <p class="phase-desc">Time to first byte from server</p>
+                </div>
+              </div>
+
+              <!-- Content Download -->
+              <div class="timeline-phase" id="phaseDownload" data-phase="download">
+                <div class="phase-icon">
+                  <i class="fa-solid fa-download"></i>
+                </div>
+                <div class="phase-info">
+                  <div class="phase-header">
+                    <span class="phase-name">Content Download</span>
+                    <span class="phase-time" id="downloadTime">-</span>
+                  </div>
+                  <div class="phase-bar">
+                    <div class="bar-fill download" id="downloadBar"></div>
+                  </div>
+                  <p class="phase-desc">Download response body</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Flow Diagram -->
+          <div class="flow-section">
+            <div class="flow-header">
+              <h3><i class="fa-solid fa-diagram-project"></i> Request Flow</h3>
+            </div>
+            <div class="flow-container" id="flowContainer">
+              <div class="flow-entity client">
+                <i class="fa-solid fa-laptop"></i>
+                <span>Client</span>
+              </div>
+              <div class="flow-arrows" id="flowArrows">
+                <!-- Arrows will be rendered here -->
+              </div>
+              <div class="flow-entity server">
+                <i class="fa-solid fa-server"></i>
+                <span>Server</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Details Panel -->
+          <div class="details-section">
+            <div class="details-header">
+              <h3><i class="fa-solid fa-circle-info"></i> Phase Details</h3>
+            </div>
+            <div class="details-content" id="detailsContent">
+              <div class="details-placeholder">
+                Click on a phase or run simulation to see details
+              </div>
+            </div>
+          </div>
+
+          <!-- Info Panel -->
+          <div class="info-panel">
+            <div class="info-header">
+              <i class="fa-solid fa-book"></i>
+              <span>HTTP Request Lifecycle</span>
+            </div>
+            <div class="info-content">
+              <div class="info-steps">
+                <div class="info-step">
+                  <span class="step-num">1</span>
+                  <span><strong>DNS Lookup:</strong> Browser queries DNS server to find IP address</span>
+                </div>
+                <div class="info-step">
+                  <span class="step-num">2</span>
+                  <span><strong>TCP:</strong> Establish connection using SYN, SYN-ACK, ACK</span>
+                </div>
+                <div class="info-step">
+                  <span class="step-num">3</span>
+                  <span><strong>TLS:</strong> For HTTPS, negotiate encryption parameters</span>
+                </div>
+                <div class="info-step">
+                  <span class="step-num">4</span>
+                  <span><strong>Request:</strong> Send HTTP request with headers and body</span>
+                </div>
+                <div class="info-step">
+                  <span class="step-num">5</span>
+                  <span><strong>Response:</strong> Server processes and sends response</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach. All rights reserved.</p>
+        <p class="footer-made">Made with 💗 and Claude Code xD</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Keyboard Shortcuts Hint -->
+  <div class="shortcuts-hint" id="shortcutsHint">
+    <span>Press <kbd>?</kbd> for shortcuts</span>
+  </div>
+
+  <!-- Keyboard Shortcuts Modal -->
+  <div class="shortcuts-modal" id="shortcutsModal">
+    <div class="shortcuts-content">
+      <div class="shortcuts-header">
+        <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
+        <button class="close-shortcuts-btn" id="closeShortcutsBtn" aria-label="Close shortcuts">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="shortcuts-body">
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">Actions</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Space</kbd></div>
+            <div class="shortcut-desc">Run simulation</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>R</kbd></div>
+            <div class="shortcut-desc">Reset</div>
+          </div>
+        </div>
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">General</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>?</kbd></div>
+            <div class="shortcut-desc">Show shortcuts</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Shared Tools JavaScript -->
+  <script src="../../js/tools-common.js"></script>
+  <!-- HTTP Lifecycle JavaScript -->
+  <script src="httplifecycle.js"></script>
+</body>
+</html>

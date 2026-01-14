@@ -4,7 +4,13 @@
 
 /* ==================== Wrapper ==================== */
 .bmi-wrapper {
-  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
 }
 
 /* ==================== Header ==================== */
@@ -13,8 +19,7 @@
   align-items: center;
   padding: var(--space-4) var(--space-5);
   background-color: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  border-bottom: 1px solid var(--color-border);
 }
 
 .bmi-header h2 {
@@ -34,8 +39,7 @@
 .bmi-tabs {
   display: flex;
   background-color: var(--color-bg-secondary);
-  border: 1px solid var(--color-border);
-  border-top: none;
+  border-bottom: 1px solid var(--color-border);
 }
 
 .bmi-tab {
@@ -87,8 +91,6 @@
 /* ==================== Main Card ==================== */
 .bmi-card {
   background-color: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: 0 0 var(--radius-lg) var(--radius-lg);
   padding: var(--space-5);
   display: flex;
   flex-direction: column;
@@ -360,6 +362,12 @@
 }
 
 /* ==================== Responsive ==================== */
+@media screen and (max-width: 1024px) {
+  .bmi-wrapper {
+    border-radius: var(--radius-lg);
+  }
+}
+
 @media screen and (max-width: 768px) {
   .bmi-card {
     padding: var(--space-4);
@@ -380,5 +388,42 @@
 
   .category-list {
     grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .bmi-wrapper {
+    border-radius: var(--radius-md);
+    margin: 0 calc(-1 * var(--space-3));
+    border-left: none;
+    border-right: none;
+  }
+
+  .bmi-header {
+    padding: var(--space-3) var(--space-4);
+  }
+
+  .bmi-header h2 {
+    font-size: var(--font-size-base);
+  }
+
+  .bmi-tab span {
+    display: none;
+  }
+
+  .bmi-card {
+    padding: var(--space-3);
+  }
+
+  .bmi-value {
+    font-size: 2.5rem;
+  }
+
+  .category-item {
+    padding: var(--space-2);
+  }
+
+  .category-range {
+    font-size: var(--font-size-base);
   }
 }

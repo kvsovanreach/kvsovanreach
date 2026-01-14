@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Visualize PCA and t-SNE dimensionality reduction concepts with animated projections.">
+  <meta property="og:title" content="KVSOVANREACH | Dimensionality Reduction">
+  <title>KVSOVANREACH | Dimensionality Reduction</title>
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../js/tools-common.css">
+  <link rel="stylesheet" href="dimreduction.css">
+</head>
+<body>
+  <a href="#dimreduction" class="skip-link">Skip to Dimensionality Reduction</a>
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">TOOLS</span>
+      </a>
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools"><i class="fa-solid fa-arrow-left"></i></a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i><i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <main class="tool-page">
+    <div class="container">
+      <div class="dimred-wrapper" id="dimreduction">
+        <div class="dimred-header">
+          <h2><i class="fa-solid fa-compress"></i> Dimensionality Reduction Visualizer</h2>
+          <div class="dimred-actions">
+            <button class="action-btn" id="exportBtn" title="Export" aria-label="Export"><i class="fa-solid fa-download"></i></button>
+          </div>
+        </div>
+
+        <div class="dimred-content">
+          <div class="controls-section">
+            <div class="section-header"><h3><i class="fa-solid fa-sliders"></i> Configuration</h3></div>
+            <div class="controls-grid">
+              <div class="control-group">
+                <label>Algorithm</label>
+                <select id="algorithm">
+                  <option value="pca">PCA</option>
+                  <option value="tsne">t-SNE</option>
+                </select>
+              </div>
+              <div class="control-group">
+                <label>Data Points</label>
+                <input type="number" id="numPoints" value="100" min="20" max="500">
+              </div>
+              <div class="control-group">
+                <label>Clusters</label>
+                <input type="number" id="numClusters" value="3" min="2" max="6">
+              </div>
+              <div class="control-group">
+                <label>Original Dimensions</label>
+                <input type="number" id="originalDims" value="10" min="3" max="50">
+              </div>
+            </div>
+            <div class="controls-actions">
+              <button class="action-btn primary" id="generateBtn"><i class="fa-solid fa-wand-magic-sparkles"></i><span>Generate Data</span></button>
+              <button class="action-btn secondary" id="runBtn"><i class="fa-solid fa-play"></i><span>Run Reduction</span></button>
+            </div>
+          </div>
+
+          <div class="viz-section">
+            <div class="viz-row">
+              <div class="viz-panel">
+                <div class="panel-header"><h4>Original Space (First 3 Dims)</h4></div>
+                <div class="panel-content"><canvas id="originalCanvas"></canvas></div>
+              </div>
+              <div class="viz-panel">
+                <div class="panel-header"><h4>Reduced Space (2D)</h4></div>
+                <div class="panel-content"><canvas id="reducedCanvas"></canvas></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="stats-section">
+            <div class="section-header"><h3><i class="fa-solid fa-chart-bar"></i> Statistics</h3></div>
+            <div class="stats-grid">
+              <div class="stat-card">
+                <span class="stat-label">Variance Explained</span>
+                <span class="stat-value" id="varianceExplained">--</span>
+              </div>
+              <div class="stat-card">
+                <span class="stat-label">Original Dims</span>
+                <span class="stat-value" id="origDimsDisplay">--</span>
+              </div>
+              <div class="stat-card">
+                <span class="stat-label">Reduced Dims</span>
+                <span class="stat-value" id="reducedDimsDisplay">2</span>
+              </div>
+              <div class="stat-card">
+                <span class="stat-label">Data Points</span>
+                <span class="stat-value" id="pointsDisplay">--</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="info-panel">
+            <div class="info-header"><i class="fa-solid fa-lightbulb"></i><span>About Dimensionality Reduction</span></div>
+            <div class="info-content">
+              <p><strong>PCA (Principal Component Analysis):</strong> Linear technique that finds directions of maximum variance. Best for preserving global structure.</p>
+              <p><strong>t-SNE:</strong> Non-linear technique that preserves local neighborhoods. Best for visualizing clusters and patterns.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer"><div class="container"><div class="footer-bottom">
+    <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach. All rights reserved.</p>
+    <p class="footer-made">Made with Claude Code</p>
+  </div></div></footer>
+
+  <div class="toast" id="toast"></div>
+  <div class="shortcuts-hint" id="shortcutsHint"><span>Press <kbd>?</kbd> for shortcuts</span></div>
+  <div class="shortcuts-modal" id="shortcutsModal">
+    <div class="shortcuts-content">
+      <div class="shortcuts-header">
+        <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
+        <button class="close-shortcuts-btn" id="closeShortcutsBtn" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="shortcuts-body">
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">Actions</div>
+          <div class="shortcut-row"><div class="shortcut-keys"><kbd>G</kbd></div><div class="shortcut-desc">Generate data</div></div>
+          <div class="shortcut-row"><div class="shortcut-keys"><kbd>R</kbd></div><div class="shortcut-desc">Run reduction</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="../../js/tools-common.js"></script>
+  <script src="dimreduction.js"></script>
+</body>
+</html>

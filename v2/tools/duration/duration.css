@@ -266,6 +266,12 @@
 }
 
 /* Responsive */
+@media screen and (max-width: 1024px) {
+  .duration-wrapper {
+    border-radius: var(--radius-lg);
+  }
+}
+
 @media screen and (max-width: 768px) {
   .duration-content {
     padding: var(--space-4);

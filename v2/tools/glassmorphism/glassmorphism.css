@@ -388,6 +388,12 @@
 }
 
 /* Responsive */
+@media screen and (max-width: 1024px) {
+  .glass-wrapper {
+    border-radius: var(--radius-lg);
+  }
+}
+
 @media screen and (max-width: 768px) {
   .preview-container {
     height: 300px;

@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Visualize gradient flow through neural network layers with an interactive backpropagation diagram.">
+  <meta property="og:title" content="KVSOVANREACH | Backpropagation Visualizer">
+  <meta property="og:description" content="Understand gradient flow through neural networks.">
+  <meta property="og:image" content="/assets/img/pwa/ios/512.png">
+  <title>KVSOVANREACH | Backpropagation Visualizer</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Common Tools CSS -->
+  <link rel="stylesheet" href="../../js/tools-common.css">
+  <!-- Backprop Visualizer CSS -->
+  <link rel="stylesheet" href="backpropviz.css">
+</head>
+<body>
+  <!-- Skip to Content -->
+  <a href="#backpropviz" class="skip-link">Skip to Backpropagation Visualizer</a>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">TOOLS</span>
+      </a>
+
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="tool-page">
+    <div class="container">
+      <div class="backprop-wrapper" id="backpropviz">
+        <!-- Header -->
+        <div class="backprop-header">
+          <h2><i class="fa-solid fa-arrow-trend-down"></i> Backpropagation Visualizer</h2>
+          <div class="backprop-actions">
+            <button class="action-btn" id="exportBtn" title="Export as PNG" aria-label="Export as PNG">
+              <i class="fa-solid fa-download"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Content -->
+        <div class="backprop-content">
+          <!-- Controls -->
+          <div class="controls-section">
+            <div class="section-header">
+              <h3><i class="fa-solid fa-sliders"></i> Network Configuration</h3>
+            </div>
+            <div class="controls-grid">
+              <div class="control-group">
+                <label>Input Size</label>
+                <input type="number" id="inputSize" value="3" min="1" max="5">
+              </div>
+              <div class="control-group">
+                <label>Hidden Layers</label>
+                <input type="number" id="hiddenLayers" value="2" min="1" max="4">
+              </div>
+              <div class="control-group">
+                <label>Hidden Size</label>
+                <input type="number" id="hiddenSize" value="4" min="2" max="6">
+              </div>
+              <div class="control-group">
+                <label>Output Size</label>
+                <input type="number" id="outputSize" value="2" min="1" max="4">
+              </div>
+              <div class="control-group">
+                <label>Learning Rate</label>
+                <input type="number" id="learningRate" value="0.01" min="0.001" max="1" step="0.001">
+              </div>
+              <div class="control-group">
+                <label>Activation</label>
+                <select id="activation">
+                  <option value="relu">ReLU</option>
+                  <option value="sigmoid">Sigmoid</option>
+                  <option value="tanh">Tanh</option>
+                </select>
+              </div>
+            </div>
+            <div class="controls-actions">
+              <button class="action-btn primary" id="runForwardBtn">
+                <i class="fa-solid fa-arrow-right"></i>
+                <span>Forward Pass</span>
+              </button>
+              <button class="action-btn secondary" id="runBackwardBtn">
+                <i class="fa-solid fa-arrow-left"></i>
+                <span>Backward Pass</span>
+              </button>
+              <button class="action-btn" id="resetBtn">
+                <i class="fa-solid fa-rotate"></i>
+                <span>Reset</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Network Visualization -->
+          <div class="network-section">
+            <div class="section-header">
+              <h3><i class="fa-solid fa-network-wired"></i> Neural Network</h3>
+              <div class="pass-indicator" id="passIndicator">
+                <span class="pass-label">Idle</span>
+              </div>
+            </div>
+            <div class="network-container" id="networkContainer">
+              <canvas id="networkCanvas"></canvas>
+            </div>
+          </div>
+
+          <!-- Gradient Flow -->
+          <div class="gradient-section">
+            <div class="section-header">
+              <h3><i class="fa-solid fa-chart-line"></i> Gradient Magnitudes</h3>
+            </div>
+            <div class="gradient-bars" id="gradientBars">
+              <!-- Gradient bars will be rendered here -->
+            </div>
+          </div>
+
+          <!-- Legend -->
+          <div class="legend-section">
+            <div class="legend-item">
+              <div class="legend-color forward"></div>
+              <span>Forward Pass</span>
+            </div>
+            <div class="legend-item">
+              <div class="legend-color backward"></div>
+              <span>Backward Pass (Gradients)</span>
+            </div>
+            <div class="legend-item">
+              <div class="legend-color positive"></div>
+              <span>Positive Weight</span>
+            </div>
+            <div class="legend-item">
+              <div class="legend-color negative"></div>
+              <span>Negative Weight</span>
+            </div>
+          </div>
+
+          <!-- Info Panel -->
+          <div class="info-panel">
+            <div class="info-header">
+              <i class="fa-solid fa-lightbulb"></i>
+              <span>How Backpropagation Works</span>
+            </div>
+            <div class="info-content">
+              <div class="info-steps">
+                <div class="info-step">
+                  <span class="step-num">1</span>
+                  <div>
+                    <strong>Forward Pass:</strong> Input flows through the network, computing activations at each layer
+                  </div>
+                </div>
+                <div class="info-step">
+                  <span class="step-num">2</span>
+                  <div>
+                    <strong>Loss Calculation:</strong> Compare output with target to compute error
+                  </div>
+                </div>
+                <div class="info-step">
+                  <span class="step-num">3</span>
+                  <div>
+                    <strong>Backward Pass:</strong> Gradients flow backward using chain rule
+                  </div>
+                </div>
+                <div class="info-step">
+                  <span class="step-num">4</span>
+                  <div>
+                    <strong>Weight Update:</strong> Adjust weights using gradients and learning rate
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach. All rights reserved.</p>
+        <p class="footer-made">Made with Claude Code</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Keyboard Shortcuts Hint -->
+  <div class="shortcuts-hint" id="shortcutsHint">
+    <span>Press <kbd>?</kbd> for shortcuts</span>
+  </div>
+
+  <!-- Keyboard Shortcuts Modal -->
+  <div class="shortcuts-modal" id="shortcutsModal">
+    <div class="shortcuts-content">
+      <div class="shortcuts-header">
+        <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
+        <button class="close-shortcuts-btn" id="closeShortcutsBtn" aria-label="Close shortcuts">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="shortcuts-body">
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">Actions</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>F</kbd></div>
+            <div class="shortcut-desc">Run forward pass</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>B</kbd></div>
+            <div class="shortcut-desc">Run backward pass</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>R</kbd></div>
+            <div class="shortcut-desc">Reset network</div>
+          </div>
+        </div>
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">General</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>?</kbd></div>
+            <div class="shortcut-desc">Show shortcuts</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Shared Tools JavaScript -->
+  <script src="../../js/tools-common.js"></script>
+  <!-- Backprop Visualizer JavaScript -->
+  <script src="backpropviz.js"></script>
+</body>
+</html>
