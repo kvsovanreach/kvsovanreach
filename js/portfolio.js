@@ -546,6 +546,12 @@
     dots: null,
     currentSlide: 1,
     totalSlides: 10,
+    // Touch/swipe state
+    touchStartX: 0,
+    touchStartY: 0,
+    touchEndX: 0,
+    touchEndY: 0,
+    swipeThreshold: 50, // Minimum distance for a valid swipe
 
     init() {
       this.presentation = document.getElementById('cv-presentation');
@@ -565,6 +571,11 @@
 
       // Keyboard navigation
       document.addEventListener('keydown', (e) => this.handleKeyboard(e));
+
+      // Touch/swipe navigation
+      this.presentation.addEventListener('touchstart', (e) => this.handleTouchStart(e), { passive: true });
+      this.presentation.addEventListener('touchmove', (e) => this.handleTouchMove(e), { passive: true });
+      this.presentation.addEventListener('touchend', (e) => this.handleTouchEnd(e));
 
       // Click outside to close (on overlay areas)
       this.presentation.addEventListener('click', (e) => {
@@ -708,6 +719,43 @@
           this.goToSlide(this.totalSlides);
           break;
       }
+    },
+
+    handleTouchStart(e) {
+      if (!this.presentation.classList.contains('active')) return;
+      this.touchStartX = e.changedTouches[0].screenX;
+      this.touchStartY = e.changedTouches[0].screenY;
+    },
+
+    handleTouchMove(e) {
+      if (!this.presentation.classList.contains('active')) return;
+      this.touchEndX = e.changedTouches[0].screenX;
+      this.touchEndY = e.changedTouches[0].screenY;
+    },
+
+    handleTouchEnd(e) {
+      if (!this.presentation.classList.contains('active')) return;
+
+      const deltaX = this.touchEndX - this.touchStartX;
+      const deltaY = this.touchEndY - this.touchStartY;
+
+      // Only trigger swipe if horizontal movement is greater than vertical
+      // This prevents accidental swipes when scrolling vertically
+      if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > this.swipeThreshold) {
+        if (deltaX < 0) {
+          // Swiped left - go to next slide
+          this.next();
+        } else {
+          // Swiped right - go to previous slide
+          this.prev();
+        }
+      }
+
+      // Reset touch coordinates
+      this.touchStartX = 0;
+      this.touchStartY = 0;
+      this.touchEndX = 0;
+      this.touchEndY = 0;
     }
   };
 
