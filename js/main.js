@@ -180,40 +180,58 @@
     currentIndex: 0,
     currentChar: 0,
     isDeleting: false,
-    timeout: null,
+    lastTime: 0,
+    delay: 0,
+    rafId: null,
 
     init() {
       if (!elements.typingText) return;
-      this.type();
+      this.lastTime = performance.now();
+      this.delay = config.typingSpeed;
+      this.rafId = requestAnimationFrame((t) => this.tick(t));
+    },
+
+    tick(timestamp) {
+      const elapsed = timestamp - this.lastTime;
+
+      if (elapsed >= this.delay) {
+        this.lastTime = timestamp;
+        this.type();
+      }
+
+      this.rafId = requestAnimationFrame((t) => this.tick(t));
     },
 
     type() {
       const currentString = config.typingStrings[this.currentIndex];
 
       if (this.isDeleting) {
-        elements.typingText.textContent = currentString.substring(0, this.currentChar - 1);
         this.currentChar--;
+        elements.typingText.textContent = currentString.substring(0, this.currentChar);
       } else {
-        elements.typingText.textContent = currentString.substring(0, this.currentChar + 1);
         this.currentChar++;
+        elements.typingText.textContent = currentString.substring(0, this.currentChar);
       }
 
-      let typeSpeed = config.typingSpeed;
+      // Set delay for next character
+      this.delay = this.isDeleting ? config.typingSpeed / 2 : config.typingSpeed;
 
-      if (this.isDeleting) {
-        typeSpeed /= 2;
-      }
-
+      // Check if finished typing or deleting
       if (!this.isDeleting && this.currentChar === currentString.length) {
-        typeSpeed = config.typingDelay;
+        this.delay = config.typingDelay;
         this.isDeleting = true;
       } else if (this.isDeleting && this.currentChar === 0) {
         this.isDeleting = false;
         this.currentIndex = (this.currentIndex + 1) % config.typingStrings.length;
-        typeSpeed = 500;
+        this.delay = 500;
       }
+    },
 
-      this.timeout = setTimeout(() => this.type(), typeSpeed);
+    stop() {
+      if (this.rafId) {
+        cancelAnimationFrame(this.rafId);
+        this.rafId = null;
+      }
     }
   };
 

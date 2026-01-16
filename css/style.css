@@ -303,6 +303,7 @@ ul, ol {
   justify-content: center;
   background-color: var(--color-bg-secondary);
   color: var(--color-text);
+  border: 1px solid var(--color-border);
   transition: all var(--transition-fast);
   position: relative;
   overflow: hidden;
@@ -946,28 +947,19 @@ ul, ol {
 .skill-tag {
   display: inline-block;
   padding: var(--space-2) var(--space-3);
-  background-color: var(--color-bg-secondary);
-  color: var(--color-text-secondary);
+  background-color: rgba(55, 118, 161, 0.1);
+  color: var(--color-text);
   font-size: var(--font-size-sm);
+  font-weight: 500;
   border-radius: var(--radius-md);
   transition: all var(--transition-fast);
-  border: 1px solid transparent;
+  border: 1px solid var(--color-border);
 }
 
 .skill-tag:hover {
   background-color: var(--color-primary);
   color: #fff;
   transform: scale(1.05);
-}
-
-.skill-tag[data-level="expert"] {
-  background: rgba(55, 118, 161, 0.1);
-  color: var(--color-primary);
-}
-
-.skill-tag[data-level="advanced"] {
-  background: rgba(137, 207, 241, 0.1);
-  color: var(--color-accent);
 }
 
 /* ==================== Experience Section ==================== */
@@ -1507,6 +1499,9 @@ ul, ol {
     z-index: 400;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 
   .nav-menu.active {
@@ -1515,7 +1510,9 @@ ul, ol {
 
   .nav-list {
     flex-direction: column;
+    align-items: center;
     gap: var(--space-4);
+    width: 100%;
   }
 
   .nav-link {
@@ -1579,6 +1576,10 @@ ul, ol {
   .section-tag {
     font-size: var(--font-size-xs);
     padding: var(--space-1) var(--space-3);
+  }
+
+  .section-description {
+    font-size: var(--font-size-sm);
   }
 
   .hero {
@@ -1748,12 +1749,6 @@ ul, ol {
 
   .skill-tag {
     padding: var(--space-1) var(--space-2);
-    font-size: var(--font-size-xs);
-  }
-
-  .skill-legend {
-    padding: var(--space-3);
-    margin-bottom: var(--space-4);
     font-size: var(--font-size-xs);
   }
 
@@ -2180,46 +2175,6 @@ ul, ol {
   transform: translateX(-50%) scale(1);
 }
 
-/* ==================== Skill Legend ==================== */
-.skill-legend {
-  display: flex;
-  justify-content: center;
-  gap: var(--space-6);
-  margin-top: var(--space-4);
-}
-
-.legend-item {
-  display: flex;
-  align-items: center;
-  gap: var(--space-2);
-  font-size: var(--font-size-sm);
-  color: var(--color-text-secondary);
-}
-
-.legend-dot {
-  width: 12px;
-  height: 12px;
-  border-radius: var(--radius-sm);
-}
-
-.legend-dot.expert {
-  background-color: rgba(55, 118, 161, 0.3);
-}
-
-.legend-dot.advanced {
-  background-color: rgba(137, 207, 241, 0.3);
-}
-
-.legend-dot.intermediate {
-  background-color: rgba(100, 116, 139, 0.4);
-}
-
-/* Add intermediate level styling for skills */
-.skill-tag[data-level="intermediate"] {
-  background: rgba(100, 116, 139, 0.15);
-  color: var(--color-text-secondary);
-}
-
 /* ==================== Reduced Motion (Accessibility) ==================== */
 @media (prefers-reduced-motion: reduce) {
   *,
@@ -2263,11 +2218,6 @@ ul, ol {
 @media screen and (max-width: 768px) {
   .hero-subtitle {
     justify-content: center;
-  }
-
-  .skill-legend {
-    flex-wrap: wrap;
-    gap: var(--space-3);
   }
 }
 
