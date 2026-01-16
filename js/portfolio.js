@@ -6,6 +6,12 @@
 (function() {
   'use strict';
 
+  // ==================== Feature Flags ====================
+  const FEATURES = {
+    SHOW_TOOLS_MENU: false,      // Display tools link in navigation
+    SHOW_LIVE_CV_BUTTON: true,   // Display CV presentation button
+  };
+
   // ==================== DOM Elements ====================
   const elements = {
     navbar: document.getElementById('navbar'),
@@ -516,11 +522,201 @@
     }
   };
 
+  // ==================== Feature Toggle ====================
+  const FeatureToggle = {
+    init() {
+      // Tools menu toggle
+      const toolsLink = document.querySelector('.nav-link[href="tools.html"]');
+      if (toolsLink) {
+        toolsLink.parentElement.style.display = FEATURES.SHOW_TOOLS_MENU ? '' : 'none';
+      }
+
+      // Live CV button toggle
+      const cvPresentBtn = document.getElementById('cv-present-btn');
+      if (cvPresentBtn) {
+        cvPresentBtn.style.display = FEATURES.SHOW_LIVE_CV_BUTTON ? '' : 'none';
+      }
+    }
+  };
+
+  // ==================== CV Presentation ====================
+  const CVPresentation = {
+    presentation: null,
+    slides: null,
+    dots: null,
+    currentSlide: 1,
+    totalSlides: 10,
+
+    init() {
+      this.presentation = document.getElementById('cv-presentation');
+      this.slides = document.querySelectorAll('.cv-slide');
+      this.totalSlides = this.slides.length;
+
+      if (!this.presentation) return;
+
+      // Create dots
+      this.createDots();
+
+      // Event listeners
+      document.getElementById('cv-present-btn')?.addEventListener('click', () => this.open());
+      document.getElementById('cv-close-btn')?.addEventListener('click', () => this.close());
+      document.getElementById('cv-prev')?.addEventListener('click', () => this.prev());
+      document.getElementById('cv-next')?.addEventListener('click', () => this.next());
+
+      // Keyboard navigation
+      document.addEventListener('keydown', (e) => this.handleKeyboard(e));
+
+      // Click outside to close (on overlay areas)
+      this.presentation.addEventListener('click', (e) => {
+        if (e.target === this.presentation) {
+          this.close();
+        }
+      });
+
+      // Handle fullscreen exit (e.g., user presses Escape in fullscreen mode)
+      document.addEventListener('fullscreenchange', () => this.handleFullscreenChange());
+      document.addEventListener('webkitfullscreenchange', () => this.handleFullscreenChange()); // Safari
+    },
+
+    handleFullscreenChange() {
+      const isFullscreen = document.fullscreenElement || document.webkitFullscreenElement;
+      // If exited fullscreen while presentation was active, close it
+      if (!isFullscreen && this.presentation.classList.contains('active')) {
+        this.presentation.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+    },
+
+    createDots() {
+      const dotsContainer = document.getElementById('cv-dots');
+      if (!dotsContainer) return;
+
+      dotsContainer.innerHTML = '';
+      for (let i = 1; i <= this.totalSlides; i++) {
+        const dot = document.createElement('span');
+        dot.className = `cv-dot${i === 1 ? ' active' : ''}`;
+        dot.dataset.slide = i;
+        dot.addEventListener('click', () => this.goToSlide(i));
+        dotsContainer.appendChild(dot);
+      }
+      this.dots = dotsContainer.querySelectorAll('.cv-dot');
+    },
+
+    open() {
+      // Request browser fullscreen (like F11)
+      const docEl = document.documentElement;
+      if (docEl.requestFullscreen) {
+        docEl.requestFullscreen();
+      } else if (docEl.webkitRequestFullscreen) {
+        docEl.webkitRequestFullscreen(); // Safari
+      } else if (docEl.msRequestFullscreen) {
+        docEl.msRequestFullscreen(); // IE/Edge
+      }
+
+      this.presentation.classList.add('active');
+      document.body.style.overflow = 'hidden';
+      this.goToSlide(1);
+    },
+
+    close() {
+      this.presentation.classList.remove('active');
+      document.body.style.overflow = '';
+
+      // Exit browser fullscreen if active
+      const isFullscreen = document.fullscreenElement || document.webkitFullscreenElement;
+      if (isFullscreen) {
+        if (document.exitFullscreen) {
+          document.exitFullscreen();
+        } else if (document.webkitExitFullscreen) {
+          document.webkitExitFullscreen(); // Safari
+        } else if (document.msExitFullscreen) {
+          document.msExitFullscreen(); // IE/Edge
+        }
+      }
+    },
+
+    goToSlide(n) {
+      if (n < 1 || n > this.totalSlides) return;
+
+      this.currentSlide = n;
+
+      // Update slides
+      this.slides.forEach((slide, index) => {
+        slide.classList.remove('active');
+        if (index + 1 === n) {
+          slide.classList.add('active');
+        }
+      });
+
+      // Update dots
+      this.dots?.forEach((dot, index) => {
+        dot.classList.remove('active');
+        if (index + 1 === n) {
+          dot.classList.add('active');
+        }
+      });
+
+      // Update indicator
+      const currentIndicator = document.querySelector('.cv-slide-indicator .current-slide');
+      if (currentIndicator) {
+        currentIndicator.textContent = n;
+      }
+
+      // Update nav buttons
+      const prevBtn = document.getElementById('cv-prev');
+      const nextBtn = document.getElementById('cv-next');
+      if (prevBtn) prevBtn.disabled = n === 1;
+      if (nextBtn) nextBtn.disabled = n === this.totalSlides;
+    },
+
+    next() {
+      if (this.currentSlide < this.totalSlides) {
+        this.goToSlide(this.currentSlide + 1);
+      }
+    },
+
+    prev() {
+      if (this.currentSlide > 1) {
+        this.goToSlide(this.currentSlide - 1);
+      }
+    },
+
+    handleKeyboard(e) {
+      if (!this.presentation.classList.contains('active')) return;
+
+      switch (e.key) {
+        case 'ArrowRight':
+        case 'ArrowDown':
+        case ' ':
+          e.preventDefault();
+          this.next();
+          break;
+        case 'ArrowLeft':
+        case 'ArrowUp':
+          e.preventDefault();
+          this.prev();
+          break;
+        case 'Escape':
+          this.close();
+          break;
+        case 'Home':
+          e.preventDefault();
+          this.goToSlide(1);
+          break;
+        case 'End':
+          e.preventDefault();
+          this.goToSlide(this.totalSlides);
+          break;
+      }
+    }
+  };
+
   // ==================== Reduced Motion Check ====================
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   // ==================== Initialize ====================
   function init() {
+    FeatureToggle.init();
     ThemeManager.init();
     Navigation.init();
     YearUpdate.init();
@@ -545,6 +741,7 @@
     ScrollAnimations.init();
     ScrollToTop.init();
     SmoothScroll.init();
+    CVPresentation.init();
 
     // Remove loading state
     document.body.classList.add('loaded');

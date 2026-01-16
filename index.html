@@ -25,7 +25,7 @@
     rel="stylesheet">
 
   <!-- Stylesheet -->
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/portfolio.css">
 </head>
 
 <body>
@@ -60,9 +60,9 @@
           <li class="nav-item">
             <a href="#publications" class="nav-link">Publications</a>
           </li>
-          <!-- <li class="nav-item">
+          <li class="nav-item">
             <a href="tools.html" class="nav-link">Tools</a>
-          </li> -->
+          </li>
           <li class="nav-item">
             <a href="#contact" class="nav-link">Contact</a>
           </li>
@@ -73,6 +73,9 @@
       </div>
 
       <div class="nav-actions">
+        <button class="cv-present-btn" id="cv-present-btn" aria-label="Present CV">
+          <i class="fa-solid fa-play"></i>
+        </button>
         <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
           <i class="fa-solid fa-moon"></i>
           <i class="fa-solid fa-sun"></i>
@@ -119,8 +122,8 @@
             <span>Get in Touch</span>
             <i class="fa-solid fa-arrow-right"></i>
           </a>
-          <a href="/assets/pdf/kongvungsovanreach_cv.pdf" class="btn btn-outline" download>
-            <span>Download CV</span>
+          <a href="/cv.html" class="btn btn-outline" target="_blank">
+            <span>View CV</span>
             <i class="fa-solid fa-download"></i>
           </a>
         </div>
@@ -194,7 +197,7 @@
           </div>
           <div class="stat-divider"></div>
           <div class="stat-item">
-            <span class="stat-number" data-count="8">0</span><span class="stat-plus">+</span>
+            <span class="stat-number" data-count="18">0</span>
             <span class="stat-label">Research<br>Publications</span>
           </div>
         </div>
@@ -443,94 +446,99 @@
 
       <div class="publications-list">
         <article class="publication-card animate-on-scroll">
-          <span class="publication-type journal">[J4]</span>
+          <span class="publication-type journal">[J1]</span>
           <div class="publication-content">
-            <h3 class="publication-title">Integrating Super-Resolution with Deep Learning for Enhanced Periodontal Bone
-              Loss Segmentation in Panoramic Radiographs</h3>
-            <p class="publication-authors">Kong, V., Lee, E. Y., Kim, K. A., & Shon, H. S. (2024)</p>
-            <p class="publication-journal">Bioengineering, 11(11), 1130</p>
-            <a href="https://doi.org/10.3390/bioengineering11111130" target="_blank" rel="noopener noreferrer"
-              class="publication-link">
-              <span>View Publication</span>
-              <i class="fa-solid fa-arrow-up-right-from-square"></i>
-            </a>
+            <h3 class="publication-title">PIFR: A Novel Approach for Analyzing Pose Angle-based Human Activity to Automate Fall Detection in Videos</h3>
+            <p class="publication-authors">Kong, V., Soeng, S., Thon, M., Cho, W. S., Nayyar, A., & Kim, T. K. (2025)</p>
+            <p class="publication-journal">PLoS One, 20(6), e0325253</p>
           </div>
-        </article>
-
-        <article class="publication-card animate-on-scroll">
-          <span class="publication-type conference">[C3]</span>
-          <div class="publication-content">
-            <h3 class="publication-title">Automated Detection of Motorcycle Rider Without Wearing Helmet Using
-              Surveillance Camera</h3>
-            <p class="publication-authors">Soeng, S., Kong, V., Cho, W. S., Kim, J. S., & Kim, T. K. (2023)</p>
-            <p class="publication-journal">KMIS Conference, 896-898</p>
-            <a href="https://www.researchgate.net/profile/Saravit-Soeng/publication/378907539" target="_blank"
-              rel="noopener noreferrer" class="publication-link">
-              <span>View Publication</span>
-              <i class="fa-solid fa-arrow-up-right-from-square"></i>
-            </a>
-          </div>
-        </article>
-
-        <article class="publication-card animate-on-scroll">
-          <span class="publication-type journal">[J3]</span>
-          <div class="publication-content">
-            <h3 class="publication-title">Recurrence risk prediction of acute coronary syndrome per patient as a
-              personalized ACS recurrence risk: a retrospective study</h3>
-            <p class="publication-authors">Kong, V., Somakhamixay, O., Cho, W. S., Kang, G., Won, H., Rah, H., & Bang,
-              H. J. (2022)</p>
-            <p class="publication-journal">PeerJ, 10, e14348</p>
-            <a href="https://doi.org/10.7717/peerj.14348" target="_blank" rel="noopener noreferrer"
-              class="publication-link">
-              <span>View Publication</span>
-              <i class="fa-solid fa-arrow-up-right-from-square"></i>
-            </a>
-          </div>
+          <a href="https://doi.org/10.1371/journal.pone.0325253" target="_blank" rel="noopener noreferrer" class="publication-link" aria-label="View publication"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
         </article>
 
         <article class="publication-card animate-on-scroll">
           <span class="publication-type journal">[J2]</span>
           <div class="publication-content">
-            <h3 class="publication-title">Deep Learning Model for Classifying Periodontitis Stages on Dental Panoramic
-              Radiography</h3>
-            <p class="publication-authors">Shon, H. S., Kong, V., Park, J. S., Jang, W., Cha, E. J., Kim, S. Y., ... &
-              Kim, K. A. (2022)</p>
+            <h3 class="publication-title">Deep Learning Model for Classifying Periodontitis Stages on Dental Panoramic Radiography</h3>
+            <p class="publication-authors">Shon, H. S., Kong, V., Park, J. S., Jang, W., Cha, E. J., Kim, S. Y., Lee, E. Y., & Kang, T. G. (2022)</p>
             <p class="publication-journal">Applied Sciences, 12(17), 8500</p>
-            <a href="https://doi.org/10.3390/app12178500" target="_blank" rel="noopener noreferrer"
-              class="publication-link">
-              <span>View Publication</span>
-              <i class="fa-solid fa-arrow-up-right-from-square"></i>
-            </a>
+          </div>
+          <a href="https://doi.org/10.3390/app12178500" target="_blank" rel="noopener noreferrer" class="publication-link" aria-label="View publication"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+        </article>
+
+        <article class="publication-card animate-on-scroll">
+          <span class="publication-type journal">[J3]</span>
+          <div class="publication-content">
+            <h3 class="publication-title">Deep Learning-based Prognosis of Major Adverse Cardiac Events in Patients with Acute Myocardial Infarction</h3>
+            <p class="publication-authors">Kong, V., Kim, K. A., & Shon, H. S. (2025)</p>
+            <p class="publication-journal">Osong Public Health and Research Perspectives</p>
+          </div>
+          <a href="https://doi.org/10.24171/j.phrp.2025.0120" target="_blank" rel="noopener noreferrer" class="publication-link" aria-label="View publication"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+        </article>
+
+        <article class="publication-card animate-on-scroll">
+          <span class="publication-type journal">[J4]</span>
+          <div class="publication-content">
+            <h3 class="publication-title">Integrating Super-Resolution with Deep Learning for Enhanced Periodontal Bone Loss Segmentation in Panoramic Radiographs</h3>
+            <p class="publication-authors">Kong, V., Lee, E. Y., Kim, K. A., & Shon, H. S. (2024)</p>
+            <p class="publication-journal">Bioengineering, 11(11), 1130</p>
+          </div>
+          <a href="https://doi.org/10.3390/bioengineering11111130" target="_blank" rel="noopener noreferrer" class="publication-link" aria-label="View publication"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+        </article>
+
+        <article class="publication-card animate-on-scroll">
+          <span class="publication-type journal">[J5]</span>
+          <div class="publication-content">
+            <h3 class="publication-title">A Simple and Efficient Approach for Extracting Object Hierarchy in Image Data</h3>
+            <p class="publication-authors">Soeng, S., Kong, V., Thon, M., Cho, W. S., & Kim, T. K. (2024)</p>
+            <p class="publication-journal">International Journal of Advanced Computer Science & Applications, 15(8)</p>
+          </div>
+          <a href="https://dx.doi.org/10.14569/IJACSA.2024.01508120" target="_blank" rel="noopener noreferrer" class="publication-link" aria-label="View publication"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+        </article>
+
+        <article class="publication-card animate-on-scroll">
+          <span class="publication-type journal">[J6]</span>
+          <div class="publication-content">
+            <h3 class="publication-title">Recurrence Risk Prediction of Acute Coronary Syndrome per Patient as a Personalized ACS Recurrence Risk</h3>
+            <p class="publication-authors">Kong, V., Somakhamixay, O., Cho, W. S., Kang, G., Won, H., Rah, H. C., & Bang, H. J. (2022)</p>
+            <p class="publication-journal">PeerJ, 10, e14348</p>
+          </div>
+          <a href="https://doi.org/10.7717/peerj.14348" target="_blank" rel="noopener noreferrer" class="publication-link" aria-label="View publication"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+        </article>
+
+        <article class="publication-card animate-on-scroll">
+          <span class="publication-type journal">[J7]</span>
+          <div class="publication-content">
+            <h3 class="publication-title">Automated Tool for Building Hyperledger Fabric Blockchain Networks Using Ansible</h3>
+            <p class="publication-authors">Kong, V., Soeng, S., Lee, K. H., & Cho, W. S. (2023)</p>
+            <p class="publication-journal">International Journal of Contents, 19(2), 15-27</p>
+          </div>
+          <a href="https://koreascience.kr/article/JAKO202314336007807.view" target="_blank" rel="noopener noreferrer" class="publication-link" aria-label="View publication"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+        </article>
+
+        <article class="publication-card animate-on-scroll">
+          <span class="publication-type journal">[J8]</span>
+          <div class="publication-content">
+            <h3 class="publication-title">Improvement of Kidney Tumor Stage Classification Performance Using Machine Learning Methods</h3>
+            <p class="publication-authors">Shon, H. S., Kong, V., Yun, S. J., Oh, J. W., Kang, T. G., & Kim, K. A. (2023)</p>
+            <p class="publication-journal">Journal of the Korean Institute of Electrical Engineers, 72(11), 1412-1419</p>
           </div>
         </article>
 
         <article class="publication-card animate-on-scroll">
-          <span class="publication-type dissertation">[D1]</span>
+          <span class="publication-type conference">[C1]</span>
           <div class="publication-content">
-            <h3 class="publication-title">Design and Implementation of a Workflow and Orchestration Tool for Building
-              Machine Learning Model</h3>
-            <p class="publication-authors">Kong, V. (2022)</p>
-            <p class="publication-journal">Chungbuk National University - Master's Thesis</p>
-            <a href="http://www.dcollection.net/handler/chungbuk/000000056260" target="_blank" rel="noopener noreferrer"
-              class="publication-link">
-              <span>View Publication</span>
-              <i class="fa-solid fa-arrow-up-right-from-square"></i>
-            </a>
+            <h3 class="publication-title">Machine Learning Models for Prediction of Major Adverse Cardiovascular Events in Acute Myocardial Infarction Patients</h3>
+            <p class="publication-authors">Kong, V., Park, J. S., Shon, H. S., & Kim, K. A. (2024)</p>
+            <p class="publication-journal">Proceedings of the KIEE Conference, 2313-2314</p>
           </div>
         </article>
 
         <article class="publication-card animate-on-scroll">
-          <span class="publication-type journal">[J1]</span>
+          <span class="publication-type conference">[C2]</span>
           <div class="publication-content">
-            <h3 class="publication-title">Blockchain Automation Tool Development and Electronic Voting Application Case
-            </h3>
-            <p class="publication-authors">Aing Teckchun, Kong Vungsovanreach, et al. (2021)</p>
-            <p class="publication-journal">Korean Big Data Society Journal, 6(2), 151-159</p>
-            <a href="https://kiss.kstudy.com/Detail/Ar?key=3924967" target="_blank" rel="noopener noreferrer"
-              class="publication-link">
-              <span>View Publication</span>
-              <i class="fa-solid fa-arrow-up-right-from-square"></i>
-            </a>
+            <h3 class="publication-title">Automated Detection of Motorcycle Rider Without Wearing Helmet Using Surveillance Camera</h3>
+            <p class="publication-authors">Soeng, S., Kong, V., Cho, W. S., Kim, J. S., & Kim, T. K. (2023)</p>
+            <p class="publication-journal">Korea Management Information Systems Conference, 896-898</p>
           </div>
         </article>
       </div>
@@ -627,8 +635,349 @@
     <i class="fa-solid fa-arrow-up"></i>
   </button>
 
+  <!-- CV Presentation Mode -->
+  <div class="cv-presentation" id="cv-presentation">
+    <div class="cv-presentation-header">
+      <div class="cv-slide-indicator">
+        <span class="current-slide">1</span> / <span class="total-slides">10</span>
+      </div>
+      <button class="cv-close-btn" id="cv-close-btn" aria-label="Close presentation">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+
+    <div class="cv-slides-container" id="cv-slides-container">
+      <!-- Slide 1: Introduction -->
+      <div class="cv-slide active" data-slide="1">
+        <div class="cv-slide-content intro-slide">
+          <div class="intro-profile">
+            <img src="/assets/img/profile/profile.png" alt="Kong Vungsovanreach" class="intro-image">
+          </div>
+          <h1 class="intro-name">KONG VUNGSOVANREACH</h1>
+          <p class="intro-title">AI Researcher & Senior Software Engineer</p>
+          <p class="intro-tagline">Bridging the gap between research and real-world AI applications</p>
+          <div class="intro-highlights">
+            <span><i class="fa-solid fa-graduation-cap"></i> PhD Candidate in Big Data</span>
+            <span><i class="fa-solid fa-briefcase"></i> 7+ Years in Software Development</span>
+            <span><i class="fa-solid fa-file-lines"></i> 18 Research Publications</span>
+          </div>
+          <p class="intro-location"><i class="fa-solid fa-location-dot"></i> Cheongju, South Korea</p>
+        </div>
+      </div>
+
+      <!-- Slide 2: About -->
+      <div class="cv-slide" data-slide="2">
+        <div class="cv-slide-content">
+          <h2 class="cv-slide-title">About Me</h2>
+          <div class="about-slide-content">
+            <p>A highly motivated and fast-learning engineer passionate about leveraging AI to solve real-world problems. With <strong>7+ years</strong> of software development experience and <strong>5+ years</strong> specializing in machine learning, deep learning, and computer vision, I focus on building practical AI solutions that make a difference.</p>
+            <p>Currently pursuing a PhD in Big Data at Chungbuk National University, my research centers on applying deep learning techniques to medical image analysis and public safety systems. I am a Python enthusiast with extensive experience in data science libraries and production-grade ML pipelines.</p>
+            <div class="languages-section">
+              <h3>Languages</h3>
+              <div class="language-items">
+                <div class="language-item">
+                  <span class="lang-name">Khmer</span>
+                  <span class="lang-level">Native</span>
+                </div>
+                <div class="language-item">
+                  <span class="lang-name">English</span>
+                  <span class="lang-level">Proficient</span>
+                </div>
+                <div class="language-item">
+                  <span class="lang-name">Korean</span>
+                  <span class="lang-level">Conversational</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 3: Education -->
+      <div class="cv-slide" data-slide="3">
+        <div class="cv-slide-content">
+          <h2 class="cv-slide-title">Education</h2>
+          <div class="experience-slide-timeline">
+            <div class="exp-item">
+              <div class="exp-date">2022 - Present</div>
+              <div class="exp-details">
+                <h3>PhD Candidate in Big Data</h3>
+                <p class="exp-place">Chungbuk National University, South Korea</p>
+                <p class="exp-desc">Research focus on deep learning for computer vision applications in medical imaging and safety surveillance systems. Developing novel approaches for image segmentation and object detection.</p>
+              </div>
+            </div>
+            <div class="exp-item">
+              <div class="exp-date">2020 - 2022</div>
+              <div class="exp-details">
+                <h3>Master's Degree in Big Data</h3>
+                <p class="exp-place">Chungbuk National University, South Korea</p>
+                <p class="exp-desc">Thesis: "Design and Implementation of a Workflow and Orchestration Tool for Building Machine Learning Models" - Developed an end-to-end ML pipeline automation framework.</p>
+              </div>
+            </div>
+            <div class="exp-item">
+              <div class="exp-date">2014 - 2019</div>
+              <div class="exp-details">
+                <h3>Bachelor's Degree in Computer Science</h3>
+                <p class="exp-place">The University of Cambodia</p>
+                <p class="exp-desc">Foundation in software development, algorithms, data structures, and programming fundamentals. Active participant in coding competitions and tech communities.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 4: Work Experience -->
+      <div class="cv-slide" data-slide="4">
+        <div class="cv-slide-content">
+          <h2 class="cv-slide-title">Work Experience</h2>
+          <div class="experience-slide-timeline">
+            <div class="exp-item">
+              <div class="exp-date">2022 - Present</div>
+              <div class="exp-details">
+                <h3>Research Assistant (PhD)</h3>
+                <p class="exp-place">Chungbuk National University, South Korea</p>
+                <p class="exp-desc">Leading research on deep learning models for dental radiograph analysis using super-resolution and segmentation techniques. Developing automated helmet detection systems for traffic safety.</p>
+              </div>
+            </div>
+            <div class="exp-item">
+              <div class="exp-date">2020 - 2022</div>
+              <div class="exp-details">
+                <h3>Research Assistant (MSc)</h3>
+                <p class="exp-place">Chungbuk National University, South Korea</p>
+                <p class="exp-desc">Conducted research in Big Data analytics, blockchain applications for e-voting, and medical AI. Published studies on cardiovascular risk prediction and periodontitis classification.</p>
+              </div>
+            </div>
+            <div class="exp-item">
+              <div class="exp-date">2019 - 2020</div>
+              <div class="exp-details">
+                <h3>IT Instructor</h3>
+                <p class="exp-place">Korea Software HRD Center, Cambodia</p>
+                <p class="exp-desc">Taught Java Programming, Spring Framework, and Laravel to aspiring IT professionals. Mentored students in software development best practices and project management.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 5: Research Focus -->
+      <div class="cv-slide" data-slide="5">
+        <div class="cv-slide-content">
+          <h2 class="cv-slide-title">Research Focus</h2>
+          <div class="research-focus-grid">
+            <div class="research-area">
+              <div class="research-icon"><i class="fa-solid fa-tooth"></i></div>
+              <h3>Medical Image Analysis</h3>
+              <p>Developing deep learning models for dental radiograph analysis, including periodontal bone loss segmentation and periodontitis stage classification using panoramic X-rays.</p>
+            </div>
+            <div class="research-area">
+              <div class="research-icon"><i class="fa-solid fa-helmet-safety"></i></div>
+              <h3>Safety & Surveillance</h3>
+              <p>Building computer vision systems for automated detection of traffic violations, including motorcycle helmet detection for public safety enhancement.</p>
+            </div>
+            <div class="research-area">
+              <div class="research-icon"><i class="fa-solid fa-heart-pulse"></i></div>
+              <h3>Healthcare AI</h3>
+              <p>Creating predictive models for cardiovascular disease risk assessment, enabling personalized medicine approaches for acute coronary syndrome patients.</p>
+            </div>
+            <div class="research-area">
+              <div class="research-icon"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+              <h3>Super-Resolution</h3>
+              <p>Integrating image super-resolution techniques with deep learning to enhance medical image quality and improve downstream analysis accuracy.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 6: Technical Skills -->
+      <div class="cv-slide" data-slide="6">
+        <div class="cv-slide-content">
+          <h2 class="cv-slide-title">Technical Skills</h2>
+          <div class="skills-slide-grid">
+            <div class="skill-group">
+              <h3><i class="fa-solid fa-code"></i> Languages</h3>
+              <p>Python, Java, C++, Bash, R</p>
+            </div>
+            <div class="skill-group">
+              <h3><i class="fa-solid fa-brain"></i> Data Science</h3>
+              <p>Pandas, NumPy, OpenCV, TensorFlow, PyTorch, Keras, Matplotlib, Pillow</p>
+            </div>
+            <div class="skill-group">
+              <h3><i class="fa-solid fa-server"></i> Web Frameworks</h3>
+              <p>Flask, Node.js, Spring Boot</p>
+            </div>
+            <div class="skill-group">
+              <h3><i class="fa-solid fa-database"></i> Databases</h3>
+              <p>MySQL, MongoDB, PostgreSQL</p>
+            </div>
+            <div class="skill-group">
+              <h3><i class="fa-solid fa-tools"></i> IDE & Tools</h3>
+              <p>Jupyter, VS Code, IntelliJ, Git, Docker</p>
+            </div>
+            <div class="skill-group">
+              <h3><i class="fa-solid fa-desktop"></i> OS</h3>
+              <p>Ubuntu, Windows, macOS</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 7: Key Projects -->
+      <div class="cv-slide" data-slide="7">
+        <div class="cv-slide-content">
+          <h2 class="cv-slide-title">Key Projects</h2>
+          <div class="projects-slide-list">
+            <div class="project-item">
+              <div class="project-icon"><i class="fa-solid fa-tooth"></i></div>
+              <div class="project-info">
+                <h3>Periodontal Bone Loss Segmentation</h3>
+                <p>Deep learning system integrating super-resolution for enhanced dental X-ray analysis. Improved segmentation accuracy by 15% using novel preprocessing techniques.</p>
+                <span class="project-tech">PyTorch, OpenCV, Medical Imaging</span>
+              </div>
+            </div>
+            <div class="project-item">
+              <div class="project-icon"><i class="fa-solid fa-motorcycle"></i></div>
+              <div class="project-info">
+                <h3>Helmet Detection System</h3>
+                <p>Real-time computer vision system for detecting motorcycle riders without helmets. Deployed for traffic safety monitoring with 94% detection accuracy.</p>
+                <span class="project-tech">YOLO, TensorFlow, Real-time Processing</span>
+              </div>
+            </div>
+            <div class="project-item">
+              <div class="project-icon"><i class="fa-solid fa-diagram-project"></i></div>
+              <div class="project-info">
+                <h3>ML Workflow Orchestration Tool</h3>
+                <p>End-to-end platform for building, training, and deploying machine learning models with automated pipeline management. Master's thesis project.</p>
+                <span class="project-tech">Python, Flask, Docker, MLOps</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 8: Publications -->
+      <div class="cv-slide" data-slide="8">
+        <div class="cv-slide-content">
+          <h2 class="cv-slide-title">Publications</h2>
+          <div class="publications-slide-list">
+            <div class="pub-item">
+              <span class="pub-type journal">J</span>
+              <div class="pub-info">
+                <p class="pub-title">PIFR: A Novel Approach for Analyzing Pose Angle-based Human Activity to Automate Fall Detection</p>
+                <p class="pub-venue">PLoS One, 2025 - SCIE Indexed</p>
+              </div>
+            </div>
+            <div class="pub-item">
+              <span class="pub-type journal">J</span>
+              <div class="pub-info">
+                <p class="pub-title">Deep Learning-based Prognosis of Major Adverse Cardiac Events in AMI Patients</p>
+                <p class="pub-venue">Osong Public Health and Research Perspectives, 2025</p>
+              </div>
+            </div>
+            <div class="pub-item">
+              <span class="pub-type journal">J</span>
+              <div class="pub-info">
+                <p class="pub-title">Integrating Super-Resolution with Deep Learning for Periodontal Bone Loss Segmentation</p>
+                <p class="pub-venue">Bioengineering (MDPI), 2024 - SCIE Indexed</p>
+              </div>
+            </div>
+            <div class="pub-item">
+              <span class="pub-type journal">J</span>
+              <div class="pub-info">
+                <p class="pub-title">Deep Learning Model for Classifying Periodontitis Stages on Dental Panoramic Radiography</p>
+                <p class="pub-venue">Applied Sciences (MDPI), 2022 - SCIE Indexed</p>
+              </div>
+            </div>
+          </div>
+          <p class="pub-more">+ 14 more publications (10 journals, 8 conferences)</p>
+        </div>
+      </div>
+
+      <!-- Slide 9: Professional Training -->
+      <div class="cv-slide" data-slide="9">
+        <div class="cv-slide-content">
+          <h2 class="cv-slide-title">Professional Training</h2>
+          <div class="training-slide-content">
+            <div class="training-item">
+              <div class="training-header">
+                <h3>Advanced IT Professional Training</h3>
+                <span class="training-date">Oct 2018 - Feb 2019</span>
+              </div>
+              <p class="training-place"><i class="fa-solid fa-building"></i> Korea Software HRD Center, Cambodia</p>
+              <div class="training-skills">
+                <span>iOS Development</span>
+                <span>Project Management</span>
+                <span>Agile Methodology</span>
+                <span>Team Leadership</span>
+              </div>
+            </div>
+            <div class="training-item">
+              <div class="training-header">
+                <h3>Basic IT Professional Training</h3>
+                <span class="training-date">Apr 2018 - Aug 2018</span>
+              </div>
+              <p class="training-place"><i class="fa-solid fa-building"></i> Korea Software HRD Center, Cambodia</p>
+              <div class="training-skills">
+                <span>Java Programming</span>
+                <span>Web Development</span>
+                <span>Spring Framework</span>
+                <span>Database Design</span>
+              </div>
+            </div>
+            <p class="training-note">These intensive training programs provided hands-on experience in enterprise software development, preparing me for both technical and leadership roles in the IT industry.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 10: Contact -->
+      <div class="cv-slide" data-slide="10">
+        <div class="cv-slide-content contact-slide">
+          <h2 class="cv-slide-title">Let's Connect</h2>
+          <p class="contact-intro">I'm always open to discussing research collaborations, AI projects, or opportunities in applied machine learning.</p>
+          <div class="contact-slide-info">
+            <a href="mailto:kv.sovanreach@gmail.com" class="contact-slide-item">
+              <i class="fa-solid fa-envelope"></i>
+              <span>kv.sovanreach@gmail.com</span>
+            </a>
+            <a href="https://sovanreach.com" target="_blank" class="contact-slide-item">
+              <i class="fa-solid fa-globe"></i>
+              <span>https://sovanreach.com</span>
+            </a>
+            <a href="https://github.com/kvsovanreach" target="_blank" class="contact-slide-item">
+              <i class="fa-brands fa-github"></i>
+              <span>github.com/kvsovanreach</span>
+            </a>
+            <a href="https://linkedin.com/in/kvsovanreach" target="_blank" class="contact-slide-item">
+              <i class="fa-brands fa-linkedin"></i>
+              <span>linkedin.com/in/kvsovanreach</span>
+            </a>
+            <a href="https://scholar.google.com/citations?user=qZqSMicAAAAJ" target="_blank" class="contact-slide-item">
+              <i class="fa-brands fa-google-scholar"></i>
+              <span>Google Scholar</span>
+            </a>
+          </div>
+          <p class="contact-slide-thanks">Thank You!</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="cv-navigation">
+      <button class="cv-nav-btn cv-prev" id="cv-prev" aria-label="Previous slide">
+        <i class="fa-solid fa-chevron-left"></i>
+      </button>
+      <div class="cv-dots" id="cv-dots"></div>
+      <button class="cv-nav-btn cv-next" id="cv-next" aria-label="Next slide">
+        <i class="fa-solid fa-chevron-right"></i>
+      </button>
+    </div>
+
+    <div class="cv-keyboard-hint">
+      <span><kbd>←</kbd> <kbd>→</kbd> Navigate</span>
+      <span><kbd>ESC</kbd> Close</span>
+    </div>
+  </div>
+
   <!-- JavaScript -->
-  <script src="js/main.js"></script>
+  <script src="js/portfolio.js"></script>
 </body>
 
 </html>
