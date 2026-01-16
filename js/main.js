@@ -28,13 +28,10 @@
   // ==================== Configuration ====================
   const config = {
     typingStrings: [
-      'Applied AI Engineer',
-      'Computer Vision Researcher',
-      'Deep Learning Specialist',
-      'Backend Developer',
-      'IT Instructor'
+      'AI Researcher',
+      'Software Engineer'
     ],
-    typingSpeed: 100,
+    typingSpeed: 80,
     typingDelay: 2000,
     particleCount: 15 // Reduced for better performance
   };
