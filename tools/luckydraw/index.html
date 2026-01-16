@@ -1,600 +1,394 @@
-<!-- CREDIT: THIS THEME IS ORIGINALLY DEVELOPED BY https://github.com/rawatanimesh/portfolio-website-dark-light-themes-->
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TBMFYFBV00"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag() { dataLayer.push(arguments); }
-    gtag('js', new Date());
-    gtag('config', 'G-TBMFYFBV00');
-  </script>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <meta name="description" content="Create and spin customizable lucky draw wheels with prizes, animations, and configurable odds." />
-  <meta property="og:image" content="/assets/img/thumbnail.jpg">
-  <title>Kong Vungsovanreach - Lucky Draw Wheel</title>
+  <meta name="description" content="Lucky Draw - Spin the wheel or randomly pick winners from your list">
+  <meta property="og:title" content="KVSOVANREACH | Lucky Draw">
+  <meta property="og:description" content="A fun tool to randomly pick winners with a spinning wheel.">
+  <meta property="og:image" content="/assets/img/pwa/ios/512.png">
+  <title>KVSOVANREACH | Lucky Draw</title>
 
-  <!--==================== OPEN GRAPH META TAGS ===================== -->
-  <meta property="og:title" content="Kong Vungsovanreach - Lucky Draw Wheel" />
-  <meta property="og:image" content="/assets/img/pwa/ios/512.png" />
-  <meta property="og:description" content="Create and customize Lucky Draw Wheels with adjustable prizes, spin animations, and prize tracking." />
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
 
-  <!--==================== TWITTER META TAGS ===================== -->
-  <meta name="twitter:title" content="Kong Vungsovanreach - Lucky Draw Wheel" />
-  <meta name="twitter:description" content="Create and customize Lucky Draw Wheels with adjustable prizes, spin animations, and prize tracking." />
-  <meta name="twitter:image" content="/assets/img/pwa/ios/512.png" />
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 
-  <!--==================== FONT AWESOME ====================-->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
-    integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
-    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-  <!-- ============FAVICONS============== -->
-  <link rel="apple-touch-icon" sizes="57x57" href="/assets/img/favicons/apple-touch-icon-57x57.png">
-  <link rel="apple-touch-icon" sizes="60x60" href="/assets/img/favicons/apple-touch-icon-60x60.png">
-  <link rel="apple-touch-icon" sizes="72x72" href="/assets/img/favicons/apple-touch-icon-72x72.png">
-  <link rel="apple-touch-icon" sizes="76x76" href="/assets/img/favicons/apple-touch-icon-76x76.png">
-  <link rel="apple-touch-icon" sizes="114x114" href="/assets/img/favicons/apple-touch-icon-114x114.png">
-  <link rel="apple-touch-icon" sizes="120x120" href="/assets/img/favicons/apple-touch-icon-120x120.png">
-  <link rel="apple-touch-icon" sizes="144x144" href="/assets/img/favicons/apple-touch-icon-144.png">
-  <link rel="apple-touch-icon" sizes="152x152" href="/assets/img/favicons/apple-touch-icon-152x152.png">
-  <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favicons/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicons/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicons/favicon-16x16.png">
-  <link rel="manifest" href="/assets/img/favicons/site.webmanifest">
-  <link rel="mask-icon" href="/assets/img/favicons/safari-pinned-tab.svg" color="#5bbad5">
-  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico" />
-  <meta name="msapplication-TileColor" content="#da532c">
-  <meta name="theme-color" content="#ffffff">
-
-  <!-- ====================PWA================== -->
-  <link rel="manifest" href="/assets/img/pwa/android/manifest.json" />
-  <!-- ios support -->
-  <link rel="apple-touch-icon" href="/assets/img/pwa/ios/32.png" />
-  <link rel="apple-touch-icon" href="/assets/img/pwa/ios/72.png" />
-  <link rel="apple-touch-icon" href="/assets/img/pwa/ios/100.png" />
-  <link rel="apple-touch-icon" href="/assets/img/pwa/ios/128.png" />
-  <link rel="apple-touch-icon" href="/assets/img/pwa/ios/144.png" />
-  <link rel="apple-touch-icon" href="/assets/img/pwa/ios/152.png" />
-  <link rel="apple-touch-icon" href="/assets/img/pwa/ios/192.png" />
-  <link rel="apple-touch-icon" href="/assets/img/pwa/ios/256.png" />
-  <link rel="apple-touch-icon" href="/assets/img/pwa/ios/512.png" />
-  <link rel="apple-touch-icon" href="/assets/img/pwa/ios/1024.png" />
-  <meta name="apple-mobile-web-app-status-bar" content="#6E57E0" />
-  <meta name="theme-color" content="#6E57E0" />
-
-  <!--==================== CSS ====================-->
-  <link rel="stylesheet" href="/assets/css/main.css" />
-  <link rel="stylesheet" href="css/luckydraw.css" />
+  <!-- Common Tools CSS -->
+  <link rel="stylesheet" href="../../js/tools-common.css">
+  <!-- Lucky Draw CSS -->
+  <link rel="stylesheet" href="luckydraw.css">
 </head>
-
 <body>
-  <!-- ===================== LOADER ==================== -->
-  <div id="loading">
-    <div class="loader"><span>
-        &lt;</span><span>/&gt;</span></div>
-  </div>
+  <!-- Skip to Content -->
+  <a href="#luckydraw" class="skip-link">Skip to lucky draw tool</a>
 
-  <!--==================== HEADER ====================-->
-  <header class="header" id="header">
-    <nav class="nav kong-container">
-      <a href="/" class="nav__logo noSelect"></i>SOVANREACH&nbsp;&nbsp;<i
-          class="fa-solid fa-code-branch"></i>&nbsp;&nbsp;TOOLS</a>
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">TOOLS</span>
+      </a>
 
-      <div class="nav__menu" id="nav-menu">
-        <ul class="nav__list grid">
-          <li class="nav__item">
-            <a href="#general" class="nav__link noSelect">
-              <i class="fa-solid fa-screwdriver-wrench nav__icon"></i> General
-            </a>
-          </li>
-
-          <li class="nav__item">
-            <a href="#ml_al" class="nav__link noSelect">
-              <i class="fa-solid fa-brain nav__icon"></i> ML/AI
-            </a>
-          </li>
-
-          <li class="nav__item">
-            <a href="/" class="nav__link noSelect active-link">
-              <i class="fa-solid fa-user-secret nav__icon"></i> Dev Profile
-            </a>
-          </li>
-        </ul>
-        <i class="fa-solid fa-xmark nav__close noSelect" id="nav-close"></i>
-      </div>
-
-      <div class="nav__btns">
-        <!-- theme change button -->
-        <i class="fa-solid fa-moon change-theme" id="theme-button"></i>
-
-        <div class="nav__toggle noSelect" id="nav-toggle">
-          <i class="fa-solid fa-bars"></i>
-        </div>
-      </div>
-    </nav>
-  </header>
-
-  <!--==================== TOOLS SECTION ====================-->
-  <section class="section" id="about">
-    <!-- Lucky Draw Tool Header -->
-    <div class="lucky-tool-header">
-      <h1>Lucky Draw Wheel</h1>
-      <p>Create and spin custom wheels with prizes, animations, and adjustable odds</p>
-    </div>
-
-    <!-- Lucky Draw Tool Tab Selection -->
-    <div class="lucky-tab-navigation">
-      <div class="lucky-tab-container">
-        <!-- Wheel Feature Tab -->
-        <div class="lucky-tab-item active" id="wheelTab">
-          <div class="lucky-tab-icon">
-            <i class="fas fa-dharmachakra"></i>
-          </div>
-          <span class="lucky-tab-label">Wheel</span>
-        </div>
-
-        <!-- History Feature Tab -->
-        <div class="lucky-tab-item" id="historyTab">
-          <div class="lucky-tab-icon">
-            <i class="fas fa-history"></i>
-          </div>
-          <span class="lucky-tab-label">History</span>
-        </div>
-
-        <!-- Settings Feature Tab -->
-        <div class="lucky-tab-item" id="settingsTab">
-          <div class="lucky-tab-icon">
-            <i class="fas fa-sliders-h"></i>
-          </div>
-          <span class="lucky-tab-label">Settings</span>
-        </div>
-      </div>
-      
-      <!-- Feature descriptions that show on active tab -->
-      <div class="lucky-tab-descriptions">
-        <div class="lucky-tab-description active" id="wheelDescription">
-          <h3>Lucky Draw Wheel</h3>
-          <p>Create and spin your lucky draw wheel with custom prizes, colors, and probabilities</p>
-        </div>
-        <div class="lucky-tab-description" id="historyDescription">
-          <h3>Spin History</h3>
-          <p>View and manage your previous spins and prize distributions</p>
-        </div>
-        <div class="lucky-tab-description" id="settingsDescription">
-          <h3>Wheel Settings</h3>
-          <p>Configure animation speed, frequency limitations, and other wheel options</p>
-        </div>
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
       </div>
     </div>
+  </nav>
 
-    <!-- Lucky Draw Tool Content Area (dynamically populated) -->
-    <div class="lucky-tool-content" id="luckyToolContent">
-      <!-- Content will be dynamically inserted here -->
-      <div class="lucky-start-message">
-        <i class="fas fa-dharmachakra"></i>
-        <p>Ready to create your lucky draw wheel</p>
-      </div>
-    </div>
-    
-    <!-- Lucky Draw Templates (Hidden) -->
-    <!-- Wheel Template (Combined Create & Spin) -->
-    <template id="wheelTemplate">
-      <div class="lucky-wheel-container">
-        <div class="lucky-back-link">
-          <a href="#wheel" id="backFromWheel"><i class="fas fa-redo"></i> Reset Wheel</a>
+  <!-- Main Content -->
+  <main class="tool-page">
+    <div class="container">
+      <!-- Lucky Draw Container -->
+      <div class="luckydraw-wrapper" id="luckydraw">
+        <!-- Header -->
+        <div class="luckydraw-header">
+          <h2><i class="fa-solid fa-clover"></i> Lucky Draw</h2>
         </div>
-        <div class="lucky-wheel-header">
-          <h2>Lucky Draw Wheel</h2>
-          <p>Customize your wheel, add prizes, and spin to win</p>
+
+        <!-- Tab Navigation -->
+        <div class="luckydraw-tabs">
+          <button class="luckydraw-tab active" data-tab="wheel">
+            <i class="fa-solid fa-dharmachakra"></i>
+            <span>Wheel</span>
+          </button>
+          <button class="luckydraw-tab" data-tab="entries">
+            <i class="fa-solid fa-users"></i>
+            <span>Entries</span>
+          </button>
+          <button class="luckydraw-tab" data-tab="settings">
+            <i class="fa-solid fa-gear"></i>
+            <span>Settings</span>
+          </button>
         </div>
-        
-        <div class="lucky-wheel-content">
-          <!-- Main wheel display and spin button -->
-          <div class="lucky-main-wheel-section">
-            <div class="lucky-field-group wheel-title-container">
-              <input type="text" id="wheelTitle" placeholder="Enter wheel title" value="Lucky Draw" class="wheel-title-input">
-            </div>
-            
-            <div class="lucky-main-wheel-container">
-              <div class="lucky-wheel-outer-border">
-                <canvas id="mainWheelCanvas"></canvas>
-                <div class="lucky-wheel-center">
-                  <button id="spinWheelBtn" class="lucky-spin-btn" onclick="if(LuckyDrawWheel && LuckyDrawWheel.spin) { console.log('Direct spin click'); LuckyDrawWheel.spin(); }">
-                    <i class="fas fa-play"></i> SPIN
+
+        <!-- Main Content Area -->
+        <div class="luckydraw-content">
+          <div class="luckydraw-main">
+            <!-- Wheel Panel -->
+            <div class="luckydraw-panel active" id="wheelPanel">
+              <div class="panel-header">
+                <h2>Spin the Wheel</h2>
+                <p>Click SPIN or press Space to pick a random winner</p>
+              </div>
+              <div class="wheel-layout">
+                <div class="wheel-container">
+                  <div class="wheel-pointer">
+                    <i class="fa-solid fa-caret-down"></i>
+                  </div>
+                  <canvas id="wheelCanvas"></canvas>
+                  <div class="wheel-center">
+                    <button type="button" class="spin-btn" id="spinBtn" title="Spin the wheel" disabled>
+                      <span>SPIN</span>
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Winner Display -->
+                <div class="winner-display" id="winnerDisplay">
+                  <div class="winner-content">
+                    <i class="fa-solid fa-trophy"></i>
+                    <span class="winner-label">Winner</span>
+                    <span class="winner-name" id="winnerName">-</span>
+                  </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="wheel-actions">
+                  <button class="action-btn-lg" id="pickRandomBtn" title="Pick random without spinning">
+                    <i class="fa-solid fa-shuffle"></i>
+                    <span>Quick Pick</span>
+                  </button>
+                  <button class="action-btn-lg" id="resetWheelBtn" title="Reset wheel">
+                    <i class="fa-solid fa-rotate-left"></i>
+                    <span>Reset</span>
                   </button>
                 </div>
-                <div class="lucky-wheel-pointer"></div>
-              </div>
-            </div>
-            
-            <div class="lucky-spin-counter">
-              <span>Spins today: <span id="spinsCount">0</span></span>
-              <span class="lucky-limit-info" id="spinLimitInfo">No limit</span>
-            </div>
-            
-            <!-- Result display (initially hidden) -->
-            <div class="lucky-result-panel" id="resultPanel" style="display: none;">
-              <div class="lucky-prize-result" id="prizeResult">
-                <div class="lucky-result-header">
-                  <h3>Congratulations!</h3>
-                </div>
-                <div class="lucky-prize-container">
-                  <div class="lucky-prize-icon">
-                    <i class="fas fa-gift"></i>
-                  </div>
-                  <div class="lucky-prize-details">
-                    <h4>You won:</h4>
-                    <p id="prizeLabel" class="lucky-prize-name">Prize Name</p>
-                  </div>
-                </div>
-                <div class="lucky-result-actions">
-                  <button id="saveResultBtn" class="lucky-primary-btn">Save Result</button>
-                  <button id="spinAgainBtn" class="lucky-secondary-btn">Spin Again</button>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          <!-- Wheel configuration section -->
-          <div class="lucky-config-section">
-            <div class="lucky-config-header">
-              <h3>Wheel Configuration</h3>
-            </div>
-            
-            <!-- Segment configuration -->
-            <div class="lucky-segments-container">
-              <h4>Wheel Segments (Prizes)</h4>
-              <div id="segmentsContainer">
-                <!-- Segments will be dynamically added here -->
-                <div class="lucky-segment-item">
-                  <input type="text" placeholder="Prize name" class="segment-label" value="1st Prize">
-                  <input type="color" class="segment-color" value="#FF6B6B">
-                  <input type="number" min="1" max="100" class="segment-weight" value="25">
-                  <button class="lucky-delete-btn"><i class="fas fa-trash"></i></button>
-                </div>
-                <div class="lucky-segment-item">
-                  <input type="text" placeholder="Prize name" class="segment-label" value="2nd Prize">
-                  <input type="color" class="segment-color" value="#4ECDC4">
-                  <input type="number" min="1" max="100" class="segment-weight" value="25">
-                  <button class="lucky-delete-btn"><i class="fas fa-trash"></i></button>
-                </div>
-                <div class="lucky-segment-item">
-                  <input type="text" placeholder="Prize name" class="segment-label" value="3rd Prize">
-                  <input type="color" class="segment-color" value="#FFD166">
-                  <input type="number" min="1" max="100" class="segment-weight" value="25">
-                  <button class="lucky-delete-btn"><i class="fas fa-trash"></i></button>
-                </div>
-                <div class="lucky-segment-item">
-                  <input type="text" placeholder="Prize name" class="segment-label" value="Try Again">
-                  <input type="color" class="segment-color" value="#6A0572">
-                  <input type="number" min="1" max="100" class="segment-weight" value="25">
-                  <button class="lucky-delete-btn"><i class="fas fa-trash"></i></button>
-                </div>
-              </div>
-              <button id="addSegmentBtn" class="lucky-secondary-btn">
-                <i class="fas fa-plus"></i> Add Prize
-              </button>
-              <div class="lucky-hint">
-                <i class="fas fa-info-circle"></i>
-                <span>All segments are weighted equally by default. Higher weight values increase the probability of winning.</span>
-              </div>
-            </div>
-            
-            <!-- Customization options -->
-            <div class="lucky-customization-options">
-              <details>
-                <summary>Appearance Options</summary>
-                <div class="lucky-design-options">
-                  <div class="lucky-field-group lucky-color-fields">
-                    <div>
-                      <label for="wheelBorderColor">Border Color</label>
-                      <input type="color" id="wheelBorderColor" value="#000000">
-                    </div>
-                    <div>
-                      <label for="wheelTextColor">Text Color</label>
-                      <input type="color" id="wheelTextColor" value="#ffffff">
-                    </div>
-                  </div>
-                  <div class="lucky-field-group">
-                    <label for="wheelSize">Wheel Size</label>
-                    <select id="wheelSize">
-                      <option value="small">Small (300px)</option>
-                      <option value="medium" selected>Medium (400px)</option>
-                      <option value="large">Large (500px)</option>
-                    </select>
-                  </div>
-                  <div class="lucky-field-group">
-                    <label for="wheelBorderWidth">Border Width</label>
-                    <input type="range" id="wheelBorderWidth" min="1" max="10" value="3">
-                    <span id="borderWidthValue">3px</span>
-                  </div>
-                  <div class="lucky-field-group">
-                    <label for="textFontSize">Text Size</label>
-                    <input type="range" id="textFontSize" min="10" max="24" value="16">
-                    <span id="textFontSizeValue">16px</span>
-                  </div>
-                </div>
-              </details>
-              
-              <details>
-                <summary>Animation Options</summary>
-                <div class="lucky-animation-options">
-                  <div class="lucky-field-group">
-                    <label for="spinDuration">Spin Duration</label>
-                    <input type="range" id="spinDuration" min="1" max="15" value="5">
-                    <span id="spinDurationValue">5 seconds</span>
-                  </div>
-                  <div class="lucky-field-group">
-                    <label for="spinCycles">Number of Cycles</label>
-                    <input type="range" id="spinCycles" min="1" max="20" value="10">
-                    <span id="spinCyclesValue">10 cycles</span>
-                  </div>
-                  <div class="lucky-field-group lucky-checkbox-group">
-                    <input type="checkbox" id="playSound" checked>
-                    <label for="playSound">Play sound effects</label>
-                  </div>
-                  <div class="lucky-field-group lucky-checkbox-group">
-                    <input type="checkbox" id="showConfetti" checked>
-                    <label for="showConfetti">Show confetti when wheel stops</label>
-                  </div>
-                </div>
-              </details>
-            </div>
-            
-            <!-- Probability breakdown -->
-            <div class="lucky-probability-section">
-              <h4>Probability Breakdown</h4>
-              <div class="lucky-stats-container" id="probabilityStats">
-                <!-- Probability stats will be added here -->
-              </div>
-            </div>
-            
-            <div class="lucky-action-buttons">
-              <button id="saveWheelBtn" class="lucky-primary-btn">Save Wheel</button>
-              <button id="resetWheelBtn" class="lucky-secondary-btn">Reset</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </template>
-    
-    <!-- History Template -->
-    <template id="historyTemplate">
-      <div class="lucky-history-container">
-        <div class="lucky-back-link">
-          <a href="#history" id="backFromHistory"><i class="fas fa-redo"></i> Reset History View</a>
-        </div>
-        <div class="lucky-history-header">
-          <h2>Spin History</h2>
-          <p>View your previous spin results and statistics</p>
-        </div>
-        
-        <div class="lucky-history-content">
-          <div class="lucky-history-controls">
-            <div class="lucky-search-box">
-              <input type="text" id="historySearch" placeholder="Search prizes...">
-              <i class="fas fa-search"></i>
-            </div>
-            <div class="lucky-filter-options">
-              <select id="historySortOrder">
-                <option value="newest">Newest First</option>
-                <option value="oldest">Oldest First</option>
-                <option value="prizeAsc">Prize (A-Z)</option>
-                <option value="prizeDesc">Prize (Z-A)</option>
-              </select>
-              <button id="clearHistoryBtn" class="lucky-danger-btn">
-                <i class="fas fa-trash"></i> Clear All
-              </button>
-            </div>
-          </div>
-          
-          <div class="lucky-history-summary">
-            <div class="lucky-summary-card">
-              <div class="lucky-summary-icon">
-                <i class="fas fa-dharmachakra"></i>
-              </div>
-              <div class="lucky-summary-details">
-                <h4>Total Spins</h4>
-                <p id="totalSpinsCount">0</p>
-              </div>
-            </div>
-            <div class="lucky-summary-card">
-              <div class="lucky-summary-icon">
-                <i class="fas fa-trophy"></i>
-              </div>
-              <div class="lucky-summary-details">
-                <h4>Most Common Prize</h4>
-                <p id="mostCommonPrize">None</p>
-              </div>
-            </div>
-            <div class="lucky-summary-card">
-              <div class="lucky-summary-icon">
-                <i class="fas fa-calendar-day"></i>
-              </div>
-              <div class="lucky-summary-details">
-                <h4>Today's Spins</h4>
-                <p id="todaySpinsCount">0</p>
-              </div>
-            </div>
-          </div>
-          
-          <div class="lucky-history-charts">
-            <div class="lucky-chart-container">
-              <h3>Prize Distribution</h3>
-              <div class="lucky-chart-wrapper">
-                <canvas id="prizeDistributionChart"></canvas>
-              </div>
-            </div>
-          </div>
-          
-          <div class="lucky-history-list">
-            <h3>Spin Records</h3>
-            <div class="lucky-records-container" id="historyRecords">
-              <!-- Records will be dynamically added here -->
-              <div class="lucky-history-empty">
-                <i class="fas fa-history"></i>
-                <p>No spin history found</p>
-                <p class="lucky-empty-hint">Spin the wheel to start recording your results</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </template>
-    
-    <!-- Settings Template -->
-    <template id="settingsTemplate">
-      <div class="lucky-settings-container">
-        <div class="lucky-back-link">
-          <a href="#settings" id="backFromSettings"><i class="fas fa-redo"></i> Reset Settings</a>
-        </div>
-        <div class="lucky-settings-header">
-          <h2>Wheel Settings</h2>
-          <p>Configure wheel behavior and limitations</p>
-        </div>
-        
-        <div class="lucky-settings-content">
-          <div class="lucky-settings-section">
-            <h3>Spin Limitations</h3>
-            <div class="lucky-field-group lucky-checkbox-group">
-              <input type="checkbox" id="enableSpinLimit">
-              <label for="enableSpinLimit">Limit number of spins</label>
-              <small>Restrict the number of spins a user can perform in a day</small>
-            </div>
-            <div class="lucky-field-group" id="spinLimitGroup" style="display: none;">
-              <label for="spinLimitCount">Maximum spins per day</label>
-              <input type="number" id="spinLimitCount" min="1" max="100" value="3">
-            </div>
-            <div class="lucky-field-group lucky-checkbox-group">
-              <input type="checkbox" id="requireConfirmation">
-              <label for="requireConfirmation">Require confirmation before spinning</label>
-              <small>Show a confirmation dialog before each spin</small>
-            </div>
-          </div>
-          
-          <div class="lucky-settings-section">
-            <h3>Result Notifications</h3>
-            <div class="lucky-field-group lucky-checkbox-group">
-              <input type="checkbox" id="showWinNotification" checked>
-              <label for="showWinNotification">Show win notification</label>
-              <small>Display a notification when the wheel stops on a prize</small>
-            </div>
-            <div class="lucky-field-group lucky-checkbox-group">
-              <input type="checkbox" id="autoSaveResults" checked>
-              <label for="autoSaveResults">Auto-save results</label>
-              <small>Automatically save spin results to history</small>
-            </div>
-            <div class="lucky-field-group">
-              <label for="notificationDuration">Notification duration</label>
-              <input type="range" id="notificationDuration" min="1" max="10" value="5">
-              <span id="notificationDurationValue">5 seconds</span>
-            </div>
-          </div>
-          
-          <div class="lucky-settings-section">
-            <h3>Advanced Settings</h3>
-            <div class="lucky-field-group lucky-checkbox-group">
-              <input type="checkbox" id="enableHapticFeedback" checked>
-              <label for="enableHapticFeedback">Enable haptic feedback</label>
-              <small>Device vibration when spinning and on results (if supported)</small>
-            </div>
-            <div class="lucky-field-group lucky-checkbox-group">
-              <input type="checkbox" id="preventDuplicateWins">
-              <label for="preventDuplicateWins">Prevent duplicate wins</label>
-              <small>Avoid winning the same prize multiple times in succession</small>
-            </div>
-            <div class="lucky-field-group">
-              <label for="wheelFriction">Wheel friction</label>
-              <input type="range" id="wheelFriction" min="1" max="100" value="50">
-              <span id="wheelFrictionValue">50%</span>
-              <small>Higher friction = wheel slows down faster</small>
-            </div>
-          </div>
-          
-          <div class="lucky-settings-section">
-            <h3>Data Management</h3>
-            <div class="lucky-action-buttons lucky-settings-buttons">
-              <button id="exportDataBtn" class="lucky-secondary-btn">
-                <i class="fas fa-file-export"></i> Export Data
-              </button>
-              <button id="importDataBtn" class="lucky-secondary-btn">
-                <i class="fas fa-file-import"></i> Import Data
-              </button>
-              <button id="resetAllDataBtn" class="lucky-danger-btn">
-                <i class="fas fa-exclamation-triangle"></i> Reset All Data
-              </button>
-            </div>
-          </div>
-          
-          <div class="lucky-action-buttons">
-            <button id="saveSettingsBtn" class="lucky-primary-btn">Save Settings</button>
-            <button id="resetSettingsBtn" class="lucky-secondary-btn">Reset to Default</button>
-          </div>
-        </div>
-      </div>
-    </template>
 
-    <!-- Confirmation Modal -->
-    <div id="confirmationModal" class="lucky-modal">
-      <div class="lucky-modal-content">
-        <span class="lucky-close-modal">&times;</span>
-        <div class="lucky-modal-header">
-          <h3>Confirmation</h3>
-        </div>
-        <div class="lucky-modal-body">
-          <p id="confirmationMessage">Are you sure you want to perform this action?</p>
-        </div>
-        <div class="lucky-modal-footer">
-          <button id="confirmModalBtn" class="lucky-primary-btn">Confirm</button>
-          <button id="cancelModalBtn" class="lucky-secondary-btn">Cancel</button>
+                <!-- Entries Count -->
+                <div class="entries-info">
+                  <span class="entries-count"><span id="entriesCount">0</span> participants</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Entries Panel -->
+            <div class="luckydraw-panel" id="entriesPanel">
+              <div class="panel-header">
+                <h2>Manage Entries</h2>
+                <p>Add, edit, or import participants for the draw</p>
+              </div>
+              <div class="entries-layout">
+                <!-- Input Section -->
+                <div class="entries-section">
+                  <div class="section-header">
+                    <label for="entryInput">Add Entry</label>
+                    <div class="section-actions">
+                      <button class="action-btn sample-btn" id="sampleBtn" title="Load sample data">
+                        <i class="fa-solid fa-flask"></i>
+                      </button>
+                      <button class="action-btn" id="importBtn" title="Import from text">
+                        <i class="fa-solid fa-file-import"></i>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="input-group">
+                    <input type="text" id="entryInput" placeholder="Enter a name and press Enter..." autocomplete="off">
+                    <button class="add-btn" id="addEntryBtn" title="Add entry">
+                      <i class="fa-solid fa-plus"></i>
+                    </button>
+                  </div>
+                  <div class="input-info">
+                    <span class="input-hint">Press Enter to add, or paste multiple names (one per line)</span>
+                  </div>
+                </div>
+
+                <!-- Bulk Actions -->
+                <div class="bulk-actions">
+                  <button class="bulk-btn" id="shuffleBtn">
+                    <i class="fa-solid fa-shuffle"></i>
+                    <span>Shuffle</span>
+                  </button>
+                  <button class="bulk-btn danger" id="clearAllBtn">
+                    <i class="fa-solid fa-trash"></i>
+                    <span>Clear All</span>
+                  </button>
+                </div>
+
+                <!-- Entries List -->
+                <div class="entries-list-section">
+                  <div class="section-header">
+                    <label>Participants (<span id="entriesCount2">0</span>)</label>
+                  </div>
+                  <div class="entries-list" id="entriesList">
+                    <div class="entries-empty" id="entriesEmpty">
+                      <i class="fa-solid fa-user-plus"></i>
+                      <p>No entries yet</p>
+                      <span>Add participants to start the draw</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Settings Panel -->
+            <div class="luckydraw-panel" id="settingsPanel">
+              <div class="panel-header">
+                <h2>Settings</h2>
+                <p>Customize your lucky draw experience</p>
+              </div>
+              <div class="settings-layout">
+                <div class="setting-group">
+                  <div class="setting-row">
+                    <div class="setting-info">
+                      <span class="setting-name">Remove winner after selection</span>
+                      <span class="setting-desc">When enabled, winners are removed from the list</span>
+                    </div>
+                    <label class="toggle-label">
+                      <input type="checkbox" id="removeWinnerSetting" checked>
+                      <span class="toggle-switch"></span>
+                    </label>
+                  </div>
+                </div>
+                <div class="setting-group">
+                  <div class="setting-row">
+                    <div class="setting-info">
+                      <span class="setting-name">Sound effects</span>
+                      <span class="setting-desc">Play sounds during spin and winner announcement</span>
+                    </div>
+                    <label class="toggle-label">
+                      <input type="checkbox" id="soundSetting" checked>
+                      <span class="toggle-switch"></span>
+                    </label>
+                  </div>
+                </div>
+                <div class="setting-group">
+                  <div class="setting-row">
+                    <div class="setting-info">
+                      <span class="setting-name">Confetti celebration</span>
+                      <span class="setting-desc">Show confetti animation when winner is selected</span>
+                    </div>
+                    <label class="toggle-label">
+                      <input type="checkbox" id="confettiSetting" checked>
+                      <span class="toggle-switch"></span>
+                    </label>
+                  </div>
+                </div>
+                <div class="setting-group">
+                  <div class="setting-row column">
+                    <div class="setting-info">
+                      <span class="setting-name">Spin duration</span>
+                      <span class="setting-desc">How long the wheel spins before stopping</span>
+                    </div>
+                    <div class="range-container">
+                      <input type="range" id="spinDurationSetting" min="2" max="10" value="5" class="range-input">
+                      <span class="range-value"><span id="spinDurationValue">5</span>s</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- History Toggle Button -->
+          <button class="history-show-btn" id="historyShowBtn" title="Show history">
+            <i class="fa-solid fa-clock-rotate-left"></i>
+          </button>
+
+          <!-- History Sidebar -->
+          <aside class="history-sidebar" id="historySidebar">
+            <div class="history-header">
+              <h3><i class="fa-solid fa-clock-rotate-left"></i> Winners</h3>
+              <div class="history-actions">
+                <button class="history-clear-btn" id="historyClearBtn" title="Clear history">
+                  <i class="fa-solid fa-trash"></i>
+                </button>
+                <button class="history-toggle-btn" id="historyToggleBtn" title="Toggle history">
+                  <i class="fa-solid fa-chevron-right"></i>
+                </button>
+              </div>
+            </div>
+            <div class="history-list" id="historyList">
+              <div class="history-empty" id="historyEmpty">
+                <i class="fa-solid fa-inbox"></i>
+                <p>No winners yet</p>
+                <span>Spin to pick winners</span>
+              </div>
+            </div>
+          </aside>
         </div>
       </div>
     </div>
-  </section>
+  </main>
 
-  <!--==================== SCROLL TOP ====================-->
-  <a href="#" class="scrollup" id="scroll-up">
-    <i class="fa-solid fa-arrow-up scrollup__icon"></i>
-  </a>
+  <!-- History FAB (Mobile) -->
+  <button class="history-fab" id="historyFab" title="Show history">
+    <i class="fa-solid fa-clock-rotate-left"></i>
+    <span class="history-badge" id="historyBadge">0</span>
+  </button>
 
-  <!--==================== MAIN JS ====================-->
-  <script src="/assets/js/main.js"></script>
-  
-  <!-- Chart.js for data visualization -->
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  
-  <!-- Canvas Confetti for celebration effects -->
-  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
-  
-  <!-- Custom Scripts -->
-  <script src="js/luckydraw-ui.js"></script>
-  <script src="js/luckydraw-wheel.js"></script>
-  <script src="js/luckydraw-history.js"></script>
-  <script src="js/luckydraw-settings.js"></script>
-  <script src="js/luckydraw-main.js"></script>
+  <!-- History Overlay (Mobile) -->
+  <div class="history-overlay" id="historyOverlay"></div>
 
-  <!-- ===================== SHOW/HIDE LOADER ==================== -->
-  <script>
-    window.onload = function () {
-      document.getElementById("loading").style.display = "none";
-    };
-  </script>
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach. All rights reserved.</p>
+        <p class="footer-made">Made with 💗 and Claude Code xD</p>
+      </div>
+    </div>
+  </footer>
 
-  <!-- =====================REGISTER SERVICE WORKER================ -->
-  <script>
-    if (navigator && navigator.serviceWorker) {
-      window.addEventListener("load", function () {
-        navigator.serviceWorker
-          .register("/serviceWorker.js")
-          .then((res) => console.log("service worker registered"))
-          .catch((err) => console.log("service worker not registered", err));
-      });
-    }
-  </script>
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Keyboard Shortcuts Hint -->
+  <div class="shortcuts-hint" id="shortcutsHint">
+    <span>Press <kbd>?</kbd> for shortcuts</span>
+  </div>
+
+  <!-- Keyboard Shortcuts Modal -->
+  <div class="shortcuts-modal" id="shortcutsModal">
+    <div class="shortcuts-content">
+      <div class="shortcuts-header">
+        <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
+        <button class="close-shortcuts-btn" id="closeShortcutsBtn">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="shortcuts-body">
+        <!-- Actions Section -->
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">Actions</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Space</kbd></div>
+            <div class="shortcut-desc">Spin the wheel</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>R</kbd></div>
+            <div class="shortcut-desc">Quick random pick</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>S</kbd></div>
+            <div class="shortcut-desc">Shuffle entries</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>N</kbd></div>
+            <div class="shortcut-desc">Focus input</div>
+          </div>
+        </div>
+
+        <!-- Navigation Section -->
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">Navigation</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>1</kbd><span class="key-separator">-</span><kbd>3</kbd></div>
+            <div class="shortcut-desc">Switch tabs</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>H</kbd></div>
+            <div class="shortcut-desc">Toggle history</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>?</kbd></div>
+            <div class="shortcut-desc">Show shortcuts</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Esc</kbd></div>
+            <div class="shortcut-desc">Close modals</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Import Modal -->
+  <div class="import-modal" id="importModal">
+    <div class="import-content">
+      <div class="import-header">
+        <h3><i class="fa-solid fa-file-import"></i> Import Entries</h3>
+        <button class="close-import-btn" id="closeImportBtn">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="import-body">
+        <textarea id="importTextarea" placeholder="Paste names here (one per line)..."></textarea>
+        <div class="import-hint">
+          <i class="fa-solid fa-circle-info"></i>
+          <span>Each line will be added as a separate entry</span>
+        </div>
+      </div>
+      <div class="import-footer">
+        <button class="cancel-btn" id="cancelImportBtn">Cancel</button>
+        <button class="confirm-btn" id="confirmImportBtn">
+          <i class="fa-solid fa-check"></i>
+          <span>Import</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Confetti Container -->
+  <div class="confetti-container" id="confettiContainer"></div>
+
+  <!-- Shared Tools JavaScript -->
+  <script src="../../js/tools-common.js"></script>
+  <!-- Scripts -->
+  <script src="luckydraw.js"></script>
 </body>
-
 </html>

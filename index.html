@@ -1,515 +1,652 @@
-<!-- CREDIT: THIS THEME IS ORIGINALLY DEVELOPED BY https://github.com/rawatanimesh/portfolio-website-dark-light-themes-->
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TBMFYFBV00"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Kong Vungsovanreach - Applied AI Engineer & Researcher specializing in Computer Vision and Deep Learning">
+  <meta property="og:title" content="Kong Vungsovanreach | Portfolio">
+  <meta property="og:description" content="Applied AI Engineer & Researcher specializing in Computer Vision and Deep Learning">
+  <meta property="og:image" content="/assets/img/pwa/ios/512.png">
+  <title>Kong Vungsovanreach | Portfolio</title>
 
-    function gtag() {
-      dataLayer.push(arguments);
-    }
-    gtag('js', new Date());
-    gtag('config', 'G-TBMFYFBV00');
-  </script>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Kong Vungsovanreach personal website. A summary of professional experience, 
-  skills, and contact information." />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <meta property="og:image" content="/assets/img/thumbnail.jpg">
-  <title>Kong Vungsovanreach</title>
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
 
-  <!--==================== OPEN GRAPH META TAGS ===================== -->
-  <meta property="og:title" content="Kong Vungsovanreach" />
-  <meta property="og:image" content="/assets/img/pwa/ios/512.png" />
-  <meta property="og:description" content="Kong Vungsovanreach personal website. A summary of professional experience, 
-    skills, and contact information." />
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 
-  <!--==================== TWITTER META TAGS ===================== -->
-  <meta name="twitter:title" content="Kong Vungsovanreach" />
-  <meta name="twitter:description" content="Kong Vungsovanreach personal website. A summary of professional experience, 
-    skills, and contact information." />
-  <meta name="twitter:image" content="/assets/img/pwa/ios/512.png" />
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-  <!--==================== FONT AWESOME ====================-->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
-    integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
-    crossorigin="anonymous" referrerpolicy="no-referrer" />
-
-  <!-- ============FAVICONS============== -->
-  <link rel="apple-touch-icon" sizes="57x57" href="/assets/img/favicons/apple-touch-icon-57x57.png">
-  <link rel="apple-touch-icon" sizes="60x60" href="/assets/img/favicons/apple-touch-icon-60x60.png">
-  <link rel="apple-touch-icon" sizes="72x72" href="/assets/img/favicons/apple-touch-icon-72x72.png">
-  <link rel="apple-touch-icon" sizes="76x76" href="/assets/img/favicons/apple-touch-icon-76x76.png">
-  <link rel="apple-touch-icon" sizes="114x114" href="/assets/img/favicons/apple-touch-icon-114x114.png">
-  <link rel="apple-touch-icon" sizes="120x120" href="/assets/img/favicons/apple-touch-icon-120x120.png">
-  <link rel="apple-touch-icon" sizes="144x144" href="/assets/img/favicons/apple-touch-icon-144.png">
-  <link rel="apple-touch-icon" sizes="152x152" href="/assets/img/favicons/apple-touch-icon-152x152.png">
-  <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favicons/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicons/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicons/favicon-16x16.png">
-  <link rel="manifest" href="/assets/img/favicons/site.webmanifest">
-  <link rel="mask-icon" href="/assets/img/favicons/safari-pinned-tab.svg" color="#5bbad5">
-  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico" />
-  <meta name="msapplication-TileColor" content="#da532c">
-  <meta name="theme-color" content="#ffffff">
-
-  <!-- ====================PWA================== -->
-  <link rel="manifest" href="/assets/img/pwa/android/manifest.json" />
-  <!-- ios support -->
-  <link rel="apple-touch-icon" href="/assets/img/pwa/ios/32.png" />
-  <link rel="apple-touch-icon" href="/assets/img/pwa/ios/72.png" />
-  <link rel="apple-touch-icon" href="/assets/img/pwa/ios/100.png" />
-  <link rel="apple-touch-icon" href="/assets/img/pwa/ios/128.png" />
-  <link rel="apple-touch-icon" href="/assets/img/pwa/ios/144.png" />
-  <link rel="apple-touch-icon" href="/assets/img/pwa/ios/152.png" />
-  <link rel="apple-touch-icon" href="/assets/img/pwa/ios/192.png" />
-  <link rel="apple-touch-icon" href="/assets/img/pwa/ios/256.png" />
-  <link rel="apple-touch-icon" href="/assets/img/pwa/ios/512.png" />
-  <link rel="apple-touch-icon" href="/assets/img/pwa/ios/1024.png" />
-  <meta name="apple-mobile-web-app-status-bar" content="#6E57E0" />
-  <meta name="theme-color" content="#6E57E0" />
-
-  <!--==================== CSS ====================-->
-  <link rel="stylesheet" href="/assets/css/main.css" />
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
 </head>
-
 <body>
-  <!-- ===================== LOADER ==================== -->
-  <div id="loading">
-    <div class="loader"><span>
-        &lt;</span><span>/&gt;</span></div>
-  </div>
+  <!-- Skip to Content (Accessibility) -->
+  <a href="#home" class="skip-link">Skip to main content</a>
 
-  <!--==================== HEADER ====================-->
-  <header class="header" id="header">
-    <nav class="nav kong-container">
-      <a href="#" class="nav__logo noSelect"></i>KONG VUNGSOVANREACH&nbsp;&nbsp;<i
-          class="fa-solid fa-code-branch"></i></a>
+  <!-- Cursor Effect -->
+  <div class="cursor"></div>
+  <div class="cursor-follower"></div>
 
-      <div class="nav__menu" id="nav-menu">
-        <ul class="nav__list grid">
-          <li class="nav__item">
-            <a href="#home" class="nav__link noSelect active-link">
-              <i class="fa-solid fa-house-chimney nav__icon"></i> Home
-            </a>
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="#home" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+      </a>
+
+      <div class="nav-menu" id="nav-menu">
+        <ul class="nav-list">
+          <li class="nav-item">
+            <a href="#home" class="nav-link active">Home</a>
           </li>
-
-          <li class="nav__item">
-            <a href="#about" class="nav__link noSelect">
-              <i class="fa-solid fa-user-tie nav__icon"></i> About
-            </a>
+          <li class="nav-item">
+            <a href="#about" class="nav-link">About</a>
           </li>
-
-          <li class="nav__item">
-            <a href="#skills" class="nav__link noSelect">
-              <i class="fa-solid fa-laptop-code nav__icon"></i> Skills
-            </a>
+          <li class="nav-item">
+            <a href="#skills" class="nav-link">Skills</a>
           </li>
-
-          <li class="nav__item">
-            <a href="#qualification" class="nav__link noSelect">
-              <i class="fa-solid fa-briefcase nav__icon"></i> Qualification
-            </a>
+          <li class="nav-item">
+            <a href="#experience" class="nav-link">Experience</a>
           </li>
-
-          <!-- <li class="nav__item">
-            <a href="#portfolio" class="nav__link noSelect">
-              <i class="fa-solid fa-image nav__icon"></i> Portfolio
-            </a>
-          </li> -->
+          <li class="nav-item">
+            <a href="#publications" class="nav-link">Publications</a>
+          </li>
+          <li class="nav-item">
+            <a href="tools.html" class="nav-link">Tools</a>
+          </li>
+          <li class="nav-item">
+            <a href="#contact" class="nav-link">Contact</a>
+          </li>
         </ul>
-        <i class="fa-solid fa-xmark nav__close noSelect" id="nav-close"></i>
+        <button class="nav-close" id="nav-close">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
       </div>
 
-      <div class="nav__btns">
-        <!-- theme change button -->
-        <i class="fa-solid fa-moon change-theme" id="theme-button"></i>
-
-        <div class="nav__toggle noSelect" id="nav-toggle">
-          <i class="fa-solid fa-bars"></i>
-        </div>
+      <div class="nav-actions">
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+        <button class="nav-toggle" id="nav-toggle" aria-label="Open menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
       </div>
-    </nav>
-  </header>
+    </div>
+  </nav>
 
-  <!--==================== MAIN ====================-->
+  <!-- Hero Section -->
+  <section class="hero" id="home">
+    <div class="hero-bg">
+      <div class="hero-gradient"></div>
+      <div class="hero-particles" id="particles"></div>
+    </div>
 
-  <main class="main">
-    <!--==================== HOME ====================-->
-    <section class="home section" id="home">
-      <div class="home__container kong-container grid">
-        <div class="home__content grid">
-          <div class="home__social">
-            <a href="https://github.com/kvsovanreach" target="_blank" class="home__social-icon">
-              <i class="fa-brands fa-github fa-beat"></i>
-            </a>
-            <a href="https://leetcode.com/kvsovanreach" target="_blank" class="home__social-icon">
-              <i class="fa-solid fa-chart-diagram fa-beat"></i>
-            </a>
-            <a href="https://www.linkedin.com/in/kvsovanreach/" target="_blank" class="home__social-icon">
-              <i class="fa-brands fa-linkedin fa-beat"></i>
-            </a>
-            <a href="https://scholar.google.com/citations?user=qZqSMicAAAAJ&hl=en" target="_blank"
-              class="home__social-icon">
-              <i class="fa-brands fa-google-scholar fa-beat"></i>
-            </a>
-          </div>
-
-          <div class="home__img">
-            <svg class="home__blob" viewBox="0 0 200 187" xmlns="http://www.w3.org/2000/svg"
-              xmlns:xlink="http://www.w3.org/1999/xlink">
-              <mask id="mask0" mask-type="alpha">
-                <path d="M190.312 36.4879C206.582 62.1187 201.309 102.826 182.328 134.186C163.346 165.547 
-                                130.807 187.559 100.226 186.353C69.6454 185.297 41.0228 161.023 21.7403 129.362C2.45775 
-                                97.8511 -7.48481 59.1033 6.67581 34.5279C20.9871 10.1032 59.7028 -0.149132 97.9666 
-                                0.00163737C136.23 0.303176 174.193 10.857 190.312 36.4879Z" />
-              </mask>
-              <g mask="url(#mask0)">
-                <path d="M190.312 36.4879C206.582 62.1187 201.309 102.826 182.328 134.186C163.346 
-                                165.547 130.807 187.559 100.226 186.353C69.6454 185.297 41.0228 161.023 21.7403 
-                                129.362C2.45775 97.8511 -7.48481 59.1033 6.67581 34.5279C20.9871 10.1032 59.7028 
-                                -0.149132 97.9666 0.00163737C136.23 0.303176 174.193 10.857 190.312 36.4879Z" />
-                <image class="home__blob-img" x="-20" xlink:href="/assets/img/profile/kongvungsovanreach_04.jpg">
-                </image>
-              </g>
-            </svg>
-          </div>
-
-          <div class="home__data">
-            <h1 class="home__title">Hi, I'm Sovanreach</h1>
-            <h3 class="home__subtitle">Applied AI Engineer & Researcher</h3>
-            <p class="home__description">
-              Hi there! I'm Sovanreach, a backend developer, an IT instructor, Big Data & AI & Computer Vision
-              engineer.
-            </p>
-          </div>
+    <div class="hero-container">
+      <div class="hero-content">
+        <div class="hero-badge animate-fade-up">
+          <span class="badge-dot"></span>
+          Available for opportunities
         </div>
-        <div class="home__scroll">
-          <a href="#about" class="home__scroll-button button--flex">
-            <i class="fa-solid fa-computer-mouse home__scroll"></i>
-            <span class="home__scroll-name">Scroll Down</span>
-            <i class="fa-solid fa-arrow-down home__scroll"></i>
+
+        <h1 class="hero-title animate-fade-up delay-1">
+          Hi, I'm <span class="highlight">Sovanreach</span>
+        </h1>
+
+        <div class="hero-subtitle animate-fade-up delay-2">
+          <span class="typing-text" id="typing-text"></span>
+          <span class="typing-cursor">|</span>
+        </div>
+
+        <p class="hero-description animate-fade-up delay-3">
+          Backend developer, IT instructor, and AI engineer specializing in
+          Computer Vision, Deep Learning, and Big Data solutions.
+        </p>
+
+        <div class="hero-actions animate-fade-up delay-4">
+          <a href="#contact" class="btn btn-primary">
+            <span>Get in Touch</span>
+            <i class="fa-solid fa-arrow-right"></i>
+          </a>
+          <a href="/assets/pdf/kongvungsovanreach_cv.pdf" class="btn btn-outline" download>
+            <span>Download CV</span>
+            <i class="fa-solid fa-download"></i>
+          </a>
+        </div>
+
+        <div class="hero-socials animate-fade-up delay-5">
+          <a href="https://github.com/kvsovanreach" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="GitHub" data-tooltip="GitHub">
+            <i class="fa-brands fa-github"></i>
+          </a>
+          <a href="https://www.linkedin.com/in/kvsovanreach/" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="LinkedIn" data-tooltip="LinkedIn">
+            <i class="fa-brands fa-linkedin-in"></i>
+          </a>
+          <a href="https://scholar.google.com/citations?user=qZqSMicAAAAJ&hl=en" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Google Scholar" data-tooltip="Google Scholar">
+            <i class="fa-brands fa-google-scholar"></i>
+          </a>
+          <a href="https://leetcode.com/kvsovanreach" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="LeetCode" data-tooltip="LeetCode">
+            <i class="fa-solid fa-code"></i>
           </a>
         </div>
       </div>
-    </section>
-  </main>
 
-  <!--==================== ABOUT ====================-->
+      <div class="hero-image animate-fade-left delay-2">
+        <div class="image-wrapper">
+          <div class="image-glow"></div>
+          <div class="image-border"></div>
+          <img src="/assets/img/profile/kongvungsovanreach_04.jpg" alt="Kong Vungsovanreach" class="profile-image">
+        </div>
+        <div class="floating-card card-1">
+          <i class="fa-solid fa-brain"></i>
+          <span>AI Engineer</span>
+        </div>
+        <div class="floating-card card-2">
+          <i class="fa-solid fa-eye"></i>
+          <span>Computer Vision</span>
+        </div>
+        <div class="floating-card card-3">
+          <i class="fa-solid fa-database"></i>
+          <span>Big Data</span>
+        </div>
+      </div>
+    </div>
 
-  <section class="about section" id="about">
-    <h2 class="section__title">About Me</h2>
-    <span class="section__subtitle">My Introduction</span>
+    <a href="#about" class="scroll-indicator">
+      <span>Scroll Down</span>
+      <i class="fa-solid fa-chevron-down"></i>
+    </a>
+  </section>
 
-    <div class="about__container kong-container grid">
-      <img src="/assets/img/profile/kongvungsovanreach_03.jpg" alt="" class="about__image" />
+  <!-- About Section -->
+  <section class="section about" id="about">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag animate-on-scroll">About Me</span>
+        <h2 class="section-title animate-on-scroll">My Introduction</h2>
+      </div>
 
-      <div class="about__data">
-        <p class="about__description">
-          An applied AI engineer specializing in applied computer vision and AI with over 7+ years in software
-          development and 5+ years in ML, AI, and CV. My work focuses on real-world applications in safety,
-          healthcare, and surveillance, using deep learning frameworks for image and video analysis, object detection,
-          and pattern recognition. With strong Python/C++ skills and extensive experience in computer vision libraries,
-          I have contributed to projects spanning medical imaging and real-time video analysis, bridging AI and big data
-          to develop scalable, impactful solutions for safety and compliance across industries.
+      <div class="about-content">
+        <!-- Stats Row -->
+        <div class="about-stats animate-on-scroll">
+          <div class="stat-item">
+            <span class="stat-number" data-count="7">0</span><span class="stat-plus">+</span>
+            <span class="stat-label">Years in<br>Software Dev</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat-item">
+            <span class="stat-number" data-count="5">0</span><span class="stat-plus">+</span>
+            <span class="stat-label">Years in<br>ML/AI/CV</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat-item">
+            <span class="stat-number" data-count="8">0</span><span class="stat-plus">+</span>
+            <span class="stat-label">Research<br>Publications</span>
+          </div>
+        </div>
+
+        <!-- Description -->
+        <div class="about-text animate-on-scroll">
+          <p class="about-description">
+            An applied AI engineer specializing in computer vision and artificial intelligence with over
+            <strong>7+ years in software development</strong> and <strong>5+ years in ML, AI, and CV</strong>.
+            My work focuses on real-world applications in safety, healthcare, and surveillance,
+            leveraging deep learning frameworks for image and video analysis, object detection, and pattern recognition.
+          </p>
+          <p class="about-description">
+            With strong Python and C++ skills and extensive experience in computer vision libraries,
+            I have contributed to projects spanning medical imaging and real-time video analysis,
+            bridging AI and big data to develop scalable, impactful solutions for safety and
+            compliance across various industries.
+          </p>
+        </div>
+
+        <!-- Info Grid -->
+        <div class="about-info animate-on-scroll">
+          <div class="info-card">
+            <i class="fa-solid fa-envelope"></i>
+            <div>
+              <span class="info-label">Email</span>
+              <a href="mailto:kv.sovanreach@gmail.com">kv.sovanreach@gmail.com</a>
+            </div>
+          </div>
+          <div class="info-card">
+            <i class="fa-solid fa-location-dot"></i>
+            <div>
+              <span class="info-label">Location</span>
+              <span>Cheongju, South Korea</span>
+            </div>
+          </div>
+          <div class="info-card">
+            <i class="fa-solid fa-heart"></i>
+            <div>
+              <span class="info-label">Interests</span>
+              <span>AI, ML, CV, Big Data</span>
+            </div>
+          </div>
+          <div class="info-card">
+            <i class="fa-solid fa-language"></i>
+            <div>
+              <span class="info-label">Languages</span>
+              <span>Khmer, English, Korean</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills Section -->
+  <section class="section skills" id="skills">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag animate-on-scroll">Skills</span>
+        <h2 class="section-title animate-on-scroll">My Tech Stack</h2>
+        <div class="skill-legend animate-on-scroll">
+          <span class="legend-item"><span class="legend-dot expert"></span> Expert</span>
+          <span class="legend-item"><span class="legend-dot advanced"></span> Advanced</span>
+          <span class="legend-item"><span class="legend-dot intermediate"></span> Intermediate</span>
+        </div>
+      </div>
+
+      <div class="skills-grid">
+        <div class="skill-category animate-on-scroll">
+          <div class="skill-category-header">
+            <i class="fa-solid fa-code"></i>
+            <h3>Programming Languages</h3>
+          </div>
+          <div class="skill-tags">
+            <span class="skill-tag" data-level="expert">Python</span>
+            <span class="skill-tag" data-level="expert">Java</span>
+            <span class="skill-tag" data-level="advanced">C++</span>
+            <span class="skill-tag" data-level="advanced">Bash</span>
+            <span class="skill-tag" data-level="advanced">GoLang</span>
+            <span class="skill-tag" data-level="intermediate">R</span>
+            <span class="skill-tag" data-level="intermediate">PHP</span>
+          </div>
+        </div>
+
+        <div class="skill-category animate-on-scroll">
+          <div class="skill-category-header">
+            <i class="fa-solid fa-brain"></i>
+            <h3>Data Science & AI</h3>
+          </div>
+          <div class="skill-tags">
+            <span class="skill-tag">Pandas</span>
+            <span class="skill-tag">NumPy</span>
+            <span class="skill-tag">OpenCV</span>
+            <span class="skill-tag">TensorFlow</span>
+            <span class="skill-tag">PyTorch</span>
+            <span class="skill-tag">Keras</span>
+            <span class="skill-tag">Matplotlib</span>
+            <span class="skill-tag">Pillow</span>
+          </div>
+        </div>
+
+        <div class="skill-category animate-on-scroll">
+          <div class="skill-category-header">
+            <i class="fa-solid fa-server"></i>
+            <h3>Web Frameworks</h3>
+          </div>
+          <div class="skill-tags">
+            <span class="skill-tag">Flask</span>
+            <span class="skill-tag">Node.js</span>
+            <span class="skill-tag">Spring Boot</span>
+            <span class="skill-tag">Laravel</span>
+          </div>
+        </div>
+
+        <div class="skill-category animate-on-scroll">
+          <div class="skill-category-header">
+            <i class="fa-solid fa-database"></i>
+            <h3>Databases</h3>
+          </div>
+          <div class="skill-tags">
+            <span class="skill-tag">MySQL</span>
+            <span class="skill-tag">MongoDB</span>
+            <span class="skill-tag">PostgreSQL</span>
+          </div>
+        </div>
+
+        <div class="skill-category animate-on-scroll">
+          <div class="skill-category-header">
+            <i class="fa-solid fa-tools"></i>
+            <h3>Tools & IDEs</h3>
+          </div>
+          <div class="skill-tags">
+            <span class="skill-tag">Jupyter</span>
+            <span class="skill-tag">VS Code</span>
+            <span class="skill-tag">IntelliJ</span>
+            <span class="skill-tag">Git</span>
+            <span class="skill-tag">Docker</span>
+            <span class="skill-tag">Android Studio</span>
+          </div>
+        </div>
+
+        <div class="skill-category animate-on-scroll">
+          <div class="skill-category-header">
+            <i class="fa-solid fa-desktop"></i>
+            <h3>Operating Systems</h3>
+          </div>
+          <div class="skill-tags">
+            <span class="skill-tag">Ubuntu</span>
+            <span class="skill-tag">Windows</span>
+            <span class="skill-tag">macOS</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Experience Section -->
+  <section class="section experience" id="experience">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag animate-on-scroll">Experience</span>
+        <h2 class="section-title animate-on-scroll">My Journey</h2>
+      </div>
+
+      <div class="experience-tabs animate-on-scroll">
+        <button class="tab-btn active" data-tab="education">
+          <i class="fa-solid fa-graduation-cap"></i>
+          <span>Education</span>
+        </button>
+        <button class="tab-btn" data-tab="work">
+          <i class="fa-solid fa-briefcase"></i>
+          <span>Work</span>
+        </button>
+      </div>
+
+      <div class="experience-content">
+        <div class="timeline-container" id="education" data-tab-content>
+          <div class="timeline">
+            <div class="timeline-item animate-on-scroll">
+              <div class="timeline-marker"></div>
+              <div class="timeline-content">
+                <span class="timeline-date">
+                  <i class="fa-solid fa-calendar"></i>
+                  2022.03 ~ Present
+                </span>
+                <h3 class="timeline-title">PhD Candidate</h3>
+                <p class="timeline-subtitle">Chungbuk National University</p>
+                <p class="timeline-description">Researching applied AI and computer vision in healthcare and safety domains.</p>
+              </div>
+            </div>
+
+            <div class="timeline-item animate-on-scroll">
+              <div class="timeline-marker"></div>
+              <div class="timeline-content">
+                <span class="timeline-date">
+                  <i class="fa-solid fa-calendar"></i>
+                  2020.03 ~ 2022.02
+                </span>
+                <h3 class="timeline-title">Master's Degree</h3>
+                <p class="timeline-subtitle">Chungbuk National University</p>
+                <p class="timeline-description">Thesis: Design and Implementation of a Workflow and Orchestration Tool for Building Machine Learning Models.</p>
+              </div>
+            </div>
+
+            <div class="timeline-item animate-on-scroll">
+              <div class="timeline-marker"></div>
+              <div class="timeline-content">
+                <span class="timeline-date">
+                  <i class="fa-solid fa-calendar"></i>
+                  2014.11 ~ 2019.12
+                </span>
+                <h3 class="timeline-title">Bachelor's Degree</h3>
+                <p class="timeline-subtitle">The University of Cambodia</p>
+                <p class="timeline-description">Studied Computer Science and Information Technology.</p>
+              </div>
+            </div>
+
+            <div class="timeline-item animate-on-scroll">
+              <div class="timeline-marker"></div>
+              <div class="timeline-content">
+                <span class="timeline-date">
+                  <i class="fa-solid fa-calendar"></i>
+                  2018.04 ~ 2019.02
+                </span>
+                <h3 class="timeline-title">IT Professional Training</h3>
+                <p class="timeline-subtitle">Korea Software HRD Center</p>
+                <p class="timeline-description">Completed basic and advanced IT professional training programs in software development.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-container hidden" id="work" data-tab-content>
+          <div class="timeline">
+            <div class="timeline-item animate-on-scroll">
+              <div class="timeline-marker"></div>
+              <div class="timeline-content">
+                <span class="timeline-date">
+                  <i class="fa-solid fa-calendar"></i>
+                  2022.03 ~ Present
+                </span>
+                <h3 class="timeline-title">Research Assistant (PhD)</h3>
+                <p class="timeline-subtitle">Chungbuk National University</p>
+                <p class="timeline-description">Conducting research in AI applications for medical imaging and safety systems.</p>
+              </div>
+            </div>
+
+            <div class="timeline-item animate-on-scroll">
+              <div class="timeline-marker"></div>
+              <div class="timeline-content">
+                <span class="timeline-date">
+                  <i class="fa-solid fa-calendar"></i>
+                  2020.03 ~ 2022.03
+                </span>
+                <h3 class="timeline-title">Research Assistant (MSc)</h3>
+                <p class="timeline-subtitle">Chungbuk National University</p>
+                <p class="timeline-description">Developed machine learning workflows and contributed to multiple research publications.</p>
+              </div>
+            </div>
+
+            <div class="timeline-item animate-on-scroll">
+              <div class="timeline-marker"></div>
+              <div class="timeline-content">
+                <span class="timeline-date">
+                  <i class="fa-solid fa-calendar"></i>
+                  2019.03 ~ 2020.02
+                </span>
+                <h3 class="timeline-title">IT Instructor</h3>
+                <p class="timeline-subtitle">Korea Software HRD Center</p>
+                <p class="timeline-description">Taught programming and software development to aspiring IT professionals.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Publications Section -->
+  <section class="section publications" id="publications">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag animate-on-scroll">Publications</span>
+        <h2 class="section-title animate-on-scroll">Research Work</h2>
+        <p class="section-description animate-on-scroll">
+          [J*]: Journal Publication &bull; [C*]: Conference Publication &bull; [D*]: Dissertation
         </p>
-        <table id="info-table">
-          <tbody>
-            <tr>
-              <th><i class="fa-solid fa-at"></i></th>
-              <td><a href="mailto:kv.sovanreach@gmail.com">kv.sovanreach@gmail.com</a></td>
-            </tr>
-            <tr>
-              <th><i class="fa-solid fa-map-location-dot"></i></th>
-              <td>Phnom Penh, Cambodia</td>
-            </tr>
-            <tr>
-              <th><i class="fa-solid fa-heart"></i></th>
-              <td>AI, ML, CV, Big Data </td>
-            </tr>
-          </tbody>
-        </table>
-        <div class="about__buttons">
-          <a download="" href="assets/pdf/kongvungsovanreach_cv.pdf" class="button button--flex">
-            Download Resume<i class="fa-solid fa-download button__icon"></i></a>
+      </div>
+
+      <div class="publications-list">
+        <article class="publication-card animate-on-scroll">
+          <span class="publication-type journal">[J4]</span>
+          <div class="publication-content">
+            <h3 class="publication-title">Integrating Super-Resolution with Deep Learning for Enhanced Periodontal Bone Loss Segmentation in Panoramic Radiographs</h3>
+            <p class="publication-authors">Kong, V., Lee, E. Y., Kim, K. A., & Shon, H. S. (2024)</p>
+            <p class="publication-journal">Bioengineering, 11(11), 1130</p>
+            <a href="https://doi.org/10.3390/bioengineering11111130" target="_blank" rel="noopener noreferrer" class="publication-link">
+              <span>View Publication</span>
+              <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            </a>
+          </div>
+        </article>
+
+        <article class="publication-card animate-on-scroll">
+          <span class="publication-type conference">[C3]</span>
+          <div class="publication-content">
+            <h3 class="publication-title">Automated Detection of Motorcycle Rider Without Wearing Helmet Using Surveillance Camera</h3>
+            <p class="publication-authors">Soeng, S., Kong, V., Cho, W. S., Kim, J. S., & Kim, T. K. (2023)</p>
+            <p class="publication-journal">KMIS Conference, 896-898</p>
+            <a href="https://www.researchgate.net/profile/Saravit-Soeng/publication/378907539" target="_blank" rel="noopener noreferrer" class="publication-link">
+              <span>View Publication</span>
+              <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            </a>
+          </div>
+        </article>
+
+        <article class="publication-card animate-on-scroll">
+          <span class="publication-type journal">[J3]</span>
+          <div class="publication-content">
+            <h3 class="publication-title">Recurrence risk prediction of acute coronary syndrome per patient as a personalized ACS recurrence risk: a retrospective study</h3>
+            <p class="publication-authors">Kong, V., Somakhamixay, O., Cho, W. S., Kang, G., Won, H., Rah, H., & Bang, H. J. (2022)</p>
+            <p class="publication-journal">PeerJ, 10, e14348</p>
+            <a href="https://doi.org/10.7717/peerj.14348" target="_blank" rel="noopener noreferrer" class="publication-link">
+              <span>View Publication</span>
+              <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            </a>
+          </div>
+        </article>
+
+        <article class="publication-card animate-on-scroll">
+          <span class="publication-type journal">[J2]</span>
+          <div class="publication-content">
+            <h3 class="publication-title">Deep Learning Model for Classifying Periodontitis Stages on Dental Panoramic Radiography</h3>
+            <p class="publication-authors">Shon, H. S., Kong, V., Park, J. S., Jang, W., Cha, E. J., Kim, S. Y., ... & Kim, K. A. (2022)</p>
+            <p class="publication-journal">Applied Sciences, 12(17), 8500</p>
+            <a href="https://doi.org/10.3390/app12178500" target="_blank" rel="noopener noreferrer" class="publication-link">
+              <span>View Publication</span>
+              <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            </a>
+          </div>
+        </article>
+
+        <article class="publication-card animate-on-scroll">
+          <span class="publication-type dissertation">[D1]</span>
+          <div class="publication-content">
+            <h3 class="publication-title">Design and Implementation of a Workflow and Orchestration Tool for Building Machine Learning Model</h3>
+            <p class="publication-authors">Kong, V. (2022)</p>
+            <p class="publication-journal">Chungbuk National University - Master's Thesis</p>
+            <a href="http://www.dcollection.net/handler/chungbuk/000000056260" target="_blank" rel="noopener noreferrer" class="publication-link">
+              <span>View Publication</span>
+              <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            </a>
+          </div>
+        </article>
+
+        <article class="publication-card animate-on-scroll">
+          <span class="publication-type journal">[J1]</span>
+          <div class="publication-content">
+            <h3 class="publication-title">Blockchain Automation Tool Development and Electronic Voting Application Case</h3>
+            <p class="publication-authors">Aing Teckchun, Kong Vungsovanreach, et al. (2021)</p>
+            <p class="publication-journal">Korean Big Data Society Journal, 6(2), 151-159</p>
+            <a href="https://kiss.kstudy.com/Detail/Ar?key=3924967" target="_blank" rel="noopener noreferrer" class="publication-link">
+              <span>View Publication</span>
+              <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            </a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section class="section contact" id="contact">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag animate-on-scroll">Contact</span>
+        <h2 class="section-title animate-on-scroll">Get In Touch</h2>
+        <p class="section-description animate-on-scroll">
+          Feel free to reach out for collaborations, research opportunities, or just a friendly chat!
+        </p>
+      </div>
+
+      <div class="contact-content">
+        <div class="contact-info animate-on-scroll">
+          <div class="contact-card">
+            <div class="contact-icon">
+              <i class="fa-solid fa-envelope"></i>
+            </div>
+            <h3>Email</h3>
+            <p>kv.sovanreach@gmail.com</p>
+            <a href="mailto:kv.sovanreach@gmail.com" class="contact-link">
+              Send Email
+              <i class="fa-solid fa-arrow-right"></i>
+            </a>
+          </div>
+
+          <div class="contact-card">
+            <div class="contact-icon">
+              <i class="fa-solid fa-location-dot"></i>
+            </div>
+            <h3>Location</h3>
+            <p>Cheongju, South Korea</p>
+            <span class="contact-note">Open to remote work</span>
+          </div>
+
+          <div class="contact-card">
+            <div class="contact-icon">
+              <i class="fa-brands fa-linkedin-in"></i>
+            </div>
+            <h3>LinkedIn</h3>
+            <p>Let's connect professionally</p>
+            <a href="https://www.linkedin.com/in/kvsovanreach/" target="_blank" rel="noopener noreferrer" class="contact-link">
+              View Profile
+              <i class="fa-solid fa-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+
+        <div class="contact-socials animate-on-scroll">
+          <h3>Find Me On</h3>
+          <div class="social-grid">
+            <a href="https://github.com/kvsovanreach" target="_blank" rel="noopener noreferrer" class="social-card">
+              <i class="fa-brands fa-github"></i>
+              <span>GitHub</span>
+            </a>
+            <a href="https://www.linkedin.com/in/kvsovanreach/" target="_blank" rel="noopener noreferrer" class="social-card">
+              <i class="fa-brands fa-linkedin-in"></i>
+              <span>LinkedIn</span>
+            </a>
+            <a href="https://scholar.google.com/citations?user=qZqSMicAAAAJ&hl=en" target="_blank" rel="noopener noreferrer" class="social-card">
+              <i class="fa-brands fa-google-scholar"></i>
+              <span>Scholar</span>
+            </a>
+            <a href="https://leetcode.com/kvsovanreach" target="_blank" rel="noopener noreferrer" class="social-card">
+              <i class="fa-solid fa-code"></i>
+              <span>LeetCode</span>
+            </a>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!--==================== SKILLS ====================-->
-
-  <section class="skills section" id="skills">
-    <h2 class="section__title">Skills</h2>
-    <span class="section__subtitle">My Tech Stack</span>
-    <div class="skills__container kong-container grid">
-      <table id="skill__table">
-        <tbody>
-          <tr>
-            <th>Programming Language</th>
-            <td>Python (+++), Java (+++), C++ (++), Bash (++), GoLang (++), R (++), PHP (++)</td>
-          </tr>
-          <tr>
-            <th>Data Science Framework</th>
-            <td>Pandas, Numpy, Pillow, OpenCV, Tensorflow, PyTorch, Keras, Matplotlib</td>
-          </tr>
-          <tr>
-            <th>Web Framework</th>
-            <td>Flask, NodeJS, Springboot, Laravel</td>
-          </tr>
-          <tr>
-            <th>IDE & Tool</th>
-            <td>Jupyter, VSCode, IntelliJ, Eclipse, XCode, Android Studio, Git, Docker</td>
-          </tr>
-          <tr>
-            <th>Database</th>
-            <td>MySQL, MongoDB, PostgreSQL</td>
-          </tr>
-          <tr>
-            <th>OS</th>
-            <td>Ubuntu, Windows, MacOS</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
-
-  <!--==================== QUALIFICATOIN ====================-->
-
-  <section class="qualification section" id="qualification">
-    <h2 class="section__title">Qualification</h2>
-    <span class="section__subtitle">My Personal Journey</span>
-
-    <div class="qualification__container kong-container">
-      <div class="qualification__tabs">
-        <div class="qualification__button button--flex qualification__active" data-target="#education">
-          <i class="fa-solid fa-graduation-cap qualification__icon"></i>
-          Education
-        </div>
-
-        <div class="qualification__button button--flex" data-target="#work">
-          <i class="fa-solid fa-briefcase qualification__icon"></i>
-          Work
-        </div>
-      </div>
-
-
-      <div class="qualification__sections">
-        <!--==================== QUALIFICATOIN CONTENT 2====================-->
-        <div class="qualification__content qualification__active" data-content id="education">
-          <!--==================== QUALIFICATOIN 1====================-->
-          <div class="qualification__data">
-            <div>
-              <h3 class="qualification__title">PhD Candidate</h3>
-              <span class="qualification__subtitle">
-                Chungbuk National University
-              </span>
-              <div class="qualification__calender">
-                <i class="fa-solid fa-calendar-days"></i> 2022.03 ~ Present
-              </div>
-            </div>
-
-            <div>
-              <span class="qualification__rounder"></span>
-              <span class="qualification__line"></span>
-            </div>
-          </div>
-
-          <!--==================== QUALIFICATOIN 2====================-->
-          <div class="qualification__data">
-            <div></div>
-            <div>
-              <span class="qualification__rounder"></span>
-              <span class="qualification__line"></span>
-            </div>
-            <div>
-              <h3 class="qualification__title">Master's Degree</h3>
-              <span class="qualification__subtitle">Chungbuk National University</span>
-              <div class="qualification__calender">
-                <i class="fa-solid fa-calendar-days"></i> 2020.03 ~ 2022.02
-              </div>
-            </div>
-          </div>
-
-          <!--==================== QUALIFICATOIN 3====================-->
-          <div class="qualification__data">
-            <div>
-              <h3 class="qualification__title">Bachelor Degree</h3>
-              <span class="qualification__subtitle">The University of Cambodia</span>
-              <div class="qualification__calender">
-                <i class="fa-solid fa-calendar-days"></i> 2014.11 ~ 2019.12
-              </div>
-            </div>
-            <div>
-              <span class="qualification__rounder"></span>
-              <span class="qualification__line"></span>
-            </div>
-          </div>
-
-          <!--==================== QUALIFICATOIN 4====================-->
-          <div class="qualification__data">
-            <div></div>
-            <div>
-              <span class="qualification__rounder"></span>
-              <span class="qualification__line"></span>
-            </div>
-            <div>
-              <h3 class="qualification__title">IT Professional Training (Advanced)</h3>
-              <span class="qualification__subtitle">Korea Software HRD Center</span>
-              <div class="qualification__calender">
-                <i class="fa-solid fa-calendar-days"></i></i> 2018.10 ~ 2019.02
-              </div>
-            </div>
-          </div>
-
-          <!--==================== QUALIFICATOIN 5====================-->
-          <div class="qualification__data">
-            <div>
-              <h3 class="qualification__title">IT Professional Training (Basic)</h3>
-              <span class="qualification__subtitle">Korea Software HRD Center</span>
-              <div class="qualification__calender">
-                <i class="fa-solid fa-calendar-days"></i> 2018.04 ~ 2018.08
-              </div>
-            </div>
-            <div>
-              <span class="qualification__rounder"></span>
-              <!-- <span class="qualification__line"></span> -->
-            </div>
-          </div>
-        </div>
-        <!--==================== QUALIFICATOIN CONTENT 2====================-->
-        <div class="qualification__content" data-content id="work">
-          <!--==================== QUALIFICATOIN 1====================-->
-          <div class="qualification__data">
-            <div>
-              <h3 class="qualification__title">Research Assistant (Phd)</h3>
-              <span class="qualification__subtitle">Chungbuk National University</span>
-              <div class="qualification__calender">
-                <i class="fa-solid fa-calendar-days"></i> 2022.03 ~ Present
-              </div>
-            </div>
-            <div>
-              <span class="qualification__rounder"></span>
-              <span class="qualification__line"></span>
-            </div>
-          </div>
-
-          <!--==================== QUALIFICATOIN 2====================-->
-          <div class="qualification__data">
-            <div></div>
-            <div>
-              <span class="qualification__rounder"></span>
-              <span class="qualification__line"></span>
-            </div>
-            <div>
-              <h3 class="qualification__title">Research Assistant (MSc)</h3>
-              <span class="qualification__subtitle">Chungbuk National University</span>
-              <div class="qualification__calender">
-                <i class="fa-solid fa-calendar-days"></i>2020.03 ~ 2022.03
-              </div>
-            </div>
-          </div>
-
-          <!--==================== QUALIFICATOIN 3====================-->
-          <div class="qualification__data">
-            <div>
-              <h3 class="qualification__title">IT Instructor</h3>
-              <span class="qualification__subtitle">Korea Software HRD Center</span>
-              <div class="qualification__calender">
-                <i class="fa-solid fa-calendar-days"></i> 2019.03 ~ 2020.02
-              </div>
-            </div>
-            <div>
-              <span class="qualification__rounder"></span>
-              <!-- <span class="qualification__line"></span> -->
-            </div>
-          </div>
-        </div>
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach. All rights reserved.</p>
+        <p class="footer-made">Made with <i class="fa-solid fa-heart"></i> in South Korea</p>
       </div>
     </div>
-    <div class="publication__container kong-container">
-      <div class="publication__tabs">
-        <div class="publication__button button--flex" data-target="#education">
-          <i class="fa-solid fa-book-open qualification__icon"></i>
-          Publication
-        </div>
-      </div>
-      <div class="publication__sections">
-        <div class="publication__header">
-          <p><i>[J*]: Journal Publication, [C*]: Conference Publication,[D*]: Graduation Dissertation</i></p>
-        </div>
-        <div class="publication__content">
-          <p><span>[J4]</span>Kong, V., Lee, E. Y., Kim, K. A., & Shon, H. S. (2024). Integrating Super-Resolution with
-            Deep Learning for Enhanced Periodontal Bone Loss Segmentation in Panoramic Radiographs. Bioengineering,
-            11(11), 1130.<a target="_blank" href="https://doi.org/10.3390/bioengineering11111130"><i
-                class="fa-solid fa-arrow-up-right-from-square"></i></a></p>
-          <p><span>[C3]</span>Soeng, S., Kong, V., Cho, W. S., Kim, J. S., & Kim, T. K. (2023). Automated Detection of
-            Motorcycle Rider Without Wearing Helmet Using Surveillance Camera. 한국경영정보학회 정기 학술대회, 896-898.<a
-              target="_blank"
-              href="https://www.researchgate.net/profile/Saravit-Soeng/publication/378907539_Automated_Detection_of_Motorcycle_Rider_Without_Wearing_Helmet_Using_Surveillance_Camera"><i
-                class="fa-solid fa-arrow-up-right-from-square"></i></a></p>
-          <p><span>[J3]</span>Kong, V., Somakhamixay, O., Cho, W. S., Kang, G., Won, H., Rah, H., & Bang, H. J. (2022).
-            Recurrence risk prediction of acute coronary syndrome per patient as a personalized ACS recurrence risk: a
-            retrospective study. PeerJ, 10, e14348.<a target="_blank" href="https://doi.org/10.7717/peerj.14348"><i
-                class="fa-solid fa-arrow-up-right-from-square"></i></a></p>
-          <p><span>[J2]</span>Shon, H. S., Kong, V., Park, J. S., Jang, W., Cha, E. J., Kim, S. Y., ... & Kim, K. A.
-            (2022). Deep Learning Model for Classifying Periodontitis Stages on Dental Panoramic Radiography. Applied
-            Sciences, 12(17), 8500.<a target="_blank" href="https://doi.org/10.3390/app12178500"><i
-                class="fa-solid fa-arrow-up-right-from-square"></i></a></p>
-          <p><span>[D1]</span>Kong, V. (2022). Design and Implementation of a Workflow and Orchestration Tool for
-            Building
-            Machine Learning Model. Chungbuk National University<a target="_blank"
-              href="http://www.dcollection.net/handler/chungbuk/000000056260"><i
-                class="fa-solid fa-arrow-up-right-from-square"></i></a></p>
-          <p><span>[C2]</span>Vungsovanreach, K., Choi, E. S., Shon, H. S., Cha, E. J., Kim, K. A., & Cho, W. S. (2021).
-            Comparison of Classification Techniques based on Feature Extraction and Imbalanced Data Processing. 대한전기학회
-            학술대회 논문집, 1886-1887.<a target="_blank"
-              href="https://www.dbpia.co.kr/journal/articleDetail?nodeId=NODE10610472"><i
-                class="fa-solid fa-arrow-up-right-from-square"></i></a></p>
-          <p><span>[C1]</span>최은선(Eun-Seon Choi),Kong Vungsovanreach,조완섭(Wan-Sup Cho),김재성(Jae-Sung
-            Kim),이경희(Kyung Hee Lee),손호선(Ho Sun Shon),and 최성곤(Seong Gon Choi). "스마트팩토리 데이터를 활용한 클래스 불균형문제 해결 방법 비교."
-            한국통신학회 학술대회논문집 2021.6
-            (2021): 86-87.<a target="_blank" href="https://www.dbpia.co.kr/journal/articleDetail?nodeId=NODE10586832"><i
-                class="fa-solid fa-arrow-up-right-from-square"></i></a></p>
-          <p><span>[J1]</span>Aing Teckchun, Kong Vungsovanreach,김옥기,이경희,and 조완섭. "블록체인 자동화도구 개발과
-            전자투표 적용사례." 한국빅데이터학회 학회지 6.2 (2021): 151-159.<a target="_blank"
-              href="https://kiss.kstudy.com/Detail/Ar?key=3924967"><i
-                class="fa-solid fa-arrow-up-right-from-square"></i></a></p>
-        </div>
-      </div>
-    </div>
-  </section>
+  </footer>
 
-  <!--==================== SCROLL TOP ====================-->
-  <a href="#" class="scrollup" id="scroll-up">
-    <i class="fa-solid fa-arrow-up scrollup__icon"></i>
-  </a>
+  <!-- Scroll to Top -->
+  <button class="scroll-top" id="scroll-top" aria-label="Scroll to top">
+    <i class="fa-solid fa-arrow-up"></i>
+  </button>
 
-  <!--==================== MAIN JS ====================-->
-  <script src="/assets/js/main.js"></script>
-
-  <!-- ===================== SHOW/HIDE LOADER ==================== -->
-  <script>
-    window.onload = function () {
-      document.getElementById("loading").style.display = "none";
-    };
-  </script>
-
-  <!-- =====================REGISTER SERVICE WORKER================ -->
-  <script>
-    if (navigator && navigator.serviceWorker) {
-      window.addEventListener("load", function () {
-        navigator.serviceWorker
-          .register("/serviceWorker.js")
-          .then((res) => console.log("Service Worker Registration: DONE"))
-          .catch((err) => console.log("Service Worker Registration: ERROR", err));
-      });
-    }
-  </script>
+  <!-- JavaScript -->
+  <script src="js/main.js"></script>
 </body>
-
 </html>

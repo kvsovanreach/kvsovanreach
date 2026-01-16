@@ -1,707 +1,629 @@
-<!-- CREDIT: THIS THEME IS ORIGINALLY DEVELOPED BY https://github.com/rawatanimesh/portfolio-website-dark-light-themes-->
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TBMFYFBV00"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag() { dataLayer.push(arguments); }
-    gtag('js', new Date());
-    gtag('config', 'G-TBMFYFBV00');
-  </script>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <meta name="description" content="Generate and scan QR codes easily. Create customizable QR codes with logos, colors, and different formats." />
-  <meta property="og:image" content="/assets/img/thumbnail.jpg">
-  <title>Kong Vungsovanreach - QR Code Generator & Scanner</title>
+  <meta name="description" content="Generate and scan QR codes with customization options. Support for URLs, text, WiFi, vCard, and more.">
+  <meta property="og:title" content="KVSOVANREACH | QR Code Generator">
+  <meta property="og:description" content="Create custom QR codes or scan existing ones. Multiple formats and download options.">
+  <meta property="og:image" content="/assets/img/pwa/ios/512.png">
+  <title>KVSOVANREACH | QR Code</title>
 
-  <!--==================== OPEN GRAPH META TAGS ===================== -->
-  <meta property="og:title" content="Kong Vungsovanreach - QR Code Generator & Scanner" />
-  <meta property="og:image" content="/assets/img/pwa/ios/512.png" />
-  <meta property="og:description" content="Generate customizable QR codes with logos, colors, and export options. Scan QR codes from images instantly." />
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
 
-  <!--==================== TWITTER META TAGS ===================== -->
-  <meta name="twitter:title" content="Kong Vungsovanreach - QR Code Generator & Scanner" />
-  <meta name="twitter:description" content="Generate customizable QR codes with logos, colors, and export options. Scan QR codes from images instantly." />
-  <meta name="twitter:image" content="/assets/img/pwa/ios/512.png" />
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 
-  <!--==================== FONT AWESOME ====================-->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
-    integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
-    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-  <!-- ============FAVICONS============== -->
-  <link rel="apple-touch-icon" sizes="57x57" href="/assets/img/favicons/apple-touch-icon-57x57.png">
-  <link rel="apple-touch-icon" sizes="60x60" href="/assets/img/favicons/apple-touch-icon-60x60.png">
-  <link rel="apple-touch-icon" sizes="72x72" href="/assets/img/favicons/apple-touch-icon-72x72.png">
-  <link rel="apple-touch-icon" sizes="76x76" href="/assets/img/favicons/apple-touch-icon-76x76.png">
-  <link rel="apple-touch-icon" sizes="114x114" href="/assets/img/favicons/apple-touch-icon-114x114.png">
-  <link rel="apple-touch-icon" sizes="120x120" href="/assets/img/favicons/apple-touch-icon-120x120.png">
-  <link rel="apple-touch-icon" sizes="144x144" href="/assets/img/favicons/apple-touch-icon-144.png">
-  <link rel="apple-touch-icon" sizes="152x152" href="/assets/img/favicons/apple-touch-icon-152x152.png">
-  <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favicons/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicons/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicons/favicon-16x16.png">
-  <link rel="manifest" href="/assets/img/favicons/site.webmanifest">
-  <link rel="mask-icon" href="/assets/img/favicons/safari-pinned-tab.svg" color="#5bbad5">
-  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico" />
-  <meta name="msapplication-TileColor" content="#da532c">
-  <meta name="theme-color" content="#ffffff">
+  <!-- QR Code Libraries -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
 
-  <!-- ====================PWA================== -->
-  <link rel="manifest" href="/assets/img/pwa/android/manifest.json" />
-  <!-- ios support -->
-  <link rel="apple-touch-icon" href="/assets/img/pwa/ios/32.png" />
-  <link rel="apple-touch-icon" href="/assets/img/pwa/ios/72.png" />
-  <link rel="apple-touch-icon" href="/assets/img/pwa/ios/100.png" />
-  <link rel="apple-touch-icon" href="/assets/img/pwa/ios/128.png" />
-  <link rel="apple-touch-icon" href="/assets/img/pwa/ios/144.png" />
-  <link rel="apple-touch-icon" href="/assets/img/pwa/ios/152.png" />
-  <link rel="apple-touch-icon" href="/assets/img/pwa/ios/192.png" />
-  <link rel="apple-touch-icon" href="/assets/img/pwa/ios/256.png" />
-  <link rel="apple-touch-icon" href="/assets/img/pwa/ios/512.png" />
-  <link rel="apple-touch-icon" href="/assets/img/pwa/ios/1024.png" />
-  <meta name="apple-mobile-web-app-status-bar" content="#6E57E0" />
-  <meta name="theme-color" content="#6E57E0" />
-
-  <!--==================== CSS ====================-->
-  <link rel="stylesheet" href="/assets/css/main.css" />
-  <link rel="stylesheet" href="css/qrcode.css" />
+  <!-- Common Tools CSS -->
+  <link rel="stylesheet" href="../../js/tools-common.css">
+  <!-- QR Code CSS -->
+  <link rel="stylesheet" href="qrcode.css">
 </head>
-
 <body>
-  <!-- ===================== LOADER ==================== -->
-  <div id="loading">
-    <div class="loader"><span>
-        &lt;</span><span>/&gt;</span></div>
+  <!-- Skip to Content -->
+  <a href="#qrcode" class="skip-link">Skip to QR code tool</a>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">TOOLS</span>
+      </a>
+
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="tool-page">
+    <div class="container">
+      <!-- QR Code Container -->
+      <div class="qr-wrapper" id="qrcode">
+        <!-- Header -->
+        <div class="qr-header">
+          <h2><i class="fa-solid fa-qrcode"></i> QR Code</h2>
+        </div>
+
+        <!-- Tab Navigation -->
+        <div class="qr-tabs">
+          <button class="qr-tab active" data-tab="generator">
+            <i class="fa-solid fa-qrcode"></i>
+            <span>Generator</span>
+          </button>
+          <button class="qr-tab" data-tab="scanner">
+            <i class="fa-solid fa-camera"></i>
+            <span>Scanner</span>
+          </button>
+          <button class="qr-tab" data-tab="bulk">
+            <i class="fa-solid fa-layer-group"></i>
+            <span>Bulk</span>
+          </button>
+          <button class="qr-tab" data-tab="history">
+            <i class="fa-solid fa-clock-rotate-left"></i>
+            <span>History</span>
+          </button>
+        </div>
+
+        <!-- Main Content Area -->
+        <div class="qr-main">
+          <!-- Generator Panel -->
+          <div class="qr-panel active" id="generatorPanel">
+            <div class="generator-layout">
+              <!-- Left: Input Section -->
+              <div class="generator-input">
+                <!-- Content Type Selector -->
+                <div class="content-type-selector">
+                  <label>Content Type</label>
+                  <div class="type-buttons">
+                    <button class="type-btn active" data-type="text">
+                      <i class="fa-solid fa-font"></i>
+                      <span>Text</span>
+                    </button>
+                    <button class="type-btn" data-type="url">
+                      <i class="fa-solid fa-link"></i>
+                      <span>URL</span>
+                    </button>
+                    <button class="type-btn" data-type="wifi">
+                      <i class="fa-solid fa-wifi"></i>
+                      <span>WiFi</span>
+                    </button>
+                    <button class="type-btn" data-type="vcard">
+                      <i class="fa-solid fa-address-card"></i>
+                      <span>vCard</span>
+                    </button>
+                    <button class="type-btn" data-type="email">
+                      <i class="fa-solid fa-envelope"></i>
+                      <span>Email</span>
+                    </button>
+                    <button class="type-btn" data-type="phone">
+                      <i class="fa-solid fa-phone"></i>
+                      <span>Phone</span>
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Dynamic Input Forms -->
+                <div class="input-forms">
+                  <!-- Text Input -->
+                  <div class="input-form active" id="textForm">
+                    <div class="form-group">
+                      <label for="textInput">Text Content</label>
+                      <textarea id="textInput" rows="4" placeholder="Enter any text..."></textarea>
+                      <div class="input-meta">
+                        <span class="char-count"><span id="textCharCount">0</span> / 2953 chars</span>
+                        <span class="capacity-warning" id="textCapacityWarning"></span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- URL Input -->
+                  <div class="input-form" id="urlForm">
+                    <div class="form-group">
+                      <label for="urlInput">Website URL</label>
+                      <input type="url" id="urlInput" placeholder="https://example.com">
+                      <span class="input-error" id="urlError"></span>
+                    </div>
+                  </div>
+
+                  <!-- WiFi Input -->
+                  <div class="input-form" id="wifiForm">
+                    <div class="form-group">
+                      <label for="wifiSsid">Network Name (SSID)</label>
+                      <input type="text" id="wifiSsid" placeholder="WiFi Network Name">
+                    </div>
+                    <div class="form-group">
+                      <label for="wifiPassword">Password</label>
+                      <div class="password-input">
+                        <input type="password" id="wifiPassword" placeholder="WiFi Password">
+                        <button class="toggle-password" type="button" aria-label="Toggle password visibility">
+                          <i class="fa-solid fa-eye"></i>
+                        </button>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="wifiEncryption">Encryption</label>
+                      <select id="wifiEncryption">
+                        <option value="WPA">WPA/WPA2</option>
+                        <option value="WEP">WEP</option>
+                        <option value="nopass">None</option>
+                      </select>
+                    </div>
+                    <div class="form-group checkbox-group">
+                      <input type="checkbox" id="wifiHidden">
+                      <label for="wifiHidden">Hidden Network</label>
+                    </div>
+                  </div>
+
+                  <!-- vCard Input -->
+                  <div class="input-form" id="vcardForm">
+                    <div class="form-row">
+                      <div class="form-group">
+                        <label for="vcardFirstName">First Name</label>
+                        <input type="text" id="vcardFirstName" placeholder="John">
+                      </div>
+                      <div class="form-group">
+                        <label for="vcardLastName">Last Name</label>
+                        <input type="text" id="vcardLastName" placeholder="Doe">
+                      </div>
+                    </div>
+                    <div class="form-row">
+                      <div class="form-group">
+                        <label for="vcardTitle">Job Title</label>
+                        <input type="text" id="vcardTitle" placeholder="Software Engineer">
+                      </div>
+                      <div class="form-group">
+                        <label for="vcardOrg">Organization</label>
+                        <input type="text" id="vcardOrg" placeholder="Company Name">
+                      </div>
+                    </div>
+                    <div class="form-row">
+                      <div class="form-group">
+                        <label for="vcardPhone">Phone</label>
+                        <input type="tel" id="vcardPhone" placeholder="+1 234 567 8900">
+                      </div>
+                      <div class="form-group">
+                        <label for="vcardEmail">Email</label>
+                        <input type="email" id="vcardEmail" placeholder="john@example.com">
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="vcardWebsite">Website</label>
+                      <input type="url" id="vcardWebsite" placeholder="https://example.com">
+                    </div>
+                    <div class="form-group">
+                      <label for="vcardAddress">Address</label>
+                      <input type="text" id="vcardAddress" placeholder="123 Main St, City, Country">
+                    </div>
+                    <div class="form-group">
+                      <label for="vcardNote">Note</label>
+                      <input type="text" id="vcardNote" placeholder="Additional notes...">
+                    </div>
+                  </div>
+
+                  <!-- Email Input -->
+                  <div class="input-form" id="emailForm">
+                    <div class="form-group">
+                      <label for="emailAddress">Email Address</label>
+                      <input type="email" id="emailAddress" placeholder="recipient@example.com">
+                      <span class="input-error" id="emailError"></span>
+                    </div>
+                    <div class="form-group">
+                      <label for="emailSubject">Subject</label>
+                      <input type="text" id="emailSubject" placeholder="Email subject...">
+                    </div>
+                    <div class="form-group">
+                      <label for="emailBody">Message</label>
+                      <textarea id="emailBody" rows="3" placeholder="Email body..."></textarea>
+                    </div>
+                  </div>
+
+                  <!-- Phone Input -->
+                  <div class="input-form" id="phoneForm">
+                    <div class="form-group">
+                      <label for="phoneNumber">Phone Number</label>
+                      <input type="tel" id="phoneNumber" placeholder="+1 234 567 8900">
+                      <span class="input-error" id="phoneError"></span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Customization Options -->
+                <div class="customization-section">
+                  <button class="customization-toggle" id="customizationToggle">
+                    <span>Customization</span>
+                    <i class="fa-solid fa-chevron-down"></i>
+                  </button>
+                  <div class="customization-content" id="customizationContent">
+                    <!-- Style Presets -->
+                    <div class="form-group">
+                      <label>Style Presets</label>
+                      <div class="style-presets" id="stylePresets">
+                        <button class="preset-btn active" data-fg="#000000" data-bg="#FFFFFF" title="Classic">
+                          <span class="preset-preview" style="background: linear-gradient(135deg, #000 50%, #FFF 50%);"></span>
+                        </button>
+                        <button class="preset-btn" data-fg="#1a1a2e" data-bg="#eef2f7" title="Soft">
+                          <span class="preset-preview" style="background: linear-gradient(135deg, #1a1a2e 50%, #eef2f7 50%);"></span>
+                        </button>
+                        <button class="preset-btn" data-fg="#2563eb" data-bg="#dbeafe" title="Blue">
+                          <span class="preset-preview" style="background: linear-gradient(135deg, #2563eb 50%, #dbeafe 50%);"></span>
+                        </button>
+                        <button class="preset-btn" data-fg="#059669" data-bg="#d1fae5" title="Green">
+                          <span class="preset-preview" style="background: linear-gradient(135deg, #059669 50%, #d1fae5 50%);"></span>
+                        </button>
+                        <button class="preset-btn" data-fg="#7c3aed" data-bg="#ede9fe" title="Purple">
+                          <span class="preset-preview" style="background: linear-gradient(135deg, #7c3aed 50%, #ede9fe 50%);"></span>
+                        </button>
+                        <button class="preset-btn" data-fg="#dc2626" data-bg="#fee2e2" title="Red">
+                          <span class="preset-preview" style="background: linear-gradient(135deg, #dc2626 50%, #fee2e2 50%);"></span>
+                        </button>
+                        <button class="preset-btn" data-fg="#d97706" data-bg="#fef3c7" title="Amber">
+                          <span class="preset-preview" style="background: linear-gradient(135deg, #d97706 50%, #fef3c7 50%);"></span>
+                        </button>
+                        <button class="preset-btn" data-fg="#FFFFFF" data-bg="#000000" title="Inverted">
+                          <span class="preset-preview" style="background: linear-gradient(135deg, #FFF 50%, #000 50%);"></span>
+                        </button>
+                      </div>
+                    </div>
+                    <div class="form-row">
+                      <div class="form-group">
+                        <label for="qrSize">Size</label>
+                        <select id="qrSize">
+                          <option value="128">128 x 128</option>
+                          <option value="200">200 x 200</option>
+                          <option value="256" selected>256 x 256</option>
+                          <option value="512">512 x 512</option>
+                          <option value="1024">1024 x 1024</option>
+                        </select>
+                      </div>
+                      <div class="form-group">
+                        <label for="errorCorrection">Error Correction</label>
+                        <select id="errorCorrection">
+                          <option value="L">Low (7%)</option>
+                          <option value="M" selected>Medium (15%)</option>
+                          <option value="Q">Quartile (25%)</option>
+                          <option value="H">High (30%)</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="form-row">
+                      <div class="form-group">
+                        <label for="foregroundColor">Foreground</label>
+                        <div class="color-input">
+                          <input type="color" id="foregroundColor" value="#000000">
+                          <input type="text" id="foregroundHex" value="#000000" maxlength="7">
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label for="backgroundColor">Background</label>
+                        <div class="color-input">
+                          <input type="color" id="backgroundColor" value="#FFFFFF">
+                          <input type="text" id="backgroundHex" value="#FFFFFF" maxlength="7">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="qrMargin">Margin</label>
+                      <input type="range" id="qrMargin" min="0" max="10" value="4">
+                      <span class="range-value" id="marginValue">4</span>
+                    </div>
+                    <!-- Logo Upload -->
+                    <div class="form-group">
+                      <label>Center Logo</label>
+                      <div class="logo-upload" id="logoUpload">
+                        <div class="logo-preview" id="logoPreview">
+                          <img id="logoImage" alt="Logo" style="display: none;">
+                          <button class="remove-logo-btn" id="removeLogoBtn" style="display: none;">
+                            <i class="fa-solid fa-xmark"></i>
+                          </button>
+                        </div>
+                        <button class="upload-logo-btn" id="uploadLogoBtn">
+                          <i class="fa-solid fa-image"></i>
+                          <span>Add Logo</span>
+                        </button>
+                        <input type="file" id="logoInput" accept="image/*" hidden>
+                      </div>
+                      <span class="input-hint">Use High error correction for logos</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Generate Button -->
+                <button class="generate-btn" id="generateBtn">
+                  <i class="fa-solid fa-qrcode"></i>
+                  <span class="spinner"></span>
+                  <span>Generate QR Code</span>
+                </button>
+              </div>
+
+              <!-- Right: Preview Section -->
+              <div class="generator-preview">
+                <div class="preview-card">
+                  <div class="preview-header">
+                    <h4>Preview</h4>
+                    <button class="refresh-btn" id="refreshBtn" title="Regenerate">
+                      <i class="fa-solid fa-rotate"></i>
+                    </button>
+                  </div>
+                  <div class="preview-area" id="previewArea">
+                    <div class="preview-placeholder">
+                      <i class="fa-solid fa-qrcode"></i>
+                      <p>QR code will appear here</p>
+                    </div>
+                    <canvas id="qrCanvas" style="display: none;"></canvas>
+                  </div>
+                  <div class="preview-content" id="previewContent"></div>
+                </div>
+
+                <!-- Download Options -->
+                <div class="download-section" id="downloadSection" style="display: none;">
+                  <h4>Download</h4>
+                  <div class="download-buttons">
+                    <button class="download-btn" data-format="png">
+                      <i class="fa-solid fa-image"></i>
+                      <span>PNG</span>
+                    </button>
+                    <button class="download-btn" data-format="svg">
+                      <i class="fa-solid fa-code"></i>
+                      <span>SVG</span>
+                    </button>
+                    <button class="download-btn" data-format="jpeg">
+                      <i class="fa-solid fa-file-image"></i>
+                      <span>JPEG</span>
+                    </button>
+                  </div>
+                  <button class="copy-btn" id="copyImageBtn">
+                    <i class="fa-solid fa-copy"></i>
+                    <span>Copy to Clipboard</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Scanner Panel -->
+          <div class="qr-panel" id="scannerPanel">
+            <div class="scanner-container">
+              <!-- Scanner Options -->
+              <div class="scanner-options">
+                <button class="scanner-option active" data-source="camera">
+                  <i class="fa-solid fa-camera"></i>
+                  <span>Camera</span>
+                </button>
+                <button class="scanner-option" data-source="upload">
+                  <i class="fa-solid fa-upload"></i>
+                  <span>Upload Image</span>
+                </button>
+              </div>
+
+              <!-- Camera Scanner -->
+              <div class="scanner-source active" id="cameraScanner">
+                <div class="camera-container" id="cameraContainer">
+                  <video id="cameraVideo" playsinline></video>
+                  <div class="scan-overlay">
+                    <div class="scan-frame"></div>
+                  </div>
+                  <div class="camera-placeholder" id="cameraPlaceholder">
+                    <i class="fa-solid fa-camera"></i>
+                    <p>Camera access required</p>
+                    <button class="start-camera-btn" id="startCameraBtn">
+                      <i class="fa-solid fa-play"></i>
+                      Start Camera
+                    </button>
+                  </div>
+                </div>
+                <div class="camera-controls">
+                  <button class="camera-control-btn" id="switchCameraBtn" title="Switch Camera">
+                    <i class="fa-solid fa-camera-rotate"></i>
+                  </button>
+                  <button class="camera-control-btn" id="flashBtn" title="Toggle Flash">
+                    <i class="fa-solid fa-bolt"></i>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Upload Scanner -->
+              <div class="scanner-source" id="uploadScanner">
+                <div class="upload-area" id="uploadArea">
+                  <i class="fa-solid fa-cloud-arrow-up"></i>
+                  <p>Drop image here or click to upload</p>
+                  <span>Supports JPG, PNG, GIF</span>
+                  <input type="file" id="scanImageInput" accept="image/*" hidden>
+                </div>
+                <div class="upload-preview" id="uploadPreview" style="display: none;">
+                  <img id="uploadedImage" alt="Uploaded image">
+                  <button class="remove-upload-btn" id="removeUploadBtn">
+                    <i class="fa-solid fa-xmark"></i>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Scan Result -->
+              <div class="scan-result" id="scanResult" style="display: none;">
+                <div class="result-header">
+                  <i class="fa-solid fa-check-circle"></i>
+                  <h4>QR Code Detected</h4>
+                </div>
+                <div class="result-content" id="resultContent"></div>
+                <div class="result-actions">
+                  <button class="result-action-btn" id="copyResultBtn">
+                    <i class="fa-solid fa-copy"></i>
+                    Copy
+                  </button>
+                  <button class="result-action-btn" id="openResultBtn" style="display: none;">
+                    <i class="fa-solid fa-external-link"></i>
+                    Open
+                  </button>
+                  <button class="result-action-btn" id="scanAgainBtn">
+                    <i class="fa-solid fa-rotate"></i>
+                    Scan Again
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bulk Panel -->
+          <div class="qr-panel" id="bulkPanel">
+            <div class="bulk-container">
+              <div class="bulk-input">
+                <div class="form-group">
+                  <label for="bulkTextarea">Enter data (one per line)</label>
+                  <textarea id="bulkTextarea" rows="8" placeholder="https://example1.com&#10;https://example2.com&#10;https://example3.com"></textarea>
+                </div>
+                <div class="bulk-options">
+                  <div class="form-group">
+                    <label for="bulkPrefix">Prefix (optional)</label>
+                    <input type="text" id="bulkPrefix" placeholder="https://">
+                  </div>
+                  <div class="form-group">
+                    <label for="bulkSize">Size</label>
+                    <select id="bulkSize">
+                      <option value="128">128 x 128</option>
+                      <option value="200" selected>200 x 200</option>
+                      <option value="256">256 x 256</option>
+                    </select>
+                  </div>
+                </div>
+                <button class="generate-btn" id="bulkGenerateBtn">
+                  <i class="fa-solid fa-layer-group"></i>
+                  <span>Generate All</span>
+                </button>
+              </div>
+              <div class="bulk-results" id="bulkResults">
+                <div class="bulk-placeholder">
+                  <i class="fa-solid fa-layer-group"></i>
+                  <p>Generated QR codes will appear here</p>
+                </div>
+              </div>
+              <div class="bulk-download" id="bulkDownload" style="display: none;">
+                <button class="download-btn" id="downloadAllBtn">
+                  <i class="fa-solid fa-download"></i>
+                  <span>Download All (ZIP)</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- History Panel -->
+          <div class="qr-panel" id="historyPanel">
+            <div class="history-container">
+              <div class="history-header">
+                <h4>Recent QR Codes</h4>
+                <button class="clear-history-btn" id="clearHistoryBtn">
+                  <i class="fa-solid fa-trash"></i>
+                  Clear All
+                </button>
+              </div>
+              <div class="history-list" id="historyList">
+                <div class="history-empty">
+                  <i class="fa-solid fa-clock-rotate-left"></i>
+                  <p>No QR codes generated yet</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach. All rights reserved.</p>
+        <p class="footer-made">Made with 💗 and Claude Code xD</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Keyboard Shortcuts Modal -->
+  <div class="shortcuts-modal" id="shortcutsModal">
+    <div class="shortcuts-content">
+      <div class="shortcuts-header">
+        <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
+        <button class="close-shortcuts-btn" id="closeShortcutsBtn">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="shortcuts-body">
+        <!-- Actions Section -->
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">Actions</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>G</kbd></div>
+            <div class="shortcut-desc">Generate QR</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>D</kbd></div>
+            <div class="shortcut-desc">Download</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>C</kbd></div>
+            <div class="shortcut-desc">Copy image</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>1</kbd><span class="key-separator">-</span><kbd>6</kbd></div>
+            <div class="shortcut-desc">Content type</div>
+          </div>
+        </div>
+
+        <!-- Navigation Section -->
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">Navigation</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>S</kbd></div>
+            <div class="shortcut-desc">Scanner tab</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>B</kbd></div>
+            <div class="shortcut-desc">Bulk tab</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>H</kbd></div>
+            <div class="shortcut-desc">History tab</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>?</kbd></div>
+            <div class="shortcut-desc">Show shortcuts</div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <!--==================== HEADER ====================-->
-  <header class="header" id="header">
-    <nav class="nav kong-container">
-      <a href="/" class="nav__logo noSelect"></i>SOVANREACH&nbsp;&nbsp;<i
-          class="fa-solid fa-code-branch"></i>&nbsp;&nbsp;TOOLS</a>
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
 
-      <div class="nav__menu" id="nav-menu">
-        <ul class="nav__list grid">
-          <li class="nav__item">
-            <a href="#general" class="nav__link noSelect">
-              <i class="fa-solid fa-screwdriver-wrench nav__icon"></i> General
-            </a>
-          </li>
+  <!-- Keyboard Shortcuts Hint -->
+  <div class="shortcuts-hint" id="shortcutsHint">
+    <span>Press <kbd>?</kbd> for shortcuts</span>
+  </div>
 
-          <li class="nav__item">
-            <a href="#ml_al" class="nav__link noSelect">
-              <i class="fa-solid fa-brain nav__icon"></i> ML/AI
-            </a>
-          </li>
-
-          <li class="nav__item">
-            <a href="/" class="nav__link noSelect active-link">
-              <i class="fa-solid fa-user-secret nav__icon"></i> Dev Profile
-            </a>
-          </li>
-        </ul>
-        <i class="fa-solid fa-xmark nav__close noSelect" id="nav-close"></i>
-      </div>
-
-      <div class="nav__btns">
-        <!-- theme change button -->
-        <i class="fa-solid fa-moon change-theme" id="theme-button"></i>
-
-        <div class="nav__toggle noSelect" id="nav-toggle">
-          <i class="fa-solid fa-bars"></i>
-        </div>
-      </div>
-    </nav>
-  </header>
-
-  <!--==================== TOOLS SECTION ====================-->
-  <section class="section" id="about">
-    <!-- QR Code Tool Header -->
-    <div class="qr-tool-header">
-      <h1>QR Code Generator & Scanner</h1>
-      <p>Create, customize, scan, and manage QR codes with this comprehensive tool</p>
-    </div>
-
-    <!-- QR Code Tool Tab Selection -->
-    <div class="qr-tab-navigation">
-      <div class="qr-tab-container">
-        <!-- Generate Feature Tab -->
-        <div class="qr-tab-item" id="generateTab">
-          <div class="qr-tab-icon">
-            <i class="fas fa-qrcode"></i>
-          </div>
-          <span class="qr-tab-label">Generate</span>
-        </div>
-
-        <!-- Scan Feature Tab -->
-        <div class="qr-tab-item" id="scanTab">
-          <div class="qr-tab-icon">
-            <i class="fas fa-camera"></i>
-          </div>
-          <span class="qr-tab-label">Scan</span>
-        </div>
-
-        <!-- Bulk Feature Tab -->
-        <div class="qr-tab-item" id="bulkTab">
-          <div class="qr-tab-icon">
-            <i class="fas fa-layer-group"></i>
-          </div>
-          <span class="qr-tab-label">Bulk</span>
-        </div>
-
-        <!-- History Feature Tab -->
-        <div class="qr-tab-item" id="historyTab">
-          <div class="qr-tab-icon">
-            <i class="fas fa-history"></i>
-          </div>
-          <span class="qr-tab-label">History</span>
-        </div>
-      </div>
-      
-      <!-- Feature descriptions that show on active tab -->
-      <div class="qr-tab-descriptions">
-        <div class="qr-tab-description active" id="generateDescription">
-          <h3>Generate QR Code</h3>
-          <p>Create customized QR codes for URLs, text, contact info, WiFi, and more</p>
-        </div>
-        <div class="qr-tab-description" id="scanDescription">
-          <h3>Scan QR Code</h3>
-          <p>Upload an image containing a QR code to extract the information</p>
-        </div>
-        <div class="qr-tab-description" id="bulkDescription">
-          <h3>Bulk Generation</h3>
-          <p>Generate multiple QR codes at once using a CSV file</p>
-        </div>
-        <div class="qr-tab-description" id="historyDescription">
-          <h3>QR Code History</h3>
-          <p>Access, manage, and reuse your previously generated QR codes</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- QR Tool Content Area (dynamically populated) -->
-    <div class="qr-tool-content" id="qrToolContent">
-      <!-- Content will be dynamically inserted here -->
-      <div class="qr-start-message">
-        <i class="fas fa-qrcode"></i>
-        <p>Ready to use QR code tools</p>
-      </div>
-    </div>
-    
-    <!-- QR Code Templates (Hidden) -->
-    <!-- Generate Template -->
-    <template id="generateTemplate">
-      <div class="qr-generate-container">
-        <div class="qr-back-link">
-          <a href="#generate" id="backFromGenerate"><i class="fas fa-redo"></i> Reset Generate Options</a>
-        </div>
-        <div class="qr-generate-header">
-          <h2>Create QR Code</h2>
-          <p>Customize your QR code with various options</p>
-        </div>
-        
-        <div class="qr-generate-content">
-          <div class="qr-input-panel">
-            <div class="qr-type-select">
-              <label for="qrType">QR Code Type</label>
-              <select id="qrType">
-                <option value="text">Text</option>
-                <option value="url" selected>URL</option>
-                <option value="email">Email</option>
-                <option value="phone">Phone</option>
-                <option value="sms">SMS</option>
-                <option value="vcard">vCard Contact</option>
-                <option value="wifi">Wi-Fi</option>
-                <option value="geo">Location</option>
-                <option value="calendar">Calendar Event</option>
-              </select>
-            </div>
-            
-            <!-- Dynamic content field will be updated based on QR Type -->
-            <div id="dynamicFields" class="qr-dynamic-fields">
-              <!-- Default is URL -->
-              <div class="qr-field-group">
-                <label for="urlInput">Website URL</label>
-                <input type="url" id="urlInput" placeholder="https://example.com" value="https://kvsovanreach.github.io">
-                <small>Enter the full URL including http:// or https://</small>
-              </div>
-            </div>
-            
-            <div class="qr-tabs">
-              <div class="qr-tab-header">
-                <button class="qr-tab-btn active" data-tab="design">Design</button>
-                <button class="qr-tab-btn" data-tab="security">Security</button>
-              </div>
-              <div class="qr-tab-content">
-                <div class="qr-tab-pane active" id="designTab">
-                  <div class="qr-design-options">
-                    <div class="qr-field-group qr-color-fields">
-                      <div>
-                        <label for="fgColor">Foreground Color</label>
-                        <input type="color" id="fgColor" value="#000000">
-                      </div>
-                      <div>
-                        <label for="bgColor">Background Color</label>
-                        <input type="color" id="bgColor" value="#ffffff">
-                      </div>
-                    </div>
-                    <div class="qr-field-group">
-                      <label for="errorCorrectionLevel">Error Correction Level</label>
-                      <select id="errorCorrectionLevel">
-                        <option value="L">Low (7%)</option>
-                        <option value="M" selected>Medium (15%)</option>
-                        <option value="Q">Quartile (25%)</option>
-                        <option value="H">High (30%)</option>
-                      </select>
-                      <small>Higher correction allows more damage to QR code</small>
-                    </div>
-                    <div class="qr-field-group">
-                      <label for="qrSize">QR Code Size</label>
-                      <select id="qrSize">
-                        <option value="128">Small (128x128)</option>
-                        <option value="256" selected>Medium (256x256)</option>
-                        <option value="512">Large (512x512)</option>
-                        <option value="1024">X-Large (1024x1024)</option>
-                      </select>
-                    </div>
-                    <div class="qr-field-group">
-                      <label for="qrLogo">Add Logo (Optional)</label>
-                      <div class="qr-file-input">
-                        <input type="file" id="qrLogo" accept="image/*" class="qr-file-input-field">
-                        <label for="qrLogo" class="qr-file-input-label">
-                          <i class="fas fa-upload"></i>
-                          <span class="qr-file-input-text">Choose Image</span>
-                        </label>
-                        <div class="qr-selected-file" id="qrLogoFileName"></div>
-                      </div>
-                      <small>Recommended: use transparent PNG files</small>
-                    </div>
-                    <div class="qr-field-group" id="logoSizeGroup" style="display: none;">
-                      <label for="logoSize">Logo Size (%)</label>
-                      <input type="range" id="logoSize" min="5" max="30" value="15">
-                      <span id="logoSizeValue">15%</span>
-                    </div>
-                  </div>
-                </div>
-                <div class="qr-tab-pane" id="securityTab">
-                  <div class="qr-field-group qr-checkbox-group">
-                    <input type="checkbox" id="securityScan">
-                    <label for="securityScan">Scan for malicious content</label>
-                    <small>Checks if the QR code contains potentially harmful content</small>
-                  </div>
-                  <div class="qr-field-group qr-checkbox-group">
-                    <input type="checkbox" id="enableEncryption">
-                    <label for="enableEncryption">Password protection</label>
-                    <small>Encrypt the QR code data with a password</small>
-                  </div>
-                  <div class="qr-field-group" id="encryptionPasswordGroup" style="display: none;">
-                    <label for="encryptionPassword">Password</label>
-                    <input type="password" id="encryptionPassword" placeholder="Enter password">
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-            <div class="qr-action-buttons">
-              <button id="generateQrBtn" class="qr-primary-btn">Generate QR Code</button>
-              <button id="resetFormBtn" class="qr-secondary-btn">Reset</button>
-            </div>
-          </div>
-          
-          <div class="qr-result-panel">
-            <div class="qr-preview">
-              <h3>QR Code Preview</h3>
-              <div id="qrPreview" class="qr-preview-box">
-                <div class="qr-placeholder">
-                  <i class="fas fa-qrcode"></i>
-                  <p>Your QR code will appear here</p>
-                </div>
-              </div>
-              <div id="qrDataPreview" class="qr-data-preview">
-                <p>No data encoded yet</p>
-              </div>
-            </div>
-            
-            <div class="qr-download-options" style="display: none;">
-              <h3>Download Options</h3>
-              <div class="qr-download-buttons">
-                <button id="downloadPng" class="qr-download-btn">
-                  <i class="fas fa-file-image"></i> PNG
-                </button>
-                <button id="downloadJpg" class="qr-download-btn">
-                  <i class="fas fa-file-image"></i> JPG
-                </button>
-                <button id="downloadSvg" class="qr-download-btn">
-                  <i class="fas fa-file-code"></i> SVG
-                </button>
-                <button id="downloadPdf" class="qr-download-btn">
-                  <i class="fas fa-file-pdf"></i> PDF
-                </button>
-              </div>
-              <button id="saveToHistoryBtn" class="qr-primary-btn">
-                <i class="fas fa-save"></i> Save to History
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </template>
-    
-    <!-- Scan Template -->
-    <template id="scanTemplate">
-      <div class="qr-scan-container">
-        <div class="qr-back-link">
-          <a href="#scan" id="backFromScan"><i class="fas fa-redo"></i> Reset Scan Options</a>
-        </div>
-        <div class="qr-scan-header">
-          <h2>Scan QR Code</h2>
-          <p>Upload an image containing a QR code to extract the data</p>
-        </div>
-        
-        <div class="qr-scan-content">
-          <div class="qr-upload-area">
-            <div class="qr-dropzone" id="qrDropzone">
-              <i class="fas fa-cloud-upload-alt"></i>
-              <p>Drag & drop a QR code image or click to browse</p>
-              <small>Supports PNG, JPG, GIF, SVG files</small>
-              <input type="file" id="qrImageInput" accept="image/*" hidden>
-            </div>
-            <button id="scanQrBtn" class="qr-primary-btn">
-              <i class="fas fa-search"></i> Scan QR Code
-            </button>
-          </div>
-          
-          <div class="qr-scan-result" style="display: none;">
-            <h3>Scan Result</h3>
-            <div class="qr-scan-result-container">
-              <div class="qr-scan-image-preview">
-                <img id="scannedQrImage" src="#" alt="Scanned QR Code">
-              </div>
-              <div class="qr-scan-data">
-                <div class="qr-field-group">
-                  <label>Detected Content Type</label>
-                  <div id="detectedContentType" class="qr-detected-type">Unknown</div>
-                </div>
-                <div class="qr-field-group">
-                  <label>QR Code Content</label>
-                  <div class="qr-content-display">
-                    <pre id="scannedContent"></pre>
-                  </div>
-                </div>
-                <div class="qr-action-buttons qr-scan-actions">
-                  <button id="copyScannedBtn" class="qr-secondary-btn">
-                    <i class="fas fa-copy"></i> Copy to Clipboard
-                  </button>
-                  <button id="openLinkBtn" class="qr-primary-btn" style="display: none;">
-                    <i class="fas fa-external-link-alt"></i> Open Link
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          <div class="qr-security-warning" style="display: none;">
-            <i class="fas fa-exclamation-triangle"></i>
-            <h4>Security Warning</h4>
-            <p id="securityWarningText">This QR code contains potentially suspicious content.</p>
-          </div>
-        </div>
-      </div>
-    </template>
-    
-    <!-- Bulk Template -->
-    <template id="bulkTemplate">
-      <div class="qr-bulk-container">
-        <div class="qr-back-link">
-          <a href="#bulk" id="backFromBulk"><i class="fas fa-redo"></i> Reset Bulk Options</a>
-        </div>
-        <div class="qr-bulk-header">
-          <h2>Bulk QR Codes</h2>
-          <p>Generate multiple QR codes at once using a CSV file</p>
-        </div>
-        
-        <div class="qr-bulk-content">
-          <div class="qr-bulk-instructions">
-            <h3>How It Works</h3>
-            <ol>
-              <li>Prepare a CSV file with your data (one entry per line)</li>
-              <li>Each row should include: label, content, type (optional)</li>
-              <li>Upload your CSV file below</li>
-              <li>Configure QR code settings</li>
-              <li>Generate and download all codes as a ZIP file</li>
-            </ol>
-            
-            <div class="qr-sample-csv">
-              <h4>Sample CSV Format</h4>
-              <pre>label,content,type
-Website,https://example.com,url
-Contact,John Doe|john@example.com|123456789,vcard
-WiFi,NetworkName|password|WPA,wifi</pre>
-              <a href="#" id="downloadSampleCsv" class="qr-text-btn">
-                <i class="fas fa-download"></i> Download sample CSV
-              </a>
-            </div>
-          </div>
-          
-          <div class="qr-bulk-upload">
-            <div class="qr-field-group">
-              <label for="bulkCsvFile">Upload CSV File</label>
-              <input type="file" id="bulkCsvFile" accept=".csv">
-            </div>
-            
-            <div class="qr-settings-card">
-              <div class="qr-settings-header">
-                <h4><i class="fas fa-cog"></i> Bulk Generation Settings</h4>
-              </div>
-              <div class="qr-settings-content">
-                <div class="qr-settings-row">
-                  <div class="qr-field-group">
-                    <label for="bulkFgColor">Foreground Color</label>
-                    <input type="color" id="bulkFgColor" value="#000000">
-                  </div>
-                  <div class="qr-field-group">
-                    <label for="bulkBgColor">Background Color</label>
-                    <input type="color" id="bulkBgColor" value="#ffffff">
-                  </div>
-                </div>
-                <div class="qr-settings-row">
-                  <div class="qr-field-group">
-                    <label for="bulkErrorCorrectionLevel">Error Correction Level</label>
-                    <select id="bulkErrorCorrectionLevel">
-                      <option value="L">Low (7%)</option>
-                      <option value="M" selected>Medium (15%)</option>
-                      <option value="Q">Quartile (25%)</option>
-                      <option value="H">High (30%)</option>
-                    </select>
-                  </div>
-                  <div class="qr-field-group">
-                    <label for="bulkQrSize">QR Code Size</label>
-                    <select id="bulkQrSize">
-                      <option value="128">Small (128x128)</option>
-                      <option value="256" selected>Medium (256x256)</option>
-                      <option value="512">Large (512x512)</option>
-                      <option value="1024">X-Large (1024x1024)</option>
-                    </select>
-                  </div>
-                </div>
-                <div class="qr-settings-row">
-                  <div class="qr-field-group">
-                    <label for="bulkFormat">Export Format</label>
-                    <select id="bulkFormat">
-                      <option value="png" selected>PNG</option>
-                      <option value="jpg">JPG</option>
-                      <option value="svg">SVG</option>
-                      <option value="pdf">PDF</option>
-                    </select>
-                  </div>
-                  <div class="qr-field-group qr-checkbox-group">
-                    <input type="checkbox" id="includeLabels" checked>
-                    <label for="includeLabels">Include labels in filenames</label>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-            <div id="bulkFilePreview" class="qr-bulk-preview" style="display: none;">
-              <h3>File Preview</h3>
-              <div class="qr-bulk-csv-preview">
-                <table id="csvPreviewTable" class="qr-csv-table">
-                  <thead>
-                    <tr>
-                      <th>Label</th>
-                      <th>Content</th>
-                      <th>Type</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <!-- CSV preview rows will be inserted here -->
-                  </tbody>
-                </table>
-                <div class="qr-preview-pagination">
-                  <span id="previewPagination">Showing 1-5 of 0 entries</span>
-                  <div class="qr-pagination-controls">
-                    <button id="prevPreviewPage" disabled><i class="fas fa-chevron-left"></i></button>
-                    <button id="nextPreviewPage" disabled><i class="fas fa-chevron-right"></i></button>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-            <div class="qr-action-buttons qr-bulk-actions">
-              <button id="generateBulkBtn" class="qr-primary-btn" disabled>
-                <i class="fas fa-qrcode"></i> Generate QR Codes
-              </button>
-              <div id="bulkProgress" class="qr-bulk-progress" style="display: none;">
-                <div class="qr-progress-bar">
-                  <div id="bulkProgressBar" class="qr-progress-fill"></div>
-                </div>
-                <span id="bulkProgressText">Processing 0/0 QR codes...</span>
-              </div>
-              <button id="downloadBulkZip" class="qr-primary-btn" style="display: none;">
-                <i class="fas fa-file-archive"></i> Download ZIP File
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </template>
-    
-    <!-- History Template -->
-    <template id="historyTemplate">
-      <div class="qr-history-container">
-        <div class="qr-back-link">
-          <a href="#history" id="backFromHistory"><i class="fas fa-redo"></i> Reset History Options</a>
-        </div>
-        <div class="qr-history-header">
-          <h2>QR Code History</h2>
-          <p>Access your previously generated QR codes</p>
-        </div>
-        
-        <div class="qr-history-content">
-          <div class="qr-history-controls">
-            <div class="qr-search-box">
-              <input type="text" id="historySearch" placeholder="Search QR codes...">
-              <i class="fas fa-search"></i>
-            </div>
-            <div class="qr-filter-options">
-              <select id="historyTypeFilter">
-                <option value="all">All Types</option>
-                <option value="url">URLs</option>
-                <option value="text">Text</option>
-                <option value="email">Email</option>
-                <option value="phone">Phone</option>
-                <option value="vcard">vCard</option>
-                <option value="wifi">Wi-Fi</option>
-                <option value="other">Other</option>
-              </select>
-              <select id="historySortOrder">
-                <option value="newest">Newest First</option>
-                <option value="oldest">Oldest First</option>
-                <option value="nameAsc">Name (A-Z)</option>
-                <option value="nameDesc">Name (Z-A)</option>
-              </select>
-            </div>
-            <button id="clearHistoryBtn" class="qr-danger-btn">
-              <i class="fas fa-trash"></i> Clear All
-            </button>
-          </div>
-          
-          <div id="historyDisplay" class="qr-history-grid">
-            <!-- History items will be dynamically inserted here -->
-            <div class="qr-history-empty">
-              <i class="fas fa-history"></i>
-              <p>No saved QR codes found</p>
-              <p class="qr-empty-hint">Generate and save QR codes to see them here</p>
-            </div>
-          </div>
-          
-          <div id="historyPagination" class="qr-pagination" style="display: none;">
-            <button id="prevHistoryPage" class="qr-page-btn" disabled>
-              <i class="fas fa-chevron-left"></i> Previous
-            </button>
-            <div id="historyPageIndicator">Page 1 of 1</div>
-            <button id="nextHistoryPage" class="qr-page-btn" disabled>
-              Next <i class="fas fa-chevron-right"></i>
-            </button>
-          </div>
-        </div>
-        
-        <!-- QR Code Details Modal -->
-        <div id="historyModal" class="qr-modal">
-          <div class="qr-modal-content">
-            <span class="qr-close-modal">&times;</span>
-            <div class="qr-modal-header">
-              <h3 id="modalQrName">QR Code Details</h3>
-              <span id="modalQrDate" class="qr-date-created">Created on: N/A</span>
-            </div>
-            <div class="qr-modal-body">
-              <div class="qr-modal-qr-display">
-                <img id="modalQrImage" src="#" alt="QR Code">
-              </div>
-              <div class="qr-modal-details">
-                <div class="qr-detail-item">
-                  <span class="qr-detail-label">Type:</span>
-                  <span id="modalQrType" class="qr-detail-value">URL</span>
-                </div>
-                <div class="qr-detail-item">
-                  <span class="qr-detail-label">Content:</span>
-                  <div id="modalQrContent" class="qr-detail-value qr-content-display">
-                    <pre>https://example.com</pre>
-                  </div>
-                </div>
-                <div class="qr-detail-item">
-                  <span class="qr-detail-label">Settings:</span>
-                  <div id="modalQrSettings" class="qr-detail-value">
-                    Size: 256x256, Error correction: Medium
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="qr-modal-footer">
-              <button id="modalReuseBtn" class="qr-secondary-btn">
-                <i class="fas fa-edit"></i> Reuse & Edit
-              </button>
-              <button id="modalDownloadBtn" class="qr-primary-btn">
-                <i class="fas fa-download"></i> Download
-              </button>
-              <button id="modalDeleteBtn" class="qr-danger-btn">
-                <i class="fas fa-trash"></i> Delete
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </template>
-  </section>
-
-  <!--==================== SCROLL TOP ====================-->
-  <a href="#" class="scrollup" id="scroll-up">
-    <i class="fa-solid fa-arrow-up scrollup__icon"></i>
-  </a>
-
-  <!--==================== MAIN JS ====================-->
-  <script src="/assets/js/main.js"></script>
-  
-  <!-- QR Code Libraries -->
-  <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.1/build/qrcode.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/file-saver@2.0.5/dist/FileSaver.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
-  
-  <!-- CSV and other utilities -->
-  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.3.2/papaparse.min.js"></script>
-  
-  <!-- Custom Scripts -->
-  <script src="js/qrcode-ui.js"></script>
-  <script src="js/qrcode-generator.js"></script>
-  <script src="js/qrcode-scanner.js"></script>
-  <script src="js/qrcode-bulk.js"></script>
-  <script src="js/qrcode-history.js"></script>
-  <script src="js/qrcode-main.js"></script>
-
-  <!-- ===================== SHOW/HIDE LOADER ==================== -->
-  <script>
-    window.onload = function () {
-      document.getElementById("loading").style.display = "none";
-    };
-  </script>
-
-  <!-- =====================REGISTER SERVICE WORKER================ -->
-  <script>
-    if (navigator && navigator.serviceWorker) {
-      window.addEventListener("load", function () {
-        navigator.serviceWorker
-          .register("/serviceWorker.js")
-          .then((res) => console.log("service worker registered"))
-          .catch((err) => console.log("service worker not registered", err));
-      });
-    }
-  </script>
+  <!-- Shared Tools JavaScript -->
+  <script src="../../js/tools-common.js"></script>
+  <!-- QR Code JavaScript -->
+  <script src="qrcode.js"></script>
 </body>
-
 </html>
