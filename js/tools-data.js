@@ -1,6 +1,11 @@
 /**
  * Tools Data
  * JSON-based metadata for all tools
+ *
+ * Status options:
+ * - "active": Tool is shown on tools.html and fully functional (clickable)
+ * - "inactive": Tool is hidden from tools.html completely
+ * - "inactive": Tool is shown on tools.html but disabled with "Coming Soon" badge
  */
 
 const toolsData = [
@@ -11,9 +16,9 @@ const toolsData = [
     description: "A powerful calculator with scientific functions, unit conversion, and calculation history.",
     category: "general",
     icon: "fa-solid fa-calculator",
-    url: "/v2/tools/calculator/",
+    url: "/tools/calculator/",
     tags: ["math", "calculate", "scientific", "convert", "unit", "numbers"],
-    status: "active"
+    status: "inactive"
   },
   {
     id: "colorpicker",
@@ -21,7 +26,7 @@ const toolsData = [
     description: "Create color palettes, extract colors from images, and check color accessibility.",
     category: "general",
     icon: "fa-solid fa-palette",
-    url: "/v2/tools/colorpicker/",
+    url: "/tools/colorpicker/",
     tags: ["color", "palette", "design", "hex", "rgb", "hsl", "accessibility"],
     status: "active"
   },
@@ -31,9 +36,9 @@ const toolsData = [
     description: "Generate, scan, and manage QR codes with customization options and batch processing.",
     category: "general",
     icon: "fa-solid fa-qrcode",
-    url: "/v2/tools/qrcode/",
+    url: "/tools/qrcode/",
     tags: ["qr", "barcode", "scan", "generate", "link"],
-    status: "active"
+    status: "inactive"
   },
   {
     id: "luckydraw",
@@ -41,9 +46,9 @@ const toolsData = [
     description: "Create custom spinning wheels for random selection, giveaways, and decision making.",
     category: "general",
     icon: "fa-solid fa-dharmachakra",
-    url: "/v2/tools/luckydraw/",
+    url: "/tools/luckydraw/",
     tags: ["wheel", "spin", "random", "picker", "lottery", "giveaway"],
-    status: "active"
+    status: "inactive"
   },
   {
     id: "password-generator",
@@ -51,9 +56,9 @@ const toolsData = [
     description: "Generate secure, random passwords with customizable length and character options.",
     category: "general",
     icon: "fa-solid fa-key",
-    url: "/v2/tools/password/",
+    url: "/tools/password/",
     tags: ["password", "security", "generate", "random", "strong"],
-    status: "active"
+    status: "inactive"
   },
   {
     id: "timer-stopwatch",
@@ -61,9 +66,9 @@ const toolsData = [
     description: "Track time with countdown timers, stopwatch, and lap recording features.",
     category: "general",
     icon: "fa-solid fa-stopwatch",
-    url: "/v2/tools/timer/",
+    url: "/tools/timer/",
     tags: ["timer", "stopwatch", "countdown", "time", "clock"],
-    status: "active"
+    status: "inactive"
   },
   {
     id: "notes",
@@ -71,9 +76,9 @@ const toolsData = [
     description: "Take quick notes with markdown support and local storage persistence.",
     category: "general",
     icon: "fa-solid fa-note-sticky",
-    url: "/v2/tools/quicknote/",
+    url: "/tools/quicknote/",
     tags: ["notes", "markdown", "text", "write", "memo"],
-    status: "active"
+    status: "inactive"
   },
   {
     id: "unit-converter",
@@ -81,9 +86,9 @@ const toolsData = [
     description: "Convert between various units of measurement including length, weight, and temperature.",
     category: "general",
     icon: "fa-solid fa-arrows-rotate",
-    url: "/v2/tools/unitconverter/",
+    url: "/tools/unitconverter/",
     tags: ["convert", "unit", "length", "weight", "temperature", "measurement"],
-    status: "active"
+    status: "inactive"
   },
   {
     id: "image-compressor",
@@ -91,9 +96,9 @@ const toolsData = [
     description: "Compress and optimize images while maintaining quality for faster web loading.",
     category: "general",
     icon: "fa-solid fa-file-zipper",
-    url: "/v2/tools/image/",
+    url: "/tools/image/",
     tags: ["image", "compress", "optimize", "resize", "photo"],
-    status: "active"
+    status: "inactive"
   },
   {
     id: "text-cleaner",
@@ -101,9 +106,9 @@ const toolsData = [
     description: "Clean and transform text with operations like removing duplicates, sorting, and case conversion.",
     category: "general",
     icon: "fa-solid fa-broom",
-    url: "/v2/tools/textcleaner/",
+    url: "/tools/textcleaner/",
     tags: ["text", "clean", "sort", "duplicate", "trim", "case", "transform"],
-    status: "active"
+    status: "inactive"
   },
   {
     id: "emoji-picker",
@@ -111,9 +116,9 @@ const toolsData = [
     description: "Search and copy emojis with categories, skin tone variants, and recent history.",
     category: "general",
     icon: "fa-solid fa-face-smile",
-    url: "/v2/tools/emoji/",
+    url: "/tools/emoji/",
     tags: ["emoji", "emoticon", "smiley", "copy", "unicode", "symbol"],
-    status: "active"
+    status: "inactive"
   },
   {
     id: "checklist-maker",
@@ -121,9 +126,9 @@ const toolsData = [
     description: "Create, manage, and export checklists with drag-and-drop reordering and local storage.",
     category: "general",
     icon: "fa-solid fa-list-check",
-    url: "/v2/tools/checklist/",
+    url: "/tools/checklist/",
     tags: ["checklist", "todo", "task", "list", "organize", "productivity"],
-    status: "active"
+    status: "inactive"
   },
   {
     id: "case-converter",
@@ -131,9 +136,9 @@ const toolsData = [
     description: "Convert text between different cases: uppercase, lowercase, title case, camelCase, and more.",
     category: "general",
     icon: "fa-solid fa-font",
-    url: "/v2/tools/caseconverter/",
+    url: "/tools/caseconverter/",
     tags: ["case", "convert", "uppercase", "lowercase", "camel", "snake", "title"],
-    status: "active"
+    status: "inactive"
   },
   {
     id: "morse-code",
@@ -141,9 +146,9 @@ const toolsData = [
     description: "Encode and decode Morse code with audio playback and visual representation.",
     category: "general",
     icon: "fa-solid fa-signal",
-    url: "/v2/tools/morse/",
+    url: "/tools/morse/",
     tags: ["morse", "code", "encode", "decode", "audio", "signal"],
-    status: "active"
+    status: "inactive"
   },
   {
     id: "lorem-ipsum",
@@ -151,9 +156,9 @@ const toolsData = [
     description: "Generate placeholder text in paragraphs, sentences, or words with various styles.",
     category: "general",
     icon: "fa-solid fa-paragraph",
-    url: "/v2/tools/loremipsum/",
+    url: "/tools/loremipsum/",
     tags: ["lorem", "ipsum", "placeholder", "text", "generate", "dummy"],
-    status: "active"
+    status: "inactive"
   },
   {
     id: "browser-info",
@@ -161,9 +166,9 @@ const toolsData = [
     description: "View detailed information about your browser, device, screen, and network.",
     category: "general",
     icon: "fa-solid fa-globe",
-    url: "/v2/tools/browserinfo/",
+    url: "/tools/browserinfo/",
     tags: ["browser", "info", "device", "screen", "network", "user-agent"],
-    status: "active"
+    status: "inactive"
   },
   {
     id: "whitespace-stripper",
@@ -171,9 +176,9 @@ const toolsData = [
     description: "Remove extra whitespace, trim lines, and clean up text formatting.",
     category: "general",
     icon: "fa-solid fa-eraser",
-    url: "/v2/tools/whitespace/",
+    url: "/tools/whitespace/",
     tags: ["whitespace", "strip", "trim", "clean", "space", "text"],
-    status: "active"
+    status: "inactive"
   },
   {
     id: "bmi-calculator",
@@ -181,9 +186,9 @@ const toolsData = [
     description: "Calculate Body Mass Index with health recommendations and weight categories.",
     category: "general",
     icon: "fa-solid fa-weight-scale",
-    url: "/v2/tools/bmi/",
+    url: "/tools/bmi/",
     tags: ["bmi", "body", "mass", "index", "health", "weight", "calculator"],
-    status: "active"
+    status: "inactive"
   },
   {
     id: "days-between",
@@ -191,9 +196,9 @@ const toolsData = [
     description: "Calculate the number of days, weeks, months, and years between two dates.",
     category: "general",
     icon: "fa-solid fa-calendar-days",
-    url: "/v2/tools/datesbetween/",
+    url: "/tools/datesbetween/",
     tags: ["days", "between", "dates", "calendar", "difference", "calculate"],
-    status: "active"
+    status: "inactive"
   },
   {
     id: "time-since",
@@ -201,9 +206,9 @@ const toolsData = [
     description: "Calculate how much time has passed since or until a specific date with live updates.",
     category: "general",
     icon: "fa-solid fa-hourglass-half",
-    url: "/v2/tools/timesince/",
+    url: "/tools/timesince/",
     tags: ["time", "since", "until", "countdown", "elapsed", "date", "calculator"],
-    status: "active"
+    status: "inactive"
   },
   {
     id: "word-cloud",
@@ -211,9 +216,9 @@ const toolsData = [
     description: "Generate beautiful word clouds from text with customizable colors and layouts.",
     category: "general",
     icon: "fa-solid fa-cloud",
-    url: "/v2/tools/wordcloud/",
+    url: "/tools/wordcloud/",
     tags: ["word", "cloud", "generate", "visualize", "frequency", "text"],
-    status: "active"
+    status: "inactive"
   },
   {
     id: "alphabetizer",
@@ -221,9 +226,9 @@ const toolsData = [
     description: "Sort lists alphabetically A-Z, Z-A, by length, remove duplicates, and customize separators.",
     category: "general",
     icon: "fa-solid fa-arrow-down-a-z",
-    url: "/v2/tools/alphabetizer/",
+    url: "/tools/alphabetizer/",
     tags: ["sort", "alphabetize", "list", "order", "organize", "text"],
-    status: "active"
+    status: "inactive"
   },
   {
     id: "reverse-text",
@@ -231,9 +236,9 @@ const toolsData = [
     description: "Reverse text by characters, words, or lines. Create mirror text and upside-down text.",
     category: "general",
     icon: "fa-solid fa-repeat",
-    url: "/v2/tools/reversetext/",
+    url: "/tools/reversetext/",
     tags: ["reverse", "text", "mirror", "flip", "backwards", "upside-down"],
-    status: "active"
+    status: "inactive"
   },
   {
     id: "smart-quote",
@@ -241,9 +246,9 @@ const toolsData = [
     description: "Convert straight quotes to curly quotes, fix apostrophes, em dashes, and ellipsis.",
     category: "general",
     icon: "fa-solid fa-quote-left",
-    url: "/v2/tools/smartquote/",
+    url: "/tools/smartquote/",
     tags: ["quote", "typography", "curly", "apostrophe", "dash", "ellipsis"],
-    status: "active"
+    status: "inactive"
   },
   {
     id: "aspect-ratio",
@@ -251,9 +256,9 @@ const toolsData = [
     description: "Calculate and visualize aspect ratios. Compare common ratios like 16:9, 4:3, and 1:1.",
     category: "general",
     icon: "fa-solid fa-crop",
-    url: "/v2/tools/aspectratio/",
+    url: "/tools/aspectratio/",
     tags: ["aspect", "ratio", "dimension", "width", "height", "video", "image"],
-    status: "active"
+    status: "inactive"
   },
   {
     id: "grayscale-tester",
@@ -261,9 +266,9 @@ const toolsData = [
     description: "Test images in grayscale to check contrast and accessibility.",
     category: "general",
     icon: "fa-solid fa-circle-half-stroke",
-    url: "/v2/tools/grayscale/",
+    url: "/tools/grayscale/",
     tags: ["grayscale", "image", "contrast", "accessibility", "black", "white"],
-    status: "active"
+    status: "inactive"
   },
   {
     id: "discount-calculator",
@@ -271,9 +276,9 @@ const toolsData = [
     description: "Calculate discounted prices, savings, and final amounts with optional tax.",
     category: "general",
     icon: "fa-solid fa-percent",
-    url: "/v2/tools/discount/",
+    url: "/tools/discount/",
     tags: ["discount", "price", "sale", "percent", "savings", "calculator"],
-    status: "active"
+    status: "inactive"
   },
   {
     id: "duration-adder",
@@ -281,9 +286,9 @@ const toolsData = [
     description: "Add and subtract time durations in hours, minutes, and seconds format.",
     category: "general",
     icon: "fa-solid fa-hourglass",
-    url: "/v2/tools/duration/",
+    url: "/tools/duration/",
     tags: ["time", "duration", "add", "subtract", "hours", "minutes", "seconds"],
-    status: "active"
+    status: "inactive"
   },
   {
     id: "percent-change",
@@ -291,9 +296,9 @@ const toolsData = [
     description: "Calculate percentage increase or decrease between two values.",
     category: "general",
     icon: "fa-solid fa-chart-line",
-    url: "/v2/tools/percentchange/",
+    url: "/tools/percentchange/",
     tags: ["percent", "change", "increase", "decrease", "difference", "calculator"],
-    status: "active"
+    status: "inactive"
   },
   {
     id: "interest-calculator",
@@ -301,9 +306,9 @@ const toolsData = [
     description: "Calculate simple interest on principal amount over time.",
     category: "general",
     icon: "fa-solid fa-coins",
-    url: "/v2/tools/interest/",
+    url: "/tools/interest/",
     tags: ["interest", "simple", "principal", "rate", "time", "finance", "calculator"],
-    status: "active"
+    status: "inactive"
   },
   {
     id: "roman-numeral",
@@ -311,9 +316,9 @@ const toolsData = [
     description: "Convert between Roman numerals and Arabic numbers (1-3999).",
     category: "general",
     icon: "fa-solid fa-landmark",
-    url: "/v2/tools/romannumeral/",
+    url: "/tools/romannumeral/",
     tags: ["roman", "numeral", "convert", "number", "arabic", "ancient"],
-    status: "active"
+    status: "inactive"
   },
   {
     id: "hydration-log",
@@ -321,9 +326,9 @@ const toolsData = [
     description: "Track daily water intake with visual progress and customizable goals.",
     category: "general",
     icon: "fa-solid fa-droplet",
-    url: "/v2/tools/hydration/",
+    url: "/tools/hydration/",
     tags: ["water", "hydration", "drink", "health", "tracker", "daily"],
-    status: "active"
+    status: "inactive"
   },
   {
     id: "dead-pixel-test",
@@ -331,9 +336,9 @@ const toolsData = [
     description: "Test your monitor for dead or stuck pixels with fullscreen color cycling.",
     category: "general",
     icon: "fa-solid fa-display",
-    url: "/v2/tools/deadpixel/",
+    url: "/tools/deadpixel/",
     tags: ["pixel", "dead", "stuck", "monitor", "screen", "test", "display"],
-    status: "active"
+    status: "inactive"
   },
   {
     id: "coin-toss",
@@ -341,9 +346,9 @@ const toolsData = [
     description: "Virtual coin flip with 3D animation, statistics, and history tracking.",
     category: "general",
     icon: "fa-solid fa-coins",
-    url: "/v2/tools/cointoss/",
+    url: "/tools/cointoss/",
     tags: ["coin", "flip", "toss", "random", "heads", "tails", "decision"],
-    status: "active"
+    status: "inactive"
   },
   {
     id: "pali-glossary",
@@ -351,9 +356,9 @@ const toolsData = [
     description: "Buddhist terminology reference with Pali-English translations and definitions.",
     category: "general",
     icon: "fa-solid fa-om",
-    url: "/v2/tools/paliglossary/",
+    url: "/tools/paliglossary/",
     tags: ["pali", "buddhist", "glossary", "terminology", "dharma", "meditation"],
-    status: "active"
+    status: "inactive"
   },
   {
     id: "prime-checker",
@@ -361,9 +366,9 @@ const toolsData = [
     description: "Check if a number is prime, find factors, and get step-by-step explanations.",
     category: "general",
     icon: "fa-solid fa-hashtag",
-    url: "/v2/tools/primechecker/",
+    url: "/tools/primechecker/",
     tags: ["prime", "number", "math", "factors", "divisibility", "check"],
-    status: "active"
+    status: "inactive"
   },
   {
     id: "stopword-remover",
@@ -371,9 +376,9 @@ const toolsData = [
     description: "Remove common stopwords from text with custom word list support.",
     category: "general",
     icon: "fa-solid fa-filter",
-    url: "/v2/tools/stopword/",
+    url: "/tools/stopword/",
     tags: ["stopword", "text", "filter", "remove", "nlp", "clean"],
-    status: "active"
+    status: "inactive"
   },
   {
     id: "random-generator",
@@ -381,9 +386,9 @@ const toolsData = [
     description: "Generate crypto-secure random numbers with advanced options and statistics.",
     category: "general",
     icon: "fa-solid fa-shuffle",
-    url: "/v2/tools/randomgen/",
+    url: "/tools/randomgen/",
     tags: ["random", "number", "generate", "dice", "lottery", "crypto"],
-    status: "active"
+    status: "inactive"
   },
   {
     id: "glassmorphism",
@@ -391,9 +396,9 @@ const toolsData = [
     description: "Create glassmorphism UI effects with live preview and CSS code output.",
     category: "general",
     icon: "fa-solid fa-window-restore",
-    url: "/v2/tools/glassmorphism/",
+    url: "/tools/glassmorphism/",
     tags: ["glass", "morphism", "ui", "css", "design", "blur", "transparent"],
-    status: "active"
+    status: "inactive"
   },
 
   // ==================== DEVELOPER TOOLS ====================
@@ -403,9 +408,9 @@ const toolsData = [
     description: "Encode and decode text with Base64, URL encoding, hash functions, and JWT decoder.",
     category: "developer",
     icon: "fa-solid fa-code",
-    url: "/v2/tools/encoder/",
+    url: "/tools/encoder/",
     tags: ["encode", "decode", "base64", "url", "hash", "jwt", "md5", "sha"],
-    status: "active"
+    status: "inactive"
   },
   {
     id: "json-formatter",
@@ -413,9 +418,9 @@ const toolsData = [
     description: "Format, validate, and beautify JSON data with syntax highlighting.",
     category: "developer",
     icon: "fa-solid fa-file-code",
-    url: "/v2/tools/json/",
+    url: "/tools/json/",
     tags: ["json", "format", "validate", "beautify", "data"],
-    status: "active"
+    status: "inactive"
   },
   {
     id: "regex-tester",
@@ -423,9 +428,9 @@ const toolsData = [
     description: "Test and debug regular expressions with real-time matching and explanation.",
     category: "developer",
     icon: "fa-solid fa-asterisk",
-    url: "/v2/tools/regex/",
+    url: "/tools/regex/",
     tags: ["regex", "regular", "expression", "pattern", "match", "test"],
-    status: "active"
+    status: "inactive"
   },
   {
     id: "uuid-generator",
@@ -433,9 +438,9 @@ const toolsData = [
     description: "Generate unique identifiers in various formats including UUID v1, v4, and v7.",
     category: "developer",
     icon: "fa-solid fa-fingerprint",
-    url: "/v2/tools/uuid/",
+    url: "/tools/uuid/",
     tags: ["uuid", "guid", "unique", "identifier", "generate"],
-    status: "active"
+    status: "inactive"
   },
   {
     id: "diff-checker",
@@ -443,9 +448,9 @@ const toolsData = [
     description: "Compare two texts and highlight differences with side-by-side view.",
     category: "developer",
     icon: "fa-solid fa-code-compare",
-    url: "/v2/tools/diff/",
+    url: "/tools/diff/",
     tags: ["diff", "compare", "text", "difference", "merge"],
-    status: "active"
+    status: "inactive"
   },
   {
     id: "markdown-editor",
@@ -453,9 +458,9 @@ const toolsData = [
     description: "Write and preview markdown with live rendering and export options.",
     category: "developer",
     icon: "fa-brands fa-markdown",
-    url: "/v2/tools/markdown/",
+    url: "/tools/markdown/",
     tags: ["markdown", "editor", "preview", "write", "document"],
-    status: "active"
+    status: "inactive"
   },
   {
     id: "cron-parser",
@@ -463,9 +468,9 @@ const toolsData = [
     description: "Parse and generate cron expressions with human-readable explanations.",
     category: "developer",
     icon: "fa-solid fa-clock",
-    url: "/v2/tools/cron/",
+    url: "/tools/cron/",
     tags: ["cron", "schedule", "parse", "job", "time"],
-    status: "active"
+    status: "inactive"
   },
   {
     id: "css-generator",
@@ -473,9 +478,9 @@ const toolsData = [
     description: "Generate CSS for gradients, shadows, borders, flexbox, and grid layouts with live preview.",
     category: "developer",
     icon: "fa-brands fa-css3-alt",
-    url: "/v2/tools/css/",
+    url: "/tools/css/",
     tags: ["css", "gradient", "shadow", "border", "flexbox", "grid", "generator"],
-    status: "active"
+    status: "inactive"
   },
   {
     id: "code-formatter",
@@ -483,9 +488,9 @@ const toolsData = [
     description: "Beautify and minify HTML, CSS, JavaScript, and JSON code with syntax options.",
     category: "developer",
     icon: "fa-solid fa-wand-magic-sparkles",
-    url: "/v2/tools/formatter/",
+    url: "/tools/formatter/",
     tags: ["format", "beautify", "minify", "html", "css", "javascript", "json", "prettier"],
-    status: "active"
+    status: "inactive"
   },
   {
     id: "favicon-generator",
@@ -493,9 +498,9 @@ const toolsData = [
     description: "Generate favicons from images with multiple sizes, shapes, and download as ICO or PNG package.",
     category: "developer",
     icon: "fa-solid fa-icons",
-    url: "/v2/tools/favicon/",
+    url: "/tools/favicon/",
     tags: ["favicon", "icon", "website", "generate", "ico", "png", "apple-touch"],
-    status: "active"
+    status: "inactive"
   },
   {
     id: "token-counter",
@@ -503,9 +508,9 @@ const toolsData = [
     description: "Count tokens for GPT, Claude, and other LLMs with character and word statistics.",
     category: "developer",
     icon: "fa-solid fa-hashtag",
-    url: "/v2/tools/tokencount/",
+    url: "/tools/tokencount/",
     tags: ["token", "count", "gpt", "claude", "llm", "ai", "openai", "anthropic"],
-    status: "active"
+    status: "inactive"
   },
   {
     id: "json-to-table",
@@ -513,9 +518,9 @@ const toolsData = [
     description: "Convert JSON data to HTML tables with sorting, filtering, and export to CSV.",
     category: "developer",
     icon: "fa-solid fa-table",
-    url: "/v2/tools/jsontable/",
+    url: "/tools/jsontable/",
     tags: ["json", "table", "convert", "csv", "data", "export"],
-    status: "active"
+    status: "inactive"
   },
   {
     id: "unix-timestamp",
@@ -523,9 +528,9 @@ const toolsData = [
     description: "Convert between Unix timestamps and human-readable dates with timezone support.",
     category: "developer",
     icon: "fa-solid fa-clock-rotate-left",
-    url: "/v2/tools/timestamp/",
+    url: "/tools/timestamp/",
     tags: ["unix", "timestamp", "epoch", "date", "time", "convert", "timezone"],
-    status: "active"
+    status: "inactive"
   },
   {
     id: "binary-text",
@@ -533,9 +538,9 @@ const toolsData = [
     description: "Convert between binary, text, hexadecimal, and other number systems.",
     category: "developer",
     icon: "fa-solid fa-arrow-right-arrow-left",
-    url: "/v2/tools/binarytext/",
+    url: "/tools/binarytext/",
     tags: ["binary", "text", "hex", "convert", "decimal", "octal", "ascii"],
-    status: "active"
+    status: "inactive"
   },
   {
     id: "http-status",
@@ -543,9 +548,9 @@ const toolsData = [
     description: "Complete reference for HTTP status codes with descriptions and examples.",
     category: "developer",
     icon: "fa-solid fa-server",
-    url: "/v2/tools/httpstatus/",
+    url: "/tools/httpstatus/",
     tags: ["http", "status", "code", "reference", "api", "web", "error"],
-    status: "active"
+    status: "inactive"
   },
   {
     id: "meta-tag",
@@ -553,9 +558,9 @@ const toolsData = [
     description: "Preview and generate meta tags for SEO with Google, Facebook, Twitter, and LinkedIn previews.",
     category: "developer",
     icon: "fa-solid fa-tags",
-    url: "/v2/tools/metatag/",
+    url: "/tools/metatag/",
     tags: ["meta", "tag", "seo", "preview", "og", "twitter", "social"],
-    status: "active"
+    status: "inactive"
   },
   {
     id: "placeholder-image",
@@ -563,9 +568,9 @@ const toolsData = [
     description: "Generate SVG placeholder images with custom dimensions, colors, and text.",
     category: "developer",
     icon: "fa-solid fa-image",
-    url: "/v2/tools/placeholder/",
+    url: "/tools/placeholder/",
     tags: ["placeholder", "image", "svg", "dummy", "mockup", "generate"],
-    status: "active"
+    status: "inactive"
   },
   {
     id: "font-pairing",
@@ -573,9 +578,9 @@ const toolsData = [
     description: "Test Google Font combinations for headings and body text with live preview.",
     category: "developer",
     icon: "fa-solid fa-font",
-    url: "/v2/tools/fontpair/",
+    url: "/tools/fontpair/",
     tags: ["font", "pairing", "typography", "google", "heading", "body", "design"],
-    status: "active"
+    status: "inactive"
   },
   {
     id: "base-converter",
@@ -583,9 +588,9 @@ const toolsData = [
     description: "Convert between binary, octal, decimal, and hex with step-by-step visualization.",
     category: "developer",
     icon: "fa-solid fa-calculator",
-    url: "/v2/tools/baseconverter/",
+    url: "/tools/baseconverter/",
     tags: ["binary", "octal", "decimal", "hex", "convert", "base", "visualize"],
-    status: "active"
+    status: "inactive"
   },
   {
     id: "matrix-calculator",
@@ -593,9 +598,9 @@ const toolsData = [
     description: "Add, subtract, multiply matrices with transpose, determinant, and inverse operations.",
     category: "developer",
     icon: "fa-solid fa-grip",
-    url: "/v2/tools/matrixcalc/",
+    url: "/tools/matrixcalc/",
     tags: ["matrix", "calculate", "linear", "algebra", "math", "determinant"],
-    status: "active"
+    status: "inactive"
   },
   {
     id: "linear-solver",
@@ -603,9 +608,9 @@ const toolsData = [
     description: "Solve systems of linear equations with 1-3 variables using Gaussian elimination.",
     category: "developer",
     icon: "fa-solid fa-superscript",
-    url: "/v2/tools/linearsolver/",
+    url: "/tools/linearsolver/",
     tags: ["linear", "equation", "solve", "algebra", "math", "system"],
-    status: "active"
+    status: "inactive"
   },
   {
     id: "url-cleaner",
@@ -613,9 +618,9 @@ const toolsData = [
     description: "Remove tracking parameters (utm_*, fbclid, gclid) from URLs for cleaner links.",
     category: "developer",
     icon: "fa-solid fa-link-slash",
-    url: "/v2/tools/urlcleaner/",
+    url: "/tools/urlcleaner/",
     tags: ["url", "clean", "utm", "tracking", "parameter", "privacy"],
-    status: "active"
+    status: "inactive"
   },
   {
     id: "header-generator",
@@ -623,9 +628,9 @@ const toolsData = [
     description: "Generate HTTP security headers (CSP, HSTS, X-Frame-Options) with presets.",
     category: "developer",
     icon: "fa-solid fa-shield-halved",
-    url: "/v2/tools/headergenerator/",
+    url: "/tools/headergenerator/",
     tags: ["http", "header", "security", "csp", "hsts", "cors"],
-    status: "active"
+    status: "inactive"
   },
   {
     id: "cookie-policy",
@@ -633,9 +638,9 @@ const toolsData = [
     description: "Generate GDPR-compliant cookie policies with customizable templates.",
     category: "developer",
     icon: "fa-solid fa-cookie-bite",
-    url: "/v2/tools/cookiepolicy/",
+    url: "/tools/cookiepolicy/",
     tags: ["cookie", "policy", "gdpr", "privacy", "legal", "generator"],
-    status: "active"
+    status: "inactive"
   },
   {
     id: "sentence-length",
@@ -643,9 +648,9 @@ const toolsData = [
     description: "Visualize sentence length distribution in text with charts and statistics.",
     category: "developer",
     icon: "fa-solid fa-chart-simple",
-    url: "/v2/tools/sentencelength/",
+    url: "/tools/sentencelength/",
     tags: ["sentence", "length", "analyze", "text", "distribution", "writing"],
-    status: "active"
+    status: "inactive"
   },
   {
     id: "repetition-heatmap",
@@ -653,9 +658,9 @@ const toolsData = [
     description: "Visualize repeated words and phrases in text using heat colors.",
     category: "developer",
     icon: "fa-solid fa-fire",
-    url: "/v2/tools/repetitionheatmap/",
+    url: "/tools/repetitionheatmap/",
     tags: ["repetition", "heatmap", "words", "phrases", "text", "analysis"],
-    status: "active"
+    status: "inactive"
   },
   {
     id: "api-request-flow",
@@ -663,9 +668,9 @@ const toolsData = [
     description: "Draw and visualize client-side API request sequences with interactive diagrams.",
     category: "developer",
     icon: "fa-solid fa-diagram-project",
-    url: "/v2/tools/apirequestflow/",
+    url: "/tools/apirequestflow/",
     tags: ["api", "request", "flow", "diagram", "sequence", "http"],
-    status: "active"
+    status: "inactive"
   },
   {
     id: "json-schema-viz",
@@ -673,9 +678,9 @@ const toolsData = [
     description: "Convert JSON schemas into expandable visual trees for easy exploration.",
     category: "developer",
     icon: "fa-solid fa-sitemap",
-    url: "/v2/tools/jsonschema/",
+    url: "/tools/jsonschema/",
     tags: ["json", "schema", "visualize", "tree", "structure", "data"],
-    status: "active"
+    status: "inactive"
   },
   {
     id: "http-lifecycle",
@@ -683,9 +688,9 @@ const toolsData = [
     description: "Visualize each stage of an HTTP request flow from DNS to response.",
     category: "developer",
     icon: "fa-solid fa-arrows-spin",
-    url: "/v2/tools/httplifecycle/",
+    url: "/tools/httplifecycle/",
     tags: ["http", "request", "lifecycle", "dns", "tcp", "tls", "response"],
-    status: "active"
+    status: "inactive"
   },
   {
     id: "naming-convention",
@@ -693,9 +698,9 @@ const toolsData = [
     description: "Validate variable and function naming consistency across different conventions.",
     category: "developer",
     icon: "fa-solid fa-spell-check",
-    url: "/v2/tools/namingconvention/",
+    url: "/tools/namingconvention/",
     tags: ["naming", "convention", "camelCase", "snake_case", "validate", "code"],
-    status: "active"
+    status: "inactive"
   },
   {
     id: "file-metadata",
@@ -703,9 +708,9 @@ const toolsData = [
     description: "Inspect file metadata like size, type, and dates directly in the browser.",
     category: "developer",
     icon: "fa-solid fa-file-lines",
-    url: "/v2/tools/filemetadata/",
+    url: "/tools/filemetadata/",
     tags: ["file", "metadata", "inspect", "size", "type", "properties"],
-    status: "active"
+    status: "inactive"
   },
   {
     id: "filename-normalizer",
@@ -713,9 +718,9 @@ const toolsData = [
     description: "Preview and standardize filenames before renaming with custom rules.",
     category: "developer",
     icon: "fa-solid fa-file-signature",
-    url: "/v2/tools/filenamenormalizer/",
+    url: "/tools/filenamenormalizer/",
     tags: ["filename", "normalize", "rename", "batch", "standardize"],
-    status: "active"
+    status: "inactive"
   },
   {
     id: "csv-schema",
@@ -723,9 +728,9 @@ const toolsData = [
     description: "Explore column types, structure, and statistics of CSV files.",
     category: "developer",
     icon: "fa-solid fa-file-csv",
-    url: "/v2/tools/csvschema/",
+    url: "/tools/csvschema/",
     tags: ["csv", "schema", "columns", "data", "explore", "structure"],
-    status: "active"
+    status: "inactive"
   },
   {
     id: "data-structure",
@@ -733,9 +738,9 @@ const toolsData = [
     description: "Interactively visualize stacks, queues, trees, and graphs with operations.",
     category: "developer",
     icon: "fa-solid fa-layer-group",
-    url: "/v2/tools/datastructure/",
+    url: "/tools/datastructure/",
     tags: ["data", "structure", "stack", "queue", "tree", "graph", "visualize"],
-    status: "active"
+    status: "inactive"
   },
   {
     id: "sorting-visualizer",
@@ -743,9 +748,9 @@ const toolsData = [
     description: "Watch how different sorting algorithms rearrange elements over time.",
     category: "developer",
     icon: "fa-solid fa-sort",
-    url: "/v2/tools/sortingvisualizer/",
+    url: "/tools/sortingvisualizer/",
     tags: ["sorting", "algorithm", "bubble", "quick", "merge", "visualize"],
-    status: "active"
+    status: "inactive"
   },
   {
     id: "search-explorer",
@@ -753,9 +758,9 @@ const toolsData = [
     description: "Visualize linear, binary, and graph search processes step by step.",
     category: "developer",
     icon: "fa-solid fa-magnifying-glass-chart",
-    url: "/v2/tools/searchexplorer/",
+    url: "/tools/searchexplorer/",
     tags: ["search", "algorithm", "binary", "linear", "graph", "visualize"],
-    status: "active"
+    status: "inactive"
   },
   {
     id: "graph-traversal",
@@ -763,9 +768,9 @@ const toolsData = [
     description: "Animate DFS, BFS, and shortest-path traversals on interactive graphs.",
     category: "developer",
     icon: "fa-solid fa-share-nodes",
-    url: "/v2/tools/graphtraversal/",
+    url: "/tools/graphtraversal/",
     tags: ["graph", "traversal", "dfs", "bfs", "dijkstra", "algorithm"],
-    status: "active"
+    status: "inactive"
   },
   {
     id: "memory-visualizer",
@@ -773,9 +778,9 @@ const toolsData = [
     description: "Illustrate stack vs heap memory usage with interactive concepts.",
     category: "developer",
     icon: "fa-solid fa-memory",
-    url: "/v2/tools/memoryvisualizer/",
+    url: "/tools/memoryvisualizer/",
     tags: ["memory", "stack", "heap", "allocation", "visualize", "pointer"],
-    status: "active"
+    status: "inactive"
   },
   {
     id: "git-graph",
@@ -783,9 +788,9 @@ const toolsData = [
     description: "Visualize git branches, merges, and commits with interactive graphs.",
     category: "developer",
     icon: "fa-brands fa-git-alt",
-    url: "/v2/tools/gitgraph/",
+    url: "/tools/gitgraph/",
     tags: ["git", "graph", "branch", "merge", "commit", "version-control"],
-    status: "active"
+    status: "inactive"
   },
   {
     id: "protocol-handshake",
@@ -793,9 +798,9 @@ const toolsData = [
     description: "Animate TCP, TLS, and authentication handshake sequences.",
     category: "developer",
     icon: "fa-solid fa-handshake",
-    url: "/v2/tools/protocolhandshake/",
+    url: "/tools/protocolhandshake/",
     tags: ["protocol", "handshake", "tcp", "tls", "ssl", "network"],
-    status: "active"
+    status: "inactive"
   },
   {
     id: "load-balancer",
@@ -803,9 +808,9 @@ const toolsData = [
     description: "Visualize request distribution strategies like round-robin and least connections.",
     category: "developer",
     icon: "fa-solid fa-scale-balanced",
-    url: "/v2/tools/loadbalancer/",
+    url: "/tools/loadbalancer/",
     tags: ["load", "balancer", "distribution", "round-robin", "server", "network"],
-    status: "active"
+    status: "inactive"
   },
 
   // ==================== AI & ML TOOLS ====================
@@ -815,9 +820,9 @@ const toolsData = [
     description: "Visualize sorting algorithms step-by-step with playback controls and statistics.",
     category: "ai",
     icon: "fa-solid fa-chart-bar",
-    url: "/v2/tools/algorithmviz/",
+    url: "/tools/algorithmviz/",
     tags: ["algorithm", "sorting", "visualize", "bubble", "quick", "merge", "heap"],
-    status: "active"
+    status: "inactive"
   },
   {
     id: "bigo-cheatsheet",
@@ -825,9 +830,9 @@ const toolsData = [
     description: "Interactive complexity reference with visual charts and data structure comparisons.",
     category: "ai",
     icon: "fa-solid fa-chart-line",
-    url: "/v2/tools/bigocheat/",
+    url: "/tools/bigocheat/",
     tags: ["bigo", "complexity", "algorithm", "time", "space", "reference"],
-    status: "active"
+    status: "inactive"
   },
   {
     id: "neural-activation",
@@ -835,9 +840,9 @@ const toolsData = [
     description: "Explore activation functions (ReLU, Sigmoid, Tanh, GELU) with interactive charts.",
     category: "ai",
     icon: "fa-solid fa-brain",
-    url: "/v2/tools/neuralviz/",
+    url: "/tools/neuralviz/",
     tags: ["neural", "activation", "relu", "sigmoid", "machine-learning", "deep-learning"],
-    status: "active"
+    status: "inactive"
   },
   {
     id: "mind-reader",
@@ -845,9 +850,9 @@ const toolsData = [
     description: "Play Rock-Paper-Scissors against an AI that learns your patterns using Markov chains.",
     category: "ai",
     icon: "fa-solid fa-brain",
-    url: "/v2/tools/mindreader/",
+    url: "/tools/mindreader/",
     tags: ["game", "rps", "ai", "markov", "prediction", "machine-learning"],
-    status: "active"
+    status: "inactive"
   },
   {
     id: "hill-climber",
@@ -855,9 +860,9 @@ const toolsData = [
     description: "Guide a ball to the lowest point using gradient descent principles. Learn optimization through gameplay!",
     category: "ai",
     icon: "fa-solid fa-mountain",
-    url: "/v2/tools/hillclimber/",
+    url: "/tools/hillclimber/",
     tags: ["game", "physics", "gradient", "descent", "optimization", "machine-learning"],
-    status: "active"
+    status: "inactive"
   },
   {
     id: "word-association",
@@ -865,9 +870,9 @@ const toolsData = [
     description: "Guess words semantically related to the target. How close can you get to the meaning?",
     category: "ai",
     icon: "fa-solid fa-spell-check",
-    url: "/v2/tools/wordassociation/",
+    url: "/tools/wordassociation/",
     tags: ["game", "words", "semantic", "similarity", "embedding", "nlp"],
-    status: "active"
+    status: "inactive"
   },
   {
     id: "kernel-painter",
@@ -875,9 +880,9 @@ const toolsData = [
     description: "Visualize how convolutional neural networks process images. Draw and apply filters in real-time!",
     category: "ai",
     icon: "fa-solid fa-paintbrush",
-    url: "/v2/tools/kernelpainter/",
+    url: "/tools/kernelpainter/",
     tags: ["game", "cnn", "convolution", "filter", "image", "machine-learning"],
-    status: "active"
+    status: "inactive"
   },
   {
     id: "critter-evolution",
@@ -885,9 +890,9 @@ const toolsData = [
     description: "Watch creatures evolve through natural selection. Guide evolution by changing the environment!",
     category: "ai",
     icon: "fa-solid fa-dna",
-    url: "/v2/tools/evolution/",
+    url: "/tools/evolution/",
     tags: ["game", "evolution", "genetic", "algorithm", "simulation", "biology"],
-    status: "active"
+    status: "inactive"
   },
   {
     id: "cot-mapper",
@@ -895,9 +900,9 @@ const toolsData = [
     description: "Map reasoning steps as a visual flow diagram for AI thought processes.",
     category: "ai",
     icon: "fa-solid fa-route",
-    url: "/v2/tools/cotmapper/",
+    url: "/tools/cotmapper/",
     tags: ["chain-of-thought", "reasoning", "flow", "diagram", "ai", "llm"],
-    status: "active"
+    status: "inactive"
   },
   {
     id: "rag-pipeline",
@@ -905,9 +910,9 @@ const toolsData = [
     description: "Visualize retrieval-augmented generation pipelines with interactive components.",
     category: "ai",
     icon: "fa-solid fa-diagram-next",
-    url: "/v2/tools/ragpipeline/",
+    url: "/tools/ragpipeline/",
     tags: ["rag", "retrieval", "augmented", "generation", "pipeline", "ai"],
-    status: "active"
+    status: "inactive"
   },
   {
     id: "metric-selector",
@@ -915,9 +920,9 @@ const toolsData = [
     description: "Guide metric selection based on ML task type with recommendations.",
     category: "ai",
     icon: "fa-solid fa-bullseye",
-    url: "/v2/tools/metricselector/",
+    url: "/tools/metricselector/",
     tags: ["metric", "evaluation", "accuracy", "precision", "recall", "f1", "ml"],
-    status: "active"
+    status: "inactive"
   },
   {
     id: "nn-layer",
@@ -925,9 +930,9 @@ const toolsData = [
     description: "Display neural network layers, weights, and activations with interactive diagrams.",
     category: "ai",
     icon: "fa-solid fa-network-wired",
-    url: "/v2/tools/nnlayer/",
+    url: "/tools/nnlayer/",
     tags: ["neural", "network", "layer", "weights", "activations", "deep-learning"],
-    status: "active"
+    status: "inactive"
   },
   {
     id: "backprop-viz",
@@ -935,9 +940,9 @@ const toolsData = [
     description: "Illustrate gradient flow through network layers with step-by-step animation.",
     category: "ai",
     icon: "fa-solid fa-arrows-left-right",
-    url: "/v2/tools/backpropviz/",
+    url: "/tools/backpropviz/",
     tags: ["backpropagation", "gradient", "neural", "network", "training", "ml"],
-    status: "active"
+    status: "inactive"
   },
   {
     id: "attention-viz",
@@ -945,9 +950,9 @@ const toolsData = [
     description: "Visualize transformer attention matrices and token relationships.",
     category: "ai",
     icon: "fa-solid fa-eye",
-    url: "/v2/tools/attentionviz/",
+    url: "/tools/attentionviz/",
     tags: ["attention", "transformer", "tokens", "matrix", "nlp", "gpt"],
-    status: "active"
+    status: "inactive"
   },
   {
     id: "embedding-space",
@@ -955,9 +960,9 @@ const toolsData = [
     description: "Plot word vectors in 2D/3D to illustrate semantic similarity relationships.",
     category: "ai",
     icon: "fa-solid fa-cube",
-    url: "/v2/tools/embeddingspace/",
+    url: "/tools/embeddingspace/",
     tags: ["embedding", "vector", "semantic", "similarity", "nlp", "word2vec"],
-    status: "active"
+    status: "inactive"
   },
   {
     id: "dim-reduction",
@@ -965,9 +970,9 @@ const toolsData = [
     description: "Visualize PCA and t-SNE concepts with animated projections.",
     category: "ai",
     icon: "fa-solid fa-compress",
-    url: "/v2/tools/dimreduction/",
+    url: "/tools/dimreduction/",
     tags: ["dimensionality", "reduction", "pca", "tsne", "umap", "ml"],
-    status: "active"
+    status: "inactive"
   },
   {
     id: "class-imbalance",
@@ -975,9 +980,9 @@ const toolsData = [
     description: "Explore effects of skewed class distributions on ML model performance.",
     category: "ai",
     icon: "fa-solid fa-scale-unbalanced",
-    url: "/v2/tools/classimbalance/",
+    url: "/tools/classimbalance/",
     tags: ["class", "imbalance", "sampling", "smote", "classification", "ml"],
-    status: "active"
+    status: "inactive"
   },
 
   // ==================== FOR FUN ====================
@@ -987,9 +992,9 @@ const toolsData = [
     description: "Measure your typing speed in WPM with accuracy tracking and difficulty levels.",
     category: "fun",
     icon: "fa-solid fa-keyboard",
-    url: "/v2/tools/typingtest/",
+    url: "/tools/typingtest/",
     tags: ["typing", "speed", "wpm", "test", "accuracy", "practice"],
-    status: "active"
+    status: "inactive"
   },
   {
     id: "memory-match",
@@ -997,9 +1002,9 @@ const toolsData = [
     description: "Classic card matching game with multiple themes, scoring, and best times.",
     category: "fun",
     icon: "fa-solid fa-clone",
-    url: "/v2/tools/memorymatch/",
+    url: "/tools/memorymatch/",
     tags: ["memory", "game", "cards", "match", "puzzle", "brain"],
-    status: "active"
+    status: "inactive"
   },
   {
     id: "reaction-time",
@@ -1007,9 +1012,9 @@ const toolsData = [
     description: "Test your reaction speed with visual and audio cues. Compare against averages!",
     category: "fun",
     icon: "fa-solid fa-bolt",
-    url: "/v2/tools/reactiontest/",
+    url: "/tools/reactiontest/",
     tags: ["reaction", "time", "speed", "test", "reflex", "game"],
-    status: "active"
+    status: "inactive"
   },
   {
     id: "game-2048",
@@ -1017,9 +1022,9 @@ const toolsData = [
     description: "Classic sliding puzzle game with variable grid sizes (3x3 to 6x6) and undo support.",
     category: "fun",
     icon: "fa-solid fa-gamepad",
-    url: "/v2/tools/game2048/",
+    url: "/tools/game2048/",
     tags: ["2048", "game", "puzzle", "numbers", "slide", "merge"],
-    status: "active"
+    status: "inactive"
   },
   {
     id: "logic-puzzle",
@@ -1027,9 +1032,9 @@ const toolsData = [
     description: "Solve classic logic puzzles using deduction and elimination on a grid.",
     category: "fun",
     icon: "fa-solid fa-puzzle-piece",
-    url: "/v2/tools/logicgrid/",
+    url: "/tools/logicgrid/",
     tags: ["logic", "puzzle", "grid", "deduction", "brain", "game"],
-    status: "active"
+    status: "inactive"
   },
   {
     id: "entanglement",
@@ -1037,9 +1042,9 @@ const toolsData = [
     description: "Toggle tiles and their entangled partners to solve quantum-inspired puzzles.",
     category: "fun",
     icon: "fa-solid fa-atom",
-    url: "/v2/tools/entanglement/",
+    url: "/tools/entanglement/",
     tags: ["game", "puzzle", "quantum", "tiles", "logic", "strategy"],
-    status: "active"
+    status: "inactive"
   },
   {
     id: "maze-runner",
@@ -1047,9 +1052,9 @@ const toolsData = [
     description: "Navigate through a 3D maze using CSS transforms. Find the exit before time runs out!",
     category: "fun",
     icon: "fa-solid fa-cube",
-    url: "/v2/tools/mazerunner/",
+    url: "/tools/mazerunner/",
     tags: ["game", "maze", "3d", "css", "navigation", "puzzle"],
-    status: "active"
+    status: "inactive"
   },
   {
     id: "ascii-dungeon",
@@ -1057,9 +1062,9 @@ const toolsData = [
     description: "Explore procedurally generated dungeons in this text-based roguelike adventure.",
     category: "fun",
     icon: "fa-solid fa-dungeon",
-    url: "/v2/tools/asciidungeon/",
+    url: "/tools/asciidungeon/",
     tags: ["game", "roguelike", "ascii", "dungeon", "adventure", "rpg"],
-    status: "active"
+    status: "inactive"
   },
   {
     id: "color-hunter",
@@ -1067,9 +1072,9 @@ const toolsData = [
     description: "Guess the hexadecimal color code! Test your color perception and hex knowledge.",
     category: "fun",
     icon: "fa-solid fa-palette",
-    url: "/v2/tools/colorhunter/",
+    url: "/tools/colorhunter/",
     tags: ["game", "color", "hex", "rgb", "guess", "perception"],
-    status: "active"
+    status: "inactive"
   },
   {
     id: "bit-shift-defuser",
@@ -1077,9 +1082,9 @@ const toolsData = [
     description: "Defuse the binary bomb using bitwise operations! Learn bit manipulation through gameplay.",
     category: "fun",
     icon: "fa-solid fa-bomb",
-    url: "/v2/tools/bitshift/",
+    url: "/tools/bitshift/",
     tags: ["game", "binary", "bitwise", "puzzle", "programming", "logic"],
-    status: "active"
+    status: "inactive"
   }
 ];
 

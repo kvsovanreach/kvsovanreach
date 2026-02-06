@@ -285,7 +285,7 @@ ul {
 /* ==================== Main Tool Page ==================== */
 .tool-page {
   flex: 1;
-  padding-top: 120px;
+  padding-top: 100px;
   padding-bottom: var(--space-8);
 }
 
@@ -757,7 +757,7 @@ ul {
   }
 
   .logo-text {
-    font-size: var(--font-size-sm);
+    font-size: var(--font-size-lg);
   }
 
   .logo-tools {

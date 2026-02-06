@@ -21,7 +21,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
   <!-- Common Tools CSS -->
-  <link rel="stylesheet" href="../../js/tools-common.css">
+  <link rel="stylesheet" href="../../css/tools-common.css">
   <!-- Color Picker CSS -->
   <link rel="stylesheet" href="colorpicker.css">
 </head>
@@ -61,20 +61,20 @@
         </div>
 
         <!-- Tab Navigation -->
-        <div class="picker-tabs">
-          <button class="picker-tab active" data-tab="picker">
+        <div class="tool-tabs">
+          <button class="tool-tab active" data-tab="picker">
             <i class="fa-solid fa-palette"></i>
             <span>Picker</span>
           </button>
-          <button class="picker-tab" data-tab="image">
+          <button class="tool-tab" data-tab="image">
             <i class="fa-solid fa-image"></i>
             <span>Image</span>
           </button>
-          <button class="picker-tab" data-tab="palettes">
+          <button class="tool-tab" data-tab="palettes">
             <i class="fa-solid fa-swatchbook"></i>
             <span>Palettes</span>
           </button>
-          <button class="picker-tab" data-tab="accessibility">
+          <button class="tool-tab" data-tab="accessibility">
             <i class="fa-solid fa-universal-access"></i>
             <span>A11y</span>
           </button>
@@ -150,17 +150,17 @@
               <!-- Hue Slider -->
               <div class="slider-container">
                 <label>Hue</label>
-                <div class="hue-slider" id="hueSlider">
-                  <div class="hue-slider-cursor" id="hueCursor"></div>
+                <div class="slider-track hue-slider" id="hueSlider">
+                  <div class="slider-thumb" id="hueCursor"></div>
                 </div>
               </div>
 
               <!-- Alpha Slider -->
               <div class="slider-container">
                 <label>Opacity</label>
-                <div class="alpha-slider" id="alphaSlider">
+                <div class="slider-track alpha-slider" id="alphaSlider">
                   <div class="alpha-slider-gradient" id="alphaGradient"></div>
-                  <div class="alpha-slider-cursor" id="alphaCursor"></div>
+                  <div class="slider-thumb" id="alphaCursor"></div>
                 </div>
                 <span class="alpha-value" id="alphaValue">100%</span>
               </div>
@@ -271,6 +271,7 @@
                 <!-- Image Canvas -->
                 <div class="image-canvas-container" id="imageCanvasContainer">
                   <canvas id="imageCanvas"></canvas>
+                  <div class="image-pin" id="imagePin"></div>
                   <div class="image-magnifier" id="imageMagnifier">
                     <canvas id="magnifierCanvas" width="100" height="100"></canvas>
                     <div class="magnifier-crosshair"></div>
@@ -279,6 +280,30 @@
                   <button class="image-remove-btn" id="removeImage" title="Remove Image">
                     <i class="fa-solid fa-xmark"></i>
                   </button>
+                </div>
+
+                <!-- Selected Color Info -->
+                <div class="image-color-info" id="imageColorInfo">
+                  <div class="image-color-preview">
+                    <div class="image-color-swatch" id="imageColorSwatch"></div>
+                    <div class="image-color-formats">
+                      <div class="image-format-row">
+                        <span class="format-label">HEX</span>
+                        <span class="format-value" id="imageHex">#000000</span>
+                        <button class="format-copy-sm" data-format="hex" title="Copy"><i class="fa-solid fa-copy"></i></button>
+                      </div>
+                      <div class="image-format-row">
+                        <span class="format-label">RGB</span>
+                        <span class="format-value" id="imageRgb">rgb(0, 0, 0)</span>
+                        <button class="format-copy-sm" data-format="rgb" title="Copy"><i class="fa-solid fa-copy"></i></button>
+                      </div>
+                      <div class="image-format-row">
+                        <span class="format-label">HSL</span>
+                        <span class="format-value" id="imageHsl">hsl(0, 0%, 0%)</span>
+                        <button class="format-copy-sm" data-format="hsl" title="Copy"><i class="fa-solid fa-copy"></i></button>
+                      </div>
+                    </div>
+                  </div>
                 </div>
 
                 <!-- Picked Colors -->
@@ -299,6 +324,12 @@
                   <button class="palette-category active" data-category="material">Material</button>
                   <button class="palette-category" data-category="tailwind">Tailwind</button>
                   <button class="palette-category" data-category="flat">Flat UI</button>
+                  <button class="palette-category" data-category="nord">Nord</button>
+                  <button class="palette-category" data-category="pastel">Pastel</button>
+                  <button class="palette-category" data-category="earth">Earth</button>
+                  <button class="palette-category" data-category="neon">Neon</button>
+                  <button class="palette-category" data-category="vintage">Vintage</button>
+                  <button class="palette-category" data-category="apple">Apple</button>
                   <button class="palette-category" data-category="social">Social</button>
                   <button class="palette-category" data-category="gradients">Gradients</button>
                 </div>
@@ -318,23 +349,29 @@
                     <div class="contrast-color-box">
                       <label>Foreground</label>
                       <div class="contrast-color-input">
-                        <div class="contrast-swatch" id="fgSwatch"></div>
+                        <div class="contrast-swatch-wrapper">
+                          <div class="contrast-swatch" id="fgSwatch"></div>
+                          <input type="color" id="fgColorPicker" value="#000000" title="Pick foreground color">
+                        </div>
                         <input type="text" id="fgColor" placeholder="#000000">
-                        <button class="use-current" id="useFgCurrent" title="Use current color">
-                          <i class="fa-solid fa-arrow-left"></i>
+                        <button class="use-current" id="useFgCurrent" title="Use picker color">
+                          <i class="fa-solid fa-crosshairs"></i>
                         </button>
                       </div>
                     </div>
                     <button class="swap-colors-btn" id="swapContrastColors" title="Swap colors">
-                      <i class="fa-solid fa-arrows-up-down"></i>
+                      <i class="fa-solid fa-right-left"></i>
                     </button>
                     <div class="contrast-color-box">
                       <label>Background</label>
                       <div class="contrast-color-input">
-                        <div class="contrast-swatch" id="bgSwatch"></div>
+                        <div class="contrast-swatch-wrapper">
+                          <div class="contrast-swatch" id="bgSwatch"></div>
+                          <input type="color" id="bgColorPicker" value="#ffffff" title="Pick background color">
+                        </div>
                         <input type="text" id="bgColor" placeholder="#FFFFFF">
-                        <button class="use-current" id="useBgCurrent" title="Use current color">
-                          <i class="fa-solid fa-arrow-left"></i>
+                        <button class="use-current" id="useBgCurrent" title="Use picker color">
+                          <i class="fa-solid fa-crosshairs"></i>
                         </button>
                       </div>
                     </div>
@@ -377,25 +414,30 @@
                 <div class="colorblind-simulator">
                   <h4>Color Blindness Preview</h4>
                   <div class="colorblind-grid" id="colorblindGrid">
-                    <div class="colorblind-preview" data-type="normal">
+                    <div class="colorblind-preview" data-type="normal" title="Click to copy">
                       <div class="colorblind-swatch"></div>
-                      <span>Normal</span>
+                      <span class="colorblind-label">Normal</span>
+                      <span class="colorblind-hex"></span>
                     </div>
-                    <div class="colorblind-preview" data-type="protanopia">
+                    <div class="colorblind-preview" data-type="protanopia" title="Click to copy">
                       <div class="colorblind-swatch"></div>
-                      <span>Protanopia</span>
+                      <span class="colorblind-label">Protanopia</span>
+                      <span class="colorblind-hex"></span>
                     </div>
-                    <div class="colorblind-preview" data-type="deuteranopia">
+                    <div class="colorblind-preview" data-type="deuteranopia" title="Click to copy">
                       <div class="colorblind-swatch"></div>
-                      <span>Deuteranopia</span>
+                      <span class="colorblind-label">Deuteranopia</span>
+                      <span class="colorblind-hex"></span>
                     </div>
-                    <div class="colorblind-preview" data-type="tritanopia">
+                    <div class="colorblind-preview" data-type="tritanopia" title="Click to copy">
                       <div class="colorblind-swatch"></div>
-                      <span>Tritanopia</span>
+                      <span class="colorblind-label">Tritanopia</span>
+                      <span class="colorblind-hex"></span>
                     </div>
-                    <div class="colorblind-preview" data-type="achromatopsia">
+                    <div class="colorblind-preview" data-type="achromatopsia" title="Click to copy">
                       <div class="colorblind-swatch"></div>
-                      <span>Achromatopsia</span>
+                      <span class="colorblind-label">Achromatopsia</span>
+                      <span class="colorblind-hex"></span>
                     </div>
                   </div>
                 </div>

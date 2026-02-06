@@ -382,6 +382,9 @@
       if (!elements.toolsGrid) return;
 
       const filtered = toolsData.filter(tool => {
+        // Hide inactive tools completely
+        if (tool.status === 'inactive') return false;
+
         const categoryMatch = currentCategory === 'all' || tool.category === currentCategory;
         const query = searchQuery.toLowerCase();
         const searchMatch = !query ||
@@ -418,7 +421,7 @@
       const categoryLabel = categoryLabels[tool.category] || tool.category;
 
       return `
-        <a href="${isComingSoon ? '#' : tool.url}" class="tool-card ${isComingSoon ? 'coming-soon' : ''}">
+        <a href="${isComingSoon ? '#' : tool.url}" class="tool-card ${isComingSoon ? 'coming-soon' : ''}" ${isComingSoon ? 'onclick="return false;"' : ''}>
           <div class="tool-card-icon">
             <i class="${tool.icon}"></i>
           </div>
@@ -478,12 +481,14 @@
   // ==================== Category Counts ====================
   const CategoryCounts = {
     init() {
+      // Only count tools that are not inactive (active + coming-soon)
+      const visibleTools = toolsData.filter(t => t.status !== 'inactive');
       const counts = {
-        all: toolsData.length,
-        general: toolsData.filter(t => t.category === 'general').length,
-        developer: toolsData.filter(t => t.category === 'developer').length,
-        ai: toolsData.filter(t => t.category === 'ai').length,
-        fun: toolsData.filter(t => t.category === 'fun').length
+        all: visibleTools.length,
+        general: visibleTools.filter(t => t.category === 'general').length,
+        developer: visibleTools.filter(t => t.category === 'developer').length,
+        ai: visibleTools.filter(t => t.category === 'ai').length,
+        fun: visibleTools.filter(t => t.category === 'fun').length
       };
 
       elements.navLinks.forEach(link => {

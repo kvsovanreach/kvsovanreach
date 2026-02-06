@@ -18,7 +18,7 @@
   // ==================== Download PDF ====================
   function handleDownload() {
     // Direct link to PDF file
-    const pdfUrl = 'assets/pdf/cv-20260116.pdf';
+    const pdfUrl = 'assets/pdf/Kong_Vungsovanreach_CV_20260206.pdf';
     const link = document.createElement('a');
     link.href = pdfUrl;
     link.download = 'Kong_Vungsovanreach_CV.pdf';

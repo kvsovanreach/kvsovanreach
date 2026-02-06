@@ -12,12 +12,14 @@
     saturation: 100,
     value: 100,
     alpha: 1,
+    savedAlpha: 1, // Store alpha when leaving Picker tab
     previousColor: '#666666',
     history: [],
     pickedFromImage: [],
     activeTab: 'picker',
     harmonyType: 'complementary',
-    formatsExpanded: true
+    formatsExpanded: true,
+    imageLoaded: false
   };
 
   // ==================== Color Conversion Functions ====================
@@ -330,6 +332,37 @@
     social: [
       { name: 'Social', colors: ['#3b5998', '#1da1f2', '#c32aa3', '#ff0000', '#ff4500', '#25d366', '#0077b5', '#bd081c', '#1db954', '#6441a4'] }
     ],
+    nord: [
+      { name: 'Polar Night', colors: ['#2e3440', '#3b4252', '#434c5e', '#4c566a'] },
+      { name: 'Snow Storm', colors: ['#d8dee9', '#e5e9f0', '#eceff4'] },
+      { name: 'Frost', colors: ['#8fbcbb', '#88c0d0', '#81a1c1', '#5e81ac'] },
+      { name: 'Aurora', colors: ['#bf616a', '#d08770', '#ebcb8b', '#a3be8c', '#b48ead'] }
+    ],
+    pastel: [
+      { name: 'Pastel Rainbow', colors: ['#ffadad', '#ffd6a5', '#fdffb6', '#caffbf', '#9bf6ff', '#a0c4ff', '#bdb2ff', '#ffc6ff'] },
+      { name: 'Pastel Soft', colors: ['#f8b4b4', '#fcd5ce', '#f9e2af', '#cbf3f0', '#b8e0d2', '#d6eadf', '#eac4d5', '#d4a5a5'] },
+      { name: 'Pastel Mint', colors: ['#cffafe', '#a7f3d0', '#d9f99d', '#fef08a', '#fde68a', '#fed7aa', '#fecaca', '#e9d5ff'] }
+    ],
+    earth: [
+      { name: 'Forest', colors: ['#1a3c34', '#2d5a45', '#4a7856', '#6b9362', '#8bae72', '#a8c686', '#c4dea4', '#dff0c8'] },
+      { name: 'Desert', colors: ['#6b4226', '#8b5a2b', '#a67b4a', '#c49a6c', '#ddb892', '#e8cdb5', '#f2e2d2', '#faf5f0'] },
+      { name: 'Ocean', colors: ['#0c2d48', '#145374', '#2e8bc0', '#6db3d8', '#a4d4e4', '#c4e3ed', '#dff1f7', '#f0f9fc'] },
+      { name: 'Autumn', colors: ['#5c3317', '#8b4513', '#cd6839', '#e07020', '#e89040', '#f0a060', '#f5c090', '#fae0c0'] }
+    ],
+    neon: [
+      { name: 'Neon Lights', colors: ['#ff00ff', '#ff00bf', '#ff0080', '#ff0040', '#ff0000', '#ff4000', '#ff8000', '#ffbf00', '#ffff00', '#00ff00'] },
+      { name: 'Cyberpunk', colors: ['#0ff0fc', '#00ff9f', '#00ff00', '#fffc00', '#ff00ff', '#fe00fe', '#8b00ff', '#ff2a6d', '#d1f7ff', '#05ffa1'] },
+      { name: 'Retrowave', colors: ['#ff71ce', '#01cdfe', '#05ffa1', '#b967ff', '#fffb96', '#ff00ff', '#00ffff', '#ff0099', '#ffff00', '#00ff00'] }
+    ],
+    vintage: [
+      { name: 'Retro', colors: ['#e8d5b7', '#b8860b', '#cd853f', '#8b4513', '#d2691e', '#a0522d', '#bc8f8f', '#f4a460'] },
+      { name: 'Muted', colors: ['#96858f', '#6d7993', '#9099a2', '#d5d5d5', '#d4a59a', '#c97c5d', '#b36a5e', '#826a6a'] },
+      { name: 'Sepia', colors: ['#704214', '#a67b5b', '#c4a35a', '#e1c16e', '#f0e68c', '#f5deb3', '#ffe4b5', '#faebd7'] }
+    ],
+    apple: [
+      { name: 'iOS System', colors: ['#ff3b30', '#ff9500', '#ffcc00', '#34c759', '#00c7be', '#30b0c7', '#007aff', '#5856d6', '#af52de', '#ff2d55'] },
+      { name: 'macOS', colors: ['#ff5f57', '#ffbd2e', '#28c940', '#007aff', '#5856d6', '#ff2d55', '#a2845e', '#8e8e93', '#636366', '#48484a'] }
+    ],
     gradients: [
       { name: 'Sunset', gradient: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)' },
       { name: 'Ocean', gradient: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' },
@@ -340,7 +373,17 @@
       { name: 'Fire', gradient: 'linear-gradient(135deg, #f12711 0%, #f5af19 100%)' },
       { name: 'Night', gradient: 'linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%)' },
       { name: 'Mint', gradient: 'linear-gradient(135deg, #00b09b 0%, #96c93d 100%)' },
-      { name: 'Berry', gradient: 'linear-gradient(135deg, #8e2de2 0%, #4a00e0 100%)' }
+      { name: 'Berry', gradient: 'linear-gradient(135deg, #8e2de2 0%, #4a00e0 100%)' },
+      { name: 'Aqua', gradient: 'linear-gradient(135deg, #13547a 0%, #80d0c7 100%)' },
+      { name: 'Coral', gradient: 'linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%)' },
+      { name: 'Lavender', gradient: 'linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%)' },
+      { name: 'Mango', gradient: 'linear-gradient(135deg, #ffe259 0%, #ffa751 100%)' },
+      { name: 'Electric', gradient: 'linear-gradient(135deg, #00f5a0 0%, #00d9f5 100%)' },
+      { name: 'Blush', gradient: 'linear-gradient(135deg, #ffecd2 0%, #fcb69f 50%, #ff9a9e 100%)' },
+      { name: 'Twilight', gradient: 'linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%)' },
+      { name: 'Aurora', gradient: 'linear-gradient(135deg, #00c9ff 0%, #92fe9d 100%)' },
+      { name: 'Candy', gradient: 'linear-gradient(135deg, #d299c2 0%, #fef9d7 100%)' },
+      { name: 'Midnight', gradient: 'linear-gradient(135deg, #232526 0%, #414345 100%)' }
     ]
   };
 
@@ -349,7 +392,7 @@
 
   function initElements() {
     // Tabs
-    elements.tabs = document.querySelectorAll('.picker-tab');
+    elements.tabs = document.querySelectorAll('.tool-tab');
     elements.panels = document.querySelectorAll('.picker-panel');
 
     // Color Area
@@ -410,11 +453,19 @@
     elements.imageInput = document.getElementById('imageInput');
     elements.imageCanvasContainer = document.getElementById('imageCanvasContainer');
     elements.imageCanvas = document.getElementById('imageCanvas');
+    elements.imagePin = document.getElementById('imagePin');
     elements.magnifier = document.getElementById('imageMagnifier');
     elements.magnifierCanvas = document.getElementById('magnifierCanvas');
     elements.magnifierColor = document.getElementById('magnifierColor');
     elements.removeImage = document.getElementById('removeImage');
     elements.pickedColorsList = document.getElementById('pickedColorsList');
+
+    // Image Color Info
+    elements.imageColorInfo = document.getElementById('imageColorInfo');
+    elements.imageColorSwatch = document.getElementById('imageColorSwatch');
+    elements.imageHex = document.getElementById('imageHex');
+    elements.imageRgb = document.getElementById('imageRgb');
+    elements.imageHsl = document.getElementById('imageHsl');
 
     // Palettes
     elements.paletteCategories = document.querySelectorAll('.palette-category');
@@ -423,6 +474,8 @@
     // Accessibility
     elements.fgColor = document.getElementById('fgColor');
     elements.bgColor = document.getElementById('bgColor');
+    elements.fgColorPicker = document.getElementById('fgColorPicker');
+    elements.bgColorPicker = document.getElementById('bgColorPicker');
     elements.fgSwatch = document.getElementById('fgSwatch');
     elements.bgSwatch = document.getElementById('bgSwatch');
     elements.useFgCurrent = document.getElementById('useFgCurrent');
@@ -434,24 +487,19 @@
 
     // Theme
     elements.themeToggle = document.getElementById('theme-toggle');
-
-    // Toast
-    elements.toast = document.getElementById('toast');
   }
 
   // ==================== UI Functions ====================
-  function showToast(message, type = '') {
-    elements.toast.textContent = message;
-    elements.toast.className = 'toast show' + (type ? ' ' + type : '');
-    setTimeout(() => {
-      elements.toast.classList.remove('show');
-    }, 2500);
-  }
+  // Use centralized toast from tools-common.js
+  const showToast = (message, type) => ToolsCommon.showToast(message, type);
 
   function updateColorArea() {
     const hueColor = ColorConverter.hsvToRgb(state.hue, 100, 100);
     elements.colorArea.style.backgroundColor = `rgb(${hueColor.r}, ${hueColor.g}, ${hueColor.b})`;
   }
+
+  // Thumb radius for slider positioning (half of thumb width)
+  const THUMB_RADIUS = 9;
 
   function updateCursors() {
     // Color area cursor
@@ -460,12 +508,14 @@
     elements.colorAreaCursor.style.left = x + 'px';
     elements.colorAreaCursor.style.top = y + 'px';
 
-    // Hue cursor
-    const hueX = (state.hue / 360) * elements.hueSlider.offsetWidth;
+    // Hue cursor - account for thumb radius so it stays within track
+    const hueWidth = elements.hueSlider.offsetWidth;
+    const hueX = THUMB_RADIUS + (state.hue / 360) * (hueWidth - 2 * THUMB_RADIUS);
     elements.hueCursor.style.left = hueX + 'px';
 
-    // Alpha cursor
-    const alphaX = state.alpha * elements.alphaSlider.offsetWidth;
+    // Alpha cursor - account for thumb radius so it stays within track
+    const alphaWidth = elements.alphaSlider.offsetWidth;
+    const alphaX = THUMB_RADIUS + state.alpha * (alphaWidth - 2 * THUMB_RADIUS);
     elements.alphaCursor.style.left = alphaX + 'px';
   }
 
@@ -477,13 +527,26 @@
 
   function updatePreview() {
     const color = ColorConverter.getCurrentColor();
-    elements.currentColor.style.backgroundColor = color.hex;
+
+    // Apply color to current preview via CSS custom property (for checkered pattern layering)
+    if (state.alpha < 1) {
+      elements.currentColor.style.setProperty('--preview-color',
+        `rgba(${color.rgb.r}, ${color.rgb.g}, ${color.rgb.b}, ${state.alpha})`);
+    } else {
+      elements.currentColor.style.setProperty('--preview-color', color.hex);
+    }
+
     elements.previousColor.style.backgroundColor = state.previousColor;
     elements.alphaValue.textContent = Math.round(state.alpha * 100) + '%';
 
-    // Update HEX display
+    // Update HEX display (show hex8 when alpha < 1)
     if (elements.hexValue) {
-      elements.hexValue.textContent = color.hex;
+      if (state.alpha < 1) {
+        const alphaHex = Math.round(state.alpha * 255).toString(16).padStart(2, '0').toUpperCase();
+        elements.hexValue.textContent = color.hex + alphaHex;
+      } else {
+        elements.hexValue.textContent = color.hex;
+      }
     }
   }
 
@@ -531,8 +594,7 @@
     elements.harmoniesSwatches.querySelectorAll('.harmony-swatch').forEach(swatch => {
       swatch.addEventListener('click', () => {
         setColorFromHex(swatch.dataset.hex);
-        navigator.clipboard.writeText(swatch.dataset.hex);
-        showToast('Color copied!', 'success');
+        ToolsCommon.copyWithToast(swatch.dataset.hex, 'Color copied!');
       });
     });
   }
@@ -540,6 +602,9 @@
   function setColorFromHex(hex) {
     const rgb = ColorConverter.hexToRgb(hex);
     if (rgb) {
+      // Save current color as previous before changing
+      state.previousColor = ColorConverter.getCurrentColor().hex;
+
       const hsv = ColorConverter.rgbToHsv(rgb.r, rgb.g, rgb.b);
       state.hue = hsv.h;
       state.saturation = hsv.s;
@@ -550,6 +615,8 @@
 
   // ==================== Tab Navigation ====================
   function initTabs() {
+    const pickerMain = document.querySelector('.picker-main');
+
     elements.tabs.forEach(tab => {
       tab.addEventListener('click', () => {
         const tabName = tab.dataset.tab;
@@ -560,7 +627,22 @@
         tab.classList.add('active');
         document.getElementById(tabName + 'Panel').classList.add('active');
 
+        const previousTab = state.activeTab;
         state.activeTab = tabName;
+
+        // Toggle full-width layout for Palettes and A11y tabs
+        const isFullWidth = tabName === 'palettes' || tabName === 'accessibility';
+        pickerMain.classList.toggle('full-width', isFullWidth);
+
+        // Save alpha when leaving Picker tab, restore when returning
+        if (previousTab === 'picker' && tabName !== 'picker') {
+          state.savedAlpha = state.alpha;
+          state.alpha = 1;
+          updateAll();
+        } else if (tabName === 'picker' && previousTab !== 'picker') {
+          state.alpha = state.savedAlpha;
+          updateAll();
+        }
 
         // Load palettes when switching to palettes tab
         if (tabName === 'palettes') {
@@ -594,6 +676,8 @@
     };
 
     elements.colorArea.addEventListener('mousedown', (e) => {
+      // Save current color as previous before starting to pick
+      state.previousColor = ColorConverter.getCurrentColor().hex;
       isDragging = true;
       updateFromPosition(e);
     });
@@ -603,14 +687,13 @@
     });
 
     document.addEventListener('mouseup', () => {
-      if (isDragging) {
-        isDragging = false;
-        state.previousColor = ColorConverter.getCurrentColor().hex;
-      }
+      isDragging = false;
     });
 
     // Touch support
     elements.colorArea.addEventListener('touchstart', (e) => {
+      // Save current color as previous before starting to pick
+      state.previousColor = ColorConverter.getCurrentColor().hex;
       isDragging = true;
       updateFromPosition(e.touches[0]);
     }, { passive: true });
@@ -623,10 +706,7 @@
     }, { passive: false });
 
     elements.colorArea.addEventListener('touchend', () => {
-      if (isDragging) {
-        isDragging = false;
-        state.previousColor = ColorConverter.getCurrentColor().hex;
-      }
+      isDragging = false;
     });
   }
 
@@ -636,8 +716,11 @@
     const updateFromPosition = (e) => {
       const rect = elements.hueSlider.getBoundingClientRect();
       let x = e.clientX - rect.left;
-      x = Math.max(0, Math.min(x, rect.width));
-      state.hue = Math.round((x / rect.width) * 360);
+      // Clamp x to usable range (accounting for thumb radius)
+      const usableWidth = rect.width - 2 * THUMB_RADIUS;
+      x = Math.max(THUMB_RADIUS, Math.min(x, rect.width - THUMB_RADIUS));
+      // Calculate hue from clamped position
+      state.hue = Math.round(((x - THUMB_RADIUS) / usableWidth) * 360);
       updateAll();
     };
 
@@ -678,9 +761,13 @@
     const updateFromPosition = (e) => {
       const rect = elements.alphaSlider.getBoundingClientRect();
       let x = e.clientX - rect.left;
-      x = Math.max(0, Math.min(x, rect.width));
-      state.alpha = x / rect.width;
+      // Clamp x to usable range (accounting for thumb radius)
+      const usableWidth = rect.width - 2 * THUMB_RADIUS;
+      x = Math.max(THUMB_RADIUS, Math.min(x, rect.width - THUMB_RADIUS));
+      // Calculate alpha from clamped position
+      state.alpha = (x - THUMB_RADIUS) / usableWidth;
       updatePreview();
+      // Position cursor at clamped position
       elements.alphaCursor.style.left = x + 'px';
     };
 
@@ -789,17 +876,32 @@
       btn.addEventListener('click', () => {
         const format = btn.dataset.format;
         const color = ColorConverter.getCurrentColor();
+        const hasAlpha = state.alpha < 1;
+        const alphaRounded = Math.round(state.alpha * 100) / 100;
         let text = '';
 
         switch (format) {
           case 'hex':
-            text = color.hex;
+            if (hasAlpha) {
+              const alphaHex = Math.round(state.alpha * 255).toString(16).padStart(2, '0').toUpperCase();
+              text = color.hex + alphaHex;
+            } else {
+              text = color.hex;
+            }
             break;
           case 'rgb':
-            text = `rgb(${color.rgb.r}, ${color.rgb.g}, ${color.rgb.b})`;
+            if (hasAlpha) {
+              text = `rgba(${color.rgb.r}, ${color.rgb.g}, ${color.rgb.b}, ${alphaRounded})`;
+            } else {
+              text = `rgb(${color.rgb.r}, ${color.rgb.g}, ${color.rgb.b})`;
+            }
             break;
           case 'hsl':
-            text = `hsl(${color.hsl.h}, ${color.hsl.s}%, ${color.hsl.l}%)`;
+            if (hasAlpha) {
+              text = `hsla(${color.hsl.h}, ${color.hsl.s}%, ${color.hsl.l}%, ${alphaRounded})`;
+            } else {
+              text = `hsl(${color.hsl.h}, ${color.hsl.s}%, ${color.hsl.l}%)`;
+            }
             break;
           case 'hsv':
             text = `hsv(${color.hsv.h}, ${color.hsv.s}%, ${color.hsv.v}%)`;
@@ -809,9 +911,7 @@
             break;
         }
 
-        navigator.clipboard.writeText(text).then(() => {
-          showToast(`${format.toUpperCase()} copied!`, 'success');
-        });
+        ToolsCommon.copyWithToast(text, `${format.toUpperCase()} copied!`);
       });
     });
   }
@@ -859,7 +959,107 @@
     }
   }
 
+  // Show pin at position on image (relative to canvas display size)
+  function showImagePin(displayX, displayY) {
+    if (!elements.imageCanvas || !elements.imageCanvasContainer || !elements.imagePin) return;
+
+    const canvasRect = elements.imageCanvas.getBoundingClientRect();
+    const containerRect = elements.imageCanvasContainer.getBoundingClientRect();
+    const offsetX = canvasRect.left - containerRect.left;
+    const offsetY = canvasRect.top - containerRect.top;
+
+    elements.imagePin.style.left = (offsetX + displayX) + 'px';
+    elements.imagePin.style.top = (offsetY + displayY) + 'px';
+    elements.imagePin.classList.remove('active');
+    // Force reflow for animation
+    void elements.imagePin.offsetWidth;
+    elements.imagePin.classList.add('active');
+  }
+
+  // Update image color info panel
+  function updateImageColorInfo(hex, r, g, b, hsl) {
+    if (!elements.imageColorInfo) return;
+
+    elements.imageColorInfo.classList.add('active');
+    elements.imageColorSwatch.style.backgroundColor = hex;
+    elements.imageHex.textContent = hex;
+    elements.imageRgb.textContent = `rgb(${r}, ${g}, ${b})`;
+    elements.imageHsl.textContent = `hsl(${hsl.h}, ${hsl.s}%, ${hsl.l}%)`;
+  }
+
+  // Render picked colors from image
+  function renderPickedColors() {
+    if (!elements.pickedColorsList) return;
+
+    if (state.pickedFromImage.length === 0) {
+      elements.pickedColorsList.innerHTML = '<div class="picked-empty">Click on the image to pick colors</div>';
+      return;
+    }
+
+    elements.pickedColorsList.innerHTML = state.pickedFromImage.map(color => `
+      <div class="picked-color-item" data-color="${color}">
+        <div class="picked-color-swatch" style="background-color: ${color}"></div>
+        <span class="picked-color-hex">${color}</span>
+      </div>
+    `).join('');
+
+    elements.pickedColorsList.querySelectorAll('.picked-color-item').forEach(item => {
+      item.addEventListener('click', () => {
+        state.alpha = 1; // Reset alpha for image picks
+        setColorFromHex(item.dataset.color);
+        ToolsCommon.copyWithToast(item.dataset.color, 'Color copied!');
+      });
+    });
+  }
+
+  // Random pick from image
+  function randomPickFromImage() {
+    if (!state.imageLoaded || !imageCtx) return false;
+
+    // Get random position within image bounds
+    const canvasX = Math.floor(Math.random() * elements.imageCanvas.width);
+    const canvasY = Math.floor(Math.random() * elements.imageCanvas.height);
+
+    // Get pixel color
+    const pixel = imageCtx.getImageData(canvasX, canvasY, 1, 1).data;
+    const r = pixel[0], g = pixel[1], b = pixel[2];
+    const hex = '#' + ColorConverter.rgbToHex(r, g, b).toUpperCase();
+    const hsl = ColorConverter.rgbToHsl(r, g, b);
+
+    // Calculate display position for pin
+    const canvasRect = elements.imageCanvas.getBoundingClientRect();
+    const displayX = (canvasX / elements.imageCanvas.width) * canvasRect.width;
+    const displayY = (canvasY / elements.imageCanvas.height) * canvasRect.height;
+    showImagePin(displayX, displayY);
+
+    // Update color info panel
+    updateImageColorInfo(hex, r, g, b, hsl);
+
+    // Add to picked colors
+    if (!state.pickedFromImage.includes(hex)) {
+      state.pickedFromImage.unshift(hex);
+      if (state.pickedFromImage.length > 10) {
+        state.pickedFromImage.pop();
+      }
+      renderPickedColors();
+    }
+
+    // Set as current color (reset alpha to 1 for image picks)
+    state.alpha = 1;
+    setColorFromHex(hex);
+    return true;
+  }
+
   function generateRandomColor() {
+    // If on image tab with an image loaded, pick from image
+    if (state.activeTab === 'image' && state.imageLoaded) {
+      if (randomPickFromImage()) {
+        showToast('Random color picked from image!');
+        return;
+      }
+    }
+
+    // Default: generate random HSV color
     state.hue = Math.floor(Math.random() * 360);
     state.saturation = 30 + Math.floor(Math.random() * 70);
     state.value = 40 + Math.floor(Math.random() * 50);
@@ -869,9 +1069,12 @@
 
   function copyHexToClipboard() {
     const color = ColorConverter.getCurrentColor();
-    navigator.clipboard.writeText(color.hex).then(() => {
-      showToast('HEX copied!', 'success');
-    });
+    let hex = color.hex;
+    if (state.alpha < 1) {
+      const alphaHex = Math.round(state.alpha * 255).toString(16).padStart(2, '0').toUpperCase();
+      hex = color.hex + alphaHex;
+    }
+    ToolsCommon.copyWithToast(hex, 'HEX copied!');
   }
 
   async function openEyeDropper() {
@@ -948,10 +1151,12 @@
   }
 
   // ==================== Image Picker ====================
+  let imageCtx = null; // Canvas context for random pick
+
   function initImagePicker() {
     const ctx = elements.imageCanvas.getContext('2d');
     const magCtx = elements.magnifierCanvas.getContext('2d');
-    let imageLoaded = false;
+    imageCtx = ctx; // Store reference for random pick
 
     // Upload area click
     elements.imageUploadArea.addEventListener('click', () => {
@@ -1011,7 +1216,7 @@
 
           elements.imageUploadArea.style.display = 'none';
           elements.imageCanvasContainer.classList.add('active');
-          imageLoaded = true;
+          state.imageLoaded = true;
           state.pickedFromImage = [];
           renderPickedColors();
         };
@@ -1024,32 +1229,54 @@
     elements.removeImage.addEventListener('click', () => {
       elements.imageUploadArea.style.display = 'flex';
       elements.imageCanvasContainer.classList.remove('active');
-      imageLoaded = false;
+      elements.imageColorInfo.classList.remove('active');
+      elements.imagePin.classList.remove('active');
+      state.imageLoaded = false;
       elements.imageInput.value = '';
       state.pickedFromImage = [];
       renderPickedColors();
     });
 
+    // Helper to check if coordinates are within canvas bounds
+    function isWithinBounds(canvasX, canvasY) {
+      return canvasX >= 0 && canvasX < elements.imageCanvas.width &&
+             canvasY >= 0 && canvasY < elements.imageCanvas.height;
+    }
+
     // Pick color from image
     elements.imageCanvas.addEventListener('mousemove', (e) => {
-      if (!imageLoaded) return;
+      if (!state.imageLoaded) return;
 
-      const rect = elements.imageCanvas.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      const scaleX = elements.imageCanvas.width / rect.width;
-      const scaleY = elements.imageCanvas.height / rect.height;
+      const canvasRect = elements.imageCanvas.getBoundingClientRect();
+      const containerRect = elements.imageCanvasContainer.getBoundingClientRect();
+
+      // Mouse position relative to canvas
+      const x = e.clientX - canvasRect.left;
+      const y = e.clientY - canvasRect.top;
+
+      // Canvas offset within container (for magnifier positioning)
+      const canvasOffsetX = canvasRect.left - containerRect.left;
+      const canvasOffsetY = canvasRect.top - containerRect.top;
+
+      const scaleX = elements.imageCanvas.width / canvasRect.width;
+      const scaleY = elements.imageCanvas.height / canvasRect.height;
       const canvasX = Math.floor(x * scaleX);
       const canvasY = Math.floor(y * scaleY);
+
+      // Check if within image bounds
+      if (!isWithinBounds(canvasX, canvasY)) {
+        elements.magnifier.classList.remove('active');
+        return;
+      }
 
       // Get pixel color
       const pixel = ctx.getImageData(canvasX, canvasY, 1, 1).data;
       const hex = ColorConverter.rgbToHex(pixel[0], pixel[1], pixel[2]);
 
-      // Update magnifier
+      // Update magnifier (position relative to container)
       elements.magnifier.classList.add('active');
-      elements.magnifier.style.left = (x + 20) + 'px';
-      elements.magnifier.style.top = (y - 60) + 'px';
+      elements.magnifier.style.left = (canvasOffsetX + x + 20) + 'px';
+      elements.magnifier.style.top = (canvasOffsetY + y - 60) + 'px';
 
       // Draw magnified area
       magCtx.imageSmoothingEnabled = false;
@@ -1068,7 +1295,7 @@
     });
 
     elements.imageCanvas.addEventListener('click', (e) => {
-      if (!imageLoaded) return;
+      if (!state.imageLoaded) return;
 
       const rect = elements.imageCanvas.getBoundingClientRect();
       const x = e.clientX - rect.left;
@@ -1078,8 +1305,21 @@
       const canvasX = Math.floor(x * scaleX);
       const canvasY = Math.floor(y * scaleY);
 
+      // Check if within image bounds
+      if (!isWithinBounds(canvasX, canvasY)) {
+        return;
+      }
+
       const pixel = ctx.getImageData(canvasX, canvasY, 1, 1).data;
-      const hex = '#' + ColorConverter.rgbToHex(pixel[0], pixel[1], pixel[2]).toUpperCase();
+      const r = pixel[0], g = pixel[1], b = pixel[2];
+      const hex = '#' + ColorConverter.rgbToHex(r, g, b).toUpperCase();
+      const hsl = ColorConverter.rgbToHsl(r, g, b);
+
+      // Show pin at click position
+      showImagePin(x, y);
+
+      // Update color info panel
+      updateImageColorInfo(hex, r, g, b, hsl);
 
       // Add to picked colors
       if (!state.pickedFromImage.includes(hex)) {
@@ -1090,32 +1330,25 @@
         renderPickedColors();
       }
 
-      // Set as current color
+      // Set as current color (reset alpha to 1 for image picks)
+      state.alpha = 1;
       setColorFromHex(hex);
       showToast('Color picked from image');
     });
 
-    function renderPickedColors() {
-      if (state.pickedFromImage.length === 0) {
-        elements.pickedColorsList.innerHTML = '<div class="picked-empty">Click on the image to pick colors</div>';
-        return;
-      }
-
-      elements.pickedColorsList.innerHTML = state.pickedFromImage.map(color => `
-        <div class="picked-color-item" data-color="${color}">
-          <div class="picked-color-swatch" style="background-color: ${color}"></div>
-          <span class="picked-color-hex">${color}</span>
-        </div>
-      `).join('');
-
-      elements.pickedColorsList.querySelectorAll('.picked-color-item').forEach(item => {
-        item.addEventListener('click', () => {
-          setColorFromHex(item.dataset.color);
-          navigator.clipboard.writeText(item.dataset.color);
-          showToast('Color copied!', 'success');
-        });
+    // Image color info copy buttons
+    elements.imageColorInfo.querySelectorAll('.format-copy-sm').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const format = btn.dataset.format;
+        let text = '';
+        switch (format) {
+          case 'hex': text = elements.imageHex.textContent; break;
+          case 'rgb': text = elements.imageRgb.textContent; break;
+          case 'hsl': text = elements.imageHsl.textContent; break;
+        }
+        ToolsCommon.copyWithToast(text, `${format.toUpperCase()} copied!`);
       });
-    }
+    });
   }
 
   // ==================== Palettes ====================
@@ -1138,9 +1371,7 @@
 
         card.querySelector('.gradient-copy').addEventListener('click', (e) => {
           e.stopPropagation();
-          navigator.clipboard.writeText(gradient.gradient).then(() => {
-            showToast('Gradient CSS copied!', 'success');
-          });
+          ToolsCommon.copyWithToast(gradient.gradient, 'Gradient CSS copied!');
         });
 
         elements.paletteGrid.appendChild(card);
@@ -1160,8 +1391,9 @@
         card.querySelectorAll('.palette-color').forEach(colorEl => {
           colorEl.addEventListener('click', (e) => {
             e.stopPropagation();
-            setColorFromHex(colorEl.dataset.color);
-            showToast('Color selected');
+            const hex = colorEl.dataset.color;
+            setColorFromHex(hex);
+            showToast(`Selected ${hex}`, 'success');
           });
         });
 
@@ -1181,18 +1413,40 @@
   }
 
   // ==================== Accessibility ====================
-  function updateContrastChecker() {
-    const fgHex = elements.fgColor.value || '#000000';
-    const bgHex = elements.bgColor.value || '#FFFFFF';
+  function normalizeHex(hex) {
+    // Remove # if present and ensure uppercase
+    hex = hex.replace('#', '').toUpperCase();
+    // Handle 3-digit hex
+    if (hex.length === 3) {
+      hex = hex.split('').map(c => c + c).join('');
+    }
+    // Return with # prefix if valid, otherwise null
+    if (/^[0-9A-F]{6}$/.test(hex)) {
+      return '#' + hex;
+    }
+    return null;
+  }
 
-    const fgRgb = ColorConverter.hexToRgb(fgHex.replace('#', ''));
-    const bgRgb = ColorConverter.hexToRgb(bgHex.replace('#', ''));
+  function updateContrastChecker() {
+    const fgInput = elements.fgColor.value || '#000000';
+    const bgInput = elements.bgColor.value || '#FFFFFF';
+
+    // Normalize hex values
+    const fgHex = normalizeHex(fgInput) || '#000000';
+    const bgHex = normalizeHex(bgInput) || '#FFFFFF';
+
+    const fgRgb = ColorConverter.hexToRgb(fgHex);
+    const bgRgb = ColorConverter.hexToRgb(bgHex);
 
     if (!fgRgb || !bgRgb) return;
 
     // Update swatches
     elements.fgSwatch.style.backgroundColor = fgHex;
     elements.bgSwatch.style.backgroundColor = bgHex;
+
+    // Sync color pickers
+    elements.fgColorPicker.value = fgHex.toLowerCase();
+    elements.bgColorPicker.value = bgHex.toLowerCase();
 
     // Update preview
     elements.contrastPreview.style.backgroundColor = bgHex;
@@ -1218,53 +1472,97 @@
       badge.classList.toggle('pass', pass);
       badge.classList.toggle('fail', !pass);
     });
+
+    // Update color blindness preview with foreground color
+    updateColorBlindness();
   }
 
   function updateColorBlindness() {
-    const color = ColorConverter.getCurrentColor();
+    // Use foreground color from contrast checker
+    const fgInput = elements.fgColor?.value || '#000000';
+    const fgHex = normalizeHex(fgInput) || '#000000';
+    const rgb = ColorConverter.hexToRgb(fgHex);
+
+    if (!rgb) return;
+
     const types = ['normal', 'protanopia', 'deuteranopia', 'tritanopia', 'achromatopsia'];
 
     types.forEach(type => {
       const preview = document.querySelector(`.colorblind-preview[data-type="${type}"]`);
       if (preview) {
         const swatch = preview.querySelector('.colorblind-swatch');
+        const hexDisplay = preview.querySelector('.colorblind-hex');
         const simulated = ColorConverter.simulateColorBlindness(
-          color.rgb.r, color.rgb.g, color.rgb.b, type
+          rgb.r, rgb.g, rgb.b, type
         );
-        swatch.style.backgroundColor = `rgb(${simulated.r}, ${simulated.g}, ${simulated.b})`;
+        const hex = '#' + ColorConverter.rgbToHex(simulated.r, simulated.g, simulated.b);
+        swatch.style.backgroundColor = hex;
+        if (hexDisplay) {
+          hexDisplay.textContent = hex.toUpperCase();
+        }
+        // Store hex for click handler
+        preview.dataset.hex = hex.toUpperCase();
       }
     });
   }
 
   function initAccessibility() {
-    // Input handlers
+    // Text input handlers
     elements.fgColor.addEventListener('input', updateContrastChecker);
     elements.bgColor.addEventListener('input', updateContrastChecker);
+
+    // Color picker handlers
+    elements.fgColorPicker.addEventListener('input', () => {
+      elements.fgColor.value = elements.fgColorPicker.value.toUpperCase();
+      updateContrastChecker();
+    });
+
+    elements.bgColorPicker.addEventListener('input', () => {
+      elements.bgColor.value = elements.bgColorPicker.value.toUpperCase();
+      updateContrastChecker();
+    });
 
     // Use current color buttons
     elements.useFgCurrent.addEventListener('click', () => {
       const color = ColorConverter.getCurrentColor();
       elements.fgColor.value = color.hex;
+      elements.fgColorPicker.value = color.hex;
       updateContrastChecker();
     });
 
     elements.useBgCurrent.addEventListener('click', () => {
       const color = ColorConverter.getCurrentColor();
       elements.bgColor.value = color.hex;
+      elements.bgColorPicker.value = color.hex;
       updateContrastChecker();
     });
 
     // Swap colors
     elements.swapContrastColors.addEventListener('click', () => {
-      const temp = elements.fgColor.value;
+      const tempText = elements.fgColor.value;
+      const tempPicker = elements.fgColorPicker.value;
       elements.fgColor.value = elements.bgColor.value;
-      elements.bgColor.value = temp;
+      elements.fgColorPicker.value = elements.bgColorPicker.value;
+      elements.bgColor.value = tempText;
+      elements.bgColorPicker.value = tempPicker;
       updateContrastChecker();
+    });
+
+    // Colorblind swatch click to copy
+    document.querySelectorAll('.colorblind-preview').forEach(preview => {
+      preview.addEventListener('click', () => {
+        const hex = preview.dataset.hex;
+        if (hex) {
+          ToolsCommon.copyWithToast(hex, `Copied ${hex}`);
+        }
+      });
     });
 
     // Initial values
     elements.fgColor.value = '#000000';
     elements.bgColor.value = '#FFFFFF';
+    elements.fgColorPicker.value = '#000000';
+    elements.bgColorPicker.value = '#ffffff';
     updateContrastChecker();
   }
 
@@ -1357,11 +1655,29 @@
     elements.tabs.forEach(t => t.classList.remove('active'));
     elements.panels.forEach(p => p.classList.remove('active'));
 
-    const tab = document.querySelector(`.picker-tab[data-tab="${tabName}"]`);
+    const tab = document.querySelector(`.tool-tab[data-tab="${tabName}"]`);
+    const pickerMain = document.querySelector('.picker-main');
+
     if (tab) {
       tab.classList.add('active');
       document.getElementById(tabName + 'Panel').classList.add('active');
+
+      const previousTab = state.activeTab;
       state.activeTab = tabName;
+
+      // Toggle full-width layout for Palettes and A11y tabs
+      const isFullWidth = tabName === 'palettes' || tabName === 'accessibility';
+      pickerMain.classList.toggle('full-width', isFullWidth);
+
+      // Save alpha when leaving Picker tab, restore when returning
+      if (previousTab === 'picker' && tabName !== 'picker') {
+        state.savedAlpha = state.alpha;
+        state.alpha = 1;
+        updateAll();
+      } else if (tabName === 'picker' && previousTab !== 'picker') {
+        state.alpha = state.savedAlpha;
+        updateAll();
+      }
 
       if (tabName === 'palettes') {
         loadPalettes('material');

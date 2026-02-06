@@ -152,11 +152,23 @@ ul {
   top: 0;
   left: 0;
   right: 0;
-  z-index: 1000;
+  z-index: 1100;
   background-color: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(20px);
   box-shadow: var(--shadow-sm);
   transition: all var(--transition-base);
+}
+
+/* When mobile menu is open, make navbar transparent so overlay shows through */
+.navbar:has(.nav-menu.active) {
+  background-color: transparent;
+  backdrop-filter: none;
+  box-shadow: none;
+}
+
+.navbar:has(.nav-menu.active) .nav-logo {
+  opacity: 0.5;
+  pointer-events: none;
 }
 
 [data-theme="dark"] .navbar {
@@ -222,7 +234,7 @@ ul {
 .nav-link::after {
   content: '';
   position: absolute;
-  bottom: 0;
+  bottom: -4px;
   left: 0;
   width: 0;
   height: 2px;
@@ -244,17 +256,17 @@ ul {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: 20px;
+  min-width: 18px;
   height: 18px;
-  padding: 0 6px;
+  padding: 0 5px;
   margin-left: var(--space-2);
-  margin-bottom: 2px;
-  font-size: 0.65rem;
+  font-size: 0.6rem;
   font-weight: 600;
   color: var(--color-text-muted);
   vertical-align: middle;
   background-color: var(--color-bg-tertiary);
-  border-radius: var(--radius-full);
+  border-radius: 50%;
+  transform: translateY(-2px);
 }
 
 .nav-link.active .nav-count {
@@ -307,9 +319,14 @@ ul {
   justify-content: center;
   background-color: var(--color-bg-secondary);
   color: var(--color-text);
+  border: 1px solid rgba(0, 0, 0, 0.15);
   transition: all var(--transition-fast);
   position: relative;
   overflow: hidden;
+}
+
+[data-theme="dark"] .theme-toggle {
+  border: 1px solid var(--color-border);
 }
 
 .theme-toggle:hover {
@@ -1183,11 +1200,13 @@ ul {
 .tool-card.coming-soon {
   opacity: 0.6;
   cursor: not-allowed;
+  pointer-events: none;
 }
 
 .tool-card.coming-soon:hover {
   transform: none;
   box-shadow: none;
+  border-color: var(--color-border);
 }
 
 .tool-card.coming-soon .tool-card-icon {
@@ -1559,7 +1578,7 @@ body.modal-open {
   position: fixed;
   top: 0;
   left: 0;
-  width: 30%;
+  width: 100%;
   height: 100%;
   height: 100dvh;
   background-color: rgba(0, 0, 0, 0.5);
@@ -1852,10 +1871,6 @@ body.modal-open {
     font-size: var(--font-size-xs);
   }
 
-  .nav-overlay {
-    width: 30%;
-  }
-
   /* About Modal Mobile */
   .about-modal {
     padding: var(--space-3);
@@ -1973,9 +1988,5 @@ body.modal-open {
   .logo-divider,
   .logo-tools {
     display: none;
-  }
-
-  .nav-overlay {
-    width: 15%;
   }
 }

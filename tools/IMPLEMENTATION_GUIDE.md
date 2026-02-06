@@ -10,9 +10,11 @@ This guide ensures consistency across all tools in the KVSOVANREACH Tools Portal
 2. [HTML Structure](#2-html-structure)
 3. [CSS Conventions](#3-css-conventions)
 4. [JavaScript Patterns](#4-javascript-patterns)
-5. [Common Components](#5-common-components)
-6. [Accessibility Requirements](#6-accessibility-requirements)
-7. [Checklist for New Tools](#7-checklist-for-new-tools)
+5. [Using Centralized Utilities](#5-using-centralized-utilities)
+6. [Common Components](#6-common-components)
+7. [Accessibility Requirements](#7-accessibility-requirements)
+8. [Checklist for New Tools](#8-checklist-for-new-tools)
+9. [Anti-Patterns (What NOT to Do)](#9-anti-patterns-what-not-to-do)
 
 ---
 
@@ -64,7 +66,7 @@ tools/
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
   <!-- Styles -->
-  <link rel="stylesheet" href="../../js/tools-common.css">
+  <link rel="stylesheet" href="../../css/tools-common.css">
   <link rel="stylesheet" href="[tool-name].css">
 </head>
 <body>
@@ -476,16 +478,19 @@ Use these predefined button classes:
 })();
 ```
 
-### Using tools-common.js Utilities
+### Using tools-common.js Utilities (Quick Reference)
 
 ```javascript
 // Toast notifications
-ToolsCommon.Toast.show('Message here');
-ToolsCommon.Toast.show('Success!', 'success');
-ToolsCommon.Toast.show('Error!', 'error');
+ToolsCommon.showToast('Message here');
+ToolsCommon.showToast('Success!', 'success');
+ToolsCommon.showToast('Error occurred', 'error');
 
-// Copy to clipboard
-ToolsCommon.Clipboard.copy(text);
+// Copy with toast feedback (PREFERRED for clipboard operations)
+ToolsCommon.copyWithToast(text, 'Copied to clipboard!');
+
+// Copy without toast (rare cases)
+await ToolsCommon.Clipboard.copy(text);
 
 // File download
 ToolsCommon.FileDownload.text(content, 'filename.txt');
@@ -498,12 +503,10 @@ ToolsCommon.throttle(fn, delay);
 ToolsCommon.formatFileSize(bytes);
 ToolsCommon.generateId();
 
-// Theme (auto-initialized)
-// Theme toggle is handled automatically by tools-common.js
-
-// Shortcuts Modal (auto-initialized)
-// Modal show/hide is handled automatically by tools-common.js
+// Theme & Shortcuts Modal - auto-initialized, don't reinitialize
 ```
+
+> **See [Section 5](#5-using-centralized-utilities) for detailed usage guidance.**
 
 ### LocalStorage Pattern
 
@@ -532,7 +535,129 @@ function loadFromStorage() {
 
 ---
 
-## 5. Common Components
+## 5. Using Centralized Utilities
+
+The `tools-common.js` file provides centralized utilities to avoid code duplication across tools. **Always use these utilities instead of writing your own implementations.**
+
+### 5.1 Toast Notifications
+
+**Use `ToolsCommon.showToast()` instead of defining a local `showToast` function:**
+
+```javascript
+// ✅ CORRECT - Use centralized toast
+ToolsCommon.showToast('Message here');
+ToolsCommon.showToast('Success!', 'success');
+ToolsCommon.showToast('Error occurred', 'error');
+
+// ❌ WRONG - Don't define your own showToast
+function showToast(message, type) {
+  // Don't do this - it already exists in tools-common.js
+}
+```
+
+If you need a local alias for convenience:
+```javascript
+const showToast = (message, type) => ToolsCommon.showToast(message, type);
+```
+
+### 5.2 Clipboard Operations
+
+**Use `ToolsCommon.copyWithToast()` for copy operations with feedback:**
+
+```javascript
+// ✅ CORRECT - Copy with automatic success toast
+ToolsCommon.copyWithToast(textToCopy, 'Copied to clipboard!');
+
+// ❌ WRONG - Don't use raw clipboard API with manual toast
+navigator.clipboard.writeText(text).then(() => {
+  showToast('Copied!', 'success');
+});
+```
+
+For copy-only without toast (rare cases):
+```javascript
+await ToolsCommon.Clipboard.copy(text);
+```
+
+### 5.3 File Downloads
+
+```javascript
+// Download text file
+ToolsCommon.FileDownload.text(content, 'output.txt');
+
+// Download JSON file
+ToolsCommon.FileDownload.json(dataObject, 'data.json');
+
+// Download blob (images, etc.)
+ToolsCommon.FileDownload.blob(blobData, 'image.png');
+```
+
+### 5.4 Debounce and Throttle
+
+**Use centralized utilities instead of defining your own:**
+
+```javascript
+// ✅ CORRECT - Use centralized debounce
+const debouncedSearch = ToolsCommon.debounce(handleSearch, 300);
+inputElement.addEventListener('input', debouncedSearch);
+
+// ✅ CORRECT - Use centralized throttle
+const throttledResize = ToolsCommon.throttle(handleResize, 100);
+window.addEventListener('resize', throttledResize);
+
+// ❌ WRONG - Don't define your own debounce/throttle
+function debounce(func, wait) {
+  // Don't do this - it already exists in tools-common.js
+}
+```
+
+### 5.5 Other Utilities
+
+```javascript
+// Format file size (e.g., "1.5 MB")
+const sizeStr = ToolsCommon.formatFileSize(bytes);
+
+// Generate unique ID
+const id = ToolsCommon.generateId();
+```
+
+### 5.6 Centralized CSS Classes
+
+**Use standard CSS classes from `tools-common.css` instead of defining tool-specific versions:**
+
+| Component | Use These Classes | Don't Create |
+|-----------|------------------|--------------|
+| Main tabs | `.tool-tabs`, `.tool-tab` | `.picker-tabs`, `.json-tabs` |
+| Panel tabs | `.panel-tabs`, `.panel-tab` | `.options-tabs`, `.view-tabs` |
+| Buttons | `.action-btn`, `.action-btn.primary` | `.picker-btn`, `.copy-btn` |
+| Empty state | `.empty-state` | `.no-results`, `.placeholder` |
+
+**Tab example:**
+```html
+<!-- ✅ CORRECT - Use standard tab classes -->
+<div class="tool-tabs">
+  <button class="tool-tab active" data-tab="tab1">Tab 1</button>
+  <button class="tool-tab" data-tab="tab2">Tab 2</button>
+</div>
+
+<!-- ❌ WRONG - Don't create tool-specific tab classes -->
+<div class="picker-tabs">
+  <button class="picker-tab active" data-tab="tab1">Tab 1</button>
+</div>
+```
+
+### 5.7 Auto-Initialized Features
+
+These features are automatically initialized by `tools-common.js` - don't reinitialize them:
+
+- **Theme Toggle**: Handled automatically when `#theme-toggle` button exists
+- **Shortcuts Modal**: Handled automatically when `#shortcutsModal` and `#closeShortcutsBtn` exist
+- **Shortcuts Hint**: Auto-hidden after 5 seconds
+- **Current Year**: Auto-set in `#current-year` element
+
+---
+
+## 6. Common Components
 
 ### Input with Actions
 
@@ -614,7 +739,7 @@ function loadFromStorage() {
 
 ---
 
-## 6. Accessibility Requirements
+## 7. Accessibility Requirements
 
 ### Required ARIA Labels
 
@@ -665,7 +790,7 @@ Ensure all interactive elements have visible focus states (handled by tools-comm
 
 ---
 
-## 7. Checklist for New Tools
+## 8. Checklist for New Tools
 
 ### Before Starting
 
@@ -692,14 +817,19 @@ Ensure all interactive elements have visible focus states (handled by tools-comm
 - [ ] Wrapper uses `--color-surface` for background
 - [ ] Header uses `padding: var(--space-4) var(--space-5)`
 - [ ] Header h2 uses `font-weight: 600`
-- [ ] Using standard button classes from tools-common.css
-- [ ] Using standard tab classes if applicable
+- [ ] Using `.action-btn` classes from tools-common.css (no tool-specific button classes)
+- [ ] Using `.tool-tabs`/`.tool-tab` for tabs (no tool-specific tab classes)
+- [ ] Using `.empty-state` for empty states (if applicable)
+- [ ] No duplicate CSS that exists in tools-common.css
 - [ ] Responsive styles for 1024px, 768px, 480px breakpoints
 
 ### JavaScript
 
 - [ ] Wrapped in IIFE with `'use strict'`
-- [ ] Using ToolsCommon utilities (Toast, Clipboard, FileDownload)
+- [ ] Using `ToolsCommon.showToast()` (no local showToast function)
+- [ ] Using `ToolsCommon.copyWithToast()` for clipboard operations
+- [ ] Using `ToolsCommon.debounce()`/`throttle()` (no local implementations)
+- [ ] Using `ToolsCommon.FileDownload` for downloads
 - [ ] Event listeners properly attached
 - [ ] Error handling for localStorage operations
 - [ ] No global variable pollution
@@ -758,5 +888,154 @@ current-year      # Footer year span
 
 ---
 
-*Last updated: January 2026*
-*Version: 1.0*
+## 9. Anti-Patterns (What NOT to Do)
+
+This section documents common mistakes to avoid. These patterns lead to code duplication, maintenance burden, and inconsistent UX.
+
+### 9.1 Don't Redefine Centralized Functions
+
+**❌ DON'T: Define your own `showToast` function**
+```javascript
+// This exists in multiple tools - DON'T DO THIS
+function showToast(message, type = 'info') {
+  const toast = elements.toast;
+  toast.textContent = message;
+  toast.className = `toast ${type} visible`;
+  setTimeout(() => toast.classList.remove('visible'), 2500);
+}
+```
+
+**✅ DO: Use the centralized version**
+```javascript
+ToolsCommon.showToast(message, type);
+```
+
+### 9.2 Don't Redefine `debounce` or `throttle`
+
+**❌ DON'T:**
+```javascript
+// Found in regex.js, timer.js, etc. - DON'T COPY THIS
+function debounce(func, wait) {
+  let timeout;
+  return function executedFunction(...args) {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => func.apply(this, args), wait);
+  };
+}
+```
+
+**✅ DO:**
+```javascript
+const debouncedFn = ToolsCommon.debounce(myFunction, 300);
+```
+
+### 9.3 Don't Use Raw Clipboard API with Manual Toast
+
+**❌ DON'T:**
+```javascript
+navigator.clipboard.writeText(text).then(() => {
+  showToast('Copied!', 'success');
+}).catch(() => {
+  showToast('Failed to copy', 'error');
+});
+```
+
+**✅ DO:**
+```javascript
+ToolsCommon.copyWithToast(text, 'Copied to clipboard!');
+```
+
+### 9.4 Don't Create Tool-Specific Tab CSS
+
+**❌ DON'T: Define tool-specific tab styles**
+```css
+/* colorpicker.css - DON'T DO THIS */
+.picker-tabs {
+  display: flex;
+  border-bottom: 1px solid var(--color-border);
+}
+.picker-tab {
+  padding: var(--space-3) var(--space-4);
+  /* ... 30+ more lines of duplicate CSS */
+}
+.picker-tab.active {
+  color: var(--color-primary);
+  border-bottom: 2px solid var(--color-primary);
+}
+```
+
+**✅ DO: Use standard tab classes from tools-common.css**
+```html
+<div class="tool-tabs">
+  <button class="tool-tab active">Tab 1</button>
+  <button class="tool-tab">Tab 2</button>
+</div>
+```
+
+### 9.5 Don't Reference Non-Existent Elements
+
+**❌ DON'T: Reference toast element that's handled by ToolsCommon**
+```javascript
+const elements = {
+  toast: document.getElementById('toast'), // Not needed if using ToolsCommon
+  // ...
+};
+```
+
+**✅ DO: Only cache elements your tool actually manipulates**
+```javascript
+const elements = {
+  input: document.getElementById('input'),
+  output: document.getElementById('output'),
+  // Toast is handled by ToolsCommon - don't cache it
+};
+```
+
+### 9.6 Don't Hardcode Colors or Spacing
+
+**❌ DON'T:**
+```css
+.my-element {
+  background-color: #ffffff;
+  padding: 16px 20px;
+  border-radius: 8px;
+  color: #1e293b;
+}
+```
+
+**✅ DO:**
+```css
+.my-element {
+  background-color: var(--color-surface);
+  padding: var(--space-4) var(--space-5);
+  border-radius: var(--radius-md);
+  color: var(--color-text);
+}
+```
+
+### 9.7 Don't Skip the Checklist
+
+Before submitting a new tool, verify:
+- [ ] No duplicate `showToast` function (use `ToolsCommon.showToast`)
+- [ ] No duplicate `debounce`/`throttle` functions (use `ToolsCommon.debounce`/`throttle`)
+- [ ] Clipboard operations use `ToolsCommon.copyWithToast`
+- [ ] Tabs use `.tool-tabs`/`.tool-tab` classes
+- [ ] No hardcoded colors/spacing (use CSS variables)
+- [ ] Tool CSS doesn't duplicate styles from tools-common.css
+
+### 9.8 Summary: What to Use from ToolsCommon
+
+| Instead of... | Use... |
+|---------------|--------|
+| Local `showToast()` function | `ToolsCommon.showToast(msg, type)` |
+| Local `debounce()` function | `ToolsCommon.debounce(fn, delay)` |
+| Local `throttle()` function | `ToolsCommon.throttle(fn, delay)` |
+| `navigator.clipboard` + toast | `ToolsCommon.copyWithToast(text, msg)` |
+| Custom tab CSS classes | `.tool-tabs` / `.tool-tab` |
+| Custom button CSS classes | `.action-btn` / `.action-btn.primary` |
+| Custom empty state CSS | `.empty-state` |
+
+---
+
+*Last updated: February 2026*
+*Version: 2.0*

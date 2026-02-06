@@ -45,8 +45,7 @@
   // ==================== Theme Management ====================
   const ThemeManager = {
     init() {
-      const savedTheme = localStorage.getItem('theme') ||
-        (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      const savedTheme = localStorage.getItem('theme') || 'dark';
       this.setTheme(savedTheme);
 
       elements.themeToggle.addEventListener('click', () => this.toggle());
@@ -100,6 +99,8 @@
     },
 
     openMenu() {
+      // Force reflow before adding active class for transition to work
+      elements.navMenu.offsetHeight;
       elements.navMenu.classList.add('active');
       document.body.style.overflow = 'hidden';
       this.createOverlay();
@@ -192,6 +193,8 @@
 
     init() {
       if (!elements.typingText) return;
+      // Set initial text immediately
+      elements.typingText.textContent = config.typingStrings[0].charAt(0);
       this.lastTime = performance.now();
       this.delay = config.typingSpeed;
       this.rafId = requestAnimationFrame((t) => this.tick(t));
@@ -363,10 +366,25 @@
     },
 
     scrollToTop() {
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      });
+      const duration = 800;
+      const start = window.scrollY;
+      const startTime = performance.now();
+
+      const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3);
+
+      const animateScroll = (currentTime) => {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        const easeProgress = easeOutCubic(progress);
+
+        window.scrollTo(0, start * (1 - easeProgress));
+
+        if (progress < 1) {
+          requestAnimationFrame(animateScroll);
+        }
+      };
+
+      requestAnimationFrame(animateScroll);
     }
   };
 
@@ -518,6 +536,54 @@
       const yearEl = document.getElementById('current-year');
       if (yearEl) {
         yearEl.textContent = new Date().getFullYear();
+      }
+    }
+  };
+
+  // ==================== Copy Email ====================
+  const CopyEmail = {
+    init() {
+      const copyBtn = document.getElementById('copy-email-btn');
+      if (!copyBtn) return;
+
+      copyBtn.addEventListener('click', () => this.copyToClipboard(copyBtn));
+    },
+
+    async copyToClipboard(btn) {
+      const email = btn.dataset.email;
+
+      try {
+        await navigator.clipboard.writeText(email);
+
+        // Show success state
+        btn.classList.add('copied');
+        const icon = btn.querySelector('i');
+        icon.className = 'fa-solid fa-check';
+
+        // Reset after 2 seconds
+        setTimeout(() => {
+          btn.classList.remove('copied');
+          icon.className = 'fa-solid fa-copy';
+        }, 2000);
+      } catch (err) {
+        // Fallback for older browsers
+        const textArea = document.createElement('textarea');
+        textArea.value = email;
+        textArea.style.position = 'fixed';
+        textArea.style.opacity = '0';
+        document.body.appendChild(textArea);
+        textArea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textArea);
+
+        btn.classList.add('copied');
+        const icon = btn.querySelector('i');
+        icon.className = 'fa-solid fa-check';
+
+        setTimeout(() => {
+          btn.classList.remove('copied');
+          icon.className = 'fa-solid fa-copy';
+        }, 2000);
       }
     }
   };
@@ -768,21 +834,19 @@
     ThemeManager.init();
     Navigation.init();
     YearUpdate.init();
+    CopyEmail.init();
 
-    // Only init animations if user doesn't prefer reduced motion
+    // Always init these animations
+    TypingAnimation.init();
+    CustomCursor.init();
+
+    // Only init other animations if user doesn't prefer reduced motion
     if (!prefersReducedMotion) {
-      TypingAnimation.init();
       ParticleAnimation.init();
-      CustomCursor.init();
       ParallaxEffect.init();
       ButtonRipple.init();
       MagneticEffect.init();
       TiltEffect.init();
-    } else {
-      // Set static text if reduced motion
-      if (elements.typingText) {
-        elements.typingText.textContent = config.typingStrings[0];
-      }
     }
 
     TabSystem.init();
