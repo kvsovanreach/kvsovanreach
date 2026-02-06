@@ -1,40 +1,40 @@
 /**
- * KVSOVANREACH Reaction Time Test Tool
+ * KVSOVANREACH Reaction Time Test
  * Measure your reaction speed
  */
 
 (function() {
   'use strict';
 
-  // ==================== DOM Elements ====================
-  const elements = {
-    testArea: document.getElementById('testArea'),
-    testIcon: document.getElementById('testIcon'),
-    testTitle: document.getElementById('testTitle'),
-    testMessage: document.getElementById('testMessage'),
-    resultDisplay: document.getElementById('resultDisplay'),
-    resultValue: document.getElementById('resultValue'),
-    avgDisplay: document.getElementById('avgDisplay'),
-    bestDisplay: document.getElementById('bestDisplay'),
-    attemptsDisplay: document.getElementById('attemptsDisplay'),
-    modeBtns: document.querySelectorAll('.mode-btn'),
-    resetBtn: document.getElementById('resetBtn'),
-    historyList: document.getElementById('historyList')
-  };
-
   // ==================== State ====================
   const state = {
-    mode: 'visual', // 'visual' or 'audio'
-    phase: 'idle', // 'idle', 'waiting', 'ready', 'result', 'early'
+    mode: 'visual',
+    phase: 'idle',
     startTime: null,
     timeout: null,
     results: [],
-    audioContext: null,
-    oscillator: null
+    audioContext: null
   };
 
-  // ==================== Audio Functions ====================
+  // ==================== DOM Elements ====================
+  const elements = {};
 
+  function initElements() {
+    elements.testArea = document.getElementById('testArea');
+    elements.testIcon = document.getElementById('testIcon');
+    elements.testTitle = document.getElementById('testTitle');
+    elements.testMessage = document.getElementById('testMessage');
+    elements.resultDisplay = document.getElementById('resultDisplay');
+    elements.resultValue = document.getElementById('resultValue');
+    elements.avgDisplay = document.getElementById('avgDisplay');
+    elements.bestDisplay = document.getElementById('bestDisplay');
+    elements.attemptsDisplay = document.getElementById('attemptsDisplay');
+    elements.modeButtons = document.querySelector('.mode-buttons');
+    elements.resetBtn = document.getElementById('resetBtn');
+    elements.historyList = document.getElementById('historyList');
+  }
+
+  // ==================== Audio ====================
   function initAudio() {
     if (!state.audioContext) {
       state.audioContext = new (window.AudioContext || window.webkitAudioContext)();
@@ -55,18 +55,14 @@
       gainNode.gain.value = 0.3;
 
       oscillator.start();
-      setTimeout(() => {
-        oscillator.stop();
-      }, 200);
+      setTimeout(() => oscillator.stop(), 200);
     } catch (e) {
       console.error('Audio error:', e);
     }
   }
 
-  // ==================== Core Functions ====================
-
+  // ==================== Core Logic ====================
   function getRandomDelay() {
-    // Random delay between 1.5 and 5 seconds
     return Math.floor(Math.random() * 3500) + 1500;
   }
 
@@ -88,16 +84,15 @@
   }
 
   function getResultMessage(time) {
-    if (time < 150) return 'Exceptional! 🔥';
-    if (time < 200) return 'Very Fast! ⚡';
-    if (time < 250) return 'Great! 👍';
-    if (time < 300) return 'Good! ✓';
+    if (time < 150) return 'Exceptional!';
+    if (time < 200) return 'Very Fast!';
+    if (time < 250) return 'Great!';
+    if (time < 300) return 'Good!';
     if (time < 400) return 'Average';
     return 'Keep practicing!';
   }
 
-  // ==================== UI Functions ====================
-
+  // ==================== UI Updates ====================
   function updateStats() {
     const avg = calculateAverage();
     const best = getBest();
@@ -130,10 +125,7 @@
   function setPhase(phase) {
     state.phase = phase;
 
-    // Remove all phase classes
     elements.testArea.classList.remove('waiting', 'ready', 'result', 'early');
-
-    // Hide result display by default
     elements.resultDisplay.classList.add('hidden');
 
     switch (phase) {
@@ -177,6 +169,7 @@
     }
   }
 
+  // ==================== Test Logic ====================
   function startTest() {
     setPhase('waiting');
 
@@ -218,14 +211,10 @@
     setPhase('idle');
     updateStats();
     updateHistory();
-
-    if (typeof ToolsCommon !== 'undefined') {
-      ToolsCommon.Toast.info('Stats reset');
-    }
+    ToolsCommon.Toast.show('Stats reset', 'info');
   }
 
   // ==================== Event Handlers ====================
-
   function handleTestClick() {
     switch (state.phase) {
       case 'idle':
@@ -239,6 +228,21 @@
       case 'ready':
         handleReaction();
         break;
+    }
+  }
+
+  function handleModeClick(e) {
+    const btn = e.target.closest('.mode-btn');
+    if (!btn) return;
+
+    const modeBtns = elements.modeButtons.querySelectorAll('.mode-btn');
+    modeBtns.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    state.mode = btn.dataset.mode;
+    setPhase('idle');
+
+    if (state.mode === 'audio') {
+      initAudio();
     }
   }
 
@@ -256,44 +260,25 @@
     }
   }
 
-  // ==================== Initialization ====================
-
-  function init() {
-    // Test area click
+  // ==================== Event Listeners ====================
+  function setupEventListeners() {
     elements.testArea.addEventListener('click', handleTestClick);
-
-    // Mode buttons
-    elements.modeBtns.forEach(btn => {
-      btn.addEventListener('click', () => {
-        elements.modeBtns.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        state.mode = btn.dataset.mode;
-        setPhase('idle');
-
-        // Initialize audio context on user interaction
-        if (state.mode === 'audio') {
-          initAudio();
-        }
-      });
-    });
-
-    // Reset button
-    elements.resetBtn.addEventListener('click', reset);
-
-    // Keyboard shortcuts
-    document.addEventListener('keydown', handleKeydown);
-
-    // Prevent context menu on test area
     elements.testArea.addEventListener('contextmenu', e => e.preventDefault());
+    elements.modeButtons.addEventListener('click', handleModeClick);
+    elements.resetBtn.addEventListener('click', reset);
+    document.addEventListener('keydown', handleKeydown);
+  }
 
-    // Initialize
+  // ==================== Initialization ====================
+  function init() {
+    initElements();
+    setupEventListeners();
     setPhase('idle');
     updateStats();
     updateHistory();
   }
 
   // ==================== Bootstrap ====================
-
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);
   } else {

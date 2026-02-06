@@ -1,11 +1,8 @@
-/**
- * KVSOVANREACH File Metadata Viewer
- * View file information and metadata
- */
+/* ==================== File Metadata Viewer Tool Styles ==================== */
 
-/* Wrapper */
+/* ==================== Wrapper ==================== */
 .metadata-wrapper {
-  max-width: 900px;
+  max-width: 1200px;
   margin: 0 auto;
   background-color: var(--color-surface);
   border: 1px solid var(--color-border);
@@ -14,14 +11,14 @@
   box-shadow: var(--shadow-lg);
 }
 
-/* Header */
+/* ==================== Header ==================== */
 .metadata-header {
   display: flex;
   align-items: center;
-  justify-content: space-between;
   padding: var(--space-4) var(--space-5);
-  background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);
+  background-color: var(--color-surface);
   border-bottom: 1px solid var(--color-border);
+  position: relative;
 }
 
 .metadata-header h2 {
@@ -30,26 +27,50 @@
   gap: var(--space-3);
   font-size: var(--font-size-xl);
   font-weight: 600;
-  color: white;
+  color: var(--color-text);
 }
 
 .metadata-header h2 i {
-  color: rgba(255, 255, 255, 0.8);
+  color: var(--color-primary);
 }
 
 .metadata-actions {
+  position: absolute;
+  right: var(--space-5);
+  top: 50%;
+  transform: translateY(-50%);
   display: flex;
   gap: var(--space-2);
 }
 
-/* Content */
+.metadata-actions .action-btn {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.metadata-actions .action-btn:hover {
+  background-color: #ef4444;
+  border-color: #ef4444;
+  color: #fff;
+}
+
+/* ==================== Content ==================== */
 .metadata-content {
   padding: var(--space-5);
 }
 
-/* Upload Section */
+/* ==================== Upload Section ==================== */
 .upload-section {
-  margin-bottom: var(--space-4);
+  margin-bottom: var(--space-5);
 }
 
 .upload-area {
@@ -67,8 +88,8 @@
 
 .upload-area:hover,
 .upload-area.dragover {
-  border-color: #06b6d4;
-  background-color: rgba(6, 182, 212, 0.05);
+  border-color: var(--color-primary);
+  background-color: rgba(55, 118, 161, 0.05);
 }
 
 .upload-icon {
@@ -78,13 +99,13 @@
   align-items: center;
   justify-content: center;
   background-color: var(--color-bg-tertiary);
-  border-radius: 50%;
+  border-radius: var(--radius-full);
   margin-bottom: var(--space-4);
 }
 
 .upload-icon i {
   font-size: 2rem;
-  color: #06b6d4;
+  color: var(--color-primary);
 }
 
 .upload-area h3 {
@@ -99,12 +120,12 @@
   color: var(--color-text-muted);
 }
 
-/* Files Section */
+/* ==================== Files Section ==================== */
 .files-section {
   background-color: var(--color-bg-secondary);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
-  margin-bottom: var(--space-4);
+  margin-bottom: var(--space-5);
   overflow: hidden;
 }
 
@@ -112,7 +133,7 @@
   display: flex;
   align-items: center;
   padding: var(--space-3) var(--space-4);
-  background-color: var(--color-bg-tertiary);
+  background-color: var(--color-surface);
   border-bottom: 1px solid var(--color-border);
 }
 
@@ -126,21 +147,36 @@
 }
 
 .files-header h3 i {
-  color: #06b6d4;
+  color: var(--color-primary);
 }
 
 .files-list {
   padding: var(--space-3);
-  max-height: 250px;
+  max-height: 280px;
   overflow-y: auto;
 }
 
+.files-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.files-list::-webkit-scrollbar-thumb {
+  background-color: var(--color-border);
+  border-radius: var(--radius-full);
+}
+
+.files-list::-webkit-scrollbar-thumb:hover {
+  background-color: var(--color-text-muted);
+}
+
+/* ==================== File Item ==================== */
 .file-item {
   display: flex;
   align-items: center;
   gap: var(--space-3);
   padding: var(--space-3);
   background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   margin-bottom: var(--space-2);
   cursor: pointer;
@@ -149,6 +185,7 @@
 
 .file-item:hover {
   background-color: var(--color-bg-tertiary);
+  border-color: var(--color-primary);
 }
 
 .file-item:last-child {
@@ -156,8 +193,9 @@
 }
 
 .file-item.selected {
-  outline: 2px solid #06b6d4;
-  background-color: rgba(6, 182, 212, 0.05);
+  border-color: var(--color-primary);
+  background-color: rgba(55, 118, 161, 0.05);
+  box-shadow: 0 0 0 2px rgba(55, 118, 161, 0.2);
 }
 
 .file-icon {
@@ -203,12 +241,12 @@
   margin-top: var(--space-1);
 }
 
-/* Details Section */
+/* ==================== Details Section ==================== */
 .details-section {
   background-color: var(--color-bg-secondary);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
-  margin-bottom: var(--space-4);
+  margin-bottom: var(--space-5);
   overflow: hidden;
 }
 
@@ -216,7 +254,7 @@
   display: flex;
   align-items: center;
   padding: var(--space-3) var(--space-4);
-  background-color: var(--color-bg-tertiary);
+  background-color: var(--color-surface);
   border-bottom: 1px solid var(--color-border);
 }
 
@@ -230,7 +268,7 @@
 }
 
 .details-header h3 i {
-  color: #06b6d4;
+  color: var(--color-primary);
 }
 
 .details-content {
@@ -240,9 +278,11 @@
 .detail-row {
   display: flex;
   justify-content: space-between;
-  padding: var(--space-2) 0;
+  align-items: flex-start;
+  padding: var(--space-3) 0;
   border-bottom: 1px solid var(--color-border);
   font-size: var(--font-size-sm);
+  gap: var(--space-4);
 }
 
 .detail-row:last-child {
@@ -251,22 +291,23 @@
 
 .detail-label {
   color: var(--color-text-secondary);
+  font-weight: 500;
+  flex-shrink: 0;
 }
 
 .detail-value {
-  font-family: 'Fira Code', monospace;
+  font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
   color: var(--color-text);
   text-align: right;
-  max-width: 60%;
   word-break: break-all;
 }
 
-/* Summary Section */
+/* ==================== Summary Section ==================== */
 .summary-section {
   background-color: var(--color-bg-secondary);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
-  margin-bottom: var(--space-4);
+  margin-bottom: var(--space-5);
   overflow: hidden;
 }
 
@@ -274,7 +315,7 @@
   display: flex;
   align-items: center;
   padding: var(--space-3) var(--space-4);
-  background-color: var(--color-bg-tertiary);
+  background-color: var(--color-surface);
   border-bottom: 1px solid var(--color-border);
 }
 
@@ -288,7 +329,7 @@
 }
 
 .summary-header h3 i {
-  color: #06b6d4;
+  color: var(--color-primary);
 }
 
 .summary-content {
@@ -318,12 +359,13 @@
 }
 
 .summary-value {
-  font-family: 'Fira Code', monospace;
+  font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
   font-size: var(--font-size-base);
   font-weight: 600;
-  color: #06b6d4;
+  color: var(--color-primary);
 }
 
+/* ==================== Type Breakdown ==================== */
 .type-breakdown {
   display: flex;
   flex-wrap: wrap;
@@ -336,8 +378,10 @@
   gap: var(--space-2);
   padding: var(--space-2) var(--space-3);
   background-color: var(--color-bg-tertiary);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-full);
   font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
 }
 
 .type-badge-icon {
@@ -345,12 +389,12 @@
 }
 
 .type-badge-count {
-  font-family: 'Fira Code', monospace;
+  font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
   font-weight: 600;
   color: var(--color-text);
 }
 
-/* Info Panel */
+/* ==================== Info Panel ==================== */
 .info-panel {
   background-color: var(--color-bg-secondary);
   border: 1px solid var(--color-border);
@@ -363,7 +407,7 @@
   align-items: center;
   gap: var(--space-2);
   padding: var(--space-3) var(--space-4);
-  background-color: var(--color-bg-tertiary);
+  background-color: var(--color-surface);
   border-bottom: 1px solid var(--color-border);
   font-size: var(--font-size-sm);
   font-weight: 600;
@@ -371,7 +415,7 @@
 }
 
 .info-header i {
-  color: #06b6d4;
+  color: var(--color-primary);
 }
 
 .info-content {
@@ -402,39 +446,94 @@
   padding: var(--space-3);
   background-color: var(--color-bg-tertiary);
   border-radius: var(--radius-md);
-  border-left: 3px solid #06b6d4;
+  border-left: 3px solid var(--color-primary);
   margin: 0;
 }
 
-/* Responsive */
+/* ==================== Responsive - Tablet ==================== */
 @media screen and (max-width: 1024px) {
   .metadata-wrapper {
     border-radius: var(--radius-lg);
   }
 }
 
+/* ==================== Responsive - Mobile Landscape ==================== */
 @media screen and (max-width: 768px) {
+  .metadata-header {
+    padding: var(--space-3) var(--space-4);
+  }
+
+  .metadata-header h2 {
+    font-size: var(--font-size-lg);
+    gap: var(--space-2);
+  }
+
+  .metadata-actions {
+    right: var(--space-4);
+  }
+
+  .metadata-actions .action-btn {
+    width: 28px;
+    height: 28px;
+  }
+
   .metadata-content {
     padding: var(--space-4);
+  }
+
+  .upload-area {
+    padding: var(--space-6);
+  }
+
+  .upload-icon {
+    width: 70px;
+    height: 70px;
+  }
+
+  .upload-icon i {
+    font-size: 1.75rem;
   }
 
   .summary-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 
-  .upload-area {
-    padding: var(--space-6);
+  .detail-row {
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+
+  .detail-value {
+    text-align: left;
   }
 }
 
+/* ==================== Responsive - Mobile Portrait ==================== */
 @media screen and (max-width: 480px) {
   .metadata-header {
-    padding: var(--space-3) var(--space-4);
+    padding: var(--space-2) var(--space-3);
   }
 
   .metadata-header h2 {
     font-size: var(--font-size-base);
-    gap: var(--space-2);
+  }
+
+  .metadata-actions {
+    right: var(--space-3);
+  }
+
+  .metadata-actions .action-btn {
+    width: 26px;
+    height: 26px;
+    font-size: var(--font-size-xs);
+  }
+
+  .metadata-content {
+    padding: var(--space-3);
+  }
+
+  .upload-area {
+    padding: var(--space-5);
   }
 
   .upload-icon {
@@ -446,8 +545,70 @@
     font-size: 1.5rem;
   }
 
+  .upload-area h3 {
+    font-size: var(--font-size-sm);
+  }
+
+  .upload-area p {
+    font-size: var(--font-size-xs);
+  }
+
+  .files-section,
+  .details-section,
+  .summary-section,
+  .info-panel {
+    margin-bottom: var(--space-3);
+  }
+
+  .files-header,
+  .details-header,
+  .summary-header,
+  .info-header {
+    padding: var(--space-2) var(--space-3);
+  }
+
+  .files-header h3,
+  .details-header h3,
+  .summary-header h3 {
+    font-size: var(--font-size-xs);
+  }
+
+  .files-list {
+    padding: var(--space-2);
+    max-height: 200px;
+  }
+
+  .file-item {
+    padding: var(--space-2);
+    gap: var(--space-2);
+  }
+
+  .file-icon {
+    width: 32px;
+    height: 32px;
+    font-size: var(--font-size-base);
+  }
+
+  .file-name {
+    font-size: var(--font-size-xs);
+  }
+
+  .file-meta {
+    font-size: 0.65rem;
+  }
+
+  .details-content,
+  .summary-content,
+  .info-content {
+    padding: var(--space-3);
+  }
+
+  .detail-row {
+    padding: var(--space-2) 0;
+    font-size: var(--font-size-xs);
+  }
+
   .summary-grid {
-    grid-template-columns: 1fr 1fr;
     gap: var(--space-2);
   }
 
@@ -455,17 +616,61 @@
     padding: var(--space-2);
   }
 
+  .summary-label {
+    font-size: 0.65rem;
+  }
+
   .summary-value {
     font-size: var(--font-size-sm);
   }
 
-  .file-item {
+  .type-badge {
+    padding: var(--space-1) var(--space-2);
+    font-size: 0.65rem;
+  }
+
+  .info-content p,
+  .info-content li {
+    font-size: var(--font-size-xs);
+  }
+
+  .info-content .tip {
+    font-size: 0.65rem;
     padding: var(--space-2);
+  }
+}
+
+/* ==================== Responsive - Small Mobile ==================== */
+@media screen and (max-width: 360px) {
+  .metadata-header h2 {
+    font-size: var(--font-size-sm);
+  }
+
+  .metadata-actions .action-btn {
+    width: 24px;
+    height: 24px;
+  }
+
+  .upload-area {
+    padding: var(--space-4);
+  }
+
+  .upload-icon {
+    width: 50px;
+    height: 50px;
+  }
+
+  .upload-icon i {
+    font-size: 1.25rem;
+  }
+
+  .summary-grid {
+    grid-template-columns: 1fr 1fr;
   }
 
   .file-icon {
-    width: 32px;
-    height: 32px;
-    font-size: var(--font-size-base);
+    width: 28px;
+    height: 28px;
+    font-size: var(--font-size-sm);
   }
 }

@@ -1,20 +1,16 @@
 /**
- * Timer & Stopwatch Tool
+ * KVSOVANREACH Timer & Stopwatch Tool
  * Stopwatch and countdown timer with lap tracking
  */
 
 (function() {
   'use strict';
 
-  // ============================================
-  // State
-  // ============================================
+  // ==================== State ====================
   const state = {
     mode: 'stopwatch',
-    isDarkMode: localStorage.getItem('theme') === 'dark',
     soundEnabled: localStorage.getItem('timerSound') !== 'false',
 
-    // Stopwatch state
     stopwatch: {
       running: false,
       startTime: 0,
@@ -23,7 +19,6 @@
       laps: []
     },
 
-    // Timer state
     timer: {
       running: false,
       totalTime: 0,
@@ -34,172 +29,71 @@
     }
   };
 
-  // ============================================
-  // DOM Elements
-  // ============================================
-  const elements = {
-    // Theme
-    themeToggle: document.getElementById('theme-toggle'),
+  // ==================== DOM Elements ====================
+  const elements = {};
 
+  function initElements() {
     // Mode tabs
-    modeTabs: document.querySelectorAll('.mode-tab'),
-    stopwatchMode: document.getElementById('stopwatchMode'),
-    timerMode: document.getElementById('timerMode'),
+    elements.modeTabs = document.querySelectorAll('.mode-tab');
+    elements.stopwatchMode = document.getElementById('stopwatchMode');
+    elements.timerMode = document.getElementById('timerMode');
 
     // Stopwatch
-    stopwatchDisplay: document.getElementById('stopwatchDisplay'),
-    stopwatchMs: document.getElementById('stopwatchMs'),
-    stopwatchStart: document.getElementById('stopwatchStart'),
-    stopwatchReset: document.getElementById('stopwatchReset'),
-    stopwatchLap: document.getElementById('stopwatchLap'),
-    lapsSection: document.getElementById('lapsSection'),
-    lapsList: document.getElementById('lapsList'),
-    lapsEmpty: document.getElementById('lapsEmpty'),
-    clearLapsBtn: document.getElementById('clearLapsBtn'),
-    lapStats: document.getElementById('lapStats'),
-    lapAverage: document.getElementById('lapAverage'),
-    lapBest: document.getElementById('lapBest'),
-    lapTotal: document.getElementById('lapTotal'),
+    elements.stopwatchDisplay = document.getElementById('stopwatchDisplay');
+    elements.stopwatchMs = document.getElementById('stopwatchMs');
+    elements.stopwatchStart = document.getElementById('stopwatchStart');
+    elements.stopwatchReset = document.getElementById('stopwatchReset');
+    elements.stopwatchLap = document.getElementById('stopwatchLap');
+    elements.lapsList = document.getElementById('lapsList');
+    elements.lapsEmpty = document.getElementById('lapsEmpty');
+    elements.clearLapsBtn = document.getElementById('clearLapsBtn');
+    elements.lapStats = document.getElementById('lapStats');
+    elements.lapAverage = document.getElementById('lapAverage');
+    elements.lapBest = document.getElementById('lapBest');
+    elements.lapTotal = document.getElementById('lapTotal');
 
     // Timer
-    timerInput: document.getElementById('timerInput'),
-    timerDisplay: document.getElementById('timerDisplay'),
-    timerCountdown: document.getElementById('timerCountdown'),
-    progressFill: document.getElementById('progressFill'),
-    hoursInput: document.getElementById('hoursInput'),
-    minutesInput: document.getElementById('minutesInput'),
-    secondsInput: document.getElementById('secondsInput'),
-    presetBtns: document.querySelectorAll('.preset-btn'),
-    timerStart: document.getElementById('timerStart'),
-    timerReset: document.getElementById('timerReset'),
-    timerAdd: document.getElementById('timerAdd'),
+    elements.timerInput = document.getElementById('timerInput');
+    elements.timerDisplay = document.getElementById('timerDisplay');
+    elements.timerCountdown = document.getElementById('timerCountdown');
+    elements.progressFill = document.getElementById('progressFill');
+    elements.hoursInput = document.getElementById('hoursInput');
+    elements.minutesInput = document.getElementById('minutesInput');
+    elements.secondsInput = document.getElementById('secondsInput');
+    elements.presetBtns = document.querySelectorAll('.preset-btn');
+    elements.timerStart = document.getElementById('timerStart');
+    elements.timerReset = document.getElementById('timerReset');
+    elements.timerAdd = document.getElementById('timerAdd');
 
     // Sound
-    soundEnabled: document.getElementById('soundEnabled'),
+    elements.soundEnabled = document.getElementById('soundEnabled');
 
     // Fullscreen
-    timerWrapper: document.getElementById('timer'),
-    fullscreenBtn: document.getElementById('fullscreenBtn'),
+    elements.timerWrapper = document.getElementById('timer');
+    elements.fullscreenBtn = document.getElementById('fullscreenBtn');
 
     // Modal
-    timerCompleteModal: document.getElementById('timerCompleteModal'),
-    dismissModal: document.getElementById('dismissModal'),
+    elements.timerCompleteModal = document.getElementById('timerCompleteModal');
+    elements.dismissModal = document.getElementById('dismissModal');
+  }
 
-    // Shortcuts
-    shortcutsHint: document.getElementById('shortcutsHint'),
-    shortcutsModal: document.getElementById('shortcutsModal'),
-    closeShortcutsBtn: document.getElementById('closeShortcutsBtn'),
-
-    // Other
-    toast: document.getElementById('toast'),
-    currentYear: document.getElementById('current-year')
-  };
-
-  // Audio context for alarm
+  // ==================== Audio ====================
   let audioContext = null;
+  let alarmOscillator = null;
 
-  // ============================================
-  // Initialization
-  // ============================================
-  // Theme & footer year handled by tools-common.js
-
-  function init() {
-    initEventListeners();
-    initKeyboardShortcuts();
-    loadSettings();
-  }
-
-  function loadSettings() {
-    elements.soundEnabled.checked = state.soundEnabled;
-  }
-
-  function initEventListeners() {
-    // Mode tabs
-    elements.modeTabs.forEach(tab => {
-      tab.addEventListener('click', () => switchMode(tab.dataset.mode));
-    });
-
-    // Stopwatch controls
-    elements.stopwatchStart?.addEventListener('click', toggleStopwatch);
-    elements.stopwatchReset?.addEventListener('click', resetStopwatch);
-    elements.stopwatchLap?.addEventListener('click', recordLap);
-    elements.clearLapsBtn?.addEventListener('click', clearLaps);
-
-    // Timer controls
-    elements.timerStart?.addEventListener('click', toggleTimer);
-    elements.timerReset?.addEventListener('click', resetTimer);
-    elements.timerAdd?.addEventListener('click', addMinute);
-
-    // Presets
-    elements.presetBtns.forEach(btn => {
-      btn.addEventListener('click', () => {
-        const minutes = parseInt(btn.dataset.minutes);
-        setTimerPreset(minutes);
-      });
-    });
-
-    // Timer inputs
-    [elements.hoursInput, elements.minutesInput, elements.secondsInput].forEach(input => {
-      input?.addEventListener('change', validateTimeInput);
-      input?.addEventListener('focus', () => input.select());
-    });
-
-    // Sound toggle
-    elements.soundEnabled?.addEventListener('change', (e) => {
-      state.soundEnabled = e.target.checked;
-      localStorage.setItem('timerSound', e.target.checked);
-    });
-
-    // Modal dismiss
-    elements.dismissModal?.addEventListener('click', hideCompleteModal);
-    elements.timerCompleteModal?.addEventListener('click', (e) => {
-      if (e.target === elements.timerCompleteModal) {
-        hideCompleteModal();
-      }
-    });
-
-    // Fullscreen
-    elements.fullscreenBtn?.addEventListener('click', toggleFullscreen);
-  }
-
-  // ============================================
-  // Fullscreen
-  // ============================================
-  function toggleFullscreen() {
-    const wrapper = elements.timerWrapper;
-    const btn = elements.fullscreenBtn;
-    const icon = btn.querySelector('i');
-
-    wrapper.classList.toggle('fullscreen');
-
-    if (wrapper.classList.contains('fullscreen')) {
-      icon.className = 'fa-solid fa-compress';
-      btn.title = 'Exit fullscreen';
-    } else {
-      icon.className = 'fa-solid fa-expand';
-      btn.title = 'Toggle fullscreen';
-    }
-  }
-
-  // ============================================
-  // Mode Switching
-  // ============================================
+  // ==================== Mode Switching ====================
   function switchMode(mode) {
     state.mode = mode;
 
-    // Update tabs
     elements.modeTabs.forEach(tab => {
       tab.classList.toggle('active', tab.dataset.mode === mode);
     });
 
-    // Update content
     elements.stopwatchMode?.classList.toggle('active', mode === 'stopwatch');
     elements.timerMode?.classList.toggle('active', mode === 'timer');
   }
 
-  // ============================================
-  // Stopwatch Functions
-  // ============================================
+  // ==================== Stopwatch ====================
   function toggleStopwatch() {
     if (state.stopwatch.running) {
       pauseStopwatch();
@@ -267,6 +161,7 @@
     }
   }
 
+  // ==================== Laps ====================
   function recordLap() {
     if (!state.stopwatch.running) return;
 
@@ -288,7 +183,6 @@
   function renderLaps() {
     if (!elements.lapsList) return;
 
-    // Remove existing lap items
     const existingItems = elements.lapsList.querySelectorAll('.lap-item');
     existingItems.forEach(item => item.remove());
 
@@ -300,7 +194,6 @@
 
     elements.lapsEmpty?.classList.add('hidden');
 
-    // Find best and worst laps
     let bestIndex = 0;
     let worstIndex = 0;
 
@@ -335,7 +228,6 @@
       elements.lapsList.appendChild(item);
     });
 
-    // Update lap statistics
     updateLapStats(bestIndex);
   }
 
@@ -347,13 +239,11 @@
 
     if (elements.lapStats) elements.lapStats.style.display = 'flex';
 
-    // Calculate average
     const totalSplit = state.stopwatch.laps.reduce((sum, lap) => sum + lap.split, 0);
     const average = totalSplit / state.stopwatch.laps.length;
     const best = state.stopwatch.laps[bestIndex].split;
     const total = state.stopwatch.laps[0].total;
 
-    // Format times
     const avgTime = parseTime(average);
     const bestTime = parseTime(best);
     const totalTime = parseTime(total);
@@ -372,12 +262,10 @@
   function clearLaps() {
     state.stopwatch.laps = [];
     renderLaps();
-    showToast('Laps cleared', 'success');
+    ToolsCommon.Toast.show('Laps cleared', 'success');
   }
 
-  // ============================================
-  // Timer Functions
-  // ============================================
+  // ==================== Timer ====================
   function toggleTimer() {
     if (state.timer.running) {
       pauseTimer();
@@ -387,7 +275,6 @@
   }
 
   function startTimer() {
-    // Get time from inputs if not already set
     if (state.timer.remainingTime === 0) {
       const hours = parseInt(elements.hoursInput.value) || 0;
       const minutes = parseInt(elements.minutesInput.value) || 0;
@@ -398,7 +285,7 @@
     }
 
     if (state.timer.remainingTime <= 0) {
-      showToast('Please set a time', 'error');
+      ToolsCommon.Toast.show('Please set a time', 'error');
       return;
     }
 
@@ -406,7 +293,6 @@
     state.timer.startTime = Date.now();
     state.timer.pausedTime = state.timer.remainingTime;
 
-    // Show timer display, hide input
     elements.timerInput.style.display = 'none';
     elements.timerDisplay.style.display = 'block';
 
@@ -434,7 +320,6 @@
     state.timer.totalTime = 0;
     state.timer.remainingTime = 0;
 
-    // Show input, hide display
     elements.timerInput.style.display = 'block';
     elements.timerDisplay.style.display = 'none';
 
@@ -444,7 +329,6 @@
     updateTimerDisplay();
     updateProgress(0);
 
-    // Reset display colors
     elements.timerCountdown.parentElement.classList.remove('warning', 'danger');
     elements.progressFill.classList.remove('warning', 'danger');
   }
@@ -466,13 +350,11 @@
     const { hours, minutes, seconds } = parseTime(remaining);
     elements.timerCountdown.textContent = formatTime(hours, minutes, seconds);
 
-    // Update progress
     if (state.timer.totalTime > 0) {
       const progress = 1 - (remaining / state.timer.totalTime);
       updateProgress(progress);
     }
 
-    // Color warnings
     const timeDisplay = elements.timerCountdown.parentElement;
 
     if (remaining <= 10000 && remaining > 0) {
@@ -526,7 +408,7 @@
       state.timer.remainingTime += 60000;
     }
 
-    showToast('+1 minute added', 'success');
+    ToolsCommon.Toast.show('+1 minute added', 'success');
   }
 
   function validateTimeInput(e) {
@@ -545,19 +427,17 @@
   function timerComplete() {
     pauseTimer();
 
-    // Play sound
     if (state.soundEnabled) {
       playAlarm();
     }
 
-    // Show modal
     showCompleteModal();
 
-    // Reset
     state.timer.totalTime = 0;
     state.timer.remainingTime = 0;
   }
 
+  // ==================== Modal ====================
   function showCompleteModal() {
     elements.timerCompleteModal.classList.add('show');
   }
@@ -568,11 +448,7 @@
     resetTimer();
   }
 
-  // ============================================
-  // Sound Functions
-  // ============================================
-  let alarmOscillator = null;
-
+  // ==================== Sound ====================
   function playAlarm() {
     if (!audioContext) {
       audioContext = new (window.AudioContext || window.webkitAudioContext)();
@@ -587,7 +463,6 @@
     alarmOscillator.type = 'sine';
     alarmOscillator.frequency.setValueAtTime(800, audioContext.currentTime);
 
-    // Beep pattern
     const beep = () => {
       if (!alarmOscillator) return;
       alarmOscillator.frequency.setValueAtTime(800, audioContext.currentTime);
@@ -600,7 +475,6 @@
     beep();
     const beepInterval = setInterval(beep, 400);
 
-    // Store interval for cleanup
     alarmOscillator.beepInterval = beepInterval;
   }
 
@@ -612,70 +486,30 @@
     }
   }
 
-  // ============================================
-  // Keyboard Shortcuts
-  // ============================================
-  function initKeyboardShortcuts() {
-    // Shortcut modal handled by tools-common.js
-    document.addEventListener('keydown', (e) => {
-      // Don't trigger shortcuts when typing in inputs
-      if (e.target.tagName === 'INPUT') {
-        if (e.key === 'Escape') {
-          e.target.blur();
-        }
-        return;
-      }
+  // ==================== Fullscreen ====================
+  function toggleFullscreen() {
+    const wrapper = elements.timerWrapper;
+    const btn = elements.fullscreenBtn;
+    const icon = btn.querySelector('i');
 
-      switch (e.key.toLowerCase()) {
-        case ' ':
-          e.preventDefault();
-          if (state.mode === 'stopwatch') {
-            toggleStopwatch();
-          } else {
-            toggleTimer();
-          }
-          break;
-        case 'r':
-          if (state.mode === 'stopwatch') {
-            resetStopwatch();
-          } else {
-            resetTimer();
-          }
-          break;
-        case 'l':
-          if (state.mode === 'stopwatch' && state.stopwatch.running) {
-            recordLap();
-          }
-          break;
-        case 'tab':
-          e.preventDefault();
-          switchMode(state.mode === 'stopwatch' ? 'timer' : 'stopwatch');
-          break;
-        case 'm':
-          state.soundEnabled = !state.soundEnabled;
-          elements.soundEnabled.checked = state.soundEnabled;
-          localStorage.setItem('timerSound', state.soundEnabled);
-          showToast(`Sound ${state.soundEnabled ? 'enabled' : 'disabled'}`, 'success');
-          break;
-        case 'f':
-          toggleFullscreen();
-          break;
-        case 'escape':
-          hideCompleteModal();
-          break;
-      }
-    });
+    wrapper.classList.toggle('fullscreen');
+
+    if (wrapper.classList.contains('fullscreen')) {
+      icon.className = 'fa-solid fa-compress';
+      btn.title = 'Exit fullscreen';
+    } else {
+      icon.className = 'fa-solid fa-expand';
+      btn.title = 'Toggle fullscreen';
+    }
   }
 
-  // ============================================
-  // Utilities
-  // ============================================
+  // ==================== Utilities ====================
   function parseTime(ms) {
     const totalSeconds = Math.floor(ms / 1000);
     const hours = Math.floor(totalSeconds / 3600);
     const minutes = Math.floor((totalSeconds % 3600) / 60);
     const seconds = totalSeconds % 60;
-    const milliseconds = Math.floor((ms % 1000));
+    const milliseconds = Math.floor(ms % 1000);
 
     return { hours, minutes, seconds, ms: milliseconds };
   }
@@ -688,24 +522,116 @@
     ].join(':');
   }
 
-  function showToast(message, type = 'info') {
-    if (!elements.toast) return;
+  // ==================== Event Handlers ====================
+  function handleKeydown(e) {
+    if (e.target.tagName === 'INPUT') {
+      if (e.key === 'Escape') e.target.blur();
+      return;
+    }
 
-    elements.toast.textContent = message;
-    elements.toast.className = 'toast show ' + type;
-
-    setTimeout(() => {
-      elements.toast.classList.remove('show');
-    }, 3000);
+    switch (e.key.toLowerCase()) {
+      case ' ':
+        e.preventDefault();
+        if (state.mode === 'stopwatch') {
+          toggleStopwatch();
+        } else {
+          toggleTimer();
+        }
+        break;
+      case 'r':
+        if (state.mode === 'stopwatch') {
+          resetStopwatch();
+        } else {
+          resetTimer();
+        }
+        break;
+      case 'l':
+        if (state.mode === 'stopwatch' && state.stopwatch.running) {
+          recordLap();
+        }
+        break;
+      case 'tab':
+        e.preventDefault();
+        switchMode(state.mode === 'stopwatch' ? 'timer' : 'stopwatch');
+        break;
+      case 'm':
+        state.soundEnabled = !state.soundEnabled;
+        elements.soundEnabled.checked = state.soundEnabled;
+        localStorage.setItem('timerSound', state.soundEnabled);
+        ToolsCommon.Toast.show(`Sound ${state.soundEnabled ? 'enabled' : 'disabled'}`, 'success');
+        break;
+      case 'f':
+        toggleFullscreen();
+        break;
+      case 'escape':
+        hideCompleteModal();
+        break;
+    }
   }
 
+  // ==================== Event Listeners ====================
+  function setupEventListeners() {
+    // Mode tabs
+    elements.modeTabs.forEach(tab => {
+      tab.addEventListener('click', () => switchMode(tab.dataset.mode));
+    });
 
-  // ============================================
-  // Initialize
-  // ============================================
+    // Stopwatch controls
+    elements.stopwatchStart?.addEventListener('click', toggleStopwatch);
+    elements.stopwatchReset?.addEventListener('click', resetStopwatch);
+    elements.stopwatchLap?.addEventListener('click', recordLap);
+    elements.clearLapsBtn?.addEventListener('click', clearLaps);
+
+    // Timer controls
+    elements.timerStart?.addEventListener('click', toggleTimer);
+    elements.timerReset?.addEventListener('click', resetTimer);
+    elements.timerAdd?.addEventListener('click', addMinute);
+
+    // Presets
+    elements.presetBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const minutes = parseInt(btn.dataset.minutes);
+        setTimerPreset(minutes);
+      });
+    });
+
+    // Timer inputs
+    [elements.hoursInput, elements.minutesInput, elements.secondsInput].forEach(input => {
+      input?.addEventListener('change', validateTimeInput);
+      input?.addEventListener('focus', () => input.select());
+    });
+
+    // Sound toggle
+    elements.soundEnabled?.addEventListener('change', (e) => {
+      state.soundEnabled = e.target.checked;
+      localStorage.setItem('timerSound', e.target.checked);
+    });
+
+    // Modal
+    elements.dismissModal?.addEventListener('click', hideCompleteModal);
+    elements.timerCompleteModal?.addEventListener('click', (e) => {
+      if (e.target === elements.timerCompleteModal) hideCompleteModal();
+    });
+
+    // Fullscreen
+    elements.fullscreenBtn?.addEventListener('click', toggleFullscreen);
+
+    // Keyboard shortcuts
+    document.addEventListener('keydown', handleKeydown);
+  }
+
+  // ==================== Initialization ====================
+  function init() {
+    initElements();
+    setupEventListeners();
+    elements.soundEnabled.checked = state.soundEnabled;
+  }
+
+  // ==================== Bootstrap ====================
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);
   } else {
     init();
   }
+
 })();

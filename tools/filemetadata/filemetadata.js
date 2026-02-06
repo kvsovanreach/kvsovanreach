@@ -6,30 +6,34 @@
 (function() {
   'use strict';
 
-  // DOM Elements
-  const elements = {
-    uploadArea: document.getElementById('uploadArea'),
-    fileInput: document.getElementById('fileInput'),
-    filesSection: document.getElementById('filesSection'),
-    filesList: document.getElementById('filesList'),
-    fileCount: document.getElementById('fileCount'),
-    detailsSection: document.getElementById('detailsSection'),
-    detailsContent: document.getElementById('detailsContent'),
-    summarySection: document.getElementById('summarySection'),
-    totalFiles: document.getElementById('totalFiles'),
-    totalSize: document.getElementById('totalSize'),
-    avgSize: document.getElementById('avgSize'),
-    fileTypes: document.getElementById('fileTypes'),
-    typeBreakdown: document.getElementById('typeBreakdown'),
-    clearBtn: document.getElementById('clearBtn')
+  // ==================== State ====================
+  const state = {
+    files: [],
+    selectedIndex: null
   };
 
-  // State
-  let files = [];
-  let selectedFile = null;
+  // ==================== DOM Elements ====================
+  const elements = {};
 
-  // File type mappings
-  const fileTypeIcons = {
+  function initElements() {
+    elements.uploadArea = document.getElementById('uploadArea');
+    elements.fileInput = document.getElementById('fileInput');
+    elements.filesSection = document.getElementById('filesSection');
+    elements.filesList = document.getElementById('filesList');
+    elements.fileCount = document.getElementById('fileCount');
+    elements.detailsSection = document.getElementById('detailsSection');
+    elements.detailsContent = document.getElementById('detailsContent');
+    elements.summarySection = document.getElementById('summarySection');
+    elements.totalFiles = document.getElementById('totalFiles');
+    elements.totalSize = document.getElementById('totalSize');
+    elements.avgSize = document.getElementById('avgSize');
+    elements.fileTypes = document.getElementById('fileTypes');
+    elements.typeBreakdown = document.getElementById('typeBreakdown');
+    elements.clearBtn = document.getElementById('clearBtn');
+  }
+
+  // ==================== File Type Mappings ====================
+  const FILE_TYPE_ICONS = {
     'image': { icon: 'fa-image', class: 'image' },
     'video': { icon: 'fa-video', class: 'video' },
     'audio': { icon: 'fa-music', class: 'audio' },
@@ -45,80 +49,11 @@
     'default': { icon: 'fa-file', class: 'default' }
   };
 
-  /**
-   * Initialize the application
-   */
-  function init() {
-    bindEvents();
-  }
-
-  /**
-   * Bind event listeners
-   */
-  function bindEvents() {
-    // Upload area click
-    elements.uploadArea.addEventListener('click', () => elements.fileInput.click());
-
-    // File input change
-    elements.fileInput.addEventListener('change', handleFileSelect);
-
-    // Drag and drop
-    elements.uploadArea.addEventListener('dragover', handleDragOver);
-    elements.uploadArea.addEventListener('dragleave', handleDragLeave);
-    elements.uploadArea.addEventListener('drop', handleDrop);
-
-    // Clear button
-    elements.clearBtn.addEventListener('click', clearFiles);
-
-    // Keyboard shortcuts
-    document.addEventListener('keydown', handleKeydown);
-  }
-
-  /**
-   * Handle file selection
-   */
-  function handleFileSelect(e) {
-    const selectedFiles = Array.from(e.target.files);
-    processFiles(selectedFiles);
-  }
-
-  /**
-   * Handle drag over
-   */
-  function handleDragOver(e) {
-    e.preventDefault();
-    e.stopPropagation();
-    elements.uploadArea.classList.add('dragover');
-  }
-
-  /**
-   * Handle drag leave
-   */
-  function handleDragLeave(e) {
-    e.preventDefault();
-    e.stopPropagation();
-    elements.uploadArea.classList.remove('dragover');
-  }
-
-  /**
-   * Handle drop
-   */
-  function handleDrop(e) {
-    e.preventDefault();
-    e.stopPropagation();
-    elements.uploadArea.classList.remove('dragover');
-
-    const droppedFiles = Array.from(e.dataTransfer.files);
-    processFiles(droppedFiles);
-  }
-
-  /**
-   * Process selected files
-   */
+  // ==================== File Processing ====================
   function processFiles(selectedFiles) {
     if (selectedFiles.length === 0) return;
 
-    files = selectedFiles.map(file => ({
+    state.files = selectedFiles.map(file => ({
       file,
       name: file.name,
       size: file.size,
@@ -133,26 +68,72 @@
     elements.filesSection.style.display = 'block';
     elements.summarySection.style.display = 'block';
 
-    if (files.length === 1) {
+    if (state.files.length === 1) {
       selectFile(0);
     } else {
+      state.selectedIndex = null;
       elements.detailsSection.style.display = 'none';
     }
 
-    ToolsCommon.Toast.show(`${files.length} file(s) loaded`, 'success');
+    ToolsCommon.Toast.show(`${state.files.length} file(s) loaded`, 'success');
   }
 
-  /**
-   * Render files list
-   */
-  function renderFilesList() {
-    elements.fileCount.textContent = files.length;
+  function getFileExtension(filename) {
+    const parts = filename.split('.');
+    return parts.length > 1 ? parts.pop().toLowerCase() : '';
+  }
 
-    elements.filesList.innerHTML = files.map((file, index) => {
+  function getFileIcon(type) {
+    if (!type) return FILE_TYPE_ICONS.default;
+
+    if (FILE_TYPE_ICONS[type]) return FILE_TYPE_ICONS[type];
+
+    for (const [key, value] of Object.entries(FILE_TYPE_ICONS)) {
+      if (type.startsWith(key)) return value;
+    }
+
+    return FILE_TYPE_ICONS.default;
+  }
+
+  function getFileCategory(type) {
+    if (!type) return 'Other';
+    if (type.startsWith('image')) return 'Image';
+    if (type.startsWith('video')) return 'Video';
+    if (type.startsWith('audio')) return 'Audio';
+    if (type.startsWith('text')) return 'Text';
+    if (type.includes('pdf')) return 'PDF';
+    if (type.includes('word') || type.includes('document')) return 'Document';
+    if (type.includes('zip') || type.includes('rar') || type.includes('7z')) return 'Archive';
+    if (type.includes('json') || type.includes('javascript')) return 'Code';
+    return 'Other';
+  }
+
+  // ==================== File Selection ====================
+  function selectFile(index) {
+    state.selectedIndex = index;
+    renderFilesList();
+    renderDetails(state.files[index]);
+    elements.detailsSection.style.display = 'block';
+  }
+
+  function handleFileClick(e) {
+    const fileItem = e.target.closest('.file-item');
+    if (!fileItem) return;
+
+    const index = parseInt(fileItem.dataset.index, 10);
+    if (!isNaN(index)) {
+      selectFile(index);
+    }
+  }
+
+  // ==================== Rendering ====================
+  function renderFilesList() {
+    elements.fileCount.textContent = state.files.length;
+
+    elements.filesList.innerHTML = state.files.map((file, index) => {
       const iconInfo = getFileIcon(file.type);
       return `
-        <div class="file-item ${selectedFile === index ? 'selected' : ''}"
-             onclick="window.selectFileByIndex(${index})">
+        <div class="file-item ${state.selectedIndex === index ? 'selected' : ''}" data-index="${index}">
           <div class="file-icon ${iconInfo.class}">
             <i class="fa-solid ${iconInfo.icon}"></i>
           </div>
@@ -168,26 +149,6 @@
     }).join('');
   }
 
-  /**
-   * Select file by index
-   */
-  window.selectFileByIndex = function(index) {
-    selectFile(index);
-  };
-
-  /**
-   * Select file
-   */
-  function selectFile(index) {
-    selectedFile = index;
-    renderFilesList();
-    renderDetails(files[index]);
-    elements.detailsSection.style.display = 'block';
-  }
-
-  /**
-   * Render file details
-   */
   function renderDetails(file) {
     const details = [
       { label: 'File Name', value: file.name },
@@ -206,31 +167,26 @@
     `).join('');
   }
 
-  /**
-   * Render summary
-   */
   function renderSummary() {
-    const totalSize = files.reduce((sum, f) => sum + f.size, 0);
-    const avgSize = files.length > 0 ? totalSize / files.length : 0;
+    const totalSize = state.files.reduce((sum, f) => sum + f.size, 0);
+    const avgSize = state.files.length > 0 ? totalSize / state.files.length : 0;
 
-    // Count file types
     const typeCount = {};
-    files.forEach(f => {
+    state.files.forEach(f => {
       const category = getFileCategory(f.type);
       typeCount[category] = (typeCount[category] || 0) + 1;
     });
 
-    elements.totalFiles.textContent = files.length;
+    elements.totalFiles.textContent = state.files.length;
     elements.totalSize.textContent = formatSize(totalSize);
     elements.avgSize.textContent = formatSize(avgSize);
     elements.fileTypes.textContent = Object.keys(typeCount).length;
 
-    // Render type breakdown
     elements.typeBreakdown.innerHTML = Object.entries(typeCount).map(([type, count]) => {
       const iconInfo = getFileIcon(type);
       return `
         <div class="type-badge">
-          <i class="fa-solid ${iconInfo.icon} type-badge-icon" style="color: inherit;"></i>
+          <i class="fa-solid ${iconInfo.icon} type-badge-icon"></i>
           <span>${type}</span>
           <span class="type-badge-count">${count}</span>
         </div>
@@ -238,50 +194,7 @@
     }).join('');
   }
 
-  /**
-   * Get file extension
-   */
-  function getFileExtension(filename) {
-    const parts = filename.split('.');
-    return parts.length > 1 ? parts.pop().toLowerCase() : '';
-  }
-
-  /**
-   * Get file icon based on type
-   */
-  function getFileIcon(type) {
-    if (!type) return fileTypeIcons.default;
-
-    // Check for exact match first
-    if (fileTypeIcons[type]) return fileTypeIcons[type];
-
-    // Check for partial match
-    for (const [key, value] of Object.entries(fileTypeIcons)) {
-      if (type.startsWith(key)) return value;
-    }
-
-    return fileTypeIcons.default;
-  }
-
-  /**
-   * Get file category
-   */
-  function getFileCategory(type) {
-    if (!type) return 'Other';
-    if (type.startsWith('image')) return 'Image';
-    if (type.startsWith('video')) return 'Video';
-    if (type.startsWith('audio')) return 'Audio';
-    if (type.startsWith('text')) return 'Text';
-    if (type.includes('pdf')) return 'PDF';
-    if (type.includes('word') || type.includes('document')) return 'Document';
-    if (type.includes('zip') || type.includes('rar') || type.includes('7z')) return 'Archive';
-    if (type.includes('json') || type.includes('javascript')) return 'Code';
-    return 'Other';
-  }
-
-  /**
-   * Format file size
-   */
+  // ==================== Utilities ====================
   function formatSize(bytes) {
     if (bytes === 0) return '0 B';
 
@@ -292,9 +205,6 @@
     return `${size.toFixed(i === 0 ? 0 : 2)} ${units[i]}`;
   }
 
-  /**
-   * Format date
-   */
   function formatDate(date) {
     return date.toLocaleString('en-US', {
       year: 'numeric',
@@ -306,21 +216,18 @@
     });
   }
 
-  /**
-   * Escape HTML
-   */
   function escapeHtml(text) {
     const div = document.createElement('div');
     div.textContent = text;
     return div.innerHTML;
   }
 
-  /**
-   * Clear files
-   */
+  // ==================== Actions ====================
   function clearFiles() {
-    files = [];
-    selectedFile = null;
+    if (state.files.length === 0) return;
+
+    state.files = [];
+    state.selectedIndex = null;
 
     elements.fileInput.value = '';
     elements.filesSection.style.display = 'none';
@@ -330,26 +237,95 @@
     ToolsCommon.Toast.show('Files cleared', 'info');
   }
 
-  /**
-   * Handle keyboard shortcuts
-   */
+  // ==================== Event Handlers ====================
+  function handleFileSelect(e) {
+    const selectedFiles = Array.from(e.target.files);
+    processFiles(selectedFiles);
+  }
+
+  function handleDragOver(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    elements.uploadArea.classList.add('dragover');
+  }
+
+  function handleDragLeave(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    elements.uploadArea.classList.remove('dragover');
+  }
+
+  function handleDrop(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    elements.uploadArea.classList.remove('dragover');
+
+    const droppedFiles = Array.from(e.dataTransfer.files);
+    processFiles(droppedFiles);
+  }
+
   function handleKeydown(e) {
-    // Ctrl+O - Open file picker
+    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+
     if (e.ctrlKey && e.key === 'o') {
       e.preventDefault();
       elements.fileInput.click();
+      return;
     }
 
-    // Escape - Clear
     if (e.key === 'Escape') {
       clearFiles();
+      return;
+    }
+
+    // Arrow key navigation
+    if (state.files.length > 0 && (e.key === 'ArrowUp' || e.key === 'ArrowDown')) {
+      e.preventDefault();
+      const currentIndex = state.selectedIndex ?? -1;
+      let newIndex;
+
+      if (e.key === 'ArrowUp') {
+        newIndex = currentIndex > 0 ? currentIndex - 1 : state.files.length - 1;
+      } else {
+        newIndex = currentIndex < state.files.length - 1 ? currentIndex + 1 : 0;
+      }
+
+      selectFile(newIndex);
     }
   }
 
-  // Initialize when DOM is ready
+  // ==================== Event Listeners ====================
+  function setupEventListeners() {
+    // Upload area
+    elements.uploadArea.addEventListener('click', () => elements.fileInput.click());
+    elements.fileInput.addEventListener('change', handleFileSelect);
+
+    // Drag and drop
+    elements.uploadArea.addEventListener('dragover', handleDragOver);
+    elements.uploadArea.addEventListener('dragleave', handleDragLeave);
+    elements.uploadArea.addEventListener('drop', handleDrop);
+
+    // File list click delegation
+    elements.filesList.addEventListener('click', handleFileClick);
+
+    // Clear button
+    elements.clearBtn.addEventListener('click', clearFiles);
+
+    // Keyboard shortcuts
+    document.addEventListener('keydown', handleKeydown);
+  }
+
+  // ==================== Initialization ====================
+  function init() {
+    initElements();
+    setupEventListeners();
+  }
+
+  // ==================== Bootstrap ====================
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);
   } else {
     init();
   }
+
 })();

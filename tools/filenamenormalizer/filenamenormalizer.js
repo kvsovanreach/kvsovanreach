@@ -6,56 +6,29 @@
 (function() {
   'use strict';
 
-  // DOM Elements
-  const elements = {
-    filenameInput: document.getElementById('filenameInput'),
-    formatSelect: document.getElementById('formatSelect'),
-    removeSpecial: document.getElementById('removeSpecial'),
-    removeDuplicates: document.getElementById('removeDuplicates'),
-    preserveExtension: document.getElementById('preserveExtension'),
-    trimNumbers: document.getElementById('trimNumbers'),
-    resultsContent: document.getElementById('resultsContent'),
-    previewSection: document.getElementById('previewSection'),
-    previewContent: document.getElementById('previewContent'),
-    copyAllBtn: document.getElementById('copyAllBtn'),
-    clearBtn: document.getElementById('clearBtn')
+  // ==================== State ====================
+  const state = {
+    results: []
   };
 
-  // State
-  let normalizedResults = [];
+  // ==================== DOM Elements ====================
+  const elements = {};
 
-  /**
-   * Initialize the application
-   */
-  function init() {
-    bindEvents();
+  function initElements() {
+    elements.filenameInput = document.getElementById('filenameInput');
+    elements.formatSelect = document.getElementById('formatSelect');
+    elements.removeSpecial = document.getElementById('removeSpecial');
+    elements.removeDuplicates = document.getElementById('removeDuplicates');
+    elements.preserveExtension = document.getElementById('preserveExtension');
+    elements.trimNumbers = document.getElementById('trimNumbers');
+    elements.resultsContent = document.getElementById('resultsContent');
+    elements.previewSection = document.getElementById('previewSection');
+    elements.previewContent = document.getElementById('previewContent');
+    elements.copyAllBtn = document.getElementById('copyAllBtn');
+    elements.clearBtn = document.getElementById('clearBtn');
   }
 
-  /**
-   * Bind event listeners
-   */
-  function bindEvents() {
-    // Input change
-    elements.filenameInput.addEventListener('input', ToolsCommon.debounce(processFilenames, 200));
-
-    // Options change
-    elements.formatSelect.addEventListener('change', processFilenames);
-    elements.removeSpecial.addEventListener('change', processFilenames);
-    elements.removeDuplicates.addEventListener('change', processFilenames);
-    elements.preserveExtension.addEventListener('change', processFilenames);
-    elements.trimNumbers.addEventListener('change', processFilenames);
-
-    // Buttons
-    elements.copyAllBtn.addEventListener('click', copyAllResults);
-    elements.clearBtn.addEventListener('click', clearInput);
-
-    // Keyboard shortcuts
-    document.addEventListener('keydown', handleKeydown);
-  }
-
-  /**
-   * Process filenames
-   */
+  // ==================== Filename Processing ====================
   function processFilenames() {
     const input = elements.filenameInput.value.trim();
 
@@ -65,7 +38,7 @@
     }
 
     const filenames = input.split('\n').filter(f => f.trim());
-    normalizedResults = filenames.map(filename => ({
+    state.results = filenames.map(filename => ({
       original: filename.trim(),
       normalized: normalizeFilename(filename.trim())
     }));
@@ -74,9 +47,6 @@
     renderPreview();
   }
 
-  /**
-   * Normalize a single filename
-   */
   function normalizeFilename(filename) {
     const options = {
       format: elements.formatSelect.value,
@@ -144,9 +114,7 @@
     return name + extension.toLowerCase();
   }
 
-  /**
-   * Convert to kebab-case
-   */
+  // ==================== Case Converters ====================
   function toKebabCase(str) {
     return str
       .replace(/([a-z])([A-Z])/g, '$1-$2')
@@ -154,9 +122,6 @@
       .toLowerCase();
   }
 
-  /**
-   * Convert to snake_case
-   */
   function toSnakeCase(str) {
     return str
       .replace(/([a-z])([A-Z])/g, '$1_$2')
@@ -164,18 +129,12 @@
       .toLowerCase();
   }
 
-  /**
-   * Convert to camelCase
-   */
   function toCamelCase(str) {
     return str
       .replace(/[\s_-]+(.)/g, (_, c) => c.toUpperCase())
       .replace(/^(.)/, (_, c) => c.toLowerCase());
   }
 
-  /**
-   * Convert to PascalCase
-   */
   function toPascalCase(str) {
     return str
       .replace(/[\s_-]+(.)/g, (_, c) => c.toUpperCase())
@@ -183,30 +142,25 @@
       .replace(/[\s_-]/g, '');
   }
 
-  /**
-   * Render results
-   */
+  // ==================== Rendering ====================
   function renderResults() {
-    if (normalizedResults.length === 0) {
+    if (state.results.length === 0) {
       resetResults();
       return;
     }
 
-    elements.resultsContent.innerHTML = normalizedResults.map((result, index) => `
-      <div class="result-item">
+    elements.resultsContent.innerHTML = state.results.map((result, index) => `
+      <div class="result-item" data-index="${index}">
         <span class="result-filename">${escapeHtml(result.normalized)}</span>
-        <button class="result-copy" onclick="window.copyResult(${index})" title="Copy">
+        <button class="result-copy" title="Copy">
           <i class="fa-solid fa-copy"></i>
         </button>
       </div>
     `).join('');
   }
 
-  /**
-   * Render preview (before & after)
-   */
   function renderPreview() {
-    if (normalizedResults.length === 0) {
+    if (state.results.length === 0) {
       elements.previewSection.style.display = 'none';
       return;
     }
@@ -214,7 +168,7 @@
     elements.previewSection.style.display = 'block';
 
     // Only show first 5 for preview
-    const previewItems = normalizedResults.slice(0, 5);
+    const previewItems = state.results.slice(0, 5);
 
     elements.previewContent.innerHTML = previewItems.map(result => `
       <div class="preview-item">
@@ -225,69 +179,104 @@
     `).join('');
   }
 
-  /**
-   * Reset results
-   */
   function resetResults() {
-    normalizedResults = [];
+    state.results = [];
     elements.resultsContent.innerHTML = '<div class="results-placeholder">Enter filenames above to normalize</div>';
     elements.previewSection.style.display = 'none';
   }
 
-  /**
-   * Copy single result
-   */
-  window.copyResult = function(index) {
-    if (normalizedResults[index]) {
-      ToolsCommon.Clipboard.copy(normalizedResults[index].normalized);
-    }
-  };
-
-  /**
-   * Copy all results
-   */
-  function copyAllResults() {
-    if (normalizedResults.length === 0) {
-      ToolsCommon.Toast.show('No results to copy', 'error');
-      return;
-    }
-
-    const text = normalizedResults.map(r => r.normalized).join('\n');
-    ToolsCommon.Clipboard.copy(text);
-  }
-
-  /**
-   * Clear input
-   */
-  function clearInput() {
-    elements.filenameInput.value = '';
-    resetResults();
-    ToolsCommon.Toast.show('Input cleared', 'info');
-  }
-
-  /**
-   * Escape HTML
-   */
+  // ==================== Utilities ====================
   function escapeHtml(text) {
     const div = document.createElement('div');
     div.textContent = text;
     return div.innerHTML;
   }
 
-  /**
-   * Handle keyboard shortcuts
-   */
+  // ==================== Actions ====================
+  function copyResult(index) {
+    if (state.results[index]) {
+      ToolsCommon.Clipboard.copy(state.results[index].normalized);
+    }
+  }
+
+  function copyAllResults() {
+    if (state.results.length === 0) {
+      ToolsCommon.Toast.show('No results to copy', 'error');
+      return;
+    }
+
+    const text = state.results.map(r => r.normalized).join('\n');
+    ToolsCommon.Clipboard.copy(text);
+  }
+
+  function clearInput() {
+    elements.filenameInput.value = '';
+    resetResults();
+    elements.filenameInput.focus();
+    ToolsCommon.Toast.show('Input cleared', 'info');
+  }
+
+  // ==================== Event Handlers ====================
+  function handleResultClick(e) {
+    const copyBtn = e.target.closest('.result-copy');
+    if (!copyBtn) return;
+
+    const resultItem = copyBtn.closest('.result-item');
+    if (!resultItem) return;
+
+    const index = parseInt(resultItem.dataset.index, 10);
+    if (!isNaN(index)) {
+      copyResult(index);
+    }
+  }
+
   function handleKeydown(e) {
-    // Escape - Clear
+    if (e.target.tagName === 'TEXTAREA' || e.target.tagName === 'INPUT') {
+      if (e.key === 'Escape') {
+        e.target.blur();
+      }
+      return;
+    }
+
     if (e.key === 'Escape') {
       clearInput();
     }
   }
 
-  // Initialize when DOM is ready
+  // ==================== Event Listeners ====================
+  function setupEventListeners() {
+    // Input change
+    elements.filenameInput.addEventListener('input', ToolsCommon.debounce(processFilenames, 200));
+
+    // Options change
+    elements.formatSelect.addEventListener('change', processFilenames);
+    elements.removeSpecial.addEventListener('change', processFilenames);
+    elements.removeDuplicates.addEventListener('change', processFilenames);
+    elements.preserveExtension.addEventListener('change', processFilenames);
+    elements.trimNumbers.addEventListener('change', processFilenames);
+
+    // Results click delegation
+    elements.resultsContent.addEventListener('click', handleResultClick);
+
+    // Buttons
+    elements.copyAllBtn.addEventListener('click', copyAllResults);
+    elements.clearBtn.addEventListener('click', clearInput);
+
+    // Keyboard shortcuts
+    document.addEventListener('keydown', handleKeydown);
+  }
+
+  // ==================== Initialization ====================
+  function init() {
+    initElements();
+    setupEventListeners();
+  }
+
+  // ==================== Bootstrap ====================
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);
   } else {
     init();
   }
+
 })();

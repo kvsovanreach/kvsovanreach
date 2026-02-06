@@ -1,8 +1,6 @@
-/**
- * Timer & Stopwatch Styles
- */
+/* ==================== Timer & Stopwatch Tool Styles ==================== */
 
-/* ==================== Timer Wrapper ==================== */
+/* ==================== Wrapper ==================== */
 .timer-wrapper {
   max-width: 1200px;
   margin: 0 auto;
@@ -18,10 +16,10 @@
 .timer-header {
   display: flex;
   align-items: center;
-  justify-content: space-between;
   padding: var(--space-4) var(--space-5);
   background-color: var(--color-surface);
   border-bottom: 1px solid var(--color-border);
+  position: relative;
 }
 
 .timer-header h2 {
@@ -38,8 +36,16 @@
 }
 
 .timer-header .fullscreen-btn {
-  padding: var(--space-2) var(--space-3);
-  background: none;
+  position: absolute;
+  right: var(--space-5);
+  top: 50%;
+  transform: translateY(-50%);
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-bg-secondary);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   color: var(--color-text-secondary);
@@ -48,8 +54,9 @@
 }
 
 .timer-header .fullscreen-btn:hover {
-  background-color: var(--color-bg);
-  color: var(--color-text);
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+  color: #fff;
 }
 
 /* ==================== Mode Tabs ==================== */
@@ -124,7 +131,7 @@
 .time-main {
   font-size: 4rem;
   font-weight: 700;
-  font-family: 'Consolas', 'Monaco', monospace;
+  font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
   color: var(--color-text);
   line-height: 1;
   letter-spacing: 2px;
@@ -133,7 +140,7 @@
 .time-ms {
   font-size: var(--font-size-2xl);
   font-weight: 500;
-  font-family: 'Consolas', 'Monaco', monospace;
+  font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
   color: var(--color-text-secondary);
   margin-top: var(--space-2);
 }
@@ -191,7 +198,7 @@
 }
 
 .control-btn.secondary {
-  background-color: var(--color-bg);
+  background-color: var(--color-bg-secondary);
   border: 1px solid var(--color-border);
   color: var(--color-text-secondary);
 }
@@ -210,7 +217,7 @@
 .control-btn.primary {
   background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
   border: none;
-  color: white;
+  color: #fff;
 }
 
 .control-btn.primary:hover {
@@ -237,31 +244,7 @@
   box-shadow: 0 8px 25px rgba(249, 115, 22, 0.3);
 }
 
-/* Fullscreen Button */
-.fullscreen-btn {
-  position: absolute;
-  top: var(--space-4);
-  right: var(--space-4);
-  width: 40px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: var(--color-bg);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
-  color: var(--color-text-secondary);
-  cursor: pointer;
-  transition: all var(--transition-fast);
-}
-
-.fullscreen-btn:hover {
-  background-color: var(--color-primary);
-  border-color: var(--color-primary);
-  color: white;
-}
-
-/* Fullscreen Mode */
+/* ==================== Fullscreen Mode ==================== */
 .timer-wrapper.fullscreen {
   position: fixed;
   inset: 0;
@@ -272,7 +255,7 @@
   flex-direction: column;
 }
 
-.timer-wrapper.fullscreen .mode-content {
+.timer-wrapper.fullscreen .mode-content.active {
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -291,18 +274,9 @@
   max-height: 200px;
 }
 
-@media screen and (max-width: 768px) {
-  .timer-wrapper.fullscreen .time-main {
-    font-size: 4rem;
-  }
-  .timer-wrapper.fullscreen .time-ms {
-    font-size: 1.5rem;
-  }
-}
-
 /* ==================== Laps Section ==================== */
 .laps-section {
-  background-color: var(--color-bg);
+  background-color: var(--color-bg-secondary);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
   overflow: hidden;
@@ -345,6 +319,19 @@
 .laps-list {
   max-height: 250px;
   overflow-y: auto;
+}
+
+.laps-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.laps-list::-webkit-scrollbar-thumb {
+  background-color: var(--color-border);
+  border-radius: var(--radius-full);
+}
+
+.laps-list::-webkit-scrollbar-thumb:hover {
+  background-color: var(--color-text-muted);
 }
 
 .laps-empty {
@@ -391,14 +378,14 @@
 
 .lap-time {
   flex: 1;
-  font-family: 'Consolas', 'Monaco', monospace;
+  font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
   font-size: var(--font-size-base);
   font-weight: 600;
   color: var(--color-text);
 }
 
 .lap-diff {
-  font-family: 'Consolas', 'Monaco', monospace;
+  font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
   font-size: var(--font-size-sm);
   color: var(--color-text-secondary);
 }
@@ -411,7 +398,7 @@
   color: #ef4444;
 }
 
-/* Lap Statistics */
+/* ==================== Lap Statistics ==================== */
 .lap-stats {
   display: flex;
   gap: var(--space-4);
@@ -434,7 +421,7 @@
 }
 
 .lap-stat-value {
-  font-family: 'Consolas', 'Monaco', monospace;
+  font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
   font-size: var(--font-size-sm);
   font-weight: 600;
   color: var(--color-text);
@@ -466,9 +453,9 @@
   text-align: center;
   font-size: 2rem;
   font-weight: 700;
-  font-family: 'Consolas', 'Monaco', monospace;
+  font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
   color: var(--color-text);
-  background-color: var(--color-bg);
+  background-color: var(--color-bg-secondary);
   border: 2px solid var(--color-border);
   border-radius: var(--radius-lg);
   outline: none;
@@ -505,7 +492,7 @@
   margin-top: -20px;
 }
 
-/* Presets */
+/* ==================== Presets ==================== */
 .presets {
   display: flex;
   flex-wrap: wrap;
@@ -515,7 +502,7 @@
 
 .preset-btn {
   padding: var(--space-2) var(--space-3);
-  background-color: var(--color-bg);
+  background-color: var(--color-bg-secondary);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   font-size: var(--font-size-sm);
@@ -528,7 +515,7 @@
 .preset-btn:hover {
   background-color: var(--color-primary);
   border-color: var(--color-primary);
-  color: white;
+  color: #fff;
 }
 
 /* ==================== Timer Display ==================== */
@@ -613,7 +600,7 @@
   left: 2px;
   width: 20px;
   height: 20px;
-  background-color: white;
+  background-color: #fff;
   border-radius: var(--radius-full);
   transition: transform var(--transition-fast);
   box-shadow: var(--shadow-sm);
@@ -642,7 +629,7 @@
   position: fixed;
   inset: 0;
   background-color: rgba(0, 0, 0, 0.7);
-  z-index: 1100;
+  z-index: 1200;
   align-items: center;
   justify-content: center;
   padding: var(--space-4);
@@ -688,7 +675,7 @@
 
 .modal-icon i {
   font-size: 2rem;
-  color: white;
+  color: #fff;
 }
 
 .timer-complete-modal h2 {
@@ -709,7 +696,7 @@
   gap: var(--space-2);
   padding: var(--space-3) var(--space-6);
   background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
-  color: white;
+  color: #fff;
   border: none;
   border-radius: var(--radius-lg);
   font-size: var(--font-size-base);
@@ -723,23 +710,28 @@
   box-shadow: 0 8px 25px rgba(55, 118, 161, 0.3);
 }
 
-/* Toast, Shortcuts Modal & Hint styles are in tools-common.css */
-
-/* ==================== Responsive ==================== */
+/* ==================== Responsive - Tablet ==================== */
 @media screen and (max-width: 1024px) {
   .timer-wrapper {
     border-radius: var(--radius-lg);
   }
 }
 
+/* ==================== Responsive - Mobile Landscape ==================== */
 @media screen and (max-width: 768px) {
-  .tool-page {
-    padding-top: 80px;
+  .timer-header {
+    padding: var(--space-3) var(--space-3);
   }
 
-  .tool-page .container {
-    padding-left: var(--space-3);
-    padding-right: var(--space-3);
+  .timer-header h2 {
+    font-size: var(--font-size-lg);
+    gap: var(--space-2);
+  }
+
+  .timer-header .fullscreen-btn {
+    right: var(--space-3);
+    width: 28px;
+    height: 28px;
   }
 
   .mode-content {
@@ -777,16 +769,50 @@
     width: 150px;
     height: 150px;
   }
+
+  .timer-wrapper.fullscreen .time-main {
+    font-size: 4rem;
+  }
+
+  .timer-wrapper.fullscreen .time-ms {
+    font-size: 1.5rem;
+  }
+
+  .mode-tab span {
+    display: none;
+  }
+
+  .mode-tab {
+    padding: var(--space-3);
+  }
+
+  .mode-tab i {
+    font-size: var(--font-size-lg);
+  }
 }
 
+/* ==================== Responsive - Mobile Portrait ==================== */
 @media screen and (max-width: 480px) {
-  .tool-page .container {
-    padding-left: var(--space-2);
-    padding-right: var(--space-2);
+  .timer-header {
+    padding: var(--space-2) var(--space-3);
+  }
+
+  .timer-header h2 {
+    font-size: var(--font-size-base);
+  }
+
+  .timer-header .fullscreen-btn {
+    width: 26px;
+    height: 26px;
+    font-size: var(--font-size-xs);
   }
 
   .time-main {
     font-size: 2.5rem;
+  }
+
+  .time-ms {
+    font-size: var(--font-size-lg);
   }
 
   .time-input-field input {
@@ -808,9 +834,17 @@
     padding: var(--space-2) var(--space-3);
   }
 
+  .control-btn span {
+    display: none;
+  }
+
   .control-btn.primary.large {
     width: 60px;
     height: 60px;
+  }
+
+  .control-btn.primary.large i {
+    font-size: 1.25rem;
   }
 
   .presets {
@@ -825,5 +859,146 @@
   .progress-ring {
     width: 120px;
     height: 120px;
+  }
+
+  .laps-header {
+    padding: var(--space-2) var(--space-3);
+  }
+
+  .laps-header h3 {
+    font-size: var(--font-size-sm);
+  }
+
+  .lap-item {
+    padding: var(--space-2) var(--space-3);
+  }
+
+  .lap-number {
+    font-size: var(--font-size-xs);
+    min-width: 50px;
+  }
+
+  .lap-time {
+    font-size: var(--font-size-sm);
+  }
+
+  .lap-diff {
+    font-size: var(--font-size-xs);
+  }
+
+  .lap-stats {
+    padding: var(--space-2) var(--space-3);
+    gap: var(--space-3);
+  }
+
+  .lap-stat-label {
+    font-size: 0.65rem;
+  }
+
+  .lap-stat-value {
+    font-size: var(--font-size-xs);
+  }
+
+  .sound-settings {
+    padding: var(--space-3);
+  }
+
+  .sound-toggle .toggle-switch {
+    width: 40px;
+    height: 22px;
+  }
+
+  .sound-toggle .toggle-switch::after {
+    width: 18px;
+    height: 18px;
+  }
+
+  .sound-toggle input:checked + .toggle-switch::after {
+    transform: translateX(18px);
+  }
+
+  .sound-toggle .toggle-label {
+    font-size: var(--font-size-xs);
+  }
+
+  .timer-complete-modal .modal-content {
+    padding: var(--space-6);
+  }
+
+  .modal-icon {
+    width: 60px;
+    height: 60px;
+  }
+
+  .modal-icon i {
+    font-size: 1.5rem;
+  }
+
+  .timer-complete-modal h2 {
+    font-size: var(--font-size-xl);
+  }
+
+  .modal-btn {
+    padding: var(--space-2) var(--space-4);
+    font-size: var(--font-size-sm);
+  }
+}
+
+/* ==================== Responsive - Small Mobile ==================== */
+@media screen and (max-width: 360px) {
+  .timer-header h2 {
+    font-size: var(--font-size-sm);
+  }
+
+  .timer-header .fullscreen-btn {
+    width: 24px;
+    height: 24px;
+  }
+
+  .time-main {
+    font-size: 2rem;
+  }
+
+  .time-ms {
+    font-size: var(--font-size-base);
+  }
+
+  .time-input-field input {
+    width: 55px;
+    height: 55px;
+    font-size: 1.1rem;
+  }
+
+  .time-separator {
+    font-size: 1.1rem;
+    margin-top: -15px;
+  }
+
+  .control-btn {
+    min-width: 60px;
+    padding: var(--space-2);
+  }
+
+  .control-btn.primary.large {
+    width: 55px;
+    height: 55px;
+  }
+
+  .progress-ring {
+    width: 100px;
+    height: 100px;
+  }
+
+  .laps-empty {
+    padding: var(--space-4);
+  }
+
+  .laps-empty i {
+    font-size: 1.5rem;
+  }
+
+  .preset-btn {
+    padding: 4px 6px;
+    font-size: 0.65rem;
   }
 }

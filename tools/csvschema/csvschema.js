@@ -6,25 +6,8 @@
 (function() {
   'use strict';
 
-  // DOM Elements
-  const elements = {
-    uploadArea: document.getElementById('uploadArea'),
-    fileInput: document.getElementById('fileInput'),
-    csvInput: document.getElementById('csvInput'),
-    statsSection: document.getElementById('statsSection'),
-    rowCount: document.getElementById('rowCount'),
-    columnCount: document.getElementById('columnCount'),
-    nullCount: document.getElementById('nullCount'),
-    schemaSection: document.getElementById('schemaSection'),
-    schemaContent: document.getElementById('schemaContent'),
-    previewSection: document.getElementById('previewSection'),
-    previewTable: document.getElementById('previewTable'),
-    sampleBtn: document.getElementById('sampleBtn'),
-    clearBtn: document.getElementById('clearBtn')
-  };
-
-  // Sample CSV data
-  const sampleData = `name,age,email,salary,active,joined_date
+  // ==================== Constants ====================
+  const SAMPLE_DATA = `name,age,email,salary,active,joined_date
 Alice Smith,28,alice@example.com,75000.50,true,2022-01-15
 Bob Johnson,35,bob@company.org,82500.00,true,2021-06-20
 Charlie Brown,42,charlie@email.net,91000.75,false,2019-03-10
@@ -34,126 +17,32 @@ Fiona Green,29,,72000.50,false,2022-08-15
 George White,38,george@mail.com,,true,2020-04-22
 Helen Black,33,helen@org.net,79500.00,true,`;
 
-  /**
-   * Initialize the application
-   */
-  function init() {
-    bindEvents();
+  // ==================== State ====================
+  const state = {
+    parsed: null,
+    schema: null
+  };
+
+  // ==================== DOM Elements ====================
+  const elements = {};
+
+  function initElements() {
+    elements.uploadArea = document.getElementById('uploadArea');
+    elements.fileInput = document.getElementById('fileInput');
+    elements.csvInput = document.getElementById('csvInput');
+    elements.statsSection = document.getElementById('statsSection');
+    elements.rowCount = document.getElementById('rowCount');
+    elements.columnCount = document.getElementById('columnCount');
+    elements.nullCount = document.getElementById('nullCount');
+    elements.schemaSection = document.getElementById('schemaSection');
+    elements.schemaContent = document.getElementById('schemaContent');
+    elements.previewSection = document.getElementById('previewSection');
+    elements.previewTable = document.getElementById('previewTable');
+    elements.sampleBtn = document.getElementById('sampleBtn');
+    elements.clearBtn = document.getElementById('clearBtn');
   }
 
-  /**
-   * Bind event listeners
-   */
-  function bindEvents() {
-    // Upload area click
-    elements.uploadArea.addEventListener('click', () => elements.fileInput.click());
-
-    // File input change
-    elements.fileInput.addEventListener('change', handleFileSelect);
-
-    // Drag and drop
-    elements.uploadArea.addEventListener('dragover', handleDragOver);
-    elements.uploadArea.addEventListener('dragleave', handleDragLeave);
-    elements.uploadArea.addEventListener('drop', handleDrop);
-
-    // Text input
-    elements.csvInput.addEventListener('input', ToolsCommon.debounce(processCSV, 300));
-
-    // Buttons
-    elements.sampleBtn.addEventListener('click', loadSample);
-    elements.clearBtn.addEventListener('click', clearData);
-
-    // Keyboard shortcuts
-    document.addEventListener('keydown', handleKeydown);
-  }
-
-  /**
-   * Handle file selection
-   */
-  function handleFileSelect(e) {
-    const file = e.target.files[0];
-    if (file) {
-      readFile(file);
-    }
-  }
-
-  /**
-   * Handle drag over
-   */
-  function handleDragOver(e) {
-    e.preventDefault();
-    elements.uploadArea.classList.add('dragover');
-  }
-
-  /**
-   * Handle drag leave
-   */
-  function handleDragLeave(e) {
-    e.preventDefault();
-    elements.uploadArea.classList.remove('dragover');
-  }
-
-  /**
-   * Handle drop
-   */
-  function handleDrop(e) {
-    e.preventDefault();
-    elements.uploadArea.classList.remove('dragover');
-
-    const file = e.dataTransfer.files[0];
-    if (file) {
-      readFile(file);
-    }
-  }
-
-  /**
-   * Read file content
-   */
-  function readFile(file) {
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      elements.csvInput.value = e.target.result;
-      processCSV();
-    };
-    reader.readAsText(file);
-  }
-
-  /**
-   * Process CSV data
-   */
-  function processCSV() {
-    const input = elements.csvInput.value.trim();
-
-    if (!input) {
-      hideResults();
-      return;
-    }
-
-    try {
-      const parsed = parseCSV(input);
-
-      if (parsed.headers.length === 0 || parsed.rows.length === 0) {
-        hideResults();
-        return;
-      }
-
-      const schema = analyzeSchema(parsed);
-      displayStats(parsed, schema);
-      displaySchema(schema);
-      displayPreview(parsed);
-
-      elements.statsSection.style.display = 'block';
-      elements.schemaSection.style.display = 'block';
-      elements.previewSection.style.display = 'block';
-    } catch (e) {
-      ToolsCommon.Toast.show('Error parsing CSV: ' + e.message, 'error');
-      hideResults();
-    }
-  }
-
-  /**
-   * Parse CSV string
-   */
+  // ==================== CSV Parsing ====================
   function parseCSV(input) {
     const lines = input.split('\n').filter(line => line.trim());
     const delimiter = detectDelimiter(lines[0]);
@@ -164,18 +53,12 @@ Helen Black,33,helen@org.net,79500.00,true,`;
     return { headers, rows, delimiter };
   }
 
-  /**
-   * Detect delimiter (comma or tab)
-   */
   function detectDelimiter(line) {
     const commas = (line.match(/,/g) || []).length;
     const tabs = (line.match(/\t/g) || []).length;
     return tabs > commas ? '\t' : ',';
   }
 
-  /**
-   * Parse a single CSV line
-   */
   function parseLine(line, delimiter) {
     const values = [];
     let current = '';
@@ -198,11 +81,9 @@ Helen Black,33,helen@org.net,79500.00,true,`;
     return values;
   }
 
-  /**
-   * Analyze schema and data types
-   */
+  // ==================== Schema Analysis ====================
   function analyzeSchema(parsed) {
-    const schema = parsed.headers.map((header, index) => {
+    return parsed.headers.map((header, index) => {
       const values = parsed.rows.map(row => row[index] || '');
       const nonEmpty = values.filter(v => v !== '');
       const types = nonEmpty.map(detectType);
@@ -242,13 +123,8 @@ Helen Black,33,helen@org.net,79500.00,true,`;
         sample: nonEmpty.slice(0, 3)
       };
     });
-
-    return schema;
   }
 
-  /**
-   * Detect type of a value
-   */
   function detectType(value) {
     if (value === '') return 'null';
 
@@ -270,22 +146,48 @@ Helen Black,33,helen@org.net,79500.00,true,`;
     return 'string';
   }
 
-  /**
-   * Display stats
-   */
-  function displayStats(parsed, schema) {
-    elements.rowCount.textContent = parsed.rows.length;
-    elements.columnCount.textContent = parsed.headers.length;
+  // ==================== Processing ====================
+  function processCSV() {
+    const input = elements.csvInput.value.trim();
 
-    const totalNulls = schema.reduce((sum, col) => sum + col.nulls, 0);
+    if (!input) {
+      hideResults();
+      return;
+    }
+
+    try {
+      state.parsed = parseCSV(input);
+
+      if (state.parsed.headers.length === 0 || state.parsed.rows.length === 0) {
+        hideResults();
+        return;
+      }
+
+      state.schema = analyzeSchema(state.parsed);
+      displayStats();
+      displaySchema();
+      displayPreview();
+
+      elements.statsSection.style.display = 'block';
+      elements.schemaSection.style.display = 'block';
+      elements.previewSection.style.display = 'block';
+    } catch (e) {
+      ToolsCommon.Toast.show('Error parsing CSV: ' + e.message, 'error');
+      hideResults();
+    }
+  }
+
+  // ==================== Rendering ====================
+  function displayStats() {
+    elements.rowCount.textContent = state.parsed.rows.length;
+    elements.columnCount.textContent = state.parsed.headers.length;
+
+    const totalNulls = state.schema.reduce((sum, col) => sum + col.nulls, 0);
     elements.nullCount.textContent = totalNulls;
   }
 
-  /**
-   * Display schema
-   */
-  function displaySchema(schema) {
-    elements.schemaContent.innerHTML = schema.map(col => `
+  function displaySchema() {
+    elements.schemaContent.innerHTML = state.schema.map(col => `
       <div class="schema-card">
         <div class="schema-card-header">
           <span class="column-name">${escapeHtml(col.name)}</span>
@@ -309,13 +211,10 @@ Helen Black,33,helen@org.net,79500.00,true,`;
     `).join('');
   }
 
-  /**
-   * Display preview table
-   */
-  function displayPreview(parsed) {
-    const previewRows = parsed.rows.slice(0, 10);
+  function displayPreview() {
+    const previewRows = state.parsed.rows.slice(0, 10);
 
-    const headerHtml = `<tr>${parsed.headers.map(h => `<th>${escapeHtml(h)}</th>`).join('')}</tr>`;
+    const headerHtml = `<tr>${state.parsed.headers.map(h => `<th>${escapeHtml(h)}</th>`).join('')}</tr>`;
     const rowsHtml = previewRows.map(row => `
       <tr>${row.map(cell => `<td>${escapeHtml(cell) || '<em style="opacity:0.5">null</em>'}</td>`).join('')}</tr>
     `).join('');
@@ -323,58 +222,94 @@ Helen Black,33,helen@org.net,79500.00,true,`;
     elements.previewTable.innerHTML = `<thead>${headerHtml}</thead><tbody>${rowsHtml}</tbody>`;
   }
 
-  /**
-   * Load sample data
-   */
-  function loadSample() {
-    elements.csvInput.value = sampleData;
-    processCSV();
-    ToolsCommon.Toast.show('Sample data loaded', 'success');
-  }
-
-  /**
-   * Clear data
-   */
-  function clearData() {
-    elements.csvInput.value = '';
-    elements.fileInput.value = '';
-    hideResults();
-    ToolsCommon.Toast.show('Data cleared', 'info');
-  }
-
-  /**
-   * Hide results
-   */
   function hideResults() {
+    state.parsed = null;
+    state.schema = null;
     elements.statsSection.style.display = 'none';
     elements.schemaSection.style.display = 'none';
     elements.previewSection.style.display = 'none';
   }
 
-  /**
-   * Escape HTML
-   */
+  // ==================== Utilities ====================
   function escapeHtml(text) {
     const div = document.createElement('div');
     div.textContent = text;
     return div.innerHTML;
   }
 
-  /**
-   * Truncate string
-   */
   function truncate(str, max) {
     return str.length > max ? str.slice(0, max) + '...' : str;
   }
 
-  /**
-   * Handle keyboard shortcuts
-   */
+  // ==================== Actions ====================
+  function loadSample() {
+    elements.csvInput.value = SAMPLE_DATA;
+    processCSV();
+    ToolsCommon.Toast.show('Sample data loaded', 'success');
+  }
+
+  function clearData() {
+    elements.csvInput.value = '';
+    elements.fileInput.value = '';
+    hideResults();
+    elements.csvInput.focus();
+    ToolsCommon.Toast.show('Data cleared', 'info');
+  }
+
+  function readFile(file) {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      elements.csvInput.value = e.target.result;
+      processCSV();
+      ToolsCommon.Toast.show(`File "${file.name}" loaded`, 'success');
+    };
+    reader.readAsText(file);
+  }
+
+  // ==================== Event Handlers ====================
+  function handleFileSelect(e) {
+    const file = e.target.files[0];
+    if (file) {
+      readFile(file);
+    }
+  }
+
+  function handleDragOver(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    elements.uploadArea.classList.add('dragover');
+  }
+
+  function handleDragLeave(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    elements.uploadArea.classList.remove('dragover');
+  }
+
+  function handleDrop(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    elements.uploadArea.classList.remove('dragover');
+
+    const file = e.dataTransfer.files[0];
+    if (file) {
+      readFile(file);
+    }
+  }
+
   function handleKeydown(e) {
+    if (e.target.tagName === 'TEXTAREA' || e.target.tagName === 'INPUT') {
+      if (e.key === 'Escape') {
+        e.target.blur();
+      }
+      return;
+    }
+
     // Ctrl+O - Open file
     if (e.ctrlKey && e.key === 'o') {
       e.preventDefault();
       elements.fileInput.click();
+      return;
     }
 
     // Escape - Clear
@@ -383,10 +318,39 @@ Helen Black,33,helen@org.net,79500.00,true,`;
     }
   }
 
-  // Initialize when DOM is ready
+  // ==================== Event Listeners ====================
+  function setupEventListeners() {
+    // Upload area
+    elements.uploadArea.addEventListener('click', () => elements.fileInput.click());
+    elements.fileInput.addEventListener('change', handleFileSelect);
+
+    // Drag and drop
+    elements.uploadArea.addEventListener('dragover', handleDragOver);
+    elements.uploadArea.addEventListener('dragleave', handleDragLeave);
+    elements.uploadArea.addEventListener('drop', handleDrop);
+
+    // Text input
+    elements.csvInput.addEventListener('input', ToolsCommon.debounce(processCSV, 300));
+
+    // Buttons
+    elements.sampleBtn.addEventListener('click', loadSample);
+    elements.clearBtn.addEventListener('click', clearData);
+
+    // Keyboard shortcuts
+    document.addEventListener('keydown', handleKeydown);
+  }
+
+  // ==================== Initialization ====================
+  function init() {
+    initElements();
+    setupEventListeners();
+  }
+
+  // ==================== Bootstrap ====================
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);
   } else {
     init();
   }
+
 })();

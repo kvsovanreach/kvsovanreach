@@ -68,7 +68,7 @@ const toolsData = [
     icon: "fa-solid fa-stopwatch",
     url: "/tools/timer/",
     tags: ["timer", "stopwatch", "countdown", "time", "clock"],
-    status: "inactive"
+    status: "active"
   },
   {
     id: "notes",
@@ -98,7 +98,7 @@ const toolsData = [
     icon: "fa-solid fa-file-zipper",
     url: "/tools/image/",
     tags: ["image", "compress", "optimize", "resize", "photo"],
-    status: "inactive"
+    status: "coming-soon"
   },
   {
     id: "text-cleaner",
@@ -710,7 +710,7 @@ const toolsData = [
     icon: "fa-solid fa-file-lines",
     url: "/tools/filemetadata/",
     tags: ["file", "metadata", "inspect", "size", "type", "properties"],
-    status: "inactive"
+    status: "active"
   },
   {
     id: "filename-normalizer",
@@ -720,7 +720,7 @@ const toolsData = [
     icon: "fa-solid fa-file-signature",
     url: "/tools/filenamenormalizer/",
     tags: ["filename", "normalize", "rename", "batch", "standardize"],
-    status: "inactive"
+    status: "active"
   },
   {
     id: "csv-schema",
@@ -730,7 +730,7 @@ const toolsData = [
     icon: "fa-solid fa-file-csv",
     url: "/tools/csvschema/",
     tags: ["csv", "schema", "columns", "data", "explore", "structure"],
-    status: "inactive"
+    status: "active"
   },
   {
     id: "data-structure",
@@ -1014,7 +1014,7 @@ const toolsData = [
     icon: "fa-solid fa-bolt",
     url: "/tools/reactiontest/",
     tags: ["reaction", "time", "speed", "test", "reflex", "game"],
-    status: "inactive"
+    status: "active"
   },
   {
     id: "game-2048",
