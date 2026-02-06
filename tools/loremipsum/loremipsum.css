@@ -2,9 +2,62 @@
  * Lorem Ipsum Generator Styles
  */
 
+/* ==================== Non-Editable Elements ==================== */
+.lorem-wrapper,
+.lorem-header,
+.lorem-header h2,
+.lorem-main,
+.lorem-panel,
+.generator-section,
+.options-grid,
+.option-group,
+.option-group label,
+.checkbox-options,
+.output-section,
+.output-header,
+.output-header label,
+.output-stats,
+.preview-section,
+.preview-controls,
+.preview-option,
+.preview-option label,
+.preview-option span,
+.preview-content {
+  cursor: default;
+  user-select: none;
+}
+
+/* Clickable elements */
+.generate-btn,
+.action-btn,
+.option-group select,
+.option-group input[type="number"],
+.checkbox-label,
+.checkbox-label input,
+.preview-option input[type="range"] {
+  cursor: pointer;
+}
+
+/* Allow text selection in textareas and preview */
+#loremOutput {
+  cursor: text;
+  user-select: text;
+}
+
+.preview-content p:not(.placeholder) {
+  user-select: text;
+  cursor: text;
+}
+
 /* ==================== Wrapper ==================== */
 .lorem-wrapper {
-  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
 }
 
 /* ==================== Header ==================== */
@@ -13,8 +66,7 @@
   align-items: center;
   padding: var(--space-4) var(--space-5);
   background-color: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  border-bottom: 1px solid var(--color-border);
 }
 
 .lorem-header h2 {
@@ -30,58 +82,10 @@
   color: var(--color-primary);
 }
 
-/* ==================== Tabs ==================== */
-.lorem-tabs {
-  display: flex;
-  background-color: var(--color-bg-secondary);
-  border: 1px solid var(--color-border);
-  border-top: none;
-  overflow: hidden;
-}
-
-.lorem-tab {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--space-2);
-  padding: var(--space-3) var(--space-4);
-  font-size: var(--font-size-sm);
-  font-weight: 500;
-  color: var(--color-text-secondary);
-  background: none;
-  border: none;
-  cursor: pointer;
-  transition: all var(--transition-fast);
-  position: relative;
-}
-
-.lorem-tab:hover {
-  background-color: var(--color-bg);
-  color: var(--color-text);
-}
-
-.lorem-tab.active {
-  color: var(--color-primary);
-  background-color: var(--color-bg);
-}
-
-.lorem-tab.active::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background-color: var(--color-primary);
-}
+/* Tab styles are in tools-common.css */
 
 /* ==================== Main Content ==================== */
 .lorem-main {
-  background-color: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-top: none;
-  border-radius: 0 0 var(--radius-lg) var(--radius-lg);
   padding: var(--space-5);
 }
 
@@ -126,7 +130,6 @@
   background-color: var(--color-bg);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
-  cursor: pointer;
   transition: all var(--transition-fast);
 }
 
@@ -138,7 +141,6 @@
   background-color: var(--color-bg);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
-  cursor: pointer;
   transition: all var(--transition-fast);
   appearance: none;
   -webkit-appearance: none;
@@ -149,7 +151,8 @@
   outline: none;
 }
 
-.option-group input:focus {
+.option-group input:focus,
+.option-group select:focus {
   outline: none;
   border-color: var(--color-primary);
   box-shadow: 0 0 0 3px rgba(55, 118, 161, 0.1);
@@ -168,14 +171,12 @@
   gap: var(--space-2);
   font-size: var(--font-size-sm);
   color: var(--color-text-secondary);
-  cursor: pointer;
 }
 
 .checkbox-label input {
   width: 18px;
   height: 18px;
   accent-color: var(--color-primary);
-  cursor: pointer;
 }
 
 /* ==================== Generate Button ==================== */
@@ -191,7 +192,6 @@
   background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
   border: none;
   border-radius: var(--radius-lg);
-  cursor: pointer;
   transition: all var(--transition-fast);
 }
 
@@ -286,7 +286,6 @@
   border-radius: var(--radius-full);
   -webkit-appearance: none;
   appearance: none;
-  cursor: pointer;
   outline: none;
 }
 
@@ -360,9 +359,17 @@
 }
 
 @media screen and (max-width: 768px) {
+  .lorem-header {
+    padding: var(--space-3);
+  }
+
+  .lorem-header h2 {
+    font-size: var(--font-size-lg);
+    gap: var(--space-2);
+  }
+
   .lorem-main {
-    padding: var(--space-4);
-    border-radius: 0 0 var(--radius-md) var(--radius-md);
+    padding: var(--space-3);
   }
 
   .options-grid {
@@ -396,7 +403,76 @@
 }
 
 @media screen and (max-width: 480px) {
-  .lorem-tab span {
+  .lorem-header {
+    padding: var(--space-2) var(--space-3);
+  }
+
+  .lorem-header h2 {
+    font-size: var(--font-size-base);
+  }
+
+  .lorem-main {
+    padding: var(--space-2);
+  }
+
+  .option-group input[type="number"],
+  .option-group select {
+    padding: var(--space-2) var(--space-3);
+    font-size: var(--font-size-sm);
+  }
+
+  .generate-btn {
+    padding: var(--space-3);
+    font-size: var(--font-size-sm);
+  }
+
+  #loremOutput {
+    min-height: 200px;
+    padding: var(--space-3);
+    font-size: var(--font-size-sm);
+  }
+
+  .preview-content {
+    min-height: 200px;
+    padding: var(--space-3);
+  }
+
+  .action-btn span {
     display: none;
+  }
+
+  .action-btn {
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    justify-content: center;
+  }
+}
+
+@media screen and (max-width: 360px) {
+  .lorem-header h2 {
+    font-size: var(--font-size-sm);
+  }
+
+  .checkbox-label {
+    font-size: var(--font-size-xs);
+  }
+
+  .generate-btn {
+    padding: var(--space-2);
+    font-size: var(--font-size-xs);
+  }
+
+  .action-btn {
+    width: 36px;
+    height: 36px;
+  }
+
+  .preview-option label {
+    font-size: var(--font-size-xs);
+  }
+
+  .preview-option span {
+    min-width: 40px;
   }
 }

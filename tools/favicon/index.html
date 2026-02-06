@@ -60,204 +60,622 @@
           <h2><i class="fa-solid fa-icons"></i> Favicon Generator</h2>
         </div>
 
-        <!-- Upload Section -->
-        <div class="upload-section">
-          <div class="upload-area" id="uploadArea">
-            <input type="file" id="imageInput" accept="image/*" hidden>
-            <div class="upload-content">
-              <i class="fa-solid fa-cloud-arrow-up"></i>
-              <p>Drop an image here or <span>browse</span></p>
-              <span class="upload-hint">PNG, JPG, SVG, or WebP (recommended: square image)</span>
-            </div>
-          </div>
+        <!-- Tab Navigation -->
+        <div class="tool-tabs">
+          <button class="tool-tab active" data-tab="image">
+            <i class="fa-solid fa-image"></i>
+            <span>Image</span>
+          </button>
+          <button class="tool-tab" data-tab="text">
+            <i class="fa-solid fa-font"></i>
+            <span>Text</span>
+          </button>
+          <button class="tool-tab" data-tab="emoji">
+            <i class="fa-solid fa-face-smile"></i>
+            <span>Emoji</span>
+          </button>
         </div>
 
-        <!-- Editor Section (hidden initially) -->
-        <div class="editor-section" id="editorSection" style="display: none;">
-          <!-- Source Preview -->
-          <div class="source-preview">
-            <div class="source-image-container">
-              <img id="sourceImage" src="" alt="Source image">
-            </div>
-            <div class="source-info">
-              <span id="sourceInfo">-</span>
-              <button class="change-image-btn" id="changeImageBtn">
-                <i class="fa-solid fa-image"></i>
-                Change Image
-              </button>
-            </div>
-          </div>
+        <!-- Main Content Area -->
+        <div class="favicon-main">
+          <!-- Tab Content -->
+          <div class="favicon-content">
+            <!-- Image Panel -->
+            <div class="favicon-panel active" id="imagePanel">
+              <!-- Upload State -->
+              <div class="upload-area" id="uploadArea">
+                <input type="file" id="imageInput" accept="image/*" hidden>
+                <div class="upload-content">
+                  <i class="fa-solid fa-cloud-arrow-up"></i>
+                  <p>Drop an image here or <span>browse</span></p>
+                  <span class="upload-hint">PNG, JPG, SVG, or WebP (recommended: square image)</span>
+                </div>
+              </div>
 
-          <!-- Options -->
-          <div class="options-section">
-            <div class="option-group">
-              <label>Background</label>
-              <div class="bg-options">
-                <button class="bg-option active" data-bg="transparent" title="Transparent">
-                  <span class="transparent-bg"></span>
-                </button>
-                <button class="bg-option" data-bg="white" title="White">
-                  <span style="background: white;"></span>
-                </button>
-                <button class="bg-option" data-bg="black" title="Black">
-                  <span style="background: black;"></span>
-                </button>
-                <button class="bg-option" data-bg="custom" title="Custom">
-                  <input type="color" id="customBgColor" value="#3b82f6">
-                </button>
-              </div>
-            </div>
-            <div class="option-group">
-              <label>Shape</label>
-              <div class="shape-options">
-                <button class="shape-option active" data-shape="square" title="Square">
-                  <i class="fa-solid fa-square"></i>
-                </button>
-                <button class="shape-option" data-shape="rounded" title="Rounded">
-                  <i class="fa-solid fa-square" style="border-radius: 20%;"></i>
-                </button>
-                <button class="shape-option" data-shape="circle" title="Circle">
-                  <i class="fa-solid fa-circle"></i>
-                </button>
-              </div>
-            </div>
-            <div class="option-group">
-              <label>Padding</label>
-              <div class="padding-control">
-                <input type="range" id="paddingSlider" min="0" max="30" value="0">
-                <span id="paddingValue">0%</span>
-              </div>
-            </div>
-          </div>
+              <!-- Image Creator (shown after upload) -->
+              <div class="image-creator" id="imageCreator" style="display: none;">
+                <div class="image-creator-header">
+                  <div class="image-source-preview">
+                    <canvas id="imagePreviewCanvas" width="64" height="64"></canvas>
+                  </div>
+                  <div class="image-source-details">
+                    <span id="imageSourceInfo">-</span>
+                    <button class="change-image-btn" id="changeImageBtn" title="Change Image">
+                      <i class="fa-solid fa-rotate"></i> Change
+                    </button>
+                  </div>
+                </div>
 
-          <!-- Favicon Previews -->
-          <div class="previews-section">
-            <h3>Preview</h3>
-            <div class="preview-grid">
-              <div class="preview-item">
-                <div class="preview-box" data-size="16">
-                  <canvas id="preview16" width="16" height="16"></canvas>
+                <!-- Options Row -->
+                <div class="image-options-row">
+                  <div class="creator-option-group">
+                    <label>Padding</label>
+                    <div class="creator-padding">
+                      <input type="range" id="imagePaddingSlider" min="0" max="30" value="0">
+                      <span id="imagePaddingValue">0%</span>
+                    </div>
+                  </div>
+                  <div class="creator-option-group">
+                    <label>Shape</label>
+                    <div class="creator-shape-options" id="imageShapeOptions">
+                      <button class="creator-shape-btn active" data-shape="square" title="Square">
+                        <i class="fa-solid fa-square"></i>
+                      </button>
+                      <button class="creator-shape-btn" data-shape="rounded" title="Rounded">
+                        <i class="fa-solid fa-square" style="border-radius: 20%;"></i>
+                      </button>
+                      <button class="creator-shape-btn" data-shape="circle" title="Circle">
+                        <i class="fa-solid fa-circle"></i>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="creator-option-group">
+                    <label>Background</label>
+                    <div class="creator-bg-row">
+                      <div class="creator-bg-options" id="imageBgOptions">
+                        <button class="creator-bg-btn active" data-bg="transparent" title="Transparent">
+                          <span class="transparent-bg"></span>
+                        </button>
+                        <button class="creator-bg-btn" data-bg="custom" title="Solid Color">
+                          <input type="color" id="imageCreatorBgColor" value="#3b82f6">
+                        </button>
+                        <button class="creator-bg-btn" data-bg="gradient" title="Gradient">
+                          <span class="gradient-bg"></span>
+                        </button>
+                      </div>
+                      <div class="creator-gradient-inline" id="imageCreatorGradient" style="display: none;">
+                        <input type="color" id="imageGradientColor1" value="#3b82f6" title="Start">
+                        <i class="fa-solid fa-arrow-right"></i>
+                        <input type="color" id="imageGradientColor2" value="#8b5cf6" title="End">
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <span>16x16</span>
-              </div>
-              <div class="preview-item">
-                <div class="preview-box" data-size="32">
-                  <canvas id="preview32" width="32" height="32"></canvas>
-                </div>
-                <span>32x32</span>
-              </div>
-              <div class="preview-item">
-                <div class="preview-box" data-size="48">
-                  <canvas id="preview48" width="48" height="48"></canvas>
-                </div>
-                <span>48x48</span>
-              </div>
-              <div class="preview-item">
-                <div class="preview-box" data-size="64">
-                  <canvas id="preview64" width="64" height="64"></canvas>
-                </div>
-                <span>64x64</span>
-              </div>
-              <div class="preview-item">
-                <div class="preview-box" data-size="128">
-                  <canvas id="preview128" width="128" height="128"></canvas>
-                </div>
-                <span>128x128</span>
-              </div>
-              <div class="preview-item">
-                <div class="preview-box" data-size="256">
-                  <canvas id="preview256" width="256" height="256"></canvas>
-                </div>
-                <span>256x256</span>
-              </div>
-            </div>
-          </div>
 
-          <!-- Browser Preview -->
-          <div class="browser-preview-section">
-            <h3>Browser Preview</h3>
-            <div class="browser-mockup">
-              <div class="browser-tab">
-                <canvas id="browserFavicon" width="16" height="16"></canvas>
-                <span>My Website</span>
-                <i class="fa-solid fa-xmark"></i>
-              </div>
-              <div class="browser-bar">
-                <div class="browser-controls">
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                </div>
-                <div class="browser-url">
-                  <i class="fa-solid fa-lock"></i>
-                  <span>https://example.com</span>
-                </div>
-              </div>
-            </div>
-          </div>
+                <!-- Previews and Downloads (always visible for image mode) -->
+                <div class="image-editor-content" id="imageInlineEditor">
+                  <div class="inline-editor-content">
+                    <!-- Previews -->
+                    <div class="previews-section">
+                      <h3>Preview</h3>
+                      <div class="preview-grid">
+                        <div class="preview-item">
+                          <div class="preview-box"><canvas class="preview16" width="16" height="16"></canvas></div>
+                          <span>16x16</span>
+                        </div>
+                        <div class="preview-item">
+                          <div class="preview-box"><canvas class="preview32" width="32" height="32"></canvas></div>
+                          <span>32x32</span>
+                        </div>
+                        <div class="preview-item">
+                          <div class="preview-box"><canvas class="preview48" width="48" height="48"></canvas></div>
+                          <span>48x48</span>
+                        </div>
+                        <div class="preview-item">
+                          <div class="preview-box"><canvas class="preview64" width="64" height="64"></canvas></div>
+                          <span>64x64</span>
+                        </div>
+                        <div class="preview-item">
+                          <div class="preview-box"><canvas class="preview128" width="128" height="128"></canvas></div>
+                          <span>128x128</span>
+                        </div>
+                        <div class="preview-item">
+                          <div class="preview-box"><canvas class="preview256" width="256" height="256"></canvas></div>
+                          <span>256x256</span>
+                        </div>
+                      </div>
+                    </div>
 
-          <!-- Download Section -->
-          <div class="download-section">
-            <h3>Download</h3>
-            <div class="download-options">
-              <div class="download-card">
-                <div class="download-icon">
-                  <i class="fa-solid fa-file-image"></i>
-                </div>
-                <div class="download-info">
-                  <h4>PNG Icons</h4>
-                  <p>Individual PNG files for all sizes</p>
-                </div>
-                <button class="download-btn" id="downloadPngBtn">
-                  <i class="fa-solid fa-download"></i>
-                  Download
-                </button>
-              </div>
-              <div class="download-card">
-                <div class="download-icon ico">
-                  <i class="fa-solid fa-image"></i>
-                </div>
-                <div class="download-info">
-                  <h4>ICO File</h4>
-                  <p>Multi-size ICO for browsers</p>
-                </div>
-                <button class="download-btn" id="downloadIcoBtn">
-                  <i class="fa-solid fa-download"></i>
-                  Download
-                </button>
-              </div>
-              <div class="download-card">
-                <div class="download-icon package">
-                  <i class="fa-solid fa-box-archive"></i>
-                </div>
-                <div class="download-info">
-                  <h4>Full Package</h4>
-                  <p>All sizes + Apple Touch + manifest</p>
-                </div>
-                <button class="download-btn primary" id="downloadAllBtn">
-                  <i class="fa-solid fa-download"></i>
-                  Download All
-                </button>
-              </div>
-            </div>
-          </div>
+                    <!-- Browser Preview -->
+                    <div class="browser-preview-section">
+                      <h3>Browser Preview</h3>
+                      <div class="browser-mockup">
+                        <div class="browser-tab">
+                          <canvas class="browserFavicon" width="16" height="16"></canvas>
+                          <span>My Website</span>
+                          <i class="fa-solid fa-xmark"></i>
+                        </div>
+                        <div class="browser-bar">
+                          <div class="browser-controls"><span></span><span></span><span></span></div>
+                          <div class="browser-url">
+                            <i class="fa-solid fa-lock"></i>
+                            <span>https://example.com</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
 
-          <!-- HTML Code -->
-          <div class="code-section">
-            <div class="code-header">
-              <h3>HTML Code</h3>
-              <button class="copy-code-btn" id="copyCodeBtn">
-                <i class="fa-solid fa-copy"></i>
-                Copy
-              </button>
-            </div>
-            <pre class="code-block" id="htmlCode">&lt;link rel="icon" type="image/x-icon" href="/favicon.ico"&gt;
+                    <!-- Download -->
+                    <div class="download-section">
+                      <h3>Download</h3>
+                      <div class="download-options">
+                        <div class="download-card">
+                          <div class="download-icon copy"><i class="fa-solid fa-clipboard"></i></div>
+                          <div class="download-info">
+                            <h4>Copy to Clipboard</h4>
+                            <p>Copy favicon image directly</p>
+                          </div>
+                          <button class="download-btn copyToClipboardBtn"><i class="fa-solid fa-copy"></i> Copy</button>
+                        </div>
+                        <div class="download-card">
+                          <div class="download-icon"><i class="fa-solid fa-file-image"></i></div>
+                          <div class="download-info">
+                            <h4>PNG Icons</h4>
+                            <p>Individual PNG files for all sizes</p>
+                          </div>
+                          <button class="download-btn downloadPngBtn"><i class="fa-solid fa-download"></i> Download</button>
+                        </div>
+                        <div class="download-card">
+                          <div class="download-icon ico"><i class="fa-solid fa-image"></i></div>
+                          <div class="download-info">
+                            <h4>ICO File</h4>
+                            <p>Multi-size ICO for browsers</p>
+                          </div>
+                          <button class="download-btn downloadIcoBtn"><i class="fa-solid fa-download"></i> Download</button>
+                        </div>
+                        <div class="download-card">
+                          <div class="download-icon svg"><i class="fa-solid fa-vector-square"></i></div>
+                          <div class="download-info">
+                            <h4>SVG File</h4>
+                            <p>Scalable vector format</p>
+                          </div>
+                          <button class="download-btn downloadSvgBtn"><i class="fa-solid fa-download"></i> Download</button>
+                        </div>
+                        <div class="download-card">
+                          <div class="download-icon package"><i class="fa-solid fa-box-archive"></i></div>
+                          <div class="download-info">
+                            <h4>Full Package</h4>
+                            <p>All sizes + Apple Touch + manifest</p>
+                          </div>
+                          <button class="download-btn primary downloadAllBtn"><i class="fa-solid fa-download"></i> Download All</button>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- HTML Code -->
+                    <div class="code-section">
+                      <div class="code-header">
+                        <h3>HTML Code</h3>
+                        <button class="copy-code-btn copyCodeBtn"><i class="fa-solid fa-copy"></i> Copy</button>
+                      </div>
+                      <pre class="code-block">&lt;link rel="icon" type="image/x-icon" href="/favicon.ico"&gt;
+&lt;link rel="icon" type="image/svg+xml" href="/favicon.svg"&gt;
 &lt;link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"&gt;
 &lt;link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"&gt;
 &lt;link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"&gt;
 &lt;link rel="manifest" href="/site.webmanifest"&gt;</pre>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Text Panel -->
+            <div class="favicon-panel" id="textPanel">
+              <div class="text-creator">
+                <div class="creator-row">
+                  <div class="creator-preview">
+                    <canvas id="textPreviewCanvas" width="64" height="64"></canvas>
+                  </div>
+                  <div class="creator-controls">
+                    <div class="creator-option-group text-input-full">
+                      <label>Text (1-3 characters)</label>
+                      <input type="text" id="textInput" maxlength="3" placeholder="AB" value="F">
+                    </div>
+                    <!-- Line 1: Font, Padding -->
+                    <div class="creator-row-grid">
+                      <div class="creator-option-group">
+                        <label>Font</label>
+                        <select id="textFont">
+                          <option value="Inter, sans-serif">Inter</option>
+                          <option value="Arial, sans-serif">Arial</option>
+                          <option value="Georgia, serif">Georgia</option>
+                          <option value="'Courier New', monospace">Courier</option>
+                          <option value="'Times New Roman', serif">Times</option>
+                          <option value="Impact, sans-serif">Impact</option>
+                        </select>
+                      </div>
+                      <div class="creator-option-group">
+                        <label>Padding</label>
+                        <div class="creator-padding">
+                          <input type="range" id="textPaddingSlider" min="0" max="30" value="0">
+                          <span id="textPaddingValue">0%</span>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- Line 2: Text Color, Shape -->
+                    <div class="creator-row-grid">
+                      <div class="creator-option-group">
+                        <label>Text Color</label>
+                        <div class="creator-color-picker">
+                          <input type="color" id="textColor" value="#ffffff">
+                        </div>
+                      </div>
+                      <div class="creator-option-group">
+                        <label>Shape</label>
+                        <div class="creator-shape-options" id="textShapeOptions">
+                          <button class="creator-shape-btn active" data-shape="square" title="Square">
+                            <i class="fa-solid fa-square"></i>
+                          </button>
+                          <button class="creator-shape-btn" data-shape="rounded" title="Rounded">
+                            <i class="fa-solid fa-square" style="border-radius: 20%;"></i>
+                          </button>
+                          <button class="creator-shape-btn" data-shape="circle" title="Circle">
+                            <i class="fa-solid fa-circle"></i>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- Line 3: Background (with inline gradient expansion) -->
+                    <div class="creator-option-group">
+                      <label>Background</label>
+                      <div class="creator-bg-row">
+                        <div class="creator-bg-options" id="textBgOptions">
+                          <button class="creator-bg-btn" data-bg="transparent" title="Transparent">
+                            <span class="transparent-bg"></span>
+                          </button>
+                          <button class="creator-bg-btn active" data-bg="custom" title="Solid Color">
+                            <input type="color" id="textCreatorBgColor" value="#3b82f6">
+                          </button>
+                          <button class="creator-bg-btn" data-bg="gradient" title="Gradient">
+                            <span class="gradient-bg"></span>
+                          </button>
+                        </div>
+                        <div class="creator-gradient-inline" id="textCreatorGradient" style="display: none;">
+                          <input type="color" id="textGradientColor1" value="#3b82f6" title="Start">
+                          <i class="fa-solid fa-arrow-right"></i>
+                          <input type="color" id="textGradientColor2" value="#8b5cf6" title="End">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <button class="create-btn" id="createTextBtn">
+                  <i class="fa-solid fa-chevron-down"></i>
+                  <span>Create Favicon</span>
+                </button>
+              </div>
+
+              <!-- Collapsible Editor Controls -->
+              <div class="inline-editor collapsed" id="textInlineEditor">
+                <div class="inline-editor-content">
+                  <!-- Previews -->
+                  <div class="previews-section">
+                    <h3>Preview</h3>
+                    <div class="preview-grid">
+                      <div class="preview-item">
+                        <div class="preview-box"><canvas class="preview16" width="16" height="16"></canvas></div>
+                        <span>16x16</span>
+                      </div>
+                      <div class="preview-item">
+                        <div class="preview-box"><canvas class="preview32" width="32" height="32"></canvas></div>
+                        <span>32x32</span>
+                      </div>
+                      <div class="preview-item">
+                        <div class="preview-box"><canvas class="preview48" width="48" height="48"></canvas></div>
+                        <span>48x48</span>
+                      </div>
+                      <div class="preview-item">
+                        <div class="preview-box"><canvas class="preview64" width="64" height="64"></canvas></div>
+                        <span>64x64</span>
+                      </div>
+                      <div class="preview-item">
+                        <div class="preview-box"><canvas class="preview128" width="128" height="128"></canvas></div>
+                        <span>128x128</span>
+                      </div>
+                      <div class="preview-item">
+                        <div class="preview-box"><canvas class="preview256" width="256" height="256"></canvas></div>
+                        <span>256x256</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Browser Preview -->
+                  <div class="browser-preview-section">
+                    <h3>Browser Preview</h3>
+                    <div class="browser-mockup">
+                      <div class="browser-tab">
+                        <canvas class="browserFavicon" width="16" height="16"></canvas>
+                        <span>My Website</span>
+                        <i class="fa-solid fa-xmark"></i>
+                      </div>
+                      <div class="browser-bar">
+                        <div class="browser-controls"><span></span><span></span><span></span></div>
+                        <div class="browser-url">
+                          <i class="fa-solid fa-lock"></i>
+                          <span>https://example.com</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Download -->
+                  <div class="download-section">
+                    <h3>Download</h3>
+                    <div class="download-options">
+                      <div class="download-card">
+                        <div class="download-icon copy"><i class="fa-solid fa-clipboard"></i></div>
+                        <div class="download-info">
+                          <h4>Copy to Clipboard</h4>
+                          <p>Copy favicon image directly</p>
+                        </div>
+                        <button class="download-btn copyToClipboardBtn"><i class="fa-solid fa-copy"></i> Copy</button>
+                      </div>
+                      <div class="download-card">
+                        <div class="download-icon"><i class="fa-solid fa-file-image"></i></div>
+                        <div class="download-info">
+                          <h4>PNG Icons</h4>
+                          <p>Individual PNG files for all sizes</p>
+                        </div>
+                        <button class="download-btn downloadPngBtn"><i class="fa-solid fa-download"></i> Download</button>
+                      </div>
+                      <div class="download-card">
+                        <div class="download-icon ico"><i class="fa-solid fa-image"></i></div>
+                        <div class="download-info">
+                          <h4>ICO File</h4>
+                          <p>Multi-size ICO for browsers</p>
+                        </div>
+                        <button class="download-btn downloadIcoBtn"><i class="fa-solid fa-download"></i> Download</button>
+                      </div>
+                      <div class="download-card">
+                        <div class="download-icon svg"><i class="fa-solid fa-vector-square"></i></div>
+                        <div class="download-info">
+                          <h4>SVG File</h4>
+                          <p>Scalable vector format</p>
+                        </div>
+                        <button class="download-btn downloadSvgBtn"><i class="fa-solid fa-download"></i> Download</button>
+                      </div>
+                      <div class="download-card">
+                        <div class="download-icon package"><i class="fa-solid fa-box-archive"></i></div>
+                        <div class="download-info">
+                          <h4>Full Package</h4>
+                          <p>All sizes + Apple Touch + manifest</p>
+                        </div>
+                        <button class="download-btn primary downloadAllBtn"><i class="fa-solid fa-download"></i> Download All</button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- HTML Code -->
+                  <div class="code-section">
+                    <div class="code-header">
+                      <h3>HTML Code</h3>
+                      <button class="copy-code-btn copyCodeBtn"><i class="fa-solid fa-copy"></i> Copy</button>
+                    </div>
+                    <pre class="code-block">&lt;link rel="icon" type="image/x-icon" href="/favicon.ico"&gt;
+&lt;link rel="icon" type="image/svg+xml" href="/favicon.svg"&gt;
+&lt;link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"&gt;
+&lt;link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"&gt;
+&lt;link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"&gt;
+&lt;link rel="manifest" href="/site.webmanifest"&gt;</pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Emoji Panel -->
+            <div class="favicon-panel" id="emojiPanel">
+              <div class="emoji-creator">
+                <div class="creator-row">
+                  <div class="creator-preview">
+                    <canvas id="emojiPreviewCanvas" width="64" height="64"></canvas>
+                  </div>
+                  <div class="creator-controls">
+                    <div class="creator-option-group emoji-input-row">
+                      <label>Emoji</label>
+                      <input type="text" id="emojiInput" maxlength="2" placeholder="🚀" value="🎨">
+                    </div>
+                    <div class="creator-option-group emoji-picker-row">
+                      <div class="emoji-picker">
+                        <button class="emoji-btn" data-emoji="🚀">🚀</button>
+                        <button class="emoji-btn" data-emoji="⚡">⚡</button>
+                        <button class="emoji-btn" data-emoji="🎨">🎨</button>
+                        <button class="emoji-btn" data-emoji="💡">💡</button>
+                        <button class="emoji-btn" data-emoji="🔥">🔥</button>
+                        <button class="emoji-btn" data-emoji="⭐">⭐</button>
+                        <button class="emoji-btn" data-emoji="💎">💎</button>
+                        <button class="emoji-btn" data-emoji="🎯">🎯</button>
+                        <button class="emoji-btn" data-emoji="📱">📱</button>
+                        <button class="emoji-btn" data-emoji="💻">💻</button>
+                        <button class="emoji-btn" data-emoji="🌐">🌐</button>
+                        <button class="emoji-btn" data-emoji="📧">📧</button>
+                      </div>
+                    </div>
+                    <!-- Line 1: Padding, Shape -->
+                    <div class="creator-row-grid">
+                      <div class="creator-option-group">
+                        <label>Padding</label>
+                        <div class="creator-padding">
+                          <input type="range" id="emojiPaddingSlider" min="0" max="30" value="0">
+                          <span id="emojiPaddingValue">0%</span>
+                        </div>
+                      </div>
+                      <div class="creator-option-group">
+                        <label>Shape</label>
+                        <div class="creator-shape-options" id="emojiShapeOptions">
+                          <button class="creator-shape-btn active" data-shape="square" title="Square">
+                            <i class="fa-solid fa-square"></i>
+                          </button>
+                          <button class="creator-shape-btn" data-shape="rounded" title="Rounded">
+                            <i class="fa-solid fa-square" style="border-radius: 20%;"></i>
+                          </button>
+                          <button class="creator-shape-btn" data-shape="circle" title="Circle">
+                            <i class="fa-solid fa-circle"></i>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- Line 2: Background (with inline gradient expansion) -->
+                    <div class="creator-option-group">
+                      <label>Background</label>
+                      <div class="creator-bg-row">
+                        <div class="creator-bg-options" id="emojiBgOptions">
+                          <button class="creator-bg-btn" data-bg="transparent" title="Transparent">
+                            <span class="transparent-bg"></span>
+                          </button>
+                          <button class="creator-bg-btn active" data-bg="custom" title="Solid Color">
+                            <input type="color" id="emojiCreatorBgColor" value="#3b82f6">
+                          </button>
+                          <button class="creator-bg-btn" data-bg="gradient" title="Gradient">
+                            <span class="gradient-bg"></span>
+                          </button>
+                        </div>
+                        <div class="creator-gradient-inline" id="emojiCreatorGradient" style="display: none;">
+                          <input type="color" id="emojiGradientColor1" value="#3b82f6" title="Start">
+                          <i class="fa-solid fa-arrow-right"></i>
+                          <input type="color" id="emojiGradientColor2" value="#8b5cf6" title="End">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <button class="create-btn" id="createEmojiBtn">
+                  <i class="fa-solid fa-chevron-down"></i>
+                  <span>Create Favicon</span>
+                </button>
+              </div>
+
+              <!-- Collapsible Editor Controls -->
+              <div class="inline-editor collapsed" id="emojiInlineEditor">
+                <div class="inline-editor-content">
+
+                  <!-- Previews -->
+                  <div class="previews-section">
+                    <h3>Preview</h3>
+                    <div class="preview-grid">
+                      <div class="preview-item">
+                        <div class="preview-box"><canvas class="preview16" width="16" height="16"></canvas></div>
+                        <span>16x16</span>
+                      </div>
+                      <div class="preview-item">
+                        <div class="preview-box"><canvas class="preview32" width="32" height="32"></canvas></div>
+                        <span>32x32</span>
+                      </div>
+                      <div class="preview-item">
+                        <div class="preview-box"><canvas class="preview48" width="48" height="48"></canvas></div>
+                        <span>48x48</span>
+                      </div>
+                      <div class="preview-item">
+                        <div class="preview-box"><canvas class="preview64" width="64" height="64"></canvas></div>
+                        <span>64x64</span>
+                      </div>
+                      <div class="preview-item">
+                        <div class="preview-box"><canvas class="preview128" width="128" height="128"></canvas></div>
+                        <span>128x128</span>
+                      </div>
+                      <div class="preview-item">
+                        <div class="preview-box"><canvas class="preview256" width="256" height="256"></canvas></div>
+                        <span>256x256</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Browser Preview -->
+                  <div class="browser-preview-section">
+                    <h3>Browser Preview</h3>
+                    <div class="browser-mockup">
+                      <div class="browser-tab">
+                        <canvas class="browserFavicon" width="16" height="16"></canvas>
+                        <span>My Website</span>
+                        <i class="fa-solid fa-xmark"></i>
+                      </div>
+                      <div class="browser-bar">
+                        <div class="browser-controls"><span></span><span></span><span></span></div>
+                        <div class="browser-url">
+                          <i class="fa-solid fa-lock"></i>
+                          <span>https://example.com</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Download -->
+                  <div class="download-section">
+                    <h3>Download</h3>
+                    <div class="download-options">
+                      <div class="download-card">
+                        <div class="download-icon copy"><i class="fa-solid fa-clipboard"></i></div>
+                        <div class="download-info">
+                          <h4>Copy to Clipboard</h4>
+                          <p>Copy favicon image directly</p>
+                        </div>
+                        <button class="download-btn copyToClipboardBtn"><i class="fa-solid fa-copy"></i> Copy</button>
+                      </div>
+                      <div class="download-card">
+                        <div class="download-icon"><i class="fa-solid fa-file-image"></i></div>
+                        <div class="download-info">
+                          <h4>PNG Icons</h4>
+                          <p>Individual PNG files for all sizes</p>
+                        </div>
+                        <button class="download-btn downloadPngBtn"><i class="fa-solid fa-download"></i> Download</button>
+                      </div>
+                      <div class="download-card">
+                        <div class="download-icon ico"><i class="fa-solid fa-image"></i></div>
+                        <div class="download-info">
+                          <h4>ICO File</h4>
+                          <p>Multi-size ICO for browsers</p>
+                        </div>
+                        <button class="download-btn downloadIcoBtn"><i class="fa-solid fa-download"></i> Download</button>
+                      </div>
+                      <div class="download-card">
+                        <div class="download-icon svg"><i class="fa-solid fa-vector-square"></i></div>
+                        <div class="download-info">
+                          <h4>SVG File</h4>
+                          <p>Scalable vector format</p>
+                        </div>
+                        <button class="download-btn downloadSvgBtn"><i class="fa-solid fa-download"></i> Download</button>
+                      </div>
+                      <div class="download-card">
+                        <div class="download-icon package"><i class="fa-solid fa-box-archive"></i></div>
+                        <div class="download-info">
+                          <h4>Full Package</h4>
+                          <p>All sizes + Apple Touch + manifest</p>
+                        </div>
+                        <button class="download-btn primary downloadAllBtn"><i class="fa-solid fa-download"></i> Download All</button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- HTML Code -->
+                  <div class="code-section">
+                    <div class="code-header">
+                      <h3>HTML Code</h3>
+                      <button class="copy-code-btn copyCodeBtn"><i class="fa-solid fa-copy"></i> Copy</button>
+                    </div>
+                    <pre class="code-block">&lt;link rel="icon" type="image/x-icon" href="/favicon.ico"&gt;
+&lt;link rel="icon" type="image/svg+xml" href="/favicon.svg"&gt;
+&lt;link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"&gt;
+&lt;link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"&gt;
+&lt;link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"&gt;
+&lt;link rel="manifest" href="/site.webmanifest"&gt;</pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+
           </div>
         </div>
+
       </div>
     </div>
   </main>

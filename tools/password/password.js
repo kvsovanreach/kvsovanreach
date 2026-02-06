@@ -34,8 +34,6 @@
       beginWithLetter: false,
       bulkCount: 1
     })),
-    isDarkMode: localStorage.getItem('theme') === 'dark',
-    historyCollapsed: localStorage.getItem('passwordHistoryCollapsed') === 'true',
     currentPassword: ''
   };
 
@@ -79,7 +77,7 @@
     copyAllBtn: document.getElementById('copyAllBtn'),
 
     // Tabs
-    tabs: document.querySelectorAll('.password-tab'),
+    tabs: document.querySelectorAll('.tool-tab'),
     panels: document.querySelectorAll('.password-panel'),
     generatorPanel: document.getElementById('generatorPanel'),
     historyPanel: document.getElementById('historyPanel'),
@@ -397,7 +395,7 @@
   function updateStrength(password) {
     const entropy = calculateEntropy(password);
     const strength = getStrengthFromEntropy(entropy);
-    const crackTime = estimateCrackTime(entropy);
+    const crackTime = estimateBruteforceTime(entropy);
 
     elements.strengthFill.className = 'strength-fill ' + strength.class;
     elements.strengthLabel.className = 'strength-label ' + strength.class;
@@ -416,14 +414,19 @@
   }
 
   function calculateEntropy(password) {
-    // Calculate actual charset size used
+    // Calculate charset size based on SETTINGS (what could be in the password)
+    // This is more accurate - attacker doesn't know what's actually used
     let charsetSize = 0;
-    if (/[a-z]/.test(password)) charsetSize += 26;
-    if (/[A-Z]/.test(password)) charsetSize += 26;
-    if (/[0-9]/.test(password)) charsetSize += 10;
-    if (/[^a-zA-Z0-9]/.test(password)) charsetSize += 32;
+    if (state.settings.uppercase) charsetSize += 26;
+    if (state.settings.lowercase) charsetSize += 26;
+    if (state.settings.numbers) charsetSize += 10;
+    if (state.settings.symbols) charsetSize += 32;
 
-    if (charsetSize === 0) return 0;
+    // Reduce charset if excluding similar/ambiguous characters
+    if (state.settings.excludeSimilar) charsetSize -= 7;  // i, l, L, 1, o, O, 0
+    if (state.settings.excludeAmbiguous) charsetSize -= 14; // {}[]()/'"`~,;:.<>
+
+    if (charsetSize <= 0) return 0;
 
     // Entropy = length × log2(charset size)
     return password.length * Math.log2(charsetSize);
@@ -438,22 +441,31 @@
     return { label: 'Very Strong', class: 'very-strong' };
   }
 
-  function estimateCrackTime(entropy) {
-    // Assume 10 billion guesses per second (modern GPU cluster)
-    const guessesPerSecond = 10e9;
+  function estimateBruteforceTime(entropy) {
+    // 1 billion guesses/sec - realistic for modern GPU (RTX 4090) on common hashes
+    const guessesPerSecond = 1e9;
     const totalCombinations = Math.pow(2, entropy);
-    const seconds = totalCombinations / guessesPerSecond / 2; // Average case
+    const seconds = totalCombinations / guessesPerSecond;
 
-    if (seconds < 1) return 'Instant';
-    if (seconds < 60) return Math.round(seconds) + ' sec';
-    if (seconds < 3600) return Math.round(seconds / 60) + ' min';
-    if (seconds < 86400) return Math.round(seconds / 3600) + ' hours';
-    if (seconds < 2592000) return Math.round(seconds / 86400) + ' days';
-    if (seconds < 31536000) return Math.round(seconds / 2592000) + ' months';
-    if (seconds < 31536000 * 1000) return Math.round(seconds / 31536000) + ' years';
-    if (seconds < 31536000 * 1e6) return Math.round(seconds / 31536000 / 1000) + 'K years';
-    if (seconds < 31536000 * 1e9) return Math.round(seconds / 31536000 / 1e6) + 'M years';
-    if (seconds < 31536000 * 1e12) return Math.round(seconds / 31536000 / 1e9) + 'B years';
+    const minute = 60;
+    const hour = 3600;
+    const day = 86400;
+    const year = 31536000;
+    const century = year * 100;
+
+    if (seconds < 0.001) return 'Instant';
+    if (seconds < 1) return '< 1 sec';
+    if (seconds < minute) return Math.round(seconds) + ' secs';
+    if (seconds < hour) return Math.round(seconds / minute) + ' mins';
+    if (seconds < day) return Math.round(seconds / hour) + ' hrs';
+    if (seconds < year) return Math.round(seconds / day) + ' days';
+    if (seconds < century) return Math.round(seconds / year) + ' yrs';
+    if (seconds < year * 1e6) {
+      const centuries = Math.round(seconds / century);
+      return centuries + ' centuries';
+    }
+    if (seconds < year * 1e9) return Math.round(seconds / year / 1e6) + 'M yrs';
+    if (seconds < year * 1e12) return Math.round(seconds / year / 1e9) + 'B yrs';
     return '∞';
   }
 
@@ -652,11 +664,6 @@
   }
 
   // ============================================
-  // Footer
-  // ============================================
-
-
-  // ============================================
   // Utilities
   // ============================================
   function showToast(message, type = 'info') {
@@ -688,18 +695,6 @@
     if (hours < 24) return `${hours}h ago`;
 
     return date.toLocaleDateString();
-  }
-
-  function debounce(func, wait) {
-    let timeout;
-    return function executedFunction(...args) {
-      const later = () => {
-        clearTimeout(timeout);
-        func(...args);
-      };
-      clearTimeout(timeout);
-      timeout = setTimeout(later, wait);
-    };
   }
 
   // ============================================

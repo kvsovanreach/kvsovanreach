@@ -59,44 +59,28 @@
           <h2><i class="fa-solid fa-server"></i> HTTP Status Reference</h2>
         </div>
 
-        <div class="http-card">
+        <!-- Category Tabs -->
+        <div class="tool-tabs">
+          <button class="tool-tab active" data-category="all">All</button>
+          <button class="tool-tab" data-category="1xx">1xx</button>
+          <button class="tool-tab" data-category="2xx">2xx</button>
+          <button class="tool-tab" data-category="3xx">3xx</button>
+          <button class="tool-tab" data-category="4xx">4xx</button>
+          <button class="tool-tab" data-category="5xx">5xx</button>
+        </div>
+
+        <!-- Main Content -->
+        <div class="http-content">
           <!-- Search Bar -->
           <div class="search-section">
             <div class="search-box">
               <i class="fa-solid fa-search search-icon"></i>
-              <input type="text" id="searchInput" placeholder="Search by code or description (e.g., 404, not found)...">
+              <input type="text" id="searchInput" placeholder="Search by code or description...">
               <button class="clear-search-btn hidden" id="clearSearchBtn" aria-label="Clear search" title="Clear search">
                 <i class="fa-solid fa-xmark"></i>
               </button>
             </div>
             <div class="search-stats" id="searchStats">Showing all status codes</div>
-          </div>
-
-          <!-- Category Tabs -->
-          <div class="http-tabs">
-            <button class="http-tab active" data-category="all">
-              <span class="tab-badge all">All</span>
-            </button>
-            <button class="http-tab" data-category="1xx">
-              <span class="tab-badge info">1xx</span>
-              <span class="tab-label">Informational</span>
-            </button>
-            <button class="http-tab" data-category="2xx">
-              <span class="tab-badge success">2xx</span>
-              <span class="tab-label">Success</span>
-            </button>
-            <button class="http-tab" data-category="3xx">
-              <span class="tab-badge redirect">3xx</span>
-              <span class="tab-label">Redirection</span>
-            </button>
-            <button class="http-tab" data-category="4xx">
-              <span class="tab-badge client">4xx</span>
-              <span class="tab-label">Client Error</span>
-            </button>
-            <button class="http-tab" data-category="5xx">
-              <span class="tab-badge server">5xx</span>
-              <span class="tab-label">Server Error</span>
-            </button>
           </div>
 
           <!-- Status Codes List -->
@@ -137,7 +121,7 @@
     <div class="shortcuts-content">
       <div class="shortcuts-header">
         <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
-        <button class="close-shortcuts-btn" id="closeShortcutsBtn">
+        <button class="close-shortcuts-btn" id="closeShortcutsBtn" aria-label="Close shortcuts">
           <i class="fa-solid fa-xmark"></i>
         </button>
       </div>
@@ -150,7 +134,7 @@
           </div>
           <div class="shortcut-row">
             <div class="shortcut-keys"><kbd>Esc</kbd></div>
-            <div class="shortcut-desc">Clear search</div>
+            <div class="shortcut-desc">Clear search / Close modal</div>
           </div>
           <div class="shortcut-row">
             <div class="shortcut-keys"><kbd>1</kbd> - <kbd>6</kbd></div>
@@ -171,7 +155,7 @@
       <div class="status-modal-header">
         <div class="status-modal-badge" id="modalBadge">200</div>
         <h3 class="status-modal-title" id="modalTitle">OK</h3>
-        <button class="close-modal-btn" id="closeModalBtn">
+        <button class="close-modal-btn" id="closeModalBtn" aria-label="Close modal">
           <i class="fa-solid fa-xmark"></i>
         </button>
       </div>

@@ -58,7 +58,7 @@ const toolsData = [
     icon: "fa-solid fa-key",
     url: "/tools/password/",
     tags: ["password", "security", "generate", "random", "strong"],
-    status: "inactive"
+    status: "active"
   },
   {
     id: "timer-stopwatch",
@@ -138,7 +138,7 @@ const toolsData = [
     icon: "fa-solid fa-font",
     url: "/tools/caseconverter/",
     tags: ["case", "convert", "uppercase", "lowercase", "camel", "snake", "title"],
-    status: "inactive"
+    status: "active"
   },
   {
     id: "morse-code",
@@ -158,7 +158,7 @@ const toolsData = [
     icon: "fa-solid fa-paragraph",
     url: "/tools/loremipsum/",
     tags: ["lorem", "ipsum", "placeholder", "text", "generate", "dummy"],
-    status: "inactive"
+    status: "active"
   },
   {
     id: "browser-info",
@@ -440,7 +440,7 @@ const toolsData = [
     icon: "fa-solid fa-fingerprint",
     url: "/tools/uuid/",
     tags: ["uuid", "guid", "unique", "identifier", "generate"],
-    status: "inactive"
+    status: "active"
   },
   {
     id: "diff-checker",
@@ -500,7 +500,7 @@ const toolsData = [
     icon: "fa-solid fa-icons",
     url: "/tools/favicon/",
     tags: ["favicon", "icon", "website", "generate", "ico", "png", "apple-touch"],
-    status: "inactive"
+    status: "active"
   },
   {
     id: "token-counter",
@@ -550,7 +550,7 @@ const toolsData = [
     icon: "fa-solid fa-server",
     url: "/tools/httpstatus/",
     tags: ["http", "status", "code", "reference", "api", "web", "error"],
-    status: "inactive"
+    status: "active"
   },
   {
     id: "meta-tag",
@@ -570,7 +570,7 @@ const toolsData = [
     icon: "fa-solid fa-image",
     url: "/tools/placeholder/",
     tags: ["placeholder", "image", "svg", "dummy", "mockup", "generate"],
-    status: "inactive"
+    status: "active"
   },
   {
     id: "font-pairing",

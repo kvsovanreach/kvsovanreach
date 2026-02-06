@@ -107,25 +107,29 @@
                   </div>
                 </div>
               </div>
-              <div class="color-presets">
-                <button class="color-preset" data-bg="#cccccc" data-text="#666666" title="Gray">
-                  <span style="background: #cccccc"></span>
-                </button>
-                <button class="color-preset" data-bg="#3776A1" data-text="#ffffff" title="Blue">
-                  <span style="background: #3776A1"></span>
-                </button>
-                <button class="color-preset" data-bg="#22c55e" data-text="#ffffff" title="Green">
-                  <span style="background: #22c55e"></span>
-                </button>
-                <button class="color-preset" data-bg="#ef4444" data-text="#ffffff" title="Red">
-                  <span style="background: #ef4444"></span>
-                </button>
-                <button class="color-preset" data-bg="#1e293b" data-text="#94a3b8" title="Dark">
-                  <span style="background: #1e293b"></span>
-                </button>
-                <button class="color-preset" data-bg="#fef3c7" data-text="#92400e" title="Warm">
-                  <span style="background: #fef3c7"></span>
-                </button>
+              <!-- Gradient Option -->
+              <div class="gradient-option">
+                <label class="gradient-toggle">
+                  <input type="checkbox" id="gradientEnabled">
+                  <span class="toggle-slider"></span>
+                  <span class="toggle-label">Use Gradient</span>
+                </label>
+                <div class="gradient-settings hidden" id="gradientSettings">
+                  <div class="input-group">
+                    <label for="bgColor2">End Color</label>
+                    <div class="color-picker-wrap">
+                      <input type="color" id="bgColor2" value="#888888">
+                      <input type="text" id="bgColor2Text" value="#888888" maxlength="7">
+                    </div>
+                  </div>
+                  <div class="input-group">
+                    <label for="gradientAngle">Angle</label>
+                    <div class="angle-input-wrap">
+                      <input type="range" id="gradientAngle" min="0" max="360" value="135">
+                      <span class="angle-value" id="angleValue">135°</span>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
 

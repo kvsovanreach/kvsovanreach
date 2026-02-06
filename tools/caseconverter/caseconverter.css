@@ -2,9 +2,59 @@
  * Case Converter Tool Styles
  */
 
+/* ==================== Non-Editable Elements ==================== */
+.case-wrapper,
+.case-header,
+.case-header h2,
+.case-main,
+.case-panel,
+.input-section,
+.input-header,
+.input-header label,
+.input-stats,
+.output-section,
+.output-header,
+.output-header label,
+.output-info,
+.case-label,
+.case-buttons,
+.batch-section,
+.batch-header,
+.batch-header label,
+.batch-options,
+.batch-options label,
+.batch-output,
+.batch-output-header,
+.batch-output-header label {
+  cursor: default;
+  user-select: none;
+}
+
+/* Clickable elements */
+.case-btn,
+.action-btn,
+.convert-btn,
+.batch-options select {
+  cursor: pointer;
+}
+
+/* Allow text selection in textareas */
+.input-section textarea,
+.output-section textarea,
+.batch-section textarea {
+  cursor: text;
+  user-select: text;
+}
+
 /* ==================== Wrapper ==================== */
 .case-wrapper {
-  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
 }
 
 /* ==================== Header ==================== */
@@ -13,8 +63,7 @@
   align-items: center;
   padding: var(--space-4) var(--space-5);
   background-color: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  border-bottom: 1px solid var(--color-border);
 }
 
 .case-header h2 {
@@ -30,62 +79,10 @@
   color: var(--color-primary);
 }
 
-/* ==================== Tabs ==================== */
-.case-tabs {
-  display: flex;
-  background-color: var(--color-bg-secondary);
-  border: 1px solid var(--color-border);
-  border-top: none;
-  overflow: hidden;
-}
-
-.case-tab {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--space-2);
-  padding: var(--space-3) var(--space-4);
-  font-size: var(--font-size-sm);
-  font-weight: 500;
-  color: var(--color-text-secondary);
-  background: none;
-  border: none;
-  cursor: pointer;
-  transition: all var(--transition-fast);
-  position: relative;
-}
-
-.case-tab:hover {
-  background-color: var(--color-bg);
-  color: var(--color-text);
-}
-
-.case-tab.active {
-  color: var(--color-primary);
-  background-color: var(--color-bg);
-}
-
-.case-tab.active::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background-color: var(--color-primary);
-}
-
-.case-tab i {
-  font-size: var(--font-size-base);
-}
+/* Tab styles are in tools-common.css */
 
 /* ==================== Main Content ==================== */
 .case-main {
-  background-color: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-top: none;
-  border-radius: 0 0 var(--radius-lg) var(--radius-lg);
   padding: var(--space-5);
 }
 
@@ -150,8 +147,13 @@
   box-shadow: 0 0 0 3px rgba(55, 118, 161, 0.1);
 }
 
-.output-section textarea {
+.output-section textarea,
+.batch-output textarea {
   background-color: var(--color-bg-secondary);
+  min-height: 80px;
+  max-height: calc(1.6em * 10 + var(--space-4) * 2); /* 10 lines max */
+  overflow-y: auto;
+  resize: none;
 }
 
 .input-stats {
@@ -182,7 +184,6 @@
   background-color: var(--color-bg);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
-  cursor: pointer;
   transition: all var(--transition-fast);
 }
 
@@ -290,13 +291,27 @@
 }
 
 @media screen and (max-width: 768px) {
+  /* Compact header */
+  .case-header {
+    padding: var(--space-3);
+  }
+
+  .case-header h2 {
+    font-size: var(--font-size-lg);
+    gap: var(--space-2);
+  }
+
   .case-main {
-    padding: var(--space-4);
-    border-radius: 0 0 var(--radius-md) var(--radius-md);
+    padding: var(--space-3);
   }
 
   .case-buttons {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-2);
+  }
+
+  .case-btn {
+    padding: var(--space-2) var(--space-3);
   }
 
   .input-header,
@@ -334,15 +349,68 @@
 }
 
 @media screen and (max-width: 480px) {
-  .case-tab span {
-    display: none;
+  /* Extra compact header */
+  .case-header {
+    padding: var(--space-2) var(--space-3);
+  }
+
+  .case-header h2 {
+    font-size: var(--font-size-base);
+  }
+
+  .case-main {
+    padding: var(--space-2);
   }
 
   .case-buttons {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(2, 1fr);
   }
 
-  .case-btn span {
+  .case-btn {
+    padding: var(--space-2);
     font-size: var(--font-size-xs);
+  }
+
+  .case-btn i {
+    display: none;
+  }
+
+  .input-section textarea,
+  .output-section textarea,
+  .batch-section textarea {
+    padding: var(--space-3);
+    font-size: var(--font-size-sm);
+  }
+
+  .action-btn span {
+    display: none;
+  }
+
+  .action-btn {
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    justify-content: center;
+  }
+}
+
+@media screen and (max-width: 360px) {
+  /* Ultra compact for very small screens */
+  .case-header h2 {
+    font-size: var(--font-size-sm);
+  }
+
+  .case-buttons {
+    gap: var(--space-1);
+  }
+
+  .case-btn {
+    padding: var(--space-2);
+    font-size: 0.65rem;
+  }
+
+  .action-btn {
+    width: 36px;
+    height: 36px;
   }
 }

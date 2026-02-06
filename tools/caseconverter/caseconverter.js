@@ -11,7 +11,7 @@
 
   // ==================== DOM Elements ====================
   const elements = {
-    tabs: document.querySelectorAll('.case-tab'),
+    tabs: document.querySelectorAll('.tool-tab'),
     panels: document.querySelectorAll('.case-panel'),
     inputText: document.getElementById('inputText'),
     outputText: document.getElementById('outputText'),
@@ -133,6 +133,12 @@
     elements.wordCount.textContent = text.trim() ? text.trim().split(/\s+/).length : 0;
   }
 
+  // ==================== Auto-resize Textarea ====================
+  function autoResize(textarea) {
+    textarea.style.height = 'auto';
+    textarea.style.height = textarea.scrollHeight + 'px';
+  }
+
   // ==================== Convert Text ====================
   function convertText(caseType) {
     const input = elements.inputText.value;
@@ -146,6 +152,7 @@
       elements.outputText.value = converter(input);
       currentCase = caseType;
       elements.caseLabel.textContent = caseLabels[caseType];
+      autoResize(elements.outputText);
 
       // Update active button
       elements.caseButtons.forEach(btn => {
@@ -169,6 +176,7 @@
       const lines = input.split('\n');
       const converted = lines.map(line => converter(line)).join('\n');
       elements.batchOutput.value = converted;
+      autoResize(elements.batchOutput);
       ToolsCommon.showToast('Converted ' + lines.length + ' items', 'success');
     }
   }

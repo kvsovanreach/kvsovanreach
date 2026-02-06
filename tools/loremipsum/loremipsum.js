@@ -85,7 +85,7 @@
 
   // ==================== DOM Elements ====================
   const elements = {
-    tabs: document.querySelectorAll('.lorem-tab'),
+    tabs: document.querySelectorAll('.tool-tab'),
     panels: document.querySelectorAll('.lorem-panel'),
     unitType: document.getElementById('unitType'),
     unitCount: document.getElementById('unitCount'),

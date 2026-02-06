@@ -16,7 +16,6 @@
 
   // ==================== DOM Elements ====================
   const elements = {
-    themeToggle: document.getElementById('theme-toggle'),
     versionTabs: document.querySelectorAll('.version-tab'),
     quantity: document.getElementById('quantity'),
     qtyMinus: document.getElementById('qtyMinus'),
@@ -25,15 +24,14 @@
     includeBraces: document.getElementById('includeBraces'),
     noHyphens: document.getElementById('noHyphens'),
     generateBtn: document.getElementById('generateBtn'),
+    quickGenerateBtn: document.getElementById('quickGenerateBtn'),
     clearAllBtn: document.getElementById('clearAllBtn'),
     copyAllBtn: document.getElementById('copyAllBtn'),
     downloadBtn: document.getElementById('downloadBtn'),
     outputList: document.getElementById('outputList'),
     validateInput: document.getElementById('validateInput'),
     validateBtn: document.getElementById('validateBtn'),
-    validatorResult: document.getElementById('validatorResult'),
-    toast: document.getElementById('toast'),
-    currentYear: document.getElementById('current-year')
+    validatorResult: document.getElementById('validatorResult')
   };
 
   // ==================== UUID Generation ====================
@@ -49,7 +47,9 @@
     const now = Date.now();
     const timeHex = now.toString(16).padStart(12, '0');
     const clockSeq = Math.random() * 0x3FFF | 0x8000;
-    const node = Array.from({length: 6}, () => Math.floor(Math.random() * 256).toString(16).padStart(2, '0')).join('');
+    const node = Array.from({ length: 6 }, () =>
+      Math.floor(Math.random() * 256).toString(16).padStart(2, '0')
+    ).join('');
 
     return `${timeHex.slice(-8)}-${timeHex.slice(-12, -8)}-1${timeHex.slice(0, 3)}-${clockSeq.toString(16)}-${node}`;
   }
@@ -68,7 +68,7 @@
   }
 
   function generateUUID(version) {
-    switch(version) {
+    switch (version) {
       case 1: return generateUUIDv1();
       case 7: return generateUUIDv7();
       case 'nil': return generateNilUUID();
@@ -114,7 +114,7 @@
     }
 
     // Extract version
-    let normalizedUUID = cleanUUID.replace(/-/g, '');
+    const normalizedUUID = cleanUUID.replace(/-/g, '');
     const versionChar = normalizedUUID.charAt(12);
     const version = parseInt(versionChar, 16);
 
@@ -122,6 +122,7 @@
     const variantChar = normalizedUUID.charAt(16);
     const variantBits = parseInt(variantChar, 16);
     let variant = 'Unknown';
+
     if ((variantBits & 0x8) === 0) {
       variant = 'NCS (reserved)';
     } else if ((variantBits & 0xC) === 0x8) {
@@ -136,6 +137,31 @@
   }
 
   // ==================== UI Functions ====================
+  function highlightVersion(uuid) {
+    // UUID format: xxxxxxxx-xxxx-Vxxx-yxxx-xxxxxxxxxxxx
+    // Version digit is at position 14 (0-indexed) after removing braces
+    const clean = uuid.replace(/^\{|\}$/g, '');
+    const hasBraces = uuid.startsWith('{');
+    const hasHyphens = clean.includes('-');
+
+    if (hasHyphens) {
+      // Standard format with hyphens
+      const parts = clean.split('-');
+      if (parts.length === 5 && parts[2].length >= 1) {
+        const versionDigit = parts[2][0];
+        parts[2] = `<span class="version-highlight">${versionDigit}</span>${parts[2].slice(1)}`;
+        const highlighted = parts.join('-');
+        return hasBraces ? `{${highlighted}}` : highlighted;
+      }
+    } else if (clean.length === 32) {
+      // No hyphens format - version is at position 12
+      const versionDigit = clean[12];
+      const highlighted = clean.slice(0, 12) + `<span class="version-highlight">${versionDigit}</span>` + clean.slice(13);
+      return hasBraces ? `{${highlighted}}` : highlighted;
+    }
+    return uuid;
+  }
+
   function renderOutput() {
     if (state.generatedUUIDs.length === 0) {
       elements.outputList.innerHTML = `
@@ -149,7 +175,7 @@
 
     elements.outputList.innerHTML = state.generatedUUIDs.map((uuid, index) => `
       <div class="uuid-item" data-index="${index}">
-        <span class="uuid-value">${uuid}</span>
+        <span class="uuid-value">${highlightVersion(uuid)}</span>
         <button class="uuid-copy-btn" data-index="${index}" title="Copy">
           <i class="fa-solid fa-copy"></i>
         </button>
@@ -170,7 +196,7 @@
     }
   }
 
-  function showValidationResult(result, input) {
+  function showValidationResult(result) {
     elements.validatorResult.classList.add('show');
 
     if (result.valid) {
@@ -194,45 +220,6 @@
     }
   }
 
-  function showToast(message, type = 'default') {
-    elements.toast.textContent = message;
-    elements.toast.className = 'toast show' + (type !== 'default' ? ` ${type}` : '');
-
-    setTimeout(() => {
-      elements.toast.classList.remove('show');
-    }, 2500);
-  }
-
-  async function copyToClipboard(text) {
-    try {
-      await navigator.clipboard.writeText(text);
-      return true;
-    } catch (err) {
-      console.error('Failed to copy:', err);
-      return false;
-    }
-  }
-
-  function downloadAsText() {
-    if (state.generatedUUIDs.length === 0) {
-      showToast('No UUIDs to download');
-      return;
-    }
-
-    const content = state.generatedUUIDs.join('\n');
-    const blob = new Blob([content], { type: 'text/plain' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `uuids-${Date.now()}.txt`;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-
-    showToast('Downloaded!', 'success');
-  }
-
   // ==================== Event Handlers ====================
   function handleGenerate() {
     const newUUIDs = [];
@@ -242,7 +229,7 @@
     }
     state.generatedUUIDs = [...newUUIDs, ...state.generatedUUIDs].slice(0, 100);
     renderOutput();
-    showToast(`Generated ${state.quantity} UUID${state.quantity > 1 ? 's' : ''}`, 'success');
+    ToolsCommon.showToast(`Generated ${state.quantity} UUID${state.quantity > 1 ? 's' : ''}`, 'success');
   }
 
   function handleVersionChange(e) {
@@ -263,22 +250,18 @@
 
   function handleCopyAll() {
     if (state.generatedUUIDs.length === 0) {
-      showToast('No UUIDs to copy');
+      ToolsCommon.showToast('No UUIDs to copy', 'error');
       return;
     }
-    copyToClipboard(state.generatedUUIDs.join('\n')).then(success => {
-      if (success) showToast('All UUIDs copied!', 'success');
-    });
+    ToolsCommon.copyWithToast(state.generatedUUIDs.join('\n'), 'All UUIDs copied!');
   }
 
   function handleCopySingle(index) {
     const uuid = state.generatedUUIDs[index];
     if (uuid) {
-      copyToClipboard(uuid).then(success => {
-        if (success) {
-          animateCopyButton(index);
-          showToast('Copied!', 'success');
-        }
+      navigator.clipboard.writeText(uuid).then(() => {
+        animateCopyButton(index);
+        ToolsCommon.showToast('Copied!', 'success');
       });
     }
   }
@@ -286,23 +269,21 @@
   function handleQuickGenerate() {
     const uuid = generateUUID(state.version);
     const formattedUUID = formatUUID(uuid);
-    copyToClipboard(formattedUUID).then(success => {
-      if (success) {
-        state.generatedUUIDs = [formattedUUID, ...state.generatedUUIDs].slice(0, 100);
-        renderOutput();
-        showToast('UUID generated and copied!', 'success');
-      }
+    navigator.clipboard.writeText(formattedUUID).then(() => {
+      state.generatedUUIDs = [formattedUUID, ...state.generatedUUIDs].slice(0, 100);
+      renderOutput();
+      ToolsCommon.showToast('UUID generated and copied!', 'success');
     });
   }
 
   function handleValidate() {
     const input = elements.validateInput.value.trim();
     if (!input) {
-      showToast('Please enter a UUID to validate');
+      ToolsCommon.showToast('Please enter a UUID to validate', 'error');
       return;
     }
     const result = validateUUID(input);
-    showValidationResult(result, input);
+    showValidationResult(result);
   }
 
   function handleClearAll() {
@@ -310,24 +291,34 @@
     renderOutput();
     elements.validatorResult.classList.remove('show');
     elements.validateInput.value = '';
+    ToolsCommon.showToast('Cleared', 'success');
   }
 
-  // Theme & current year handled by tools-common.js
+  function handleDownload() {
+    if (state.generatedUUIDs.length === 0) {
+      ToolsCommon.showToast('No UUIDs to download', 'error');
+      return;
+    }
+    ToolsCommon.downloadText(state.generatedUUIDs.join('\n'), `uuids-${Date.now()}.txt`);
+    ToolsCommon.showToast('Downloaded!', 'success');
+  }
 
   // ==================== Initialize ====================
-  function init() {
-    // Event listeners
+  function initEventListeners() {
+    // Generate buttons
     elements.generateBtn.addEventListener('click', handleGenerate);
+    elements.quickGenerateBtn.addEventListener('click', handleQuickGenerate);
+
+    // Action buttons
     elements.clearAllBtn.addEventListener('click', handleClearAll);
     elements.copyAllBtn.addEventListener('click', handleCopyAll);
-    elements.downloadBtn.addEventListener('click', downloadAsText);
-    elements.validateBtn.addEventListener('click', handleValidate);
+    elements.downloadBtn.addEventListener('click', handleDownload);
 
-    // Quick generate button
-    const quickGenerateBtn = document.getElementById('quickGenerateBtn');
-    if (quickGenerateBtn) {
-      quickGenerateBtn.addEventListener('click', handleQuickGenerate);
-    }
+    // Validator
+    elements.validateBtn.addEventListener('click', handleValidate);
+    elements.validateInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') handleValidate();
+    });
 
     // Version tabs
     elements.versionTabs.forEach(tab => {
@@ -365,12 +356,7 @@
       }
     });
 
-    // Validate on Enter
-    elements.validateInput.addEventListener('keypress', (e) => {
-      if (e.key === 'Enter') handleValidate();
-    });
-
-    // Keyboard shortcuts (shortcut modal handled by tools-common.js)
+    // Keyboard shortcuts
     document.addEventListener('keydown', (e) => {
       if (e.target.tagName === 'INPUT') return;
 
@@ -389,6 +375,14 @@
     });
   }
 
-  // Start
-  init();
+  function init() {
+    initEventListeners();
+  }
+
+  // Start when DOM ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
 })();

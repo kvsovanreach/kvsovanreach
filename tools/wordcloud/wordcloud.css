@@ -2,9 +2,62 @@
  * Word Cloud Generator Tool Styles
  */
 
+/* ==================== Non-Editable Elements ==================== */
+.cloud-wrapper,
+.cloud-header,
+.cloud-header h2,
+.cloud-header h3,
+.cloud-card,
+.input-section,
+.input-header,
+.input-header label,
+.input-stats,
+.options-section,
+.options-row,
+.option-group,
+.option-group label,
+.checkbox-row,
+.cloud-section,
+.cloud-actions,
+.cloud-canvas-wrapper,
+.cloud-canvas,
+.wordlist-section,
+.wordlist-header,
+.wordlist-header h3,
+.wordlist-count,
+.wordlist,
+.wordlist-item,
+.wordlist-word,
+.wordlist-freq {
+  cursor: default;
+  user-select: none;
+}
+
+/* Clickable elements */
+.generate-btn,
+.input-action-btn,
+.cloud-action-btn,
+.option-group select,
+.checkbox-label,
+.checkbox-label input[type="checkbox"] {
+  cursor: pointer;
+}
+
+/* Allow text selection in textarea */
+.input-section textarea {
+  cursor: text;
+  user-select: text;
+}
+
 /* ==================== Wrapper ==================== */
 .cloud-wrapper {
-  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
 }
 
 /* ==================== Header ==================== */
@@ -14,8 +67,7 @@
   justify-content: space-between;
   padding: var(--space-4) var(--space-5);
   background-color: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  border-bottom: 1px solid var(--color-border);
 }
 
 .cloud-header h2 {
@@ -33,10 +85,6 @@
 
 /* ==================== Main Card ==================== */
 .cloud-card {
-  background-color: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-top: none;
-  border-radius: 0 0 var(--radius-lg) var(--radius-lg);
   padding: var(--space-5);
   display: flex;
   flex-direction: column;
@@ -74,7 +122,6 @@
   background: none;
   border: 1px solid var(--color-border);
   border-radius: var(--radius-sm);
-  cursor: pointer;
   transition: all var(--transition-fast);
 }
 
@@ -118,7 +165,7 @@
 
 .options-row {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   gap: var(--space-4);
 }
 
@@ -140,10 +187,9 @@
   font-size: var(--font-size-sm);
   font-family: inherit;
   color: var(--color-text);
-  background-color: var(--color-surface);
+  background-color: var(--color-bg);
   border: 1px solid var(--color-border);
-  border-radius: var(--radius-sm);
-  cursor: pointer;
+  border-radius: var(--radius-md);
   transition: all var(--transition-fast);
   appearance: none;
   -webkit-appearance: none;
@@ -152,6 +198,11 @@
   background-repeat: no-repeat;
   background-position: right var(--space-2) center;
   outline: none;
+}
+
+.option-group select:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(55, 118, 161, 0.1);
 }
 
 .checkbox-row {
@@ -166,14 +217,12 @@
   gap: var(--space-2);
   font-size: var(--font-size-sm);
   color: var(--color-text-secondary);
-  cursor: pointer;
 }
 
 .checkbox-label input[type="checkbox"] {
   width: 16px;
   height: 16px;
   accent-color: var(--color-primary);
-  cursor: pointer;
 }
 
 /* ==================== Generate Button ==================== */
@@ -189,7 +238,6 @@
   background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
   border: none;
   border-radius: var(--radius-lg);
-  cursor: pointer;
   transition: all var(--transition-fast);
 }
 
@@ -211,10 +259,9 @@
   gap: var(--space-3);
 }
 
-.cloud-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+.cloud-section .cloud-header {
+  padding: 0;
+  border-bottom: none;
 }
 
 .cloud-header h3 {
@@ -235,7 +282,6 @@
   background-color: var(--color-bg);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-sm);
-  cursor: pointer;
   transition: all var(--transition-fast);
 }
 
@@ -254,25 +300,21 @@
 .cloud-canvas {
   width: 100%;
   min-height: 400px;
-  padding: var(--space-4);
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  gap: var(--space-2);
+  position: relative;
+  overflow: hidden;
 }
 
 .cloud-word {
   display: inline-block;
-  padding: var(--space-1) var(--space-2);
   font-weight: 600;
-  cursor: default;
-  transition: transform var(--transition-fast);
+  transition: opacity var(--transition-fast), filter var(--transition-fast);
   white-space: nowrap;
+  line-height: 1;
 }
 
 .cloud-word:hover {
-  transform: scale(1.1);
+  opacity: 0.8;
+  filter: brightness(1.2);
 }
 
 /* ==================== Word List Section ==================== */
@@ -347,12 +389,21 @@
 }
 
 @media screen and (max-width: 768px) {
+  .cloud-header {
+    padding: var(--space-3);
+  }
+
+  .cloud-header h2 {
+    font-size: var(--font-size-lg);
+    gap: var(--space-2);
+  }
+
   .cloud-card {
-    padding: var(--space-4);
+    padding: var(--space-3);
   }
 
   .options-row {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
   }
 
   .checkbox-row {
@@ -361,10 +412,113 @@
   }
 
   .cloud-canvas {
-    min-height: 300px;
+    min-height: 350px;
   }
 
   .wordlist {
     grid-template-columns: 1fr;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .cloud-header {
+    padding: var(--space-2) var(--space-3);
+  }
+
+  .cloud-header h2 {
+    font-size: var(--font-size-base);
+  }
+
+  .options-row {
+    grid-template-columns: 1fr;
+  }
+
+  .cloud-card {
+    padding: var(--space-2);
+    gap: var(--space-3);
+  }
+
+  .input-section textarea {
+    padding: var(--space-3);
+    font-size: var(--font-size-sm);
+  }
+
+  .option-group select {
+    padding: var(--space-2) var(--space-5) var(--space-2) var(--space-2);
+    font-size: var(--font-size-xs);
+  }
+
+  .generate-btn {
+    padding: var(--space-3);
+    font-size: var(--font-size-sm);
+  }
+
+  .cloud-canvas {
+    min-height: 300px;
+  }
+
+  .cloud-action-btn {
+    padding: var(--space-2);
+  }
+
+  .cloud-action-btn span {
+    display: none;
+  }
+
+  .wordlist {
+    max-height: 200px;
+    padding: var(--space-2);
+  }
+
+  .input-action-btn {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+@media screen and (max-width: 360px) {
+  .cloud-header h2 {
+    font-size: var(--font-size-sm);
+  }
+
+  .input-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-2);
+  }
+
+  .input-actions {
+    width: 100%;
+  }
+
+  .input-action-btn {
+    flex: 1;
+    width: auto;
+    height: 32px;
+  }
+
+  .checkbox-label {
+    font-size: var(--font-size-xs);
+  }
+
+  .generate-btn {
+    padding: var(--space-2);
+    font-size: var(--font-size-xs);
+  }
+
+  .cloud-canvas {
+    min-height: 250px;
+  }
+
+  .cloud-action-btn {
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 }

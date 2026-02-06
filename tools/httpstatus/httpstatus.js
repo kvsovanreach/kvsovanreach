@@ -1,5 +1,5 @@
 /**
- * HTTP Status Reference Tool
+ * KVSOVANREACH HTTP Status Reference Tool
  * Complete HTTP status code reference with descriptions and examples
  */
 
@@ -515,28 +515,69 @@
     }
   ];
 
-  // ==================== DOM Elements ====================
-  const elements = {
-    searchInput: document.getElementById('searchInput'),
-    clearSearchBtn: document.getElementById('clearSearchBtn'),
-    searchStats: document.getElementById('searchStats'),
-    tabs: document.querySelectorAll('.http-tab'),
-    statusList: document.getElementById('statusList'),
-    noResults: document.getElementById('noResults'),
-    statusModal: document.getElementById('statusModal'),
-    modalBadge: document.getElementById('modalBadge'),
-    modalTitle: document.getElementById('modalTitle'),
-    modalDescription: document.getElementById('modalDescription'),
-    modalUsage: document.getElementById('modalUsage'),
-    modalExample: document.getElementById('modalExample'),
-    closeModalBtn: document.getElementById('closeModalBtn'),
-    copyCodeBtn: document.getElementById('copyCodeBtn')
+  // ==================== State ====================
+  const state = {
+    currentCategory: 'all',
+    searchQuery: '',
+    currentStatusCode: null
   };
 
-  // ==================== State ====================
-  let currentCategory = 'all';
-  let searchQuery = '';
-  let currentStatusCode = null;
+  // ==================== DOM Elements ====================
+  const elements = {};
+
+  function initElements() {
+    elements.searchInput = document.getElementById('searchInput');
+    elements.clearSearchBtn = document.getElementById('clearSearchBtn');
+    elements.searchStats = document.getElementById('searchStats');
+    elements.tabs = document.querySelectorAll('.tool-tab');
+    elements.statusList = document.getElementById('statusList');
+    elements.noResults = document.getElementById('noResults');
+    elements.statusModal = document.getElementById('statusModal');
+    elements.modalBadge = document.getElementById('modalBadge');
+    elements.modalTitle = document.getElementById('modalTitle');
+    elements.modalDescription = document.getElementById('modalDescription');
+    elements.modalUsage = document.getElementById('modalUsage');
+    elements.modalExample = document.getElementById('modalExample');
+    elements.closeModalBtn = document.getElementById('closeModalBtn');
+    elements.copyCodeBtn = document.getElementById('copyCodeBtn');
+  }
+
+  // ==================== Helper Functions ====================
+  // Use centralized toast from tools-common.js
+  const showToast = (message, type) => ToolsCommon.showToast(message, type);
+
+  function getCategoryClass(category) {
+    const classes = {
+      '1xx': 'info',
+      '2xx': 'success',
+      '3xx': 'redirect',
+      '4xx': 'client',
+      '5xx': 'server'
+    };
+    return classes[category] || '';
+  }
+
+  // ==================== Filter Status Codes ====================
+  function filterStatusCodes() {
+    return statusCodes.filter(status => {
+      // Category filter
+      if (state.currentCategory !== 'all' && status.category !== state.currentCategory) {
+        return false;
+      }
+
+      // Search filter
+      if (state.searchQuery) {
+        const query = state.searchQuery.toLowerCase();
+        return (
+          status.code.toString().includes(query) ||
+          status.name.toLowerCase().includes(query) ||
+          status.description.toLowerCase().includes(query)
+        );
+      }
+
+      return true;
+    });
+  }
 
   // ==================== Render Status List ====================
   function renderStatusList() {
@@ -574,46 +615,12 @@
     });
   }
 
-  // ==================== Filter Status Codes ====================
-  function filterStatusCodes() {
-    return statusCodes.filter(status => {
-      // Category filter
-      if (currentCategory !== 'all' && status.category !== currentCategory) {
-        return false;
-      }
-
-      // Search filter
-      if (searchQuery) {
-        const query = searchQuery.toLowerCase();
-        return (
-          status.code.toString().includes(query) ||
-          status.name.toLowerCase().includes(query) ||
-          status.description.toLowerCase().includes(query)
-        );
-      }
-
-      return true;
-    });
-  }
-
-  // ==================== Get Category Class ====================
-  function getCategoryClass(category) {
-    const classes = {
-      '1xx': 'info',
-      '2xx': 'success',
-      '3xx': 'redirect',
-      '4xx': 'client',
-      '5xx': 'server'
-    };
-    return classes[category] || '';
-  }
-
-  // ==================== Open Status Modal ====================
+  // ==================== Modal Functions ====================
   function openStatusModal(code) {
     const status = statusCodes.find(s => s.code === code);
     if (!status) return;
 
-    currentStatusCode = status;
+    state.currentStatusCode = status;
 
     elements.modalBadge.textContent = status.code;
     elements.modalBadge.className = `status-modal-badge ${getCategoryClass(status.category)}`;
@@ -626,44 +633,41 @@
     document.body.style.overflow = 'hidden';
   }
 
-  // ==================== Close Status Modal ====================
   function closeStatusModal() {
     elements.statusModal.classList.remove('active');
     document.body.style.overflow = '';
-    currentStatusCode = null;
+    state.currentStatusCode = null;
   }
 
-  // ==================== Copy Example Code ====================
   function copyExampleCode() {
-    if (!currentStatusCode) return;
-    ToolsCommon.copyWithToast(currentStatusCode.example, `Copied example for ${currentStatusCode.code}`);
+    if (!state.currentStatusCode) return;
+    ToolsCommon.copyWithToast(state.currentStatusCode.example, `Copied example for ${state.currentStatusCode.code}`);
   }
 
-  // ==================== Handle Search ====================
+  // ==================== Search Functions ====================
   function handleSearch() {
-    searchQuery = elements.searchInput.value.trim();
-    elements.clearSearchBtn.classList.toggle('hidden', !searchQuery);
+    state.searchQuery = elements.searchInput.value.trim();
+    elements.clearSearchBtn.classList.toggle('hidden', !state.searchQuery);
     renderStatusList();
   }
 
-  // ==================== Clear Search ====================
   function clearSearch() {
     elements.searchInput.value = '';
-    searchQuery = '';
+    state.searchQuery = '';
     elements.clearSearchBtn.classList.add('hidden');
     renderStatusList();
     elements.searchInput.focus();
   }
 
-  // ==================== Handle Tab Click ====================
+  // ==================== Tab Navigation ====================
   function handleTabClick(tab) {
     elements.tabs.forEach(t => t.classList.remove('active'));
     tab.classList.add('active');
-    currentCategory = tab.dataset.category;
+    state.currentCategory = tab.dataset.category;
     renderStatusList();
   }
 
-  // ==================== Initialize Event Listeners ====================
+  // ==================== Event Listeners ====================
   function initEventListeners() {
     // Search
     elements.searchInput.addEventListener('input', ToolsCommon.debounce(handleSearch, 200));
@@ -693,7 +697,7 @@
       if (e.key === 'Escape') {
         if (elements.statusModal.classList.contains('active')) {
           closeStatusModal();
-        } else if (searchQuery) {
+        } else if (state.searchQuery) {
           clearSearch();
         }
       }
@@ -706,7 +710,7 @@
         elements.searchInput.focus();
       }
 
-      // Tab shortcuts
+      // Tab shortcuts (1-6)
       if (e.key >= '1' && e.key <= '6') {
         const index = parseInt(e.key) - 1;
         if (elements.tabs[index]) {
@@ -718,11 +722,12 @@
 
   // ==================== Initialize ====================
   function init() {
-    renderStatusList();
+    initElements();
     initEventListeners();
+    renderStatusList();
   }
 
-  // Run when DOM is ready
+  // Start when DOM is ready
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);
   } else {

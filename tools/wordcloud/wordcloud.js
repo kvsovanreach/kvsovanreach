@@ -1,6 +1,6 @@
 /**
  * Word Cloud Generator Tool
- * Generate beautiful word clouds from any text
+ * Professional word cloud with efficient packing algorithm
  */
 
 (function() {
@@ -24,14 +24,14 @@
 
   // ==================== Color Schemes ====================
   const colorSchemes = {
-    default: ['#3776a1', '#5d8bb3', '#8ab0d0', '#2c5f7f', '#1a4a6b'],
-    sunset: ['#ff6b6b', '#ffa07a', '#ffd93d', '#ff8c42', '#e74c3c'],
-    ocean: ['#006994', '#40a4c8', '#00c8ff', '#0077b6', '#023e8a'],
-    forest: ['#228b22', '#32cd32', '#90ee90', '#2e8b57', '#006400'],
-    rainbow: ['#e74c3c', '#f39c12', '#2ecc71', '#3498db', '#9b59b6'],
-    monochrome: ['#2c3e50', '#34495e', '#7f8c8d', '#95a5a6', '#bdc3c7'],
-    pastel: ['#ffb3ba', '#ffdfba', '#ffffba', '#baffc9', '#bae1ff'],
-    neon: ['#ff00ff', '#00ffff', '#ff0080', '#80ff00', '#ff8000']
+    default: ['#1a365d', '#2c5282', '#2b6cb0', '#3182ce', '#4299e1', '#63b3ed'],
+    sunset: ['#c53030', '#e53e3e', '#f56565', '#ed8936', '#ecc94b', '#f6ad55'],
+    ocean: ['#1a365d', '#2a4365', '#2c5282', '#2b6cb0', '#3182ce', '#4299e1'],
+    forest: ['#1c4532', '#22543d', '#276749', '#2f855a', '#38a169', '#48bb78'],
+    rainbow: ['#e53e3e', '#ed8936', '#ecc94b', '#48bb78', '#4299e1', '#9f7aea'],
+    monochrome: ['#1a202c', '#2d3748', '#4a5568', '#718096', '#a0aec0', '#cbd5e0'],
+    pastel: ['#fc8181', '#f6ad55', '#faf089', '#68d391', '#63b3ed', '#b794f4'],
+    neon: ['#ff0080', '#ff00ff', '#8b5cf6', '#06b6d4', '#10b981', '#f59e0b']
   };
 
   // ==================== Sample Text ====================
@@ -46,7 +46,8 @@
   Open source software empowers developers worldwide to collaborate and create amazing tools.
   User experience design puts people at the center of technology development.
   Mobile applications connect billions of people across the globe.
-  The digital economy creates new opportunities for entrepreneurs and businesses alike.`;
+  Technology technology technology innovation innovation data science machine learning
+  artificial intelligence cloud computing programming development software engineering`;
 
   // ==================== DOM Elements ====================
   const elements = {
@@ -56,6 +57,7 @@
     sampleBtn: document.getElementById('sampleBtn'),
     wordCount: document.getElementById('wordCount'),
     uniqueWords: document.getElementById('uniqueWords'),
+    cloudShape: document.getElementById('cloudShape'),
     colorScheme: document.getElementById('colorScheme'),
     maxWords: document.getElementById('maxWords'),
     minLength: document.getElementById('minLength'),
@@ -74,27 +76,26 @@
 
   // ==================== State ====================
   let wordData = [];
+  let placedWords = [];
 
   // ==================== Update Stats ====================
   function updateStats() {
     const text = elements.textInput.value;
     const words = text.trim().split(/\s+/).filter(w => w.length > 0);
     const unique = new Set(words.map(w => w.toLowerCase()));
-
     elements.wordCount.textContent = `${words.length} words`;
     elements.uniqueWords.textContent = `${unique.size} unique`;
   }
 
-  // ==================== Escape HTML ====================
+  // ==================== Escape Functions ====================
   function escapeHtml(text) {
-    const map = {
-      '&': '&amp;',
-      '<': '&lt;',
-      '>': '&gt;',
-      '"': '&quot;',
-      "'": '&#039;'
-    };
+    const map = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' };
     return text.replace(/[&<>"']/g, m => map[m]);
+  }
+
+  function escapeXml(text) {
+    return text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+               .replace(/"/g, '&quot;').replace(/'/g, '&apos;');
   }
 
   // ==================== Process Text ====================
@@ -105,26 +106,21 @@
     const excludeCommonWords = elements.excludeCommon.checked;
     const caseSensitive = elements.caseSensitive.checked;
 
-    // Extract words - clean punctuation but preserve case for case-sensitive mode
-    const cleanedText = text.replace(/[^\w\s]/g, '');
+    const cleanedText = text.replace(/[^\w\s'-]/g, '').toLowerCase();
     const rawWords = cleanedText.split(/\s+/).filter(w => w.length > 0);
 
-    // Filter words
     const words = rawWords.filter(word => {
       if (word.length < minLength) return false;
-      // Check common words using lowercase comparison
       if (excludeCommonWords && commonWords.has(word.toLowerCase())) return false;
       return true;
     });
 
-    // Count frequency
     const frequency = {};
     words.forEach(word => {
       const key = caseSensitive ? word : word.toLowerCase();
       frequency[key] = (frequency[key] || 0) + 1;
     });
 
-    // Sort by frequency
     wordData = Object.entries(frequency)
       .sort((a, b) => b[1] - a[1])
       .slice(0, maxWords)
@@ -133,17 +129,220 @@
     return wordData;
   }
 
-  // ==================== Get Random Color ====================
-  function getRandomColor(colors) {
-    return colors[Math.floor(Math.random() * colors.length)];
+  // ==================== Calculate Font Sizes ====================
+  function calculateFontSizes(words, maxSize, minSize) {
+    if (words.length === 0) return [];
+
+    const maxCount = words[0].count;
+    const minCount = words[words.length - 1].count;
+    const gamma = 0.6; // Reduce dominance of top words
+
+    return words.map((item, index) => {
+      let weight = maxCount === minCount ? 1 : (item.count - minCount) / (maxCount - minCount);
+      weight = Math.pow(weight, gamma);
+      const fontSize = Math.round(minSize + (maxSize - minSize) * weight);
+      return { word: item.word, count: item.count, fontSize, index };
+    });
   }
 
-  // ==================== Calculate Font Size ====================
-  function calculateFontSize(count, maxCount) {
-    const minSize = 14;
-    const maxSize = 64;
-    const ratio = count / maxCount;
-    return Math.max(minSize, Math.floor(minSize + (maxSize - minSize) * ratio));
+  // ==================== Measure Word ====================
+  function measureWord(word, fontSize, rotation) {
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    ctx.font = `700 ${fontSize}px Inter, -apple-system, sans-serif`;
+
+    const metrics = ctx.measureText(word);
+    const textWidth = Math.ceil(metrics.width);
+    const textHeight = Math.ceil(fontSize * 1.2);
+
+    const isRotated = rotation === 90;
+    return {
+      width: isRotated ? textHeight : textWidth,
+      height: isRotated ? textWidth : textHeight
+    };
+  }
+
+  // ==================== Simple Shape Mask ====================
+  function createShapeMask(width, height, shape) {
+    const canvas = document.createElement('canvas');
+    canvas.width = width;
+    canvas.height = height;
+    const ctx = canvas.getContext('2d');
+    const cx = width / 2;
+    const cy = height / 2;
+    const minDim = Math.min(width, height);
+
+    ctx.fillStyle = 'black';
+    ctx.fillRect(0, 0, width, height);
+    ctx.fillStyle = 'white';
+
+    switch (shape) {
+      case 'rectangle':
+        ctx.fillRect(width * 0.02, height * 0.02, width * 0.96, height * 0.96);
+        break;
+      case 'square': {
+        const size = minDim * 0.96;
+        ctx.fillRect(cx - size / 2, cy - size / 2, size, size);
+        break;
+      }
+      case 'circle':
+        ctx.beginPath();
+        ctx.arc(cx, cy, minDim * 0.48, 0, Math.PI * 2);
+        ctx.fill();
+        break;
+      case 'triangle': {
+        const size = minDim * 0.9;
+        const h = size * 0.866;
+        ctx.beginPath();
+        ctx.moveTo(cx, cy - h / 2);
+        ctx.lineTo(cx - size / 2, cy + h / 2);
+        ctx.lineTo(cx + size / 2, cy + h / 2);
+        ctx.closePath();
+        ctx.fill();
+        break;
+      }
+      case 'diamond': {
+        const size = minDim * 0.48;
+        ctx.beginPath();
+        ctx.moveTo(cx, cy - size);
+        ctx.lineTo(cx + size, cy);
+        ctx.lineTo(cx, cy + size);
+        ctx.lineTo(cx - size, cy);
+        ctx.closePath();
+        ctx.fill();
+        break;
+      }
+      case 'star': {
+        const outer = minDim * 0.45;
+        const inner = minDim * 0.2;
+        ctx.beginPath();
+        for (let i = 0; i < 10; i++) {
+          const r = i % 2 === 0 ? outer : inner;
+          const angle = (i * Math.PI / 5) - Math.PI / 2;
+          const x = cx + r * Math.cos(angle);
+          const y = cy + r * Math.sin(angle);
+          i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+        }
+        ctx.closePath();
+        ctx.fill();
+        break;
+      }
+      case 'heart': {
+        const scale = minDim * 0.014;
+        ctx.beginPath();
+        ctx.moveTo(cx, cy + scale * 15);
+        ctx.bezierCurveTo(cx - scale * 25, cy - scale * 5, cx - scale * 25, cy - scale * 20, cx, cy - scale * 10);
+        ctx.bezierCurveTo(cx + scale * 25, cy - scale * 20, cx + scale * 25, cy - scale * 5, cx, cy + scale * 15);
+        ctx.fill();
+        break;
+      }
+      default:
+        ctx.fillRect(0, 0, width, height);
+    }
+
+    const imageData = ctx.getImageData(0, 0, width, height);
+
+    return {
+      width,
+      height,
+      centerX: cx,
+      centerY: cy,
+      isInside: (x, y) => {
+        if (x < 0 || x >= width || y < 0 || y >= height) return false;
+        const idx = (Math.floor(y) * width + Math.floor(x)) * 4;
+        return imageData.data[idx] > 128;
+      },
+      isRectInside: (x, y, w, h) => {
+        const points = [[x, y], [x + w, y], [x, y + h], [x + w, y + h]];
+        for (const [px, py] of points) {
+          if (px < 0 || px >= width || py < 0 || py >= height) return false;
+          const idx = (Math.floor(py) * width + Math.floor(px)) * 4;
+          if (imageData.data[idx] <= 128) return false;
+        }
+        return true;
+      }
+    };
+  }
+
+  // ==================== Spatial Grid for Collision ====================
+  function createSpatialGrid(width, height, cellSize = 25) {
+    const cols = Math.ceil(width / cellSize);
+    const rows = Math.ceil(height / cellSize);
+    const cells = new Array(cols * rows).fill(null).map(() => []);
+
+    return {
+      add: (rect) => {
+        const minCol = Math.max(0, Math.floor(rect.x / cellSize));
+        const maxCol = Math.min(cols - 1, Math.floor((rect.x + rect.width) / cellSize));
+        const minRow = Math.max(0, Math.floor(rect.y / cellSize));
+        const maxRow = Math.min(rows - 1, Math.floor((rect.y + rect.height) / cellSize));
+        for (let row = minRow; row <= maxRow; row++) {
+          for (let col = minCol; col <= maxCol; col++) {
+            cells[row * cols + col].push(rect);
+          }
+        }
+      },
+      collides: (rect) => {
+        const minCol = Math.max(0, Math.floor(rect.x / cellSize));
+        const maxCol = Math.min(cols - 1, Math.floor((rect.x + rect.width) / cellSize));
+        const minRow = Math.max(0, Math.floor(rect.y / cellSize));
+        const maxRow = Math.min(rows - 1, Math.floor((rect.y + rect.height) / cellSize));
+
+        for (let row = minRow; row <= maxRow; row++) {
+          for (let col = minCol; col <= maxCol; col++) {
+            for (const other of cells[row * cols + col]) {
+              if (!(rect.x + rect.width + 2 <= other.x ||
+                    other.x + other.width + 2 <= rect.x ||
+                    rect.y + rect.height + 2 <= other.y ||
+                    other.y + other.height + 2 <= rect.y)) {
+                return true;
+              }
+            }
+          }
+        }
+        return false;
+      },
+      clear: () => {
+        for (let i = 0; i < cells.length; i++) {
+          cells[i] = [];
+        }
+      }
+    };
+  }
+
+  // ==================== Find Position with Spiral ====================
+  function findPosition(bounds, shapeMask, grid) {
+    const { width, height } = bounds;
+    const cx = shapeMask.centerX;
+    const cy = shapeMask.centerY;
+    const maxRadius = Math.max(shapeMask.width, shapeMask.height);
+
+    // Spiral from center
+    const step = Math.max(4, Math.min(width, height) / 3);
+    let angle = Math.random() * Math.PI * 2; // Random start angle
+    let radius = 0;
+
+    while (radius < maxRadius) {
+      const x = Math.round(cx + radius * Math.cos(angle) - width / 2);
+      const y = Math.round(cy + radius * Math.sin(angle) - height / 2);
+
+      const rect = { x, y, width, height };
+
+      if (shapeMask.isRectInside(x, y, width, height) && !grid.collides(rect)) {
+        return { x, y };
+      }
+
+      angle += step / Math.max(radius, step);
+      radius += step / (2 * Math.PI);
+    }
+
+    return null;
+  }
+
+  // ==================== Get Color ====================
+  function getColor(colors, index, total) {
+    const colorIndex = Math.floor((index / total) * colors.length);
+    return colors[Math.min(colorIndex, colors.length - 1)];
   }
 
   // ==================== Generate Cloud ====================
@@ -155,43 +354,149 @@
       return;
     }
 
+    elements.generateBtn.disabled = true;
+    const originalHTML = elements.generateBtn.innerHTML;
+    elements.generateBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> <span>Generating...</span>';
+
+    setTimeout(() => {
+      try {
+        doGenerateCloud(words);
+      } finally {
+        elements.generateBtn.disabled = false;
+        elements.generateBtn.innerHTML = originalHTML;
+      }
+    }, 30);
+  }
+
+  function doGenerateCloud(words) {
+    const canvasRect = elements.cloudCanvas.getBoundingClientRect();
+    const canvasWidth = Math.floor(canvasRect.width) || 800;
+    const canvasHeight = Math.floor(canvasRect.height) || 400;
+
+    const shape = elements.cloudShape.value;
+    const shapeMask = createShapeMask(canvasWidth, canvasHeight, shape);
+    const grid = createSpatialGrid(canvasWidth, canvasHeight);
     const colors = colorSchemes[elements.colorScheme.value];
-    const maxCount = words[0].count;
 
-    // Clear canvas
+    // Calculate base font sizes
+    const minDim = Math.min(canvasWidth, canvasHeight);
+    let maxFontSize = Math.min(70, minDim / 5);
+    let minFontSize = Math.max(10, maxFontSize / 6);
+
+    // Reduce sizes for many words
+    if (words.length > 50) maxFontSize *= 0.75;
+    if (words.length > 100) { maxFontSize *= 0.75; minFontSize *= 0.8; }
+
+    // Initialize
+    placedWords = [];
     elements.cloudCanvas.innerHTML = '';
+    elements.cloudCanvas.style.position = 'relative';
 
-    // Create word elements (using textContent to prevent XSS)
-    words.forEach(({ word, count }) => {
+    // Try with progressively smaller scales until all words fit
+    let scale = 1.0;
+    const minScale = 0.25;
+
+    while (scale >= minScale) {
+      placedWords = [];
+      grid.clear();
+
+      const currentMax = maxFontSize * scale;
+      const currentMin = Math.max(8, minFontSize * scale);
+      let sizedWords = calculateFontSizes(words, currentMax, currentMin);
+
+      // Add colors and rotation
+      sizedWords = sizedWords.map((w, i) => ({
+        ...w,
+        color: getColor(colors, i, words.length),
+        rotation: (w.word.charCodeAt(0) % 5) === 0 ? 90 : 0 // ~20% vertical
+      }));
+
+      // Sort by size (big first)
+      sizedWords.sort((a, b) => b.fontSize - a.fontSize);
+
+      let allPlaced = true;
+
+      for (const wordInfo of sizedWords) {
+        let placed = false;
+        let fontSize = wordInfo.fontSize;
+        const minWordSize = Math.max(8, currentMin * 0.7);
+
+        while (!placed && fontSize >= minWordSize) {
+          // Try preferred rotation first, then alternative
+          const rotations = [wordInfo.rotation, wordInfo.rotation === 0 ? 90 : 0];
+
+          for (const rotation of rotations) {
+            const bounds = measureWord(wordInfo.word, fontSize, rotation);
+            const pos = findPosition(bounds, shapeMask, grid);
+
+            if (pos) {
+              const rect = {
+                x: pos.x,
+                y: pos.y,
+                width: bounds.width,
+                height: bounds.height,
+                word: wordInfo.word,
+                count: wordInfo.count,
+                fontSize,
+                color: wordInfo.color,
+                rotation
+              };
+              grid.add(rect);
+              placedWords.push(rect);
+              placed = true;
+              break;
+            }
+          }
+
+          if (!placed) fontSize = Math.floor(fontSize * 0.85);
+        }
+
+        if (!placed) allPlaced = false;
+      }
+
+      if (allPlaced) break;
+      scale *= 0.8;
+    }
+
+    // Render words
+    for (const word of placedWords) {
       const span = document.createElement('span');
       span.className = 'cloud-word';
-      span.textContent = word; // textContent is safe from XSS
-      span.style.fontSize = `${calculateFontSize(count, maxCount)}px`;
-      span.style.color = getRandomColor(colors);
-      span.title = `${word}: ${count}`;
+      span.textContent = word.word;
 
-      // Random rotation (slight)
-      const rotation = Math.random() * 10 - 5;
-      span.style.transform = `rotate(${rotation}deg)`;
+      const centerX = word.x + word.width / 2;
+      const centerY = word.y + word.height / 2;
 
+      span.style.cssText = `
+        position: absolute;
+        left: ${centerX}px;
+        top: ${centerY}px;
+        font-size: ${word.fontSize}px;
+        font-weight: 700;
+        color: ${word.color};
+        transform: translate(-50%, -50%) rotate(${word.rotation}deg);
+        white-space: nowrap;
+        line-height: 1;
+        font-family: Inter, -apple-system, sans-serif;
+      `;
+      span.title = `${word.word}: ${word.count}`;
       elements.cloudCanvas.appendChild(span);
-    });
+    }
 
-    // Show sections
     elements.cloudSection.classList.remove('hidden');
     elements.wordlistSection.classList.remove('hidden');
+    renderWordList(wordData);
 
-    // Render word list
-    renderWordList(words);
-
-    ToolsCommon.showToast(`Generated cloud with ${words.length} words`, 'success');
+    if (placedWords.length === words.length) {
+      ToolsCommon.showToast(`All ${placedWords.length} words placed!`, 'success');
+    } else {
+      ToolsCommon.showToast(`Placed ${placedWords.length}/${words.length} words`, 'warning');
+    }
   }
 
   // ==================== Render Word List ====================
   function renderWordList(words) {
     elements.listCount.textContent = `${words.length} words`;
-
-    // Use escapeHtml to prevent XSS
     elements.wordlist.innerHTML = words.map(({ word, count }) => `
       <div class="wordlist-item">
         <span class="wordlist-word">${escapeHtml(word)}</span>
@@ -202,46 +507,39 @@
 
   // ==================== Download PNG ====================
   async function downloadPng() {
+    if (placedWords.length === 0) {
+      ToolsCommon.showToast('Generate a word cloud first', 'error');
+      return;
+    }
+
     try {
-      // Create canvas
-      const canvas = document.createElement('canvas');
       const rect = elements.cloudCanvas.getBoundingClientRect();
-      canvas.width = rect.width * 2;
-      canvas.height = rect.height * 2;
+      const scale = 2;
+      const canvas = document.createElement('canvas');
+      canvas.width = rect.width * scale;
+      canvas.height = rect.height * scale;
 
       const ctx = canvas.getContext('2d');
-      ctx.scale(2, 2);
-      ctx.fillStyle = getComputedStyle(document.body).getPropertyValue('--color-bg') || '#ffffff';
+      ctx.scale(scale, scale);
+      ctx.fillStyle = getComputedStyle(document.body).getPropertyValue('--color-bg').trim() || '#ffffff';
       ctx.fillRect(0, 0, rect.width, rect.height);
 
-      // Draw words
-      const wordElements = elements.cloudCanvas.querySelectorAll('.cloud-word');
-      wordElements.forEach(wordEl => {
-        const wordRect = wordEl.getBoundingClientRect();
-        const style = getComputedStyle(wordEl);
-
-        ctx.font = `${style.fontWeight} ${style.fontSize} ${style.fontFamily}`;
-        ctx.fillStyle = style.color;
+      for (const word of placedWords) {
+        ctx.save();
+        ctx.font = `700 ${word.fontSize}px Inter, -apple-system, sans-serif`;
+        ctx.fillStyle = word.color;
+        ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
 
-        const x = wordRect.left - rect.left + wordRect.width / 2;
-        const y = wordRect.top - rect.top + wordRect.height / 2;
+        const centerX = word.x + word.width / 2;
+        const centerY = word.y + word.height / 2;
 
-        ctx.save();
-        ctx.translate(x, y);
-        const transform = style.transform;
-        if (transform && transform !== 'none') {
-          const match = transform.match(/rotate\(([-\d.]+)deg\)/);
-          if (match) {
-            ctx.rotate(parseFloat(match[1]) * Math.PI / 180);
-          }
-        }
-        ctx.textAlign = 'center';
-        ctx.fillText(wordEl.textContent, 0, 0);
+        ctx.translate(centerX, centerY);
+        ctx.rotate(word.rotation * Math.PI / 180);
+        ctx.fillText(word.word, 0, 0);
         ctx.restore();
-      });
+      }
 
-      // Download
       const link = document.createElement('a');
       link.download = 'wordcloud.png';
       link.href = canvas.toDataURL('image/png');
@@ -255,34 +553,33 @@
 
   // ==================== Download SVG ====================
   function downloadSvg() {
+    if (placedWords.length === 0) {
+      ToolsCommon.showToast('Generate a word cloud first', 'error');
+      return;
+    }
+
     const rect = elements.cloudCanvas.getBoundingClientRect();
-    const wordElements = elements.cloudCanvas.querySelectorAll('.cloud-word');
+    const bgColor = getComputedStyle(document.body).getPropertyValue('--color-bg').trim() || '#ffffff';
 
-    let svgContent = `<svg xmlns="http://www.w3.org/2000/svg" width="${rect.width}" height="${rect.height}" viewBox="0 0 ${rect.width} ${rect.height}">`;
-    svgContent += `<rect width="100%" height="100%" fill="${getComputedStyle(document.body).getPropertyValue('--color-bg') || '#ffffff'}"/>`;
+    let svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${rect.width}" height="${rect.height}" viewBox="0 0 ${rect.width} ${rect.height}">`;
+    svg += `<rect width="100%" height="100%" fill="${bgColor}"/>`;
+    svg += `<style>text { font-family: Inter, -apple-system, sans-serif; font-weight: 700; }</style>`;
 
-    wordElements.forEach(wordEl => {
-      const wordRect = wordEl.getBoundingClientRect();
-      const style = getComputedStyle(wordEl);
+    for (const word of placedWords) {
+      const centerX = word.x + word.width / 2;
+      const centerY = word.y + word.height / 2;
+      const escaped = escapeXml(word.word);
 
-      const x = wordRect.left - rect.left + wordRect.width / 2;
-      const y = wordRect.top - rect.top + wordRect.height / 2;
-
-      let transform = '';
-      const cssTransform = style.transform;
-      if (cssTransform && cssTransform !== 'none') {
-        const match = cssTransform.match(/rotate\(([-\d.]+)deg\)/);
-        if (match) {
-          transform = ` transform="rotate(${match[1]} ${x} ${y})"`;
-        }
+      if (word.rotation !== 0) {
+        svg += `<text x="${centerX}" y="${centerY}" font-size="${word.fontSize}" fill="${word.color}" text-anchor="middle" dominant-baseline="central" transform="rotate(${word.rotation} ${centerX} ${centerY})">${escaped}</text>`;
+      } else {
+        svg += `<text x="${centerX}" y="${centerY}" font-size="${word.fontSize}" fill="${word.color}" text-anchor="middle" dominant-baseline="central">${escaped}</text>`;
       }
+    }
 
-      svgContent += `<text x="${x}" y="${y}" font-family="${style.fontFamily}" font-size="${style.fontSize}" font-weight="${style.fontWeight}" fill="${style.color}" text-anchor="middle" dominant-baseline="middle"${transform}>${wordEl.textContent}</text>`;
-    });
+    svg += '</svg>';
 
-    svgContent += '</svg>';
-
-    const blob = new Blob([svgContent], { type: 'image/svg+xml' });
+    const blob = new Blob([svg], { type: 'image/svg+xml' });
     const link = document.createElement('a');
     link.download = 'wordcloud.svg';
     link.href = URL.createObjectURL(blob);
@@ -293,13 +590,16 @@
 
   // ==================== Copy Word List ====================
   function copyWordList() {
+    if (wordData.length === 0) {
+      ToolsCommon.showToast('Generate a word cloud first', 'error');
+      return;
+    }
     const list = wordData.map(({ word, count }) => `${word}: ${count}`).join('\n');
     ToolsCommon.copyWithToast(list, 'Copied word list');
   }
 
-  // ==================== Initialize Event Listeners ====================
+  // ==================== Event Listeners ====================
   function initEventListeners() {
-    // Input events
     elements.textInput.addEventListener('input', ToolsCommon.debounce(updateStats, 200));
 
     elements.pasteBtn.addEventListener('click', async () => {
@@ -317,6 +617,8 @@
       elements.textInput.value = '';
       elements.cloudSection.classList.add('hidden');
       elements.wordlistSection.classList.add('hidden');
+      wordData = [];
+      placedWords = [];
       updateStats();
     });
 
@@ -326,15 +628,11 @@
       ToolsCommon.showToast('Loaded sample text', 'success');
     });
 
-    // Generate
     elements.generateBtn.addEventListener('click', generateCloud);
-
-    // Downloads
     elements.downloadPngBtn.addEventListener('click', downloadPng);
     elements.downloadSvgBtn.addEventListener('click', downloadSvg);
     elements.copyListBtn.addEventListener('click', copyWordList);
 
-    // Keyboard shortcuts
     document.addEventListener('keydown', (e) => {
       if (e.ctrlKey && e.key === 'Enter') {
         e.preventDefault();
@@ -349,7 +647,6 @@
     updateStats();
   }
 
-  // Run when DOM is ready
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);
   } else {
