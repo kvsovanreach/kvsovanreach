@@ -125,6 +125,7 @@ body {
   background-color: var(--color-bg);
   transition: background-color var(--transition-base), color var(--transition-base);
   overflow-x: hidden;
+  cursor: default;
 }
 
 img {
@@ -179,6 +180,10 @@ button,
 .section-tag,
 .section-title,
 .section-description,
+.hero,
+.hero-bg,
+.hero-gradient,
+.hero-content,
 .hero-badge,
 .hero-title,
 .hero-subtitle,
@@ -220,7 +225,20 @@ button,
 .social-card,
 .tab-btn,
 .footer-copy,
-.footer-made {
+.footer-made,
+.loading-skeleton,
+.skeleton-content,
+.skeleton-badge,
+.skeleton-title,
+.skeleton-subtitle,
+.skeleton-description,
+.skeleton-buttons,
+.skeleton-btn,
+.skeleton-socials,
+.skeleton-social,
+.skeleton-image,
+.skeleton-avatar,
+.skip-link {
   cursor: default;
   user-select: none;
   -webkit-user-select: none;
@@ -388,8 +406,8 @@ button,
 
 /* Theme Toggle */
 .theme-toggle {
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
   border-radius: var(--radius-full);
   display: flex;
   align-items: center;

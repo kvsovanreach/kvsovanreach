@@ -133,6 +133,64 @@ ul {
   list-style: none;
 }
 
+/* ==================== Prevent Text Cursor on Non-Editable Elements ==================== */
+h1, h2, h3, h4, h5, h6,
+p,
+span,
+label,
+img,
+.nav-logo,
+.logo-text,
+.logo-divider,
+.logo-tools,
+.back-btn,
+.theme-toggle,
+.footer-copy,
+.footer-made,
+.tool-tab,
+.panel-tab,
+.action-btn,
+.toast,
+.empty-state,
+.shortcuts-hint,
+.shortcuts-modal,
+.shortcut-row,
+.shortcut-desc {
+  cursor: default;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* Allow text cursor on editable elements */
+input[type="text"],
+input[type="number"],
+input[type="search"],
+input[type="email"],
+input[type="url"],
+textarea {
+  cursor: text;
+  user-select: text;
+  -webkit-user-select: text;
+}
+
+/* Pointer cursor for interactive elements */
+a,
+button,
+select,
+input[type="checkbox"],
+input[type="radio"],
+input[type="color"],
+input[type="file"],
+input[type="range"],
+[role="button"],
+.action-btn,
+.tool-tab,
+.panel-tab,
+.back-btn,
+.theme-toggle {
+  cursor: pointer !important;
+}
+
 .container {
   width: 100%;
   max-width: 1200px;
@@ -166,7 +224,7 @@ ul {
   top: 0;
   left: 0;
   right: 0;
-  z-index: 1000;
+  z-index: 1100;
   background-color: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(20px);
   box-shadow: var(--shadow-sm);
@@ -193,7 +251,7 @@ ul {
 }
 
 .logo-text {
-  font-size: var(--font-size-base);
+  font-size: var(--font-size-xl);
   font-weight: 700;
   letter-spacing: 0.5px;
   background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
@@ -203,7 +261,7 @@ ul {
 }
 
 .logo-divider {
-  color: var(--color-border);
+  color: var(--color-text-secondary);
   font-weight: 300;
 }
 
@@ -220,8 +278,8 @@ ul {
 }
 
 .back-btn {
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
   border-radius: var(--radius-full);
   display: flex;
   align-items: center;
@@ -239,24 +297,26 @@ ul {
 }
 
 .theme-toggle {
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
   border-radius: var(--radius-full);
   display: flex;
   align-items: center;
   justify-content: center;
   background-color: var(--color-bg-secondary);
-  border: 1px solid var(--color-border);
   color: var(--color-text);
-  cursor: pointer;
+  border: 1px solid rgba(0, 0, 0, 0.15);
   transition: all var(--transition-fast);
   position: relative;
   overflow: hidden;
 }
 
+[data-theme="dark"] .theme-toggle {
+  border: 1px solid var(--color-border);
+}
+
 .theme-toggle:hover {
   background-color: var(--color-primary);
-  border-color: var(--color-primary);
   color: #fff;
 }
 
@@ -748,7 +808,7 @@ ul {
 /* ==================== Responsive ==================== */
 @media screen and (max-width: 768px) {
   .tool-page {
-    padding-top: 100px;
+    padding-top: 80px;
   }
 
   .tool-page .container {
@@ -757,11 +817,24 @@ ul {
   }
 
   .logo-text {
-    font-size: var(--font-size-lg);
+    font-size: var(--font-size-base);
   }
 
   .logo-tools {
     font-size: var(--font-size-sm);
+  }
+
+  /* Compact tabs on mobile */
+  .tool-tab span {
+    display: none;
+  }
+
+  .tool-tab {
+    padding: var(--space-3);
+  }
+
+  .tool-tab i {
+    font-size: var(--font-size-lg);
   }
 
   .action-btn span {

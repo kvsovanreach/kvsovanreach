@@ -66,20 +66,20 @@
         </div>
 
         <!-- Tab Navigation -->
-        <div class="qr-tabs">
-          <button class="qr-tab active" data-tab="generator">
+        <div class="tool-tabs">
+          <button class="tool-tab active" data-tab="generator">
             <i class="fa-solid fa-qrcode"></i>
             <span>Generator</span>
           </button>
-          <button class="qr-tab" data-tab="scanner">
+          <button class="tool-tab" data-tab="scanner">
             <i class="fa-solid fa-camera"></i>
             <span>Scanner</span>
           </button>
-          <button class="qr-tab" data-tab="bulk">
+          <button class="tool-tab" data-tab="bulk">
             <i class="fa-solid fa-layer-group"></i>
             <span>Bulk</span>
           </button>
-          <button class="qr-tab" data-tab="history">
+          <button class="tool-tab" data-tab="history">
             <i class="fa-solid fa-clock-rotate-left"></i>
             <span>History</span>
           </button>
@@ -324,8 +324,10 @@
                     </div>
                     <div class="form-group">
                       <label for="qrMargin">Margin</label>
-                      <input type="range" id="qrMargin" min="0" max="10" value="4">
-                      <span class="range-value" id="marginValue">4</span>
+                      <div class="range-wrapper">
+                        <input type="range" id="qrMargin" min="0" max="10" value="4">
+                        <span class="range-value" id="marginValue">4</span>
+                      </div>
                     </div>
                     <!-- Logo Upload -->
                     <div class="form-group">
@@ -419,7 +421,7 @@
               <!-- Camera Scanner -->
               <div class="scanner-source active" id="cameraScanner">
                 <div class="camera-container" id="cameraContainer">
-                  <video id="cameraVideo" playsinline></video>
+                  <video id="cameraVideo" playsinline autoplay muted></video>
                   <div class="scan-overlay">
                     <div class="scan-frame"></div>
                   </div>
@@ -517,9 +519,9 @@
                 </div>
               </div>
               <div class="bulk-download" id="bulkDownload" style="display: none;">
-                <button class="download-btn" id="downloadAllBtn">
-                  <i class="fa-solid fa-download"></i>
-                  <span>Download All (ZIP)</span>
+                <button class="bulk-download-btn" id="downloadAllBtn">
+                  <i class="fa-solid fa-file-zipper"></i>
+                  <span>Download All as ZIP</span>
                 </button>
               </div>
             </div>
@@ -618,7 +620,7 @@
 
   <!-- Keyboard Shortcuts Hint -->
   <div class="shortcuts-hint" id="shortcutsHint">
-    <span>Press <kbd>?</kbd> for shortcuts</span>
+    <span><kbd>Shift</kbd>+<kbd>?</kbd> : shortcuts</span>
   </div>
 
   <!-- Shared Tools JavaScript -->

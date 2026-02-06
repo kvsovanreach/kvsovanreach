@@ -148,17 +148,15 @@ img,
 button,
 .nav-logo,
 .logo-text,
+.logo-divider,
+.logo-tools,
 .nav-link,
 .nav-count,
+.nav-item,
+.nav-item-divider,
 .hero-tag,
 .hero-title,
 .hero-description,
-.tool-card,
-.tool-card-icon,
-.tool-card-title,
-.tool-card-description,
-.tool-card-category,
-.tool-card-arrow,
 .coming-soon-badge,
 .pagination-btn,
 .pagination-info,
@@ -168,7 +166,10 @@ button,
 .about-title,
 .about-text,
 .about-features,
-.feature-item {
+.feature-item,
+.search-container,
+.search-icon,
+.search-clear {
   cursor: default;
   user-select: none;
   -webkit-user-select: none;
@@ -337,8 +338,8 @@ textarea {
 
 /* ==================== Back Button ==================== */
 .back-btn {
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
   border-radius: var(--radius-full);
   display: flex;
   align-items: center;
@@ -355,8 +356,8 @@ textarea {
 
 /* ==================== Theme Toggle ==================== */
 .theme-toggle {
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
   border-radius: var(--radius-full);
   display: flex;
   align-items: center;
@@ -1161,6 +1162,13 @@ textarea {
   display: flex;
   flex-direction: column;
   text-decoration: none;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.tool-card * {
+  cursor: pointer;
 }
 
 .tool-card:hover {

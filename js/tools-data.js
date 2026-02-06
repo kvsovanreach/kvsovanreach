@@ -38,7 +38,7 @@ const toolsData = [
     icon: "fa-solid fa-qrcode",
     url: "/tools/qrcode/",
     tags: ["qr", "barcode", "scan", "generate", "link"],
-    status: "inactive"
+    status: "active"
   },
   {
     id: "luckydraw",

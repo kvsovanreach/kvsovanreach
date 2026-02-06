@@ -9,26 +9,6 @@
   border-radius: var(--radius-xl);
   overflow: hidden;
   box-shadow: var(--shadow-lg);
-  cursor: default;
-  user-select: none;
-}
-
-/* Allow text cursor and selection only on inputs */
-.picker-wrapper input,
-.picker-wrapper textarea,
-.picker-wrapper select {
-  cursor: text;
-  user-select: text;
-}
-
-.picker-wrapper input[type="color"] {
-  cursor: pointer;
-}
-
-.picker-wrapper button,
-.picker-wrapper .action-btn,
-.picker-wrapper [role="button"] {
-  cursor: pointer;
 }
 
 /* ==================== Header ==================== */
@@ -1479,15 +1459,6 @@
 }
 
 @media screen and (max-width: 768px) {
-  .tool-page {
-    padding-top: 80px;
-  }
-
-  .tool-page .container {
-    padding-left: var(--space-3);
-    padding-right: var(--space-3);
-  }
-
   .picker-wrapper {
     border-radius: var(--radius-lg);
   }
@@ -1500,19 +1471,6 @@
   .picker-header h2 {
     font-size: var(--font-size-lg);
     gap: var(--space-2);
-  }
-
-  /* Compact tabs */
-  .tool-tab span {
-    display: none;
-  }
-
-  .tool-tab {
-    padding: var(--space-3);
-  }
-
-  .tool-tab i {
-    font-size: var(--font-size-lg);
   }
 
   /* Compact preview section */
@@ -1564,6 +1522,16 @@
   .color-history-swatches {
     padding: var(--space-1);
     gap: var(--space-1);
+    grid-template-columns: repeat(auto-fill, minmax(32px, 1fr));
+    grid-template-rows: repeat(2, 1fr);
+    max-height: none;
+    overflow: hidden;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .color-history-swatches::-webkit-scrollbar {
+    display: none;
   }
 
   /* Compact panel */
@@ -1748,11 +1716,6 @@
 }
 
 @media screen and (max-width: 480px) {
-  .tool-page .container {
-    padding-left: var(--space-2);
-    padding-right: var(--space-2);
-  }
-
   /* Extra compact header */
   .picker-header {
     padding: var(--space-2) var(--space-3);
@@ -1810,8 +1773,10 @@
 
   /* Extra compact history */
   .color-history-swatches {
-    grid-template-columns: repeat(6, 1fr);
-    max-height: 80px;
+    grid-template-columns: repeat(auto-fill, minmax(28px, 1fr));
+    grid-template-rows: repeat(2, 1fr);
+    max-height: none;
+    overflow: hidden;
   }
 
   /* Extra compact panel */

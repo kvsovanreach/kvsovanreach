@@ -30,7 +30,7 @@ const QR_CAPACITY = {
 // ===== ELEMENT REFERENCES =====
 const elements = {
   // Tabs
-  tabs: document.querySelectorAll('.qr-tab'),
+  tabs: document.querySelectorAll('.tool-tab'),
   panels: document.querySelectorAll('.qr-panel'),
 
   // Generator
@@ -1095,7 +1095,7 @@ async function generateBulkQR() {
       imgWrapper.appendChild(canvas);
 
       const label = document.createElement('span');
-      label.className = 'bulk-label';
+      label.className = 'bulk-item-label';
       label.textContent = lines[i].trim().substring(0, 20) + (lines[i].length > 20 ? '...' : '');
       label.title = lines[i];
 
