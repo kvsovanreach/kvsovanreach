@@ -139,6 +139,50 @@ ul {
   list-style: none;
 }
 
+/* Prevent text cursor on non-editable elements */
+h1, h2, h3, h4, h5, h6,
+p,
+span,
+label,
+img,
+button,
+.nav-logo,
+.logo-text,
+.nav-link,
+.nav-count,
+.hero-tag,
+.hero-title,
+.hero-description,
+.tool-card,
+.tool-card-icon,
+.tool-card-title,
+.tool-card-description,
+.tool-card-category,
+.tool-card-arrow,
+.coming-soon-badge,
+.pagination-btn,
+.pagination-info,
+.no-results,
+.footer-copy,
+.footer-made,
+.about-title,
+.about-text,
+.about-features,
+.feature-item {
+  cursor: default;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* Allow text selection on search input */
+input[type="text"],
+input[type="search"],
+textarea {
+  cursor: text;
+  user-select: auto;
+  -webkit-user-select: auto;
+}
+
 .container {
   width: 100%;
   max-width: 1200px;
@@ -191,7 +235,7 @@ ul {
 }
 
 .logo-text {
-  font-size: var(--font-size-base);
+  font-size: var(--font-size-xl);
   font-weight: 700;
   letter-spacing: 0.5px;
   background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
@@ -201,7 +245,7 @@ ul {
 }
 
 .logo-divider {
-  color: var(--color-border);
+  color: var(--color-text-secondary);
   font-weight: 300;
 }
 
@@ -1767,7 +1811,7 @@ body.modal-open {
   }
 
   .logo-text {
-    font-size: var(--font-size-sm);
+    font-size: var(--font-size-base);
   }
 
   .logo-tools {
