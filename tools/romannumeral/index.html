@@ -42,7 +42,7 @@
         <a href="../../tools.html" class="back-btn" title="Back to Tools">
           <i class="fa-solid fa-arrow-left"></i>
         </a>
-        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+        <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
           <i class="fa-solid fa-moon"></i>
           <i class="fa-solid fa-sun"></i>
         </button>
@@ -58,10 +58,15 @@
         <!-- Header -->
         <div class="roman-header">
           <h2><i class="fa-solid fa-landmark-dome"></i> Roman Numeral Converter</h2>
+          <div class="header-actions">
+            <button type="button" class="header-action-btn" id="resetBtn" title="Reset (R)">
+              <i class="fa-solid fa-rotate-left"></i>
+            </button>
+          </div>
         </div>
 
         <!-- Content -->
-        <div class="roman-content">
+        <div class="roman-main">
           <!-- Input Section -->
           <div class="input-section">
             <label for="inputValue">Enter a number or Roman numeral</label>
@@ -88,11 +93,11 @@
 
           <!-- Copy Buttons -->
           <div class="copy-actions">
-            <button class="action-btn secondary" id="copyArabicBtn">
+            <button type="button" class="action-btn secondary" id="copyArabicBtn">
               <i class="fa-solid fa-copy"></i>
               <span>Copy Arabic</span>
             </button>
-            <button class="action-btn secondary" id="copyRomanBtn">
+            <button type="button" class="action-btn secondary" id="copyRomanBtn">
               <i class="fa-solid fa-copy"></i>
               <span>Copy Roman</span>
             </button>
@@ -116,16 +121,6 @@
     </div>
   </main>
 
-  <!-- Footer -->
-  <footer class="footer">
-    <div class="container">
-      <div class="footer-bottom">
-        <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach. All rights reserved.</p>
-        <p class="footer-made">Made with 💗 and Claude Code xD</p>
-      </div>
-    </div>
-  </footer>
-
   <!-- Toast Notification -->
   <div class="toast" id="toast"></div>
 
@@ -134,7 +129,7 @@
     <div class="shortcuts-content">
       <div class="shortcuts-header">
         <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
-        <button class="close-shortcuts-btn" id="closeShortcutsBtn" aria-label="Close shortcuts">
+        <button type="button" class="close-shortcuts-btn" id="closeShortcutsBtn" aria-label="Close shortcuts">
           <i class="fa-solid fa-xmark"></i>
         </button>
       </div>
@@ -142,12 +137,12 @@
         <div class="shortcuts-group">
           <div class="shortcuts-group-title">General</div>
           <div class="shortcut-row">
-            <div class="shortcut-keys"><kbd>?</kbd></div>
-            <div class="shortcut-desc">Show shortcuts</div>
+            <div class="shortcut-keys"><kbd>R</kbd></div>
+            <div class="shortcut-desc">Reset form</div>
           </div>
           <div class="shortcut-row">
-            <div class="shortcut-keys"><kbd>Escape</kbd></div>
-            <div class="shortcut-desc">Close modal</div>
+            <div class="shortcut-keys"><kbd>?</kbd></div>
+            <div class="shortcut-desc">Show shortcuts</div>
           </div>
         </div>
       </div>

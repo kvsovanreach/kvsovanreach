@@ -1,55 +1,195 @@
 /**
- * Time Since Calculator Tool
+ * KVSOVANREACH Time Since Calculator Tool
  * Calculate how much time has passed since or until a specific date
  */
 
 (function() {
   'use strict';
 
-  // ==================== DOM Elements ====================
-  const elements = {
-    tabs: document.querySelectorAll('.time-tab'),
-    panels: document.querySelectorAll('.time-panel'),
-    // Since
-    sinceDate: document.getElementById('sinceDate'),
-    sinceClearBtn: document.getElementById('sinceClearBtn'),
-    sinceYears: document.getElementById('sinceYears'),
-    sinceMonths: document.getElementById('sinceMonths'),
-    sinceDays: document.getElementById('sinceDays'),
-    sinceHours: document.getElementById('sinceHours'),
-    sinceMinutes: document.getElementById('sinceMinutes'),
-    sinceSeconds: document.getElementById('sinceSeconds'),
-    sinceTotalDays: document.getElementById('sinceTotalDays'),
-    sinceTotalHours: document.getElementById('sinceTotalHours'),
-    sinceTotalMinutes: document.getElementById('sinceTotalMinutes'),
-    sinceTotalSeconds: document.getElementById('sinceTotalSeconds'),
-    // Until
-    untilDate: document.getElementById('untilDate'),
-    untilClearBtn: document.getElementById('untilClearBtn'),
-    untilYears: document.getElementById('untilYears'),
-    untilMonths: document.getElementById('untilMonths'),
-    untilDays: document.getElementById('untilDays'),
-    untilHours: document.getElementById('untilHours'),
-    untilMinutes: document.getElementById('untilMinutes'),
-    untilSeconds: document.getElementById('untilSeconds'),
-    untilTotalDays: document.getElementById('untilTotalDays'),
-    untilTotalHours: document.getElementById('untilTotalHours'),
-    untilTotalMinutes: document.getElementById('untilTotalMinutes'),
-    untilTotalSeconds: document.getElementById('untilTotalSeconds'),
-    // Presets
-    birthdayDate: document.getElementById('birthdayDate'),
-    birthdayResult: document.getElementById('birthdayResult'),
-    newyearResult: document.getElementById('newyearResult'),
-    customEventName: document.getElementById('customEventName'),
-    customEventDate: document.getElementById('customEventDate'),
-    customResult: document.getElementById('customResult'),
-    millenniumResult: document.getElementById('millenniumResult')
+  // ==================== State ====================
+  const state = {
+    updateInterval: null,
+    lastSinceError: false,
+    lastUntilError: false
   };
 
-  // ==================== State ====================
-  let updateInterval = null;
-  let lastSinceError = false;
-  let lastUntilError = false;
+  // ==================== DOM Elements ====================
+  const elements = {};
+
+  function initElements() {
+    // Tabs
+    elements.tabs = document.querySelectorAll('.time-tab');
+    elements.panels = document.querySelectorAll('.time-panel');
+
+    // Header actions
+    elements.resetBtn = document.getElementById('resetBtn');
+
+    // Since - Fast datetime
+    elements.sinceDatetime = document.getElementById('sinceDatetime');
+    elements.sinceClearBtn = document.getElementById('sinceClearBtn');
+    elements.sinceYears = document.getElementById('sinceYears');
+    elements.sinceMonths = document.getElementById('sinceMonths');
+    elements.sinceDays = document.getElementById('sinceDays');
+    elements.sinceHours = document.getElementById('sinceHours');
+    elements.sinceMinutes = document.getElementById('sinceMinutes');
+    elements.sinceSeconds = document.getElementById('sinceSeconds');
+    elements.sinceTotalDays = document.getElementById('sinceTotalDays');
+    elements.sinceTotalHours = document.getElementById('sinceTotalHours');
+    elements.sinceTotalMinutes = document.getElementById('sinceTotalMinutes');
+    elements.sinceTotalSeconds = document.getElementById('sinceTotalSeconds');
+
+    // Until - Fast datetime
+    elements.untilDatetime = document.getElementById('untilDatetime');
+    elements.untilClearBtn = document.getElementById('untilClearBtn');
+    elements.untilYears = document.getElementById('untilYears');
+    elements.untilMonths = document.getElementById('untilMonths');
+    elements.untilDays = document.getElementById('untilDays');
+    elements.untilHours = document.getElementById('untilHours');
+    elements.untilMinutes = document.getElementById('untilMinutes');
+    elements.untilSeconds = document.getElementById('untilSeconds');
+    elements.untilTotalDays = document.getElementById('untilTotalDays');
+    elements.untilTotalHours = document.getElementById('untilTotalHours');
+    elements.untilTotalMinutes = document.getElementById('untilTotalMinutes');
+    elements.untilTotalSeconds = document.getElementById('untilTotalSeconds');
+
+    // Presets
+    elements.birthdayDatetime = document.getElementById('birthdayDatetime');
+    elements.birthdayResult = document.getElementById('birthdayResult');
+    elements.newyearResult = document.getElementById('newyearResult');
+    elements.customEventName = document.getElementById('customEventName');
+    elements.customEventDatetime = document.getElementById('customEventDatetime');
+    elements.customResult = document.getElementById('customResult');
+    elements.millenniumResult = document.getElementById('millenniumResult');
+  }
+
+  // ==================== Fast Datetime Helpers ====================
+  function getDatetimeFromContainer(container) {
+    if (!container) return null;
+
+    const year = container.querySelector('.dt-year')?.value;
+    const month = container.querySelector('.dt-month')?.value;
+    const day = container.querySelector('.dt-day')?.value;
+    const hour = container.querySelector('.dt-hour')?.value || '0';
+    const minute = container.querySelector('.dt-minute')?.value || '0';
+
+    if (!year || !month || !day) return null;
+
+    const y = parseInt(year, 10);
+    const m = parseInt(month, 10);
+    const d = parseInt(day, 10);
+    const h = parseInt(hour, 10) || 0;
+    const min = parseInt(minute, 10) || 0;
+
+    if (isNaN(y) || isNaN(m) || isNaN(d) || m < 1 || m > 12 || d < 1 || d > 31) {
+      return null;
+    }
+
+    return new Date(y, m - 1, d, h, min, 0);
+  }
+
+  function setDatetimeToContainer(container, date) {
+    if (!container || !date) return;
+
+    const pad = (n) => String(n).padStart(2, '0');
+
+    const yearInput = container.querySelector('.dt-year');
+    const monthInput = container.querySelector('.dt-month');
+    const dayInput = container.querySelector('.dt-day');
+    const hourInput = container.querySelector('.dt-hour');
+    const minuteInput = container.querySelector('.dt-minute');
+
+    if (yearInput) yearInput.value = date.getFullYear();
+    if (monthInput) monthInput.value = pad(date.getMonth() + 1);
+    if (dayInput) dayInput.value = pad(date.getDate());
+    if (hourInput) hourInput.value = pad(date.getHours());
+    if (minuteInput) minuteInput.value = pad(date.getMinutes());
+  }
+
+  function clearDatetimeContainer(container) {
+    if (!container) return;
+
+    container.querySelectorAll('input').forEach(input => {
+      input.value = '';
+    });
+  }
+
+  function getDateFromContainer(container) {
+    if (!container) return null;
+
+    const year = container.querySelector('.dt-year')?.value;
+    const month = container.querySelector('.dt-month')?.value;
+    const day = container.querySelector('.dt-day')?.value;
+
+    if (!year || !month || !day) return null;
+
+    const y = parseInt(year, 10);
+    const m = parseInt(month, 10);
+    const d = parseInt(day, 10);
+
+    if (isNaN(y) || isNaN(m) || isNaN(d) || m < 1 || m > 12 || d < 1 || d > 31) {
+      return null;
+    }
+
+    return new Date(y, m - 1, d);
+  }
+
+  function setDateToContainer(container, date) {
+    if (!container || !date) return;
+
+    const pad = (n) => String(n).padStart(2, '0');
+
+    const yearInput = container.querySelector('.dt-year');
+    const monthInput = container.querySelector('.dt-month');
+    const dayInput = container.querySelector('.dt-day');
+
+    if (yearInput) yearInput.value = date.getFullYear();
+    if (monthInput) monthInput.value = pad(date.getMonth() + 1);
+    if (dayInput) dayInput.value = pad(date.getDate());
+  }
+
+  function setupFastDatetimeInput(container, onUpdate) {
+    if (!container) return;
+
+    const inputs = container.querySelectorAll('input');
+
+    inputs.forEach(input => {
+      // Only allow numbers
+      input.addEventListener('input', (e) => {
+        e.target.value = e.target.value.replace(/\D/g, '');
+
+        // Auto-jump to next field when maxlength reached
+        const maxLen = parseInt(input.getAttribute('maxlength'));
+        if (e.target.value.length >= maxLen) {
+          const nextId = input.dataset.next;
+          if (nextId) {
+            const nextInput = document.getElementById(nextId);
+            if (nextInput) {
+              nextInput.focus();
+              nextInput.select();
+            }
+          }
+        }
+
+        onUpdate();
+      });
+
+      // Select all on focus
+      input.addEventListener('focus', () => {
+        setTimeout(() => input.select(), 0);
+      });
+
+      // Handle backspace to go to previous field
+      input.addEventListener('keydown', (e) => {
+        if (e.key === 'Backspace' && input.value === '') {
+          const allInputs = Array.from(inputs);
+          const idx = allInputs.indexOf(input);
+          if (idx > 0) {
+            allInputs[idx - 1].focus();
+          }
+        }
+      });
+    });
+  }
 
   // ==================== Tab Switching ====================
   function switchTab(tabName) {
@@ -156,90 +296,90 @@
 
   // ==================== Update Since Display ====================
   function updateSince(showErrors = false) {
-    if (!elements.sinceDate.value) {
-      lastSinceError = false;
-      elements.sinceYears.textContent = '0';
-      elements.sinceMonths.textContent = '0';
-      elements.sinceDays.textContent = '0';
-      elements.sinceHours.textContent = '0';
-      elements.sinceMinutes.textContent = '0';
-      elements.sinceSeconds.textContent = '0';
-      elements.sinceTotalDays.textContent = '0';
-      elements.sinceTotalHours.textContent = '0';
-      elements.sinceTotalMinutes.textContent = '0';
-      elements.sinceTotalSeconds.textContent = '0';
+    const selectedDate = getDatetimeFromContainer(elements.sinceDatetime);
+
+    if (!selectedDate) {
+      state.lastSinceError = false;
+      if (elements.sinceYears) elements.sinceYears.textContent = '0';
+      if (elements.sinceMonths) elements.sinceMonths.textContent = '0';
+      if (elements.sinceDays) elements.sinceDays.textContent = '0';
+      if (elements.sinceHours) elements.sinceHours.textContent = '0';
+      if (elements.sinceMinutes) elements.sinceMinutes.textContent = '0';
+      if (elements.sinceSeconds) elements.sinceSeconds.textContent = '0';
+      if (elements.sinceTotalDays) elements.sinceTotalDays.textContent = '0';
+      if (elements.sinceTotalHours) elements.sinceTotalHours.textContent = '0';
+      if (elements.sinceTotalMinutes) elements.sinceTotalMinutes.textContent = '0';
+      if (elements.sinceTotalSeconds) elements.sinceTotalSeconds.textContent = '0';
       return;
     }
 
-    const selectedDate = new Date(elements.sinceDate.value);
     const now = new Date();
 
     if (selectedDate > now) {
-      // Only show error toast once, not on every interval update
-      if (showErrors && !lastSinceError) {
+      if (showErrors && !state.lastSinceError) {
         ToolsCommon.showToast('Please select a past date', 'error');
       }
-      lastSinceError = true;
+      state.lastSinceError = true;
       return;
     }
 
-    lastSinceError = false;
+    state.lastSinceError = false;
     const diff = calculateTimeDiff(selectedDate, now);
 
-    elements.sinceYears.textContent = diff.years;
-    elements.sinceMonths.textContent = diff.months;
-    elements.sinceDays.textContent = diff.days;
-    elements.sinceHours.textContent = diff.hours;
-    elements.sinceMinutes.textContent = diff.minutes;
-    elements.sinceSeconds.textContent = diff.seconds;
-    elements.sinceTotalDays.textContent = formatNumber(diff.totalDays);
-    elements.sinceTotalHours.textContent = formatNumber(diff.totalHours);
-    elements.sinceTotalMinutes.textContent = formatNumber(diff.totalMinutes);
-    elements.sinceTotalSeconds.textContent = formatNumber(diff.totalSeconds);
+    if (elements.sinceYears) elements.sinceYears.textContent = diff.years;
+    if (elements.sinceMonths) elements.sinceMonths.textContent = diff.months;
+    if (elements.sinceDays) elements.sinceDays.textContent = diff.days;
+    if (elements.sinceHours) elements.sinceHours.textContent = diff.hours;
+    if (elements.sinceMinutes) elements.sinceMinutes.textContent = diff.minutes;
+    if (elements.sinceSeconds) elements.sinceSeconds.textContent = diff.seconds;
+    if (elements.sinceTotalDays) elements.sinceTotalDays.textContent = formatNumber(diff.totalDays);
+    if (elements.sinceTotalHours) elements.sinceTotalHours.textContent = formatNumber(diff.totalHours);
+    if (elements.sinceTotalMinutes) elements.sinceTotalMinutes.textContent = formatNumber(diff.totalMinutes);
+    if (elements.sinceTotalSeconds) elements.sinceTotalSeconds.textContent = formatNumber(diff.totalSeconds);
   }
 
   // ==================== Update Until Display ====================
   function updateUntil(showErrors = false) {
-    if (!elements.untilDate.value) {
-      lastUntilError = false;
-      elements.untilYears.textContent = '0';
-      elements.untilMonths.textContent = '0';
-      elements.untilDays.textContent = '0';
-      elements.untilHours.textContent = '0';
-      elements.untilMinutes.textContent = '0';
-      elements.untilSeconds.textContent = '0';
-      elements.untilTotalDays.textContent = '0';
-      elements.untilTotalHours.textContent = '0';
-      elements.untilTotalMinutes.textContent = '0';
-      elements.untilTotalSeconds.textContent = '0';
+    const selectedDate = getDatetimeFromContainer(elements.untilDatetime);
+
+    if (!selectedDate) {
+      state.lastUntilError = false;
+      if (elements.untilYears) elements.untilYears.textContent = '0';
+      if (elements.untilMonths) elements.untilMonths.textContent = '0';
+      if (elements.untilDays) elements.untilDays.textContent = '0';
+      if (elements.untilHours) elements.untilHours.textContent = '0';
+      if (elements.untilMinutes) elements.untilMinutes.textContent = '0';
+      if (elements.untilSeconds) elements.untilSeconds.textContent = '0';
+      if (elements.untilTotalDays) elements.untilTotalDays.textContent = '0';
+      if (elements.untilTotalHours) elements.untilTotalHours.textContent = '0';
+      if (elements.untilTotalMinutes) elements.untilTotalMinutes.textContent = '0';
+      if (elements.untilTotalSeconds) elements.untilTotalSeconds.textContent = '0';
       return;
     }
 
-    const selectedDate = new Date(elements.untilDate.value);
     const now = new Date();
 
     if (selectedDate < now) {
-      // Only show error toast once, not on every interval update
-      if (showErrors && !lastUntilError) {
+      if (showErrors && !state.lastUntilError) {
         ToolsCommon.showToast('Please select a future date', 'error');
       }
-      lastUntilError = true;
+      state.lastUntilError = true;
       return;
     }
 
-    lastUntilError = false;
+    state.lastUntilError = false;
     const diff = calculateTimeDiff(now, selectedDate);
 
-    elements.untilYears.textContent = diff.years;
-    elements.untilMonths.textContent = diff.months;
-    elements.untilDays.textContent = diff.days;
-    elements.untilHours.textContent = diff.hours;
-    elements.untilMinutes.textContent = diff.minutes;
-    elements.untilSeconds.textContent = diff.seconds;
-    elements.untilTotalDays.textContent = formatNumber(diff.totalDays);
-    elements.untilTotalHours.textContent = formatNumber(diff.totalHours);
-    elements.untilTotalMinutes.textContent = formatNumber(diff.totalMinutes);
-    elements.untilTotalSeconds.textContent = formatNumber(diff.totalSeconds);
+    if (elements.untilYears) elements.untilYears.textContent = diff.years;
+    if (elements.untilMonths) elements.untilMonths.textContent = diff.months;
+    if (elements.untilDays) elements.untilDays.textContent = diff.days;
+    if (elements.untilHours) elements.untilHours.textContent = diff.hours;
+    if (elements.untilMinutes) elements.untilMinutes.textContent = diff.minutes;
+    if (elements.untilSeconds) elements.untilSeconds.textContent = diff.seconds;
+    if (elements.untilTotalDays) elements.untilTotalDays.textContent = formatNumber(diff.totalDays);
+    if (elements.untilTotalHours) elements.untilTotalHours.textContent = formatNumber(diff.totalHours);
+    if (elements.untilTotalMinutes) elements.untilTotalMinutes.textContent = formatNumber(diff.totalMinutes);
+    if (elements.untilTotalSeconds) elements.untilTotalSeconds.textContent = formatNumber(diff.totalSeconds);
   }
 
   // ==================== Update Presets ====================
@@ -247,8 +387,8 @@
     const now = new Date();
 
     // Birthday
-    if (elements.birthdayDate.value) {
-      const birthday = new Date(elements.birthdayDate.value);
+    const birthday = getDateFromContainer(elements.birthdayDatetime);
+    if (birthday) {
       const diff = calculateTimeDiff(birthday, now);
       const age = diff.years;
 
@@ -259,52 +399,62 @@
       }
       const daysUntilBirthday = Math.ceil((nextBirthday - now) / (1000 * 60 * 60 * 24));
 
-      elements.birthdayResult.innerHTML = `
-        <strong>${age} years old</strong>
-        ${daysUntilBirthday} days until next birthday
-      `;
+      if (elements.birthdayResult) {
+        elements.birthdayResult.innerHTML = `
+          <strong>${age} years old</strong>
+          ${daysUntilBirthday} days until next birthday
+        `;
+      }
     }
 
     // New Year
     const nextNewYear = new Date(now.getFullYear() + 1, 0, 1);
     const daysUntilNewYear = Math.ceil((nextNewYear - now) / (1000 * 60 * 60 * 24));
     const hoursUntilNewYear = Math.ceil((nextNewYear - now) / (1000 * 60 * 60));
-    elements.newyearResult.innerHTML = `
-      <strong>${daysUntilNewYear} days</strong>
-      ${hoursUntilNewYear.toLocaleString()} hours until ${nextNewYear.getFullYear()}
-    `;
+    if (elements.newyearResult) {
+      elements.newyearResult.innerHTML = `
+        <strong>${daysUntilNewYear} days</strong>
+        ${hoursUntilNewYear.toLocaleString()} hours until ${nextNewYear.getFullYear()}
+      `;
+    }
 
     // Custom event
-    if (elements.customEventDate.value) {
-      const customDate = new Date(elements.customEventDate.value);
+    const customDate = getDatetimeFromContainer(elements.customEventDatetime);
+    if (customDate) {
       const diff = calculateTimeDiff(now, customDate);
-      const eventName = elements.customEventName.value || 'Event';
+      const eventName = elements.customEventName?.value || 'Event';
 
-      if (customDate > now) {
-        elements.customResult.innerHTML = `
-          <strong>${diff.totalDays} days</strong>
-          until ${eventName}
-        `;
-      } else {
-        const pastDiff = calculateTimeDiff(customDate, now);
-        elements.customResult.innerHTML = `
-          <strong>${pastDiff.totalDays} days</strong>
-          since ${eventName}
-        `;
+      if (elements.customResult) {
+        if (customDate > now) {
+          elements.customResult.innerHTML = `
+            <strong>${diff.totalDays} days</strong>
+            until ${eventName}
+          `;
+        } else {
+          const pastDiff = calculateTimeDiff(customDate, now);
+          elements.customResult.innerHTML = `
+            <strong>${pastDiff.totalDays} days</strong>
+            since ${eventName}
+          `;
+        }
       }
     }
 
     // Millennium (Y2K)
     const y2k = new Date(2000, 0, 1);
     const y2kDiff = calculateTimeDiff(y2k, now);
-    elements.millenniumResult.innerHTML = `
-      <strong>${y2kDiff.years} years</strong>
-      ${y2kDiff.totalDays.toLocaleString()} days since Y2K
-    `;
+    if (elements.millenniumResult) {
+      elements.millenniumResult.innerHTML = `
+        <strong>${y2kDiff.years} years</strong>
+        ${y2kDiff.totalDays.toLocaleString()} days since Y2K
+      `;
+    }
   }
 
   // ==================== Set Quick Date ====================
-  function setQuickDate(input, days, isFuture = false) {
+  function setQuickDate(container, days, isFuture = false) {
+    if (!container) return;
+
     const date = new Date();
     if (isFuture) {
       date.setDate(date.getDate() + days);
@@ -312,9 +462,7 @@
       date.setDate(date.getDate() - days);
     }
 
-    // Format for datetime-local input
-    const formatted = date.toISOString().slice(0, 16);
-    input.value = formatted;
+    setDatetimeToContainer(container, date);
 
     if (isFuture) {
       updateUntil(true);
@@ -337,28 +485,31 @@
       tab.addEventListener('click', () => switchTab(tab.dataset.tab));
     });
 
-    // Date inputs - show errors on user input
-    elements.sinceDate.addEventListener('change', () => updateSince(true));
-    elements.untilDate.addEventListener('change', () => updateUntil(true));
+    // Setup fast datetime inputs with auto-jump
+    setupFastDatetimeInput(elements.sinceDatetime, () => updateSince(true));
+    setupFastDatetimeInput(elements.untilDatetime, () => updateUntil(true));
 
     // Clear buttons
-    elements.sinceClearBtn.addEventListener('click', () => {
-      elements.sinceDate.value = '';
-      lastSinceError = false;
+    elements.sinceClearBtn?.addEventListener('click', () => {
+      clearDatetimeContainer(elements.sinceDatetime);
+      state.lastSinceError = false;
       updateSince(false);
     });
 
-    elements.untilClearBtn.addEventListener('click', () => {
-      elements.untilDate.value = '';
-      lastUntilError = false;
+    elements.untilClearBtn?.addEventListener('click', () => {
+      clearDatetimeContainer(elements.untilDatetime);
+      state.lastUntilError = false;
       updateUntil(false);
     });
+
+    // Reset button
+    elements.resetBtn?.addEventListener('click', resetForm);
 
     // Quick presets for Since
     document.querySelectorAll('#sincePanel .quick-btn').forEach(btn => {
       btn.addEventListener('click', () => {
         const days = parseInt(btn.dataset.days);
-        setQuickDate(elements.sinceDate, days, false);
+        setQuickDate(elements.sinceDatetime, days, false);
       });
     });
 
@@ -366,46 +517,98 @@
     document.querySelectorAll('#untilPanel .quick-btn').forEach(btn => {
       btn.addEventListener('click', () => {
         const days = parseInt(btn.dataset.future);
-        setQuickDate(elements.untilDate, days, true);
+        setQuickDate(elements.untilDatetime, days, true);
       });
     });
 
-    // Preset inputs
-    elements.birthdayDate.addEventListener('change', updatePresets);
-    elements.customEventName.addEventListener('input', updatePresets);
-    elements.customEventDate.addEventListener('change', updatePresets);
+    // Preset inputs - fast datetime
+    setupFastDatetimeInput(elements.birthdayDatetime, () => {
+      updatePresets();
+      saveBirthday();
+    });
+    setupFastDatetimeInput(elements.customEventDatetime, updatePresets);
+    elements.customEventName?.addEventListener('input', updatePresets);
 
     // Keyboard shortcuts
-    document.addEventListener('keydown', (e) => {
-      const isTyping = document.activeElement.tagName === 'INPUT' ||
-                       document.activeElement.tagName === 'TEXTAREA';
+    document.addEventListener('keydown', handleKeyboard);
+  }
 
-      if (isTyping) return;
+  // ==================== Keyboard Handler ====================
+  function handleKeyboard(e) {
+    const isTyping = document.activeElement.tagName === 'INPUT' ||
+                     document.activeElement.tagName === 'TEXTAREA';
 
-      if (e.key === '1') switchTab('since');
-      if (e.key === '2') switchTab('until');
-      if (e.key === '3') switchTab('presets');
-    });
+    if (isTyping) return;
+
+    switch (e.key.toLowerCase()) {
+      case '1':
+        switchTab('since');
+        break;
+      case '2':
+        switchTab('until');
+        break;
+      case '3':
+        switchTab('presets');
+        break;
+      case 'r':
+        e.preventDefault();
+        resetForm();
+        break;
+    }
+  }
+
+  // ==================== Reset Form ====================
+  function resetForm() {
+    // Clear since inputs
+    clearDatetimeContainer(elements.sinceDatetime);
+    state.lastSinceError = false;
+
+    // Clear until inputs
+    clearDatetimeContainer(elements.untilDatetime);
+    state.lastUntilError = false;
+
+    // Clear custom event (but keep birthday saved)
+    if (elements.customEventName) elements.customEventName.value = '';
+    clearDatetimeContainer(elements.customEventDatetime);
+    if (elements.customResult) elements.customResult.textContent = 'Set your event';
+
+    // Update displays
+    updateSince(false);
+    updateUntil(false);
+
+    ToolsCommon.showToast('Form reset', 'success');
   }
 
   // ==================== Initialize ====================
   function init() {
+    initElements();
+
     // Load saved birthday
     const savedBirthday = localStorage.getItem('timesince_birthday');
-    if (savedBirthday) {
-      elements.birthdayDate.value = savedBirthday;
+    if (savedBirthday && elements.birthdayDatetime) {
+      try {
+        const date = new Date(savedBirthday);
+        if (!isNaN(date.getTime())) {
+          setDateToContainer(elements.birthdayDatetime, date);
+        }
+      } catch (e) {
+        // Invalid date, ignore
+      }
     }
-
-    // Save birthday on change
-    elements.birthdayDate.addEventListener('change', () => {
-      localStorage.setItem('timesince_birthday', elements.birthdayDate.value);
-    });
 
     initEventListeners();
     updateAll();
 
     // Start live updates
-    updateInterval = setInterval(updateAll, 1000);
+    state.updateInterval = setInterval(updateAll, 1000);
+  }
+
+  // ==================== Save Birthday ====================
+  function saveBirthday() {
+    const birthday = getDateFromContainer(elements.birthdayDatetime);
+    if (birthday) {
+      localStorage.setItem('timesince_birthday', birthday.toISOString());
+    }
   }
 
   // Run when DOM is ready

@@ -1,0 +1,397 @@
+/**
+ * CSS Gradient Generator Styles
+ */
+
+/* ==================== Wrapper ==================== */
+.gradient-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+}
+
+/* ==================== Header ==================== */
+.gradient-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-4) var(--space-5);
+  background-color: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.gradient-header h2 {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin: 0;
+  font-size: var(--font-size-xl);
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.gradient-header h2 i {
+  color: var(--color-primary);
+}
+
+.header-actions {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.header-action-btn {
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-bg-secondary);
+  color: var(--color-text-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  font-size: var(--font-size-sm);
+}
+
+.header-action-btn:hover {
+  background-color: var(--color-primary);
+  color: #fff;
+  border-color: var(--color-primary);
+}
+
+/* ==================== Content ==================== */
+.gradient-content {
+  display: grid;
+  grid-template-columns: 1fr 350px;
+  min-height: 500px;
+}
+
+/* ==================== Preview ==================== */
+.gradient-preview {
+  background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+  min-height: 400px;
+  position: relative;
+}
+
+.gradient-preview::after {
+  content: 'Preview';
+  position: absolute;
+  bottom: var(--space-4);
+  right: var(--space-4);
+  padding: var(--space-2) var(--space-3);
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  font-size: var(--font-size-xs);
+  border-radius: var(--radius-md);
+  opacity: 0.6;
+}
+
+/* ==================== Controls ==================== */
+.gradient-controls {
+  padding: var(--space-4);
+  background-color: var(--color-bg);
+  border-left: 1px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  overflow-y: auto;
+}
+
+.control-section h3 {
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: var(--space-3);
+}
+
+.control-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-3);
+}
+
+.control-header h3 {
+  margin-bottom: 0;
+}
+
+.control-value {
+  font-family: 'Fira Code', monospace;
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--color-primary);
+}
+
+/* Type Buttons */
+.type-buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-2);
+}
+
+.type-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: var(--space-3);
+  background-color: var(--color-surface);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.type-btn:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.type-btn.active {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+  color: white;
+}
+
+/* Angle Slider */
+.control-section input[type="range"] {
+  width: 100%;
+  height: 8px;
+  -webkit-appearance: none;
+  background: var(--color-border);
+  border-radius: var(--radius-full);
+  cursor: pointer;
+}
+
+.control-section input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  background: var(--color-primary);
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.control-section input[type="range"]::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  background: var(--color-primary);
+  border-radius: 50%;
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* Color Stops */
+.add-color-btn {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-primary);
+  color: white;
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.add-color-btn:hover {
+  transform: scale(1.1);
+}
+
+.color-stops {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.color-stop {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+.color-stop input[type="color"] {
+  width: 40px;
+  height: 32px;
+  padding: 0;
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+}
+
+.color-stop input[type="number"] {
+  width: 60px;
+  padding: var(--space-1) var(--space-2);
+  background-color: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  font-family: 'Fira Code', monospace;
+  font-size: var(--font-size-sm);
+  color: var(--color-text);
+  text-align: center;
+}
+
+.color-stop input[type="number"]:focus {
+  outline: none;
+  border-color: var(--color-primary);
+}
+
+.color-stop .percent-sign {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+}
+
+.color-stop .remove-btn {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  border-radius: var(--radius-sm);
+  transition: all var(--transition-fast);
+  margin-left: auto;
+}
+
+.color-stop .remove-btn:hover {
+  background-color: var(--color-error);
+  color: white;
+}
+
+/* Copy Button */
+.copy-btn {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-bg-secondary);
+  color: var(--color-text-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.copy-btn:hover {
+  background-color: var(--color-primary);
+  color: white;
+  border-color: var(--color-primary);
+}
+
+/* Output Box */
+.output-box {
+  background-color: #1e1e1e;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.output-box pre {
+  padding: var(--space-3);
+  margin: 0;
+  font-family: 'Fira Code', monospace;
+  font-size: var(--font-size-xs);
+  color: #d4d4d4;
+  line-height: 1.6;
+  overflow-x: auto;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+/* ==================== Responsive ==================== */
+@media screen and (max-width: 900px) {
+  .gradient-content {
+    grid-template-columns: 1fr;
+  }
+
+  .gradient-preview {
+    min-height: 250px;
+  }
+
+  .gradient-controls {
+    border-left: none;
+    border-top: 1px solid var(--color-border);
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .gradient-wrapper {
+    border-radius: var(--radius-lg);
+  }
+
+  .gradient-header {
+    padding: var(--space-3) var(--space-4);
+  }
+
+  .gradient-header h2 {
+    font-size: var(--font-size-lg);
+    gap: var(--space-2);
+  }
+
+  .header-action-btn {
+    width: 28px;
+    height: 28px;
+  }
+
+  .gradient-preview {
+    min-height: 200px;
+  }
+
+  .gradient-controls {
+    padding: var(--space-3);
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .gradient-header {
+    padding: var(--space-2) var(--space-3);
+  }
+
+  .gradient-header h2 {
+    font-size: var(--font-size-base);
+  }
+
+  .header-action-btn {
+    width: 26px;
+    height: 26px;
+    font-size: var(--font-size-xs);
+  }
+
+  .gradient-preview {
+    min-height: 150px;
+  }
+
+  .type-buttons {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media screen and (max-width: 360px) {
+  .gradient-header h2 {
+    font-size: var(--font-size-sm);
+  }
+
+  .header-action-btn {
+    width: 24px;
+    height: 24px;
+  }
+}

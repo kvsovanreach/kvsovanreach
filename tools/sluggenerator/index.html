@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Generate URL-friendly slugs from text. Perfect for creating SEO-friendly URLs.">
+  <meta property="og:title" content="KVSOVANREACH | Slug Generator">
+  <meta property="og:description" content="Generate URL-friendly slugs from text.">
+  <meta property="og:image" content="/assets/img/favicons/og-image.png">
+  <title>KVSOVANREACH | Slug Generator</title>
+
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/tools-common.css">
+  <link rel="stylesheet" href="sluggenerator.css">
+</head>
+<body>
+  <a href="#sluggenerator" class="skip-link">Skip to Slug Generator</a>
+
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">TOOLS</span>
+      </a>
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools"><i class="fa-solid fa-arrow-left"></i></a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <main class="tool-page">
+    <div class="container">
+      <div class="slug-wrapper" id="sluggenerator">
+        <div class="slug-header">
+          <h2><i class="fa-solid fa-link"></i> Slug Generator</h2>
+          <div class="header-actions">
+            <button type="button" class="header-action-btn" id="clearBtn" title="Clear">
+              <i class="fa-solid fa-trash-can"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="slug-content">
+          <div class="input-section">
+            <label for="inputText">Enter text to slugify</label>
+            <textarea id="inputText" placeholder="Enter your title or text here..." rows="3"></textarea>
+          </div>
+
+          <div class="options-section">
+            <div class="options-row">
+              <div class="option-group">
+                <label>Separator</label>
+                <div class="option-buttons">
+                  <button type="button" class="option-btn active" data-separator="-">-</button>
+                  <button type="button" class="option-btn" data-separator="_">_</button>
+                  <button type="button" class="option-btn" data-separator=".">.</button>
+                </div>
+              </div>
+              <div class="option-group">
+                <label>Case</label>
+                <div class="option-buttons">
+                  <button type="button" class="option-btn active" data-case="lower">abc</button>
+                  <button type="button" class="option-btn" data-case="upper">ABC</button>
+                </div>
+              </div>
+              <label class="checkbox-label">
+                <input type="checkbox" id="removeNumbers">
+                <span>No numbers</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="output-section">
+            <label>Generated Slug</label>
+            <div class="output-wrapper">
+              <input type="text" id="outputSlug" readonly placeholder="your-slug-here">
+              <button type="button" class="copy-btn" id="copyBtn" title="Copy to clipboard">
+                <i class="fa-solid fa-copy"></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="url-preview">
+            <label>URL Preview</label>
+            <div class="preview-text" id="urlPreview">https://example.com/your-slug-here</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div class="shortcuts-modal" id="shortcutsModal">
+    <div class="shortcuts-content">
+      <div class="shortcuts-header">
+        <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
+        <button class="close-shortcuts-btn" id="closeShortcutsBtn"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="shortcuts-body">
+        <div class="shortcut-row"><span class="shortcut-key">Ctrl+C</span><span class="shortcut-desc">Copy slug (when focused)</span></div>
+        <div class="shortcut-row"><span class="shortcut-key">?</span><span class="shortcut-desc">Show shortcuts</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="shortcuts-hint">Press <span class="shortcut-key">?</span> for shortcuts</div>
+  <div class="toast" id="toast"></div>
+
+  <script src="../../js/tools-common.js"></script>
+  <script src="sluggenerator.js"></script>
+</body>
+</html>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Precise stopwatch with lap time tracking. Track multiple laps and view detailed timing information.">
+  <meta property="og:title" content="KVSOVANREACH | Stopwatch">
+  <meta property="og:description" content="Precise stopwatch with lap time tracking.">
+  <meta property="og:image" content="/assets/img/favicons/og-image.png">
+  <title>KVSOVANREACH | Stopwatch</title>
+
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/tools-common.css">
+  <link rel="stylesheet" href="stopwatch.css">
+</head>
+<body>
+  <a href="#stopwatch" class="skip-link">Skip to Stopwatch</a>
+
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">TOOLS</span>
+      </a>
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools"><i class="fa-solid fa-arrow-left"></i></a>
+        <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <main class="tool-page">
+    <div class="container">
+      <div class="stopwatch-wrapper" id="stopwatch">
+        <div class="stopwatch-header">
+          <h2><i class="fa-solid fa-stopwatch"></i> Stopwatch</h2>
+          <div class="header-actions">
+            <button type="button" class="header-action-btn" id="resetBtn" title="Reset">
+              <i class="fa-solid fa-rotate-left"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="stopwatch-content">
+          <div class="timer-display">
+            <span class="time-part" id="hours">00</span>
+            <span class="time-separator">:</span>
+            <span class="time-part" id="minutes">00</span>
+            <span class="time-separator">:</span>
+            <span class="time-part" id="seconds">00</span>
+            <span class="time-separator small">.</span>
+            <span class="time-part milliseconds" id="milliseconds">00</span>
+          </div>
+
+          <div class="controls">
+            <button type="button" class="control-btn start" id="startBtn">
+              <i class="fa-solid fa-play"></i>
+              <span>Start</span>
+            </button>
+            <button type="button" class="control-btn lap" id="lapBtn" disabled>
+              <i class="fa-solid fa-flag"></i>
+              <span>Lap</span>
+            </button>
+          </div>
+
+          <div class="laps-section" id="lapsSection">
+            <div class="laps-header">
+              <h3>Lap Times</h3>
+              <span class="lap-count" id="lapCount">0 laps</span>
+            </div>
+            <div class="laps-list" id="lapsList"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div class="shortcuts-modal" id="shortcutsModal">
+    <div class="shortcuts-content">
+      <div class="shortcuts-header">
+        <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
+        <button type="button" class="close-shortcuts-btn" id="closeShortcutsBtn" aria-label="Close shortcuts"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="shortcuts-body">
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">General</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Space</kbd></div>
+            <div class="shortcut-desc">Start/Pause</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>L</kbd></div>
+            <div class="shortcut-desc">Lap</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>R</kbd></div>
+            <div class="shortcut-desc">Reset</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>?</kbd></div>
+            <div class="shortcut-desc">Show shortcuts</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="shortcuts-hint" id="shortcutsHint">
+    <span><kbd>Shift</kbd>+<kbd>?</kbd> : shortcuts</span>
+  </div>
+  <div class="toast" id="toast"></div>
+
+  <script src="../../js/tools-common.js"></script>
+  <script src="stopwatch.js"></script>
+</body>
+</html>

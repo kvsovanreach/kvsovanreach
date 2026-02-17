@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Browse and copy special characters, symbols, and emojis. Find the character you need.">
+  <meta property="og:title" content="KVSOVANREACH | Character Map">
+  <meta property="og:description" content="Browse and copy special characters and symbols.">
+  <meta property="og:image" content="/assets/img/favicons/og-image.png">
+  <title>KVSOVANREACH | Character Map</title>
+
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/tools-common.css">
+  <link rel="stylesheet" href="charmap.css">
+</head>
+<body>
+  <a href="#charmap" class="skip-link">Skip to Character Map</a>
+
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">TOOLS</span>
+      </a>
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools"><i class="fa-solid fa-arrow-left"></i></a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <main class="tool-page">
+    <div class="container">
+      <div class="charmap-wrapper" id="charmap">
+        <div class="charmap-header">
+          <h2><i class="fa-solid fa-font"></i> Character Map</h2>
+          <div class="header-actions">
+            <button class="header-action-btn" id="clearRecentBtn" title="Clear Recent (R)">
+              <i class="fa-solid fa-rotate-left"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="charmap-content">
+          <div class="search-section">
+            <input type="text" id="searchInput" placeholder="Search characters..." class="search-input">
+          </div>
+
+          <div class="category-tabs">
+            <button class="category-tab active" data-category="symbols">Symbols</button>
+            <button class="category-tab" data-category="punctuation">Punctuation</button>
+            <button class="category-tab" data-category="math">Math</button>
+            <button class="category-tab" data-category="arrows">Arrows</button>
+            <button class="category-tab" data-category="shapes">Shapes</button>
+            <button class="category-tab" data-category="boxes">Box Drawing</button>
+            <button class="category-tab" data-category="letters">Letters</button>
+            <button class="category-tab" data-category="currency">Currency</button>
+            <button class="category-tab" data-category="greek">Greek</button>
+            <button class="category-tab" data-category="emoji">Emoji</button>
+          </div>
+
+          <div class="char-grid" id="charGrid"></div>
+
+          <div class="selected-char" id="selectedChar">
+            <div class="char-preview" id="charPreview">-</div>
+            <div class="char-info">
+              <div class="char-name" id="charName">Click a character to select</div>
+              <div class="char-codes">
+                <div class="code-row">
+                  <span id="charUnicode">Unicode: -</span>
+                  <button class="copy-code-btn" id="copyUnicodeBtn" title="Copy Unicode">
+                    <i class="fa-solid fa-copy"></i>
+                  </button>
+                </div>
+                <div class="code-row">
+                  <span id="charHTML">HTML: -</span>
+                  <button class="copy-code-btn" id="copyHtmlBtn" title="Copy HTML">
+                    <i class="fa-solid fa-copy"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <button class="copy-char-btn" id="copyCharBtn">
+              <i class="fa-solid fa-copy"></i> Copy Char
+            </button>
+          </div>
+
+          <div class="recent-chars">
+            <h3>Recently Used</h3>
+            <div class="recent-grid" id="recentGrid"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div class="shortcuts-modal" id="shortcutsModal">
+    <div class="shortcuts-content">
+      <div class="shortcuts-header">
+        <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
+        <button class="close-shortcuts-btn" id="closeShortcutsBtn"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="shortcuts-body">
+        <div class="shortcut-row"><span class="shortcut-key">/</span><span class="shortcut-desc">Focus search</span></div>
+        <div class="shortcut-row"><span class="shortcut-key">R</span><span class="shortcut-desc">Clear recent</span></div>
+        <div class="shortcut-row"><span class="shortcut-key">?</span><span class="shortcut-desc">Show shortcuts</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="shortcuts-hint">Press <span class="shortcut-key">?</span> for shortcuts</div>
+  <div class="toast" id="toast"></div>
+
+  <script src="../../js/tools-common.js"></script>
+  <script src="charmap.js"></script>
+</body>
+</html>

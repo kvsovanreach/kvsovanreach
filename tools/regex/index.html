@@ -42,7 +42,7 @@
         <a href="../../tools.html" class="back-btn" title="Back to Tools">
           <i class="fa-solid fa-arrow-left"></i>
         </a>
-        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+        <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
           <i class="fa-solid fa-moon"></i>
           <i class="fa-solid fa-sun"></i>
         </button>
@@ -58,10 +58,9 @@
         <!-- Header -->
         <div class="regex-header">
           <h2><i class="fa-solid fa-asterisk"></i> Regex Tester</h2>
-          <div class="regex-actions">
-            <button class="action-btn" id="clearBtn" title="Clear all">
+          <div class="header-actions">
+            <button type="button" class="header-action-btn" id="clearBtn" title="Clear all (C)">
               <i class="fa-solid fa-trash"></i>
-              <span>Clear</span>
             </button>
           </div>
         </div>
@@ -72,7 +71,7 @@
           <div class="regex-section">
             <div class="section-header">
               <h3>Regular Expression</h3>
-              <button class="help-btn" id="helpBtn" title="Regex cheatsheet">
+              <button type="button" class="help-btn" id="helpBtn" title="Regex cheatsheet (H)">
                 <i class="fa-solid fa-question-circle"></i>
               </button>
             </div>
@@ -119,15 +118,15 @@
           <!-- Results Section -->
           <div class="regex-section results-section">
             <div class="results-tabs">
-              <button class="results-tab active" data-tab="matches">
+              <button type="button" class="results-tab active" data-tab="matches">
                 <i class="fa-solid fa-list"></i>
                 Matches
               </button>
-              <button class="results-tab" data-tab="groups">
+              <button type="button" class="results-tab" data-tab="groups">
                 <i class="fa-solid fa-object-group"></i>
                 Groups
               </button>
-              <button class="results-tab" data-tab="replace">
+              <button type="button" class="results-tab" data-tab="replace">
                 <i class="fa-solid fa-exchange-alt"></i>
                 Replace
               </button>
@@ -162,7 +161,7 @@
               <div class="replace-output">
                 <div class="replace-header">
                   <h4>Result:</h4>
-                  <button class="copy-btn" id="copyReplaceBtn" title="Copy result">
+                  <button type="button" class="copy-btn" id="copyReplaceBtn" title="Copy result">
                     <i class="fa-solid fa-copy"></i>
                   </button>
                 </div>
@@ -177,14 +176,14 @@
               <h3>Common Patterns</h3>
             </div>
             <div class="quick-patterns" id="quickPatterns">
-              <button class="pattern-chip" data-pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}">Email</button>
-              <button class="pattern-chip" data-pattern="https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)">URL</button>
-              <button class="pattern-chip" data-pattern="\+?[1-9]\d{1,14}">Phone</button>
-              <button class="pattern-chip" data-pattern="\b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b">IPv4</button>
-              <button class="pattern-chip" data-pattern="^#?([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$">Hex Color</button>
-              <button class="pattern-chip" data-pattern="\d{4}-\d{2}-\d{2}">Date (YYYY-MM-DD)</button>
-              <button class="pattern-chip" data-pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}">Strong Password</button>
-              <button class="pattern-chip" data-pattern="<[^>]+>">HTML Tags</button>
+              <button type="button" class="pattern-chip" data-pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}">Email</button>
+              <button type="button" class="pattern-chip" data-pattern="https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)">URL</button>
+              <button type="button" class="pattern-chip" data-pattern="\+?[1-9]\d{1,14}">Phone</button>
+              <button type="button" class="pattern-chip" data-pattern="\b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b">IPv4</button>
+              <button type="button" class="pattern-chip" data-pattern="^#?([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$">Hex Color</button>
+              <button type="button" class="pattern-chip" data-pattern="\d{4}-\d{2}-\d{2}">Date (YYYY-MM-DD)</button>
+              <button type="button" class="pattern-chip" data-pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}">Strong Password</button>
+              <button type="button" class="pattern-chip" data-pattern="<[^>]+>">HTML Tags</button>
             </div>
           </div>
         </div>
@@ -197,7 +196,7 @@
     <div class="cheatsheet-content">
       <div class="cheatsheet-header">
         <h3>Regex Cheatsheet</h3>
-        <button class="close-cheatsheet-btn" id="closeCheatsheetBtn">
+        <button type="button" class="close-cheatsheet-btn" id="closeCheatsheetBtn" aria-label="Close cheatsheet">
           <i class="fa-solid fa-xmark"></i>
         </button>
       </div>
@@ -257,31 +256,24 @@
     <div class="shortcuts-content">
       <div class="shortcuts-header">
         <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
-        <button class="close-shortcuts-btn" id="closeShortcutsBtn">
+        <button type="button" class="close-shortcuts-btn" id="closeShortcutsBtn" aria-label="Close shortcuts">
           <i class="fa-solid fa-xmark"></i>
         </button>
       </div>
       <div class="shortcuts-body">
-        <!-- Actions Section -->
         <div class="shortcuts-group">
           <div class="shortcuts-group-title">Actions</div>
-          <div class="shortcut-row">
-            <div class="shortcut-keys"><kbd>Ctrl</kbd><span class="key-separator">+</span><kbd>Enter</kbd></div>
-            <div class="shortcut-desc">Test regex</div>
-          </div>
           <div class="shortcut-row">
             <div class="shortcut-keys"><kbd>C</kbd></div>
             <div class="shortcut-desc">Clear all</div>
           </div>
-        </div>
-
-        <!-- General Section -->
-        <div class="shortcuts-group">
-          <div class="shortcuts-group-title">General</div>
           <div class="shortcut-row">
             <div class="shortcut-keys"><kbd>H</kbd></div>
             <div class="shortcut-desc">Cheatsheet</div>
           </div>
+        </div>
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">General</div>
           <div class="shortcut-row">
             <div class="shortcut-keys"><kbd>?</kbd></div>
             <div class="shortcut-desc">Show shortcuts</div>
@@ -294,16 +286,6 @@
       </div>
     </div>
   </div>
-
-  <!-- Footer -->
-  <footer class="footer">
-    <div class="container">
-      <div class="footer-bottom">
-        <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach. All rights reserved.</p>
-        <p class="footer-made">Made with 💗 and Claude Code xD</p>
-      </div>
-    </div>
-  </footer>
 
   <!-- Toast Notification -->
   <div class="toast" id="toast"></div>

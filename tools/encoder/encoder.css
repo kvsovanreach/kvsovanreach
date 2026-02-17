@@ -1029,6 +1029,15 @@
     border-radius: var(--radius-lg);
   }
 
+  .encoder-header {
+    padding: var(--space-3) var(--space-4);
+  }
+
+  .encoder-header h2 {
+    font-size: var(--font-size-lg);
+    gap: var(--space-2);
+  }
+
   .encoder-content {
     min-height: auto;
   }
@@ -1047,10 +1056,6 @@
 
   .encoder-panel {
     padding: var(--space-4);
-  }
-
-  .panel-header h2 {
-    font-size: var(--font-size-lg);
   }
 
   .encoder-actions {
@@ -1136,6 +1141,14 @@
     padding-right: var(--space-2);
   }
 
+  .encoder-header {
+    padding: var(--space-2) var(--space-3);
+  }
+
+  .encoder-header h2 {
+    font-size: var(--font-size-base);
+  }
+
   .encoder-panel {
     padding: var(--space-3);
   }
@@ -1149,5 +1162,15 @@
   .swap-btn {
     width: 36px;
     height: 36px;
+  }
+}
+
+@media screen and (max-width: 360px) {
+  .encoder-header h2 {
+    font-size: var(--font-size-sm);
+  }
+
+  .encoder-tab {
+    padding: var(--space-2);
   }
 }

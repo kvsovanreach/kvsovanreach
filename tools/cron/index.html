@@ -58,10 +58,9 @@
         <!-- Header -->
         <div class="cron-header">
           <h2><i class="fa-solid fa-clock"></i> Cron Parser</h2>
-          <div class="cron-actions">
-            <button class="action-btn" id="clearBtn" title="Clear">
-              <i class="fa-solid fa-eraser"></i>
-              <span>Clear</span>
+          <div class="header-actions">
+            <button type="button" class="header-action-btn" id="resetBtn" title="Reset (R)">
+              <i class="fa-solid fa-rotate-left"></i>
             </button>
           </div>
         </div>
@@ -73,7 +72,7 @@
             <label class="input-label">Enter Cron Expression</label>
             <div class="cron-input-row">
               <input type="text" id="cronInput" placeholder="* * * * *" value="0 9 * * 1-5">
-              <button class="parse-btn" id="parseBtn">
+              <button type="button" class="parse-btn" id="parseBtn">
                 <i class="fa-solid fa-play"></i>
                 <span>Parse</span>
               </button>
@@ -113,7 +112,7 @@
                 <h4>Human Readable</h4>
                 <p id="humanReadable">At 09:00, Monday through Friday</p>
               </div>
-              <button class="copy-result-btn" id="copyHumanReadable" title="Copy">
+              <button type="button" class="copy-result-btn" id="copyHumanReadable" title="Copy">
                 <i class="fa-solid fa-copy"></i>
               </button>
             </div>
@@ -146,35 +145,35 @@
           <div class="cron-examples">
             <h3>Common Examples</h3>
             <div class="examples-grid">
-              <button class="example-btn" data-cron="* * * * *">
+              <button type="button" class="example-btn" data-cron="* * * * *">
                 <span class="example-cron">* * * * *</span>
                 <span class="example-desc">Every minute</span>
               </button>
-              <button class="example-btn" data-cron="0 * * * *">
+              <button type="button" class="example-btn" data-cron="0 * * * *">
                 <span class="example-cron">0 * * * *</span>
                 <span class="example-desc">Every hour</span>
               </button>
-              <button class="example-btn" data-cron="0 0 * * *">
+              <button type="button" class="example-btn" data-cron="0 0 * * *">
                 <span class="example-cron">0 0 * * *</span>
                 <span class="example-desc">Every day at midnight</span>
               </button>
-              <button class="example-btn" data-cron="0 9 * * 1-5">
+              <button type="button" class="example-btn" data-cron="0 9 * * 1-5">
                 <span class="example-cron">0 9 * * 1-5</span>
                 <span class="example-desc">Weekdays at 9 AM</span>
               </button>
-              <button class="example-btn" data-cron="0 0 * * 0">
+              <button type="button" class="example-btn" data-cron="0 0 * * 0">
                 <span class="example-cron">0 0 * * 0</span>
                 <span class="example-desc">Every Sunday at midnight</span>
               </button>
-              <button class="example-btn" data-cron="0 0 1 * *">
+              <button type="button" class="example-btn" data-cron="0 0 1 * *">
                 <span class="example-cron">0 0 1 * *</span>
                 <span class="example-desc">First day of every month</span>
               </button>
-              <button class="example-btn" data-cron="*/15 * * * *">
+              <button type="button" class="example-btn" data-cron="*/15 * * * *">
                 <span class="example-cron">*/15 * * * *</span>
                 <span class="example-desc">Every 15 minutes</span>
               </button>
-              <button class="example-btn" data-cron="0 9,18 * * *">
+              <button type="button" class="example-btn" data-cron="0 9,18 * * *">
                 <span class="example-cron">0 9,18 * * *</span>
                 <span class="example-desc">At 9 AM and 6 PM</span>
               </button>
@@ -246,66 +245,26 @@
     </div>
   </main>
 
-  <!-- Footer -->
-  <footer class="footer">
-    <div class="container">
-      <div class="footer-bottom">
-        <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach. All rights reserved.</p>
-        <p class="footer-made">Made with 💗 and Claude Code xD</p>
-      </div>
-    </div>
-  </footer>
-
   <!-- Toast Notification -->
   <div class="toast" id="toast"></div>
 
-  <!-- Keyboard Shortcuts Modal -->
   <div class="shortcuts-modal" id="shortcutsModal">
     <div class="shortcuts-content">
       <div class="shortcuts-header">
         <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
-        <button class="close-shortcuts-btn" id="closeShortcutsBtn">
-          <i class="fa-solid fa-xmark"></i>
-        </button>
+        <button type="button" class="close-shortcuts-btn" id="closeShortcutsBtn"><i class="fa-solid fa-xmark"></i></button>
       </div>
       <div class="shortcuts-body">
-        <!-- Actions Section -->
-        <div class="shortcuts-group">
-          <div class="shortcuts-group-title">Actions</div>
-          <div class="shortcut-row">
-            <div class="shortcut-keys"><kbd>Enter</kbd></div>
-            <div class="shortcut-desc">Parse expression</div>
-          </div>
-          <div class="shortcut-row">
-            <div class="shortcut-keys"><kbd>C</kbd></div>
-            <div class="shortcut-desc">Copy result</div>
-          </div>
-          <div class="shortcut-row">
-            <div class="shortcut-keys"><kbd>?</kbd></div>
-            <div class="shortcut-desc">Show shortcuts</div>
-          </div>
-        </div>
-
-        <!-- Examples Section -->
-        <div class="shortcuts-group">
-          <div class="shortcuts-group-title">Examples</div>
-          <div class="shortcut-row">
-            <div class="shortcut-keys"><kbd>1</kbd><span class="key-separator">-</span><kbd>8</kbd></div>
-            <div class="shortcut-desc">Load example</div>
-          </div>
-          <div class="shortcut-row">
-            <div class="shortcut-keys"><kbd>Escape</kbd></div>
-            <div class="shortcut-desc">Close modal</div>
-          </div>
-        </div>
+        <div class="shortcut-row"><span class="shortcut-key">Enter</span><span class="shortcut-desc">Parse expression</span></div>
+        <div class="shortcut-row"><span class="shortcut-key">C</span><span class="shortcut-desc">Copy result</span></div>
+        <div class="shortcut-row"><span class="shortcut-key">R</span><span class="shortcut-desc">Reset</span></div>
+        <div class="shortcut-row"><span class="shortcut-key">1-8</span><span class="shortcut-desc">Load example</span></div>
+        <div class="shortcut-row"><span class="shortcut-key">?</span><span class="shortcut-desc">Show shortcuts</span></div>
       </div>
     </div>
   </div>
 
-  <!-- Keyboard Shortcuts Hint -->
-  <div class="shortcuts-hint" id="shortcutsHint">
-    <span><kbd>Shift</kbd>+<kbd>?</kbd> : shortcuts</span>
-  </div>
+  <div class="shortcuts-hint">Press <span class="shortcut-key">?</span> for shortcuts</div>
 
   <!-- Shared Tools JavaScript -->
   <script src="../../js/tools-common.js"></script>

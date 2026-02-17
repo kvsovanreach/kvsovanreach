@@ -1,0 +1,407 @@
+/**
+ * Dice Roller Styles - Modern Redesign
+ */
+
+.dice-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+}
+
+/* Header */
+.dice-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-4) var(--space-5);
+  background-color: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.dice-header h2 {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin: 0;
+  font-size: var(--font-size-xl);
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.dice-header h2 i { color: var(--color-primary); }
+
+.header-actions { display: flex; gap: var(--space-2); }
+
+.header-action-btn {
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-bg-secondary);
+  color: var(--color-text-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.header-action-btn:hover {
+  background-color: var(--color-primary);
+  color: #fff;
+  border-color: var(--color-primary);
+}
+
+/* Layout */
+.dice-layout {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  grid-template-rows: auto 1fr;
+  grid-template-areas:
+    "controls stage"
+    "history stage";
+  height: 500px;
+}
+
+/* Left Panel - Controls */
+.dice-controls {
+  grid-area: controls;
+  padding: var(--space-4);
+  background-color: var(--color-bg);
+  border-right: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+/* History Panel */
+.dice-history {
+  grid-area: history;
+  padding: var(--space-4);
+  background-color: var(--color-bg);
+  border-right: 1px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  min-height: 0;
+  overflow: hidden;
+}
+
+.control-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.section-title {
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Dice Counter */
+.dice-counter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  padding: var(--space-3);
+  background-color: var(--color-surface);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+}
+
+.counter-btn {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-bg);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-md);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.counter-btn:hover {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+  color: white;
+}
+
+.counter-display {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 60px;
+}
+
+.counter-value {
+  font-size: var(--font-size-2xl);
+  font-weight: 700;
+  font-family: 'Fira Code', monospace;
+  color: var(--color-primary);
+  line-height: 1;
+}
+
+.counter-label {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+}
+
+/* History */
+.history-list {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.history-empty {
+  text-align: center;
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+  padding: var(--space-4);
+}
+
+.history-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-2) var(--space-3);
+  background-color: var(--color-surface);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-sm);
+  animation: slideIn 0.2s ease;
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateX(-10px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+.history-dice {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--color-text-secondary);
+}
+
+.history-dice::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  background-color: var(--color-primary);
+  border-radius: 2px;
+}
+
+.history-result {
+  font-weight: 700;
+  font-family: 'Fira Code', monospace;
+  color: var(--color-primary);
+}
+
+.clear-btn {
+  background: none;
+  border: none;
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  cursor: pointer;
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-sm);
+  transition: all var(--transition-fast);
+}
+
+.clear-btn:hover {
+  background-color: var(--color-error);
+  color: white;
+}
+
+/* Right Panel - Dice Stage */
+.dice-stage-container {
+  grid-area: stage;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-6);
+  gap: var(--space-5);
+  background: linear-gradient(145deg, var(--color-bg-secondary), var(--color-bg));
+  width: 100%;
+}
+
+.dice-stage {
+  width: 100%;
+  height: 300px;
+  overflow: hidden;
+}
+
+.dice-stage canvas {
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
+}
+
+/* Result Display */
+.result-display {
+  text-align: center;
+}
+
+.result-main {
+  margin-bottom: var(--space-1);
+}
+
+.result-number {
+  font-size: 3.5rem;
+  font-weight: 800;
+  font-family: 'Fira Code', monospace;
+  color: var(--color-text);
+  line-height: 1;
+  transition: all 0.3s ease;
+}
+
+.result-number.highlight {
+  color: var(--color-primary);
+  transform: scale(1.1);
+}
+
+.result-details {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  min-height: 20px;
+}
+
+.roll-breakdown {
+  font-family: 'Fira Code', monospace;
+}
+
+.roll-breakdown strong {
+  color: var(--color-primary);
+  font-weight: 700;
+}
+
+/* Roll Button */
+.roll-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: var(--space-4) var(--space-8);
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+  border: none;
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  color: white;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  box-shadow: 0 4px 15px rgba(55, 118, 161, 0.3);
+}
+
+.roll-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(55, 118, 161, 0.4);
+}
+
+.roll-btn:active {
+  transform: translateY(-1px);
+}
+
+.roll-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.roll-btn i {
+  font-size: var(--font-size-xl);
+}
+
+.roll-hint {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+}
+
+.roll-hint kbd {
+  padding: 2px 6px;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xs);
+  font-family: 'Fira Code', monospace;
+  font-size: 0.7rem;
+}
+
+/* Responsive */
+@media screen and (max-width: 900px) {
+  .dice-layout {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto;
+    grid-template-areas:
+      "controls"
+      "stage"
+      "history";
+    height: auto;
+  }
+
+  .dice-controls {
+    border-right: none;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .dice-history {
+    border-right: none;
+    border-top: none;
+    max-height: 200px;
+  }
+
+  .dice-stage-container {
+    padding: var(--space-4);
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .dice-wrapper { border-radius: var(--radius-lg); }
+  .dice-header { padding: var(--space-3) var(--space-4); }
+  .dice-header h2 { font-size: var(--font-size-lg); gap: var(--space-2); }
+  .header-action-btn { width: 28px; height: 28px; }
+
+  .dice-controls { padding: var(--space-3); }
+  .dice-history { padding: var(--space-3); }
+
+  .dice-stage { height: 240px; }
+  .result-number { font-size: 2.5rem; }
+}
+
+@media screen and (max-width: 480px) {
+  .dice-header { padding: var(--space-2) var(--space-3); }
+  .dice-header h2 { font-size: var(--font-size-base); }
+  .header-action-btn { width: 26px; height: 26px; font-size: var(--font-size-xs); }
+
+  .dice-stage { height: 200px; }
+  .result-number { font-size: 2rem; }
+
+  .roll-btn {
+    padding: var(--space-3) var(--space-6);
+    font-size: var(--font-size-base);
+  }
+}
+
+@media screen and (max-width: 360px) {
+  .dice-header h2 { font-size: var(--font-size-sm); }
+  .header-action-btn { width: 24px; height: 24px; }
+}

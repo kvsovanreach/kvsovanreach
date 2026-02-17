@@ -55,122 +55,110 @@
     <div class="container">
       <!-- Alphabetizer Wrapper -->
       <div class="alpha-wrapper" id="alphabetizer">
-        <!-- Header -->
         <div class="alpha-header">
           <h2><i class="fa-solid fa-arrow-down-a-z"></i> Alphabetizer</h2>
-          <div class="alpha-actions">
-            <button class="action-btn" id="clearBtn" title="Clear all" aria-label="Clear all">
-              <i class="fa-solid fa-trash"></i>
-              <span>Clear</span>
+          <div class="header-actions">
+            <button type="button" class="header-action-btn" id="resetBtn" title="Reset (R)">
+              <i class="fa-solid fa-rotate-left"></i>
             </button>
           </div>
         </div>
 
+        <div class="tool-tabs">
+          <button type="button" class="tool-tab active" data-sort="az" title="Sort A to Z">
+            <i class="fa-solid fa-arrow-down-a-z"></i>
+            <span>A → Z</span>
+          </button>
+          <button type="button" class="tool-tab" data-sort="za" title="Sort Z to A">
+            <i class="fa-solid fa-arrow-up-z-a"></i>
+            <span>Z → A</span>
+          </button>
+          <button type="button" class="tool-tab" data-sort="length-asc" title="Sort by length (shortest first)">
+            <i class="fa-solid fa-arrow-down-short-wide"></i>
+            <span>Short</span>
+          </button>
+          <button type="button" class="tool-tab" data-sort="length-desc" title="Sort by length (longest first)">
+            <i class="fa-solid fa-arrow-down-wide-short"></i>
+            <span>Long</span>
+          </button>
+        </div>
+
         <!-- Content -->
         <div class="alpha-content">
-          <!-- Options -->
-          <div class="alpha-options">
-            <div class="option-group">
-              <label class="option-label">Sort Method</label>
-              <div class="sort-tabs">
-                <button class="sort-tab active" data-sort="az" title="Sort A to Z">
-                  <i class="fa-solid fa-arrow-down-a-z"></i>
-                  <span>A → Z</span>
-                </button>
-                <button class="sort-tab" data-sort="za" title="Sort Z to A">
-                  <i class="fa-solid fa-arrow-up-z-a"></i>
-                  <span>Z → A</span>
-                </button>
-                <button class="sort-tab" data-sort="length-asc" title="Sort by length (shortest first)">
-                  <i class="fa-solid fa-arrow-down-short-wide"></i>
-                  <span>Short</span>
-                </button>
-                <button class="sort-tab" data-sort="length-desc" title="Sort by length (longest first)">
-                  <i class="fa-solid fa-arrow-down-wide-short"></i>
-                  <span>Long</span>
-                </button>
-              </div>
+          <!-- Options Row -->
+          <div class="options-row">
+            <div class="options-group">
+              <label class="checkbox-option">
+                <input type="checkbox" id="removeDuplicates">
+                <span>Remove duplicates</span>
+              </label>
+              <label class="checkbox-option">
+                <input type="checkbox" id="trimWhitespace" checked>
+                <span>Trim whitespace</span>
+              </label>
+              <label class="checkbox-option">
+                <input type="checkbox" id="removeEmpty" checked>
+                <span>Remove empty</span>
+              </label>
+              <label class="checkbox-option">
+                <input type="checkbox" id="caseInsensitive">
+                <span>Case insensitive</span>
+              </label>
             </div>
-
-            <div class="option-row">
-              <div class="option-group">
-                <label class="option-label">Options</label>
-                <div class="extra-options">
-                  <label class="checkbox-option">
-                    <input type="checkbox" id="removeDuplicates">
-                    <span>Remove duplicates</span>
-                  </label>
-                  <label class="checkbox-option">
-                    <input type="checkbox" id="trimWhitespace" checked>
-                    <span>Trim whitespace</span>
-                  </label>
-                  <label class="checkbox-option">
-                    <input type="checkbox" id="removeEmpty" checked>
-                    <span>Remove empty lines</span>
-                  </label>
-                  <label class="checkbox-option">
-                    <input type="checkbox" id="caseInsensitive">
-                    <span>Case insensitive</span>
-                  </label>
-                </div>
-              </div>
-
-              <div class="option-group">
-                <label class="option-label">Separator</label>
-                <div class="separator-options">
-                  <label class="radio-option">
-                    <input type="radio" name="separator" value="newline" checked>
-                    <span>New line</span>
-                  </label>
-                  <label class="radio-option">
-                    <input type="radio" name="separator" value="comma">
-                    <span>Comma</span>
-                  </label>
-                  <label class="radio-option">
-                    <input type="radio" name="separator" value="semicolon">
-                    <span>Semicolon</span>
-                  </label>
-                </div>
-              </div>
+            <div class="separator-group">
+              <span class="separator-label">Separator:</span>
+              <label class="radio-option">
+                <input type="radio" name="separator" value="newline" checked>
+                <span>Line</span>
+              </label>
+              <label class="radio-option">
+                <input type="radio" name="separator" value="comma">
+                <span>Comma</span>
+              </label>
+              <label class="radio-option">
+                <input type="radio" name="separator" value="semicolon">
+                <span>Semi</span>
+              </label>
             </div>
           </div>
 
           <!-- Input/Output Panels -->
           <div class="alpha-panels">
-            <!-- Input Panel -->
             <div class="alpha-panel">
               <div class="panel-header">
-                <h3><i class="fa-solid fa-list"></i> Input</h3>
+                <span class="panel-title">Input</span>
                 <div class="panel-actions">
-                  <button class="action-btn" id="pasteBtn" title="Paste from clipboard" aria-label="Paste from clipboard">
+                  <button type="button" class="panel-btn" id="pasteBtn" title="Paste">
                     <i class="fa-solid fa-paste"></i>
                   </button>
-                  <button class="action-btn" id="sampleBtn" title="Load sample data" aria-label="Load sample data">
+                  <button type="button" class="panel-btn" id="sampleBtn" title="Sample">
                     <i class="fa-solid fa-flask"></i>
+                  </button>
+                  <button type="button" class="panel-btn" id="clearBtn" title="Clear">
+                    <i class="fa-solid fa-trash"></i>
                   </button>
                 </div>
               </div>
-              <textarea id="inputText" placeholder="Enter your list here (one item per line)..."></textarea>
-              <div class="panel-stats">
+              <textarea id="inputText" placeholder="Enter your list here..."></textarea>
+              <div class="panel-footer">
                 <span id="inputStats">0 items</span>
               </div>
             </div>
 
-            <!-- Output Panel -->
             <div class="alpha-panel">
               <div class="panel-header">
-                <h3><i class="fa-solid fa-list-check"></i> Output</h3>
+                <span class="panel-title">Output</span>
                 <div class="panel-actions">
-                  <button class="action-btn" id="copyBtn" title="Copy to clipboard" aria-label="Copy to clipboard">
+                  <button type="button" class="panel-btn" id="copyBtn" title="Copy">
                     <i class="fa-solid fa-copy"></i>
                   </button>
-                  <button class="action-btn" id="downloadBtn" title="Download as TXT" aria-label="Download as TXT">
+                  <button type="button" class="panel-btn" id="downloadBtn" title="Download">
                     <i class="fa-solid fa-download"></i>
                   </button>
                 </div>
               </div>
-              <textarea id="outputText" readonly placeholder="Sorted output will appear here..."></textarea>
-              <div class="panel-stats">
+              <textarea id="outputText" readonly placeholder="Sorted output..."></textarea>
+              <div class="panel-footer">
                 <span id="outputStats">0 items</span>
               </div>
             </div>
@@ -180,78 +168,25 @@
     </div>
   </main>
 
-  <!-- Footer -->
-  <footer class="footer">
-    <div class="container">
-      <div class="footer-bottom">
-        <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach. All rights reserved.</p>
-        <p class="footer-made">Made with 💗 and Claude Code xD</p>
-      </div>
-    </div>
-  </footer>
-
-  <!-- Toast Notification -->
-  <div class="toast" id="toast"></div>
-
-  <!-- Keyboard Shortcuts Modal -->
   <div class="shortcuts-modal" id="shortcutsModal">
     <div class="shortcuts-content">
       <div class="shortcuts-header">
         <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
-        <button class="close-shortcuts-btn" id="closeShortcutsBtn" aria-label="Close shortcuts">
-          <i class="fa-solid fa-xmark"></i>
-        </button>
+        <button class="close-shortcuts-btn" id="closeShortcutsBtn"><i class="fa-solid fa-xmark"></i></button>
       </div>
       <div class="shortcuts-body">
-        <div class="shortcuts-group">
-          <div class="shortcuts-group-title">Actions</div>
-          <div class="shortcut-row">
-            <div class="shortcut-keys"><kbd>Ctrl</kbd><span class="key-plus">+</span><kbd>V</kbd></div>
-            <div class="shortcut-desc">Paste from clipboard</div>
-          </div>
-          <div class="shortcut-row">
-            <div class="shortcut-keys"><kbd>Ctrl</kbd><span class="key-plus">+</span><kbd>C</kbd></div>
-            <div class="shortcut-desc">Copy output</div>
-          </div>
-        </div>
-        <div class="shortcuts-group">
-          <div class="shortcuts-group-title">Sort Methods</div>
-          <div class="shortcut-row">
-            <div class="shortcut-keys"><kbd>1</kbd></div>
-            <div class="shortcut-desc">Sort A to Z</div>
-          </div>
-          <div class="shortcut-row">
-            <div class="shortcut-keys"><kbd>2</kbd></div>
-            <div class="shortcut-desc">Sort Z to A</div>
-          </div>
-          <div class="shortcut-row">
-            <div class="shortcut-keys"><kbd>3</kbd></div>
-            <div class="shortcut-desc">Sort by length (short)</div>
-          </div>
-          <div class="shortcut-row">
-            <div class="shortcut-keys"><kbd>4</kbd></div>
-            <div class="shortcut-desc">Sort by length (long)</div>
-          </div>
-        </div>
-        <div class="shortcuts-group">
-          <div class="shortcuts-group-title">General</div>
-          <div class="shortcut-row">
-            <div class="shortcut-keys"><kbd>?</kbd></div>
-            <div class="shortcut-desc">Show shortcuts</div>
-          </div>
-          <div class="shortcut-row">
-            <div class="shortcut-keys"><kbd>Escape</kbd></div>
-            <div class="shortcut-desc">Close modal</div>
-          </div>
-        </div>
+        <div class="shortcut-row"><span class="shortcut-key">R</span><span class="shortcut-desc">Reset</span></div>
+        <div class="shortcut-row"><span class="shortcut-key">1</span><span class="shortcut-desc">Sort A → Z</span></div>
+        <div class="shortcut-row"><span class="shortcut-key">2</span><span class="shortcut-desc">Sort Z → A</span></div>
+        <div class="shortcut-row"><span class="shortcut-key">3</span><span class="shortcut-desc">Sort short first</span></div>
+        <div class="shortcut-row"><span class="shortcut-key">4</span><span class="shortcut-desc">Sort long first</span></div>
+        <div class="shortcut-row"><span class="shortcut-key">?</span><span class="shortcut-desc">Show shortcuts</span></div>
       </div>
     </div>
   </div>
 
-  <!-- Keyboard Shortcuts Hint -->
-  <div class="shortcuts-hint" id="shortcutsHint">
-    <span><kbd>Shift</kbd>+<kbd>?</kbd> : shortcuts</span>
-  </div>
+  <div class="shortcuts-hint">Press <span class="shortcut-key">?</span> for shortcuts</div>
+  <div class="toast" id="toast"></div>
 
   <!-- Shared Tools JavaScript -->
   <script src="../../js/tools-common.js"></script>

@@ -6,28 +6,6 @@
 (function() {
   'use strict';
 
-  // ==================== DOM Elements ====================
-  const elements = {
-    glassCard: document.getElementById('glassCard'),
-    blurSlider: document.getElementById('blurSlider'),
-    blurValue: document.getElementById('blurValue'),
-    transparencySlider: document.getElementById('transparencySlider'),
-    transparencyValue: document.getElementById('transparencyValue'),
-    saturationSlider: document.getElementById('saturationSlider'),
-    saturationValue: document.getElementById('saturationValue'),
-    borderSlider: document.getElementById('borderSlider'),
-    borderValue: document.getElementById('borderValue'),
-    radiusSlider: document.getElementById('radiusSlider'),
-    radiusValue: document.getElementById('radiusValue'),
-    bgColor: document.getElementById('bgColor'),
-    bgColorText: document.getElementById('bgColorText'),
-    presetBtns: document.querySelectorAll('.preset-btn'),
-    resetBtn: document.getElementById('resetBtn'),
-    copyBtn: document.getElementById('copyBtn'),
-    cssOutput: document.getElementById('cssOutput'),
-    warningSection: document.getElementById('warningSection')
-  };
-
   // ==================== State ====================
   const state = {
     blur: 10,
@@ -73,6 +51,33 @@
       bgColor: '#ffffff'
     }
   };
+
+  // ==================== DOM Elements ====================
+  const elements = {};
+
+  function initElements() {
+    elements.glassCard = document.getElementById('glassCard');
+    elements.blurSlider = document.getElementById('blurSlider');
+    elements.blurValue = document.getElementById('blurValue');
+    elements.transparencySlider = document.getElementById('transparencySlider');
+    elements.transparencyValue = document.getElementById('transparencyValue');
+    elements.saturationSlider = document.getElementById('saturationSlider');
+    elements.saturationValue = document.getElementById('saturationValue');
+    elements.borderSlider = document.getElementById('borderSlider');
+    elements.borderValue = document.getElementById('borderValue');
+    elements.radiusSlider = document.getElementById('radiusSlider');
+    elements.radiusValue = document.getElementById('radiusValue');
+    elements.bgColor = document.getElementById('bgColor');
+    elements.bgColorText = document.getElementById('bgColorText');
+    elements.presetBtns = document.querySelectorAll('.preset-btn');
+    elements.resetBtn = document.getElementById('resetBtn');
+    elements.copyBtn = document.getElementById('copyBtn');
+    elements.cssOutput = document.getElementById('cssOutput');
+    elements.warningSection = document.getElementById('warningSection');
+  }
+
+  // ==================== UI Helpers ====================
+  const showToast = (message, type) => ToolsCommon?.showToast?.(message, type);
 
   // ==================== Core Functions ====================
 
@@ -156,15 +161,19 @@
     if (preset) {
       Object.assign(state, preset);
       updateUI();
+      const name = presetName.charAt(0).toUpperCase() + presetName.slice(1);
+      showToast(`${name} preset applied`, 'success');
     }
   }
 
   function reset() {
-    applyPreset('light');
+    Object.assign(state, PRESETS.light);
+    updateUI();
+    showToast('Reset', 'success');
   }
 
   function copyCSS() {
-    ToolsCommon.Clipboard.copy(generateCSS());
+    ToolsCommon?.copyWithToast?.(generateCSS(), 'CSS copied!');
   }
 
   // ==================== Event Handlers ====================
@@ -175,22 +184,9 @@
     updateUI();
   }
 
-  function handleKeydown(e) {
-    if (e.target.tagName === 'INPUT') return;
+  // ==================== Event Listeners ====================
 
-    switch (e.key.toLowerCase()) {
-      case 'c':
-        copyCSS();
-        break;
-      case 'r':
-        reset();
-        break;
-    }
-  }
-
-  // ==================== Initialization ====================
-
-  function init() {
+  function initEventListeners() {
     // Slider event listeners
     elements.blurSlider.addEventListener('input', () => {
       handleSliderChange(elements.blurSlider, 'blur');
@@ -240,7 +236,25 @@
     elements.copyBtn.addEventListener('click', copyCSS);
 
     // Keyboard shortcuts
-    document.addEventListener('keydown', handleKeydown);
+    document.addEventListener('keydown', (e) => {
+      if (e.target.tagName === 'INPUT') return;
+
+      switch (e.key.toLowerCase()) {
+        case 'c':
+          copyCSS();
+          break;
+        case 'r':
+          reset();
+          break;
+      }
+    });
+  }
+
+  // ==================== Initialization ====================
+
+  function init() {
+    initElements();
+    initEventListeners();
 
     // Initial render
     updateUI();

@@ -1,0 +1,251 @@
+/**
+ * Email Validator Styles
+ */
+
+.validator-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+}
+
+.validator-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-4) var(--space-5);
+  background-color: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.validator-header h2 {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin: 0;
+  font-size: var(--font-size-xl);
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.validator-header h2 i { color: var(--color-primary); }
+
+.header-actions { display: flex; gap: var(--space-2); }
+
+.header-action-btn {
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-bg-secondary);
+  color: var(--color-text-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.header-action-btn:hover {
+  background-color: var(--color-primary);
+  color: #fff;
+  border-color: var(--color-primary);
+}
+
+.validator-content {
+  padding: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.input-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.input-section label {
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.input-section input {
+  padding: var(--space-4);
+  background-color: var(--color-bg);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-lg);
+  font-family: 'Fira Code', monospace;
+  color: var(--color-text);
+}
+
+.input-section input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+}
+
+.result-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.result-status {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  background-color: var(--color-bg);
+  border-radius: var(--radius-lg);
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+}
+
+.result-status i { font-size: var(--font-size-2xl); }
+.result-status.valid { color: #22c55e; background-color: rgba(34, 197, 94, 0.1); }
+.result-status.invalid { color: #ef4444; background-color: rgba(239, 68, 68, 0.1); }
+
+.checks-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.check-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  background-color: var(--color-bg);
+  border-radius: var(--radius-full);
+  border: 1px solid var(--color-border);
+}
+
+.check-icon {
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: 10px;
+  background-color: var(--color-surface);
+  color: var(--color-text-muted);
+}
+
+.check-item.pass {
+  background-color: rgba(34, 197, 94, 0.1);
+  border-color: rgba(34, 197, 94, 0.3);
+}
+
+.check-item.pass .check-icon {
+  background-color: #22c55e;
+  color: white;
+}
+
+.check-item.fail {
+  background-color: rgba(239, 68, 68, 0.1);
+  border-color: rgba(239, 68, 68, 0.3);
+}
+
+.check-item.fail .check-icon {
+  background-color: #ef4444;
+  color: white;
+}
+
+.check-label {
+  font-size: var(--font-size-xs);
+  font-weight: 500;
+  color: var(--color-text);
+  white-space: nowrap;
+}
+
+.email-parts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.part-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  background-color: var(--color-bg);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+}
+
+.part-label {
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+}
+
+.part-value {
+  font-size: var(--font-size-sm);
+  font-family: 'Fira Code', monospace;
+  font-weight: 500;
+  color: var(--color-primary);
+  word-break: break-all;
+}
+
+
+@media screen and (max-width: 768px) {
+  .validator-wrapper { border-radius: var(--radius-lg); }
+  .validator-header { padding: var(--space-3) var(--space-4); }
+  .validator-header h2 { font-size: var(--font-size-lg); gap: var(--space-2); }
+  .header-action-btn { width: 28px; height: 28px; }
+  .validator-content { padding: var(--space-4); }
+}
+
+@media screen and (max-width: 480px) {
+  .validator-header { padding: var(--space-2) var(--space-3); }
+  .validator-header h2 { font-size: var(--font-size-base); }
+  .header-action-btn { width: 26px; height: 26px; font-size: var(--font-size-xs); }
+  .validator-content { padding: var(--space-3); gap: var(--space-3); }
+
+  .result-status {
+    padding: var(--space-3);
+    font-size: var(--font-size-base);
+  }
+
+  .result-status i { font-size: var(--font-size-lg); }
+
+  .checks-list { gap: var(--space-1); }
+
+  .check-item {
+    padding: var(--space-1) var(--space-2);
+  }
+
+  .check-icon {
+    width: 16px;
+    height: 16px;
+    font-size: 8px;
+  }
+
+  .check-label { font-size: 11px; }
+
+  .email-parts { gap: var(--space-1); }
+
+  .part-item {
+    padding: var(--space-1) var(--space-2);
+    gap: var(--space-1);
+  }
+
+  .part-label { font-size: 10px; }
+  .part-value { font-size: 11px; }
+}
+
+@media screen and (max-width: 360px) {
+  .validator-header h2 { font-size: var(--font-size-sm); }
+  .header-action-btn { width: 24px; height: 24px; }
+}

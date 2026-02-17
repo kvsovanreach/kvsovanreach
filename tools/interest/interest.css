@@ -3,7 +3,7 @@
  * Styles for interest calculator
  */
 
-/* Wrapper */
+/* ==================== Wrapper ==================== */
 .interest-wrapper {
   max-width: 1200px;
   margin: 0 auto;
@@ -14,7 +14,7 @@
   box-shadow: var(--shadow-lg);
 }
 
-/* Header */
+/* ==================== Header ==================== */
 .interest-header {
   display: flex;
   align-items: center;
@@ -28,6 +28,7 @@
   display: flex;
   align-items: center;
   gap: var(--space-3);
+  margin: 0;
   font-size: var(--font-size-xl);
   font-weight: 600;
   color: var(--color-text);
@@ -37,17 +38,45 @@
   color: var(--color-primary);
 }
 
-/* Content */
-.interest-content {
-  padding: var(--space-5);
+/* Header Actions */
+.header-actions {
+  display: flex;
+  gap: var(--space-2);
 }
 
-/* Input Section */
+.header-action-btn {
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-bg-secondary);
+  color: var(--color-text-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.header-action-btn:hover {
+  background-color: var(--color-primary);
+  color: #fff;
+  border-color: var(--color-primary);
+}
+
+/* ==================== Content ==================== */
+.interest-content {
+  padding: var(--space-5);
+  background: linear-gradient(145deg, var(--color-bg-tertiary), var(--color-bg-secondary));
+}
+
+/* ==================== Input Section ==================== */
 .input-section {
   display: grid;
   gap: var(--space-4);
   margin-bottom: var(--space-5);
-  padding: var(--space-5);
+  padding: var(--space-4);
   background-color: var(--color-bg-secondary);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
@@ -134,27 +163,32 @@
   cursor: pointer;
 }
 
-/* Result Section */
+.time-input select:focus {
+  outline: none;
+  border-color: var(--color-primary);
+}
+
+/* ==================== Result Section ==================== */
 .result-section {
   display: flex;
   flex-direction: column;
   gap: var(--space-4);
 }
 
-.result-card.main-result {
+.result-card.interest-main {
   text-align: center;
   padding: var(--space-6);
   background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
   border-radius: var(--radius-lg);
 }
 
-.result-card.main-result .result-label {
+.result-card.interest-main .result-label {
   font-size: var(--font-size-sm);
   color: rgba(255, 255, 255, 0.8);
   margin-bottom: var(--space-2);
 }
 
-.result-card.main-result .result-value {
+.result-card.interest-main .result-value {
   font-size: 2.5rem;
   font-weight: 700;
   color: white;
@@ -214,7 +248,7 @@
   color: var(--color-text);
 }
 
-/* Visual Bar */
+/* ==================== Visual Bar ==================== */
 .balance-visual {
   padding: var(--space-4);
   background-color: var(--color-bg-secondary);
@@ -270,7 +304,7 @@
   margin-right: var(--space-1);
 }
 
-/* Formula Card */
+/* ==================== Formula Card ==================== */
 .formula-card {
   padding: var(--space-4);
   background-color: var(--color-bg-secondary);
@@ -283,13 +317,13 @@
   font-size: var(--font-size-sm);
   font-weight: 600;
   color: var(--color-text);
-  margin-bottom: var(--space-3);
+  margin: 0 0 var(--space-3) 0;
 }
 
 .formula {
   font-size: var(--font-size-xl);
   font-weight: 600;
-  font-family: monospace;
+  font-family: var(--font-mono);
   color: var(--color-primary);
   padding: var(--space-3);
   background-color: var(--color-bg-tertiary);
@@ -306,22 +340,196 @@
   flex-wrap: wrap;
 }
 
-/* Responsive */
-@media screen and (max-width: 600px) {
+/* ==================== Responsive ==================== */
+@media screen and (max-width: 1024px) {
+  .interest-wrapper {
+    border-radius: var(--radius-lg);
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .interest-wrapper {
+    border-radius: var(--radius-lg);
+  }
+
+  .interest-header {
+    padding: var(--space-3) var(--space-4);
+  }
+
+  .interest-header h2 {
+    font-size: var(--font-size-lg);
+    gap: var(--space-2);
+  }
+
+  .header-action-btn {
+    width: 28px;
+    height: 28px;
+  }
+
   .interest-content {
     padding: var(--space-4);
+  }
+
+  .input-section {
+    padding: var(--space-3);
   }
 
   .result-details {
     grid-template-columns: 1fr;
   }
 
-  .result-card.main-result .result-value {
+  .result-card.interest-main .result-value {
     font-size: 2rem;
   }
 
   .bar-principal span,
   .bar-interest span {
     display: none;
+  }
+
+  .detail-icon {
+    width: 36px;
+    height: 36px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .interest-header {
+    padding: var(--space-2) var(--space-3);
+  }
+
+  .interest-header h2 {
+    font-size: var(--font-size-base);
+  }
+
+  .header-action-btn {
+    width: 26px;
+    height: 26px;
+    font-size: var(--font-size-xs);
+  }
+
+  .interest-content {
+    padding: var(--space-3);
+  }
+
+  .input-section {
+    padding: var(--space-3);
+    gap: var(--space-3);
+  }
+
+  .input-group label {
+    font-size: var(--font-size-xs);
+  }
+
+  .prefix,
+  .suffix {
+    padding: var(--space-2) var(--space-3);
+    font-size: var(--font-size-sm);
+  }
+
+  .input-with-prefix input,
+  .input-with-suffix input {
+    padding: var(--space-2) var(--space-3);
+    font-size: var(--font-size-base);
+  }
+
+  .time-input input {
+    padding: var(--space-2) var(--space-3);
+    font-size: var(--font-size-base);
+  }
+
+  .time-input select {
+    padding: var(--space-2) var(--space-3);
+    font-size: var(--font-size-xs);
+  }
+
+  .result-card.interest-main {
+    padding: var(--space-4);
+  }
+
+  .result-card.interest-main .result-value {
+    font-size: 1.75rem;
+  }
+
+  .detail-card {
+    padding: var(--space-3);
+    gap: var(--space-2);
+  }
+
+  .detail-icon {
+    width: 32px;
+    height: 32px;
+    font-size: var(--font-size-sm);
+  }
+
+  .detail-label {
+    font-size: 0.65rem;
+  }
+
+  .detail-value {
+    font-size: var(--font-size-base);
+  }
+
+  .balance-visual {
+    padding: var(--space-3);
+  }
+
+  .visual-bar {
+    height: 32px;
+  }
+
+  .formula-card {
+    padding: var(--space-3);
+  }
+
+  .formula {
+    font-size: var(--font-size-base);
+    padding: var(--space-2);
+  }
+
+  .formula-desc {
+    gap: var(--space-2);
+    font-size: 0.65rem;
+  }
+}
+
+@media screen and (max-width: 360px) {
+  .interest-header h2 {
+    font-size: var(--font-size-sm);
+  }
+
+  .header-action-btn {
+    width: 24px;
+    height: 24px;
+  }
+
+  .interest-content {
+    padding: var(--space-2);
+  }
+
+  .input-section {
+    padding: var(--space-2);
+  }
+
+  .result-card.interest-main .result-value {
+    font-size: 1.5rem;
+  }
+
+  .detail-card {
+    padding: var(--space-2);
+  }
+
+  .detail-icon {
+    width: 28px;
+    height: 28px;
+    font-size: var(--font-size-xs);
+  }
+
+  .balance-visual {
+    padding: var(--space-2);
+  }
+
+  .formula-card {
+    padding: var(--space-2);
   }
 }

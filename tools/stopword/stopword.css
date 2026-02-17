@@ -5,7 +5,7 @@
 
 /* Wrapper */
 .stopword-wrapper {
-  max-width: 1000px;
+  width: 100%;
   margin: 0 auto;
   background-color: var(--color-surface);
   border: 1px solid var(--color-border);
@@ -28,6 +28,7 @@
   display: flex;
   align-items: center;
   gap: var(--space-3);
+  margin: 0;
   font-size: var(--font-size-xl);
   font-weight: 600;
   color: var(--color-text);
@@ -37,16 +38,40 @@
   color: var(--color-primary);
 }
 
+/* Header Actions */
+.header-actions {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.header-action-btn {
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-bg-secondary);
+  color: var(--color-text-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.header-action-btn:hover {
+  background-color: var(--color-primary);
+  color: #fff;
+  border-color: var(--color-primary);
+}
+
 /* Content */
 .stopword-content {
   padding: var(--space-5);
 }
 
-/* Options Section */
-.options-section {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-4);
+/* Settings Panel */
+.settings-panel {
   margin-bottom: var(--space-4);
   padding: var(--space-4);
   background-color: var(--color-bg-secondary);
@@ -54,46 +79,154 @@
   border-radius: var(--radius-lg);
 }
 
-.option-group {
+.settings-row {
   display: flex;
-  flex-direction: column;
-  gap: var(--space-2);
+  align-items: center;
+  gap: var(--space-4);
 }
 
-.option-group label {
-  font-size: var(--font-size-sm);
-  font-weight: 500;
-  color: var(--color-text-secondary);
+.settings-row + .settings-row {
+  margin-top: var(--space-4);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--color-border);
 }
 
-.option-group select {
-  padding: var(--space-2) var(--space-3);
-  background-color: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
-  font-size: var(--font-size-sm);
-  color: var(--color-text);
-  cursor: pointer;
+/* Language Setting */
+.setting-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  flex: 1;
 }
 
-.checkbox-label {
+.setting-label {
   display: flex;
   align-items: center;
   gap: var(--space-2);
   font-size: var(--font-size-sm);
+  font-weight: 500;
+  color: var(--color-text);
+  white-space: nowrap;
+}
+
+.setting-label i {
+  color: var(--color-primary);
+}
+
+.language-tabs {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.lang-tab {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-sm);
+  font-weight: 500;
   color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.lang-tab:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.lang-tab.active {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+  color: #fff;
+}
+
+.lang-tab i {
+  font-size: var(--font-size-xs);
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+/* Toggle Settings Row */
+.toggles-row {
+  justify-content: flex-start;
+  gap: var(--space-6);
+}
+
+.toggle-setting {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
   cursor: pointer;
 }
 
-.checkbox-label input[type="checkbox"] {
-  width: 18px;
+.toggle-label {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+}
+
+.toggle-switch {
+  position: relative;
+  width: 44px;
+  height: 24px;
+}
+
+.toggle-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.toggle-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--color-border);
+  border-radius: var(--radius-full);
+  transition: all var(--transition-fast);
+}
+
+.toggle-slider::before {
+  position: absolute;
+  content: "";
   height: 18px;
-  accent-color: var(--color-primary);
+  width: 18px;
+  left: 3px;
+  bottom: 3px;
+  background-color: #fff;
+  border-radius: 50%;
+  transition: all var(--transition-fast);
+  box-shadow: var(--shadow-sm);
+}
+
+.toggle-switch input:checked + .toggle-slider {
+  background-color: var(--color-primary);
+}
+
+.toggle-switch input:checked + .toggle-slider::before {
+  transform: translateX(20px);
 }
 
 /* Custom Section */
 .custom-section {
-  margin-bottom: var(--space-4);
+  margin-top: var(--space-4);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--color-border);
 }
 
 .custom-section.hidden {
@@ -112,12 +245,18 @@
   width: 100%;
   height: 80px;
   padding: var(--space-3);
-  background-color: var(--color-bg-secondary);
+  background-color: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   font-size: var(--font-size-sm);
   color: var(--color-text);
   resize: vertical;
+  transition: border-color var(--transition-fast);
+}
+
+.custom-section textarea:focus {
+  outline: none;
+  border-color: var(--color-primary);
 }
 
 /* Text Areas */
@@ -355,6 +494,24 @@
 }
 
 @media screen and (max-width: 768px) {
+  .stopword-wrapper {
+    border-radius: var(--radius-lg);
+  }
+
+  .stopword-header {
+    padding: var(--space-3) var(--space-4);
+  }
+
+  .stopword-header h2 {
+    font-size: var(--font-size-lg);
+    gap: var(--space-2);
+  }
+
+  .header-action-btn {
+    width: 28px;
+    height: 28px;
+  }
+
   .text-areas {
     grid-template-columns: 1fr;
   }
@@ -374,12 +531,48 @@
 }
 
 @media screen and (max-width: 480px) {
-  .stopword-content {
-    padding: var(--space-4);
+  .stopword-header {
+    padding: var(--space-2) var(--space-3);
   }
 
-  .options-section {
+  .stopword-header h2 {
+    font-size: var(--font-size-base);
+  }
+
+  .header-action-btn {
+    width: 26px;
+    height: 26px;
+    font-size: var(--font-size-xs);
+  }
+
+  .stopword-content {
+    padding: var(--space-3);
+  }
+
+  .settings-row {
     flex-direction: column;
+    align-items: flex-start;
     gap: var(--space-3);
+  }
+
+  .toggles-row {
+    gap: var(--space-4);
+  }
+
+  .lang-tab {
+    padding: var(--space-2) var(--space-3);
+    font-size: var(--font-size-xs);
+  }
+}
+
+@media screen and (max-width: 360px) {
+  .stopword-header h2 {
+    font-size: var(--font-size-sm);
+  }
+
+  .header-action-btn {
+    width: 24px;
+    height: 24px;
+    font-size: var(--font-size-xs);
   }
 }

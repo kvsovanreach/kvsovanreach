@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Create beautiful CSS gradients with a visual editor. Generate linear and radial gradients with custom colors and angles.">
+  <meta property="og:title" content="KVSOVANREACH | CSS Gradient Generator">
+  <meta property="og:description" content="Create and customize CSS gradients visually.">
+  <meta property="og:image" content="/assets/img/favicons/og-image.png">
+  <title>KVSOVANREACH | CSS Gradient Generator</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Common Tools CSS -->
+  <link rel="stylesheet" href="../../css/tools-common.css">
+  <!-- Tool CSS -->
+  <link rel="stylesheet" href="cssgradient.css">
+</head>
+<body>
+  <!-- Skip to Content -->
+  <a href="#gradient" class="skip-link">Skip to CSS Gradient Generator</a>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">TOOLS</span>
+      </a>
+
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="tool-page">
+    <div class="container">
+      <!-- Tool Wrapper -->
+      <div class="gradient-wrapper" id="gradient">
+        <!-- Header -->
+        <div class="gradient-header">
+          <h2><i class="fa-solid fa-wand-magic-sparkles"></i> CSS Gradient Generator</h2>
+          <div class="header-actions">
+            <button class="header-action-btn" id="randomBtn" title="Random (R)">
+              <i class="fa-solid fa-shuffle"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Content -->
+        <div class="gradient-content">
+          <!-- Preview -->
+          <div class="gradient-preview" id="gradientPreview"></div>
+
+          <!-- Controls -->
+          <div class="gradient-controls">
+            <!-- Type Selection -->
+            <div class="control-section">
+              <h3>Gradient Type</h3>
+              <div class="type-buttons">
+                <button class="type-btn active" data-type="linear">
+                  <i class="fa-solid fa-arrow-right-long"></i>
+                  Linear
+                </button>
+                <button class="type-btn" data-type="radial">
+                  <i class="fa-solid fa-circle"></i>
+                  Radial
+                </button>
+              </div>
+            </div>
+
+            <!-- Angle (for linear) -->
+            <div class="control-section" id="angleSection">
+              <div class="control-header">
+                <h3>Angle</h3>
+                <span class="control-value" id="angleValue">90°</span>
+              </div>
+              <input type="range" id="angleSlider" min="0" max="360" value="90">
+            </div>
+
+            <!-- Color Stops -->
+            <div class="control-section">
+              <div class="control-header">
+                <h3>Color Stops</h3>
+                <button class="add-color-btn" id="addColorBtn">
+                  <i class="fa-solid fa-plus"></i>
+                </button>
+              </div>
+              <div class="color-stops" id="colorStops">
+                <!-- Color stops will be added here -->
+              </div>
+            </div>
+
+            <!-- Output -->
+            <div class="control-section">
+              <div class="control-header">
+                <h3>CSS Output</h3>
+                <button class="copy-btn" id="copyBtn" title="Copy CSS (C)">
+                  <i class="fa-solid fa-copy"></i>
+                </button>
+              </div>
+              <div class="output-box">
+                <pre id="cssOutput"></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Keyboard Shortcuts Modal -->
+  <div class="shortcuts-modal" id="shortcutsModal">
+    <div class="shortcuts-content">
+      <div class="shortcuts-header">
+        <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
+        <button class="close-shortcuts-btn" id="closeShortcutsBtn">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="shortcuts-body">
+        <div class="shortcut-row"><span class="shortcut-key">R</span><span class="shortcut-desc">Random gradient</span></div>
+        <div class="shortcut-row"><span class="shortcut-key">C</span><span class="shortcut-desc">Copy CSS</span></div>
+        <div class="shortcut-row"><span class="shortcut-key">T</span><span class="shortcut-desc">Toggle type</span></div>
+        <div class="shortcut-row"><span class="shortcut-key">?</span><span class="shortcut-desc">Show shortcuts</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Shortcuts Hint -->
+  <div class="shortcuts-hint">
+    Press <span class="shortcut-key">?</span> for shortcuts
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Scripts -->
+  <script src="../../js/tools-common.js"></script>
+  <script src="cssgradient.js"></script>
+</body>
+</html>

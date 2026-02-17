@@ -1,0 +1,240 @@
+/**
+ * Slug Generator Styles
+ */
+
+.slug-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+}
+
+.slug-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-4) var(--space-5);
+  background-color: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.slug-header h2 {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin: 0;
+  font-size: var(--font-size-xl);
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.slug-header h2 i { color: var(--color-primary); }
+
+.header-actions { display: flex; gap: var(--space-2); }
+
+.header-action-btn {
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-bg-secondary);
+  color: var(--color-text-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.header-action-btn:hover {
+  background-color: var(--color-primary);
+  color: #fff;
+  border-color: var(--color-primary);
+}
+
+.slug-content {
+  padding: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.input-section,
+.output-section,
+.url-preview {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.input-section label,
+.output-section label,
+.url-preview label {
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.input-section textarea {
+  padding: var(--space-3);
+  background-color: var(--color-bg);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-base);
+  font-family: inherit;
+  color: var(--color-text);
+  resize: vertical;
+}
+
+.input-section textarea:focus {
+  outline: none;
+  border-color: var(--color-primary);
+}
+
+.options-section {
+  padding: var(--space-3);
+  background-color: var(--color-bg);
+  border-radius: var(--radius-lg);
+}
+
+.options-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+}
+
+.option-group {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.option-group > label {
+  font-size: var(--font-size-xs);
+  font-weight: 500;
+  color: var(--color-text-secondary);
+}
+
+.option-buttons {
+  display: flex;
+  gap: var(--space-1);
+}
+
+.option-btn {
+  width: 36px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-sm);
+  font-family: 'Fira Code', monospace;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.option-btn:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.option-btn.active {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+  color: white;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  cursor: pointer;
+}
+
+.checkbox-label input {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+.checkbox-label span {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+}
+
+.output-wrapper {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.output-wrapper input {
+  flex: 1;
+  padding: var(--space-3);
+  background-color: var(--color-bg);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-base);
+  font-family: 'Fira Code', monospace;
+  color: var(--color-primary);
+}
+
+.copy-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  background-color: var(--color-bg);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-md);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  flex-shrink: 0;
+}
+
+.copy-btn:hover {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+  color: #fff;
+}
+
+.preview-text {
+  padding: var(--space-3);
+  background-color: var(--color-bg);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-sm);
+  font-family: 'Fira Code', monospace;
+  color: var(--color-text-secondary);
+  word-break: break-all;
+}
+
+@media screen and (max-width: 768px) {
+  .slug-wrapper { border-radius: var(--radius-lg); }
+  .slug-header { padding: var(--space-3) var(--space-4); }
+  .slug-header h2 { font-size: var(--font-size-lg); gap: var(--space-2); }
+  .header-action-btn { width: 28px; height: 28px; }
+  .slug-content { padding: var(--space-4); }
+}
+
+@media screen and (max-width: 480px) {
+  .slug-header { padding: var(--space-2) var(--space-3); }
+  .slug-header h2 { font-size: var(--font-size-base); }
+  .header-action-btn { width: 26px; height: 26px; font-size: var(--font-size-xs); }
+  .slug-content { padding: var(--space-3); }
+  .options-row { gap: var(--space-3); }
+}
+
+@media screen and (max-width: 360px) {
+  .slug-header h2 { font-size: var(--font-size-sm); }
+  .header-action-btn { width: 24px; height: 24px; }
+}

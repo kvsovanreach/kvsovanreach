@@ -1,70 +1,64 @@
 /**
- * JSON Formatter Tool
+ * KVSOVANREACH JSON Formatter Tool
  * Format, validate, minify, and beautify JSON with syntax highlighting
  */
 
 (function() {
   'use strict';
 
-  // ============================================
-  // State
-  // ============================================
+  // ==================== State ====================
   const state = {
-    isDarkMode: localStorage.getItem('theme') === 'dark',
     indent: localStorage.getItem('jsonIndent') || '2',
     currentView: 'formatted',
     parsedJson: null
   };
 
-  // ============================================
-  // DOM Elements
-  // ============================================
-  const elements = {
-    // Theme
-    themeToggle: document.getElementById('theme-toggle'),
+  // ==================== DOM Elements ====================
+  const elements = {};
 
+  function initElements() {
     // Input
-    jsonInput: document.getElementById('jsonInput'),
-    inputLineNumbers: document.getElementById('inputLineNumbers'),
-    pasteBtn: document.getElementById('pasteBtn'),
-    uploadBtn: document.getElementById('uploadBtn'),
-    fileInput: document.getElementById('fileInput'),
+    elements.jsonInput = document.getElementById('jsonInput');
+    elements.inputLineNumbers = document.getElementById('inputLineNumbers');
+    elements.pasteBtn = document.getElementById('pasteBtn');
+    elements.uploadBtn = document.getElementById('uploadBtn');
+    elements.fileInput = document.getElementById('fileInput');
 
     // Controls
-    formatBtn: document.getElementById('formatBtn'),
-    minifyBtn: document.getElementById('minifyBtn'),
-    validateBtn: document.getElementById('validateBtn'),
-    indentSelect: document.getElementById('indentSelect'),
-    sampleBtn: document.getElementById('sampleBtn'),
-    clearBtn: document.getElementById('clearBtn'),
+    elements.formatBtn = document.getElementById('formatBtn');
+    elements.minifyBtn = document.getElementById('minifyBtn');
+    elements.validateBtn = document.getElementById('validateBtn');
+    elements.indentSelect = document.getElementById('indentSelect');
+    elements.sampleBtn = document.getElementById('sampleBtn');
+    elements.clearBtn = document.getElementById('clearBtn');
 
     // Output
-    jsonOutput: document.getElementById('jsonOutput'),
-    outputLineNumbers: document.getElementById('outputLineNumbers'),
-    copyBtn: document.getElementById('copyBtn'),
-    downloadBtn: document.getElementById('downloadBtn'),
-    panelTabs: document.querySelectorAll('.panel-tab'),
-    formattedView: document.getElementById('formattedView'),
-    treeView: document.getElementById('treeView'),
-    treeContainer: document.getElementById('treeContainer'),
-    jsonPathValue: document.getElementById('jsonPathValue'),
-    jsonPathCopy: document.getElementById('jsonPathCopy'),
-    expandAllBtn: document.getElementById('expandAllBtn'),
-    collapseAllBtn: document.getElementById('collapseAllBtn'),
+    elements.jsonOutput = document.getElementById('jsonOutput');
+    elements.outputLineNumbers = document.getElementById('outputLineNumbers');
+    elements.copyBtn = document.getElementById('copyBtn');
+    elements.downloadBtn = document.getElementById('downloadBtn');
+    elements.panelTabs = document.querySelectorAll('.panel-tab');
+    elements.formattedView = document.getElementById('formattedView');
+    elements.treeView = document.getElementById('treeView');
+    elements.treeContainer = document.getElementById('treeContainer');
+    elements.jsonPathValue = document.getElementById('jsonPathValue');
+    elements.jsonPathCopy = document.getElementById('jsonPathCopy');
+    elements.expandAllBtn = document.getElementById('expandAllBtn');
+    elements.collapseAllBtn = document.getElementById('collapseAllBtn');
 
     // Status
-    statusIndicator: document.getElementById('statusIndicator'),
-    statusText: document.getElementById('statusText'),
-    charCount: document.getElementById('charCount'),
-    outputStats: document.getElementById('outputStats'),
+    elements.statusIndicator = document.getElementById('statusIndicator');
+    elements.statusText = document.getElementById('statusText');
+    elements.charCount = document.getElementById('charCount');
+    elements.outputStats = document.getElementById('outputStats');
 
     // Error
-    errorPanel: document.getElementById('errorPanel'),
-    errorMessage: document.getElementById('errorMessage'),
+    elements.errorPanel = document.getElementById('errorPanel');
+    elements.errorMessage = document.getElementById('errorMessage');
+  }
 
-    // Other
-    toast: document.getElementById('toast')
-  };
+  // ==================== UI Helpers ====================
+  const showToast = (message, type) => ToolsCommon.showToast(message, type);
 
   // Sample JSON
   const sampleJson = {
@@ -94,10 +88,9 @@
     }
   };
 
-  // ============================================
-  // Initialization
-  // ============================================
+  // ==================== Initialization ====================
   function init() {
+    initElements();
     initEventListeners();
     initKeyboardShortcuts();
     loadSettings();
@@ -149,9 +142,9 @@
     elements.jsonPathCopy?.addEventListener('click', copyJsonPath);
   }
 
-  // ============================================
+  // ====================
   // Tree Actions
-  // ============================================
+  // ====================
   function expandAll() {
     const toggles = elements.treeContainer.querySelectorAll('.tree-toggle');
     const children = elements.treeContainer.querySelectorAll('.tree-children');
@@ -176,14 +169,12 @@
 
   function copyJsonPath() {
     const path = elements.jsonPathValue?.textContent || '$';
-    navigator.clipboard.writeText(path).then(() => {
-      showToast('Path copied!', 'success');
-    });
+    ToolsCommon.copyWithToast(path, 'Path copied!');
   }
 
-  // ============================================
+  // ====================
   // Input Handling
-  // ============================================
+  // ====================
   function handleInput() {
     updateLineNumbers();
     updateCharCount();
@@ -206,9 +197,9 @@
     elements.inputLineNumbers.scrollTop = elements.jsonInput.scrollTop;
   }
 
-  // ============================================
+  // ====================
   // JSON Operations
-  // ============================================
+  // ====================
   function formatJson() {
     const input = elements.jsonInput.value.trim();
     if (!input) {
@@ -288,9 +279,9 @@
     }
   }
 
-  // ============================================
+  // ====================
   // Output Display
-  // ============================================
+  // ====================
   function displayOutput(formatted, parsed) {
     // Formatted view with syntax highlighting
     elements.jsonOutput.innerHTML = syntaxHighlight(formatted);
@@ -352,9 +343,9 @@
     return Object.keys(obj).length + Object.values(obj).reduce((sum, v) => sum + countKeys(v), 0);
   }
 
-  // ============================================
+  // ====================
   // Tree View
-  // ============================================
+  // ====================
   function renderTree(data) {
     elements.treeContainer.innerHTML = '';
     const tree = createTreeNode(data, '', '$');
@@ -471,9 +462,9 @@
     elements.treeView.classList.toggle('active', view === 'tree');
   }
 
-  // ============================================
+  // ====================
   // Status & Error
-  // ============================================
+  // ====================
   function updateStatus(text, type) {
     elements.statusIndicator.className = 'status-indicator ' + type;
     elements.statusText.textContent = text;
@@ -488,9 +479,9 @@
     elements.errorPanel.classList.remove('show');
   }
 
-  // ============================================
+  // ====================
   // Clipboard & File
-  // ============================================
+  // ====================
   async function pasteFromClipboard() {
     try {
       const text = await navigator.clipboard.readText();
@@ -526,12 +517,7 @@
       showToast('Nothing to copy', 'error');
       return;
     }
-
-    navigator.clipboard.writeText(output).then(() => {
-      showToast('Copied to clipboard!', 'success');
-    }).catch(() => {
-      showToast('Failed to copy', 'error');
-    });
+    ToolsCommon.copyWithToast(output, 'Copied to clipboard!');
   }
 
   function downloadJson() {
@@ -552,9 +538,9 @@
     showToast('Downloaded formatted.json', 'success');
   }
 
-  // ============================================
+  // ====================
   // Actions
-  // ============================================
+  // ====================
   function loadSample() {
     elements.jsonInput.value = JSON.stringify(sampleJson, null, 2);
     handleInput();
@@ -578,9 +564,9 @@
     showToast('Cleared', 'success');
   }
 
-  // ============================================
+  // ====================
   // Keyboard Shortcuts
-  // ============================================
+  // ====================
   function initKeyboardShortcuts() {
     // Shortcut modal handled by tools-common.js
     document.addEventListener('keydown', (e) => {
@@ -622,31 +608,16 @@
     });
   }
 
-  // ============================================
+  // ====================
   // Utilities
-  // ============================================
+  // ====================
   function escapeHtml(text) {
     const div = document.createElement('div');
     div.textContent = text;
     return div.innerHTML;
   }
 
-  function showToast(message, type = 'info') {
-    if (!elements.toast) return;
-
-    elements.toast.textContent = message;
-    elements.toast.className = 'toast show ' + type;
-
-    setTimeout(() => {
-      elements.toast.classList.remove('show');
-    }, 3000);
-  }
-
-
-
-  // ============================================
-  // Initialize
-  // ============================================
+  // ==================== Bootstrap ====================
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);
   } else {

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Validate email addresses and check their format. Verify email syntax and domain.">
+  <meta property="og:title" content="KVSOVANREACH | Email Validator">
+  <meta property="og:description" content="Validate email addresses and check their format.">
+  <meta property="og:image" content="/assets/img/favicons/og-image.png">
+  <title>KVSOVANREACH | Email Validator</title>
+
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/tools-common.css">
+  <link rel="stylesheet" href="emailvalidator.css">
+</head>
+<body>
+  <a href="#emailvalidator" class="skip-link">Skip to Email Validator</a>
+
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">TOOLS</span>
+      </a>
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools"><i class="fa-solid fa-arrow-left"></i></a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <main class="tool-page">
+    <div class="container">
+      <div class="validator-wrapper" id="emailvalidator">
+        <div class="validator-header">
+          <h2><i class="fa-solid fa-envelope"></i> Email Validator</h2>
+          <div class="header-actions">
+            <button class="header-action-btn" id="clearBtn" title="Clear">
+              <i class="fa-solid fa-trash-can"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="validator-content">
+          <div class="input-section">
+            <label for="emailInput">Enter email address</label>
+            <input type="text" id="emailInput" placeholder="example@domain.com">
+          </div>
+
+          <div class="result-section" id="resultSection">
+            <div class="result-status" id="resultStatus">
+              <i class="fa-solid fa-circle-question"></i>
+              <span>Enter an email to validate</span>
+            </div>
+
+            <div class="checks-list" id="checksList">
+              <div class="check-item" data-check="format">
+                <span class="check-icon"><i class="fa-solid fa-minus"></i></span>
+                <span class="check-label">Format</span>
+              </div>
+              <div class="check-item" data-check="local">
+                <span class="check-icon"><i class="fa-solid fa-minus"></i></span>
+                <span class="check-label">Local</span>
+              </div>
+              <div class="check-item" data-check="domain">
+                <span class="check-icon"><i class="fa-solid fa-minus"></i></span>
+                <span class="check-label">Domain</span>
+              </div>
+              <div class="check-item" data-check="tld">
+                <span class="check-icon"><i class="fa-solid fa-minus"></i></span>
+                <span class="check-label">TLD</span>
+              </div>
+              <div class="check-item" data-check="length">
+                <span class="check-icon"><i class="fa-solid fa-minus"></i></span>
+                <span class="check-label">Length</span>
+              </div>
+            </div>
+
+            <div class="email-parts" id="emailParts">
+              <div class="part-item">
+                <span class="part-label">Local Part</span>
+                <span class="part-value" id="localPart">-</span>
+              </div>
+              <div class="part-item">
+                <span class="part-label">Domain</span>
+                <span class="part-value" id="domainPart">-</span>
+              </div>
+              <div class="part-item">
+                <span class="part-label">TLD</span>
+                <span class="part-value" id="tldPart">-</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div class="shortcuts-modal" id="shortcutsModal">
+    <div class="shortcuts-content">
+      <div class="shortcuts-header">
+        <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
+        <button class="close-shortcuts-btn" id="closeShortcutsBtn"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="shortcuts-body">
+        <div class="shortcut-row"><span class="shortcut-key">?</span><span class="shortcut-desc">Show shortcuts</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="shortcuts-hint">Press <span class="shortcut-key">?</span> for shortcuts</div>
+  <div class="toast" id="toast"></div>
+
+  <script src="../../js/tools-common.js"></script>
+  <script src="emailvalidator.js"></script>
+</body>
+</html>

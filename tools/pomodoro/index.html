@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Pomodoro timer for productive work sessions. Customize work and break durations.">
+  <meta property="og:title" content="KVSOVANREACH | Pomodoro Timer">
+  <meta property="og:description" content="Pomodoro timer for productive work sessions.">
+  <meta property="og:image" content="/assets/img/favicons/og-image.png">
+  <title>KVSOVANREACH | Pomodoro Timer</title>
+
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/tools-common.css">
+  <link rel="stylesheet" href="pomodoro.css">
+</head>
+<body>
+  <a href="#pomodoro" class="skip-link">Skip to Pomodoro Timer</a>
+
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">TOOLS</span>
+      </a>
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools"><i class="fa-solid fa-arrow-left"></i></a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <main class="tool-page">
+    <div class="container">
+      <div class="pomodoro-wrapper" id="pomodoro">
+        <div class="pomodoro-header">
+          <h2><i class="fa-solid fa-clock"></i> Pomodoro Timer</h2>
+          <div class="header-actions">
+            <button class="header-action-btn" id="resetAllBtn" title="Reset All">
+              <i class="fa-solid fa-rotate-left"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="tool-tabs">
+          <button class="tool-tab active" data-mode="work">
+            <i class="fa-solid fa-briefcase"></i>
+            <span>Work</span>
+          </button>
+          <button class="tool-tab" data-mode="short">
+            <i class="fa-solid fa-mug-hot"></i>
+            <span>Short</span>
+          </button>
+          <button class="tool-tab" data-mode="long">
+            <i class="fa-solid fa-couch"></i>
+            <span>Long</span>
+          </button>
+        </div>
+
+        <div class="pomodoro-content">
+          <div class="timer-circle">
+            <svg class="progress-ring" viewBox="0 0 200 200">
+              <circle class="progress-ring-bg" cx="100" cy="100" r="90" />
+              <circle class="progress-ring-progress" cx="100" cy="100" r="90" id="progressRing" />
+            </svg>
+            <div class="timer-display">
+              <span class="timer-time" id="timerDisplay">25:00</span>
+              <span class="timer-mode" id="timerMode">Work Session</span>
+            </div>
+          </div>
+
+          <div class="timer-controls">
+            <button class="control-btn primary" id="startBtn">
+              <i class="fa-solid fa-play"></i>
+              <span>Start</span>
+            </button>
+          </div>
+
+          <div class="session-info">
+            <div class="session-count">
+              <span class="count-value" id="sessionCount">0</span>
+              <span class="count-label">Sessions Completed</span>
+            </div>
+          </div>
+
+          <div class="settings-section">
+            <h3>Settings</h3>
+            <div class="settings-grid">
+              <div class="setting-item">
+                <label>Work (min)</label>
+                <input type="number" id="workDuration" value="25" min="1" max="60">
+              </div>
+              <div class="setting-item">
+                <label>Short Break (min)</label>
+                <input type="number" id="shortBreakDuration" value="5" min="1" max="30">
+              </div>
+              <div class="setting-item">
+                <label>Long Break (min)</label>
+                <input type="number" id="longBreakDuration" value="15" min="1" max="60">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div class="shortcuts-modal" id="shortcutsModal">
+    <div class="shortcuts-content">
+      <div class="shortcuts-header">
+        <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
+        <button class="close-shortcuts-btn" id="closeShortcutsBtn"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="shortcuts-body">
+        <div class="shortcut-row"><span class="shortcut-key">Space</span><span class="shortcut-desc">Start/Pause</span></div>
+        <div class="shortcut-row"><span class="shortcut-key">R</span><span class="shortcut-desc">Reset</span></div>
+        <div class="shortcut-row"><span class="shortcut-key">?</span><span class="shortcut-desc">Show shortcuts</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="shortcuts-hint">Press <span class="shortcut-key">?</span> for shortcuts</div>
+  <div class="toast" id="toast"></div>
+
+  <script src="../../js/tools-common.js"></script>
+  <script src="pomodoro.js"></script>
+</body>
+</html>

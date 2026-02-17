@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="View current time in multiple cities around the world. Add and track different time zones.">
+  <meta property="og:title" content="KVSOVANREACH | World Clock">
+  <meta property="og:description" content="View current time in multiple cities around the world.">
+  <meta property="og:image" content="/assets/img/favicons/og-image.png">
+  <title>KVSOVANREACH | World Clock</title>
+
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/tools-common.css">
+  <link rel="stylesheet" href="worldclock.css">
+</head>
+<body>
+  <a href="#worldclock" class="skip-link">Skip to World Clock</a>
+
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">TOOLS</span>
+      </a>
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools"><i class="fa-solid fa-arrow-left"></i></a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <main class="tool-page">
+    <div class="container">
+      <div class="clock-wrapper" id="worldclock">
+        <div class="clock-header">
+          <h2><i class="fa-solid fa-globe"></i> World Clock</h2>
+          <div class="header-actions">
+            <button type="button" class="header-action-btn" id="toggleViewBtn" title="Toggle View">
+              <i class="fa-solid fa-clock"></i>
+            </button>
+            <button type="button" class="header-action-btn" id="addClockBtn" title="Add Clock">
+              <i class="fa-solid fa-plus"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="clock-content">
+          <div class="local-time">
+            <div class="local-label">Your Local Time</div>
+            <div class="local-display">
+              <span class="local-time-value" id="localTime">00:00:00</span>
+              <span class="local-date" id="localDate">Monday, January 1, 2024</span>
+            </div>
+          </div>
+
+          <div class="clocks-grid" id="clocksGrid"></div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div class="add-clock-modal" id="addClockModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Add Time Zone</h3>
+        <button class="close-modal-btn" id="closeModalBtn"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="modal-body">
+        <input type="text" id="searchTimezone" placeholder="Search city or timezone..." class="search-input">
+        <div class="timezone-list" id="timezoneList"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="shortcuts-modal" id="shortcutsModal">
+    <div class="shortcuts-content">
+      <div class="shortcuts-header">
+        <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
+        <button class="close-shortcuts-btn" id="closeShortcutsBtn"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="shortcuts-body">
+        <div class="shortcut-row"><span class="shortcut-key">A</span><span class="shortcut-desc">Add clock</span></div>
+        <div class="shortcut-row"><span class="shortcut-key">V</span><span class="shortcut-desc">Toggle digital/analog</span></div>
+        <div class="shortcut-row"><span class="shortcut-key">?</span><span class="shortcut-desc">Show shortcuts</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="shortcuts-hint">Press <span class="shortcut-key">?</span> for shortcuts</div>
+  <div class="toast" id="toast"></div>
+
+  <script src="../../js/tools-common.js"></script>
+  <script src="worldclock.js"></script>
+</body>
+</html>

@@ -135,8 +135,6 @@ ul {
 
 /* ==================== Prevent Text Cursor on Non-Editable Elements ==================== */
 h1, h2, h3, h4, h5, h6,
-p,
-span,
 label,
 img,
 .nav-logo,
@@ -145,20 +143,14 @@ img,
 .logo-tools,
 .back-btn,
 .theme-toggle,
-.footer-copy,
-.footer-made,
 .tool-tab,
 .panel-tab,
 .action-btn,
 .toast,
-.empty-state,
 .shortcuts-hint,
 .shortcuts-modal,
-.shortcut-row,
-.shortcut-desc {
+.shortcut-row {
   cursor: default;
-  user-select: none;
-  -webkit-user-select: none;
 }
 
 /* Allow text cursor on editable elements */

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Calculate chmod permissions. Convert between symbolic and numeric notation.">
+  <meta property="og:title" content="KVSOVANREACH | Chmod Calculator">
+  <meta property="og:description" content="Calculate chmod permissions.">
+  <meta property="og:image" content="/assets/img/favicons/og-image.png">
+  <title>KVSOVANREACH | Chmod Calculator</title>
+
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/tools-common.css">
+  <link rel="stylesheet" href="chmod.css">
+</head>
+<body>
+  <a href="#chmod" class="skip-link">Skip to Chmod Calculator</a>
+
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">TOOLS</span>
+      </a>
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools"><i class="fa-solid fa-arrow-left"></i></a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <main class="tool-page">
+    <div class="container">
+      <div class="chmod-wrapper" id="chmod">
+        <div class="chmod-header">
+          <h2><i class="fa-solid fa-lock"></i> Chmod Calculator</h2>
+          <div class="header-actions">
+            <button class="header-action-btn" id="resetBtn" title="Reset (R)">
+              <i class="fa-solid fa-rotate-left"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="chmod-content">
+          <div class="permission-grid">
+            <div class="permission-header">
+              <span></span>
+              <span>Read</span>
+              <span>Write</span>
+              <span>Execute</span>
+            </div>
+            <div class="permission-row" data-role="owner">
+              <span class="role-label">Owner</span>
+              <label class="checkbox-wrapper">
+                <input type="checkbox" data-role="owner" data-perm="r" checked>
+                <span class="checkmark"></span>
+              </label>
+              <label class="checkbox-wrapper">
+                <input type="checkbox" data-role="owner" data-perm="w" checked>
+                <span class="checkmark"></span>
+              </label>
+              <label class="checkbox-wrapper">
+                <input type="checkbox" data-role="owner" data-perm="x" checked>
+                <span class="checkmark"></span>
+              </label>
+            </div>
+            <div class="permission-row" data-role="group">
+              <span class="role-label">Group</span>
+              <label class="checkbox-wrapper">
+                <input type="checkbox" data-role="group" data-perm="r" checked>
+                <span class="checkmark"></span>
+              </label>
+              <label class="checkbox-wrapper">
+                <input type="checkbox" data-role="group" data-perm="w">
+                <span class="checkmark"></span>
+              </label>
+              <label class="checkbox-wrapper">
+                <input type="checkbox" data-role="group" data-perm="x" checked>
+                <span class="checkmark"></span>
+              </label>
+            </div>
+            <div class="permission-row" data-role="others">
+              <span class="role-label">Others</span>
+              <label class="checkbox-wrapper">
+                <input type="checkbox" data-role="others" data-perm="r" checked>
+                <span class="checkmark"></span>
+              </label>
+              <label class="checkbox-wrapper">
+                <input type="checkbox" data-role="others" data-perm="w">
+                <span class="checkmark"></span>
+              </label>
+              <label class="checkbox-wrapper">
+                <input type="checkbox" data-role="others" data-perm="x" checked>
+                <span class="checkmark"></span>
+              </label>
+            </div>
+          </div>
+
+          <div class="results-section">
+            <div class="result-item">
+              <label>Numeric</label>
+              <div class="result-value-group">
+                <input type="text" id="numericValue" value="755" class="result-input" maxlength="4">
+                <button class="copy-btn" data-copy="numeric" title="Copy"><i class="fa-solid fa-copy"></i></button>
+              </div>
+            </div>
+            <div class="result-item">
+              <label>Symbolic</label>
+              <div class="result-value-group">
+                <code id="symbolicValue">rwxr-xr-x</code>
+                <button class="copy-btn" data-copy="symbolic" title="Copy"><i class="fa-solid fa-copy"></i></button>
+              </div>
+            </div>
+            <div class="result-item">
+              <label>Command</label>
+              <div class="result-value-group">
+                <code id="commandValue">chmod 755 filename</code>
+                <button class="copy-btn" data-copy="command" title="Copy"><i class="fa-solid fa-copy"></i></button>
+              </div>
+            </div>
+          </div>
+
+          <div class="presets-section">
+            <label>Common Presets</label>
+            <div class="preset-buttons">
+              <button class="preset-btn" data-preset="755">755 (rwxr-xr-x)</button>
+              <button class="preset-btn" data-preset="644">644 (rw-r--r--)</button>
+              <button class="preset-btn" data-preset="777">777 (rwxrwxrwx)</button>
+              <button class="preset-btn" data-preset="600">600 (rw-------)</button>
+              <button class="preset-btn" data-preset="700">700 (rwx------)</button>
+              <button class="preset-btn" data-preset="444">444 (r--r--r--)</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div class="shortcuts-modal" id="shortcutsModal">
+    <div class="shortcuts-content">
+      <div class="shortcuts-header">
+        <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
+        <button class="close-shortcuts-btn" id="closeShortcutsBtn"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="shortcuts-body">
+        <div class="shortcut-row"><span class="shortcut-key">R</span><span class="shortcut-desc">Reset to 755</span></div>
+        <div class="shortcut-row"><span class="shortcut-key">?</span><span class="shortcut-desc">Show shortcuts</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="shortcuts-hint">Press <span class="shortcut-key">?</span> for shortcuts</div>
+  <div class="toast" id="toast"></div>
+
+  <script src="../../js/tools-common.js"></script>
+  <script src="chmod.js"></script>
+</body>
+</html>

@@ -53,97 +53,78 @@
   <!-- Main Content -->
   <main class="tool-page">
     <div class="container">
-      <!-- Aspect Ratio Wrapper -->
       <div class="ratio-wrapper" id="aspectratio">
-        <!-- Header -->
         <div class="ratio-header">
-          <h2><i class="fa-solid fa-crop"></i> Aspect Ratio Visualizer</h2>
-          <div class="ratio-actions">
-            <button class="action-btn" id="swapBtn" title="Swap width and height">
-              <i class="fa-solid fa-right-left"></i>
-              <span>Swap</span>
-            </button>
-            <button class="action-btn" id="resetBtn" title="Reset to defaults">
+          <h2><i class="fa-solid fa-crop"></i> Aspect Ratio</h2>
+          <div class="header-actions">
+            <button type="button" class="header-action-btn" id="resetBtn" title="Reset (R)">
               <i class="fa-solid fa-rotate-left"></i>
-              <span>Reset</span>
             </button>
           </div>
         </div>
 
-        <!-- Content -->
+        <div class="tool-tabs">
+          <button type="button" class="tool-tab active" data-mode="width-to-height">
+            <i class="fa-solid fa-arrow-right"></i>
+            <span>Width → Height</span>
+          </button>
+          <button type="button" class="tool-tab" data-mode="height-to-width">
+            <i class="fa-solid fa-arrow-left"></i>
+            <span>Height → Width</span>
+          </button>
+        </div>
+
         <div class="ratio-content">
-          <!-- Main Grid: Calculator + Comparison -->
           <div class="ratio-main-grid">
-            <!-- Calculator Section -->
-            <div class="calculator-section">
-              <h3><i class="fa-solid fa-calculator"></i> Dimension Calculator</h3>
+            <div class="ratio-calculator">
 
-              <!-- Mode Toggle -->
-              <div class="calc-mode-toggle">
-                <button class="mode-btn active" data-mode="width-to-height">
-                  <i class="fa-solid fa-arrow-right"></i>
-                  Width → Height
-                </button>
-                <button class="mode-btn" data-mode="height-to-width">
-                  <i class="fa-solid fa-arrow-left"></i>
-                  Height → Width
-                </button>
-              </div>
-
-              <!-- Calculator Grid -->
-              <div class="calc-grid" id="calcGrid">
-                <div class="calc-input" id="inputSection">
+              <div class="calc-grid">
+                <div class="calc-input">
                   <label id="inputLabel">Width (px)</label>
                   <input type="number" id="calcInput" value="1920" min="1">
                 </div>
-                <div class="calc-input ratio-section">
-                  <label>Aspect Ratio</label>
+                <div class="calc-input">
+                  <label>Ratio</label>
                   <div class="ratio-input-group">
                     <input type="number" id="ratioW" value="16" min="1">
                     <span>:</span>
                     <input type="number" id="ratioH" value="9" min="1">
                   </div>
                 </div>
-                <div class="calc-result" id="resultSection">
+                <div class="calc-result">
                   <label id="resultLabel">Height (px)</label>
                   <div class="result-value" id="calcResult">1080</div>
                 </div>
               </div>
 
-              <!-- Ratio Presets -->
-              <div class="presets-section">
-                <label>Quick Presets</label>
-                <div class="ratio-presets">
-                  <button class="ratio-preset active" data-w="16" data-h="9">16:9</button>
-                  <button class="ratio-preset" data-w="4" data-h="3">4:3</button>
-                  <button class="ratio-preset" data-w="21" data-h="9">21:9</button>
-                  <button class="ratio-preset" data-w="1" data-h="1">1:1</button>
-                  <button class="ratio-preset" data-w="9" data-h="16">9:16</button>
-                  <button class="ratio-preset" data-w="3" data-h="2">3:2</button>
-                  <button class="ratio-preset" data-w="2" data-h="3">2:3</button>
-                  <button class="ratio-preset" data-w="5" data-h="4">5:4</button>
+              <div class="presets-group">
+                <label>Ratios</label>
+                <div class="preset-buttons">
+                  <button type="button" class="preset-btn active" data-w="16" data-h="9">16:9</button>
+                  <button type="button" class="preset-btn" data-w="4" data-h="3">4:3</button>
+                  <button type="button" class="preset-btn" data-w="21" data-h="9">21:9</button>
+                  <button type="button" class="preset-btn" data-w="1" data-h="1">1:1</button>
+                  <button type="button" class="preset-btn" data-w="9" data-h="16">9:16</button>
+                  <button type="button" class="preset-btn" data-w="3" data-h="2">3:2</button>
+                  <button type="button" class="preset-btn" data-w="2" data-h="3">2:3</button>
+                  <button type="button" class="preset-btn" data-w="5" data-h="4">5:4</button>
                 </div>
               </div>
 
-              <!-- Common Resolutions -->
-              <div class="resolutions-section">
-                <label>Common Resolutions</label>
-                <div class="resolution-presets">
-                  <button class="resolution-preset" data-w="1920" data-h="1080">1080p</button>
-                  <button class="resolution-preset" data-w="2560" data-h="1440">1440p</button>
-                  <button class="resolution-preset" data-w="3840" data-h="2160">4K</button>
-                  <button class="resolution-preset" data-w="1280" data-h="720">720p</button>
-                  <button class="resolution-preset" data-w="1080" data-h="1920">Mobile</button>
-                  <button class="resolution-preset" data-w="1200" data-h="630">OG Image</button>
+              <div class="presets-group">
+                <label>Resolutions</label>
+                <div class="preset-buttons">
+                  <button type="button" class="res-btn" data-w="1920" data-h="1080">1080p</button>
+                  <button type="button" class="res-btn" data-w="2560" data-h="1440">1440p</button>
+                  <button type="button" class="res-btn" data-w="3840" data-h="2160">4K</button>
+                  <button type="button" class="res-btn" data-w="1280" data-h="720">720p</button>
+                  <button type="button" class="res-btn" data-w="1080" data-h="1920">Mobile</button>
+                  <button type="button" class="res-btn" data-w="1200" data-h="630">OG</button>
                 </div>
               </div>
             </div>
 
-            <!-- Comparison Section -->
             <div class="comparison-section">
-              <h3><i class="fa-solid fa-layer-group"></i> Visual Comparison</h3>
-              <p class="comparison-hint">Select ratios to compare visually</p>
-
               <div class="compare-checkboxes">
                 <label class="compare-check">
                   <input type="checkbox" data-w="16" data-h="9" data-color="#3776A1" checked>
@@ -167,50 +148,8 @@
                 </label>
               </div>
 
-              <div class="comparison-canvas" id="comparisonCanvas">
-                <!-- Ratio boxes will be rendered here -->
-              </div>
-
-              <div class="comparison-legend" id="comparisonLegend">
-                <!-- Legend items will be rendered here -->
-              </div>
-            </div>
-          </div>
-
-          <!-- Info Cards -->
-          <div class="info-section">
-            <h3><i class="fa-solid fa-info-circle"></i> Common Aspect Ratios</h3>
-            <div class="info-cards">
-              <div class="info-card">
-                <div class="info-ratio">16:9</div>
-                <div class="info-name">Widescreen</div>
-                <div class="info-desc">Standard HD/4K displays, YouTube, modern TVs</div>
-              </div>
-              <div class="info-card">
-                <div class="info-ratio">4:3</div>
-                <div class="info-name">Standard</div>
-                <div class="info-desc">Classic TV, older monitors, iPad</div>
-              </div>
-              <div class="info-card">
-                <div class="info-ratio">21:9</div>
-                <div class="info-name">Ultrawide</div>
-                <div class="info-desc">Ultrawide monitors, cinema format</div>
-              </div>
-              <div class="info-card">
-                <div class="info-ratio">1:1</div>
-                <div class="info-name">Square</div>
-                <div class="info-desc">Instagram posts, profile pictures</div>
-              </div>
-              <div class="info-card">
-                <div class="info-ratio">9:16</div>
-                <div class="info-name">Vertical</div>
-                <div class="info-desc">Mobile stories, TikTok, Reels</div>
-              </div>
-              <div class="info-card">
-                <div class="info-ratio">3:2</div>
-                <div class="info-name">Classic Photo</div>
-                <div class="info-desc">35mm photography, MacBook displays</div>
-              </div>
+              <div class="comparison-canvas" id="comparisonCanvas"></div>
+              <div class="comparison-legend" id="comparisonLegend"></div>
             </div>
           </div>
         </div>
@@ -218,59 +157,22 @@
     </div>
   </main>
 
-  <!-- Footer -->
-  <footer class="footer">
-    <div class="container">
-      <div class="footer-bottom">
-        <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach. All rights reserved.</p>
-        <p class="footer-made">Made with 💗 and Claude Code xD</p>
-      </div>
-    </div>
-  </footer>
-
-  <!-- Toast Notification -->
-  <div class="toast" id="toast"></div>
-
-  <!-- Keyboard Shortcuts Modal -->
   <div class="shortcuts-modal" id="shortcutsModal">
     <div class="shortcuts-content">
       <div class="shortcuts-header">
         <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
-        <button class="close-shortcuts-btn" id="closeShortcutsBtn" aria-label="Close shortcuts">
-          <i class="fa-solid fa-xmark"></i>
-        </button>
+        <button class="close-shortcuts-btn" id="closeShortcutsBtn"><i class="fa-solid fa-xmark"></i></button>
       </div>
       <div class="shortcuts-body">
-        <div class="shortcuts-group">
-          <div class="shortcuts-group-title">Actions</div>
-          <div class="shortcut-row">
-            <div class="shortcut-keys"><kbd>S</kbd></div>
-            <div class="shortcut-desc">Swap width/height mode</div>
-          </div>
-          <div class="shortcut-row">
-            <div class="shortcut-keys"><kbd>R</kbd></div>
-            <div class="shortcut-desc">Reset to defaults</div>
-          </div>
-        </div>
-        <div class="shortcuts-group">
-          <div class="shortcuts-group-title">General</div>
-          <div class="shortcut-row">
-            <div class="shortcut-keys"><kbd>?</kbd></div>
-            <div class="shortcut-desc">Show shortcuts</div>
-          </div>
-          <div class="shortcut-row">
-            <div class="shortcut-keys"><kbd>Escape</kbd></div>
-            <div class="shortcut-desc">Close modal</div>
-          </div>
-        </div>
+        <div class="shortcut-row"><span class="shortcut-key">S</span><span class="shortcut-desc">Swap mode</span></div>
+        <div class="shortcut-row"><span class="shortcut-key">R</span><span class="shortcut-desc">Reset</span></div>
+        <div class="shortcut-row"><span class="shortcut-key">?</span><span class="shortcut-desc">Show shortcuts</span></div>
       </div>
     </div>
   </div>
 
-  <!-- Keyboard Shortcuts Hint -->
-  <div class="shortcuts-hint" id="shortcutsHint">
-    <span><kbd>Shift</kbd>+<kbd>?</kbd> : shortcuts</span>
-  </div>
+  <div class="shortcuts-hint">Press <span class="shortcut-key">?</span> for shortcuts</div>
+  <div class="toast" id="toast"></div>
 
   <!-- Shared Tools JavaScript -->
   <script src="../../js/tools-common.js"></script>

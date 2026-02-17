@@ -118,7 +118,7 @@ const toolsData = [
     icon: "fa-solid fa-face-smile",
     url: "/tools/emoji/",
     tags: ["emoji", "emoticon", "smiley", "copy", "unicode", "symbol"],
-    status: "inactive"
+    status: "active"
   },
   {
     id: "checklist-maker",
@@ -168,7 +168,7 @@ const toolsData = [
     icon: "fa-solid fa-globe",
     url: "/tools/browserinfo/",
     tags: ["browser", "info", "device", "screen", "network", "user-agent"],
-    status: "inactive"
+    status: "active"
   },
   {
     id: "whitespace-stripper",
@@ -188,7 +188,7 @@ const toolsData = [
     icon: "fa-solid fa-weight-scale",
     url: "/tools/bmi/",
     tags: ["bmi", "body", "mass", "index", "health", "weight", "calculator"],
-    status: "inactive"
+    status: "active"
   },
   {
     id: "days-between",
@@ -198,7 +198,7 @@ const toolsData = [
     icon: "fa-solid fa-calendar-days",
     url: "/tools/datesbetween/",
     tags: ["days", "between", "dates", "calendar", "difference", "calculate"],
-    status: "inactive"
+    status: "active"
   },
   {
     id: "time-since",
@@ -208,7 +208,7 @@ const toolsData = [
     icon: "fa-solid fa-hourglass-half",
     url: "/tools/timesince/",
     tags: ["time", "since", "until", "countdown", "elapsed", "date", "calculator"],
-    status: "inactive"
+    status: "active"
   },
   {
     id: "word-cloud",
@@ -228,7 +228,7 @@ const toolsData = [
     icon: "fa-solid fa-arrow-down-a-z",
     url: "/tools/alphabetizer/",
     tags: ["sort", "alphabetize", "list", "order", "organize", "text"],
-    status: "inactive"
+    status: "active"
   },
   {
     id: "reverse-text",
@@ -238,7 +238,7 @@ const toolsData = [
     icon: "fa-solid fa-repeat",
     url: "/tools/reversetext/",
     tags: ["reverse", "text", "mirror", "flip", "backwards", "upside-down"],
-    status: "inactive"
+    status: "active"
   },
   {
     id: "smart-quote",
@@ -258,7 +258,7 @@ const toolsData = [
     icon: "fa-solid fa-crop",
     url: "/tools/aspectratio/",
     tags: ["aspect", "ratio", "dimension", "width", "height", "video", "image"],
-    status: "inactive"
+    status: "active"
   },
   {
     id: "grayscale-tester",
@@ -268,7 +268,7 @@ const toolsData = [
     icon: "fa-solid fa-circle-half-stroke",
     url: "/tools/grayscale/",
     tags: ["grayscale", "image", "contrast", "accessibility", "black", "white"],
-    status: "inactive"
+    status: "active"
   },
   {
     id: "discount-calculator",
@@ -278,7 +278,7 @@ const toolsData = [
     icon: "fa-solid fa-percent",
     url: "/tools/discount/",
     tags: ["discount", "price", "sale", "percent", "savings", "calculator"],
-    status: "inactive"
+    status: "active"
   },
   {
     id: "duration-adder",
@@ -288,7 +288,7 @@ const toolsData = [
     icon: "fa-solid fa-hourglass",
     url: "/tools/duration/",
     tags: ["time", "duration", "add", "subtract", "hours", "minutes", "seconds"],
-    status: "inactive"
+    status: "active"
   },
   {
     id: "percent-change",
@@ -298,7 +298,7 @@ const toolsData = [
     icon: "fa-solid fa-chart-line",
     url: "/tools/percentchange/",
     tags: ["percent", "change", "increase", "decrease", "difference", "calculator"],
-    status: "inactive"
+    status: "active"
   },
   {
     id: "interest-calculator",
@@ -308,7 +308,7 @@ const toolsData = [
     icon: "fa-solid fa-coins",
     url: "/tools/interest/",
     tags: ["interest", "simple", "principal", "rate", "time", "finance", "calculator"],
-    status: "inactive"
+    status: "active"
   },
   {
     id: "roman-numeral",
@@ -318,7 +318,7 @@ const toolsData = [
     icon: "fa-solid fa-landmark",
     url: "/tools/romannumeral/",
     tags: ["roman", "numeral", "convert", "number", "arabic", "ancient"],
-    status: "inactive"
+    status: "active"
   },
   {
     id: "hydration-log",
@@ -328,7 +328,7 @@ const toolsData = [
     icon: "fa-solid fa-droplet",
     url: "/tools/hydration/",
     tags: ["water", "hydration", "drink", "health", "tracker", "daily"],
-    status: "inactive"
+    status: "active"
   },
   {
     id: "dead-pixel-test",
@@ -338,13 +338,13 @@ const toolsData = [
     icon: "fa-solid fa-display",
     url: "/tools/deadpixel/",
     tags: ["pixel", "dead", "stuck", "monitor", "screen", "test", "display"],
-    status: "inactive"
+    status: "active"
   },
   {
     id: "coin-toss",
     name: "Coin Toss",
     description: "Virtual coin flip with 3D animation, statistics, and history tracking.",
-    category: "general",
+    category: "fun",
     icon: "fa-solid fa-coins",
     url: "/tools/cointoss/",
     tags: ["coin", "flip", "toss", "random", "heads", "tails", "decision"],
@@ -378,7 +378,7 @@ const toolsData = [
     icon: "fa-solid fa-filter",
     url: "/tools/stopword/",
     tags: ["stopword", "text", "filter", "remove", "nlp", "clean"],
-    status: "inactive"
+    status: "active"
   },
   {
     id: "random-generator",
@@ -388,17 +388,127 @@ const toolsData = [
     icon: "fa-solid fa-shuffle",
     url: "/tools/randomgen/",
     tags: ["random", "number", "generate", "dice", "lottery", "crypto"],
-    status: "inactive"
+    status: "active"
   },
   {
     id: "glassmorphism",
     name: "Glassmorphism Generator",
     description: "Create glassmorphism UI effects with live preview and CSS code output.",
-    category: "general",
+    category: "developer",
     icon: "fa-solid fa-window-restore",
     url: "/tools/glassmorphism/",
     tags: ["glass", "morphism", "ui", "css", "design", "blur", "transparent"],
-    status: "inactive"
+    status: "active"
+  },
+  {
+    id: "tip-calculator",
+    name: "Tip Calculator",
+    description: "Calculate tips and split bills easily with customizable tip percentages.",
+    category: "general",
+    icon: "fa-solid fa-receipt",
+    url: "/tools/tipcalculator/",
+    tags: ["tip", "calculator", "bill", "split", "restaurant", "money"],
+    status: "active"
+  },
+  {
+    id: "stopwatch",
+    name: "Stopwatch",
+    description: "Precision stopwatch with lap times, best/worst tracking, and millisecond accuracy.",
+    category: "general",
+    icon: "fa-solid fa-stopwatch",
+    url: "/tools/stopwatch/",
+    tags: ["stopwatch", "timer", "lap", "time", "track", "sports"],
+    status: "active"
+  },
+  {
+    id: "age-calculator",
+    name: "Age Calculator",
+    description: "Calculate exact age in years, months, days with birthday countdown and statistics.",
+    category: "general",
+    icon: "fa-solid fa-cake-candles",
+    url: "/tools/agecalculator/",
+    tags: ["age", "birthday", "calculator", "date", "years", "countdown"],
+    status: "active"
+  },
+  {
+    id: "world-clock",
+    name: "World Clock",
+    description: "Track time across multiple timezones with customizable city list and time differences.",
+    category: "general",
+    icon: "fa-solid fa-earth-americas",
+    url: "/tools/worldclock/",
+    tags: ["world", "clock", "timezone", "time", "city", "international"],
+    status: "active"
+  },
+  {
+    id: "pomodoro",
+    name: "Pomodoro Timer",
+    description: "Focus timer using Pomodoro technique with customizable work and break intervals.",
+    category: "general",
+    icon: "fa-solid fa-hourglass-start",
+    url: "/tools/pomodoro/",
+    tags: ["pomodoro", "timer", "focus", "productivity", "work", "break"],
+    status: "active"
+  },
+  {
+    id: "countdown",
+    name: "Countdown Timer",
+    description: "Create countdowns to important dates with live updates and preset events.",
+    category: "general",
+    icon: "fa-solid fa-calendar-check",
+    url: "/tools/countdown/",
+    tags: ["countdown", "timer", "event", "date", "deadline", "reminder"],
+    status: "active"
+  },
+  {
+    id: "metronome",
+    name: "Metronome",
+    description: "Musical metronome with adjustable BPM, time signatures, and audio beat indicator.",
+    category: "general",
+    icon: "fa-solid fa-drum",
+    url: "/tools/metronome/",
+    tags: ["metronome", "music", "tempo", "bpm", "rhythm", "beat"],
+    status: "active"
+  },
+  {
+    id: "keyboard-test",
+    name: "Keyboard Tester",
+    description: "Test all keyboard keys with visual feedback, key history, and statistics.",
+    category: "general",
+    icon: "fa-solid fa-keyboard",
+    url: "/tools/keyboardtest/",
+    tags: ["keyboard", "test", "keys", "input", "hardware", "debug"],
+    status: "active"
+  },
+  {
+    id: "character-map",
+    name: "Character Map",
+    description: "Browse and copy Unicode characters, symbols, emojis with search and categories.",
+    category: "general",
+    icon: "fa-solid fa-icons",
+    url: "/tools/charmap/",
+    tags: ["character", "map", "unicode", "symbol", "copy", "special"],
+    status: "active"
+  },
+  {
+    id: "colorblind-simulator",
+    name: "Color Blindness Simulator",
+    description: "Simulate how colors appear to people with different types of color blindness.",
+    category: "general",
+    icon: "fa-solid fa-eye-low-vision",
+    url: "/tools/colorblind/",
+    tags: ["colorblind", "accessibility", "vision", "simulate", "a11y", "design"],
+    status: "active"
+  },
+  {
+    id: "card-validator",
+    name: "Card Validator",
+    description: "Validate credit card numbers using Luhn algorithm with card type detection.",
+    category: "general",
+    icon: "fa-solid fa-credit-card",
+    url: "/tools/cardvalidator/",
+    tags: ["card", "credit", "validate", "luhn", "visa", "mastercard"],
+    status: "active"
   },
 
   // ==================== DEVELOPER TOOLS ====================
@@ -410,7 +520,7 @@ const toolsData = [
     icon: "fa-solid fa-code",
     url: "/tools/encoder/",
     tags: ["encode", "decode", "base64", "url", "hash", "jwt", "md5", "sha"],
-    status: "inactive"
+    status: "active"
   },
   {
     id: "json-formatter",
@@ -420,7 +530,7 @@ const toolsData = [
     icon: "fa-solid fa-file-code",
     url: "/tools/json/",
     tags: ["json", "format", "validate", "beautify", "data"],
-    status: "inactive"
+    status: "active"
   },
   {
     id: "regex-tester",
@@ -430,7 +540,7 @@ const toolsData = [
     icon: "fa-solid fa-asterisk",
     url: "/tools/regex/",
     tags: ["regex", "regular", "expression", "pattern", "match", "test"],
-    status: "inactive"
+    status: "active"
   },
   {
     id: "uuid-generator",
@@ -460,7 +570,7 @@ const toolsData = [
     icon: "fa-brands fa-markdown",
     url: "/tools/markdown/",
     tags: ["markdown", "editor", "preview", "write", "document"],
-    status: "inactive"
+    status: "active"
   },
   {
     id: "cron-parser",
@@ -470,7 +580,7 @@ const toolsData = [
     icon: "fa-solid fa-clock",
     url: "/tools/cron/",
     tags: ["cron", "schedule", "parse", "job", "time"],
-    status: "inactive"
+    status: "active"
   },
   {
     id: "css-generator",
@@ -812,13 +922,93 @@ const toolsData = [
     tags: ["load", "balancer", "distribution", "round-robin", "server", "network"],
     status: "inactive"
   },
+  {
+    id: "css-gradient",
+    name: "CSS Gradient Generator",
+    description: "Create beautiful linear and radial gradients with multiple color stops and CSS output.",
+    category: "developer",
+    icon: "fa-solid fa-brush",
+    url: "/tools/cssgradient/",
+    tags: ["css", "gradient", "linear", "radial", "color", "generator"],
+    status: "active"
+  },
+  {
+    id: "box-shadow",
+    name: "Box Shadow Generator",
+    description: "Design CSS box shadows with live preview, multiple layers, and inset support.",
+    category: "developer",
+    icon: "fa-solid fa-square",
+    url: "/tools/boxshadow/",
+    tags: ["css", "shadow", "box-shadow", "design", "generator", "ui"],
+    status: "active"
+  },
+  {
+    id: "border-radius",
+    name: "Border Radius Generator",
+    description: "Create custom CSS border-radius values with visual corner controls and presets.",
+    category: "developer",
+    icon: "fa-solid fa-vector-square",
+    url: "/tools/borderradius/",
+    tags: ["css", "border", "radius", "corners", "rounded", "generator"],
+    status: "active"
+  },
+  {
+    id: "slug-generator",
+    name: "URL Slug Generator",
+    description: "Convert text to URL-friendly slugs with separator and case options.",
+    category: "developer",
+    icon: "fa-solid fa-link",
+    url: "/tools/sluggenerator/",
+    tags: ["slug", "url", "seo", "permalink", "generate", "text"],
+    status: "active"
+  },
+  {
+    id: "chmod-calculator",
+    name: "Chmod Calculator",
+    description: "Calculate Unix file permissions with interactive checkboxes and octal/symbolic output.",
+    category: "developer",
+    icon: "fa-solid fa-lock",
+    url: "/tools/chmod/",
+    tags: ["chmod", "permissions", "unix", "linux", "file", "octal"],
+    status: "active"
+  },
+  {
+    id: "fake-data",
+    name: "Fake Data Generator",
+    description: "Generate realistic fake data for testing: names, emails, addresses, and more.",
+    category: "developer",
+    icon: "fa-solid fa-database",
+    url: "/tools/fakedata/",
+    tags: ["fake", "data", "mock", "test", "generate", "random"],
+    status: "active"
+  },
+  {
+    id: "subnet-calculator",
+    name: "Subnet Calculator",
+    description: "Calculate IP subnet information including network address, broadcast, and host range.",
+    category: "developer",
+    icon: "fa-solid fa-network-wired",
+    url: "/tools/subnet/",
+    tags: ["subnet", "ip", "network", "cidr", "mask", "calculator"],
+    status: "active"
+  },
+  {
+    id: "email-validator",
+    name: "Email Validator",
+    description: "Validate email addresses with detailed checks and bulk validation support.",
+    category: "developer",
+    icon: "fa-solid fa-envelope-circle-check",
+    url: "/tools/emailvalidator/",
+    tags: ["email", "validate", "check", "format", "domain", "bulk"],
+    status: "active"
+  },
 
   // ==================== AI & ML TOOLS ====================
   {
     id: "algorithm-visualizer",
     name: "Algorithm Visualizer",
     description: "Visualize sorting algorithms step-by-step with playback controls and statistics.",
-    category: "ai",
+    category: "developer",
     icon: "fa-solid fa-chart-bar",
     url: "/tools/algorithmviz/",
     tags: ["algorithm", "sorting", "visualize", "bubble", "quick", "merge", "heap"],
@@ -828,7 +1018,7 @@ const toolsData = [
     id: "bigo-cheatsheet",
     name: "Big-O Cheat Sheet",
     description: "Interactive complexity reference with visual charts and data structure comparisons.",
-    category: "ai",
+    category: "developer",
     icon: "fa-solid fa-chart-line",
     url: "/tools/bigocheat/",
     tags: ["bigo", "complexity", "algorithm", "time", "space", "reference"],
@@ -1085,6 +1275,16 @@ const toolsData = [
     url: "/tools/bitshift/",
     tags: ["game", "binary", "bitwise", "puzzle", "programming", "logic"],
     status: "inactive"
+  },
+  {
+    id: "dice-roller",
+    name: "Dice Roller",
+    description: "Roll virtual dice from D4 to D100 with multiple dice, history, and statistics.",
+    category: "fun",
+    icon: "fa-solid fa-dice",
+    url: "/tools/diceroller/",
+    tags: ["dice", "roll", "random", "game", "d20", "tabletop", "rpg"],
+    status: "active"
   }
 ];
 

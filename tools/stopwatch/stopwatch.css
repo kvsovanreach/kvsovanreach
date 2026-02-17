@@ -1,0 +1,267 @@
+/**
+ * Stopwatch Styles
+ */
+
+.stopwatch-wrapper {
+  width: 100%;
+  margin: 0 auto;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+}
+
+.stopwatch-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-4) var(--space-5);
+  background-color: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.stopwatch-header h2 {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin: 0;
+  font-size: var(--font-size-xl);
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.stopwatch-header h2 i { color: var(--color-primary); }
+
+.header-actions { display: flex; gap: var(--space-2); }
+
+.header-action-btn {
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-bg-secondary);
+  color: var(--color-text-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.header-action-btn:hover {
+  background-color: var(--color-primary);
+  color: #fff;
+  border-color: var(--color-primary);
+}
+
+.stopwatch-content {
+  padding: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-5);
+}
+
+.timer-display {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  padding: var(--space-6);
+  background: linear-gradient(145deg, var(--color-bg-tertiary), var(--color-bg-secondary));
+  border-radius: var(--radius-xl);
+  width: 100%;
+}
+
+.time-part {
+  font-family: 'Fira Code', monospace;
+  font-size: 4rem;
+  font-weight: 700;
+  color: var(--color-text);
+  min-width: 2ch;
+  text-align: center;
+}
+
+.time-part.milliseconds {
+  font-size: 2.5rem;
+  color: var(--color-text-secondary);
+  min-width: 2ch;
+}
+
+.time-separator {
+  font-family: 'Fira Code', monospace;
+  font-size: 4rem;
+  font-weight: 300;
+  color: var(--color-text-muted);
+  margin: 0 var(--space-1);
+}
+
+.time-separator.small {
+  font-size: 2.5rem;
+  margin: 0;
+}
+
+.controls {
+  display: flex;
+  gap: var(--space-3);
+  width: 100%;
+  justify-content: center;
+}
+
+.control-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: var(--space-4) var(--space-6);
+  border: none;
+  border-radius: var(--radius-lg);
+  font-size: var(--font-size-base);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  min-width: 120px;
+}
+
+.control-btn.start {
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+  color: white;
+}
+
+.control-btn.start:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(34, 197, 94, 0.3);
+}
+
+.control-btn.start.running {
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+}
+
+.control-btn.start.running:hover {
+  box-shadow: 0 8px 25px rgba(245, 158, 11, 0.3);
+}
+
+.control-btn.lap {
+  background-color: var(--color-bg);
+  border: 2px solid var(--color-border);
+  color: var(--color-text-secondary);
+}
+
+.control-btn.lap:hover:not(:disabled) {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.control-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.laps-section {
+  width: 100%;
+  display: none;
+}
+
+.laps-section.show { display: block; }
+
+.laps-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-3);
+}
+
+.laps-header h3 {
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.lap-count {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+}
+
+.laps-list {
+  max-height: 250px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.lap-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-3);
+  background-color: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+.lap-item.best { border-color: #22c55e; background-color: rgba(34, 197, 94, 0.05); }
+.lap-item.worst { border-color: #ef4444; background-color: rgba(239, 68, 68, 0.05); }
+
+.lap-number {
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  min-width: 60px;
+}
+
+.lap-time {
+  font-family: 'Fira Code', monospace;
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  color: var(--color-text);
+}
+
+.lap-diff {
+  font-family: 'Fira Code', monospace;
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  min-width: 80px;
+  text-align: right;
+}
+
+@media screen and (max-width: 1024px) {
+  .stopwatch-wrapper { border-radius: var(--radius-lg); }
+}
+
+@media screen and (max-width: 768px) {
+  .stopwatch-wrapper { border-radius: var(--radius-lg); }
+  .stopwatch-header { padding: var(--space-3) var(--space-4); }
+  .stopwatch-header h2 { font-size: var(--font-size-lg); gap: var(--space-2); }
+  .header-action-btn { width: 28px; height: 28px; }
+  .stopwatch-content { padding: var(--space-4); gap: var(--space-4); }
+  .time-part { font-size: 3rem; }
+  .time-part.milliseconds { font-size: 2rem; }
+  .time-separator { font-size: 3rem; }
+  .time-separator.small { font-size: 2rem; }
+  .control-btn { padding: var(--space-3) var(--space-4); min-width: 100px; font-size: var(--font-size-sm); }
+}
+
+@media screen and (max-width: 480px) {
+  .stopwatch-header { padding: var(--space-2) var(--space-3); }
+  .stopwatch-header h2 { font-size: var(--font-size-base); }
+  .header-action-btn { width: 26px; height: 26px; font-size: var(--font-size-xs); }
+  .stopwatch-content { padding: var(--space-3); }
+  .timer-display { padding: var(--space-4); }
+  .time-part { font-size: 2.5rem; }
+  .time-part.milliseconds { font-size: 1.5rem; }
+  .time-separator { font-size: 2.5rem; }
+  .time-separator.small { font-size: 1.5rem; }
+  .controls { flex-direction: row; gap: var(--space-2); }
+  .control-btn { flex: 1; min-width: auto; }
+}
+
+@media screen and (max-width: 360px) {
+  .stopwatch-header h2 { font-size: var(--font-size-sm); }
+  .header-action-btn { width: 24px; height: 24px; }
+  .time-part { font-size: 2rem; }
+  .time-part.milliseconds { font-size: 1.25rem; }
+  .time-separator { font-size: 2rem; }
+  .time-separator.small { font-size: 1.25rem; }
+}

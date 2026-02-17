@@ -1,77 +1,62 @@
 /**
- * Regex Tester Tool
+ * KVSOVANREACH Regex Tester Tool
  * Test and debug regular expressions with real-time matching
  */
 
 (function() {
   'use strict';
 
-  // ============================================
-  // State
-  // ============================================
+  // ==================== State ====================
   const state = {
-    isDarkMode: localStorage.getItem('theme') === 'dark',
     currentTab: 'matches'
   };
 
-  // ============================================
-  // DOM Elements
-  // ============================================
-  const elements = {
-    // Theme
-    themeToggle: document.getElementById('theme-toggle'),
+  // ==================== DOM Elements ====================
+  const elements = {};
 
+  function initElements() {
     // Pattern
-    patternInput: document.getElementById('patternInput'),
-    patternError: document.getElementById('patternError'),
-    flagG: document.getElementById('flagG'),
-    flagI: document.getElementById('flagI'),
-    flagM: document.getElementById('flagM'),
-    flagS: document.getElementById('flagS'),
+    elements.patternInput = document.getElementById('patternInput');
+    elements.patternError = document.getElementById('patternError');
+    elements.flagG = document.getElementById('flagG');
+    elements.flagI = document.getElementById('flagI');
+    elements.flagM = document.getElementById('flagM');
+    elements.flagS = document.getElementById('flagS');
 
     // Test String
-    testString: document.getElementById('testString'),
-    highlightedText: document.getElementById('highlightedText'),
-    matchCount: document.getElementById('matchCount'),
+    elements.testString = document.getElementById('testString');
+    elements.highlightedText = document.getElementById('highlightedText');
+    elements.matchCount = document.getElementById('matchCount');
 
     // Results
-    resultsTabs: document.querySelectorAll('.results-tab'),
-    matchesTab: document.getElementById('matchesTab'),
-    groupsTab: document.getElementById('groupsTab'),
-    replaceTab: document.getElementById('replaceTab'),
-    matchesList: document.getElementById('matchesList'),
-    groupsList: document.getElementById('groupsList'),
-    replacePattern: document.getElementById('replacePattern'),
-    replaceResult: document.getElementById('replaceResult'),
-    copyReplaceBtn: document.getElementById('copyReplaceBtn'),
+    elements.resultsTabs = document.querySelectorAll('.results-tab');
+    elements.matchesTab = document.getElementById('matchesTab');
+    elements.groupsTab = document.getElementById('groupsTab');
+    elements.replaceTab = document.getElementById('replaceTab');
+    elements.matchesList = document.getElementById('matchesList');
+    elements.groupsList = document.getElementById('groupsList');
+    elements.replacePattern = document.getElementById('replacePattern');
+    elements.replaceResult = document.getElementById('replaceResult');
+    elements.copyReplaceBtn = document.getElementById('copyReplaceBtn');
 
     // Quick Patterns
-    quickPatterns: document.getElementById('quickPatterns'),
+    elements.quickPatterns = document.getElementById('quickPatterns');
 
     // Actions
-    clearBtn: document.getElementById('clearBtn'),
-    helpBtn: document.getElementById('helpBtn'),
+    elements.clearBtn = document.getElementById('clearBtn');
+    elements.helpBtn = document.getElementById('helpBtn');
 
     // Cheatsheet
-    cheatsheetModal: document.getElementById('cheatsheetModal'),
-    closeCheatsheetBtn: document.getElementById('closeCheatsheetBtn'),
+    elements.cheatsheetModal = document.getElementById('cheatsheetModal');
+    elements.closeCheatsheetBtn = document.getElementById('closeCheatsheetBtn');
+  }
 
-    // Shortcuts
-    shortcutsHint: document.getElementById('shortcutsHint'),
-    shortcutsModal: document.getElementById('shortcutsModal'),
-    closeShortcutsBtn: document.getElementById('closeShortcutsBtn'),
+  // ==================== UI Helpers ====================
+  const showToast = (message, type) => ToolsCommon.showToast(message, type);
 
-    // Other
-    toast: document.getElementById('toast'),
-    currentYear: document.getElementById('current-year')
-  };
-
-  // ============================================
-  // Initialization
-  // ============================================
-  // Theme & footer year handled by tools-common.js
-
+  // ==================== Initialization ====================
   function init() {
+    initElements();
     initEventListeners();
   }
 
@@ -126,13 +111,13 @@
       // Skip if typing in input
       if (e.target.matches('input, textarea')) return;
 
-      // Open cheatsheet with 'H'
-      if (e.key.toLowerCase() === 'h') {
+      // Open cheatsheet with 'H' (but not Ctrl+H which is browser history)
+      if (e.key.toLowerCase() === 'h' && !e.ctrlKey && !e.metaKey) {
         e.preventDefault();
         elements.cheatsheetModal?.classList.add('show');
       }
-      // Clear all with 'C'
-      if (e.key.toLowerCase() === 'c') {
+      // Clear all with 'C' (but not Ctrl+C which is copy)
+      if (e.key.toLowerCase() === 'c' && !e.ctrlKey && !e.metaKey) {
         e.preventDefault();
         clearAll();
       }
@@ -143,9 +128,9 @@
     });
   }
 
-  // ============================================
+  // ====================
   // Regex Testing
-  // ============================================
+  // ====================
   function testRegex() {
     const pattern = elements.patternInput.value;
     const testStr = elements.testString.value;
@@ -216,9 +201,9 @@
     return flags;
   }
 
-  // ============================================
+  // ====================
   // Highlighting
-  // ============================================
+  // ====================
   function highlightMatches(text, matches) {
     if (matches.length === 0) {
       elements.highlightedText.innerHTML = escapeHtml(text);
@@ -243,9 +228,9 @@
     elements.highlightedText.innerHTML = result;
   }
 
-  // ============================================
+  // ====================
   // Results Display
-  // ============================================
+  // ====================
   function renderMatches(matches) {
     if (matches.length === 0) {
       elements.matchesList.innerHTML = `
@@ -330,9 +315,9 @@
     elements.matchCount.textContent = `${count} match${count !== 1 ? 'es' : ''}`;
   }
 
-  // ============================================
+  // ====================
   // Tab Switching
-  // ============================================
+  // ====================
   function switchTab(tab) {
     state.currentTab = tab;
 
@@ -345,9 +330,9 @@
     elements.replaceTab.classList.toggle('active', tab === 'replace');
   }
 
-  // ============================================
+  // ====================
   // Error Handling
-  // ============================================
+  // ====================
   function showError(message) {
     elements.patternError.textContent = message;
     elements.patternError.classList.add('show');
@@ -357,9 +342,9 @@
     elements.patternError.classList.remove('show');
   }
 
-  // ============================================
+  // ====================
   // Actions
-  // ============================================
+  // ====================
   function clearAll() {
     elements.patternInput.value = '';
     elements.testString.value = '';
@@ -393,17 +378,12 @@
       showToast('Nothing to copy', 'error');
       return;
     }
-
-    navigator.clipboard.writeText(result).then(() => {
-      showToast('Copied!', 'success');
-    }).catch(() => {
-      showToast('Failed to copy', 'error');
-    });
+    ToolsCommon.copyWithToast(result, 'Copied!');
   }
 
-  // ============================================
+  // ====================
   // Utilities
-  // ============================================
+  // ====================
   function escapeHtml(text) {
     const div = document.createElement('div');
     div.textContent = text;
@@ -418,21 +398,7 @@
     };
   }
 
-  function showToast(message, type = 'info') {
-    if (!elements.toast) return;
-
-    elements.toast.textContent = message;
-    elements.toast.className = 'toast show ' + type;
-
-    setTimeout(() => {
-      elements.toast.classList.remove('show');
-    }, 3000);
-  }
-
-
-  // ============================================
-  // Initialize
-  // ============================================
+  // ==================== Bootstrap ====================
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);
   } else {

@@ -1,0 +1,248 @@
+/**
+ * Age Calculator Styles
+ */
+
+.age-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+}
+
+.age-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-4) var(--space-5);
+  background-color: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.age-header h2 {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin: 0;
+  font-size: var(--font-size-xl);
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.age-header h2 i { color: var(--color-primary); }
+
+.header-actions {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.header-action-btn {
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-bg-secondary);
+  color: var(--color-text-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  font-size: var(--font-size-sm);
+}
+
+.header-action-btn:hover {
+  background-color: var(--color-primary);
+  color: #fff;
+  border-color: var(--color-primary);
+}
+
+.age-content {
+  padding: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.input-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+}
+
+.date-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.date-input-group label {
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.fast-date {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  padding: var(--space-3);
+  background-color: var(--color-bg);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-md);
+  transition: all var(--transition-fast);
+}
+
+.fast-date:focus-within {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(55, 118, 161, 0.1);
+}
+
+.fast-date input {
+  border: none;
+  background: none;
+  font-size: var(--font-size-base);
+  font-family: 'Fira Code', monospace;
+  color: var(--color-text);
+  text-align: center;
+  padding: var(--space-1) 0;
+  outline: none;
+}
+
+.fast-date input::placeholder {
+  color: var(--color-text-muted);
+}
+
+.fast-date .dt-year {
+  width: 50px;
+}
+
+.fast-date .dt-month,
+.fast-date .dt-day {
+  width: 32px;
+}
+
+.fast-date .dt-sep {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+  user-select: none;
+}
+
+.results-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.age-display {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-3);
+}
+
+.age-item {
+  padding: var(--space-4);
+  background-color: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  text-align: center;
+}
+
+.age-item.primary {
+  background: linear-gradient(135deg, rgba(55, 118, 161, 0.1), rgba(55, 118, 161, 0.05));
+  border-color: var(--color-primary);
+}
+
+.age-value {
+  display: block;
+  font-size: var(--font-size-3xl);
+  font-weight: 700;
+  font-family: 'Fira Code', monospace;
+  color: var(--color-text);
+}
+
+.age-item.primary .age-value {
+  color: var(--color-primary);
+}
+
+.age-label {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+}
+
+.detailed-stats {
+  padding: var(--space-4);
+  background-color: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+}
+
+.stat-row {
+  display: flex;
+  justify-content: space-between;
+  padding: var(--space-2) 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.stat-row:last-child { border-bottom: none; }
+
+.stat-label {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+}
+
+.stat-value {
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  font-family: 'Fira Code', monospace;
+  color: var(--color-text);
+}
+
+.birthday-info {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: var(--space-3);
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(245, 158, 11, 0.05));
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-sm);
+  color: var(--color-text);
+}
+
+.birthday-info i { color: #f59e0b; }
+
+@media screen and (max-width: 768px) {
+  .age-wrapper { border-radius: var(--radius-lg); }
+  .age-header { padding: var(--space-3) var(--space-4); }
+  .age-header h2 { font-size: var(--font-size-lg); gap: var(--space-2); }
+  .header-action-btn { width: 28px; height: 28px; }
+  .age-content { padding: var(--space-4); }
+  .input-section { grid-template-columns: 1fr; }
+}
+
+@media screen and (max-width: 480px) {
+  .age-header { padding: var(--space-2) var(--space-3); }
+  .age-header h2 { font-size: var(--font-size-base); }
+  .header-action-btn { width: 26px; height: 26px; font-size: var(--font-size-xs); }
+  .age-content { padding: var(--space-3); }
+  .age-display { grid-template-columns: 1fr; }
+  .age-value { font-size: var(--font-size-2xl); }
+  .fast-date { padding: var(--space-2); }
+  .fast-date input { font-size: var(--font-size-sm); }
+  .fast-date .dt-year { width: 42px; }
+  .fast-date .dt-month, .fast-date .dt-day { width: 26px; }
+  .fast-date .dt-sep { font-size: var(--font-size-xs); }
+}
+
+@media screen and (max-width: 360px) {
+  .age-header h2 { font-size: var(--font-size-sm); }
+  .header-action-btn { width: 24px; height: 24px; }
+  .fast-date .dt-year { width: 38px; }
+  .fast-date .dt-month, .fast-date .dt-day { width: 22px; }
+}

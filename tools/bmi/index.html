@@ -57,6 +57,11 @@
         <!-- Header -->
         <div class="bmi-header">
           <h2><i class="fa-solid fa-weight-scale"></i> BMI Calculator</h2>
+          <div class="header-actions">
+            <button class="header-action-btn" id="resetBtn" title="Reset (R)">
+              <i class="fa-solid fa-rotate-left"></i>
+            </button>
+          </div>
         </div>
 
         <!-- Tab Navigation -->
@@ -71,7 +76,8 @@
           </button>
         </div>
 
-        <div class="bmi-card">
+        <!-- Main Content -->
+        <div class="bmi-main">
           <!-- Input Section -->
           <div class="input-section">
             <!-- Metric Inputs -->
@@ -120,7 +126,6 @@
             <!-- BMI Scale -->
             <div class="bmi-scale">
               <div class="scale-bar">
-                <div class="scale-fill" id="scaleFill"></div>
                 <div class="scale-marker" id="scaleMarker"></div>
               </div>
               <div class="scale-labels">
@@ -194,7 +199,7 @@
     <div class="shortcuts-content">
       <div class="shortcuts-header">
         <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
-        <button class="close-shortcuts-btn" id="closeShortcutsBtn">
+        <button class="close-shortcuts-btn" id="closeShortcutsBtn" aria-label="Close shortcuts">
           <i class="fa-solid fa-xmark"></i>
         </button>
       </div>
@@ -206,6 +211,13 @@
             <div class="shortcut-desc">Calculate BMI</div>
           </div>
           <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>R</kbd></div>
+            <div class="shortcut-desc">Reset form</div>
+          </div>
+        </div>
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">Navigation</div>
+          <div class="shortcut-row">
             <div class="shortcut-keys"><kbd>M</kbd></div>
             <div class="shortcut-desc">Switch to Metric</div>
           </div>
@@ -216,6 +228,10 @@
           <div class="shortcut-row">
             <div class="shortcut-keys"><kbd>?</kbd></div>
             <div class="shortcut-desc">Show shortcuts</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Escape</kbd></div>
+            <div class="shortcut-desc">Close modal</div>
           </div>
         </div>
       </div>

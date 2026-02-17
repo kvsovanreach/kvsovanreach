@@ -1,0 +1,250 @@
+/**
+ * Box Shadow Generator Styles
+ */
+
+.shadow-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+}
+
+.shadow-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-4) var(--space-5);
+  background-color: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.shadow-header h2 {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin: 0;
+  font-size: var(--font-size-xl);
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.shadow-header h2 i { color: var(--color-primary); }
+
+.header-actions {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.header-action-btn {
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-bg-secondary);
+  color: var(--color-text-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  font-size: var(--font-size-sm);
+}
+
+.header-action-btn:hover {
+  background-color: var(--color-primary);
+  color: #fff;
+  border-color: var(--color-primary);
+}
+
+.shadow-content {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  min-height: 500px;
+}
+
+.shadow-preview {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--color-bg-secondary), var(--color-bg-tertiary));
+  padding: var(--space-6);
+}
+
+.preview-box {
+  width: 200px;
+  height: 200px;
+  background-color: var(--color-surface);
+  border-radius: var(--radius-lg);
+  box-shadow: 10px 10px 20px 0 rgba(0, 0, 0, 0.25);
+  transition: box-shadow var(--transition-fast);
+}
+
+.shadow-controls {
+  padding: var(--space-4);
+  background-color: var(--color-bg);
+  border-left: 1px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  overflow-y: auto;
+}
+
+.control-group { display: flex; flex-direction: column; gap: var(--space-2); }
+
+.control-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.control-header label {
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  color: var(--color-text-secondary);
+}
+
+.control-value {
+  font-family: 'Fira Code', monospace;
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--color-primary);
+}
+
+.control-group input[type="range"] {
+  width: 100%;
+  height: 8px;
+  -webkit-appearance: none;
+  background: var(--color-border);
+  border-radius: var(--radius-full);
+  cursor: pointer;
+}
+
+.control-group input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  background: var(--color-primary);
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.control-group input[type="range"]::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  background: var(--color-primary);
+  border-radius: 50%;
+  cursor: pointer;
+  border: none;
+}
+
+.color-input-group {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.color-input-group input[type="color"] {
+  width: 40px;
+  height: 32px;
+  padding: 0;
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+}
+
+.color-input-group input[type="range"] { flex: 1; }
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+}
+
+.checkbox-label input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--color-primary);
+}
+
+.output-section h3 {
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: var(--space-2);
+}
+
+.output-box {
+  position: relative;
+  background-color: #1e1e1e;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.output-box pre {
+  padding: var(--space-3);
+  margin: 0;
+  font-family: 'Fira Code', monospace;
+  font-size: var(--font-size-xs);
+  color: #d4d4d4;
+  line-height: 1.6;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+.output-box .copy-btn {
+  position: absolute;
+  top: var(--space-2);
+  right: var(--space-2);
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #d4d4d4;
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.output-box .copy-btn:hover {
+  background-color: var(--color-primary);
+  color: white;
+}
+
+@media screen and (max-width: 900px) {
+  .shadow-content { grid-template-columns: 1fr; }
+  .shadow-preview { min-height: 300px; }
+  .shadow-controls { border-left: none; border-top: 1px solid var(--color-border); }
+}
+
+@media screen and (max-width: 768px) {
+  .shadow-wrapper { border-radius: var(--radius-lg); }
+  .shadow-header { padding: var(--space-3) var(--space-4); }
+  .shadow-header h2 { font-size: var(--font-size-lg); gap: var(--space-2); }
+  .header-action-btn { width: 28px; height: 28px; }
+  .shadow-preview { min-height: 250px; padding: var(--space-4); }
+  .preview-box { width: 150px; height: 150px; }
+  .shadow-controls { padding: var(--space-3); }
+}
+
+@media screen and (max-width: 480px) {
+  .shadow-header { padding: var(--space-2) var(--space-3); }
+  .shadow-header h2 { font-size: var(--font-size-base); }
+  .header-action-btn { width: 26px; height: 26px; font-size: var(--font-size-xs); }
+  .shadow-preview { min-height: 200px; }
+  .preview-box { width: 120px; height: 120px; }
+}
+
+@media screen and (max-width: 360px) {
+  .shadow-header h2 { font-size: var(--font-size-sm); }
+  .header-action-btn { width: 24px; height: 24px; }
+}

@@ -3,7 +3,7 @@
  * Styles for text reversal utility
  */
 
-/* Wrapper */
+/* ==================== Wrapper ==================== */
 .reverse-wrapper {
   max-width: 1200px;
   margin: 0 auto;
@@ -14,7 +14,7 @@
   box-shadow: var(--shadow-lg);
 }
 
-/* Header */
+/* ==================== Header ==================== */
 .reverse-header {
   display: flex;
   align-items: center;
@@ -28,6 +28,7 @@
   display: flex;
   align-items: center;
   gap: var(--space-3);
+  margin: 0;
   font-size: var(--font-size-xl);
   font-weight: 600;
   color: var(--color-text);
@@ -37,17 +38,40 @@
   color: var(--color-primary);
 }
 
-.reverse-actions {
+/* Header Actions */
+.header-actions {
   display: flex;
   gap: var(--space-2);
 }
 
-/* Content */
-.reverse-content {
-  padding: var(--space-5);
+.header-action-btn {
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-bg-secondary);
+  color: var(--color-text-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all var(--transition-fast);
 }
 
-/* Input Section */
+.header-action-btn:hover {
+  background-color: var(--color-primary);
+  color: #fff;
+  border-color: var(--color-primary);
+}
+
+/* ==================== Main Layout ==================== */
+.reverse-main {
+  padding: var(--space-5);
+  background: linear-gradient(145deg, var(--color-bg-tertiary), var(--color-bg-secondary));
+}
+
+/* ==================== Input Section ==================== */
 .input-section {
   margin-bottom: var(--space-5);
 }
@@ -81,7 +105,7 @@
   width: 100%;
   min-height: 120px;
   padding: var(--space-4);
-  background-color: var(--color-bg-secondary);
+  background-color: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
   font-family: 'Inter', sans-serif;
@@ -101,7 +125,7 @@
   color: var(--color-text-muted);
 }
 
-/* Output Cards */
+/* ==================== Output Cards ==================== */
 .output-cards {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -109,7 +133,7 @@
 }
 
 .output-card {
-  background-color: var(--color-bg-secondary);
+  background-color: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
   overflow: hidden;
@@ -166,7 +190,7 @@
   color: var(--color-text-muted);
 }
 
-/* Responsive */
+/* ==================== Responsive ==================== */
 @media screen and (max-width: 1024px) {
   .reverse-wrapper {
     border-radius: var(--radius-lg);
@@ -174,19 +198,101 @@
 }
 
 @media screen and (max-width: 768px) {
-  .reverse-content {
+  .reverse-wrapper {
+    border-radius: var(--radius-lg);
+  }
+
+  .reverse-main {
     padding: var(--space-4);
   }
 
   .output-cards {
     grid-template-columns: 1fr;
   }
+
+  .reverse-header {
+    padding: var(--space-3) var(--space-4);
+  }
+
+  .reverse-header h2 {
+    font-size: var(--font-size-lg);
+    gap: var(--space-2);
+  }
+
+  .header-action-btn {
+    width: 28px;
+    height: 28px;
+  }
 }
 
 @media screen and (max-width: 480px) {
   .reverse-header {
-    flex-direction: column;
+    padding: var(--space-2) var(--space-3);
+  }
+
+  .reverse-header h2 {
+    font-size: var(--font-size-base);
+  }
+
+  .header-action-btn {
+    width: 26px;
+    height: 26px;
+    font-size: var(--font-size-xs);
+  }
+
+  .reverse-main {
+    padding: var(--space-3);
+  }
+
+  .input-section {
+    margin-bottom: var(--space-4);
+  }
+
+  .input-section textarea {
+    min-height: 100px;
+    padding: var(--space-3);
+  }
+
+  .output-cards {
     gap: var(--space-3);
-    align-items: flex-start;
+  }
+
+  .card-header {
+    padding: var(--space-2) var(--space-3);
+  }
+
+  .card-output {
+    padding: var(--space-3);
+    min-height: 50px;
+  }
+
+  .card-desc {
+    padding: var(--space-2) var(--space-3);
+  }
+}
+
+@media screen and (max-width: 360px) {
+  /* Ultra compact for very small screens */
+  .reverse-header h2 {
+    font-size: var(--font-size-sm);
+  }
+
+  /* Header action button size */
+  .header-action-btn {
+    width: 24px;
+    height: 24px;
+    font-size: var(--font-size-xs);
+  }
+
+  .section-header h3 {
+    font-size: var(--font-size-xs);
+  }
+
+  .card-title {
+    font-size: var(--font-size-xs);
+  }
+
+  .card-output {
+    font-size: var(--font-size-sm);
   }
 }

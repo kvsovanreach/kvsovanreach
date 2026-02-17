@@ -284,12 +284,37 @@
     }
   };
 
+  // ==================== Keyboard Navigation ====================
+  const KeyboardNav = {
+    init() {
+      document.addEventListener('keydown', (e) => {
+        // Skip if user is typing in an input field
+        if (e.target.matches('input, textarea, select, [contenteditable]')) return;
+
+        // Backspace to go back (preserves search state)
+        if (e.key === 'Backspace') {
+          e.preventDefault();
+          // Use history.back() to preserve the exact previous state (search, page, category)
+          if (window.history.length > 1) {
+            window.history.back();
+          } else {
+            // Fallback to tools page if no history
+            const backBtn = document.querySelector('.back-btn');
+            const toolsUrl = backBtn?.getAttribute('href') || '../../tools.html';
+            window.location.href = toolsUrl;
+          }
+        }
+      });
+    }
+  };
+
   // ==================== Initialize Common Features ====================
   function initCommon() {
     ThemeManager.init();
     Toast.init();
     ShortcutsModal.init();
     BackButton.init();
+    KeyboardNav.init();
     setCurrentYear();
   }
 
@@ -307,6 +332,7 @@
     Toast,
     ShortcutsModal,
     BackButton,
+    KeyboardNav,
     Clipboard,
     FileDownload,
 

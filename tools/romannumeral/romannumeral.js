@@ -6,6 +6,15 @@
 (function() {
   'use strict';
 
+  // ==================== State ====================
+  const state = {
+    inputValue: '2026',
+    arabicValue: '2026',
+    romanValue: 'MMXXVI',
+    inputType: 'arabic', // 'arabic' or 'roman'
+    hasError: false
+  };
+
   // ==================== Conversion Maps ====================
   const ROMAN_MAP = [
     { value: 1000, numeral: 'M' },
@@ -29,16 +38,19 @@
   };
 
   // ==================== DOM Elements ====================
-  const elements = {
-    inputValue: document.getElementById('inputValue'),
-    inputHint: document.getElementById('inputHint'),
-    arabicValue: document.getElementById('arabicValue'),
-    romanValue: document.getElementById('romanValue'),
-    arabicCard: document.getElementById('arabicCard'),
-    romanCard: document.getElementById('romanCard'),
-    copyArabicBtn: document.getElementById('copyArabicBtn'),
-    copyRomanBtn: document.getElementById('copyRomanBtn')
-  };
+  const elements = {};
+
+  function initElements() {
+    elements.inputValue = document.getElementById('inputValue');
+    elements.inputHint = document.getElementById('inputHint');
+    elements.arabicValue = document.getElementById('arabicValue');
+    elements.romanValue = document.getElementById('romanValue');
+    elements.arabicCard = document.getElementById('arabicCard');
+    elements.romanCard = document.getElementById('romanCard');
+    elements.copyArabicBtn = document.getElementById('copyArabicBtn');
+    elements.copyRomanBtn = document.getElementById('copyRomanBtn');
+    elements.resetBtn = document.getElementById('resetBtn');
+  }
 
   // ==================== Core Functions ====================
 
@@ -91,15 +103,23 @@
   }
 
   function convert() {
-    const input = elements.inputValue.value.trim();
+    const input = elements.inputValue?.value?.trim() || '';
+
+    // Update state
+    state.inputValue = input;
 
     if (!input) {
+      state.arabicValue = '—';
+      state.romanValue = '—';
+      state.inputType = null;
+      state.hasError = false;
+
       elements.arabicValue.textContent = '—';
       elements.romanValue.textContent = '—';
       elements.inputHint.textContent = 'Type a number (1-3999) or Roman numeral';
-      elements.inputHint.classList.remove('error');
-      elements.arabicCard.classList.remove('active');
-      elements.romanCard.classList.remove('active');
+      elements.inputHint?.classList?.remove('error');
+      elements.arabicCard?.classList?.remove('active');
+      elements.romanCard?.classList?.remove('active');
       return;
     }
 
@@ -107,71 +127,127 @@
       const num = parseInt(input, 10);
 
       if (num < 1 || num > 3999) {
+        state.hasError = true;
         elements.inputHint.textContent = 'Number must be between 1 and 3999';
-        elements.inputHint.classList.add('error');
+        elements.inputHint?.classList?.add('error');
         elements.arabicValue.textContent = input;
         elements.romanValue.textContent = '—';
         return;
       }
 
       const roman = toRoman(num);
+      state.arabicValue = num.toLocaleString();
+      state.romanValue = roman;
+      state.inputType = 'arabic';
+      state.hasError = false;
+
       elements.arabicValue.textContent = num.toLocaleString();
       elements.romanValue.textContent = roman;
       elements.inputHint.textContent = 'Detected: Arabic number';
-      elements.inputHint.classList.remove('error');
-      elements.arabicCard.classList.add('active');
-      elements.romanCard.classList.remove('active');
+      elements.inputHint?.classList?.remove('error');
+      elements.arabicCard?.classList?.add('active');
+      elements.romanCard?.classList?.remove('active');
 
     } else if (isRomanNumeral(input)) {
       const arabic = toArabic(input);
 
       if (arabic === null) {
+        state.hasError = true;
         elements.inputHint.textContent = 'Invalid Roman numeral';
-        elements.inputHint.classList.add('error');
+        elements.inputHint?.classList?.add('error');
         elements.romanValue.textContent = input.toUpperCase();
         elements.arabicValue.textContent = '—';
         return;
       }
 
+      state.arabicValue = arabic.toLocaleString();
+      state.romanValue = input.toUpperCase();
+      state.inputType = 'roman';
+      state.hasError = false;
+
       elements.arabicValue.textContent = arabic.toLocaleString();
       elements.romanValue.textContent = input.toUpperCase();
       elements.inputHint.textContent = 'Detected: Roman numeral';
-      elements.inputHint.classList.remove('error');
-      elements.romanCard.classList.add('active');
-      elements.arabicCard.classList.remove('active');
+      elements.inputHint?.classList?.remove('error');
+      elements.romanCard?.classList?.add('active');
+      elements.arabicCard?.classList?.remove('active');
 
     } else {
+      state.hasError = true;
       elements.inputHint.textContent = 'Enter a valid number or Roman numeral';
-      elements.inputHint.classList.add('error');
+      elements.inputHint?.classList?.add('error');
       elements.arabicValue.textContent = '—';
       elements.romanValue.textContent = '—';
     }
   }
 
   async function copyArabic() {
-    const value = elements.arabicValue.textContent;
+    const value = elements.arabicValue?.textContent;
     if (value === '—') {
-      ToolsCommon.Toast.show('Nothing to copy', 'error');
+      ToolsCommon?.Toast?.show('Nothing to copy', 'error');
       return;
     }
-    await ToolsCommon.Clipboard.copyWithToast(value.replace(/,/g, ''), 'Arabic number copied!');
+    await ToolsCommon?.Clipboard?.copyWithToast(value?.replace(/,/g, ''), 'Arabic number copied!');
   }
 
   async function copyRoman() {
-    const value = elements.romanValue.textContent;
+    const value = elements.romanValue?.textContent;
     if (value === '—') {
-      ToolsCommon.Toast.show('Nothing to copy', 'error');
+      ToolsCommon?.Toast?.show('Nothing to copy', 'error');
       return;
     }
-    await ToolsCommon.Clipboard.copyWithToast(value, 'Roman numeral copied!');
+    await ToolsCommon?.Clipboard?.copyWithToast(value, 'Roman numeral copied!');
+  }
+
+  function resetForm() {
+    // Reset state
+    state.inputValue = '2026';
+    state.arabicValue = '2026';
+    state.romanValue = 'MMXXVI';
+    state.inputType = 'arabic';
+    state.hasError = false;
+
+    // Reset UI
+    if (elements.inputValue) {
+      elements.inputValue.value = '2026';
+    }
+    convert();
+
+    ToolsCommon?.Toast?.show('Form reset!', 'success');
+  }
+
+  // ==================== Keyboard Shortcuts ====================
+
+  function initKeyboardShortcuts() {
+    document.addEventListener('keydown', (e) => {
+      // Ignore if typing in input (except for specific shortcuts)
+      if (e.target.tagName === 'INPUT' || e.target.tagName === 'SELECT' || e.target.tagName === 'TEXTAREA') {
+        // Allow Escape to work even in inputs
+        if (e.key === 'Escape') {
+          e.target?.blur();
+        }
+        return;
+      }
+
+      // R key for reset (but not Ctrl+R or Cmd+R which is browser refresh)
+      if (e.key.toLowerCase() === 'r' && !e.ctrlKey && !e.metaKey) {
+        e.preventDefault();
+        resetForm();
+      }
+    });
   }
 
   // ==================== Initialization ====================
 
   function init() {
+    initElements();
+
     elements.inputValue?.addEventListener('input', convert);
     elements.copyArabicBtn?.addEventListener('click', copyArabic);
     elements.copyRomanBtn?.addEventListener('click', copyRoman);
+    elements.resetBtn?.addEventListener('click', resetForm);
+
+    initKeyboardShortcuts();
     convert();
   }
 

@@ -1,6 +1,4 @@
-/**
- * BMI Calculator Tool Styles
- */
+/* ==================== BMI Calculator Tool Styles ==================== */
 
 /* ==================== Wrapper ==================== */
 .bmi-wrapper {
@@ -17,6 +15,7 @@
 .bmi-header {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   padding: var(--space-4) var(--space-5);
   background-color: var(--color-surface);
   border-bottom: 1px solid var(--color-border);
@@ -33,6 +32,32 @@
 
 .bmi-header h2 i {
   color: var(--color-primary);
+}
+
+.header-actions {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.header-action-btn {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-bg-secondary);
+  color: var(--color-text-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  font-size: var(--font-size-sm);
+}
+
+.header-action-btn:hover {
+  background-color: var(--color-primary);
+  color: #fff;
+  border-color: var(--color-primary);
 }
 
 /* ==================== Tabs ==================== */
@@ -88,13 +113,13 @@
   font-size: var(--font-size-base);
 }
 
-/* ==================== Main Card ==================== */
-.bmi-card {
-  background-color: var(--color-surface);
+/* ==================== Main Content ==================== */
+.bmi-main {
   padding: var(--space-5);
   display: flex;
   flex-direction: column;
   gap: var(--space-5);
+  background: linear-gradient(145deg, var(--color-bg-tertiary), var(--color-bg-secondary));
 }
 
 /* ==================== Input Section ==================== */
@@ -132,7 +157,7 @@
   font-size: var(--font-size-lg);
   font-family: inherit;
   color: var(--color-text);
-  background-color: var(--color-bg);
+  background-color: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   transition: all var(--transition-fast);
@@ -142,6 +167,10 @@
   outline: none;
   border-color: var(--color-primary);
   box-shadow: 0 0 0 3px rgba(55, 118, 161, 0.1);
+}
+
+.input-group input::placeholder {
+  color: var(--color-text-muted);
 }
 
 .dual-input {
@@ -182,14 +211,19 @@
   box-shadow: var(--shadow-lg);
 }
 
+.calculate-btn:active {
+  transform: translateY(0);
+}
+
 /* ==================== Results Section ==================== */
 .results-section {
   display: flex;
   flex-direction: column;
   gap: var(--space-4);
   padding: var(--space-5);
-  background-color: var(--color-bg);
+  background-color: var(--color-surface);
   border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
 }
 
 .bmi-result {
@@ -236,15 +270,6 @@
   border-radius: var(--radius-full);
 }
 
-.scale-fill {
-  position: absolute;
-  left: 0;
-  top: 0;
-  height: 100%;
-  background-color: transparent;
-  border-radius: var(--radius-full);
-}
-
 .scale-marker {
   position: absolute;
   top: -4px;
@@ -284,7 +309,7 @@
 .info-item {
   flex: 1;
   padding: var(--space-3);
-  background-color: var(--color-surface);
+  background-color: var(--color-bg-secondary);
   border-radius: var(--radius-md);
   text-align: center;
 }
@@ -305,8 +330,9 @@
 /* ==================== Categories Info ==================== */
 .categories-info {
   padding: var(--space-4);
-  background-color: var(--color-bg);
+  background-color: var(--color-surface);
   border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
 }
 
 .categories-info h4 {
@@ -369,7 +395,21 @@
 }
 
 @media screen and (max-width: 768px) {
-  .bmi-card {
+  .bmi-header {
+    padding: var(--space-3) var(--space-4);
+  }
+
+  .bmi-header h2 {
+    font-size: var(--font-size-lg);
+    gap: var(--space-2);
+  }
+
+  .header-action-btn {
+    width: 28px;
+    height: 28px;
+  }
+
+  .bmi-main {
     padding: var(--space-4);
   }
 
@@ -392,31 +432,34 @@
 }
 
 @media screen and (max-width: 480px) {
-  .bmi-wrapper {
-    border-radius: var(--radius-md);
-    margin: 0 calc(-1 * var(--space-3));
-    border-left: none;
-    border-right: none;
-  }
-
   .bmi-header {
-    padding: var(--space-3) var(--space-4);
+    padding: var(--space-2) var(--space-3);
   }
 
   .bmi-header h2 {
     font-size: var(--font-size-base);
   }
 
+  .header-action-btn {
+    width: 26px;
+    height: 26px;
+    font-size: var(--font-size-xs);
+  }
+
   .bmi-tab span {
     display: none;
   }
 
-  .bmi-card {
+  .bmi-main {
     padding: var(--space-3);
   }
 
   .bmi-value {
     font-size: 2.5rem;
+  }
+
+  .results-section {
+    padding: var(--space-4);
   }
 
   .category-item {
@@ -425,5 +468,28 @@
 
   .category-range {
     font-size: var(--font-size-base);
+  }
+}
+
+@media screen and (max-width: 360px) {
+  .bmi-header h2 {
+    font-size: var(--font-size-sm);
+  }
+
+  .header-action-btn {
+    width: 24px;
+    height: 24px;
+  }
+
+  .bmi-value {
+    font-size: 2rem;
+  }
+
+  .category-range {
+    font-size: var(--font-size-sm);
+  }
+
+  .category-name {
+    font-size: 10px;
   }
 }

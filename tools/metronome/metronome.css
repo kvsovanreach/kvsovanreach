@@ -1,0 +1,272 @@
+/**
+ * Metronome Styles
+ */
+
+.metronome-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+}
+
+.metronome-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-4) var(--space-5);
+  background-color: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.metronome-header h2 {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin: 0;
+  font-size: var(--font-size-xl);
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.metronome-header h2 i { color: var(--color-primary); }
+
+.header-actions { display: flex; gap: var(--space-2); }
+
+.header-action-btn {
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-bg-secondary);
+  color: var(--color-text-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.header-action-btn:hover {
+  background-color: var(--color-primary);
+  color: #fff;
+  border-color: var(--color-primary);
+}
+
+.metronome-content {
+  padding: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.tempo-display {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-2);
+}
+
+.tempo-value {
+  font-size: 3rem;
+  font-weight: 700;
+  font-family: 'Fira Code', monospace;
+  color: var(--color-primary);
+}
+
+.tempo-unit {
+  font-size: var(--font-size-lg);
+  color: var(--color-text-secondary);
+}
+
+.tempo-name {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.beat-indicator {
+  display: flex;
+  gap: var(--space-3);
+  padding: var(--space-3);
+}
+
+.beat-dot {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: var(--color-border);
+  transition: all 0.1s ease;
+}
+
+.beat-dot.active {
+  background-color: var(--color-primary);
+  transform: scale(1.2);
+}
+
+.beat-dot.accent {
+  background-color: #f59e0b;
+}
+
+.tempo-slider {
+  width: 100%;
+}
+
+.tempo-slider input {
+  width: 100%;
+  height: 8px;
+  background: var(--color-border);
+  border-radius: var(--radius-full);
+  outline: none;
+  -webkit-appearance: none;
+}
+
+.tempo-slider input::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 24px;
+  height: 24px;
+  background: var(--color-primary);
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.tempo-buttons {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.tempo-btn {
+  padding: var(--space-2) var(--space-3);
+  background-color: var(--color-bg);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.tempo-btn:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.time-signature {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  width: 100%;
+}
+
+.time-signature > label {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+}
+
+.signature-selector {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.signature-btn {
+  padding: var(--space-2) var(--space-3);
+  background-color: var(--color-bg);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.signature-btn:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.signature-btn.active {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+  color: white;
+}
+
+.play-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  width: 100%;
+  padding: var(--space-4);
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+  border: none;
+  border-radius: var(--radius-lg);
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  color: white;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.play-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(34, 197, 94, 0.3);
+}
+
+.play-btn.playing {
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+}
+
+.play-btn.playing:hover {
+  box-shadow: 0 8px 25px rgba(239, 68, 68, 0.3);
+}
+
+.preset-tempos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  justify-content: center;
+}
+
+.preset-tempo-btn {
+  padding: var(--space-1) var(--space-2);
+  background: none;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.preset-tempo-btn:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+@media screen and (max-width: 768px) {
+  .metronome-wrapper { border-radius: var(--radius-lg); }
+  .metronome-header { padding: var(--space-3) var(--space-4); }
+  .metronome-header h2 { font-size: var(--font-size-lg); gap: var(--space-2); }
+  .header-action-btn { width: 28px; height: 28px; }
+  .metronome-content { padding: var(--space-4); }
+}
+
+@media screen and (max-width: 480px) {
+  .metronome-header { padding: var(--space-2) var(--space-3); }
+  .metronome-header h2 { font-size: var(--font-size-base); }
+  .header-action-btn { width: 26px; height: 26px; font-size: var(--font-size-xs); }
+  .metronome-content { padding: var(--space-3); }
+  .tempo-value { font-size: var(--font-size-4xl); }
+}
+
+@media screen and (max-width: 360px) {
+  .metronome-header h2 { font-size: var(--font-size-sm); }
+  .header-action-btn { width: 24px; height: 24px; }
+}

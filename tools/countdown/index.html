@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Countdown timer to any date. Track days, hours, minutes, and seconds until your event.">
+  <meta property="og:title" content="KVSOVANREACH | Countdown Timer">
+  <meta property="og:description" content="Countdown timer to any date or event.">
+  <meta property="og:image" content="/assets/img/favicons/og-image.png">
+  <title>KVSOVANREACH | Countdown Timer</title>
+
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/tools-common.css">
+  <link rel="stylesheet" href="countdown.css">
+</head>
+<body>
+  <a href="#countdown" class="skip-link">Skip to Countdown Timer</a>
+
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">TOOLS</span>
+      </a>
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools"><i class="fa-solid fa-arrow-left"></i></a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <main class="tool-page">
+    <div class="container">
+      <div class="countdown-wrapper" id="countdown">
+        <div class="countdown-header">
+          <h2><i class="fa-solid fa-hourglass-half"></i> Countdown Timer</h2>
+          <div class="header-actions">
+            <button class="header-action-btn" id="resetBtn" title="Reset (R)">
+              <i class="fa-solid fa-rotate-left"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="countdown-content">
+          <div class="input-section">
+            <div class="input-group">
+              <label for="eventName">Event Name</label>
+              <input type="text" id="eventName" placeholder="My Event" class="text-input">
+            </div>
+            <div class="input-group">
+              <label>Target Date & Time</label>
+              <div class="fast-datetime" id="targetDatetime">
+                <input type="text" class="dt-year" id="dtYear" data-next="dtMonth" placeholder="YYYY" maxlength="4" inputmode="numeric">
+                <span class="dt-sep">/</span>
+                <input type="text" class="dt-month" id="dtMonth" data-next="dtDay" placeholder="MM" maxlength="2" inputmode="numeric">
+                <span class="dt-sep">/</span>
+                <input type="text" class="dt-day" id="dtDay" data-next="dtHour" placeholder="DD" maxlength="2" inputmode="numeric">
+                <span class="dt-sep dt-time-sep">@</span>
+                <input type="text" class="dt-hour" id="dtHour" data-next="dtMinute" placeholder="HH" maxlength="2" inputmode="numeric">
+                <span class="dt-sep">:</span>
+                <input type="text" class="dt-minute" id="dtMinute" placeholder="MM" maxlength="2" inputmode="numeric">
+              </div>
+            </div>
+          </div>
+
+          <div class="countdown-display" id="countdownDisplay">
+            <div class="countdown-item">
+              <span class="countdown-value" id="days">0</span>
+              <span class="countdown-label">Days</span>
+            </div>
+            <div class="countdown-separator">:</div>
+            <div class="countdown-item">
+              <span class="countdown-value" id="hours">00</span>
+              <span class="countdown-label">Hours</span>
+            </div>
+            <div class="countdown-separator">:</div>
+            <div class="countdown-item">
+              <span class="countdown-value" id="minutes">00</span>
+              <span class="countdown-label">Minutes</span>
+            </div>
+            <div class="countdown-separator">:</div>
+            <div class="countdown-item">
+              <span class="countdown-value" id="seconds">00</span>
+              <span class="countdown-label">Seconds</span>
+            </div>
+          </div>
+
+          <div class="event-name-display" id="eventNameDisplay">Set your countdown above</div>
+
+          <div class="quick-presets">
+            <span class="presets-label">Quick Presets:</span>
+            <div class="preset-buttons">
+              <button class="preset-btn" data-preset="newyear">New Year</button>
+              <button class="preset-btn" data-preset="christmas">Christmas</button>
+              <button class="preset-btn" data-preset="week">1 Week</button>
+              <button class="preset-btn" data-preset="month">1 Month</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div class="shortcuts-modal" id="shortcutsModal">
+    <div class="shortcuts-content">
+      <div class="shortcuts-header">
+        <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
+        <button class="close-shortcuts-btn" id="closeShortcutsBtn"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="shortcuts-body">
+        <div class="shortcut-row"><span class="shortcut-key">R</span><span class="shortcut-desc">Reset</span></div>
+        <div class="shortcut-row"><span class="shortcut-key">?</span><span class="shortcut-desc">Show shortcuts</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="shortcuts-hint">Press <span class="shortcut-key">?</span> for shortcuts</div>
+  <div class="toast" id="toast"></div>
+
+  <script src="../../js/tools-common.js"></script>
+  <script src="countdown.js"></script>
+</body>
+</html>

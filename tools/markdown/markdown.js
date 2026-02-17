@@ -1,6 +1,8 @@
 /**
- * Markdown Editor Tool
+ * KVSOVANREACH Markdown Editor Tool
+ * Live preview markdown editor with syntax highlighting
  */
+
 (function() {
   'use strict';
 
@@ -10,6 +12,31 @@
     layout: 'split',
     isFullscreen: false
   };
+
+  // ==================== DOM Elements ====================
+  const elements = {};
+
+  function initElements() {
+    elements.markdownInput = document.getElementById('markdownInput');
+    elements.previewContent = document.getElementById('previewContent');
+    elements.htmlContent = document.getElementById('htmlContent');
+    elements.htmlCode = document.getElementById('htmlCode');
+    elements.wordCount = document.getElementById('wordCount');
+    elements.charCount = document.getElementById('charCount');
+    elements.toolbarBtns = document.querySelectorAll('.toolbar-btn[data-action]');
+    elements.viewBtns = document.querySelectorAll('.view-btn');
+    elements.downloadMd = document.getElementById('downloadMd');
+    elements.copyHtml = document.getElementById('copyHtml');
+    elements.clearEditor = document.getElementById('clearEditor');
+    elements.clearBtn = document.getElementById('clearBtn');
+    elements.fileUpload = document.getElementById('fileUpload');
+    elements.dropZone = document.getElementById('dropZone');
+    elements.toggleFullscreen = document.getElementById('toggleFullscreen');
+    elements.layoutBtns = document.querySelectorAll('.layout-btn');
+  }
+
+  // ==================== UI Helpers ====================
+  const showToast = (message, type) => ToolsCommon.showToast(message, type);
 
   // ==================== Sample Content ====================
   const sampleMarkdown = `# Welcome to Markdown Editor
@@ -61,23 +88,6 @@ function greet(name) {
 
 *Start editing to create your own content!*
 `;
-
-  // ==================== DOM Elements ====================
-  const elements = {
-    markdownInput: document.getElementById('markdownInput'),
-    previewContent: document.getElementById('previewContent'),
-    htmlContent: document.getElementById('htmlContent'),
-    htmlCode: document.getElementById('htmlCode'),
-    wordCount: document.getElementById('wordCount'),
-    charCount: document.getElementById('charCount'),
-    toolbarBtns: document.querySelectorAll('.toolbar-btn[data-action]'),
-    viewBtns: document.querySelectorAll('.view-btn'),
-    downloadMd: document.getElementById('downloadMd'),
-    copyHtml: document.getElementById('copyHtml'),
-    clearEditor: document.getElementById('clearEditor'),
-    clearBtn: document.getElementById('clearBtn'),
-    toast: document.getElementById('toast')
-  };
 
   // ==================== Markdown Parser ====================
   function escapeHtml(text) {
@@ -270,15 +280,6 @@ function greet(name) {
     elements.charCount.textContent = `${chars} chars`;
   }
 
-  function showToast(message, type = 'default') {
-    elements.toast.textContent = message;
-    elements.toast.className = 'toast show' + (type !== 'default' ? ` ${type}` : '');
-
-    setTimeout(() => {
-      elements.toast.classList.remove('show');
-    }, 2500);
-  }
-
   function downloadMarkdown() {
     const content = elements.markdownInput.value;
     if (!content.trim()) {
@@ -299,19 +300,13 @@ function greet(name) {
     showToast('Downloaded!', 'success');
   }
 
-  async function copyHtml() {
+  function copyHtml() {
     const html = parseMarkdown(elements.markdownInput.value);
     if (!html.trim()) {
-      showToast('Nothing to copy');
+      showToast('Nothing to copy', 'error');
       return;
     }
-
-    try {
-      await navigator.clipboard.writeText(html);
-      showToast('HTML copied!', 'success');
-    } catch (err) {
-      showToast('Failed to copy');
-    }
+    ToolsCommon.copyWithToast(html, 'HTML copied!');
   }
 
   function clearEditor() {
@@ -397,6 +392,8 @@ function greet(name) {
 
   // ==================== Initialize ====================
   function init() {
+    initElements();
+
     // Event listeners
     elements.markdownInput.addEventListener('input', () => {
       updatePreview();
@@ -419,8 +416,8 @@ function greet(name) {
     });
 
     // Action buttons
-    elements.downloadMd.addEventListener('click', downloadMarkdown);
-    elements.copyHtml.addEventListener('click', copyHtml);
+    elements.downloadMd?.addEventListener('click', downloadMarkdown);
+    elements.copyHtml?.addEventListener('click', copyHtml);
     elements.clearEditor?.addEventListener('click', clearEditor);
     elements.clearBtn?.addEventListener('click', clearEditor);
 
@@ -467,48 +464,39 @@ function greet(name) {
     });
 
     // Layout toggle
-    const layoutBtns = document.querySelectorAll('.layout-btn');
-    layoutBtns.forEach(btn => {
+    elements.layoutBtns.forEach(btn => {
       btn.addEventListener('click', () => toggleLayout(btn.dataset.layout));
     });
 
     // Fullscreen toggle
-    const fullscreenBtn = document.getElementById('toggleFullscreen');
-    if (fullscreenBtn) {
-      fullscreenBtn.addEventListener('click', toggleFullscreen);
-    }
+    elements.toggleFullscreen?.addEventListener('click', toggleFullscreen);
 
     // File upload
-    const fileUpload = document.getElementById('fileUpload');
-    const dropZone = document.getElementById('dropZone');
-
-    if (fileUpload) {
-      fileUpload.addEventListener('change', (e) => {
-        if (e.target.files[0]) {
-          readFile(e.target.files[0]);
-        }
-      });
-    }
+    elements.fileUpload?.addEventListener('change', (e) => {
+      if (e.target.files[0]) {
+        readFile(e.target.files[0]);
+      }
+    });
 
     // Drag and drop
-    if (dropZone) {
+    if (elements.dropZone) {
       elements.markdownInput.addEventListener('dragover', (e) => {
         e.preventDefault();
-        dropZone.classList.add('drag-over');
+        elements.dropZone.classList.add('drag-over');
       });
 
       elements.markdownInput.addEventListener('dragleave', () => {
-        dropZone.classList.remove('drag-over');
+        elements.dropZone.classList.remove('drag-over');
       });
 
       elements.markdownInput.addEventListener('drop', (e) => {
         e.preventDefault();
-        dropZone.classList.remove('drag-over');
+        elements.dropZone.classList.remove('drag-over');
         const file = e.dataTransfer.files[0];
         if (file && (file.name.endsWith('.md') || file.name.endsWith('.txt') || file.name.endsWith('.markdown'))) {
           readFile(file);
         } else {
-          showToast('Please drop a markdown file');
+          showToast('Please drop a markdown file', 'error');
         }
       });
     }
@@ -528,6 +516,10 @@ function greet(name) {
     updateStats();
   }
 
-  // Start
-  init();
+  // ==================== Bootstrap ====================
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
 })();

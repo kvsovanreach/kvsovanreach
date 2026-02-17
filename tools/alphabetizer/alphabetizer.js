@@ -9,27 +9,36 @@
   // ==================== State ====================
   const state = {
     sortMethod: 'az',
-    separator: 'newline'
+    separator: 'newline',
+    options: {
+      removeDuplicates: false,
+      trimWhitespace: true,
+      removeEmpty: true,
+      caseInsensitive: false
+    }
   };
 
   // ==================== DOM Elements ====================
-  const elements = {
-    inputText: document.getElementById('inputText'),
-    outputText: document.getElementById('outputText'),
-    inputStats: document.getElementById('inputStats'),
-    outputStats: document.getElementById('outputStats'),
-    sortTabs: document.querySelectorAll('.sort-tab'),
-    removeDuplicates: document.getElementById('removeDuplicates'),
-    trimWhitespace: document.getElementById('trimWhitespace'),
-    removeEmpty: document.getElementById('removeEmpty'),
-    caseInsensitive: document.getElementById('caseInsensitive'),
-    separatorRadios: document.querySelectorAll('input[name="separator"]'),
-    clearBtn: document.getElementById('clearBtn'),
-    pasteBtn: document.getElementById('pasteBtn'),
-    sampleBtn: document.getElementById('sampleBtn'),
-    copyBtn: document.getElementById('copyBtn'),
-    downloadBtn: document.getElementById('downloadBtn')
-  };
+  const elements = {};
+
+  function initElements() {
+    elements.inputText = document.getElementById('inputText');
+    elements.outputText = document.getElementById('outputText');
+    elements.inputStats = document.getElementById('inputStats');
+    elements.outputStats = document.getElementById('outputStats');
+    elements.sortTabs = document.querySelectorAll('.tool-tab');
+    elements.removeDuplicates = document.getElementById('removeDuplicates');
+    elements.trimWhitespace = document.getElementById('trimWhitespace');
+    elements.removeEmpty = document.getElementById('removeEmpty');
+    elements.caseInsensitive = document.getElementById('caseInsensitive');
+    elements.separatorRadios = document.querySelectorAll('input[name="separator"]');
+    elements.resetBtn = document.getElementById('resetBtn');
+    elements.clearBtn = document.getElementById('clearBtn');
+    elements.pasteBtn = document.getElementById('pasteBtn');
+    elements.sampleBtn = document.getElementById('sampleBtn');
+    elements.copyBtn = document.getElementById('copyBtn');
+    elements.downloadBtn = document.getElementById('downloadBtn');
+  }
 
   // ==================== Sample Data ====================
   const SAMPLE_DATA = `banana
@@ -49,7 +58,7 @@ Mango`;
   // ==================== Core Functions ====================
 
   function getSeparator() {
-    const sep = document.querySelector('input[name="separator"]:checked').value;
+    const sep = document.querySelector('input[name="separator"]:checked')?.value;
     switch (sep) {
       case 'comma': return ',';
       case 'semicolon': return ';';
@@ -62,18 +71,18 @@ Mango`;
     let items = text.split(separator);
 
     // Trim whitespace
-    if (elements.trimWhitespace.checked) {
+    if (elements.trimWhitespace?.checked) {
       items = items.map(item => item.trim());
     }
 
     // Remove empty lines
-    if (elements.removeEmpty.checked) {
+    if (elements.removeEmpty?.checked) {
       items = items.filter(item => item.length > 0);
     }
 
     // Remove duplicates
-    if (elements.removeDuplicates.checked) {
-      if (elements.caseInsensitive.checked) {
+    if (elements.removeDuplicates?.checked) {
+      if (elements.caseInsensitive?.checked) {
         const seen = new Set();
         items = items.filter(item => {
           const lower = item.toLowerCase();
@@ -90,7 +99,7 @@ Mango`;
   }
 
   function sortItems(items) {
-    const caseInsensitive = elements.caseInsensitive.checked;
+    const caseInsensitive = elements.caseInsensitive?.checked;
 
     switch (state.sortMethod) {
       case 'az':
@@ -119,10 +128,10 @@ Mango`;
   }
 
   function processInput() {
-    const text = elements.inputText.value;
+    const text = elements.inputText?.value;
 
-    if (!text.trim()) {
-      elements.outputText.value = '';
+    if (!text?.trim()) {
+      if (elements.outputText) elements.outputText.value = '';
       updateStats();
       return;
     }
@@ -131,89 +140,169 @@ Mango`;
     const sorted = sortItems(items);
     const separator = getSeparator();
 
-    elements.outputText.value = sorted.join(separator);
+    if (elements.outputText) elements.outputText.value = sorted.join(separator);
     updateStats();
   }
 
   function updateStats() {
-    const inputItems = elements.inputText.value.trim()
+    const inputItems = elements.inputText?.value?.trim()
       ? parseInput(elements.inputText.value).length
       : 0;
-    const outputItems = elements.outputText.value.trim()
+    const outputItems = elements.outputText?.value?.trim()
       ? elements.outputText.value.split(getSeparator()).filter(i => i.trim()).length
       : 0;
 
-    elements.inputStats.textContent = `${inputItems} item${inputItems !== 1 ? 's' : ''}`;
-    elements.outputStats.textContent = `${outputItems} item${outputItems !== 1 ? 's' : ''}`;
+    if (elements.inputStats) {
+      elements.inputStats.textContent = `${inputItems} item${inputItems !== 1 ? 's' : ''}`;
+    }
+    if (elements.outputStats) {
+      elements.outputStats.textContent = `${outputItems} item${outputItems !== 1 ? 's' : ''}`;
+    }
+  }
+
+  const showToast = (message, type) => ToolsCommon.showToast(message, type);
+
+  function resetForm() {
+    state.sortMethod = 'az';
+    state.separator = 'newline';
+    state.options = {
+      removeDuplicates: false,
+      trimWhitespace: true,
+      removeEmpty: true,
+      caseInsensitive: false
+    };
+
+    if (elements.inputText) elements.inputText.value = '';
+    if (elements.outputText) elements.outputText.value = '';
+
+    elements.sortTabs?.forEach(tab => {
+      tab.classList.toggle('active', tab.dataset.sort === 'az');
+    });
+
+    if (elements.removeDuplicates) elements.removeDuplicates.checked = false;
+    if (elements.trimWhitespace) elements.trimWhitespace.checked = true;
+    if (elements.removeEmpty) elements.removeEmpty.checked = true;
+    if (elements.caseInsensitive) elements.caseInsensitive.checked = false;
+
+    elements.separatorRadios?.forEach(radio => {
+      radio.checked = radio.value === 'newline';
+    });
+
+    updateStats();
+    showToast('Reset', 'success');
   }
 
   // ==================== Event Handlers ====================
 
   function handleSortTabClick(e) {
-    const tab = e.target.closest('.sort-tab');
+    const tab = e.target.closest('.tool-tab');
     if (!tab) return;
 
-    elements.sortTabs.forEach(t => t.classList.remove('active'));
+    elements.sortTabs?.forEach(t => t.classList.remove('active'));
     tab.classList.add('active');
     state.sortMethod = tab.dataset.sort;
     processInput();
   }
 
+  function fallbackCopy(text) {
+    const textarea = document.createElement('textarea');
+    textarea.value = text;
+    textarea.style.position = 'fixed';
+    textarea.style.opacity = '0';
+    document.body.appendChild(textarea);
+    textarea.select();
+    try {
+      document.execCommand('copy');
+      showToast('Copied!', 'success');
+    } catch (err) {
+      showToast('Failed to copy', 'error');
+    }
+    document.body.removeChild(textarea);
+  }
+
   function handleClear() {
-    elements.inputText.value = '';
-    elements.outputText.value = '';
+    if (elements.inputText) elements.inputText.value = '';
+    if (elements.outputText) elements.outputText.value = '';
     updateStats();
-    ToolsCommon.Toast.show('Cleared', 'success');
+    showToast('Cleared', 'success');
   }
 
   async function handlePaste() {
     try {
-      const text = await navigator.clipboard.readText();
-      elements.inputText.value = text;
-      processInput();
-      ToolsCommon.Toast.show('Pasted from clipboard', 'success');
+      if (navigator.clipboard && navigator.clipboard.readText) {
+        const text = await navigator.clipboard.readText();
+        if (elements.inputText) elements.inputText.value = text;
+        processInput();
+        showToast('Pasted', 'success');
+      } else {
+        showToast('Use Ctrl+V to paste', 'info');
+        elements.inputText?.focus();
+      }
     } catch (err) {
-      ToolsCommon.Toast.show('Failed to paste', 'error');
+      showToast('Use Ctrl+V to paste', 'info');
+      elements.inputText?.focus();
     }
   }
 
   function handleSample() {
-    elements.inputText.value = SAMPLE_DATA;
+    if (elements.inputText) elements.inputText.value = SAMPLE_DATA;
     processInput();
-    ToolsCommon.Toast.show('Sample data loaded', 'success');
+    showToast('Sample loaded', 'success');
   }
 
   async function handleCopy() {
-    const text = elements.outputText.value;
+    const text = elements.outputText?.value;
     if (!text) {
-      ToolsCommon.Toast.show('Nothing to copy', 'error');
+      showToast('Nothing to copy', 'error');
       return;
     }
-    await ToolsCommon.Clipboard.copyWithToast(text, 'Copied to clipboard!');
+    try {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        await navigator.clipboard.writeText(text);
+        showToast('Copied!', 'success');
+      } else {
+        fallbackCopy(text);
+      }
+    } catch (err) {
+      fallbackCopy(text);
+    }
   }
 
   function handleDownload() {
-    const text = elements.outputText.value;
+    const text = elements.outputText?.value;
     if (!text) {
-      ToolsCommon.Toast.show('Nothing to download', 'error');
+      showToast('Nothing to download', 'error');
       return;
     }
-    ToolsCommon.FileDownload.text(text, 'sorted-list.txt');
-    ToolsCommon.Toast.show('Downloaded!', 'success');
+    const blob = new Blob([text], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'sorted-list.txt';
+    a.click();
+    URL.revokeObjectURL(url);
+    showToast('Downloaded', 'success');
   }
 
   function handleKeydown(e) {
     // Skip if in input
     if (e.target.matches('input, textarea, select, [contenteditable]')) return;
 
+    // R key for reset
+    if (e.key.toLowerCase() === 'r') {
+      e.preventDefault();
+      resetForm();
+      return;
+    }
+
     // Number keys for sort methods
     if (e.key >= '1' && e.key <= '4') {
       e.preventDefault();
       const sortMethods = ['az', 'za', 'length-asc', 'length-desc'];
       const index = parseInt(e.key) - 1;
-      const tab = document.querySelector(`.sort-tab[data-sort="${sortMethods[index]}"]`);
+      const tab = document.querySelector(`.tool-tab[data-sort="${sortMethods[index]}"]`);
       if (tab) {
-        elements.sortTabs.forEach(t => t.classList.remove('active'));
+        elements.sortTabs?.forEach(t => t.classList.remove('active'));
         tab.classList.add('active');
         state.sortMethod = sortMethods[index];
         processInput();
@@ -224,16 +313,17 @@ Mango`;
   // ==================== Initialization ====================
 
   function init() {
+    initElements();
     setupEventListeners();
     updateStats();
   }
 
   function setupEventListeners() {
     // Input changes
-    elements.inputText?.addEventListener('input', ToolsCommon.debounce(processInput, 150));
+    elements.inputText?.addEventListener('input', ToolsCommon?.debounce?.(processInput, 150) || processInput);
 
     // Sort tabs
-    elements.sortTabs.forEach(tab => {
+    elements.sortTabs?.forEach(tab => {
       tab.addEventListener('click', handleSortTabClick);
     });
 
@@ -244,11 +334,12 @@ Mango`;
     elements.caseInsensitive?.addEventListener('change', processInput);
 
     // Separator
-    elements.separatorRadios.forEach(radio => {
+    elements.separatorRadios?.forEach(radio => {
       radio.addEventListener('change', processInput);
     });
 
     // Buttons
+    elements.resetBtn?.addEventListener('click', resetForm);
     elements.clearBtn?.addEventListener('click', handleClear);
     elements.pasteBtn?.addEventListener('click', handlePaste);
     elements.sampleBtn?.addEventListener('click', handleSample);

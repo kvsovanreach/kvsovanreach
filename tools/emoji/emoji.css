@@ -1,6 +1,4 @@
-/**
- * Emoji Picker Styles
- */
+/* ==================== Emoji Picker Tool Styles ==================== */
 
 /* ==================== Emoji Wrapper ==================== */
 .emoji-wrapper {
@@ -18,8 +16,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: var(--space-4) var(--space-6);
-  background-color: var(--color-bg);
+  padding: var(--space-4) var(--space-5);
+  background-color: var(--color-surface);
   border-bottom: 1px solid var(--color-border);
 }
 
@@ -28,7 +26,7 @@
   align-items: center;
   gap: var(--space-3);
   font-size: var(--font-size-xl);
-  font-weight: 700;
+  font-weight: 600;
   color: var(--color-text);
 }
 
@@ -36,15 +34,41 @@
   color: var(--color-primary);
 }
 
+.header-actions {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.header-action-btn {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-bg-secondary);
+  color: var(--color-text-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  font-size: var(--font-size-sm);
+}
+
+.header-action-btn:hover {
+  background-color: var(--color-primary);
+  color: #fff;
+  border-color: var(--color-primary);
+}
+
 /* ==================== Search ==================== */
 .emoji-search {
   position: relative;
-  padding: var(--space-4) var(--space-4);
+  padding: var(--space-3) var(--space-4);
   background-color: var(--color-surface);
   border-bottom: 1px solid var(--color-border);
 }
 
-.emoji-search i {
+.emoji-search > i {
   position: absolute;
   left: calc(var(--space-4) + var(--space-3));
   top: 50%;
@@ -57,7 +81,7 @@
   padding: var(--space-3) var(--space-4);
   padding-left: calc(var(--space-4) + var(--space-6));
   padding-right: calc(var(--space-4) + var(--space-4));
-  background-color: var(--color-bg);
+  background-color: var(--color-bg-secondary);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
   font-size: var(--font-size-sm);
@@ -93,7 +117,7 @@
 }
 
 .clear-search:hover {
-  background-color: var(--color-bg);
+  background-color: var(--color-bg-tertiary);
   color: var(--color-text);
 }
 
@@ -102,7 +126,7 @@
   display: flex;
   gap: var(--space-1);
   padding: var(--space-3) var(--space-4);
-  background-color: var(--color-surface);
+  background-color: var(--color-bg-secondary);
   border-bottom: 1px solid var(--color-border);
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
@@ -124,7 +148,7 @@
 }
 
 .category-btn:hover {
-  background-color: var(--color-bg);
+  background-color: var(--color-bg-tertiary);
   color: var(--color-primary);
 }
 
@@ -137,12 +161,13 @@
   font-size: var(--font-size-lg);
 }
 
-/* ==================== Emoji Content ==================== */
-.emoji-content {
-  padding: var(--space-4) var(--space-6);
+/* ==================== Emoji Main Content ==================== */
+.emoji-main {
+  padding: var(--space-4);
   min-height: 300px;
   max-height: 500px;
   overflow-y: auto;
+  background: linear-gradient(145deg, var(--color-bg-tertiary), var(--color-bg-secondary));
 }
 
 .category-title {
@@ -173,7 +198,7 @@
 }
 
 .emoji-btn:hover {
-  background-color: var(--color-bg);
+  background-color: var(--color-surface);
   transform: scale(1.2);
 }
 
@@ -203,7 +228,7 @@
   align-items: center;
   gap: var(--space-4);
   padding: var(--space-4);
-  background-color: var(--color-bg);
+  background-color: var(--color-surface);
   border-top: 1px solid var(--color-border);
 }
 
@@ -232,7 +257,7 @@
 .preview-code {
   font-size: var(--font-size-xs);
   color: var(--color-text-muted);
-  font-family: 'Consolas', 'Monaco', monospace;
+  font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
 }
 
 .copy-emoji-btn {
@@ -258,6 +283,7 @@
 .copied-section {
   padding: var(--space-4);
   border-top: 1px solid var(--color-border);
+  background-color: var(--color-surface);
 }
 
 .copied-header {
@@ -268,7 +294,7 @@
 }
 
 .copied-header h3 {
-  font-size: var(--font-size-base);
+  font-size: var(--font-size-sm);
   font-weight: 600;
   color: var(--color-text);
 }
@@ -298,7 +324,7 @@
   gap: var(--space-2);
   min-height: 40px;
   padding: var(--space-2);
-  background-color: var(--color-bg);
+  background-color: var(--color-bg-secondary);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
 }
@@ -318,43 +344,42 @@
 }
 
 .copied-emoji:hover {
-  background-color: var(--color-surface);
+  background-color: var(--color-bg-tertiary);
   transform: scale(1.1);
 }
 
-/* Toast, Shortcuts Modal & Hint styles are in tools-common.css */
-
 /* ==================== Responsive ==================== */
 @media screen and (max-width: 1024px) {
+  .emoji-wrapper {
+    border-radius: var(--radius-lg);
+  }
+
   .emoji-grid {
     grid-template-columns: repeat(12, 1fr);
   }
 }
 
 @media screen and (max-width: 768px) {
-  .tool-page {
-    padding-top: 80px;
-  }
-
-  .tool-page .container {
-    padding-left: var(--space-3);
-    padding-right: var(--space-3);
-  }
-
-  .emoji-wrapper {
-    border-radius: var(--radius-lg);
-  }
-
   .emoji-header {
     padding: var(--space-3) var(--space-4);
   }
 
   .emoji-header h2 {
     font-size: var(--font-size-lg);
+    gap: var(--space-2);
   }
 
-  .emoji-content {
-    padding: var(--space-4);
+  .header-action-btn {
+    width: 28px;
+    height: 28px;
+  }
+
+  .emoji-search {
+    padding: var(--space-2) var(--space-3);
+  }
+
+  .emoji-main {
+    padding: var(--space-3);
     max-height: 350px;
   }
 
@@ -376,18 +401,18 @@
 }
 
 @media screen and (max-width: 480px) {
-  .tool-page .container {
-    padding-left: var(--space-2);
-    padding-right: var(--space-2);
-  }
-
   .emoji-header {
     padding: var(--space-2) var(--space-3);
   }
 
   .emoji-header h2 {
     font-size: var(--font-size-base);
-    gap: var(--space-2);
+  }
+
+  .header-action-btn {
+    width: 26px;
+    height: 26px;
+    font-size: var(--font-size-xs);
   }
 
   .emoji-search {
@@ -407,7 +432,7 @@
     font-size: var(--font-size-base);
   }
 
-  .emoji-content {
+  .emoji-main {
     padding: var(--space-2) var(--space-3);
     max-height: 280px;
   }
@@ -440,5 +465,32 @@
 
   .copied-emoji {
     font-size: 1.25rem;
+  }
+}
+
+@media screen and (max-width: 360px) {
+  .emoji-header h2 {
+    font-size: var(--font-size-sm);
+  }
+
+  .header-action-btn {
+    width: 24px;
+    height: 24px;
+  }
+
+  .emoji-grid {
+    grid-template-columns: repeat(6, 1fr);
+  }
+
+  .emoji-btn {
+    font-size: 1.125rem;
+  }
+
+  .preview-emoji {
+    font-size: 1.75rem;
+  }
+
+  .copy-emoji-btn span {
+    display: none;
   }
 }

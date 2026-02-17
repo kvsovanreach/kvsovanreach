@@ -57,9 +57,14 @@
         <!-- Header -->
         <div class="time-header">
           <h2><i class="fa-solid fa-hourglass-half"></i> Time Since/Until</h2>
+          <div class="header-actions">
+            <button class="header-action-btn" id="resetBtn" title="Reset (R)">
+              <i class="fa-solid fa-rotate-left"></i>
+            </button>
+          </div>
         </div>
 
-        <div class="time-card">
+        <div class="time-main">
           <!-- Tabs -->
           <div class="time-tabs">
             <button class="time-tab active" data-tab="since">
@@ -79,9 +84,19 @@
           <!-- Time Since Panel -->
           <div class="time-panel active" id="sincePanel">
             <div class="input-section">
-              <label for="sinceDate">Select a past date:</label>
+              <label>Select a past date:</label>
               <div class="date-input-row">
-                <input type="datetime-local" id="sinceDate">
+                <div class="fast-datetime" id="sinceDatetime">
+                  <input type="text" class="dt-year" data-next="sinceMonth" placeholder="YYYY" maxlength="4" inputmode="numeric">
+                  <span class="dt-sep">/</span>
+                  <input type="text" class="dt-month" id="sinceMonth" data-next="sinceDay" placeholder="MM" maxlength="2" inputmode="numeric">
+                  <span class="dt-sep">/</span>
+                  <input type="text" class="dt-day" id="sinceDay" data-next="sinceHour" placeholder="DD" maxlength="2" inputmode="numeric">
+                  <span class="dt-sep dt-time-sep">@</span>
+                  <input type="text" class="dt-hour" id="sinceHour" data-next="sinceMinute" placeholder="HH" maxlength="2" inputmode="numeric">
+                  <span class="dt-sep">:</span>
+                  <input type="text" class="dt-minute" id="sinceMinute" placeholder="MM" maxlength="2" inputmode="numeric">
+                </div>
                 <button class="preset-btn" id="sinceClearBtn" title="Clear">
                   <i class="fa-solid fa-xmark"></i>
                 </button>
@@ -158,9 +173,19 @@
           <!-- Time Until Panel -->
           <div class="time-panel" id="untilPanel">
             <div class="input-section">
-              <label for="untilDate">Select a future date:</label>
+              <label>Select a future date:</label>
               <div class="date-input-row">
-                <input type="datetime-local" id="untilDate">
+                <div class="fast-datetime" id="untilDatetime">
+                  <input type="text" class="dt-year" data-next="untilMonth" placeholder="YYYY" maxlength="4" inputmode="numeric">
+                  <span class="dt-sep">/</span>
+                  <input type="text" class="dt-month" id="untilMonth" data-next="untilDay" placeholder="MM" maxlength="2" inputmode="numeric">
+                  <span class="dt-sep">/</span>
+                  <input type="text" class="dt-day" id="untilDay" data-next="untilHour" placeholder="DD" maxlength="2" inputmode="numeric">
+                  <span class="dt-sep dt-time-sep">@</span>
+                  <input type="text" class="dt-hour" id="untilHour" data-next="untilMinute" placeholder="HH" maxlength="2" inputmode="numeric">
+                  <span class="dt-sep">:</span>
+                  <input type="text" class="dt-minute" id="untilMinute" placeholder="MM" maxlength="2" inputmode="numeric">
+                </div>
                 <button class="preset-btn" id="untilClearBtn" title="Clear">
                   <i class="fa-solid fa-xmark"></i>
                 </button>
@@ -240,7 +265,13 @@
               <div class="preset-card" data-date="birthday">
                 <i class="fa-solid fa-cake-candles"></i>
                 <h4>My Birthday</h4>
-                <input type="date" id="birthdayDate" class="preset-date-input">
+                <div class="fast-date" id="birthdayDatetime">
+                  <input type="text" class="dt-year" data-next="birthdayMonth" placeholder="YYYY" maxlength="4" inputmode="numeric">
+                  <span class="dt-sep">/</span>
+                  <input type="text" class="dt-month" id="birthdayMonth" data-next="birthdayDay" placeholder="MM" maxlength="2" inputmode="numeric">
+                  <span class="dt-sep">/</span>
+                  <input type="text" class="dt-day" id="birthdayDay" placeholder="DD" maxlength="2" inputmode="numeric">
+                </div>
                 <div class="preset-result" id="birthdayResult">Enter your birthday</div>
               </div>
               <div class="preset-card" data-date="newyear">
@@ -252,7 +283,17 @@
                 <i class="fa-solid fa-calendar-plus"></i>
                 <h4>Custom Event</h4>
                 <input type="text" id="customEventName" class="preset-text-input" placeholder="Event name">
-                <input type="datetime-local" id="customEventDate" class="preset-date-input">
+                <div class="fast-datetime" id="customEventDatetime">
+                  <input type="text" class="dt-year" data-next="customMonth" placeholder="YYYY" maxlength="4" inputmode="numeric">
+                  <span class="dt-sep">/</span>
+                  <input type="text" class="dt-month" id="customMonth" data-next="customDay" placeholder="MM" maxlength="2" inputmode="numeric">
+                  <span class="dt-sep">/</span>
+                  <input type="text" class="dt-day" id="customDay" data-next="customHour" placeholder="DD" maxlength="2" inputmode="numeric">
+                  <span class="dt-sep dt-time-sep">@</span>
+                  <input type="text" class="dt-hour" id="customHour" data-next="customMinute" placeholder="HH" maxlength="2" inputmode="numeric">
+                  <span class="dt-sep">:</span>
+                  <input type="text" class="dt-minute" id="customMinute" placeholder="MM" maxlength="2" inputmode="numeric">
+                </div>
                 <div class="preset-result" id="customResult">Set your event</div>
               </div>
               <div class="preset-card" data-date="millennium">
@@ -290,11 +331,18 @@
     <div class="shortcuts-content">
       <div class="shortcuts-header">
         <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
-        <button class="close-shortcuts-btn" id="closeShortcutsBtn">
+        <button class="close-shortcuts-btn" id="closeShortcutsBtn" aria-label="Close shortcuts">
           <i class="fa-solid fa-xmark"></i>
         </button>
       </div>
       <div class="shortcuts-body">
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">Actions</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>R</kbd></div>
+            <div class="shortcut-desc">Reset all inputs</div>
+          </div>
+        </div>
         <div class="shortcuts-group">
           <div class="shortcuts-group-title">Navigation</div>
           <div class="shortcut-row">
@@ -312,6 +360,10 @@
           <div class="shortcut-row">
             <div class="shortcut-keys"><kbd>?</kbd></div>
             <div class="shortcut-desc">Show shortcuts</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Escape</kbd></div>
+            <div class="shortcut-desc">Close modal</div>
           </div>
         </div>
       </div>

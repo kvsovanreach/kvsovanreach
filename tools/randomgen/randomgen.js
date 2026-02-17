@@ -6,30 +6,10 @@
 (function() {
   'use strict';
 
-  // ==================== DOM Elements ====================
-  const elements = {
-    minValue: document.getElementById('minValue'),
-    maxValue: document.getElementById('maxValue'),
-    quantity: document.getElementById('quantity'),
-    decimals: document.getElementById('decimals'),
-    uniqueOnly: document.getElementById('uniqueOnly'),
-    sorted: document.getElementById('sorted'),
-    evenOnly: document.getElementById('evenOnly'),
-    oddOnly: document.getElementById('oddOnly'),
-    generateBtn: document.getElementById('generateBtn'),
-    copyBtn: document.getElementById('copyBtn'),
-    resultsDisplay: document.getElementById('resultsDisplay'),
-    resultCount: document.getElementById('resultCount'),
-    statsSection: document.getElementById('statsSection'),
-    statSum: document.getElementById('statSum'),
-    statAvg: document.getElementById('statAvg'),
-    statMin: document.getElementById('statMin'),
-    statMax: document.getElementById('statMax'),
-    presetBtns: document.querySelectorAll('.preset-btn')
-  };
-
   // ==================== State ====================
-  let currentNumbers = [];
+  const state = {
+    currentNumbers: []
+  };
 
   // ==================== Presets ====================
   const PRESETS = {
@@ -40,6 +20,33 @@
     binary: { min: 0, max: 1, quantity: 8, decimals: 0 },
     pin: { min: 0, max: 9999, quantity: 1, decimals: 0 }
   };
+
+  // ==================== DOM Elements ====================
+  const elements = {};
+
+  function initElements() {
+    elements.minValue = document.getElementById('minValue');
+    elements.maxValue = document.getElementById('maxValue');
+    elements.quantity = document.getElementById('quantity');
+    elements.decimals = document.getElementById('decimals');
+    elements.uniqueOnly = document.getElementById('uniqueOnly');
+    elements.sorted = document.getElementById('sorted');
+    elements.evenOnly = document.getElementById('evenOnly');
+    elements.oddOnly = document.getElementById('oddOnly');
+    elements.generateBtn = document.getElementById('generateBtn');
+    elements.copyBtn = document.getElementById('copyBtn');
+    elements.resultsDisplay = document.getElementById('resultsDisplay');
+    elements.resultCount = document.getElementById('resultCount');
+    elements.statsSection = document.getElementById('statsSection');
+    elements.statSum = document.getElementById('statSum');
+    elements.statAvg = document.getElementById('statAvg');
+    elements.statMin = document.getElementById('statMin');
+    elements.statMax = document.getElementById('statMax');
+    elements.presetBtns = document.querySelectorAll('.preset-btn');
+  }
+
+  // ==================== UI Helpers ====================
+  const showToast = (message, type) => ToolsCommon.showToast(message, type);
 
   // ==================== Core Functions ====================
 
@@ -137,7 +144,7 @@
   // ==================== UI Functions ====================
 
   function displayNumbers(numbers) {
-    currentNumbers = numbers;
+    state.currentNumbers = numbers;
     elements.resultCount.textContent = numbers.length;
 
     if (numbers.length === 0) {
@@ -182,32 +189,32 @@
 
       // Validate
       if (options.min > options.max) {
-        ToolsCommon.Toast.show('Min must be less than Max', 'error');
+        showToast('Min must be less than Max', 'error');
         return;
       }
 
       if (options.quantity < 1 || options.quantity > 1000) {
-        ToolsCommon.Toast.show('Quantity must be between 1 and 1000', 'error');
+        showToast('Quantity must be between 1 and 1000', 'error');
         return;
       }
 
       if (options.evenOnly && options.oddOnly) {
-        ToolsCommon.Toast.show('Cannot have both even and odd only', 'error');
+        showToast('Cannot have both even and odd only', 'error');
         return;
       }
 
       const numbers = generateNumbers(options);
       displayNumbers(numbers);
     } catch (error) {
-      ToolsCommon.Toast.show(error.message, 'error');
+      showToast(error.message, 'error');
     }
   }
 
   function copyAll() {
-    if (currentNumbers.length > 0) {
-      ToolsCommon.Clipboard.copy(currentNumbers.join(', '));
+    if (state.currentNumbers.length > 0) {
+      ToolsCommon.copyWithToast(state.currentNumbers.join(', '), 'Numbers copied!');
     } else {
-      ToolsCommon.Toast.show('No numbers to copy', 'error');
+      showToast('No numbers to copy', 'error');
     }
   }
 
@@ -227,22 +234,10 @@
     generate();
   }
 
-  // ==================== Event Handlers ====================
+  // ==================== Event Listeners ====================
 
-  function handleKeydown(e) {
-    if (e.key === 'Enter' && !e.target.matches('input, select')) {
-      e.preventDefault();
-      generate();
-    }
-    if (e.key === 'c' && !e.ctrlKey && !e.metaKey && !e.target.matches('input')) {
-      copyAll();
-    }
-  }
-
-  // ==================== Initialization ====================
-
-  function init() {
-    // Event listeners
+  function initEventListeners() {
+    // Generate and copy buttons
     elements.generateBtn.addEventListener('click', generate);
     elements.copyBtn.addEventListener('click', copyAll);
 
@@ -262,7 +257,22 @@
     });
 
     // Keyboard shortcuts
-    document.addEventListener('keydown', handleKeydown);
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' && !e.target.matches('input, select')) {
+        e.preventDefault();
+        generate();
+      }
+      if (e.key === 'c' && !e.ctrlKey && !e.metaKey && !e.target.matches('input')) {
+        copyAll();
+      }
+    });
+  }
+
+  // ==================== Initialization ====================
+
+  function init() {
+    initElements();
+    initEventListeners();
   }
 
   // ==================== Bootstrap ====================

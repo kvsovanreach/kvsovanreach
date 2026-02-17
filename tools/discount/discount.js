@@ -6,27 +6,36 @@
 (function() {
   'use strict';
 
-  // ==================== DOM Elements ====================
-  const elements = {
-    originalPrice: document.getElementById('originalPrice'),
-    discountPercent: document.getElementById('discountPercent'),
-    taxRate: document.getElementById('taxRate'),
-    finalPrice: document.getElementById('finalPrice'),
-    youSave: document.getElementById('youSave'),
-    discountAmount: document.getElementById('discountAmount'),
-    priceBeforeTax: document.getElementById('priceBeforeTax'),
-    taxAmount: document.getElementById('taxAmount'),
-    taxRow: document.getElementById('taxRow'),
-    breakdownOriginal: document.getElementById('breakdownOriginal'),
-    breakdownPercent: document.getElementById('breakdownPercent'),
-    breakdownDiscount: document.getElementById('breakdownDiscount'),
-    breakdownTaxRow: document.getElementById('breakdownTaxRow'),
-    breakdownTaxPercent: document.getElementById('breakdownTaxPercent'),
-    breakdownTax: document.getElementById('breakdownTax'),
-    breakdownTotal: document.getElementById('breakdownTotal'),
-    percentBtns: document.querySelectorAll('.percent-btn'),
-    clearBtn: document.getElementById('clearBtn')
+  // ==================== State ====================
+  const state = {
+    originalPrice: 100,
+    discountPercent: 20,
+    taxRate: 0
   };
+
+  // ==================== DOM Elements ====================
+  const elements = {};
+
+  function initElements() {
+    elements.originalPrice = document.getElementById('originalPrice');
+    elements.discountPercent = document.getElementById('discountPercent');
+    elements.taxRate = document.getElementById('taxRate');
+    elements.finalPrice = document.getElementById('finalPrice');
+    elements.youSave = document.getElementById('youSave');
+    elements.discountAmount = document.getElementById('discountAmount');
+    elements.priceBeforeTax = document.getElementById('priceBeforeTax');
+    elements.taxAmount = document.getElementById('taxAmount');
+    elements.taxRow = document.getElementById('taxRow');
+    elements.breakdownOriginal = document.getElementById('breakdownOriginal');
+    elements.breakdownPercent = document.getElementById('breakdownPercent');
+    elements.breakdownDiscount = document.getElementById('breakdownDiscount');
+    elements.breakdownTaxRow = document.getElementById('breakdownTaxRow');
+    elements.breakdownTaxPercent = document.getElementById('breakdownTaxPercent');
+    elements.breakdownTax = document.getElementById('breakdownTax');
+    elements.breakdownTotal = document.getElementById('breakdownTotal');
+    elements.percentBtns = document.querySelectorAll('.percent-btn');
+    elements.resetBtn = document.getElementById('resetBtn');
+  }
 
   // ==================== Core Functions ====================
 
@@ -35,9 +44,14 @@
   }
 
   function calculate() {
-    const originalPrice = parseFloat(elements.originalPrice.value) || 0;
-    const discountPercent = parseFloat(elements.discountPercent.value) || 0;
-    const taxRate = parseFloat(elements.taxRate.value) || 0;
+    const originalPrice = parseFloat(elements.originalPrice?.value) || 0;
+    const discountPercent = parseFloat(elements.discountPercent?.value) || 0;
+    const taxRate = parseFloat(elements.taxRate?.value) || 0;
+
+    // Update state
+    state.originalPrice = originalPrice;
+    state.discountPercent = discountPercent;
+    state.taxRate = taxRate;
 
     // Calculate discount
     const discountAmount = originalPrice * (discountPercent / 100);
@@ -76,10 +90,23 @@
   }
 
   function updatePercentButtons() {
-    const currentPercent = elements.discountPercent.value;
-    elements.percentBtns.forEach(btn => {
+    const currentPercent = elements.discountPercent?.value;
+    elements.percentBtns?.forEach(btn => {
       btn.classList.toggle('active', btn.dataset.value === currentPercent);
     });
+  }
+
+  function resetForm() {
+    state.originalPrice = 100;
+    state.discountPercent = 20;
+    state.taxRate = 0;
+
+    if (elements.originalPrice) elements.originalPrice.value = state.originalPrice;
+    if (elements.discountPercent) elements.discountPercent.value = state.discountPercent;
+    if (elements.taxRate) elements.taxRate.value = state.taxRate;
+
+    calculate();
+    ToolsCommon?.showToast?.('Reset', 'success');
   }
 
   // ==================== Event Handlers ====================
@@ -88,22 +115,36 @@
     const btn = e.target.closest('.percent-btn');
     if (!btn) return;
 
-    elements.discountPercent.value = btn.dataset.value;
+    if (elements.discountPercent) {
+      elements.discountPercent.value = btn.dataset.value;
+    }
     calculate();
   }
 
-  function handleClear() {
-    elements.originalPrice.value = 100;
-    elements.discountPercent.value = 20;
-    elements.taxRate.value = 0;
-    calculate();
-    ToolsCommon.Toast.show('Reset', 'success');
+  // ==================== Keyboard Shortcuts ====================
+
+  function initKeyboardShortcuts() {
+    document.addEventListener('keydown', (e) => {
+      // Ignore if typing in input
+      if (e.target.tagName === 'INPUT' || e.target.tagName === 'SELECT' || e.target.tagName === 'TEXTAREA') {
+        return;
+      }
+
+      switch (e.key.toLowerCase()) {
+        case 'r':
+          e.preventDefault();
+          resetForm();
+          break;
+      }
+    });
   }
 
   // ==================== Initialization ====================
 
   function init() {
+    initElements();
     setupEventListeners();
+    initKeyboardShortcuts();
     calculate();
   }
 
@@ -114,12 +155,12 @@
     elements.taxRate?.addEventListener('input', calculate);
 
     // Percent buttons
-    elements.percentBtns.forEach(btn => {
+    elements.percentBtns?.forEach(btn => {
       btn.addEventListener('click', handlePercentBtnClick);
     });
 
-    // Clear button
-    elements.clearBtn?.addEventListener('click', handleClear);
+    // Reset button
+    elements.resetBtn?.addEventListener('click', resetForm);
   }
 
   // ==================== Bootstrap ====================

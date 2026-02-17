@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <meta name="description" content="View your browser and device information. Check your IP address, screen resolution, and more.">
+  <meta name="description" content="Comprehensive browser and device information tool. View browser details, screen info, hardware capabilities, and supported web features.">
   <meta property="og:title" content="KVSOVANREACH | Browser Info">
-  <meta property="og:description" content="Discover your browser capabilities, IP address, screen info, and device details.">
+  <meta property="og:description" content="Detect browser, device, screen, hardware, and feature support information in real-time.">
   <meta property="og:image" content="/assets/img/favicons/og-image.png">
   <title>KVSOVANREACH | Browser Info</title>
 
@@ -53,28 +53,40 @@
   <!-- Main Content -->
   <main class="tool-page">
     <div class="container">
+      <!-- Browser Info Container -->
       <div class="info-wrapper" id="browserinfo">
         <!-- Header -->
         <div class="info-header">
           <h2><i class="fa-solid fa-globe"></i> Browser Info</h2>
+          <div class="header-actions">
+            <button class="header-action-btn" id="refreshBtn" title="Refresh (R)">
+              <i class="fa-solid fa-rotate"></i>
+            </button>
+            <button class="header-action-btn" id="copyAllBtn" title="Copy All (C)">
+              <i class="fa-solid fa-copy"></i>
+            </button>
+            <button class="header-action-btn" id="exportBtn" title="Export JSON (E)">
+              <i class="fa-solid fa-download"></i>
+            </button>
+          </div>
         </div>
 
         <!-- Tab Navigation -->
-        <div class="info-tabs">
-          <button class="info-tab active" data-tab="browser">
-            <i class="fa-solid fa-globe"></i>
+        <div class="tool-tabs">
+          <button class="tool-tab active" data-tab="browser">
+            <i class="fa-solid fa-compass"></i>
             <span>Browser</span>
           </button>
-          <button class="info-tab" data-tab="device">
+          <button class="tool-tab" data-tab="display">
             <i class="fa-solid fa-display"></i>
-            <span>Device</span>
+            <span>Display</span>
           </button>
-          <button class="info-tab" data-tab="network">
-            <i class="fa-solid fa-wifi"></i>
-            <span>Network</span>
+          <button class="tool-tab" data-tab="hardware">
+            <i class="fa-solid fa-microchip"></i>
+            <span>Hardware</span>
           </button>
-          <button class="info-tab" data-tab="features">
-            <i class="fa-solid fa-check-circle"></i>
+          <button class="tool-tab" data-tab="features">
+            <i class="fa-solid fa-puzzle-piece"></i>
             <span>Features</span>
           </button>
         </div>
@@ -83,184 +95,403 @@
         <div class="info-main">
           <!-- Browser Panel -->
           <div class="info-panel active" id="browserPanel">
-            <div class="info-grid">
-              <div class="info-card">
-                <div class="card-icon"><i class="fa-solid fa-browser"></i></div>
-                <div class="card-content">
-                  <div class="card-label">Browser</div>
-                  <div class="card-value" id="browserName">Detecting...</div>
+            <!-- Browser Overview Card -->
+            <div class="info-card highlight-card">
+              <div class="browser-overview">
+                <div class="browser-icon" id="browserIcon">
+                  <i class="fa-brands fa-chrome"></i>
                 </div>
-              </div>
-
-              <div class="info-card">
-                <div class="card-icon"><i class="fa-solid fa-code-branch"></i></div>
-                <div class="card-content">
-                  <div class="card-label">Browser Version</div>
-                  <div class="card-value" id="browserVersion">Detecting...</div>
+                <div class="browser-details">
+                  <h3 id="browserName">Chrome</h3>
+                  <span class="browser-version" id="browserVersion">Version 120.0.0</span>
                 </div>
-              </div>
-
-              <div class="info-card">
-                <div class="card-icon"><i class="fa-solid fa-desktop"></i></div>
-                <div class="card-content">
-                  <div class="card-label">Operating System</div>
-                  <div class="card-value" id="osName">Detecting...</div>
-                </div>
-              </div>
-
-              <div class="info-card">
-                <div class="card-icon"><i class="fa-solid fa-microchip"></i></div>
-                <div class="card-content">
-                  <div class="card-label">Platform</div>
-                  <div class="card-value" id="platform">Detecting...</div>
-                </div>
-              </div>
-
-              <div class="info-card">
-                <div class="card-icon"><i class="fa-solid fa-language"></i></div>
-                <div class="card-content">
-                  <div class="card-label">Language</div>
-                  <div class="card-value" id="language">Detecting...</div>
-                </div>
-              </div>
-
-              <div class="info-card">
-                <div class="card-icon"><i class="fa-solid fa-cookie-bite"></i></div>
-                <div class="card-content">
-                  <div class="card-label">Cookies Enabled</div>
-                  <div class="card-value" id="cookiesEnabled">Detecting...</div>
-                </div>
-              </div>
-
-              <div class="info-card full-width">
-                <div class="card-icon"><i class="fa-solid fa-fingerprint"></i></div>
-                <div class="card-content">
-                  <div class="card-label">User Agent</div>
-                  <div class="card-value small" id="userAgent">Detecting...</div>
-                </div>
-                <button class="copy-btn" data-copy="userAgent" aria-label="Copy user agent" title="Copy user agent"><i class="fa-solid fa-copy"></i></button>
               </div>
             </div>
-          </div>
 
-          <!-- Device Panel -->
-          <div class="info-panel" id="devicePanel">
-            <div class="info-grid">
-              <div class="info-card">
-                <div class="card-icon"><i class="fa-solid fa-expand"></i></div>
-                <div class="card-content">
-                  <div class="card-label">Screen Resolution</div>
-                  <div class="card-value" id="screenRes">Detecting...</div>
+            <!-- Browser Details -->
+            <div class="info-card">
+              <div class="card-header">
+                <h4><i class="fa-solid fa-circle-info"></i> Browser Details</h4>
+              </div>
+              <div class="info-grid">
+                <div class="info-item">
+                  <span class="info-label">Browser</span>
+                  <span class="info-value" id="browserFullName">Chrome 120</span>
+                  <button class="copy-btn" data-copy="browserFullName" aria-label="Copy">
+                    <i class="fa-solid fa-copy"></i>
+                  </button>
+                </div>
+                <div class="info-item">
+                  <span class="info-label">Engine</span>
+                  <span class="info-value" id="browserEngine">Blink</span>
+                  <button class="copy-btn" data-copy="browserEngine" aria-label="Copy">
+                    <i class="fa-solid fa-copy"></i>
+                  </button>
+                </div>
+                <div class="info-item">
+                  <span class="info-label">Platform</span>
+                  <span class="info-value" id="platform">Windows</span>
+                  <button class="copy-btn" data-copy="platform" aria-label="Copy">
+                    <i class="fa-solid fa-copy"></i>
+                  </button>
+                </div>
+                <div class="info-item">
+                  <span class="info-label">Language</span>
+                  <span class="info-value" id="language">en-US</span>
+                  <button class="copy-btn" data-copy="language" aria-label="Copy">
+                    <i class="fa-solid fa-copy"></i>
+                  </button>
+                </div>
+                <div class="info-item">
+                  <span class="info-label">Cookies</span>
+                  <span class="info-value" id="cookiesEnabled">Enabled</span>
+                  <button class="copy-btn" data-copy="cookiesEnabled" aria-label="Copy">
+                    <i class="fa-solid fa-copy"></i>
+                  </button>
+                </div>
+                <div class="info-item">
+                  <span class="info-label">Do Not Track</span>
+                  <span class="info-value" id="doNotTrack">Not Set</span>
+                  <button class="copy-btn" data-copy="doNotTrack" aria-label="Copy">
+                    <i class="fa-solid fa-copy"></i>
+                  </button>
                 </div>
               </div>
+            </div>
 
-              <div class="info-card">
-                <div class="card-icon"><i class="fa-solid fa-window-maximize"></i></div>
-                <div class="card-content">
-                  <div class="card-label">Viewport Size</div>
-                  <div class="card-value" id="viewportSize">Detecting...</div>
-                </div>
+            <!-- User Agent -->
+            <div class="info-card">
+              <div class="card-header">
+                <h4><i class="fa-solid fa-fingerprint"></i> User Agent</h4>
+                <button class="copy-btn" id="copyUserAgent" aria-label="Copy User Agent">
+                  <i class="fa-solid fa-copy"></i>
+                </button>
               </div>
-
-              <div class="info-card">
-                <div class="card-icon"><i class="fa-solid fa-palette"></i></div>
-                <div class="card-content">
-                  <div class="card-label">Color Depth</div>
-                  <div class="card-value" id="colorDepth">Detecting...</div>
-                </div>
+              <div class="user-agent-box">
+                <code id="userAgent">Loading...</code>
               </div>
+            </div>
 
-              <div class="info-card">
-                <div class="card-icon"><i class="fa-solid fa-up-right-and-down-left-from-center"></i></div>
-                <div class="card-content">
-                  <div class="card-label">Pixel Ratio</div>
-                  <div class="card-value" id="pixelRatio">Detecting...</div>
-                </div>
+            <!-- Timezone & Location -->
+            <div class="info-card">
+              <div class="card-header">
+                <h4><i class="fa-solid fa-clock"></i> Time & Location</h4>
               </div>
-
-              <div class="info-card">
-                <div class="card-icon"><i class="fa-solid fa-mobile-screen"></i></div>
-                <div class="card-content">
-                  <div class="card-label">Device Type</div>
-                  <div class="card-value" id="deviceType">Detecting...</div>
+              <div class="info-grid">
+                <div class="info-item">
+                  <span class="info-label">Timezone</span>
+                  <span class="info-value" id="timezone">UTC+0</span>
+                  <button class="copy-btn" data-copy="timezone" aria-label="Copy">
+                    <i class="fa-solid fa-copy"></i>
+                  </button>
                 </div>
-              </div>
-
-              <div class="info-card">
-                <div class="card-icon"><i class="fa-solid fa-hand-pointer"></i></div>
-                <div class="card-content">
-                  <div class="card-label">Touch Support</div>
-                  <div class="card-value" id="touchSupport">Detecting...</div>
+                <div class="info-item">
+                  <span class="info-label">Timezone Name</span>
+                  <span class="info-value" id="timezoneName">Europe/London</span>
+                  <button class="copy-btn" data-copy="timezoneName" aria-label="Copy">
+                    <i class="fa-solid fa-copy"></i>
+                  </button>
                 </div>
-              </div>
-
-              <div class="info-card">
-                <div class="card-icon"><i class="fa-solid fa-compass"></i></div>
-                <div class="card-content">
-                  <div class="card-label">Orientation</div>
-                  <div class="card-value" id="orientation">Detecting...</div>
+                <div class="info-item">
+                  <span class="info-label">Local Time</span>
+                  <span class="info-value" id="localTime">00:00:00</span>
+                  <button class="copy-btn" data-copy="localTime" aria-label="Copy">
+                    <i class="fa-solid fa-copy"></i>
+                  </button>
                 </div>
-              </div>
-
-              <div class="info-card">
-                <div class="card-icon"><i class="fa-solid fa-memory"></i></div>
-                <div class="card-content">
-                  <div class="card-label">Device Memory</div>
-                  <div class="card-value" id="deviceMemory">Detecting...</div>
+                <div class="info-item">
+                  <span class="info-label">Date Format</span>
+                  <span class="info-value" id="dateFormat">MM/DD/YYYY</span>
+                  <button class="copy-btn" data-copy="dateFormat" aria-label="Copy">
+                    <i class="fa-solid fa-copy"></i>
+                  </button>
                 </div>
               </div>
             </div>
           </div>
 
-          <!-- Network Panel -->
-          <div class="info-panel" id="networkPanel">
-            <div class="info-grid">
-              <div class="info-card highlight">
-                <div class="card-icon"><i class="fa-solid fa-location-dot"></i></div>
-                <div class="card-content">
-                  <div class="card-label">Your IP Address</div>
-                  <div class="card-value" id="ipAddress">Detecting...</div>
+          <!-- Display Panel -->
+          <div class="info-panel" id="displayPanel">
+            <!-- Screen Overview -->
+            <div class="info-card highlight-card">
+              <div class="screen-overview">
+                <div class="screen-visual">
+                  <div class="screen-frame">
+                    <div class="screen-inner" id="screenVisual">
+                      <span id="screenResText">1920 x 1080</span>
+                    </div>
+                  </div>
                 </div>
-                <button class="copy-btn" data-copy="ipAddress" aria-label="Copy IP address" title="Copy IP address"><i class="fa-solid fa-copy"></i></button>
-              </div>
-
-              <div class="info-card">
-                <div class="card-icon"><i class="fa-solid fa-signal"></i></div>
-                <div class="card-content">
-                  <div class="card-label">Connection Type</div>
-                  <div class="card-value" id="connectionType">Detecting...</div>
+                <div class="screen-details">
+                  <h3>Display</h3>
+                  <span class="screen-ratio" id="screenRatio">16:9</span>
                 </div>
               </div>
+            </div>
 
-              <div class="info-card">
-                <div class="card-icon"><i class="fa-solid fa-gauge-high"></i></div>
-                <div class="card-content">
-                  <div class="card-label">Effective Type</div>
-                  <div class="card-value" id="effectiveType">Detecting...</div>
+            <!-- Screen Info -->
+            <div class="info-card">
+              <div class="card-header">
+                <h4><i class="fa-solid fa-expand"></i> Screen Information</h4>
+              </div>
+              <div class="info-grid">
+                <div class="info-item">
+                  <span class="info-label">Screen Resolution</span>
+                  <span class="info-value" id="screenResolution">1920 x 1080</span>
+                  <button class="copy-btn" data-copy="screenResolution" aria-label="Copy">
+                    <i class="fa-solid fa-copy"></i>
+                  </button>
+                </div>
+                <div class="info-item">
+                  <span class="info-label">Available Screen</span>
+                  <span class="info-value" id="availableScreen">1920 x 1040</span>
+                  <button class="copy-btn" data-copy="availableScreen" aria-label="Copy">
+                    <i class="fa-solid fa-copy"></i>
+                  </button>
+                </div>
+                <div class="info-item">
+                  <span class="info-label">Viewport Size</span>
+                  <span class="info-value" id="viewportSize">1920 x 900</span>
+                  <button class="copy-btn" data-copy="viewportSize" aria-label="Copy">
+                    <i class="fa-solid fa-copy"></i>
+                  </button>
+                </div>
+                <div class="info-item">
+                  <span class="info-label">Color Depth</span>
+                  <span class="info-value" id="colorDepth">24-bit</span>
+                  <button class="copy-btn" data-copy="colorDepth" aria-label="Copy">
+                    <i class="fa-solid fa-copy"></i>
+                  </button>
+                </div>
+                <div class="info-item">
+                  <span class="info-label">Pixel Ratio</span>
+                  <span class="info-value" id="pixelRatio">1x</span>
+                  <button class="copy-btn" data-copy="pixelRatio" aria-label="Copy">
+                    <i class="fa-solid fa-copy"></i>
+                  </button>
+                </div>
+                <div class="info-item">
+                  <span class="info-label">Orientation</span>
+                  <span class="info-value" id="orientation">Landscape</span>
+                  <button class="copy-btn" data-copy="orientation" aria-label="Copy">
+                    <i class="fa-solid fa-copy"></i>
+                  </button>
                 </div>
               </div>
+            </div>
 
-              <div class="info-card">
-                <div class="card-icon"><i class="fa-solid fa-download"></i></div>
-                <div class="card-content">
-                  <div class="card-label">Downlink</div>
-                  <div class="card-value" id="downlink">Detecting...</div>
+            <!-- Display Features -->
+            <div class="info-card">
+              <div class="card-header">
+                <h4><i class="fa-solid fa-palette"></i> Display Features</h4>
+              </div>
+              <div class="info-grid">
+                <div class="info-item">
+                  <span class="info-label">Color Scheme</span>
+                  <span class="info-value" id="colorScheme">Light</span>
+                  <button class="copy-btn" data-copy="colorScheme" aria-label="Copy">
+                    <i class="fa-solid fa-copy"></i>
+                  </button>
+                </div>
+                <div class="info-item">
+                  <span class="info-label">Reduced Motion</span>
+                  <span class="info-value" id="reducedMotion">No Preference</span>
+                  <button class="copy-btn" data-copy="reducedMotion" aria-label="Copy">
+                    <i class="fa-solid fa-copy"></i>
+                  </button>
+                </div>
+                <div class="info-item">
+                  <span class="info-label">HDR Support</span>
+                  <span class="info-value" id="hdrSupport">Not Supported</span>
+                  <button class="copy-btn" data-copy="hdrSupport" aria-label="Copy">
+                    <i class="fa-solid fa-copy"></i>
+                  </button>
+                </div>
+                <div class="info-item">
+                  <span class="info-label">Touch Support</span>
+                  <span class="info-value" id="touchSupport">Not Available</span>
+                  <button class="copy-btn" data-copy="touchSupport" aria-label="Copy">
+                    <i class="fa-solid fa-copy"></i>
+                  </button>
                 </div>
               </div>
+            </div>
+          </div>
 
-              <div class="info-card">
-                <div class="card-icon"><i class="fa-solid fa-clock"></i></div>
-                <div class="card-content">
-                  <div class="card-label">Round-Trip Time</div>
-                  <div class="card-value" id="rtt">Detecting...</div>
+          <!-- Hardware Panel -->
+          <div class="info-panel" id="hardwarePanel">
+            <!-- Hardware Overview -->
+            <div class="info-card highlight-card">
+              <div class="hardware-overview">
+                <div class="hardware-stats">
+                  <div class="stat-item">
+                    <i class="fa-solid fa-microchip"></i>
+                    <div class="stat-details">
+                      <span class="stat-value" id="cpuCores">8</span>
+                      <span class="stat-label">CPU Cores</span>
+                    </div>
+                  </div>
+                  <div class="stat-item">
+                    <i class="fa-solid fa-memory"></i>
+                    <div class="stat-details">
+                      <span class="stat-value" id="deviceMemory">8 GB</span>
+                      <span class="stat-label">RAM (approx)</span>
+                    </div>
+                  </div>
+                  <div class="stat-item">
+                    <i class="fa-solid fa-wifi"></i>
+                    <div class="stat-details">
+                      <span class="stat-value" id="connectionType">4G</span>
+                      <span class="stat-label">Connection</span>
+                    </div>
+                  </div>
                 </div>
               </div>
+            </div>
 
-              <div class="info-card">
-                <div class="card-icon"><i class="fa-solid fa-wifi"></i></div>
-                <div class="card-content">
-                  <div class="card-label">Online Status</div>
-                  <div class="card-value" id="onlineStatus">Detecting...</div>
+            <!-- Device Info -->
+            <div class="info-card">
+              <div class="card-header">
+                <h4><i class="fa-solid fa-laptop"></i> Device Information</h4>
+              </div>
+              <div class="info-grid">
+                <div class="info-item">
+                  <span class="info-label">Device Type</span>
+                  <span class="info-value" id="deviceType">Desktop</span>
+                  <button class="copy-btn" data-copy="deviceType" aria-label="Copy">
+                    <i class="fa-solid fa-copy"></i>
+                  </button>
+                </div>
+                <div class="info-item">
+                  <span class="info-label">Operating System</span>
+                  <span class="info-value" id="operatingSystem">Windows 10</span>
+                  <button class="copy-btn" data-copy="operatingSystem" aria-label="Copy">
+                    <i class="fa-solid fa-copy"></i>
+                  </button>
+                </div>
+                <div class="info-item">
+                  <span class="info-label">CPU Cores</span>
+                  <span class="info-value" id="cpuCoresDetail">8 cores</span>
+                  <button class="copy-btn" data-copy="cpuCoresDetail" aria-label="Copy">
+                    <i class="fa-solid fa-copy"></i>
+                  </button>
+                </div>
+                <div class="info-item">
+                  <span class="info-label">RAM (approx)</span>
+                  <span class="info-value" id="memoryDetail">8 GB</span>
+                  <button class="copy-btn" data-copy="memoryDetail" aria-label="Copy">
+                    <i class="fa-solid fa-copy"></i>
+                  </button>
+                </div>
+                <div class="info-item">
+                  <span class="info-label">Architecture</span>
+                  <span class="info-value" id="architecture">64-bit</span>
+                  <button class="copy-btn" data-copy="architecture" aria-label="Copy">
+                    <i class="fa-solid fa-copy"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Network Info -->
+            <div class="info-card">
+              <div class="card-header">
+                <h4><i class="fa-solid fa-network-wired"></i> Network Information</h4>
+              </div>
+              <div class="info-grid">
+                <div class="info-item">
+                  <span class="info-label">Connection Type</span>
+                  <span class="info-value" id="connectionTypeDetail">WiFi</span>
+                  <button class="copy-btn" data-copy="connectionTypeDetail" aria-label="Copy">
+                    <i class="fa-solid fa-copy"></i>
+                  </button>
+                </div>
+                <div class="info-item">
+                  <span class="info-label">Effective Type</span>
+                  <span class="info-value" id="effectiveType">4g</span>
+                  <button class="copy-btn" data-copy="effectiveType" aria-label="Copy">
+                    <i class="fa-solid fa-copy"></i>
+                  </button>
+                </div>
+                <div class="info-item">
+                  <span class="info-label">Downlink</span>
+                  <span class="info-value" id="downlink">10 Mbps</span>
+                  <button class="copy-btn" data-copy="downlink" aria-label="Copy">
+                    <i class="fa-solid fa-copy"></i>
+                  </button>
+                </div>
+                <div class="info-item">
+                  <span class="info-label">Round Trip Time</span>
+                  <span class="info-value" id="rtt">50 ms</span>
+                  <button class="copy-btn" data-copy="rtt" aria-label="Copy">
+                    <i class="fa-solid fa-copy"></i>
+                  </button>
+                </div>
+                <div class="info-item">
+                  <span class="info-label">Online Status</span>
+                  <span class="info-value" id="onlineStatus">Online</span>
+                  <button class="copy-btn" data-copy="onlineStatus" aria-label="Copy">
+                    <i class="fa-solid fa-copy"></i>
+                  </button>
+                </div>
+                <div class="info-item">
+                  <span class="info-label">Data Saver</span>
+                  <span class="info-value" id="dataSaver">Off</span>
+                  <button class="copy-btn" data-copy="dataSaver" aria-label="Copy">
+                    <i class="fa-solid fa-copy"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- GPU Info -->
+            <div class="info-card">
+              <div class="card-header">
+                <h4><i class="fa-solid fa-tv"></i> Graphics</h4>
+              </div>
+              <div class="info-grid">
+                <div class="info-item full-width">
+                  <span class="info-label">GPU Renderer</span>
+                  <span class="info-value" id="gpuRenderer">Unknown</span>
+                  <button class="copy-btn" data-copy="gpuRenderer" aria-label="Copy">
+                    <i class="fa-solid fa-copy"></i>
+                  </button>
+                </div>
+                <div class="info-item full-width">
+                  <span class="info-label">GPU Vendor</span>
+                  <span class="info-value" id="gpuVendor">Unknown</span>
+                  <button class="copy-btn" data-copy="gpuVendor" aria-label="Copy">
+                    <i class="fa-solid fa-copy"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Battery Info -->
+            <div class="info-card" id="batteryCard">
+              <div class="card-header">
+                <h4><i class="fa-solid fa-battery-three-quarters"></i> Battery</h4>
+              </div>
+              <div class="battery-visual">
+                <div class="battery-icon">
+                  <div class="battery-level" id="batteryLevel" style="width: 75%"></div>
+                </div>
+                <span class="battery-percentage" id="batteryPercentage">75%</span>
+              </div>
+              <div class="info-grid">
+                <div class="info-item">
+                  <span class="info-label">Charging</span>
+                  <span class="info-value" id="batteryCharging">No</span>
+                  <button class="copy-btn" data-copy="batteryCharging" aria-label="Copy">
+                    <i class="fa-solid fa-copy"></i>
+                  </button>
+                </div>
+                <div class="info-item">
+                  <span class="info-label">Time Remaining</span>
+                  <span class="info-value" id="batteryTimeRemaining">N/A</span>
+                  <button class="copy-btn" data-copy="batteryTimeRemaining" aria-label="Copy">
+                    <i class="fa-solid fa-copy"></i>
+                  </button>
                 </div>
               </div>
             </div>
@@ -268,64 +499,27 @@
 
           <!-- Features Panel -->
           <div class="info-panel" id="featuresPanel">
-            <div class="features-grid">
-              <div class="feature-item" id="featureLocalStorage">
-                <i class="fa-solid fa-database"></i>
-                <span>Local Storage</span>
-              </div>
-              <div class="feature-item" id="featureSessionStorage">
-                <i class="fa-solid fa-clock-rotate-left"></i>
-                <span>Session Storage</span>
-              </div>
-              <div class="feature-item" id="featureIndexedDB">
-                <i class="fa-solid fa-layer-group"></i>
-                <span>IndexedDB</span>
-              </div>
-              <div class="feature-item" id="featureWebGL">
-                <i class="fa-solid fa-cube"></i>
-                <span>WebGL</span>
-              </div>
-              <div class="feature-item" id="featureWebWorkers">
-                <i class="fa-solid fa-gears"></i>
-                <span>Web Workers</span>
-              </div>
-              <div class="feature-item" id="featureServiceWorker">
-                <i class="fa-solid fa-server"></i>
-                <span>Service Worker</span>
-              </div>
-              <div class="feature-item" id="featureWebSocket">
-                <i class="fa-solid fa-plug"></i>
-                <span>WebSocket</span>
-              </div>
-              <div class="feature-item" id="featureGeolocation">
-                <i class="fa-solid fa-location-crosshairs"></i>
-                <span>Geolocation</span>
-              </div>
-              <div class="feature-item" id="featureNotifications">
-                <i class="fa-solid fa-bell"></i>
-                <span>Notifications</span>
-              </div>
-              <div class="feature-item" id="featureClipboard">
-                <i class="fa-solid fa-clipboard"></i>
-                <span>Clipboard API</span>
-              </div>
-              <div class="feature-item" id="featureBluetooth">
-                <i class="fa-brands fa-bluetooth"></i>
-                <span>Web Bluetooth</span>
-              </div>
-              <div class="feature-item" id="featureWebUSB">
-                <i class="fa-brands fa-usb"></i>
-                <span>WebUSB</span>
-              </div>
+            <!-- Feature Categories -->
+            <div class="feature-categories">
+              <button class="feature-category active" data-category="all">All</button>
+              <button class="feature-category" data-category="storage">Storage</button>
+              <button class="feature-category" data-category="media">Media</button>
+              <button class="feature-category" data-category="api">APIs</button>
+              <button class="feature-category" data-category="hardware">Hardware</button>
+            </div>
+
+            <!-- Features Grid -->
+            <div class="features-grid" id="featuresGrid">
+              <!-- Features will be dynamically inserted -->
+            </div>
+
+            <!-- Features Summary -->
+            <div class="features-summary" id="featuresSummary">
+              <span class="summary-supported"><i class="fa-solid fa-check"></i> <span id="supportedCount">0</span> Supported</span>
+              <span class="summary-unsupported"><i class="fa-solid fa-xmark"></i> <span id="unsupportedCount">0</span> Unsupported</span>
             </div>
           </div>
         </div>
-
-        <!-- Refresh Button -->
-        <button class="refresh-btn" id="refreshBtn">
-          <i class="fa-solid fa-rotate"></i>
-          <span>Refresh Info</span>
-        </button>
       </div>
     </div>
   </main>
@@ -353,19 +547,33 @@
     <div class="shortcuts-content">
       <div class="shortcuts-header">
         <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
-        <button class="close-shortcuts-btn" id="closeShortcutsBtn">
+        <button class="close-shortcuts-btn" id="closeShortcutsBtn" aria-label="Close shortcuts">
           <i class="fa-solid fa-xmark"></i>
         </button>
       </div>
       <div class="shortcuts-body">
+        <!-- General Section -->
         <div class="shortcuts-group">
-          <div class="shortcuts-group-title">Actions</div>
+          <div class="shortcuts-group-title">General</div>
           <div class="shortcut-row">
             <div class="shortcut-keys"><kbd>R</kbd></div>
             <div class="shortcut-desc">Refresh info</div>
           </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>C</kbd></div>
+            <div class="shortcut-desc">Copy all info</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>E</kbd></div>
+            <div class="shortcut-desc">Export JSON</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>?</kbd></div>
+            <div class="shortcut-desc">Show shortcuts</div>
+          </div>
         </div>
 
+        <!-- Navigation Section -->
         <div class="shortcuts-group">
           <div class="shortcuts-group-title">Navigation</div>
           <div class="shortcut-row">
@@ -374,19 +582,15 @@
           </div>
           <div class="shortcut-row">
             <div class="shortcut-keys"><kbd>2</kbd></div>
-            <div class="shortcut-desc">Device tab</div>
+            <div class="shortcut-desc">Display tab</div>
           </div>
           <div class="shortcut-row">
             <div class="shortcut-keys"><kbd>3</kbd></div>
-            <div class="shortcut-desc">Network tab</div>
+            <div class="shortcut-desc">Hardware tab</div>
           </div>
           <div class="shortcut-row">
             <div class="shortcut-keys"><kbd>4</kbd></div>
             <div class="shortcut-desc">Features tab</div>
-          </div>
-          <div class="shortcut-row">
-            <div class="shortcut-keys"><kbd>?</kbd></div>
-            <div class="shortcut-desc">Show shortcuts</div>
           </div>
         </div>
       </div>

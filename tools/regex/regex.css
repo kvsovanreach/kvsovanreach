@@ -18,8 +18,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: var(--space-4) var(--space-6);
-  background-color: var(--color-bg);
+  padding: var(--space-4) var(--space-5);
+  background-color: var(--color-surface);
   border-bottom: 1px solid var(--color-border);
 }
 
@@ -27,8 +27,9 @@
   display: flex;
   align-items: center;
   gap: var(--space-3);
+  margin: 0;
   font-size: var(--font-size-xl);
-  font-weight: 700;
+  font-weight: 600;
   color: var(--color-text);
 }
 
@@ -36,12 +37,32 @@
   color: var(--color-primary);
 }
 
-.regex-actions {
+/* Header Actions */
+.header-actions {
   display: flex;
   gap: var(--space-2);
 }
 
-/* action-btn styles are in tools-common.css */
+.header-action-btn {
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-bg-secondary);
+  color: var(--color-text-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.header-action-btn:hover {
+  background-color: var(--color-primary);
+  color: #fff;
+  border-color: var(--color-primary);
+}
 
 /* ==================== Content ==================== */
 .regex-content {
@@ -651,6 +672,12 @@
 
   .regex-header h2 {
     font-size: var(--font-size-lg);
+    gap: var(--space-2);
+  }
+
+  .header-action-btn {
+    width: 28px;
+    height: 28px;
   }
 
   .regex-content {
@@ -760,12 +787,17 @@
   }
 
   .regex-header {
-    padding: var(--space-3);
+    padding: var(--space-2) var(--space-3);
   }
 
   .regex-header h2 {
     font-size: var(--font-size-base);
-    gap: var(--space-2);
+  }
+
+  .header-action-btn {
+    width: 26px;
+    height: 26px;
+    font-size: var(--font-size-xs);
   }
 
   .regex-content {
@@ -840,8 +872,15 @@
     padding: var(--space-2);
   }
 
-  .action-btn span {
-    display: none;
-  }
 }
 
+@media screen and (max-width: 360px) {
+  .regex-header h2 {
+    font-size: var(--font-size-sm);
+  }
+
+  .header-action-btn {
+    width: 24px;
+    height: 24px;
+  }
+}

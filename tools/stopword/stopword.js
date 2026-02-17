@@ -6,28 +6,9 @@
 (function() {
   'use strict';
 
-  // ==================== DOM Elements ====================
-  const elements = {
-    languageSelect: document.getElementById('languageSelect'),
-    preserveCase: document.getElementById('preserveCase'),
-    preservePunct: document.getElementById('preservePunct'),
-    customSection: document.getElementById('customSection'),
-    customStopwords: document.getElementById('customStopwords'),
-    inputText: document.getElementById('inputText'),
-    outputText: document.getElementById('outputText'),
-    inputWordCount: document.getElementById('inputWordCount'),
-    outputWordCount: document.getElementById('outputWordCount'),
-    processBtn: document.getElementById('processBtn'),
-    clearBtn: document.getElementById('clearBtn'),
-    pasteBtn: document.getElementById('pasteBtn'),
-    sampleBtn: document.getElementById('sampleBtn'),
-    copyBtn: document.getElementById('copyBtn'),
-    statsSection: document.getElementById('statsSection'),
-    wordsRemoved: document.getElementById('wordsRemoved'),
-    reduction: document.getElementById('reduction'),
-    mostCommon: document.getElementById('mostCommon'),
-    removedSection: document.getElementById('removedSection'),
-    removedList: document.getElementById('removedList')
+  // ==================== State ====================
+  const state = {
+    lastProcessed: null
   };
 
   // ==================== Stopwords ====================
@@ -49,6 +30,36 @@
   };
 
   const SAMPLE_TEXT = `The quick brown fox jumps over the lazy dog. This is a sample text that contains many common stopwords. We can use this tool to remove them and see the result. The text processing happens entirely in your browser, so your data is never sent to any server. This makes it safe and private for all your text analysis needs.`;
+
+  // ==================== DOM Elements ====================
+  const elements = {};
+
+  function initElements() {
+    elements.languageSelect = document.getElementById('languageSelect');
+    elements.langTabs = document.querySelectorAll('.lang-tab');
+    elements.preserveCase = document.getElementById('preserveCase');
+    elements.preservePunct = document.getElementById('preservePunct');
+    elements.customSection = document.getElementById('customSection');
+    elements.customStopwords = document.getElementById('customStopwords');
+    elements.inputText = document.getElementById('inputText');
+    elements.outputText = document.getElementById('outputText');
+    elements.inputWordCount = document.getElementById('inputWordCount');
+    elements.outputWordCount = document.getElementById('outputWordCount');
+    elements.processBtn = document.getElementById('processBtn');
+    elements.clearBtn = document.getElementById('clearBtn');
+    elements.pasteBtn = document.getElementById('pasteBtn');
+    elements.sampleBtn = document.getElementById('sampleBtn');
+    elements.copyBtn = document.getElementById('copyBtn');
+    elements.statsSection = document.getElementById('statsSection');
+    elements.wordsRemoved = document.getElementById('wordsRemoved');
+    elements.reduction = document.getElementById('reduction');
+    elements.mostCommon = document.getElementById('mostCommon');
+    elements.removedSection = document.getElementById('removedSection');
+    elements.removedList = document.getElementById('removedList');
+  }
+
+  // ==================== UI Helpers ====================
+  const showToast = (message, type) => ToolsCommon.showToast(message, type);
 
   // ==================== Core Functions ====================
 
@@ -112,11 +123,11 @@
     elements.inputWordCount.textContent = count;
   }
 
-  function process() {
+  function process(silent = false) {
     const input = elements.inputText.value;
 
     if (!input.trim()) {
-      ToolsCommon.Toast.show('Please enter some text', 'error');
+      if (!silent) showToast('Please enter some text', 'error');
       return;
     }
 
@@ -163,6 +174,8 @@
     } else {
       elements.removedSection.classList.add('hidden');
     }
+
+    state.lastProcessed = Date.now();
   }
 
   function clearAll() {
@@ -173,6 +186,7 @@
     elements.statsSection.classList.add('hidden');
     elements.removedSection.classList.add('hidden');
     elements.inputText.focus();
+    showToast('Cleared', 'success');
   }
 
   async function pasteFromClipboard() {
@@ -180,43 +194,83 @@
       const text = await navigator.clipboard.readText();
       elements.inputText.value = text;
       updateInputCount();
+      showToast('Pasted from clipboard', 'success');
     } catch (e) {
-      ToolsCommon.Toast.show('Unable to paste from clipboard', 'error');
+      showToast('Unable to paste from clipboard', 'error');
     }
   }
 
   function loadSample() {
     elements.inputText.value = SAMPLE_TEXT;
     updateInputCount();
+    showToast('Sample text loaded', 'success');
   }
 
   function copyOutput() {
     const output = elements.outputText.value;
     if (output) {
-      ToolsCommon.Clipboard.copy(output);
+      ToolsCommon.copyWithToast(output, 'Output copied!');
     } else {
-      ToolsCommon.Toast.show('No output to copy', 'error');
+      showToast('No output to copy', 'error');
     }
   }
 
-  // ==================== Initialization ====================
+  // ==================== Event Listeners ====================
 
-  function init() {
-    // Event listeners
+  function initEventListeners() {
+    // Button listeners
     elements.processBtn.addEventListener('click', process);
     elements.clearBtn.addEventListener('click', clearAll);
     elements.pasteBtn.addEventListener('click', pasteFromClipboard);
     elements.sampleBtn.addEventListener('click', loadSample);
     elements.copyBtn.addEventListener('click', copyOutput);
 
-    // Input change
-    elements.inputText.addEventListener('input', updateInputCount);
+    // Input change - process in realtime with debounce
+    const processRealtime = ToolsCommon.debounce(() => {
+      if (elements.inputText.value.trim()) {
+        process(true);
+      } else {
+        elements.outputText.value = '';
+        elements.outputWordCount.textContent = '0';
+        elements.statsSection.classList.add('hidden');
+        elements.removedSection.classList.add('hidden');
+      }
+    }, 150);
 
-    // Language change
-    elements.languageSelect.addEventListener('change', () => {
-      const isCustom = elements.languageSelect.value === 'custom';
-      elements.customSection.classList.toggle('hidden', !isCustom);
+    elements.inputText.addEventListener('input', () => {
+      updateInputCount();
+      processRealtime();
     });
+
+    // Language tabs
+    elements.langTabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        const lang = tab.dataset.lang;
+
+        // Update active tab
+        elements.langTabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+
+        // Update hidden select
+        elements.languageSelect.value = lang;
+
+        // Toggle custom section
+        const isCustom = lang === 'custom';
+        elements.customSection.classList.toggle('hidden', !isCustom);
+
+        // Focus custom textarea if custom
+        if (isCustom) {
+          elements.customStopwords.focus();
+        }
+
+        processRealtime();
+      });
+    });
+
+    // Options change - reprocess
+    elements.preserveCase.addEventListener('change', processRealtime);
+    elements.preservePunct.addEventListener('change', processRealtime);
+    elements.customStopwords.addEventListener('input', ToolsCommon.debounce(processRealtime, 300));
 
     // Keyboard shortcuts
     document.addEventListener('keydown', (e) => {
@@ -225,6 +279,13 @@
         process();
       }
     });
+  }
+
+  // ==================== Initialization ====================
+
+  function init() {
+    initElements();
+    initEventListeners();
 
     // Focus input
     elements.inputText.focus();

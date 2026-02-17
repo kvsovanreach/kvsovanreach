@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Generate CSS border-radius values visually. Create rounded corners with custom values for each corner.">
+  <meta property="og:title" content="KVSOVANREACH | Border Radius Generator">
+  <meta property="og:description" content="Generate CSS border-radius values visually.">
+  <meta property="og:image" content="/assets/img/favicons/og-image.png">
+  <title>KVSOVANREACH | Border Radius Generator</title>
+
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/tools-common.css">
+  <link rel="stylesheet" href="borderradius.css">
+</head>
+<body>
+  <a href="#borderradius" class="skip-link">Skip to Border Radius Generator</a>
+
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">TOOLS</span>
+      </a>
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools"><i class="fa-solid fa-arrow-left"></i></a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <main class="tool-page">
+    <div class="container">
+      <div class="radius-wrapper" id="borderradius">
+        <div class="radius-header">
+          <h2><i class="fa-solid fa-vector-square"></i> Border Radius Generator</h2>
+          <div class="header-actions">
+            <button class="header-action-btn" id="copyBtn" title="Copy CSS (C)">
+              <i class="fa-solid fa-copy"></i>
+            </button>
+            <button class="header-action-btn" id="resetBtn" title="Reset (R)">
+              <i class="fa-solid fa-rotate-left"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="radius-content">
+          <div class="preview-section">
+            <div class="preview-box" id="previewBox"></div>
+          </div>
+
+          <div class="controls-section">
+            <div class="control-group">
+              <label class="checkbox-label">
+                <input type="checkbox" id="linkCorners">
+                <span>Link all corners</span>
+              </label>
+            </div>
+
+            <div class="corners-grid" id="cornersGrid">
+              <div class="corner-control top-left">
+                <label>Top Left</label>
+                <div class="corner-inputs">
+                  <input type="range" min="0" max="100" value="20" data-corner="tl" class="corner-slider">
+                  <input type="number" min="0" max="100" value="20" data-corner="tl" class="corner-number">
+                </div>
+              </div>
+              <div class="corner-control top-right">
+                <label>Top Right</label>
+                <div class="corner-inputs">
+                  <input type="range" min="0" max="100" value="20" data-corner="tr" class="corner-slider">
+                  <input type="number" min="0" max="100" value="20" data-corner="tr" class="corner-number">
+                </div>
+              </div>
+              <div class="corner-control bottom-left">
+                <label>Bottom Left</label>
+                <div class="corner-inputs">
+                  <input type="range" min="0" max="100" value="20" data-corner="bl" class="corner-slider">
+                  <input type="number" min="0" max="100" value="20" data-corner="bl" class="corner-number">
+                </div>
+              </div>
+              <div class="corner-control bottom-right">
+                <label>Bottom Right</label>
+                <div class="corner-inputs">
+                  <input type="range" min="0" max="100" value="20" data-corner="br" class="corner-slider">
+                  <input type="number" min="0" max="100" value="20" data-corner="br" class="corner-number">
+                </div>
+              </div>
+            </div>
+
+            <div class="presets-section">
+              <label>Presets</label>
+              <div class="preset-buttons">
+                <button class="preset-btn" data-preset="square">Square</button>
+                <button class="preset-btn" data-preset="rounded">Rounded</button>
+                <button class="preset-btn" data-preset="pill">Pill</button>
+                <button class="preset-btn" data-preset="blob">Blob</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="output-section">
+            <label>CSS Output</label>
+            <div class="code-output">
+              <code id="cssOutput">border-radius: 20px;</code>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div class="shortcuts-modal" id="shortcutsModal">
+    <div class="shortcuts-content">
+      <div class="shortcuts-header">
+        <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
+        <button class="close-shortcuts-btn" id="closeShortcutsBtn"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="shortcuts-body">
+        <div class="shortcut-row"><span class="shortcut-key">C</span><span class="shortcut-desc">Copy CSS</span></div>
+        <div class="shortcut-row"><span class="shortcut-key">R</span><span class="shortcut-desc">Reset to default</span></div>
+        <div class="shortcut-row"><span class="shortcut-key">?</span><span class="shortcut-desc">Show shortcuts</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="shortcuts-hint">Press <span class="shortcut-key">?</span> for shortcuts</div>
+  <div class="toast" id="toast"></div>
+
+  <script src="../../js/tools-common.js"></script>
+  <script src="borderradius.js"></script>
+</body>
+</html>

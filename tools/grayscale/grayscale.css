@@ -28,28 +28,55 @@
   display: flex;
   align-items: center;
   gap: var(--space-3);
+  margin: 0;
   font-size: var(--font-size-xl);
   font-weight: 600;
   color: var(--color-text);
 }
 
-.gray-header h2 i {
-  color: var(--color-primary);
-}
+.gray-header h2 i { color: var(--color-primary); }
 
-.gray-actions {
+/* Header Actions */
+.header-actions {
   display: flex;
   gap: var(--space-2);
 }
 
-/* Content */
-.gray-content {
+.header-action-btn {
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-bg-secondary);
+  color: var(--color-text-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.header-action-btn:hover:not(:disabled) {
+  background-color: var(--color-primary);
+  color: #fff;
+  border-color: var(--color-primary);
+}
+
+.header-action-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* Main Content Area */
+.gray-main {
   padding: var(--space-5);
+  background: linear-gradient(145deg, var(--color-bg-tertiary), var(--color-bg-secondary));
 }
 
 /* Upload Section */
 .upload-section {
-  padding: var(--space-5);
+  margin-bottom: var(--space-4);
 }
 
 .upload-area {
@@ -101,33 +128,37 @@
   gap: var(--space-5);
 }
 
+.preview-section[hidden] {
+  display: none !important;
+}
+
 /* Controls */
 .gray-controls {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
   padding: var(--space-4);
   background-color: var(--color-bg-secondary);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
-  flex-wrap: wrap;
-  gap: var(--space-4);
 }
 
-.control-group {
-  flex: 1;
-  min-width: 200px;
-}
-
-.control-group label {
-  display: block;
+.controls-header {
   font-size: var(--font-size-sm);
-  font-weight: 500;
+  font-weight: 600;
   color: var(--color-text);
-  margin-bottom: var(--space-2);
+  margin-bottom: var(--space-3);
 }
+
+.controls-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+}
+
 
 .slider-group {
+  flex: 1;
+  min-width: 200px;
   display: flex;
   align-items: center;
   gap: var(--space-3);
@@ -213,6 +244,11 @@
   transition: filter var(--transition-base);
 }
 
+#previewImage:not([src]),
+#previewImage[src=""] {
+  display: none !important;
+}
+
 /* Info Panel */
 .info-panel {
   display: grid;
@@ -250,34 +286,68 @@
 
 /* Responsive */
 @media screen and (max-width: 1024px) {
-  .gray-wrapper {
-    border-radius: var(--radius-lg);
-  }
+  .gray-wrapper { border-radius: var(--radius-lg); }
 }
 
 @media screen and (max-width: 768px) {
-  .gray-content {
-    padding: var(--space-4);
-  }
+  .gray-wrapper { border-radius: var(--radius-lg); }
+  .gray-header { padding: var(--space-3) var(--space-3); }
+  .gray-header h2 { font-size: var(--font-size-lg); gap: var(--space-2); }
+  .header-action-btn { width: 28px; height: 28px; }
 
-  .gray-controls {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .quick-buttons {
-    justify-content: center;
-  }
-
-  .info-panel {
-    grid-template-columns: 1fr;
-  }
+  .gray-main { padding: var(--space-3); }
+  .upload-area { padding: var(--space-4); }
+  .upload-area i { font-size: 2rem; margin-bottom: var(--space-2); }
+  .upload-area h3 { font-size: var(--font-size-base); margin-bottom: var(--space-1); }
+  .upload-area p { font-size: var(--font-size-sm); }
+  .preview-section { gap: var(--space-3); }
+  .gray-controls { padding: var(--space-3); }
+  .controls-header { font-size: var(--font-size-xs); margin-bottom: var(--space-2); }
+  .controls-row { flex-direction: column; align-items: stretch; gap: var(--space-3); }
+  .slider-group { min-width: auto; }
+  .slider-value { font-size: var(--font-size-xs); padding: var(--space-1); min-width: 40px; }
+  .quick-buttons { justify-content: center; }
+  .quick-btn { padding: var(--space-2) var(--space-3); font-size: var(--font-size-xs); }
+  .preview-container { min-height: 250px; padding: var(--space-3); }
+  .preview-container img { max-height: 350px; }
+  .info-panel { grid-template-columns: 1fr; gap: var(--space-2); }
+  .info-card { padding: var(--space-3); gap: var(--space-2); }
+  .info-card i { font-size: var(--font-size-lg); }
+  .info-card h4 { font-size: var(--font-size-xs); }
+  .info-card p { font-size: 0.65rem; }
 }
 
 @media screen and (max-width: 480px) {
-  .gray-header {
-    flex-direction: column;
-    gap: var(--space-3);
-    align-items: flex-start;
-  }
+  .gray-header { padding: var(--space-2) var(--space-3); }
+  .gray-header h2 { font-size: var(--font-size-base); }
+  .header-action-btn { width: 26px; height: 26px; font-size: var(--font-size-xs); }
+
+  .gray-main { padding: var(--space-2); }
+  .upload-area { padding: var(--space-3); }
+  .upload-area i { font-size: 1.5rem; margin-bottom: var(--space-1); }
+  .upload-area h3 { font-size: var(--font-size-sm); }
+  .upload-area p { font-size: var(--font-size-xs); margin-bottom: 0; }
+  .upload-hint { font-size: 0.65rem; }
+  .preview-section { gap: var(--space-2); }
+  .gray-controls { padding: var(--space-2); }
+  .controls-row { gap: var(--space-2); }
+  .slider-group { gap: var(--space-2); }
+  .slider-group input[type="range"] { height: 4px; }
+  .slider-group input[type="range"]::-webkit-slider-thumb { width: 16px; height: 16px; }
+  .quick-btn { padding: var(--space-1) var(--space-2); }
+  .preview-container { min-height: 200px; padding: var(--space-2); }
+  .preview-container img { max-height: 280px; }
+  .info-card { padding: var(--space-2); flex-direction: row; text-align: left; }
+  .info-card i { font-size: var(--font-size-base); }
+}
+
+@media screen and (max-width: 360px) {
+  .gray-header h2 { font-size: var(--font-size-sm); }
+  .header-action-btn { width: 24px; height: 24px; }
+  .upload-area { padding: var(--space-2); }
+  .upload-area i { font-size: 1.25rem; }
+  .preview-container { min-height: 180px; }
+  .preview-container img { max-height: 220px; }
+  .info-panel { gap: var(--space-1); }
+  .info-card { padding: var(--space-2); gap: var(--space-1); }
 }

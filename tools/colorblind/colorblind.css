@@ -1,0 +1,202 @@
+/**
+ * Color Blindness Simulator Styles
+ */
+
+.colorblind-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+}
+
+.colorblind-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-4) var(--space-5);
+  background-color: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.colorblind-header h2 {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin: 0;
+  font-size: var(--font-size-xl);
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.colorblind-header h2 i { color: var(--color-primary); }
+
+.header-actions {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.header-action-btn {
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-bg-secondary);
+  color: var(--color-text-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  font-size: var(--font-size-sm);
+}
+
+.header-action-btn:hover {
+  background-color: var(--color-primary);
+  color: #fff;
+  border-color: var(--color-primary);
+}
+
+.colorblind-content {
+  padding: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.color-input-section {
+  display: flex;
+  justify-content: center;
+}
+
+.color-picker-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.color-picker-group label {
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.color-picker-wrapper {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.color-picker-wrapper input[type="color"] {
+  width: 60px;
+  height: 60px;
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  padding: 0;
+}
+
+.hex-input {
+  padding: var(--space-3);
+  background-color: var(--color-bg);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-base);
+  font-family: 'Fira Code', monospace;
+  color: var(--color-text);
+  width: 120px;
+  text-align: center;
+}
+
+.hex-input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+}
+
+.simulation-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-3);
+}
+
+.simulation-card {
+  background-color: var(--color-bg);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.simulation-card.original {
+  border: 2px solid var(--color-primary);
+}
+
+.sim-color {
+  height: 80px;
+}
+
+.sim-info {
+  padding: var(--space-3);
+}
+
+.sim-type {
+  display: block;
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: var(--space-1);
+}
+
+.sim-hex {
+  font-size: var(--font-size-xs);
+  font-family: 'Fira Code', monospace;
+  color: var(--color-primary);
+}
+
+.sim-desc {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+}
+
+.info-section {
+  padding: var(--space-4);
+  background-color: var(--color-bg);
+  border-radius: var(--radius-lg);
+}
+
+.info-section h3 {
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: var(--space-2);
+}
+
+.info-section p {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+}
+
+@media screen and (max-width: 768px) {
+  .colorblind-wrapper { border-radius: var(--radius-lg); }
+  .colorblind-header { padding: var(--space-3) var(--space-4); }
+  .colorblind-header h2 { font-size: var(--font-size-lg); gap: var(--space-2); }
+  .header-action-btn { width: 28px; height: 28px; }
+  .colorblind-content { padding: var(--space-4); }
+  .simulation-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media screen and (max-width: 480px) {
+  .colorblind-header { padding: var(--space-2) var(--space-3); }
+  .colorblind-header h2 { font-size: var(--font-size-base); }
+  .header-action-btn { width: 26px; height: 26px; font-size: var(--font-size-xs); }
+  .colorblind-content { padding: var(--space-3); }
+  .simulation-grid { grid-template-columns: 1fr; }
+}
+
+@media screen and (max-width: 360px) {
+  .colorblind-header h2 { font-size: var(--font-size-sm); }
+  .header-action-btn { width: 24px; height: 24px; }
+}

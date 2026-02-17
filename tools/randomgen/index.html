@@ -42,7 +42,7 @@
         <a href="../../tools.html" class="back-btn" title="Back to Tools">
           <i class="fa-solid fa-arrow-left"></i>
         </a>
-        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+        <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
           <i class="fa-solid fa-moon"></i>
           <i class="fa-solid fa-sun"></i>
         </button>
@@ -58,10 +58,9 @@
         <!-- Header -->
         <div class="random-header">
           <h2><i class="fa-solid fa-dice"></i> Random Generator</h2>
-          <div class="random-actions">
-            <button class="action-btn" id="copyBtn" title="Copy all" aria-label="Copy all">
+          <div class="header-actions">
+            <button type="button" class="header-action-btn" id="copyBtn" title="Copy all (C)" aria-label="Copy all">
               <i class="fa-solid fa-copy"></i>
-              <span>Copy</span>
             </button>
           </div>
         </div>
@@ -122,7 +121,7 @@
 
             <!-- Generate Button -->
             <div class="generate-section">
-              <button class="action-btn primary large" id="generateBtn">
+              <button type="button" class="generate-btn" id="generateBtn">
                 <i class="fa-solid fa-shuffle"></i>
                 <span>Generate</span>
               </button>
@@ -147,23 +146,27 @@
 
           <!-- Statistics -->
           <div class="stats-section hidden" id="statsSection">
-            <h3><i class="fa-solid fa-chart-simple"></i> Statistics</h3>
-            <div class="stats-grid">
-              <div class="stat-item">
-                <span class="stat-label">Sum</span>
-                <span class="stat-value" id="statSum">-</span>
-              </div>
-              <div class="stat-item">
-                <span class="stat-label">Average</span>
-                <span class="stat-value" id="statAvg">-</span>
-              </div>
-              <div class="stat-item">
-                <span class="stat-label">Min</span>
-                <span class="stat-value" id="statMin">-</span>
-              </div>
-              <div class="stat-item">
-                <span class="stat-label">Max</span>
-                <span class="stat-value" id="statMax">-</span>
+            <div class="stats-header">
+              <h3><i class="fa-solid fa-chart-simple"></i> Statistics</h3>
+            </div>
+            <div class="stats-display">
+              <div class="stats-grid">
+                <div class="stat-item">
+                  <span class="stat-label">Sum</span>
+                  <span class="stat-value" id="statSum">-</span>
+                </div>
+                <div class="stat-item">
+                  <span class="stat-label">Average</span>
+                  <span class="stat-value" id="statAvg">-</span>
+                </div>
+                <div class="stat-item">
+                  <span class="stat-label">Min</span>
+                  <span class="stat-value" id="statMin">-</span>
+                </div>
+                <div class="stat-item">
+                  <span class="stat-label">Max</span>
+                  <span class="stat-value" id="statMax">-</span>
+                </div>
               </div>
             </div>
           </div>
@@ -172,27 +175,27 @@
           <div class="presets-section">
             <h3><i class="fa-solid fa-bolt"></i> Quick Presets</h3>
             <div class="presets-grid">
-              <button class="preset-btn" data-preset="dice">
+              <button type="button" class="preset-btn" data-preset="dice">
                 <i class="fa-solid fa-dice-five"></i>
                 <span>Dice (1-6)</span>
               </button>
-              <button class="preset-btn" data-preset="coin">
+              <button type="button" class="preset-btn" data-preset="coin">
                 <i class="fa-solid fa-coins"></i>
                 <span>Coin Flip</span>
               </button>
-              <button class="preset-btn" data-preset="lottery">
+              <button type="button" class="preset-btn" data-preset="lottery">
                 <i class="fa-solid fa-ticket"></i>
                 <span>Lottery (1-49)</span>
               </button>
-              <button class="preset-btn" data-preset="percent">
+              <button type="button" class="preset-btn" data-preset="percent">
                 <i class="fa-solid fa-percent"></i>
                 <span>Percentage</span>
               </button>
-              <button class="preset-btn" data-preset="binary">
+              <button type="button" class="preset-btn" data-preset="binary">
                 <i class="fa-solid fa-binary"></i>
                 <span>Binary</span>
               </button>
-              <button class="preset-btn" data-preset="pin">
+              <button type="button" class="preset-btn" data-preset="pin">
                 <i class="fa-solid fa-lock"></i>
                 <span>4-Digit PIN</span>
               </button>
@@ -215,16 +218,6 @@
     </div>
   </main>
 
-  <!-- Footer -->
-  <footer class="footer">
-    <div class="container">
-      <div class="footer-bottom">
-        <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach. All rights reserved.</p>
-        <p class="footer-made">Made with 💗 and Claude Code xD</p>
-      </div>
-    </div>
-  </footer>
-
   <!-- Toast Notification -->
   <div class="toast" id="toast"></div>
 
@@ -233,7 +226,7 @@
     <div class="shortcuts-content">
       <div class="shortcuts-header">
         <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
-        <button class="close-shortcuts-btn" id="closeShortcutsBtn" aria-label="Close shortcuts">
+        <button type="button" class="close-shortcuts-btn" id="closeShortcutsBtn" aria-label="Close shortcuts">
           <i class="fa-solid fa-xmark"></i>
         </button>
       </div>

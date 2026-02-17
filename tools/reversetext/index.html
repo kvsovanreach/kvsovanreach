@@ -42,7 +42,7 @@
         <a href="../../tools.html" class="back-btn" title="Back to Tools">
           <i class="fa-solid fa-arrow-left"></i>
         </a>
-        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+        <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
           <i class="fa-solid fa-moon"></i>
           <i class="fa-solid fa-sun"></i>
         </button>
@@ -58,23 +58,25 @@
         <!-- Header -->
         <div class="reverse-header">
           <h2><i class="fa-solid fa-rotate-left"></i> Reverse Text</h2>
-          <div class="reverse-actions">
-            <button class="action-btn" id="clearBtn" title="Clear all" aria-label="Clear all">
-              <i class="fa-solid fa-trash"></i>
-              <span>Clear</span>
+          <div class="header-actions">
+            <button type="button" class="header-action-btn" id="resetBtn" title="Reset (R)" aria-label="Reset form">
+              <i class="fa-solid fa-rotate-right"></i>
             </button>
           </div>
         </div>
 
-        <!-- Content -->
-        <div class="reverse-content">
+        <!-- Main Content Area -->
+        <div class="reverse-main">
           <!-- Input Section -->
           <div class="input-section">
             <div class="section-header">
               <h3><i class="fa-solid fa-keyboard"></i> Input Text</h3>
               <div class="section-actions">
-                <button class="action-btn" id="pasteBtn" title="Paste from clipboard" aria-label="Paste from clipboard">
+                <button type="button" class="action-btn" id="pasteBtn" title="Paste from clipboard" aria-label="Paste from clipboard">
                   <i class="fa-solid fa-paste"></i>
+                </button>
+                <button type="button" class="action-btn" id="clearBtn" title="Clear all" aria-label="Clear all">
+                  <i class="fa-solid fa-trash"></i>
                 </button>
               </div>
             </div>
@@ -90,7 +92,7 @@
                   <i class="fa-solid fa-arrow-right-arrow-left"></i>
                   <span>Reverse Characters</span>
                 </div>
-                <button class="action-btn" data-copy="charReverse" title="Copy" aria-label="Copy reversed characters">
+                <button type="button" class="action-btn" data-copy="charReverse" title="Copy" aria-label="Copy reversed characters">
                   <i class="fa-solid fa-copy"></i>
                 </button>
               </div>
@@ -107,7 +109,7 @@
                   <i class="fa-solid fa-retweet"></i>
                   <span>Reverse Words</span>
                 </div>
-                <button class="action-btn" data-copy="wordReverse" title="Copy" aria-label="Copy reversed words">
+                <button type="button" class="action-btn" data-copy="wordReverse" title="Copy" aria-label="Copy reversed words">
                   <i class="fa-solid fa-copy"></i>
                 </button>
               </div>
@@ -124,7 +126,7 @@
                   <i class="fa-solid fa-repeat"></i>
                   <span>Reverse Each Word</span>
                 </div>
-                <button class="action-btn" data-copy="eachWordReverse" title="Copy" aria-label="Copy each word reversed">
+                <button type="button" class="action-btn" data-copy="eachWordReverse" title="Copy" aria-label="Copy each word reversed">
                   <i class="fa-solid fa-copy"></i>
                 </button>
               </div>
@@ -141,7 +143,7 @@
                   <i class="fa-solid fa-arrow-turn-down"></i>
                   <span>Flip Upside Down</span>
                 </div>
-                <button class="action-btn" data-copy="upsideDown" title="Copy" aria-label="Copy upside down text">
+                <button type="button" class="action-btn" data-copy="upsideDown" title="Copy" aria-label="Copy upside down text">
                   <i class="fa-solid fa-copy"></i>
                 </button>
               </div>
@@ -158,7 +160,7 @@
                   <i class="fa-solid fa-clone"></i>
                   <span>Mirror Text</span>
                 </div>
-                <button class="action-btn" data-copy="mirror" title="Copy" aria-label="Copy mirror text">
+                <button type="button" class="action-btn" data-copy="mirror" title="Copy" aria-label="Copy mirror text">
                   <i class="fa-solid fa-copy"></i>
                 </button>
               </div>
@@ -173,25 +175,20 @@
     </div>
   </main>
 
-  <!-- Footer -->
-  <footer class="footer">
-    <div class="container">
-      <div class="footer-bottom">
-        <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach. All rights reserved.</p>
-        <p class="footer-made">Made with 💗 and Claude Code xD</p>
-      </div>
-    </div>
-  </footer>
-
   <!-- Toast Notification -->
   <div class="toast" id="toast"></div>
+
+  <!-- Keyboard Shortcuts Hint -->
+  <div class="shortcuts-hint" id="shortcutsHint">
+    <span><kbd>Shift</kbd>+<kbd>?</kbd> : shortcuts</span>
+  </div>
 
   <!-- Keyboard Shortcuts Modal -->
   <div class="shortcuts-modal" id="shortcutsModal">
     <div class="shortcuts-content">
       <div class="shortcuts-header">
         <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
-        <button class="close-shortcuts-btn" id="closeShortcutsBtn" aria-label="Close shortcuts">
+        <button type="button" class="close-shortcuts-btn" id="closeShortcutsBtn" aria-label="Close shortcuts">
           <i class="fa-solid fa-xmark"></i>
         </button>
       </div>
@@ -199,11 +196,11 @@
         <div class="shortcuts-group">
           <div class="shortcuts-group-title">Actions</div>
           <div class="shortcut-row">
-            <div class="shortcut-keys"><kbd>Ctrl</kbd><span class="key-plus">+</span><kbd>V</kbd></div>
-            <div class="shortcut-desc">Paste from clipboard</div>
+            <div class="shortcut-keys"><kbd>R</kbd></div>
+            <div class="shortcut-desc">Reset form</div>
           </div>
           <div class="shortcut-row">
-            <div class="shortcut-keys"><kbd>1</kbd><span class="key-plus">-</span><kbd>5</kbd></div>
+            <div class="shortcut-keys"><kbd>1</kbd>-<kbd>5</kbd></div>
             <div class="shortcut-desc">Copy specific output</div>
           </div>
         </div>
@@ -213,18 +210,9 @@
             <div class="shortcut-keys"><kbd>?</kbd></div>
             <div class="shortcut-desc">Show shortcuts</div>
           </div>
-          <div class="shortcut-row">
-            <div class="shortcut-keys"><kbd>Escape</kbd></div>
-            <div class="shortcut-desc">Close modal</div>
-          </div>
         </div>
       </div>
     </div>
-  </div>
-
-  <!-- Keyboard Shortcuts Hint -->
-  <div class="shortcuts-hint" id="shortcutsHint">
-    <span><kbd>Shift</kbd>+<kbd>?</kbd> : shortcuts</span>
   </div>
 
   <!-- Shared Tools JavaScript -->

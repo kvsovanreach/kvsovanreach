@@ -1,0 +1,417 @@
+/**
+ * World Clock Styles
+ */
+
+.clock-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+}
+
+.clock-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-4) var(--space-5);
+  background-color: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.clock-header h2 {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-size: var(--font-size-xl);
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.clock-header h2 i { color: var(--color-primary); }
+
+.header-actions { display: flex; gap: var(--space-2); }
+
+.header-action-btn {
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-bg-secondary);
+  color: var(--color-text-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.header-action-btn:hover {
+  background-color: var(--color-primary);
+  color: #fff;
+  border-color: var(--color-primary);
+}
+
+.clock-content {
+  padding: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.local-time {
+  padding: var(--space-5);
+  background: linear-gradient(135deg, rgba(55, 118, 161, 0.1), rgba(55, 118, 161, 0.05));
+  border: 1px solid var(--color-primary);
+  border-radius: var(--radius-lg);
+  text-align: center;
+}
+
+.local-label {
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-2);
+}
+
+.local-time-value {
+  display: block;
+  font-size: var(--font-size-4xl);
+  font-weight: 700;
+  font-family: 'Fira Code', monospace;
+  color: var(--color-primary);
+}
+
+.local-date {
+  display: block;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  margin-top: var(--space-1);
+}
+
+.clocks-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: var(--space-3);
+}
+
+/* Analog Clock View */
+.clocks-grid.clock-view .clock-card {
+  align-items: center;
+  padding: var(--space-3);
+}
+
+.clocks-grid.clock-view .clock-card-header {
+  width: 100%;
+}
+
+.clocks-grid.clock-view .clock-body {
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.clocks-grid.clock-view .clock-time {
+  order: 2;
+  font-size: var(--font-size-sm);
+  margin-top: var(--space-2);
+}
+
+.clocks-grid.clock-view .clock-date {
+  order: 3;
+}
+
+.analog-clock {
+  display: none;
+  width: 120px;
+  height: 120px;
+  position: relative;
+  order: 1;
+}
+
+.clocks-grid.clock-view .analog-clock {
+  display: block;
+}
+
+.clock-face {
+  width: 100%;
+  height: 100%;
+  border: 3px solid var(--color-border);
+  border-radius: 50%;
+  background-color: var(--color-surface);
+  position: relative;
+}
+
+.clock-face::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 8px;
+  height: 8px;
+  background-color: var(--color-primary);
+  border-radius: 50%;
+  z-index: 10;
+}
+
+.clock-marks {
+  position: absolute;
+  inset: 6px;
+  border-radius: 50%;
+}
+
+.clock-mark {
+  position: absolute;
+  width: 2px;
+  height: 8px;
+  background-color: var(--color-text);
+  top: 0;
+  left: 50%;
+  transform-origin: 50% 51px;
+}
+
+.hand {
+  position: absolute;
+  left: 50%;
+  bottom: 50%;
+  border-radius: 2px;
+  width: 4px;
+}
+
+.hour-hand {
+  height: 28px;
+  background-color: var(--color-text);
+}
+
+.minute-hand {
+  height: 38px;
+  background-color: var(--color-text-secondary);
+}
+
+.second-hand {
+  width: 2px;
+  height: 42px;
+  background-color: var(--color-primary);
+}
+
+.clock-card {
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-3);
+  background-color: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  position: relative;
+}
+
+.clock-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: var(--space-1);
+}
+
+.clock-card-info {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-2);
+}
+
+.clock-city {
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.clock-timezone {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+}
+
+.clock-diff {
+  padding: 2px var(--space-2);
+  background-color: var(--color-bg-secondary);
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+}
+
+.remove-clock {
+  background: none;
+  border: none;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  padding: 2px;
+  font-size: var(--font-size-xs);
+  transition: color var(--transition-fast);
+  line-height: 1;
+}
+
+.remove-clock:hover { color: var(--color-error); }
+
+.clock-body {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+.clock-time {
+  font-size: var(--font-size-xl);
+  font-weight: 600;
+  font-family: 'Fira Code', monospace;
+  color: var(--color-text);
+}
+
+.clock-date {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+}
+
+.add-clock-modal {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: var(--space-4);
+}
+
+.add-clock-modal.show { display: flex; }
+
+.modal-content {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  width: 100%;
+  max-width: 400px;
+  max-height: 80vh;
+  overflow: hidden;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-4);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.modal-header h3 {
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.close-modal-btn {
+  background: none;
+  border: none;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  padding: var(--space-1);
+}
+
+.close-modal-btn:hover { color: var(--color-text); }
+
+.modal-body { padding: var(--space-4); }
+
+.search-input {
+  width: 100%;
+  padding: var(--space-3);
+  background-color: var(--color-bg);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-base);
+  color: var(--color-text);
+  margin-bottom: var(--space-3);
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+}
+
+.timezone-list {
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.timezone-item {
+  padding: var(--space-3);
+  cursor: pointer;
+  border-radius: var(--radius-md);
+  transition: background-color var(--transition-fast);
+}
+
+.timezone-item:hover { background-color: var(--color-bg); }
+
+.timezone-item-city {
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  color: var(--color-text);
+}
+
+.timezone-item-zone {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+}
+
+@media screen and (max-width: 768px) {
+  .clock-wrapper { border-radius: var(--radius-lg); }
+  .clock-header { padding: var(--space-3) var(--space-4); }
+  .clock-header h2 { font-size: var(--font-size-lg); gap: var(--space-2); }
+  .header-action-btn { width: 28px; height: 28px; }
+  .clock-content { padding: var(--space-4); gap: var(--space-4); }
+  .local-time { padding: var(--space-4); }
+  .local-time-value { font-size: var(--font-size-3xl); }
+  .clocks-grid { grid-template-columns: repeat(2, 1fr); gap: var(--space-2); }
+  .analog-clock { width: 100px; height: 100px; }
+  .clock-mark { height: 6px; transform-origin: 50% 41px; }
+  .hour-hand { height: 22px; }
+  .minute-hand { height: 30px; }
+  .second-hand { height: 34px; }
+}
+
+@media screen and (max-width: 480px) {
+  .clock-header { padding: var(--space-2) var(--space-3); }
+  .clock-header h2 { font-size: var(--font-size-base); }
+  .header-action-btn { width: 26px; height: 26px; font-size: var(--font-size-xs); }
+  .clock-content { padding: var(--space-3); gap: var(--space-3); }
+  .local-time { padding: var(--space-3); }
+  .local-time-value { font-size: var(--font-size-2xl); }
+  .local-date { font-size: var(--font-size-xs); }
+  .clocks-grid { grid-template-columns: 1fr 1fr; gap: var(--space-2); }
+  .clock-card { padding: var(--space-2); }
+  .clock-card-header { margin-bottom: var(--space-1); }
+  .clock-card-info { gap: var(--space-1); }
+  .clock-city { font-size: var(--font-size-xs); }
+  .clock-diff { font-size: 0.6rem; padding: 1px 4px; }
+  .clock-time { font-size: var(--font-size-base); }
+  .clock-date { font-size: 0.6rem; }
+  .analog-clock { width: 70px; height: 70px; }
+  .clock-mark { transform-origin: 50% 26px; height: 5px; }
+  .hand { width: 3px; }
+  .hour-hand { height: 16px; }
+  .minute-hand { height: 22px; }
+  .second-hand { width: 2px; height: 24px; }
+  .clock-face::after { width: 5px; height: 5px; }
+}
+
+@media screen and (max-width: 360px) {
+  .clock-header h2 { font-size: var(--font-size-sm); }
+  .header-action-btn { width: 24px; height: 24px; }
+  .local-time-value { font-size: var(--font-size-xl); }
+  .clock-card-info { flex-wrap: wrap; gap: 2px; }
+  .clock-time { font-size: var(--font-size-sm); }
+  .analog-clock { width: 60px; height: 60px; }
+  .clock-mark { transform-origin: 50% 21px; height: 4px; }
+  .hour-hand { height: 14px; }
+  .minute-hand { height: 18px; }
+  .second-hand { height: 20px; }
+  .clock-face::after { width: 4px; height: 4px; }
+}

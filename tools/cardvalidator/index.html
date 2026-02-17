@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Validate credit card numbers using Luhn algorithm. Detect card type and verify format.">
+  <meta property="og:title" content="KVSOVANREACH | Card Validator">
+  <meta property="og:description" content="Validate credit card numbers.">
+  <meta property="og:image" content="/assets/img/favicons/og-image.png">
+  <title>KVSOVANREACH | Card Validator</title>
+
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/tools-common.css">
+  <link rel="stylesheet" href="cardvalidator.css">
+</head>
+<body>
+  <a href="#cardvalidator" class="skip-link">Skip to Card Validator</a>
+
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">TOOLS</span>
+      </a>
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools"><i class="fa-solid fa-arrow-left"></i></a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <main class="tool-page">
+    <div class="container">
+      <div class="card-wrapper" id="cardvalidator">
+        <div class="card-header">
+          <h2><i class="fa-solid fa-credit-card"></i> Card Validator</h2>
+          <div class="header-actions">
+            <button class="header-action-btn" id="clearBtn" title="Clear (R)">
+              <i class="fa-solid fa-rotate-left"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="card-content">
+          <div class="card-preview" id="cardPreview">
+            <div class="card-visual">
+              <div class="card-chip"></div>
+              <div class="card-number" id="displayNumber">**** **** **** ****</div>
+              <div class="card-brand" id="cardBrand">
+                <i class="fa-solid fa-credit-card"></i>
+              </div>
+            </div>
+          </div>
+
+          <div class="input-section">
+            <label for="cardNumber">Card Number</label>
+            <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456" maxlength="19">
+          </div>
+
+          <div class="result-section" id="resultSection">
+            <div class="result-status" id="resultStatus">
+              <i class="fa-solid fa-circle-question"></i>
+              <span>Enter a card number</span>
+            </div>
+
+            <div class="card-info">
+              <div class="info-row">
+                <span class="info-label">Card Type</span>
+                <span class="info-value" id="cardType">-</span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">Format</span>
+                <span class="info-value" id="cardFormat">-</span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">Luhn Check</span>
+                <span class="info-value" id="luhnCheck">-</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="test-numbers">
+            <h3>Test Card Numbers</h3>
+            <div class="test-list">
+              <button class="test-btn" data-number="4532015112830366">Visa</button>
+              <button class="test-btn" data-number="5425233430109903">Mastercard</button>
+              <button class="test-btn" data-number="374245455400126">Amex</button>
+              <button class="test-btn" data-number="6011000990139424">Discover</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div class="shortcuts-modal" id="shortcutsModal">
+    <div class="shortcuts-content">
+      <div class="shortcuts-header">
+        <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
+        <button class="close-shortcuts-btn" id="closeShortcutsBtn"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="shortcuts-body">
+        <div class="shortcut-row"><span class="shortcut-key">R</span><span class="shortcut-desc">Clear input</span></div>
+        <div class="shortcut-row"><span class="shortcut-key">?</span><span class="shortcut-desc">Show shortcuts</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="shortcuts-hint">Press <span class="shortcut-key">?</span> for shortcuts</div>
+  <div class="toast" id="toast"></div>
+
+  <script src="../../js/tools-common.js"></script>
+  <script src="cardvalidator.js"></script>
+</body>
+</html>

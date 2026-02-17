@@ -13,20 +13,22 @@
   };
 
   // ==================== DOM Elements ====================
-  const elements = {
-    timeEntries: document.getElementById('timeEntries'),
-    hoursInput: document.getElementById('hoursInput'),
-    minutesInput: document.getElementById('minutesInput'),
-    secondsInput: document.getElementById('secondsInput'),
-    addBtn: document.getElementById('addBtn'),
-    subtractBtn: document.getElementById('subtractBtn'),
-    quickBtns: document.querySelectorAll('.quick-btn'),
-    clearBtn: document.getElementById('clearBtn'),
-    totalFormatted: document.getElementById('totalFormatted'),
-    totalSeconds: document.getElementById('totalSeconds'),
-    totalMinutes: document.getElementById('totalMinutes'),
-    totalHours: document.getElementById('totalHours')
-  };
+  const elements = {};
+
+  function initElements() {
+    elements.timeEntries = document.getElementById('timeEntries');
+    elements.hoursInput = document.getElementById('hoursInput');
+    elements.minutesInput = document.getElementById('minutesInput');
+    elements.secondsInput = document.getElementById('secondsInput');
+    elements.addBtn = document.getElementById('addBtn');
+    elements.subtractBtn = document.getElementById('subtractBtn');
+    elements.quickBtns = document.querySelectorAll('.quick-btn');
+    elements.resetBtn = document.getElementById('resetBtn');
+    elements.totalFormatted = document.getElementById('totalFormatted');
+    elements.totalSeconds = document.getElementById('totalSeconds');
+    elements.totalMinutes = document.getElementById('totalMinutes');
+    elements.totalHours = document.getElementById('totalHours');
+  }
 
   // ==================== Core Functions ====================
 
@@ -48,15 +50,15 @@
   }
 
   function getInputSeconds() {
-    const hours = parseInt(elements.hoursInput.value) || 0;
-    const minutes = parseInt(elements.minutesInput.value) || 0;
-    const seconds = parseInt(elements.secondsInput.value) || 0;
+    const hours = parseInt(elements.hoursInput?.value) || 0;
+    const minutes = parseInt(elements.minutesInput?.value) || 0;
+    const seconds = parseInt(elements.secondsInput?.value) || 0;
     return hours * 3600 + minutes * 60 + seconds;
   }
 
   function addEntry(seconds, isAdd = true) {
     if (seconds === 0) {
-      ToolsCommon.Toast.show('Please enter a time value', 'error');
+      ToolsCommon?.showToast?.('Please enter a time value', 'error');
       return;
     }
 
@@ -115,18 +117,18 @@
   }
 
   function resetInputs() {
-    elements.hoursInput.value = 0;
-    elements.minutesInput.value = 0;
-    elements.secondsInput.value = 0;
+    if (elements.hoursInput) elements.hoursInput.value = 0;
+    if (elements.minutesInput) elements.minutesInput.value = 0;
+    if (elements.secondsInput) elements.secondsInput.value = 0;
   }
 
-  function clearAll() {
+  function resetForm() {
     state.entries = [];
     state.totalSeconds = 0;
     updateTotal();
     renderEntries();
     resetInputs();
-    ToolsCommon.Toast.show('Cleared', 'success');
+    ToolsCommon?.showToast?.('Reset', 'success');
   }
 
   // ==================== Event Handlers ====================
@@ -145,21 +147,34 @@
 
     const seconds = parseInt(btn.dataset.seconds);
     addEntry(seconds, true);
-    ToolsCommon.Toast.show(`Added ${formatTime(seconds)}`, 'success');
   }
 
   function handleKeydown(e) {
+    // Handle input field Enter key
     if (e.target.matches('#hoursInput, #minutesInput, #secondsInput')) {
       if (e.key === 'Enter') {
         e.preventDefault();
         handleAdd();
       }
     }
+
+    // Global keyboard shortcuts (ignore if typing in input)
+    if (e.target.tagName === 'INPUT' || e.target.tagName === 'SELECT' || e.target.tagName === 'TEXTAREA') {
+      return;
+    }
+
+    switch (e.key.toLowerCase()) {
+      case 'r':
+        e.preventDefault();
+        resetForm();
+        break;
+    }
   }
 
   // ==================== Initialization ====================
 
   function init() {
+    initElements();
     setupEventListeners();
     renderEntries();
     updateTotal();
@@ -168,7 +183,7 @@
   function setupEventListeners() {
     elements.addBtn?.addEventListener('click', handleAdd);
     elements.subtractBtn?.addEventListener('click', handleSubtract);
-    elements.clearBtn?.addEventListener('click', clearAll);
+    elements.resetBtn?.addEventListener('click', resetForm);
 
     elements.quickBtns.forEach(btn => {
       btn.addEventListener('click', handleQuickAdd);

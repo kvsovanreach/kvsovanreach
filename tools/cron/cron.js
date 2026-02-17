@@ -1,6 +1,8 @@
 /**
- * Cron Parser Tool
+ * KVSOVANREACH Cron Parser Tool
+ * Parse and explain cron expressions with next run calculations
  */
+
 (function() {
   'use strict';
 
@@ -11,20 +13,27 @@
   const MONTHS_SHORT = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
 
   // ==================== DOM Elements ====================
-  const elements = {
-    cronInput: document.getElementById('cronInput'),
-    parseBtn: document.getElementById('parseBtn'),
-    clearBtn: document.getElementById('clearBtn'),
-    fieldMinute: document.getElementById('fieldMinute'),
-    fieldHour: document.getElementById('fieldHour'),
-    fieldDayMonth: document.getElementById('fieldDayMonth'),
-    fieldMonth: document.getElementById('fieldMonth'),
-    fieldDayWeek: document.getElementById('fieldDayWeek'),
-    humanReadable: document.getElementById('humanReadable'),
-    nextRuns: document.getElementById('nextRuns'),
-    exampleBtns: document.querySelectorAll('.example-btn'),
-    toast: document.getElementById('toast')
-  };
+  const elements = {};
+
+  function initElements() {
+    elements.cronInput = document.getElementById('cronInput');
+    elements.parseBtn = document.getElementById('parseBtn');
+    elements.resetBtn = document.getElementById('resetBtn');
+    elements.fieldMinute = document.getElementById('fieldMinute');
+    elements.fieldHour = document.getElementById('fieldHour');
+    elements.fieldDayMonth = document.getElementById('fieldDayMonth');
+    elements.fieldMonth = document.getElementById('fieldMonth');
+    elements.fieldDayWeek = document.getElementById('fieldDayWeek');
+    elements.humanReadable = document.getElementById('humanReadable');
+    elements.nextRuns = document.getElementById('nextRuns');
+    elements.exampleBtns = document.querySelectorAll('.example-btn');
+    elements.copyHumanReadable = document.getElementById('copyHumanReadable');
+    elements.nextRunTime = document.getElementById('nextRunTime');
+    elements.nextRunRelative = document.getElementById('nextRunRelative');
+  }
+
+  // ==================== UI Helpers ====================
+  const showToast = (message, type) => ToolsCommon.showToast(message, type);
 
   // ==================== Cron Parser ====================
   function parseNamedValue(value, type) {
@@ -273,22 +282,18 @@
     // Next runs
     const nextRuns = getNextRuns(parsed);
 
-    // Next run time and relative
-    const nextRunTime = document.getElementById('nextRunTime');
-    const nextRunRelative = document.getElementById('nextRunRelative');
-
     if (nextRuns.length > 0) {
       // Display next run prominently
-      nextRunTime.textContent = formatDate(nextRuns[0]);
-      nextRunRelative.textContent = formatRelativeTime(nextRuns[0]);
+      elements.nextRunTime.textContent = formatDate(nextRuns[0]);
+      elements.nextRunRelative.textContent = formatRelativeTime(nextRuns[0]);
 
-      // Display all runs (skip first since it's shown above)
+      // Display all runs
       elements.nextRuns.innerHTML = nextRuns
         .map((date, i) => `<li><span class="run-number">${i + 1}</span>${formatDate(date)}</li>`)
         .join('');
     } else {
-      nextRunTime.textContent = 'No upcoming runs';
-      nextRunRelative.textContent = '';
+      elements.nextRunTime.textContent = 'No upcoming runs';
+      elements.nextRunRelative.textContent = '';
       elements.nextRuns.innerHTML = '<li>No upcoming runs found</li>';
     }
   }
@@ -297,15 +302,6 @@
     elements.humanReadable.textContent = message;
     elements.humanReadable.classList.add('error-message');
     elements.nextRuns.innerHTML = '<li>-</li>';
-  }
-
-  function showToast(message, type = 'default') {
-    elements.toast.textContent = message;
-    elements.toast.className = 'toast show' + (type !== 'default' ? ` ${type}` : '');
-
-    setTimeout(() => {
-      elements.toast.classList.remove('show');
-    }, 2500);
   }
 
   // ==================== Event Handlers ====================
@@ -336,23 +332,54 @@
     handleParse();
   }
 
-  function handleClear() {
-    elements.cronInput.value = '';
-    elements.fieldMinute.textContent = '*';
-    elements.fieldHour.textContent = '*';
+  function fallbackCopy(text) {
+    const textarea = document.createElement('textarea');
+    textarea.value = text;
+    textarea.style.position = 'fixed';
+    textarea.style.opacity = '0';
+    document.body.appendChild(textarea);
+    textarea.select();
+    try {
+      document.execCommand('copy');
+      showToast('Copied!', 'success');
+    } catch (err) {
+      showToast('Failed to copy', 'error');
+    }
+    document.body.removeChild(textarea);
+  }
+
+  async function handleCopy(text) {
+    if (!text) return;
+    try {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        await navigator.clipboard.writeText(text);
+        showToast('Copied!', 'success');
+      } else {
+        fallbackCopy(text);
+      }
+    } catch (err) {
+      fallbackCopy(text);
+    }
+  }
+
+  function resetForm() {
+    elements.cronInput.value = '0 9 * * 1-5';
+    elements.fieldMinute.textContent = '0';
+    elements.fieldHour.textContent = '9';
     elements.fieldDayMonth.textContent = '*';
     elements.fieldMonth.textContent = '*';
-    elements.fieldDayWeek.textContent = '*';
-    elements.humanReadable.textContent = 'Enter a cron expression and click Parse';
-    elements.nextRuns.innerHTML = '';
-    showToast('Cleared', 'success');
+    elements.fieldDayWeek.textContent = '1-5';
+    handleParse();
+    showToast('Reset', 'success');
   }
 
   // ==================== Initialize ====================
   function init() {
+    initElements();
+
     // Event listeners
     elements.parseBtn.addEventListener('click', handleParse);
-    elements.clearBtn?.addEventListener('click', handleClear);
+    elements.resetBtn?.addEventListener('click', resetForm);
 
     // Enter key to parse
     elements.cronInput.addEventListener('keypress', (e) => {
@@ -373,20 +400,12 @@
     });
 
     // Copy human readable button
-    const copyHumanReadable = document.getElementById('copyHumanReadable');
-    if (copyHumanReadable) {
-      copyHumanReadable.addEventListener('click', async () => {
-        const text = elements.humanReadable.textContent;
-        if (text && !text.includes('Invalid')) {
-          try {
-            await navigator.clipboard.writeText(text);
-            showToast('Copied!', 'success');
-          } catch (err) {
-            showToast('Failed to copy');
-          }
-        }
-      });
-    }
+    elements.copyHumanReadable?.addEventListener('click', () => {
+      const text = elements.humanReadable.textContent;
+      if (text && !text.includes('Invalid')) {
+        handleCopy(text);
+      }
+    });
 
     // Keyboard shortcuts
     document.addEventListener('keydown', (e) => {
@@ -398,7 +417,14 @@
       // C - Copy human readable
       if (e.key.toLowerCase() === 'c' && !e.ctrlKey && !e.metaKey) {
         e.preventDefault();
-        if (copyHumanReadable) copyHumanReadable.click();
+        elements.copyHumanReadable?.click();
+        return;
+      }
+
+      // R - Reset
+      if (e.key.toLowerCase() === 'r') {
+        e.preventDefault();
+        resetForm();
         return;
       }
 
@@ -423,17 +449,18 @@
         try {
           const parsed = parseCron(expression);
           const nextRuns = getNextRuns(parsed, 1);
-          if (nextRuns.length > 0) {
-            const nextRunRelative = document.getElementById('nextRunRelative');
-            if (nextRunRelative) {
-              nextRunRelative.textContent = formatRelativeTime(nextRuns[0]);
-            }
+          if (nextRuns.length > 0 && elements.nextRunRelative) {
+            elements.nextRunRelative.textContent = formatRelativeTime(nextRuns[0]);
           }
         } catch (e) {}
       }
     }, 60000);
   }
 
-  // Start
-  init();
+  // ==================== Bootstrap ====================
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
 })();

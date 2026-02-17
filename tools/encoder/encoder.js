@@ -1,27 +1,24 @@
 /**
- * Encoder/Decoder Tool
+ * KVSOVANREACH Encoder/Decoder Tool
  * Supports Base64, URL, Hash, JWT, Hex, Binary, HTML entities, Unicode
  * With real-time encoding, auto-detect, file upload, and more
  */
 
-document.addEventListener('DOMContentLoaded', () => {
-  // ============================================
-  // State
-  // ============================================
+(function() {
+  'use strict';
+
+  // ==================== State ====================
   const state = {
     activeTab: 'base64',
     moreEncodingType: 'hex',
-    isDarkMode: localStorage.getItem('theme') === 'dark',
-    lastEncodeMode: {}, // Track last encode/decode mode per tab
+    lastEncodeMode: {},
     history: JSON.parse(localStorage.getItem('encoderHistory') || '[]'),
     historyCollapsed: localStorage.getItem('historyCollapsed') === 'true'
   };
 
-  const MAX_HISTORY = 50; // Maximum history items
+  const MAX_HISTORY = 50;
 
-  // ============================================
-  // Sample Data
-  // ============================================
+  // ==================== Sample Data ====================
   const sampleData = {
     base64: 'Hello, World! This is a sample text for Base64 encoding.',
     url: 'https://example.com/search?q=hello world&lang=en&special=!@#$%',
@@ -33,129 +30,125 @@ document.addEventListener('DOMContentLoaded', () => {
     unicode: 'Hello 你好 مرحبا 🎉'
   };
 
-  // ============================================
-  // DOM Elements
-  // ============================================
-  const elements = {
-    // Theme
-    themeToggle: document.getElementById('theme-toggle'),
+  // ==================== DOM Elements ====================
+  const elements = {};
 
+  function initElements() {
     // Tabs
-    tabs: document.querySelectorAll('.encoder-tab'),
-    panels: document.querySelectorAll('.encoder-panel'),
+    elements.tabs = document.querySelectorAll('.encoder-tab');
+    elements.panels = document.querySelectorAll('.encoder-panel');
 
     // Base64
-    base64Input: document.getElementById('base64Input'),
-    base64Output: document.getElementById('base64Output'),
-    base64InputCount: document.getElementById('base64InputCount'),
-    base64OutputCount: document.getElementById('base64OutputCount'),
-    base64InputBytes: document.getElementById('base64InputBytes'),
-    base64OutputBytes: document.getElementById('base64OutputBytes'),
-    base64DetectedFormat: document.getElementById('base64DetectedFormat'),
-    base64EncodeBtn: document.getElementById('base64EncodeBtn'),
-    base64DecodeBtn: document.getElementById('base64DecodeBtn'),
-    base64SwapBtn: document.getElementById('base64SwapBtn'),
-    base64SampleBtn: document.getElementById('base64SampleBtn'),
-    base64FileBtn: document.getElementById('base64FileBtn'),
-    base64FileInput: document.getElementById('base64FileInput'),
-    base64PasteBtn: document.getElementById('base64PasteBtn'),
-    base64CopyBtn: document.getElementById('base64CopyBtn'),
-    base64ClearInputBtn: document.getElementById('base64ClearInputBtn'),
-    base64ClearOutputBtn: document.getElementById('base64ClearOutputBtn'),
-    base64UrlSafe: document.getElementById('base64UrlSafe'),
-    base64RealTime: document.getElementById('base64RealTime'),
+    elements.base64Input = document.getElementById('base64Input');
+    elements.base64Output = document.getElementById('base64Output');
+    elements.base64InputCount = document.getElementById('base64InputCount');
+    elements.base64OutputCount = document.getElementById('base64OutputCount');
+    elements.base64InputBytes = document.getElementById('base64InputBytes');
+    elements.base64OutputBytes = document.getElementById('base64OutputBytes');
+    elements.base64DetectedFormat = document.getElementById('base64DetectedFormat');
+    elements.base64EncodeBtn = document.getElementById('base64EncodeBtn');
+    elements.base64DecodeBtn = document.getElementById('base64DecodeBtn');
+    elements.base64SwapBtn = document.getElementById('base64SwapBtn');
+    elements.base64SampleBtn = document.getElementById('base64SampleBtn');
+    elements.base64FileBtn = document.getElementById('base64FileBtn');
+    elements.base64FileInput = document.getElementById('base64FileInput');
+    elements.base64PasteBtn = document.getElementById('base64PasteBtn');
+    elements.base64CopyBtn = document.getElementById('base64CopyBtn');
+    elements.base64ClearInputBtn = document.getElementById('base64ClearInputBtn');
+    elements.base64ClearOutputBtn = document.getElementById('base64ClearOutputBtn');
+    elements.base64UrlSafe = document.getElementById('base64UrlSafe');
+    elements.base64RealTime = document.getElementById('base64RealTime');
 
     // URL
-    urlInput: document.getElementById('urlInput'),
-    urlOutput: document.getElementById('urlOutput'),
-    urlInputCount: document.getElementById('urlInputCount'),
-    urlOutputCount: document.getElementById('urlOutputCount'),
-    urlInputBytes: document.getElementById('urlInputBytes'),
-    urlOutputBytes: document.getElementById('urlOutputBytes'),
-    urlDetectedFormat: document.getElementById('urlDetectedFormat'),
-    urlEncodeBtn: document.getElementById('urlEncodeBtn'),
-    urlDecodeBtn: document.getElementById('urlDecodeBtn'),
-    urlSwapBtn: document.getElementById('urlSwapBtn'),
-    urlSampleBtn: document.getElementById('urlSampleBtn'),
-    urlPasteBtn: document.getElementById('urlPasteBtn'),
-    urlCopyBtn: document.getElementById('urlCopyBtn'),
-    urlClearInputBtn: document.getElementById('urlClearInputBtn'),
-    urlClearOutputBtn: document.getElementById('urlClearOutputBtn'),
-    urlEncodeComponent: document.getElementById('urlEncodeComponent'),
-    urlRealTime: document.getElementById('urlRealTime'),
+    elements.urlInput = document.getElementById('urlInput');
+    elements.urlOutput = document.getElementById('urlOutput');
+    elements.urlInputCount = document.getElementById('urlInputCount');
+    elements.urlOutputCount = document.getElementById('urlOutputCount');
+    elements.urlInputBytes = document.getElementById('urlInputBytes');
+    elements.urlOutputBytes = document.getElementById('urlOutputBytes');
+    elements.urlDetectedFormat = document.getElementById('urlDetectedFormat');
+    elements.urlEncodeBtn = document.getElementById('urlEncodeBtn');
+    elements.urlDecodeBtn = document.getElementById('urlDecodeBtn');
+    elements.urlSwapBtn = document.getElementById('urlSwapBtn');
+    elements.urlSampleBtn = document.getElementById('urlSampleBtn');
+    elements.urlPasteBtn = document.getElementById('urlPasteBtn');
+    elements.urlCopyBtn = document.getElementById('urlCopyBtn');
+    elements.urlClearInputBtn = document.getElementById('urlClearInputBtn');
+    elements.urlClearOutputBtn = document.getElementById('urlClearOutputBtn');
+    elements.urlEncodeComponent = document.getElementById('urlEncodeComponent');
+    elements.urlRealTime = document.getElementById('urlRealTime');
 
     // Hash
-    hashInput: document.getElementById('hashInput'),
-    hashInputCount: document.getElementById('hashInputCount'),
-    hashInputBytes: document.getElementById('hashInputBytes'),
-    hashGenerateBtn: document.getElementById('hashGenerateBtn'),
-    hashSampleBtn: document.getElementById('hashSampleBtn'),
-    hashPasteBtn: document.getElementById('hashPasteBtn'),
-    hashClearBtn: document.getElementById('hashClearBtn'),
-    hashMd5: document.getElementById('hashMd5'),
-    hashSha1: document.getElementById('hashSha1'),
-    hashSha256: document.getElementById('hashSha256'),
-    hashSha512: document.getElementById('hashSha512'),
-    hashCopyBtns: document.querySelectorAll('.copy-hash-btn'),
-    hashCopyAllBtn: document.getElementById('hashCopyAllBtn'),
-    hashCompareInput: document.getElementById('hashCompareInput'),
-    hashCompareResult: document.getElementById('hashCompareResult'),
+    elements.hashInput = document.getElementById('hashInput');
+    elements.hashInputCount = document.getElementById('hashInputCount');
+    elements.hashInputBytes = document.getElementById('hashInputBytes');
+    elements.hashGenerateBtn = document.getElementById('hashGenerateBtn');
+    elements.hashSampleBtn = document.getElementById('hashSampleBtn');
+    elements.hashPasteBtn = document.getElementById('hashPasteBtn');
+    elements.hashClearBtn = document.getElementById('hashClearBtn');
+    elements.hashMd5 = document.getElementById('hashMd5');
+    elements.hashSha1 = document.getElementById('hashSha1');
+    elements.hashSha256 = document.getElementById('hashSha256');
+    elements.hashSha512 = document.getElementById('hashSha512');
+    elements.hashCopyBtns = document.querySelectorAll('.copy-hash-btn');
+    elements.hashCopyAllBtn = document.getElementById('hashCopyAllBtn');
+    elements.hashCompareInput = document.getElementById('hashCompareInput');
+    elements.hashCompareResult = document.getElementById('hashCompareResult');
 
     // JWT
-    jwtInput: document.getElementById('jwtInput'),
-    jwtInputCount: document.getElementById('jwtInputCount'),
-    jwtDecodeBtn: document.getElementById('jwtDecodeBtn'),
-    jwtSampleBtn: document.getElementById('jwtSampleBtn'),
-    jwtPasteBtn: document.getElementById('jwtPasteBtn'),
-    jwtClearBtn: document.getElementById('jwtClearBtn'),
-    jwtResults: document.getElementById('jwtResults'),
-    jwtError: document.getElementById('jwtError'),
-    jwtHeader: document.getElementById('jwtHeader'),
-    jwtPayload: document.getElementById('jwtPayload'),
-    jwtSignature: document.getElementById('jwtSignature'),
-    jwtAlg: document.getElementById('jwtAlg'),
-    jwtClaims: document.getElementById('jwtClaims'),
-    jwtCopyHeader: document.getElementById('jwtCopyHeader'),
-    jwtCopyPayload: document.getElementById('jwtCopyPayload'),
+    elements.jwtInput = document.getElementById('jwtInput');
+    elements.jwtInputCount = document.getElementById('jwtInputCount');
+    elements.jwtDecodeBtn = document.getElementById('jwtDecodeBtn');
+    elements.jwtSampleBtn = document.getElementById('jwtSampleBtn');
+    elements.jwtPasteBtn = document.getElementById('jwtPasteBtn');
+    elements.jwtClearBtn = document.getElementById('jwtClearBtn');
+    elements.jwtResults = document.getElementById('jwtResults');
+    elements.jwtError = document.getElementById('jwtError');
+    elements.jwtHeader = document.getElementById('jwtHeader');
+    elements.jwtPayload = document.getElementById('jwtPayload');
+    elements.jwtSignature = document.getElementById('jwtSignature');
+    elements.jwtAlg = document.getElementById('jwtAlg');
+    elements.jwtClaims = document.getElementById('jwtClaims');
+    elements.jwtCopyHeader = document.getElementById('jwtCopyHeader');
+    elements.jwtCopyPayload = document.getElementById('jwtCopyPayload');
 
     // More
-    moreInput: document.getElementById('moreInput'),
-    moreOutput: document.getElementById('moreOutput'),
-    moreInputCount: document.getElementById('moreInputCount'),
-    moreOutputCount: document.getElementById('moreOutputCount'),
-    moreInputBytes: document.getElementById('moreInputBytes'),
-    moreOutputBytes: document.getElementById('moreOutputBytes'),
-    moreDetectedFormat: document.getElementById('moreDetectedFormat'),
-    moreEncodeBtn: document.getElementById('moreEncodeBtn'),
-    moreDecodeBtn: document.getElementById('moreDecodeBtn'),
-    moreSwapBtn: document.getElementById('moreSwapBtn'),
-    moreSampleBtn: document.getElementById('moreSampleBtn'),
-    morePasteBtn: document.getElementById('morePasteBtn'),
-    moreCopyBtn: document.getElementById('moreCopyBtn'),
-    moreClearInputBtn: document.getElementById('moreClearInputBtn'),
-    moreClearOutputBtn: document.getElementById('moreClearOutputBtn'),
-    encodingTypeBtns: document.querySelectorAll('.encoding-type-btn'),
-    moreRealTime: document.getElementById('moreRealTime'),
-
-    // Toast
-    toast: document.getElementById('toast'),
+    elements.moreInput = document.getElementById('moreInput');
+    elements.moreOutput = document.getElementById('moreOutput');
+    elements.moreInputCount = document.getElementById('moreInputCount');
+    elements.moreOutputCount = document.getElementById('moreOutputCount');
+    elements.moreInputBytes = document.getElementById('moreInputBytes');
+    elements.moreOutputBytes = document.getElementById('moreOutputBytes');
+    elements.moreDetectedFormat = document.getElementById('moreDetectedFormat');
+    elements.moreEncodeBtn = document.getElementById('moreEncodeBtn');
+    elements.moreDecodeBtn = document.getElementById('moreDecodeBtn');
+    elements.moreSwapBtn = document.getElementById('moreSwapBtn');
+    elements.moreSampleBtn = document.getElementById('moreSampleBtn');
+    elements.morePasteBtn = document.getElementById('morePasteBtn');
+    elements.moreCopyBtn = document.getElementById('moreCopyBtn');
+    elements.moreClearInputBtn = document.getElementById('moreClearInputBtn');
+    elements.moreClearOutputBtn = document.getElementById('moreClearOutputBtn');
+    elements.encodingTypeBtns = document.querySelectorAll('.encoding-type-btn');
+    elements.moreRealTime = document.getElementById('moreRealTime');
 
     // History
-    historySidebar: document.getElementById('historySidebar'),
-    historyList: document.getElementById('historyList'),
-    historyEmpty: document.getElementById('historyEmpty'),
-    historyClearBtn: document.getElementById('historyClearBtn'),
-    historyToggleBtn: document.getElementById('historyToggleBtn'),
-    historyShowBtn: document.getElementById('historyShowBtn'),
-    historyFab: document.getElementById('historyFab'),
-    historyBadge: document.getElementById('historyBadge'),
-    historyOverlay: document.getElementById('historyOverlay')
-  };
+    elements.historySidebar = document.getElementById('historySidebar');
+    elements.historyList = document.getElementById('historyList');
+    elements.historyEmpty = document.getElementById('historyEmpty');
+    elements.historyClearBtn = document.getElementById('historyClearBtn');
+    elements.historyToggleBtn = document.getElementById('historyToggleBtn');
+    elements.historyShowBtn = document.getElementById('historyShowBtn');
+    elements.historyFab = document.getElementById('historyFab');
+    elements.historyBadge = document.getElementById('historyBadge');
+    elements.historyOverlay = document.getElementById('historyOverlay');
+  }
 
-  // ============================================
-  // Initialization
-  // ============================================
+  // ==================== UI Helpers ====================
+  const showToast = (message, type) => ToolsCommon.showToast(message, type);
+
+  // ==================== Initialization ====================
   function init() {
+    initElements();
     initTabs();
     initBase64();
     initURL();
@@ -652,8 +645,7 @@ document.addEventListener('DOMContentLoaded', () => {
           case 'sha512': value = elements.hashSha512.value; break;
         }
         if (value) {
-          navigator.clipboard.writeText(value);
-          showToast(`${hashType.toUpperCase()} copied`, 'success');
+          ToolsCommon.copyWithToast(value, `${hashType.toUpperCase()} copied!`);
         }
       });
     });
@@ -662,8 +654,7 @@ document.addEventListener('DOMContentLoaded', () => {
     elements.hashCopyAllBtn?.addEventListener('click', () => {
       const allHashes = `MD5: ${elements.hashMd5.value}\nSHA-1: ${elements.hashSha1.value}\nSHA-256: ${elements.hashSha256.value}\nSHA-512: ${elements.hashSha512.value}`;
       if (elements.hashMd5.value) {
-        navigator.clipboard.writeText(allHashes);
-        showToast('All hashes copied', 'success');
+        ToolsCommon.copyWithToast(allHashes, 'All hashes copied!');
       } else {
         showToast('No hashes to copy', 'warning');
       }
@@ -940,8 +931,7 @@ document.addEventListener('DOMContentLoaded', () => {
     elements.jwtCopyHeader?.addEventListener('click', () => {
       const text = elements.jwtHeader.textContent;
       if (text) {
-        navigator.clipboard.writeText(text);
-        showToast('Header copied', 'success');
+        ToolsCommon.copyWithToast(text, 'Header copied!');
       }
     });
 
@@ -949,8 +939,7 @@ document.addEventListener('DOMContentLoaded', () => {
     elements.jwtCopyPayload?.addEventListener('click', () => {
       const text = elements.jwtPayload.textContent;
       if (text) {
-        navigator.clipboard.writeText(text);
-        showToast('Payload copied', 'success');
+        ToolsCommon.copyWithToast(text, 'Payload copied!');
       }
     });
   }
@@ -1433,8 +1422,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     div.querySelector('.copy-btn')?.addEventListener('click', (e) => {
       e.stopPropagation();
-      navigator.clipboard.writeText(item.output);
-      showToast('Output copied', 'success');
+      ToolsCommon.copyWithToast(item.output, 'Output copied!');
     });
 
     div.querySelector('.delete')?.addEventListener('click', (e) => {
@@ -1562,8 +1550,7 @@ document.addEventListener('DOMContentLoaded', () => {
       showToast('Nothing to copy', 'warning');
       return;
     }
-    navigator.clipboard.writeText(text);
-    showToast('Copied to clipboard', 'success');
+    ToolsCommon.copyWithToast(text, 'Copied to clipboard!');
   }
 
   function clearInput(input, countElement, bytesElement) {
@@ -1576,25 +1563,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // ============================================
-  // Toast Notifications
-  // ============================================
-  let toastTimeout;
-
-  function showToast(message, type = 'info') {
-    const toast = elements.toast;
-    toast.textContent = message;
-    toast.className = `toast ${type} show`;
-
-    clearTimeout(toastTimeout);
-    toastTimeout = setTimeout(() => {
-      toast.classList.remove('show');
-    }, 3000);
-  }
-
-  // ============================================
-  // Keyboard Shortcuts
-  // ============================================
+  // ==================== Keyboard Shortcuts ====================
   function initKeyboardShortcuts() {
     // Keyboard event listener (shortcut modal handled by tools-common.js)
     document.addEventListener('keydown', (e) => {
@@ -1771,11 +1740,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // ============================================
-  // Footer
-  // ============================================
-
-
-  // Initialize the application
-  init();
-});
+  // ==================== Bootstrap ====================
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();

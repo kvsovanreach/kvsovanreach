@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Online metronome for musicians. Set your tempo and practice with a steady beat.">
+  <meta property="og:title" content="KVSOVANREACH | Metronome">
+  <meta property="og:description" content="Online metronome for musicians.">
+  <meta property="og:image" content="/assets/img/favicons/og-image.png">
+  <title>KVSOVANREACH | Metronome</title>
+
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/tools-common.css">
+  <link rel="stylesheet" href="metronome.css">
+</head>
+<body>
+  <a href="#metronome" class="skip-link">Skip to Metronome</a>
+
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">TOOLS</span>
+      </a>
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools"><i class="fa-solid fa-arrow-left"></i></a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <main class="tool-page">
+    <div class="container">
+      <div class="metronome-wrapper" id="metronome">
+        <div class="metronome-header">
+          <h2><i class="fa-solid fa-drum"></i> Metronome</h2>
+          <div class="header-actions">
+            <button class="header-action-btn" id="resetBtn" title="Reset">
+              <i class="fa-solid fa-rotate-left"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="metronome-content">
+          <div class="tempo-display">
+            <span class="tempo-value" id="tempoValue">120</span>
+            <span class="tempo-unit">BPM</span>
+          </div>
+
+          <div class="tempo-name" id="tempoName">Moderato</div>
+
+          <div class="beat-indicator" id="beatIndicator">
+            <span class="beat-dot" data-beat="1"></span>
+            <span class="beat-dot" data-beat="2"></span>
+            <span class="beat-dot" data-beat="3"></span>
+            <span class="beat-dot" data-beat="4"></span>
+          </div>
+
+          <div class="tempo-slider">
+            <input type="range" id="tempoSlider" min="20" max="240" value="120">
+          </div>
+
+          <div class="tempo-buttons">
+            <button class="tempo-btn" data-change="-10">-10</button>
+            <button class="tempo-btn" data-change="-1">-1</button>
+            <button class="tempo-btn" data-change="1">+1</button>
+            <button class="tempo-btn" data-change="10">+10</button>
+          </div>
+
+          <div class="time-signature">
+            <label>Time Signature</label>
+            <div class="signature-selector">
+              <button class="signature-btn" data-beats="2">2/4</button>
+              <button class="signature-btn" data-beats="3">3/4</button>
+              <button class="signature-btn active" data-beats="4">4/4</button>
+              <button class="signature-btn" data-beats="6">6/8</button>
+            </div>
+          </div>
+
+          <button class="play-btn" id="playBtn">
+            <i class="fa-solid fa-play"></i>
+            <span>Start</span>
+          </button>
+
+          <div class="preset-tempos">
+            <button class="preset-tempo-btn" data-tempo="60">Largo</button>
+            <button class="preset-tempo-btn" data-tempo="80">Andante</button>
+            <button class="preset-tempo-btn" data-tempo="120">Moderato</button>
+            <button class="preset-tempo-btn" data-tempo="140">Allegro</button>
+            <button class="preset-tempo-btn" data-tempo="180">Presto</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div class="shortcuts-modal" id="shortcutsModal">
+    <div class="shortcuts-content">
+      <div class="shortcuts-header">
+        <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
+        <button class="close-shortcuts-btn" id="closeShortcutsBtn"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="shortcuts-body">
+        <div class="shortcut-row"><span class="shortcut-key">Space</span><span class="shortcut-desc">Start/Stop</span></div>
+        <div class="shortcut-row"><span class="shortcut-key">↑</span><span class="shortcut-desc">Increase tempo</span></div>
+        <div class="shortcut-row"><span class="shortcut-key">↓</span><span class="shortcut-desc">Decrease tempo</span></div>
+        <div class="shortcut-row"><span class="shortcut-key">?</span><span class="shortcut-desc">Show shortcuts</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="shortcuts-hint">Press <span class="shortcut-key">?</span> for shortcuts</div>
+  <div class="toast" id="toast"></div>
+
+  <script src="../../js/tools-common.js"></script>
+  <script src="metronome.js"></script>
+</body>
+</html>

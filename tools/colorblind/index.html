@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Simulate how colors appear to people with color blindness. Test your designs for accessibility.">
+  <meta property="og:title" content="KVSOVANREACH | Color Blindness Simulator">
+  <meta property="og:description" content="Simulate color blindness for accessibility testing.">
+  <meta property="og:image" content="/assets/img/favicons/og-image.png">
+  <title>KVSOVANREACH | Color Blindness Simulator</title>
+
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/tools-common.css">
+  <link rel="stylesheet" href="colorblind.css">
+</head>
+<body>
+  <a href="#colorblind" class="skip-link">Skip to Color Blindness Simulator</a>
+
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">TOOLS</span>
+      </a>
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools"><i class="fa-solid fa-arrow-left"></i></a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <main class="tool-page">
+    <div class="container">
+      <div class="colorblind-wrapper" id="colorblind">
+        <div class="colorblind-header">
+          <h2><i class="fa-solid fa-eye"></i> Color Blindness Simulator</h2>
+          <div class="header-actions">
+            <button class="header-action-btn" id="resetBtn" title="Reset (R)">
+              <i class="fa-solid fa-rotate-left"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="colorblind-content">
+          <div class="color-input-section">
+            <div class="color-picker-group">
+              <label for="colorPicker">Select Color</label>
+              <div class="color-picker-wrapper">
+                <input type="color" id="colorPicker" value="#3776a1">
+                <input type="text" id="colorHex" value="#3776a1" class="hex-input">
+              </div>
+            </div>
+          </div>
+
+          <div class="simulation-grid">
+            <div class="simulation-card original">
+              <div class="sim-color" id="originalColor"></div>
+              <div class="sim-info">
+                <span class="sim-type">Normal Vision</span>
+                <span class="sim-hex" id="originalHex">#3776a1</span>
+              </div>
+            </div>
+            <div class="simulation-card" data-type="protanopia">
+              <div class="sim-color" id="protanopiaColor"></div>
+              <div class="sim-info">
+                <span class="sim-type">Protanopia</span>
+                <span class="sim-desc">Red-blind (~1% of males)</span>
+              </div>
+            </div>
+            <div class="simulation-card" data-type="deuteranopia">
+              <div class="sim-color" id="deuteranopiaColor"></div>
+              <div class="sim-info">
+                <span class="sim-type">Deuteranopia</span>
+                <span class="sim-desc">Green-blind (~1% of males)</span>
+              </div>
+            </div>
+            <div class="simulation-card" data-type="tritanopia">
+              <div class="sim-color" id="tritanopiaColor"></div>
+              <div class="sim-info">
+                <span class="sim-type">Tritanopia</span>
+                <span class="sim-desc">Blue-blind (rare)</span>
+              </div>
+            </div>
+            <div class="simulation-card" data-type="achromatopsia">
+              <div class="sim-color" id="achromatopsiaColor"></div>
+              <div class="sim-info">
+                <span class="sim-type">Achromatopsia</span>
+                <span class="sim-desc">Complete color blindness</span>
+              </div>
+            </div>
+            <div class="simulation-card" data-type="protanomaly">
+              <div class="sim-color" id="protanomalyColor"></div>
+              <div class="sim-info">
+                <span class="sim-type">Protanomaly</span>
+                <span class="sim-desc">Red-weak (~1% of males)</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="info-section">
+            <h3>About Color Blindness</h3>
+            <p>Color blindness affects approximately 8% of males and 0.5% of females. Testing your designs with these simulations helps ensure accessibility for all users.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div class="shortcuts-modal" id="shortcutsModal">
+    <div class="shortcuts-content">
+      <div class="shortcuts-header">
+        <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
+        <button class="close-shortcuts-btn" id="closeShortcutsBtn"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="shortcuts-body">
+        <div class="shortcut-row"><span class="shortcut-key">R</span><span class="shortcut-desc">Reset color</span></div>
+        <div class="shortcut-row"><span class="shortcut-key">?</span><span class="shortcut-desc">Show shortcuts</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="shortcuts-hint">Press <span class="shortcut-key">?</span> for shortcuts</div>
+  <div class="toast" id="toast"></div>
+
+  <script src="../../js/tools-common.js"></script>
+  <script src="colorblind.js"></script>
+</body>
+</html>

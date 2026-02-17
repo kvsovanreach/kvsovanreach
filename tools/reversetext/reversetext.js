@@ -6,6 +6,11 @@
 (function() {
   'use strict';
 
+  // ==================== State ====================
+  const state = {
+    inputText: ''
+  };
+
   // ==================== Unicode Maps ====================
 
   // Upside down character map
@@ -41,17 +46,20 @@
   };
 
   // ==================== DOM Elements ====================
-  const elements = {
-    inputText: document.getElementById('inputText'),
-    charReverse: document.getElementById('charReverse'),
-    wordReverse: document.getElementById('wordReverse'),
-    eachWordReverse: document.getElementById('eachWordReverse'),
-    upsideDown: document.getElementById('upsideDown'),
-    mirror: document.getElementById('mirror'),
-    clearBtn: document.getElementById('clearBtn'),
-    pasteBtn: document.getElementById('pasteBtn'),
-    copyBtns: document.querySelectorAll('[data-copy]')
-  };
+  const elements = {};
+
+  function initElements() {
+    elements.inputText = document.getElementById('inputText');
+    elements.charReverse = document.getElementById('charReverse');
+    elements.wordReverse = document.getElementById('wordReverse');
+    elements.eachWordReverse = document.getElementById('eachWordReverse');
+    elements.upsideDown = document.getElementById('upsideDown');
+    elements.mirror = document.getElementById('mirror');
+    elements.clearBtn = document.getElementById('clearBtn');
+    elements.resetBtn = document.getElementById('resetBtn');
+    elements.pasteBtn = document.getElementById('pasteBtn');
+    elements.copyBtns = document.querySelectorAll('[data-copy]');
+  }
 
   // ==================== Core Functions ====================
 
@@ -85,7 +93,8 @@
   }
 
   function processInput() {
-    const text = elements.inputText.value;
+    const text = elements.inputText?.value || '';
+    state.inputText = text;
 
     if (!text.trim()) {
       elements.charReverse.innerHTML = '<span class="placeholder-text">Reversed text will appear here...</span>';
@@ -107,14 +116,24 @@
 
   function handleClear() {
     elements.inputText.value = '';
+    state.inputText = '';
     processInput();
     ToolsCommon.Toast.show('Cleared', 'success');
+  }
+
+  function resetForm() {
+    elements.inputText.value = '';
+    state.inputText = '';
+    processInput();
+    elements.inputText?.focus();
+    ToolsCommon.Toast.show('Form reset', 'success');
   }
 
   async function handlePaste() {
     try {
       const text = await navigator.clipboard.readText();
       elements.inputText.value = text;
+      state.inputText = text;
       processInput();
       ToolsCommon.Toast.show('Pasted from clipboard', 'success');
     } catch (err) {
@@ -123,11 +142,11 @@
   }
 
   async function handleCopy(e) {
-    const targetId = e.currentTarget.dataset.copy;
+    const targetId = e.currentTarget?.dataset?.copy;
     const element = document.getElementById(targetId);
     const text = element?.textContent;
 
-    if (!text || element.querySelector('.placeholder-text')) {
+    if (!text || element?.querySelector('.placeholder-text')) {
       ToolsCommon.Toast.show('Nothing to copy', 'error');
       return;
     }
@@ -140,13 +159,20 @@
 
     const outputIds = ['charReverse', 'wordReverse', 'eachWordReverse', 'upsideDown', 'mirror'];
 
+    // R key for reset (but not Ctrl+R or Cmd+R which is browser refresh)
+    if (e.key.toLowerCase() === 'r' && !e.ctrlKey && !e.metaKey) {
+      e.preventDefault();
+      resetForm();
+      return;
+    }
+
     if (e.key >= '1' && e.key <= '5') {
       e.preventDefault();
       const index = parseInt(e.key) - 1;
       const element = document.getElementById(outputIds[index]);
       const text = element?.textContent;
 
-      if (text && !element.querySelector('.placeholder-text')) {
+      if (text && !element?.querySelector('.placeholder-text')) {
         ToolsCommon.Clipboard.copyWithToast(text, 'Copied to clipboard!');
       }
     }
@@ -155,15 +181,17 @@
   // ==================== Initialization ====================
 
   function init() {
+    initElements();
     setupEventListeners();
   }
 
   function setupEventListeners() {
     elements.inputText?.addEventListener('input', ToolsCommon.debounce(processInput, 100));
     elements.clearBtn?.addEventListener('click', handleClear);
+    elements.resetBtn?.addEventListener('click', resetForm);
     elements.pasteBtn?.addEventListener('click', handlePaste);
 
-    elements.copyBtns.forEach(btn => {
+    elements.copyBtns?.forEach(btn => {
       btn.addEventListener('click', handleCopy);
     });
 

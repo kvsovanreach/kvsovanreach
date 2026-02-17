@@ -58,10 +58,9 @@
         <!-- Header -->
         <div class="glass-header">
           <h2><i class="fa-solid fa-layer-group"></i> Glassmorphism Generator</h2>
-          <div class="glass-actions">
-            <button class="action-btn" id="resetBtn" title="Reset" aria-label="Reset">
-              <i class="fa-solid fa-rotate"></i>
-              <span>Reset</span>
+          <div class="header-actions">
+            <button type="button" class="header-action-btn" id="resetBtn" title="Reset (R)">
+              <i class="fa-solid fa-rotate-left"></i>
             </button>
           </div>
         </div>
@@ -148,10 +147,10 @@
             <div class="presets-group">
               <label>Presets</label>
               <div class="presets-grid">
-                <button class="preset-btn" data-preset="light">Light</button>
-                <button class="preset-btn" data-preset="dark">Dark</button>
-                <button class="preset-btn" data-preset="frosted">Frosted</button>
-                <button class="preset-btn" data-preset="subtle">Subtle</button>
+                <button type="button" class="preset-btn" data-preset="light">Light</button>
+                <button type="button" class="preset-btn" data-preset="dark">Dark</button>
+                <button type="button" class="preset-btn" data-preset="frosted">Frosted</button>
+                <button type="button" class="preset-btn" data-preset="subtle">Subtle</button>
               </div>
             </div>
           </div>
@@ -166,7 +165,7 @@
           <div class="output-section">
             <div class="output-header">
               <h3><i class="fa-solid fa-code"></i> CSS Code</h3>
-              <button class="action-btn primary" id="copyBtn" title="Copy CSS" aria-label="Copy CSS">
+              <button type="button" class="action-btn primary" id="copyBtn" title="Copy CSS (C)">
                 <i class="fa-solid fa-copy"></i>
                 <span>Copy</span>
               </button>
@@ -196,55 +195,24 @@
     </div>
   </main>
 
-  <!-- Footer -->
-  <footer class="footer">
-    <div class="container">
-      <div class="footer-bottom">
-        <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach. All rights reserved.</p>
-        <p class="footer-made">Made with 💗 and Claude Code xD</p>
-      </div>
-    </div>
-  </footer>
-
   <!-- Toast Notification -->
   <div class="toast" id="toast"></div>
 
-  <!-- Keyboard Shortcuts Modal -->
   <div class="shortcuts-modal" id="shortcutsModal">
     <div class="shortcuts-content">
       <div class="shortcuts-header">
         <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
-        <button class="close-shortcuts-btn" id="closeShortcutsBtn" aria-label="Close shortcuts">
-          <i class="fa-solid fa-xmark"></i>
-        </button>
+        <button type="button" class="close-shortcuts-btn" id="closeShortcutsBtn"><i class="fa-solid fa-xmark"></i></button>
       </div>
       <div class="shortcuts-body">
-        <div class="shortcuts-group">
-          <div class="shortcuts-group-title">Actions</div>
-          <div class="shortcut-row">
-            <div class="shortcut-keys"><kbd>C</kbd></div>
-            <div class="shortcut-desc">Copy CSS</div>
-          </div>
-          <div class="shortcut-row">
-            <div class="shortcut-keys"><kbd>R</kbd></div>
-            <div class="shortcut-desc">Reset to defaults</div>
-          </div>
-        </div>
-        <div class="shortcuts-group">
-          <div class="shortcuts-group-title">General</div>
-          <div class="shortcut-row">
-            <div class="shortcut-keys"><kbd>?</kbd></div>
-            <div class="shortcut-desc">Show shortcuts</div>
-          </div>
-        </div>
+        <div class="shortcut-row"><span class="shortcut-key">C</span><span class="shortcut-desc">Copy CSS</span></div>
+        <div class="shortcut-row"><span class="shortcut-key">R</span><span class="shortcut-desc">Reset</span></div>
+        <div class="shortcut-row"><span class="shortcut-key">?</span><span class="shortcut-desc">Show shortcuts</span></div>
       </div>
     </div>
   </div>
 
-  <!-- Keyboard Shortcuts Hint -->
-  <div class="shortcuts-hint" id="shortcutsHint">
-    <span><kbd>Shift</kbd>+<kbd>?</kbd> : shortcuts</span>
-  </div>
+  <div class="shortcuts-hint">Press <span class="shortcut-key">?</span> for shortcuts</div>
 
   <!-- Shared Tools JavaScript -->
   <script src="../../js/tools-common.js"></script>

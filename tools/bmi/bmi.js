@@ -1,5 +1,5 @@
 /**
- * BMI Calculator Tool
+ * KVSOVANREACH BMI Calculator Tool
  * Calculate Body Mass Index with metric or imperial units
  */
 
@@ -7,35 +7,49 @@
   'use strict';
 
   // ==================== State ====================
-  let currentUnit = 'metric';
+  const state = {
+    currentUnit: 'metric',
+    lastBmi: null,
+    lastHeightM: null
+  };
 
   // ==================== DOM Elements ====================
-  const elements = {
-    unitBtns: document.querySelectorAll('.bmi-tab'),
-    metricInputs: document.getElementById('metricInputs'),
-    imperialInputs: document.getElementById('imperialInputs'),
-    // Metric
-    heightCm: document.getElementById('heightCm'),
-    weightKg: document.getElementById('weightKg'),
-    // Imperial
-    heightFt: document.getElementById('heightFt'),
-    heightIn: document.getElementById('heightIn'),
-    weightLbs: document.getElementById('weightLbs'),
+  const elements = {};
+
+  function initElements() {
+    // Tabs
+    elements.unitBtns = document.querySelectorAll('.bmi-tab');
+
+    // Input containers
+    elements.metricInputs = document.getElementById('metricInputs');
+    elements.imperialInputs = document.getElementById('imperialInputs');
+
+    // Metric inputs
+    elements.heightCm = document.getElementById('heightCm');
+    elements.weightKg = document.getElementById('weightKg');
+
+    // Imperial inputs
+    elements.heightFt = document.getElementById('heightFt');
+    elements.heightIn = document.getElementById('heightIn');
+    elements.weightLbs = document.getElementById('weightLbs');
+
     // Results
-    calculateBtn: document.getElementById('calculateBtn'),
-    resultsSection: document.getElementById('resultsSection'),
-    bmiValue: document.getElementById('bmiValue'),
-    bmiCategory: document.getElementById('bmiCategory'),
-    scaleFill: document.getElementById('scaleFill'),
-    scaleMarker: document.getElementById('scaleMarker'),
-    healthyWeight: document.getElementById('healthyWeight')
-  };
+    elements.calculateBtn = document.getElementById('calculateBtn');
+    elements.resultsSection = document.getElementById('resultsSection');
+    elements.bmiValue = document.getElementById('bmiValue');
+    elements.bmiCategory = document.getElementById('bmiCategory');
+    elements.scaleMarker = document.getElementById('scaleMarker');
+    elements.healthyWeight = document.getElementById('healthyWeight');
+
+    // Header actions
+    elements.resetBtn = document.getElementById('resetBtn');
+  }
 
   // ==================== BMI Calculation ====================
   function calculateBMI() {
     let heightM, weightKg;
 
-    if (currentUnit === 'metric') {
+    if (state.currentUnit === 'metric') {
       const heightCm = parseFloat(elements.heightCm.value);
       weightKg = parseFloat(elements.weightKg.value);
 
@@ -69,6 +83,10 @@
       return;
     }
 
+    // Store for later use
+    state.lastBmi = bmi;
+    state.lastHeightM = heightM;
+
     displayResults(bmi, heightM);
   }
 
@@ -92,7 +110,7 @@
     const minWeight = 18.5 * heightM * heightM;
     const maxWeight = 24.9 * heightM * heightM;
 
-    if (currentUnit === 'metric') {
+    if (state.currentUnit === 'metric') {
       elements.healthyWeight.textContent = `${minWeight.toFixed(1)} - ${maxWeight.toFixed(1)} kg`;
     } else {
       const minLbs = minWeight * 2.20462;
@@ -129,7 +147,9 @@
 
   // ==================== Switch Units ====================
   function switchUnit(unit) {
-    currentUnit = unit;
+    if (state.currentUnit === unit) return;
+
+    state.currentUnit = unit;
 
     elements.unitBtns.forEach(btn => {
       btn.classList.toggle('active', btn.dataset.unit === unit);
@@ -147,6 +167,58 @@
     elements.resultsSection.classList.add('hidden');
   }
 
+  // ==================== Reset Form ====================
+  function resetForm() {
+    // Clear metric inputs
+    elements.heightCm.value = '';
+    elements.weightKg.value = '';
+
+    // Clear imperial inputs
+    elements.heightFt.value = '';
+    elements.heightIn.value = '';
+    elements.weightLbs.value = '';
+
+    // Hide results
+    elements.resultsSection.classList.add('hidden');
+
+    // Reset state
+    state.lastBmi = null;
+    state.lastHeightM = null;
+
+    ToolsCommon.showToast('Form reset', 'success');
+  }
+
+  // ==================== Keyboard Handler ====================
+  function handleKeyboard(e) {
+    // Skip if typing in input
+    if (e.target.matches('input')) {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        calculateBMI();
+      }
+      return;
+    }
+
+    switch (e.key.toLowerCase()) {
+      case 'm':
+        e.preventDefault();
+        switchUnit('metric');
+        break;
+      case 'i':
+        e.preventDefault();
+        switchUnit('imperial');
+        break;
+      case 'r':
+        e.preventDefault();
+        resetForm();
+        break;
+      case 'enter':
+        e.preventDefault();
+        calculateBMI();
+        break;
+    }
+  }
+
   // ==================== Event Listeners ====================
   function initEventListeners() {
     // Unit toggle
@@ -155,34 +227,18 @@
     });
 
     // Calculate button
-    elements.calculateBtn.addEventListener('click', calculateBMI);
+    elements.calculateBtn?.addEventListener('click', calculateBMI);
 
-    // Enter key to calculate
-    document.querySelectorAll('input').forEach(input => {
-      input.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') {
-          calculateBMI();
-        }
-      });
-    });
+    // Reset button
+    elements.resetBtn?.addEventListener('click', resetForm);
 
     // Keyboard shortcuts
-    document.addEventListener('keydown', (e) => {
-      if (e.target.matches('input')) return;
-
-      switch (e.key.toLowerCase()) {
-        case 'm':
-          switchUnit('metric');
-          break;
-        case 'i':
-          switchUnit('imperial');
-          break;
-      }
-    });
+    document.addEventListener('keydown', handleKeyboard);
   }
 
   // ==================== Initialize ====================
   function init() {
+    initElements();
     initEventListeners();
   }
 

@@ -8,33 +8,44 @@
 
   // ==================== State ====================
   const state = {
-    mode: 'width-to-height' // or 'height-to-width'
+    mode: 'width-to-height', // or 'height-to-width'
+    inputValue: 1920,
+    ratioW: 16,
+    ratioH: 9
   };
 
   // ==================== DOM Elements ====================
-  const elements = {
-    calcInput: document.getElementById('calcInput'),
-    inputLabel: document.getElementById('inputLabel'),
-    resultLabel: document.getElementById('resultLabel'),
-    ratioW: document.getElementById('ratioW'),
-    ratioH: document.getElementById('ratioH'),
-    calcResult: document.getElementById('calcResult'),
-    ratioPresets: document.querySelectorAll('.ratio-preset'),
-    resolutionPresets: document.querySelectorAll('.resolution-preset'),
-    modeBtns: document.querySelectorAll('.mode-btn'),
-    compareChecks: document.querySelectorAll('.compare-check input'),
-    comparisonCanvas: document.getElementById('comparisonCanvas'),
-    comparisonLegend: document.getElementById('comparisonLegend'),
-    swapBtn: document.getElementById('swapBtn'),
-    resetBtn: document.getElementById('resetBtn')
-  };
+  const elements = {};
+
+  function initElements() {
+    elements.calcInput = document.getElementById('calcInput');
+    elements.inputLabel = document.getElementById('inputLabel');
+    elements.resultLabel = document.getElementById('resultLabel');
+    elements.ratioW = document.getElementById('ratioW');
+    elements.ratioH = document.getElementById('ratioH');
+    elements.calcResult = document.getElementById('calcResult');
+    elements.ratioPresets = document.querySelectorAll('.preset-btn');
+    elements.resolutionPresets = document.querySelectorAll('.res-btn');
+    elements.modeBtns = document.querySelectorAll('.tool-tab');
+    elements.compareChecks = document.querySelectorAll('.compare-check input');
+    elements.comparisonCanvas = document.getElementById('comparisonCanvas');
+    elements.comparisonLegend = document.getElementById('comparisonLegend');
+    elements.resetBtn = document.getElementById('resetBtn');
+  }
+
+  const showToast = (message, type) => ToolsCommon.showToast(message, type);
 
   // ==================== Core Functions ====================
 
   function calculate() {
-    const inputValue = parseInt(elements.calcInput.value) || 0;
-    const ratioW = parseInt(elements.ratioW.value) || 1;
-    const ratioH = parseInt(elements.ratioH.value) || 1;
+    const inputValue = parseInt(elements.calcInput?.value) || 0;
+    const ratioW = parseInt(elements.ratioW?.value) || 1;
+    const ratioH = parseInt(elements.ratioH?.value) || 1;
+
+    // Update state
+    state.inputValue = inputValue;
+    state.ratioW = ratioW;
+    state.ratioH = ratioH;
 
     let result;
     if (state.mode === 'width-to-height') {
@@ -45,23 +56,25 @@
       result = Math.round((inputValue * ratioW) / ratioH);
     }
 
-    elements.calcResult.textContent = result || 0;
+    if (elements.calcResult) {
+      elements.calcResult.textContent = result || 0;
+    }
   }
 
   function updateMode(mode) {
     state.mode = mode;
 
     // Update UI
-    elements.modeBtns.forEach(btn => {
+    elements.modeBtns?.forEach(btn => {
       btn.classList.toggle('active', btn.dataset.mode === mode);
     });
 
     if (mode === 'width-to-height') {
-      elements.inputLabel.textContent = 'Width (px)';
-      elements.resultLabel.textContent = 'Height (px)';
+      if (elements.inputLabel) elements.inputLabel.textContent = 'Width (px)';
+      if (elements.resultLabel) elements.resultLabel.textContent = 'Height (px)';
     } else {
-      elements.inputLabel.textContent = 'Height (px)';
-      elements.resultLabel.textContent = 'Width (px)';
+      if (elements.inputLabel) elements.inputLabel.textContent = 'Height (px)';
+      if (elements.resultLabel) elements.resultLabel.textContent = 'Width (px)';
     }
 
     calculate();
@@ -70,33 +83,39 @@
   function swapMode() {
     const newMode = state.mode === 'width-to-height' ? 'height-to-width' : 'width-to-height';
     updateMode(newMode);
-    ToolsCommon.Toast.show('Calculation mode swapped', 'success');
+    showToast('Mode swapped', 'success');
   }
 
-  function reset() {
-    // Reset to defaults
-    elements.calcInput.value = 1920;
-    elements.ratioW.value = 16;
-    elements.ratioH.value = 9;
+  function resetForm() {
+    state.mode = 'width-to-height';
+    state.inputValue = 1920;
+    state.ratioW = 16;
+    state.ratioH = 9;
+
+    if (elements.calcInput) elements.calcInput.value = 1920;
+    if (elements.ratioW) elements.ratioW.value = 16;
+    if (elements.ratioH) elements.ratioH.value = 9;
+
     updateMode('width-to-height');
 
-    // Reset ratio presets
-    elements.ratioPresets.forEach(p => {
+    elements.ratioPresets?.forEach(p => {
       p.classList.toggle('active', p.dataset.w === '16' && p.dataset.h === '9');
     });
 
-    // Reset comparison checkboxes
-    elements.compareChecks.forEach((checkbox, index) => {
-      checkbox.checked = index < 2; // First two checked by default
+    elements.compareChecks?.forEach((checkbox, index) => {
+      checkbox.checked = index < 2;
     });
 
     updateComparison();
-    ToolsCommon.Toast.show('Reset to defaults', 'success');
+    showToast('Reset', 'success');
   }
 
   function updateComparison() {
     const canvas = elements.comparisonCanvas;
     const legend = elements.comparisonLegend;
+
+    if (!canvas || !legend) return;
+
     const canvasWidth = canvas.clientWidth;
     const canvasHeight = canvas.clientHeight;
 
@@ -106,7 +125,7 @@
 
     // Get selected ratios
     const selectedRatios = [];
-    elements.compareChecks.forEach(checkbox => {
+    elements.compareChecks?.forEach(checkbox => {
       if (checkbox.checked) {
         selectedRatios.push({
           w: parseInt(checkbox.dataset.w),
@@ -151,7 +170,7 @@
       legendItem.className = 'legend-item';
       legendItem.innerHTML = `
         <span class="legend-color" style="background-color: ${ratio.color}"></span>
-        <span>${ratio.w}:${ratio.h} (${Math.round(boxWidth)}×${Math.round(boxHeight)})</span>
+        <span>${ratio.w}:${ratio.h} (${Math.round(boxWidth)}x${Math.round(boxHeight)})</span>
       `;
       legend.appendChild(legendItem);
     });
@@ -165,37 +184,45 @@
     const ratioH = height / divisor;
 
     // Set values
-    elements.calcInput.value = width;
-    elements.ratioW.value = ratioW;
-    elements.ratioH.value = ratioH;
+    if (elements.calcInput) elements.calcInput.value = width;
+    if (elements.ratioW) elements.ratioW.value = ratioW;
+    if (elements.ratioH) elements.ratioH.value = ratioH;
+
+    // Update state
+    state.inputValue = width;
+    state.ratioW = ratioW;
+    state.ratioH = ratioH;
 
     // Update active preset
-    elements.ratioPresets.forEach(p => {
+    elements.ratioPresets?.forEach(p => {
       p.classList.toggle('active',
         parseInt(p.dataset.w) === ratioW && parseInt(p.dataset.h) === ratioH
       );
     });
 
     calculate();
-    ToolsCommon.Toast.show(`Applied ${width}×${height} (${ratioW}:${ratioH})`, 'success');
+    showToast(`${width}x${height}`, 'success');
   }
 
-  // ==================== Event Handlers ====================
-
   function handlePresetClick(e) {
-    const btn = e.target.closest('.ratio-preset');
+    const btn = e.target.closest('.preset-btn');
     if (!btn) return;
 
-    elements.ratioPresets.forEach(p => p.classList.remove('active'));
+    elements.ratioPresets?.forEach(p => p.classList.remove('active'));
     btn.classList.add('active');
 
-    elements.ratioW.value = btn.dataset.w;
-    elements.ratioH.value = btn.dataset.h;
+    if (elements.ratioW) elements.ratioW.value = btn.dataset.w;
+    if (elements.ratioH) elements.ratioH.value = btn.dataset.h;
+
+    // Update state
+    state.ratioW = parseInt(btn.dataset.w);
+    state.ratioH = parseInt(btn.dataset.h);
+
     calculate();
   }
 
   function handleResolutionClick(e) {
-    const btn = e.target.closest('.resolution-preset');
+    const btn = e.target.closest('.res-btn');
     if (!btn) return;
 
     const width = parseInt(btn.dataset.w);
@@ -204,7 +231,7 @@
   }
 
   function handleModeClick(e) {
-    const btn = e.target.closest('.mode-btn');
+    const btn = e.target.closest('.tool-tab');
     if (!btn) return;
 
     updateMode(btn.dataset.mode);
@@ -214,10 +241,10 @@
     calculate();
 
     // Update active preset if matches
-    const ratioW = elements.ratioW.value;
-    const ratioH = elements.ratioH.value;
+    const ratioW = elements.ratioW?.value;
+    const ratioH = elements.ratioH?.value;
 
-    elements.ratioPresets.forEach(p => {
+    elements.ratioPresets?.forEach(p => {
       p.classList.toggle('active',
         p.dataset.w === ratioW && p.dataset.h === ratioH
       );
@@ -234,7 +261,7 @@
         break;
       case 'r':
         e.preventDefault();
-        reset();
+        resetForm();
         break;
     }
   }
@@ -242,12 +269,13 @@
   // ==================== Initialization ====================
 
   function init() {
+    initElements();
     setupEventListeners();
     calculate();
     updateComparison();
 
     // Update comparison on resize
-    window.addEventListener('resize', ToolsCommon.debounce(updateComparison, 200));
+    window.addEventListener('resize', ToolsCommon?.debounce?.(updateComparison, 200) || updateComparison);
   }
 
   function setupEventListeners() {
@@ -257,28 +285,27 @@
     elements.ratioH?.addEventListener('input', handleInputChange);
 
     // Mode buttons
-    elements.modeBtns.forEach(btn => {
+    elements.modeBtns?.forEach(btn => {
       btn.addEventListener('click', handleModeClick);
     });
 
     // Presets
-    elements.ratioPresets.forEach(btn => {
+    elements.ratioPresets?.forEach(btn => {
       btn.addEventListener('click', handlePresetClick);
     });
 
     // Resolution presets
-    elements.resolutionPresets.forEach(btn => {
+    elements.resolutionPresets?.forEach(btn => {
       btn.addEventListener('click', handleResolutionClick);
     });
 
     // Comparison checkboxes
-    elements.compareChecks.forEach(checkbox => {
+    elements.compareChecks?.forEach(checkbox => {
       checkbox.addEventListener('change', updateComparison);
     });
 
     // Header actions
-    elements.swapBtn?.addEventListener('click', swapMode);
-    elements.resetBtn?.addEventListener('click', reset);
+    elements.resetBtn?.addEventListener('click', resetForm);
 
     // Keyboard shortcuts
     document.addEventListener('keydown', handleKeydown);

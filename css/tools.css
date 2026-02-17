@@ -1248,6 +1248,18 @@ textarea {
   transform: translateX(2px);
 }
 
+/* Keyboard Navigation Selection */
+.tool-card.keyboard-selected {
+  transform: translateY(-3px);
+  box-shadow: 0 0 0 3px var(--color-primary), var(--shadow-md);
+  border-color: var(--color-primary);
+}
+
+.tool-card.keyboard-selected .tool-card-arrow {
+  background-color: var(--color-primary);
+  color: #fff;
+}
+
 /* ==================== Coming Soon ==================== */
 .tool-card.coming-soon {
   opacity: 0.6;

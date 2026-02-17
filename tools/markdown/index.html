@@ -42,7 +42,7 @@
         <a href="../../tools.html" class="back-btn" title="Back to Tools">
           <i class="fa-solid fa-arrow-left"></i>
         </a>
-        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+        <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
           <i class="fa-solid fa-moon"></i>
           <i class="fa-solid fa-sun"></i>
         </button>
@@ -58,92 +58,91 @@
         <!-- Header -->
         <div class="markdown-header">
           <h2><i class="fa-brands fa-markdown"></i> Markdown Editor</h2>
-          <div class="markdown-actions">
-            <button class="action-btn" id="clearBtn" title="Clear">
+          <div class="header-actions">
+            <button type="button" class="header-action-btn" id="clearBtn" title="Clear">
               <i class="fa-solid fa-eraser"></i>
-              <span>Clear</span>
             </button>
           </div>
         </div>
         <!-- Toolbar -->
         <div class="markdown-toolbar">
           <div class="toolbar-group">
-            <button class="toolbar-btn" data-action="bold" title="Bold (Ctrl+B)">
+            <button type="button" class="toolbar-btn" data-action="bold" title="Bold (Ctrl+B)">
               <i class="fa-solid fa-bold"></i>
             </button>
-            <button class="toolbar-btn" data-action="italic" title="Italic (Ctrl+I)">
+            <button type="button" class="toolbar-btn" data-action="italic" title="Italic (Ctrl+I)">
               <i class="fa-solid fa-italic"></i>
             </button>
-            <button class="toolbar-btn" data-action="strikethrough" title="Strikethrough">
+            <button type="button" class="toolbar-btn" data-action="strikethrough" title="Strikethrough">
               <i class="fa-solid fa-strikethrough"></i>
             </button>
           </div>
           <div class="toolbar-divider"></div>
           <div class="toolbar-group">
-            <button class="toolbar-btn" data-action="h1" title="Heading 1">
+            <button type="button" class="toolbar-btn" data-action="h1" title="Heading 1">
               H1
             </button>
-            <button class="toolbar-btn" data-action="h2" title="Heading 2">
+            <button type="button" class="toolbar-btn" data-action="h2" title="Heading 2">
               H2
             </button>
-            <button class="toolbar-btn" data-action="h3" title="Heading 3">
+            <button type="button" class="toolbar-btn" data-action="h3" title="Heading 3">
               H3
             </button>
           </div>
           <div class="toolbar-divider"></div>
           <div class="toolbar-group">
-            <button class="toolbar-btn" data-action="ul" title="Unordered List">
+            <button type="button" class="toolbar-btn" data-action="ul" title="Unordered List">
               <i class="fa-solid fa-list-ul"></i>
             </button>
-            <button class="toolbar-btn" data-action="ol" title="Ordered List">
+            <button type="button" class="toolbar-btn" data-action="ol" title="Ordered List">
               <i class="fa-solid fa-list-ol"></i>
             </button>
-            <button class="toolbar-btn" data-action="checklist" title="Checklist">
+            <button type="button" class="toolbar-btn" data-action="checklist" title="Checklist">
               <i class="fa-solid fa-list-check"></i>
             </button>
           </div>
           <div class="toolbar-divider"></div>
           <div class="toolbar-group">
-            <button class="toolbar-btn" data-action="link" title="Link">
+            <button type="button" class="toolbar-btn" data-action="link" title="Link">
               <i class="fa-solid fa-link"></i>
             </button>
-            <button class="toolbar-btn" data-action="image" title="Image">
+            <button type="button" class="toolbar-btn" data-action="image" title="Image">
               <i class="fa-solid fa-image"></i>
             </button>
-            <button class="toolbar-btn" data-action="code" title="Inline Code">
+            <button type="button" class="toolbar-btn" data-action="code" title="Inline Code">
               <i class="fa-solid fa-code"></i>
             </button>
-            <button class="toolbar-btn" data-action="codeblock" title="Code Block">
+            <button type="button" class="toolbar-btn" data-action="codeblock" title="Code Block">
               <i class="fa-solid fa-file-code"></i>
             </button>
           </div>
           <div class="toolbar-divider"></div>
           <div class="toolbar-group">
-            <button class="toolbar-btn" data-action="quote" title="Blockquote">
+            <button type="button" class="toolbar-btn" data-action="quote" title="Blockquote">
               <i class="fa-solid fa-quote-left"></i>
             </button>
-            <button class="toolbar-btn" data-action="hr" title="Horizontal Rule">
+            <button type="button" class="toolbar-btn" data-action="hr" title="Horizontal Rule">
               <i class="fa-solid fa-minus"></i>
             </button>
-            <button class="toolbar-btn" data-action="table" title="Table">
+            <button type="button" class="toolbar-btn" data-action="table" title="Table">
               <i class="fa-solid fa-table"></i>
             </button>
           </div>
           <div class="toolbar-spacer"></div>
           <div class="toolbar-group">
-            <button class="toolbar-btn" id="downloadMd" title="Download .md">
+            <button type="button" class="toolbar-btn" id="downloadMd" title="Download .md">
               <i class="fa-solid fa-download"></i>
             </button>
-            <button class="toolbar-btn" id="copyHtml" title="Copy HTML">
+            <button type="button" class="toolbar-btn" id="copyHtml" title="Copy HTML">
               <i class="fa-solid fa-copy"></i>
             </button>
-            <button class="toolbar-btn" id="clearEditor" title="Clear">
+            <button type="button" class="toolbar-btn" id="clearEditor" title="Clear">
               <i class="fa-solid fa-trash"></i>
             </button>
           </div>
           <div class="toolbar-divider"></div>
           <div class="toolbar-group">
-            <button class="toolbar-btn" id="toggleFullscreen" title="Toggle fullscreen (F11)">
+            <button type="button" class="toolbar-btn" id="toggleFullscreen" title="Toggle fullscreen (F11)">
               <i class="fa-solid fa-expand"></i>
             </button>
           </div>
@@ -151,13 +150,13 @@
 
         <!-- Layout Toggle -->
         <div class="layout-toggle">
-          <button class="layout-btn active" data-layout="split" title="Split View">
+          <button type="button" class="layout-btn active" data-layout="split" title="Split View">
             <i class="fa-solid fa-columns"></i>
           </button>
-          <button class="layout-btn" data-layout="editor" title="Editor Only">
+          <button type="button" class="layout-btn" data-layout="editor" title="Editor Only">
             <i class="fa-solid fa-pen"></i>
           </button>
-          <button class="layout-btn" data-layout="preview" title="Preview Only">
+          <button type="button" class="layout-btn" data-layout="preview" title="Preview Only">
             <i class="fa-solid fa-eye"></i>
           </button>
         </div>
@@ -188,10 +187,10 @@
             <div class="panel-header">
               <h3><i class="fa-solid fa-eye"></i> Preview</h3>
               <div class="view-toggle">
-                <button class="view-btn active" data-view="preview" title="Preview">
+                <button type="button" class="view-btn active" data-view="preview" title="Preview">
                   <i class="fa-solid fa-eye"></i>
                 </button>
-                <button class="view-btn" data-view="html" title="HTML Source">
+                <button type="button" class="view-btn" data-view="html" title="HTML Source">
                   <i class="fa-solid fa-code"></i>
                 </button>
               </div>
@@ -211,47 +210,33 @@
     </div>
   </main>
 
-  <!-- Footer -->
-  <footer class="footer">
-    <div class="container">
-      <div class="footer-bottom">
-        <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach. All rights reserved.</p>
-        <p class="footer-made">Made with 💗 and Claude Code xD</p>
-      </div>
-    </div>
-  </footer>
-
   <!-- Toast Notification -->
   <div class="toast" id="toast"></div>
 
-  <!-- Keyboard Shortcuts Modal -->
   <div class="shortcuts-modal" id="shortcutsModal">
     <div class="shortcuts-content">
       <div class="shortcuts-header">
         <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
-        <button class="close-shortcuts-btn" id="closeShortcutsBtn">
+        <button type="button" class="close-shortcuts-btn" id="closeShortcutsBtn" aria-label="Close shortcuts">
           <i class="fa-solid fa-xmark"></i>
         </button>
       </div>
       <div class="shortcuts-body">
-        <!-- Formatting Section -->
         <div class="shortcuts-group">
           <div class="shortcuts-group-title">Formatting</div>
           <div class="shortcut-row">
-            <div class="shortcut-keys"><kbd>Ctrl</kbd><span class="key-separator">+</span><kbd>B</kbd></div>
+            <div class="shortcut-keys"><kbd>Ctrl</kbd>+<kbd>B</kbd></div>
             <div class="shortcut-desc">Bold</div>
           </div>
           <div class="shortcut-row">
-            <div class="shortcut-keys"><kbd>Ctrl</kbd><span class="key-separator">+</span><kbd>I</kbd></div>
+            <div class="shortcut-keys"><kbd>Ctrl</kbd>+<kbd>I</kbd></div>
             <div class="shortcut-desc">Italic</div>
           </div>
           <div class="shortcut-row">
-            <div class="shortcut-keys"><kbd>Ctrl</kbd><span class="key-separator">+</span><kbd>K</kbd></div>
+            <div class="shortcut-keys"><kbd>Ctrl</kbd>+<kbd>K</kbd></div>
             <div class="shortcut-desc">Insert link</div>
           </div>
         </div>
-
-        <!-- General Section -->
         <div class="shortcuts-group">
           <div class="shortcuts-group-title">General</div>
           <div class="shortcut-row">

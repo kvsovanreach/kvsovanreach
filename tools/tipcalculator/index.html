@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Calculate tips and split bills easily. Supports custom tip percentages and multiple people.">
+  <meta property="og:title" content="KVSOVANREACH | Tip Calculator">
+  <meta property="og:description" content="Calculate tips and split bills easily.">
+  <meta property="og:image" content="/assets/img/favicons/og-image.png">
+  <title>KVSOVANREACH | Tip Calculator</title>
+
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/tools-common.css">
+  <link rel="stylesheet" href="tipcalculator.css">
+</head>
+<body>
+  <a href="#tipcalc" class="skip-link">Skip to Tip Calculator</a>
+
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">TOOLS</span>
+      </a>
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools"><i class="fa-solid fa-arrow-left"></i></a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <main class="tool-page">
+    <div class="container">
+      <div class="tip-wrapper" id="tipcalc">
+        <div class="tip-header">
+          <h2><i class="fa-solid fa-receipt"></i> Tip Calculator</h2>
+          <div class="header-actions">
+            <button type="button" class="header-action-btn" id="resetBtn" title="Reset">
+              <i class="fa-solid fa-rotate-left"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="tip-content">
+          <div class="input-section">
+            <div class="input-group">
+              <label for="billAmount">Bill Amount</label>
+              <div class="input-with-icon">
+                <span class="currency-symbol">$</span>
+                <input type="number" id="billAmount" placeholder="0.00" min="0" step="0.01">
+              </div>
+            </div>
+
+            <div class="input-group">
+              <label>Tip Percentage</label>
+              <div class="tip-buttons">
+                <button class="tip-btn" data-tip="10">10%</button>
+                <button class="tip-btn" data-tip="15">15%</button>
+                <button class="tip-btn active" data-tip="18">18%</button>
+                <button class="tip-btn" data-tip="20">20%</button>
+                <button class="tip-btn" data-tip="25">25%</button>
+              </div>
+              <div class="custom-tip">
+                <label for="customTip">Custom:</label>
+                <input type="number" id="customTip" placeholder="%" min="0" max="100">
+                <span>%</span>
+              </div>
+            </div>
+
+            <div class="input-group">
+              <label for="numPeople">Number of People</label>
+              <div class="people-input">
+                <button class="people-btn" id="decreasePeople"><i class="fa-solid fa-minus"></i></button>
+                <input type="number" id="numPeople" value="1" min="1" max="100">
+                <button class="people-btn" id="increasePeople"><i class="fa-solid fa-plus"></i></button>
+              </div>
+            </div>
+          </div>
+
+          <div class="results-section">
+            <div class="result-card">
+              <div class="result-label">Tip Amount</div>
+              <div class="result-value" id="tipAmount">$0.00</div>
+              <div class="result-per-person" id="tipPerPerson"></div>
+            </div>
+            <div class="result-card highlight">
+              <div class="result-label">Total</div>
+              <div class="result-value" id="totalAmount">$0.00</div>
+              <div class="result-per-person" id="totalPerPerson"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div class="shortcuts-modal" id="shortcutsModal">
+    <div class="shortcuts-content">
+      <div class="shortcuts-header">
+        <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
+        <button class="close-shortcuts-btn" id="closeShortcutsBtn"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="shortcuts-body">
+        <div class="shortcut-row"><span class="shortcut-key">R</span><span class="shortcut-desc">Reset calculator</span></div>
+        <div class="shortcut-row"><span class="shortcut-key">?</span><span class="shortcut-desc">Show shortcuts</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="shortcuts-hint">Press <span class="shortcut-key">?</span> for shortcuts</div>
+  <div class="toast" id="toast"></div>
+
+  <script src="../../js/tools-common.js"></script>
+  <script src="tipcalculator.js"></script>
+</body>
+</html>

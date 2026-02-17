@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Create CSS box shadows with a visual editor. Customize offset, blur, spread, and color.">
+  <meta property="og:title" content="KVSOVANREACH | Box Shadow Generator">
+  <meta property="og:description" content="Create and customize CSS box shadows visually.">
+  <meta property="og:image" content="/assets/img/favicons/og-image.png">
+  <title>KVSOVANREACH | Box Shadow Generator</title>
+
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/tools-common.css">
+  <link rel="stylesheet" href="boxshadow.css">
+</head>
+<body>
+  <a href="#boxshadow" class="skip-link">Skip to Box Shadow Generator</a>
+
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">TOOLS</span>
+      </a>
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools"><i class="fa-solid fa-arrow-left"></i></a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <main class="tool-page">
+    <div class="container">
+      <div class="shadow-wrapper" id="boxshadow">
+        <div class="shadow-header">
+          <h2><i class="fa-solid fa-clone"></i> Box Shadow Generator</h2>
+          <div class="header-actions">
+            <button class="header-action-btn" id="copyBtn" title="Copy CSS (C)">
+              <i class="fa-solid fa-copy"></i>
+            </button>
+            <button class="header-action-btn" id="resetBtn" title="Reset (R)">
+              <i class="fa-solid fa-rotate-left"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="shadow-content">
+          <div class="shadow-preview">
+            <div class="preview-box" id="previewBox"></div>
+          </div>
+
+          <div class="shadow-controls">
+            <div class="control-group">
+              <div class="control-header">
+                <label>Horizontal Offset</label>
+                <span class="control-value" id="hOffsetValue">10px</span>
+              </div>
+              <input type="range" id="hOffset" min="-100" max="100" value="10">
+            </div>
+
+            <div class="control-group">
+              <div class="control-header">
+                <label>Vertical Offset</label>
+                <span class="control-value" id="vOffsetValue">10px</span>
+              </div>
+              <input type="range" id="vOffset" min="-100" max="100" value="10">
+            </div>
+
+            <div class="control-group">
+              <div class="control-header">
+                <label>Blur Radius</label>
+                <span class="control-value" id="blurValue">20px</span>
+              </div>
+              <input type="range" id="blur" min="0" max="100" value="20">
+            </div>
+
+            <div class="control-group">
+              <div class="control-header">
+                <label>Spread Radius</label>
+                <span class="control-value" id="spreadValue">0px</span>
+              </div>
+              <input type="range" id="spread" min="-50" max="50" value="0">
+            </div>
+
+            <div class="control-group">
+              <div class="control-header">
+                <label>Shadow Color</label>
+              </div>
+              <div class="color-input-group">
+                <input type="color" id="shadowColor" value="#000000">
+                <input type="range" id="opacity" min="0" max="100" value="25">
+                <span class="control-value" id="opacityValue">25%</span>
+              </div>
+            </div>
+
+            <div class="control-group">
+              <label class="checkbox-label">
+                <input type="checkbox" id="inset">
+                <span>Inset Shadow</span>
+              </label>
+            </div>
+
+            <div class="output-section">
+              <h3>CSS Output</h3>
+              <div class="output-box">
+                <pre id="cssOutput"></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div class="shortcuts-modal" id="shortcutsModal">
+    <div class="shortcuts-content">
+      <div class="shortcuts-header">
+        <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
+        <button class="close-shortcuts-btn" id="closeShortcutsBtn"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="shortcuts-body">
+        <div class="shortcut-row"><span class="shortcut-key">C</span><span class="shortcut-desc">Copy CSS</span></div>
+        <div class="shortcut-row"><span class="shortcut-key">R</span><span class="shortcut-desc">Reset values</span></div>
+        <div class="shortcut-row"><span class="shortcut-key">?</span><span class="shortcut-desc">Show shortcuts</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="shortcuts-hint">Press <span class="shortcut-key">?</span> for shortcuts</div>
+  <div class="toast" id="toast"></div>
+
+  <script src="../../js/tools-common.js"></script>
+  <script src="boxshadow.js"></script>
+</body>
+</html>

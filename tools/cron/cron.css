@@ -32,16 +32,30 @@
   color: var(--color-text);
 }
 
-.cron-header h2 i {
-  color: var(--color-primary);
-}
+.cron-header h2 i { color: var(--color-primary); }
 
-.cron-actions {
+.header-actions { display: flex; gap: var(--space-2); }
+
+.header-action-btn {
+  width: 32px;
+  height: 32px;
+  padding: 0;
   display: flex;
-  gap: var(--space-2);
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-bg-secondary);
+  color: var(--color-text-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all var(--transition-fast);
 }
 
-/* action-btn styles are in tools-common.css */
+.header-action-btn:hover {
+  background-color: var(--color-primary);
+  color: #fff;
+  border-color: var(--color-primary);
+}
 
 /* ==================== Content ==================== */
 .cron-content {
@@ -429,12 +443,19 @@
     border-radius: var(--radius-lg);
   }
 
-  .cron-content {
-    padding: var(--space-3);
-  }
-
   .cron-header {
     padding: var(--space-3) var(--space-4);
+  }
+
+  .cron-header h2 {
+    font-size: var(--font-size-lg);
+    gap: var(--space-2);
+  }
+
+  .header-action-btn { width: 28px; height: 28px; }
+
+  .cron-content {
+    padding: var(--space-3);
   }
 
   .cron-input-row {
@@ -490,26 +511,18 @@
     padding-right: var(--space-2);
   }
 
+  .cron-header {
+    padding: var(--space-2) var(--space-3);
+  }
+
+  .cron-header h2 {
+    font-size: var(--font-size-base);
+  }
+
+  .header-action-btn { width: 26px; height: 26px; font-size: var(--font-size-xs); }
+
   .cron-content {
     padding: var(--space-2);
-  }
-
-  .cron-header {
-    padding: var(--space-3);
-  }
-
-  .cron-header h2 {
-    font-size: var(--font-size-lg);
-  }
-
-  .format-item {
-    flex: 1 1 calc(50% - var(--space-2));
-  }
-}
-
-@media screen and (max-width: 480px) {
-  .cron-header h2 {
-    font-size: var(--font-size-lg);
   }
 
   .format-item {
@@ -519,4 +532,9 @@
   .reference-table {
     overflow-x: auto;
   }
+}
+
+@media screen and (max-width: 360px) {
+  .cron-header h2 { font-size: var(--font-size-sm); }
+  .header-action-btn { width: 24px; height: 24px; }
 }

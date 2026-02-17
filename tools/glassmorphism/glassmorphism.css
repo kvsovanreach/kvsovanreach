@@ -5,7 +5,7 @@
 
 /* Wrapper */
 .glass-wrapper {
-  max-width: 1000px;
+  max-width: 1200px;
   margin: 0 auto;
   background-color: var(--color-surface);
   border: 1px solid var(--color-border);
@@ -28,13 +28,35 @@
   display: flex;
   align-items: center;
   gap: var(--space-3);
+  margin: 0;
   font-size: var(--font-size-xl);
   font-weight: 600;
   color: var(--color-text);
 }
 
-.glass-header h2 i {
-  color: var(--color-primary);
+.glass-header h2 i { color: var(--color-primary); }
+
+.header-actions { display: flex; gap: var(--space-2); }
+
+.header-action-btn {
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-bg-secondary);
+  color: var(--color-text-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.header-action-btn:hover {
+  background-color: var(--color-primary);
+  color: #fff;
+  border-color: var(--color-primary);
 }
 
 /* Content */
@@ -395,43 +417,30 @@
 }
 
 @media screen and (max-width: 768px) {
-  .preview-container {
-    height: 300px;
-  }
+  .glass-wrapper { border-radius: var(--radius-lg); }
+  .glass-header { padding: var(--space-3) var(--space-4); }
+  .glass-header h2 { font-size: var(--font-size-lg); gap: var(--space-2); }
+  .header-action-btn { width: 28px; height: 28px; }
 
-  .glass-card {
-    width: 250px;
-    padding: var(--space-4);
-  }
-
-  .controls-section {
-    grid-template-columns: 1fr;
-  }
-
-  .presets-group {
-    grid-column: span 1;
-  }
-
-  .presets-grid {
-    flex-wrap: wrap;
-  }
-
-  .preset-btn {
-    flex: 0 0 calc(50% - var(--space-1));
-  }
+  .preview-container { height: 300px; }
+  .glass-card { width: 250px; padding: var(--space-4); }
+  .controls-section { grid-template-columns: 1fr; }
+  .presets-group { grid-column: span 1; }
+  .presets-grid { flex-wrap: wrap; }
+  .preset-btn { flex: 0 0 calc(50% - var(--space-1)); }
 }
 
 @media screen and (max-width: 480px) {
-  .glass-content {
-    padding: var(--space-4);
-  }
+  .glass-header { padding: var(--space-2) var(--space-3); }
+  .glass-header h2 { font-size: var(--font-size-base); }
+  .header-action-btn { width: 26px; height: 26px; font-size: var(--font-size-xs); }
 
-  .preview-container {
-    height: 250px;
-  }
+  .glass-content { padding: var(--space-3); }
+  .preview-container { height: 250px; }
+  .glass-card { width: 200px; padding: var(--space-3); }
+}
 
-  .glass-card {
-    width: 200px;
-    padding: var(--space-3);
-  }
+@media screen and (max-width: 360px) {
+  .glass-header h2 { font-size: var(--font-size-sm); }
+  .header-action-btn { width: 24px; height: 24px; }
 }

@@ -11,6 +11,7 @@
   let searchQuery = '';
   let currentPage = 1;
   const itemsPerPage = 12;
+  let selectedIndex = -1; // For keyboard navigation
 
   // ==================== DOM Elements ====================
   const elements = {
@@ -163,6 +164,7 @@
           link.classList.add('active');
           currentCategory = link.dataset.category;
           currentPage = 1;
+          selectedIndex = -1; // Reset selection on category change
           ToolsRenderer.render();
           URLManager.updateURL();
           this.closeMenu();
@@ -211,6 +213,7 @@
       elements.searchInput?.addEventListener('input', (e) => {
         searchQuery = e.target.value;
         currentPage = 1;
+        selectedIndex = -1; // Reset selection on new search
         elements.searchClear?.classList.toggle('visible', searchQuery.length > 0);
         ToolsRenderer.render();
 
@@ -225,6 +228,7 @@
         elements.searchInput.value = '';
         searchQuery = '';
         currentPage = 1;
+        selectedIndex = -1;
         elements.searchClear.classList.remove('visible');
         elements.searchInput.focus();
         ToolsRenderer.render();
@@ -239,17 +243,90 @@
           elements.searchInput?.focus();
           elements.searchInput?.select();
         }
-        // Escape to clear search
+
+        // Escape to clear search when in search input
         if (e.key === 'Escape' && document.activeElement === elements.searchInput) {
           elements.searchInput.value = '';
           searchQuery = '';
           currentPage = 1;
+          selectedIndex = -1;
           elements.searchClear?.classList.remove('visible');
           elements.searchInput.blur();
           ToolsRenderer.render();
           URLManager.updateURL();
+          return;
+        }
+
+        // Arrow key navigation - works globally unless in input/textarea
+        const isInInput = document.activeElement?.matches('input, textarea, select, [contenteditable]');
+        if (isInInput && document.activeElement !== elements.searchInput) return;
+
+        const cards = elements.toolsGrid?.querySelectorAll('.tool-card:not(.coming-soon)');
+        const cardCount = cards?.length || 0;
+
+        if (cardCount === 0) return;
+
+        // Get number of columns based on viewport
+        const columns = this.getGridColumns();
+
+        if (e.key === 'ArrowDown') {
+          e.preventDefault();
+          const newIndex = selectedIndex + columns;
+          if (selectedIndex === -1) {
+            selectedIndex = 0;
+          } else if (newIndex < cardCount) {
+            selectedIndex = newIndex;
+          }
+          this.updateSelection(cards);
+        } else if (e.key === 'ArrowUp') {
+          e.preventDefault();
+          const newIndex = selectedIndex - columns;
+          if (newIndex >= 0) {
+            selectedIndex = newIndex;
+          }
+          this.updateSelection(cards);
+        } else if (e.key === 'ArrowRight') {
+          e.preventDefault();
+          if (selectedIndex === -1) {
+            selectedIndex = 0;
+          } else if (selectedIndex < cardCount - 1) {
+            selectedIndex++;
+          }
+          this.updateSelection(cards);
+        } else if (e.key === 'ArrowLeft') {
+          e.preventDefault();
+          if (selectedIndex > 0) {
+            selectedIndex--;
+          }
+          this.updateSelection(cards);
+        } else if (e.key === 'Enter' && selectedIndex >= 0) {
+          e.preventDefault();
+          const selectedCard = cards[selectedIndex];
+          if (selectedCard) {
+            window.location.href = selectedCard.href;
+          }
         }
       });
+    },
+
+    getGridColumns() {
+      const width = window.innerWidth;
+      if (width <= 480) return 1;
+      if (width <= 768) return 2;
+      if (width <= 1024) return 3;
+      return 4;
+    },
+
+    updateSelection(cards) {
+      // Remove previous selection
+      cards.forEach(card => card.classList.remove('keyboard-selected'));
+
+      // Add selection to current
+      if (selectedIndex >= 0 && cards[selectedIndex]) {
+        cards[selectedIndex].classList.add('keyboard-selected');
+        // Scroll into view if needed
+        cards[selectedIndex].scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+      }
     }
   };
 
@@ -329,6 +406,7 @@
       elements.pagination.querySelectorAll('.pagination-btn:not([disabled])').forEach(btn => {
         btn.addEventListener('click', () => {
           currentPage = parseInt(btn.dataset.page);
+          selectedIndex = -1; // Reset selection on page change
           ToolsRenderer.render();
           URLManager.updateURL();
           // Scroll to top of page

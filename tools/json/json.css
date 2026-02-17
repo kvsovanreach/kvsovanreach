@@ -1,5 +1,6 @@
 /**
- * JSON Formatter Styles
+ * KVSOVANREACH JSON Formatter Tool
+ * Styles for JSON formatter
  */
 
 /* ==================== JSON Wrapper ==================== */
@@ -27,6 +28,7 @@
   display: flex;
   align-items: center;
   gap: var(--space-3);
+  margin: 0;
   font-size: var(--font-size-xl);
   font-weight: 600;
   color: var(--color-text);
@@ -36,17 +38,37 @@
   color: var(--color-primary);
 }
 
-.json-actions {
+/* Header Actions */
+.header-actions {
   display: flex;
   gap: var(--space-2);
 }
 
-/* action-btn styles are in tools-common.css */
+.header-action-btn {
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-bg-secondary);
+  color: var(--color-text-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.header-action-btn:hover {
+  background-color: var(--color-primary);
+  color: #fff;
+  border-color: var(--color-primary);
+}
 
 /* ==================== Content ==================== */
 .json-content {
   display: grid;
-  grid-template-columns: 1fr auto 1fr;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
   min-height: 600px;
 }
 
@@ -55,6 +77,8 @@
   display: flex;
   flex-direction: column;
   border-right: 1px solid var(--color-border);
+  min-width: 0;
+  overflow: hidden;
 }
 
 .json-panel:last-child {
@@ -71,6 +95,7 @@
 }
 
 .panel-header h3 {
+  margin: 0;
   font-size: var(--font-size-base);
   font-weight: 600;
   color: var(--color-text);
@@ -135,13 +160,14 @@
   display: flex;
   overflow: hidden;
   background-color: var(--color-bg);
+  min-width: 0;
 }
 
 .line-numbers {
   padding: var(--space-4) var(--space-2);
   background-color: var(--color-surface);
   border-right: 1px solid var(--color-border);
-  font-family: 'Consolas', 'Monaco', monospace;
+  font-family: var(--font-mono);
   font-size: var(--font-size-sm);
   line-height: 1.6;
   color: var(--color-text-secondary);
@@ -158,11 +184,14 @@ textarea#jsonInput {
   border: none;
   outline: none;
   resize: none;
-  font-family: 'Consolas', 'Monaco', monospace;
+  font-family: var(--font-mono);
   font-size: var(--font-size-sm);
   line-height: 1.6;
   color: var(--color-text);
   overflow: auto;
+  white-space: pre;
+  word-wrap: normal;
+  min-width: 0;
 }
 
 textarea#jsonInput::placeholder {
@@ -174,11 +203,13 @@ textarea#jsonInput::placeholder {
   padding: var(--space-4);
   margin: 0;
   overflow: auto;
-  font-family: 'Consolas', 'Monaco', monospace;
+  font-family: var(--font-mono);
   font-size: var(--font-size-sm);
   line-height: 1.6;
   color: var(--color-text);
   white-space: pre;
+  word-wrap: normal;
+  min-width: 0;
 }
 
 /* ==================== Syntax Highlighting ==================== */
@@ -298,12 +329,14 @@ textarea#jsonInput::placeholder {
   color: var(--color-text);
   cursor: pointer;
   appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right var(--space-2) center;
   outline: none;
+}
+
+.indent-control select:focus {
+  border-color: var(--color-primary);
 }
 
 /* ==================== Output Views ==================== */
@@ -353,7 +386,18 @@ textarea#jsonInput::placeholder {
   display: flex;
   align-items: flex-start;
   gap: var(--space-2);
-  padding: var(--space-1) 0;
+  padding: var(--space-1) var(--space-2);
+  margin: 0 calc(-1 * var(--space-2));
+  cursor: pointer;
+  border-radius: var(--radius-xs);
+}
+
+.tree-item:hover {
+  background-color: var(--color-bg);
+}
+
+.tree-item.selected {
+  background-color: rgba(55, 118, 161, 0.1);
 }
 
 .tree-toggle {
@@ -422,7 +466,7 @@ textarea#jsonInput::placeholder {
   padding: var(--space-2) var(--space-4);
   background-color: var(--color-bg);
   border-bottom: 1px solid var(--color-border);
-  font-family: 'Consolas', 'Monaco', monospace;
+  font-family: var(--font-mono);
   font-size: var(--font-size-xs);
   min-height: 32px;
 }
@@ -458,22 +502,6 @@ textarea#jsonInput::placeholder {
 .json-path-copy:hover {
   background-color: var(--color-surface);
   color: var(--color-primary);
-}
-
-/* Clickable tree items */
-.tree-item {
-  cursor: pointer;
-  border-radius: var(--radius-xs);
-  padding: var(--space-1) var(--space-2);
-  margin: 0 calc(-1 * var(--space-2));
-}
-
-.tree-item:hover {
-  background-color: var(--color-bg);
-}
-
-.tree-item.selected {
-  background-color: rgba(55, 118, 161, 0.1);
 }
 
 /* Collapse All / Expand All */
@@ -524,18 +552,20 @@ textarea#jsonInput::placeholder {
 
 .error-message {
   padding: 0 var(--space-4) var(--space-3);
-  font-family: 'Consolas', 'Monaco', monospace;
+  font-family: var(--font-mono);
   font-size: var(--font-size-sm);
   color: #ef4444;
 }
 
-/* Toast, Shortcuts Modal & Hint styles are in tools-common.css */
-
 /* ==================== Responsive ==================== */
 @media screen and (max-width: 1024px) {
+  .json-wrapper {
+    border-radius: var(--radius-lg);
+  }
+
   .json-content {
-    grid-template-columns: 1fr;
-    grid-template-rows: 1fr auto 1fr;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: minmax(0, 1fr) auto minmax(0, 1fr);
   }
 
   .json-panel {
@@ -572,15 +602,6 @@ textarea#jsonInput::placeholder {
 }
 
 @media screen and (max-width: 768px) {
-  .tool-page {
-    padding-top: 80px;
-  }
-
-  .tool-page .container {
-    padding-left: var(--space-3);
-    padding-right: var(--space-3);
-  }
-
   .json-wrapper {
     border-radius: var(--radius-lg);
   }
@@ -591,10 +612,12 @@ textarea#jsonInput::placeholder {
 
   .json-header h2 {
     font-size: var(--font-size-lg);
+    gap: var(--space-2);
   }
 
-  .action-btn span {
-    display: none;
+  .header-action-btn {
+    width: 28px;
+    height: 28px;
   }
 
   .control-btn span {
@@ -605,16 +628,34 @@ textarea#jsonInput::placeholder {
     min-width: 50px;
     padding: var(--space-3);
   }
+
+  .panel-btn {
+    width: 28px;
+    height: 28px;
+  }
 }
 
 @media screen and (max-width: 480px) {
-  .tool-page .container {
-    padding-left: var(--space-2);
-    padding-right: var(--space-2);
+  .json-header {
+    padding: var(--space-2) var(--space-3);
   }
 
-  .json-header h2 span {
-    display: none;
+  .json-header h2 {
+    font-size: var(--font-size-base);
+  }
+
+  .header-action-btn {
+    width: 26px;
+    height: 26px;
+    font-size: var(--font-size-xs);
+  }
+
+  .panel-header {
+    padding: var(--space-2) var(--space-3);
+  }
+
+  .panel-header h3 {
+    font-size: var(--font-size-sm);
   }
 
   .panel-tabs {
@@ -622,8 +663,97 @@ textarea#jsonInput::placeholder {
     margin-right: auto;
   }
 
+  .panel-btn {
+    width: 26px;
+    height: 26px;
+  }
+
+  .json-controls {
+    padding: var(--space-2);
+    gap: var(--space-2);
+  }
+
+  .control-btn {
+    padding: var(--space-2);
+    min-width: 40px;
+  }
+
   .indent-control {
     flex: none;
     width: 100%;
+  }
+
+  .indent-control label {
+    font-size: 0.65rem;
+  }
+
+  .indent-control select {
+    padding: var(--space-1) var(--space-4) var(--space-1) var(--space-2);
+    font-size: var(--font-size-xs);
+  }
+
+  .panel-status {
+    padding: var(--space-1) var(--space-3);
+    font-size: 0.65rem;
+  }
+
+  .line-numbers {
+    padding: var(--space-3) var(--space-1);
+    font-size: var(--font-size-xs);
+    min-width: 30px;
+  }
+
+  textarea#jsonInput,
+  .json-output {
+    padding: var(--space-3);
+    font-size: var(--font-size-xs);
+  }
+
+  .tree-container {
+    padding: var(--space-3);
+  }
+
+  .tree-actions {
+    padding: var(--space-1) var(--space-3);
+  }
+
+  .tree-action-btn {
+    font-size: 0.65rem;
+    padding: var(--space-1);
+  }
+
+  .json-path-bar {
+    padding: var(--space-1) var(--space-3);
+    font-size: 0.65rem;
+  }
+
+  .error-header {
+    padding: var(--space-2) var(--space-3);
+    font-size: var(--font-size-xs);
+  }
+
+  .error-message {
+    padding: 0 var(--space-3) var(--space-2);
+    font-size: var(--font-size-xs);
+  }
+}
+
+@media screen and (max-width: 360px) {
+  .json-header h2 {
+    font-size: var(--font-size-sm);
+  }
+
+  .header-action-btn {
+    width: 24px;
+    height: 24px;
+  }
+
+  .panel-btn {
+    width: 24px;
+    height: 24px;
+  }
+
+  .control-btn {
+    min-width: 36px;
   }
 }

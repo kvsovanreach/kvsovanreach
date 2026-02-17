@@ -58,16 +58,18 @@
         <!-- Header -->
         <div class="gray-header">
           <h2><i class="fa-solid fa-circle-half-stroke"></i> Grayscale Tester</h2>
-          <div class="gray-actions">
-            <button class="action-btn" id="clearBtn" title="Clear image" aria-label="Clear image">
-              <i class="fa-solid fa-trash"></i>
-              <span>Clear</span>
+          <div class="header-actions">
+            <button type="button" class="header-action-btn" id="downloadBtn" title="Download (D)" disabled>
+              <i class="fa-solid fa-download"></i>
+            </button>
+            <button type="button" class="header-action-btn" id="resetBtn" title="Reset (R)">
+              <i class="fa-solid fa-rotate-left"></i>
             </button>
           </div>
         </div>
 
         <!-- Content -->
-        <div class="gray-content">
+        <div class="gray-main">
           <!-- Upload Section -->
           <div class="upload-section" id="uploadSection">
             <div class="upload-area" id="uploadArea">
@@ -83,24 +85,24 @@
           <div class="preview-section" id="previewSection" hidden>
             <!-- Controls -->
             <div class="gray-controls">
-              <div class="control-group">
-                <label>Grayscale Amount</label>
+              <div class="controls-header">Grayscale Amount</div>
+              <div class="controls-row">
                 <div class="slider-group">
                   <input type="range" id="grayscaleSlider" min="0" max="100" value="100">
                   <span class="slider-value" id="sliderValue">100%</span>
                 </div>
-              </div>
-              <div class="quick-buttons">
-                <button class="quick-btn" data-value="0">Color</button>
-                <button class="quick-btn" data-value="50">50%</button>
-                <button class="quick-btn active" data-value="100">Grayscale</button>
+                <div class="quick-buttons">
+                  <button type="button" class="quick-btn" data-value="0">Color</button>
+                  <button type="button" class="quick-btn" data-value="50">50%</button>
+                  <button type="button" class="quick-btn active" data-value="100">Grayscale</button>
+                </div>
               </div>
             </div>
 
             <!-- Image Preview -->
             <div class="image-preview">
               <div class="preview-container">
-                <img id="previewImage" alt="Uploaded image preview">
+                <img id="previewImage" alt="">
               </div>
             </div>
 
@@ -127,25 +129,18 @@
     </div>
   </main>
 
-  <!-- Footer -->
-  <footer class="footer">
-    <div class="container">
-      <div class="footer-bottom">
-        <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach. All rights reserved.</p>
-        <p class="footer-made">Made with 💗 and Claude Code xD</p>
-      </div>
-    </div>
-  </footer>
-
   <!-- Toast Notification -->
   <div class="toast" id="toast"></div>
 
-  <!-- Keyboard Shortcuts Modal -->
+  <div class="shortcuts-hint" id="shortcutsHint">
+    <span><kbd>Shift</kbd>+<kbd>?</kbd> : shortcuts</span>
+  </div>
+
   <div class="shortcuts-modal" id="shortcutsModal">
     <div class="shortcuts-content">
       <div class="shortcuts-header">
         <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
-        <button class="close-shortcuts-btn" id="closeShortcutsBtn" aria-label="Close shortcuts">
+        <button type="button" class="close-shortcuts-btn" id="closeShortcutsBtn" aria-label="Close shortcuts">
           <i class="fa-solid fa-xmark"></i>
         </button>
       </div>
@@ -160,25 +155,24 @@
             <div class="shortcut-keys"><kbd>C</kbd></div>
             <div class="shortcut-desc">Show color</div>
           </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>D</kbd></div>
+            <div class="shortcut-desc">Download image</div>
+          </div>
         </div>
         <div class="shortcuts-group">
           <div class="shortcuts-group-title">General</div>
           <div class="shortcut-row">
-            <div class="shortcut-keys"><kbd>?</kbd></div>
-            <div class="shortcut-desc">Show shortcuts</div>
+            <div class="shortcut-keys"><kbd>R</kbd></div>
+            <div class="shortcut-desc">Reset</div>
           </div>
           <div class="shortcut-row">
-            <div class="shortcut-keys"><kbd>Escape</kbd></div>
-            <div class="shortcut-desc">Close modal</div>
+            <div class="shortcut-keys"><kbd>?</kbd></div>
+            <div class="shortcut-desc">Show shortcuts</div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-
-  <!-- Keyboard Shortcuts Hint -->
-  <div class="shortcuts-hint" id="shortcutsHint">
-    <span><kbd>Shift</kbd>+<kbd>?</kbd> : shortcuts</span>
   </div>
 
   <!-- Shared Tools JavaScript -->

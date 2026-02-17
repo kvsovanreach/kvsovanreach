@@ -6,30 +6,41 @@
 (function() {
   'use strict';
 
-  // ==================== DOM Elements ====================
-  const elements = {
-    uploadSection: document.getElementById('uploadSection'),
-    previewSection: document.getElementById('previewSection'),
-    uploadArea: document.getElementById('uploadArea'),
-    fileInput: document.getElementById('fileInput'),
-    previewImage: document.getElementById('previewImage'),
-    grayscaleSlider: document.getElementById('grayscaleSlider'),
-    sliderValue: document.getElementById('sliderValue'),
-    quickBtns: document.querySelectorAll('.quick-btn'),
-    clearBtn: document.getElementById('clearBtn')
+  // ==================== State ====================
+  const state = {
+    grayscaleValue: 100,
+    imageLoaded: false,
+    isClearing: false
   };
+
+  // ==================== DOM Elements ====================
+  const elements = {};
+
+  function initElements() {
+    elements.uploadSection = document.getElementById('uploadSection');
+    elements.previewSection = document.getElementById('previewSection');
+    elements.uploadArea = document.getElementById('uploadArea');
+    elements.fileInput = document.getElementById('fileInput');
+    elements.previewImage = document.getElementById('previewImage');
+    elements.grayscaleSlider = document.getElementById('grayscaleSlider');
+    elements.sliderValue = document.getElementById('sliderValue');
+    elements.quickBtns = document.querySelectorAll('.quick-btn');
+    elements.downloadBtn = document.getElementById('downloadBtn');
+    elements.resetBtn = document.getElementById('resetBtn');
+  }
 
   // ==================== Core Functions ====================
 
   function handleFile(file) {
     if (!file || !file.type.startsWith('image/')) {
-      ToolsCommon.Toast.show('Please select a valid image file', 'error');
+      ToolsCommon?.showToast?.('Please select a valid image file', 'error');
       return;
     }
 
     const reader = new FileReader();
     reader.onload = (e) => {
       elements.previewImage.src = e.target.result;
+      state.imageLoaded = true;
       showPreview();
       updateGrayscale();
     };
@@ -39,16 +50,45 @@
   function showPreview() {
     elements.uploadSection.hidden = true;
     elements.previewSection.hidden = false;
+    if (elements.downloadBtn) elements.downloadBtn.disabled = false;
   }
 
   function hidePreview() {
     elements.uploadSection.hidden = false;
     elements.previewSection.hidden = true;
-    elements.previewImage.src = '';
+    state.isClearing = true;
+    elements.previewImage.removeAttribute('src');
+    state.imageLoaded = false;
+    state.isClearing = false;
+    if (elements.downloadBtn) elements.downloadBtn.disabled = true;
+  }
+
+  function downloadImage() {
+    if (!state.imageLoaded) return;
+
+    const img = elements.previewImage;
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+
+    canvas.width = img.naturalWidth;
+    canvas.height = img.naturalHeight;
+
+    // Apply grayscale filter
+    ctx.filter = `grayscale(${state.grayscaleValue}%)`;
+    ctx.drawImage(img, 0, 0);
+
+    // Download
+    const link = document.createElement('a');
+    link.download = `grayscale-${state.grayscaleValue}pct.png`;
+    link.href = canvas.toDataURL('image/png');
+    link.click();
+
+    ToolsCommon?.showToast?.('Image downloaded', 'success');
   }
 
   function updateGrayscale() {
     const value = elements.grayscaleSlider.value;
+    state.grayscaleValue = parseInt(value, 10);
     elements.sliderValue.textContent = `${value}%`;
     elements.previewImage.style.filter = `grayscale(${value}%)`;
 
@@ -58,54 +98,62 @@
     });
   }
 
+  function resetForm() {
+    hidePreview();
+    elements.fileInput.value = '';
+    elements.grayscaleSlider.value = 100;
+    state.grayscaleValue = 100;
+    updateGrayscale();
+    ToolsCommon?.showToast?.('Reset', 'success');
+  }
+
   // ==================== Event Handlers ====================
 
   function handleDragOver(e) {
     e.preventDefault();
-    elements.uploadArea.classList.add('dragover');
+    elements.uploadArea?.classList.add('dragover');
   }
 
   function handleDragLeave(e) {
     e.preventDefault();
-    elements.uploadArea.classList.remove('dragover');
+    elements.uploadArea?.classList.remove('dragover');
   }
 
   function handleDrop(e) {
     e.preventDefault();
-    elements.uploadArea.classList.remove('dragover');
+    elements.uploadArea?.classList.remove('dragover');
 
-    const file = e.dataTransfer.files[0];
+    const file = e.dataTransfer?.files[0];
     handleFile(file);
   }
 
   function handleClick() {
-    elements.fileInput.click();
+    elements.fileInput?.click();
   }
 
   function handleFileSelect(e) {
-    const file = e.target.files[0];
+    const file = e.target?.files?.[0];
     handleFile(file);
   }
 
   function handleQuickBtnClick(e) {
-    const btn = e.target.closest('.quick-btn');
+    const btn = e.target?.closest('.quick-btn');
     if (!btn) return;
 
     elements.grayscaleSlider.value = btn.dataset.value;
     updateGrayscale();
   }
 
-  function handleClear() {
-    hidePreview();
-    elements.fileInput.value = '';
-    elements.grayscaleSlider.value = 100;
-    updateGrayscale();
-    ToolsCommon.Toast.show('Cleared', 'success');
-  }
-
   function handleKeydown(e) {
-    if (e.target.matches('input, textarea, select, [contenteditable]')) return;
-    if (elements.previewSection.hidden) return;
+    if (e.target?.matches('input, textarea, select, [contenteditable]')) return;
+
+    if (e.key === 'r' || e.key === 'R') {
+      e.preventDefault();
+      resetForm();
+      return;
+    }
+
+    if (elements.previewSection?.hidden) return;
 
     if (e.key === 'g' || e.key === 'G') {
       e.preventDefault();
@@ -115,12 +163,16 @@
       e.preventDefault();
       elements.grayscaleSlider.value = 0;
       updateGrayscale();
+    } else if (e.key === 'd' || e.key === 'D') {
+      e.preventDefault();
+      downloadImage();
     }
   }
 
   // ==================== Initialization ====================
 
   function init() {
+    initElements();
     setupEventListeners();
   }
 
@@ -134,16 +186,26 @@
     // File input
     elements.fileInput?.addEventListener('change', handleFileSelect);
 
+    // Image error handler
+    elements.previewImage?.addEventListener('error', () => {
+      if (state.isClearing) return;
+      ToolsCommon?.showToast?.('Failed to load image', 'error');
+      hidePreview();
+    });
+
     // Slider
     elements.grayscaleSlider?.addEventListener('input', updateGrayscale);
 
     // Quick buttons
-    elements.quickBtns.forEach(btn => {
+    elements.quickBtns?.forEach(btn => {
       btn.addEventListener('click', handleQuickBtnClick);
     });
 
-    // Clear button
-    elements.clearBtn?.addEventListener('click', handleClear);
+    // Download button
+    elements.downloadBtn?.addEventListener('click', downloadImage);
+
+    // Reset button
+    elements.resetBtn?.addEventListener('click', resetForm);
 
     // Keyboard
     document.addEventListener('keydown', handleKeydown);

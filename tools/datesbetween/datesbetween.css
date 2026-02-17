@@ -27,22 +27,44 @@
   display: flex;
   align-items: center;
   gap: var(--space-3);
+  margin: 0;
   font-size: var(--font-size-xl);
   font-weight: 600;
   color: var(--color-text);
 }
 
-.dates-header h2 i {
-  color: var(--color-primary);
+.dates-header h2 i { color: var(--color-primary); }
+
+.header-actions { display: flex; gap: var(--space-2); }
+
+.header-action-btn {
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-bg-secondary);
+  color: var(--color-text-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all var(--transition-fast);
 }
 
-/* ==================== Main Card ==================== */
-.dates-card {
-  background-color: var(--color-surface);
+.header-action-btn:hover {
+  background-color: var(--color-primary);
+  color: #fff;
+  border-color: var(--color-primary);
+}
+
+/* ==================== Main Content ==================== */
+.dates-main {
+  background: linear-gradient(145deg, var(--color-bg-tertiary), var(--color-bg-secondary));
   padding: var(--space-5);
   display: flex;
   flex-direction: column;
-  gap: var(--space-5);
+  gap: var(--space-4);
 }
 
 /* ==================== Date Inputs ==================== */
@@ -65,25 +87,58 @@
   color: var(--color-text-secondary);
 }
 
-.date-group input[type="date"] {
-  padding: var(--space-3) var(--space-4);
-  font-size: var(--font-size-base);
-  font-family: inherit;
-  color: var(--color-text);
-  background-color: var(--color-bg);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
+/* Fast Date Input */
+.fast-date {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: var(--space-3);
+  background-color: var(--color-surface);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-lg);
   transition: all var(--transition-fast);
 }
 
-.date-group input[type="date"]:focus {
-  outline: none;
+.fast-date:focus-within {
   border-color: var(--color-primary);
   box-shadow: 0 0 0 3px rgba(55, 118, 161, 0.1);
 }
 
-.today-btn {
-  padding: var(--space-2) var(--space-3);
+.fast-date input {
+  border: none;
+  background: transparent;
+  font-family: 'Fira Code', monospace;
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  color: var(--color-text);
+  text-align: center;
+  outline: none;
+}
+
+.fast-date input::placeholder {
+  color: var(--color-text-muted);
+  font-weight: 400;
+}
+
+.fast-date .dt-year { width: 60px; }
+.fast-date .dt-month,
+.fast-date .dt-day { width: 36px; }
+
+.fast-date .dt-sep {
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  color: var(--color-text-muted);
+}
+
+/* Quick Presets */
+.quick-presets {
+  display: flex;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+.quick-btn {
+  padding: var(--space-1) var(--space-2);
   font-size: var(--font-size-xs);
   font-weight: 500;
   color: var(--color-primary);
@@ -94,7 +149,7 @@
   transition: all var(--transition-fast);
 }
 
-.today-btn:hover {
+.quick-btn:hover {
   background-color: var(--color-primary);
   color: #fff;
 }
@@ -106,13 +161,13 @@
   width: 40px;
   height: 40px;
   color: var(--color-text-muted);
-  margin-top: var(--space-5);
+  flex-shrink: 0;
 }
 
 /* ==================== Options ==================== */
 .options-row {
   display: flex;
-  gap: var(--space-6);
+  gap: var(--space-4);
   flex-wrap: wrap;
 }
 
@@ -126,32 +181,10 @@
 }
 
 .option-label input[type="checkbox"] {
-  width: 18px;
-  height: 18px;
+  width: 16px;
+  height: 16px;
   accent-color: var(--color-primary);
   cursor: pointer;
-}
-
-/* ==================== Calculate Button ==================== */
-.calculate-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--space-2);
-  padding: var(--space-4);
-  font-size: var(--font-size-base);
-  font-weight: 600;
-  color: #fff;
-  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
-  border: none;
-  border-radius: var(--radius-lg);
-  cursor: pointer;
-  transition: all var(--transition-fast);
-}
-
-.calculate-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-lg);
 }
 
 /* ==================== Results Section ==================== */
@@ -160,12 +193,9 @@
   flex-direction: column;
   gap: var(--space-4);
   padding: var(--space-5);
-  background-color: var(--color-bg);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
-}
-
-.hidden {
-  display: none !important;
 }
 
 .main-result {
@@ -180,6 +210,7 @@
   font-size: 4rem;
   font-weight: 700;
   line-height: 1;
+  font-family: 'Fira Code', monospace;
 }
 
 .result-label {
@@ -199,13 +230,15 @@
   flex-direction: column;
   align-items: center;
   padding: var(--space-3);
-  background-color: var(--color-surface);
+  background-color: var(--color-bg);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
 }
 
 .detail-value {
   font-size: var(--font-size-xl);
   font-weight: 700;
+  font-family: 'Fira Code', monospace;
   color: var(--color-text);
 }
 
@@ -217,7 +250,8 @@
 
 .breakdown-section {
   padding: var(--space-4);
-  background-color: var(--color-surface);
+  background-color: var(--color-bg);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   text-align: center;
 }
@@ -226,7 +260,7 @@
   font-size: var(--font-size-sm);
   font-weight: 600;
   color: var(--color-text-secondary);
-  margin-bottom: var(--space-2);
+  margin: 0 0 var(--space-2) 0;
 }
 
 .breakdown-text {
@@ -236,73 +270,53 @@
 }
 
 /* ==================== Responsive ==================== */
-@media screen and (max-width: 1024px) {
-  .dates-wrapper {
-    border-radius: var(--radius-lg);
-  }
-}
-
 @media screen and (max-width: 768px) {
-  .dates-card {
-    padding: var(--space-4);
-  }
+  .dates-wrapper { border-radius: var(--radius-lg); }
+  .dates-header { padding: var(--space-3) var(--space-4); }
+  .dates-header h2 { font-size: var(--font-size-lg); gap: var(--space-2); }
+  .header-action-btn { width: 28px; height: 28px; }
 
-  .dates-inputs {
-    flex-direction: column;
-  }
+  .dates-main { padding: var(--space-4); }
+
+  .dates-inputs { flex-direction: column; }
 
   .date-arrow {
     margin: 0;
     transform: rotate(90deg);
   }
 
-  .date-group {
-    width: 100%;
-  }
+  .date-group { width: 100%; }
 
-  .result-number {
-    font-size: 3rem;
-  }
+  .fast-date { justify-content: center; }
 
-  .detail-results {
-    grid-template-columns: repeat(2, 1fr);
-  }
+  .result-number { font-size: 3rem; }
 
-  .options-row {
-    flex-direction: column;
-    gap: var(--space-3);
-  }
+  .detail-results { grid-template-columns: repeat(2, 1fr); }
 }
 
 @media screen and (max-width: 480px) {
-  .dates-wrapper {
-    border-radius: var(--radius-md);
-    margin: 0 calc(-1 * var(--space-3));
-    border-left: none;
-    border-right: none;
-  }
+  .dates-header { padding: var(--space-2) var(--space-3); }
+  .dates-header h2 { font-size: var(--font-size-base); }
+  .header-action-btn { width: 26px; height: 26px; font-size: var(--font-size-xs); }
 
-  .dates-header {
-    padding: var(--space-3) var(--space-4);
-  }
+  .dates-main { padding: var(--space-3); gap: var(--space-3); }
 
-  .dates-header h2 {
-    font-size: var(--font-size-base);
-  }
+  .fast-date { padding: var(--space-2); }
+  .fast-date input { font-size: var(--font-size-base); }
+  .fast-date .dt-year { width: 50px; }
+  .fast-date .dt-month,
+  .fast-date .dt-day { width: 30px; }
+  .fast-date .dt-sep { font-size: var(--font-size-base); }
 
-  .dates-card {
-    padding: var(--space-3);
-  }
+  .result-number { font-size: 2.5rem; }
 
-  .result-number {
-    font-size: 2.5rem;
-  }
+  .detail-results { gap: var(--space-2); }
+  .detail-item { padding: var(--space-2); }
+  .detail-value { font-size: var(--font-size-lg); }
+}
 
-  .detail-results {
-    gap: var(--space-2);
-  }
-
-  .detail-item {
-    padding: var(--space-2);
-  }
+@media screen and (max-width: 360px) {
+  .dates-header h2 { font-size: var(--font-size-sm); }
+  .header-action-btn { width: 24px; height: 24px; }
+  .result-number { font-size: 2rem; }
 }
