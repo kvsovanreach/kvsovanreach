@@ -20,6 +20,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
+  <!-- Three.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
   <!-- Common Tools CSS -->
   <link rel="stylesheet" href="../../css/tools-common.css">
   <!-- Coin Toss CSS -->
@@ -42,7 +45,7 @@
         <a href="../../tools.html" class="back-btn" title="Back to Tools">
           <i class="fa-solid fa-arrow-left"></i>
         </a>
-        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+        <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
           <i class="fa-solid fa-moon"></i>
           <i class="fa-solid fa-sun"></i>
         </button>
@@ -53,103 +56,125 @@
   <!-- Main Content -->
   <main class="tool-page">
     <div class="container">
-      <!-- Coin Toss Wrapper -->
-      <div class="coin-wrapper" id="cointoss">
+      <div class="cointoss-wrapper" id="cointoss">
         <!-- Header -->
-        <div class="coin-header">
+        <div class="cointoss-header">
           <h2><i class="fa-solid fa-coins"></i> Coin Toss</h2>
-          <div class="coin-actions">
-            <button class="action-btn" id="clearHistoryBtn" title="Clear history" aria-label="Clear history">
-              <i class="fa-solid fa-trash"></i>
-              <span>Clear</span>
-            </button>
-          </div>
         </div>
 
-        <!-- Content -->
-        <div class="coin-content">
-          <!-- Coin Section -->
-          <div class="coin-section">
-            <div class="coin-container">
-              <div class="coin" id="coin">
-                <div class="coin-side heads">
-                  <span>HEADS</span>
+        <!-- Main Content Area -->
+        <div class="cointoss-main">
+          <!-- Left: Stats Sidebar -->
+          <div class="stats-sidebar">
+            <!-- Statistics Section -->
+            <div class="sidebar-section">
+              <h4>Statistics</h4>
+              <div class="stats-grid">
+                <div class="stat-item">
+                  <span class="stat-label">Total Flips</span>
+                  <span class="stat-value" id="totalFlips">0</span>
                 </div>
-                <div class="coin-side tails">
-                  <span>TAILS</span>
+                <div class="stat-item heads">
+                  <span class="stat-label">Heads</span>
+                  <span class="stat-value" id="headsCount">0</span>
+                </div>
+                <div class="stat-item tails">
+                  <span class="stat-label">Tails</span>
+                  <span class="stat-value" id="tailsCount">0</span>
                 </div>
               </div>
             </div>
 
+            <!-- Probability Section -->
+            <div class="sidebar-section">
+              <h4>Probability</h4>
+              <div class="probability-display">
+                <div class="prob-row heads">
+                  <span class="prob-label"><i class="fa-solid fa-circle"></i> Heads</span>
+                  <span class="prob-value" id="headsPercent">50.0%</span>
+                </div>
+                <div class="probability-bar">
+                  <div class="bar-fill heads" id="headsBar" style="width: 50%"></div>
+                </div>
+                <div class="prob-row tails">
+                  <span class="prob-label"><i class="fa-solid fa-circle"></i> Tails</span>
+                  <span class="prob-value" id="tailsPercent">50.0%</span>
+                </div>
+                <div class="probability-bar">
+                  <div class="bar-fill tails" id="tailsBar" style="width: 50%"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- History Section -->
+            <div class="sidebar-section">
+              <div class="history-header">
+                <h4>Recent History</h4>
+                <button type="button" class="clear-history-btn" id="clearHistoryBtn" title="Clear history">
+                  <i class="fa-solid fa-trash"></i>
+                </button>
+              </div>
+              <div class="history-list" id="historyList">
+                <span class="history-empty">No flips yet</span>
+              </div>
+            </div>
+
+            <!-- Flip Button (Mobile) -->
+            <div class="sidebar-section mobile-flip">
+              <button type="button" class="flip-btn" id="flipBtnMobile">
+                <i class="fa-solid fa-rotate"></i>
+                Flip Coin
+              </button>
+            </div>
+          </div>
+
+          <!-- Right: Coin Display -->
+          <div class="coin-content">
+            <!-- 3D Coin Canvas -->
+            <div class="coin-stage">
+              <canvas id="coinCanvas"></canvas>
+            </div>
+
+            <!-- Result Display -->
             <div class="result-display" id="resultDisplay">
-              <span>Click to flip!</span>
+              <span class="result-text">Click to flip!</span>
             </div>
 
-            <button class="flip-btn" id="flipBtn">
+            <!-- Flip Button -->
+            <button type="button" class="flip-btn" id="flipBtn">
               <i class="fa-solid fa-rotate"></i>
-              <span>Flip Coin</span>
+              Flip Coin
             </button>
-          </div>
 
-          <!-- Stats Section -->
-          <div class="stats-section">
-            <h3>Statistics</h3>
-            <div class="stats-grid">
-              <div class="stat-card">
-                <div class="stat-value" id="totalFlips">0</div>
-                <div class="stat-label">Total Flips</div>
-              </div>
-              <div class="stat-card heads">
-                <div class="stat-value" id="headsCount">0</div>
-                <div class="stat-label">Heads</div>
-              </div>
-              <div class="stat-card tails">
-                <div class="stat-value" id="tailsCount">0</div>
-                <div class="stat-label">Tails</div>
-              </div>
-            </div>
-
-            <div class="probability-bar">
-              <div class="bar-fill heads" id="headsBar" style="width: 50%"></div>
-              <div class="bar-fill tails" id="tailsBar" style="width: 50%"></div>
-            </div>
-            <div class="probability-labels">
-              <span id="headsPercent">50%</span>
-              <span id="tailsPercent">50%</span>
-            </div>
-          </div>
-
-          <!-- History Section -->
-          <div class="history-section">
-            <h3>Recent History</h3>
-            <div class="history-list" id="historyList">
-              <div class="history-empty">No flips yet</div>
+            <!-- Hint -->
+            <div class="flip-hint">
+              <span>Press <kbd>Space</kbd> or <kbd>F</kbd> to flip</span>
             </div>
           </div>
         </div>
+
+        <!-- Mobile Toggle Button -->
+        <button type="button" class="mobile-toggle-btn" id="toggleStatsBtn" title="Show/Hide Stats">
+          <i class="fa-solid fa-chart-simple"></i>
+        </button>
       </div>
     </div>
   </main>
 
-  <!-- Footer -->
-  <footer class="footer">
-    <div class="container">
-      <div class="footer-bottom">
-        <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach. All rights reserved.</p>
-        <p class="footer-made">Made with 💗 and Claude Code xD</p>
-      </div>
-    </div>
-  </footer>
-
   <!-- Toast Notification -->
   <div class="toast" id="toast"></div>
+
+  <!-- Keyboard Shortcuts Hint -->
+  <div class="shortcuts-hint" id="shortcutsHint">
+    <span><kbd>Shift</kbd>+<kbd>?</kbd> : shortcuts</span>
+  </div>
 
   <!-- Keyboard Shortcuts Modal -->
   <div class="shortcuts-modal" id="shortcutsModal">
     <div class="shortcuts-content">
       <div class="shortcuts-header">
         <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
-        <button class="close-shortcuts-btn" id="closeShortcutsBtn" aria-label="Close shortcuts">
+        <button type="button" class="close-shortcuts-btn" id="closeShortcutsBtn">
           <i class="fa-solid fa-xmark"></i>
         </button>
       </div>
@@ -164,9 +189,6 @@
             <div class="shortcut-keys"><kbd>F</kbd></div>
             <div class="shortcut-desc">Flip coin</div>
           </div>
-        </div>
-        <div class="shortcuts-group">
-          <div class="shortcuts-group-title">General</div>
           <div class="shortcut-row">
             <div class="shortcut-keys"><kbd>?</kbd></div>
             <div class="shortcut-desc">Show shortcuts</div>
@@ -180,14 +202,9 @@
     </div>
   </div>
 
-  <!-- Keyboard Shortcuts Hint -->
-  <div class="shortcuts-hint" id="shortcutsHint">
-    <span><kbd>Shift</kbd>+<kbd>?</kbd> : shortcuts</span>
-  </div>
-
   <!-- Shared Tools JavaScript -->
   <script src="../../js/tools-common.js"></script>
-  <!-- Scripts -->
+  <!-- Coin Toss JavaScript -->
   <script src="cointoss.js"></script>
 </body>
 </html>

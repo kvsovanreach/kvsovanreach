@@ -33,10 +33,14 @@
   // ==================== State ====================
   let speed = 15; // WPM
   let frequency = 700; // Hz
+  let currentMode = 'encode';
 
   // ==================== DOM Elements ====================
   const elements = {
-    tabs: document.querySelectorAll('.morse-tab'),
+    wrapper: document.querySelector('.morse-wrapper'),
+    modeButtons: document.querySelectorAll('.mode-btn'),
+    activeModeLabel: document.getElementById('activeModeLabel'),
+    morseKeyboardSection: document.getElementById('morseKeyboardSection'),
     panels: document.querySelectorAll('.morse-panel'),
     encodeInput: document.getElementById('encodeInput'),
     encodeOutput: document.getElementById('encodeOutput'),
@@ -49,16 +53,18 @@
     decPasteBtn: document.getElementById('decPasteBtn'),
     decClearBtn: document.getElementById('decClearBtn'),
     decCopyBtn: document.getElementById('decCopyBtn'),
-    swapToDecodeBtn: document.getElementById('swapToDecodeBtn'),
-    swapToEncodeBtn: document.getElementById('swapToEncodeBtn'),
     morseKeys: document.querySelectorAll('.morse-key'),
     speedSlider: document.getElementById('speedSlider'),
     speedValue: document.getElementById('speedValue'),
     freqSlider: document.getElementById('freqSlider'),
     freqValue: document.getElementById('freqValue'),
+    showRefBtn: document.getElementById('showRefBtn'),
+    referenceModal: document.getElementById('referenceModal'),
+    closeRefBtn: document.getElementById('closeRefBtn'),
     lettersGrid: document.getElementById('lettersGrid'),
     numbersGrid: document.getElementById('numbersGrid'),
-    punctuationGrid: document.getElementById('punctuationGrid')
+    punctuationGrid: document.getElementById('punctuationGrid'),
+    toggleSidebarBtn: document.getElementById('toggleSidebarBtn')
   };
 
   // ==================== Encoding ====================
@@ -75,11 +81,10 @@
       return;
     }
 
-    const morse = encodeToMorse(text);
     const chars = text.toUpperCase().split('');
     let html = '';
 
-    chars.forEach((char, i) => {
+    chars.forEach((char) => {
       const code = morseCode[char];
       if (char === ' ') {
         html += '<span class="morse-space"></span>';
@@ -88,7 +93,7 @@
       }
     });
 
-    elements.encodeOutput.innerHTML = html || morse;
+    elements.encodeOutput.innerHTML = html || encodeToMorse(text);
   }
 
   // ==================== Decoding ====================
@@ -204,45 +209,81 @@
     elements.playEncodeBtn.innerHTML = '<i class="fa-solid fa-play"></i>';
   }
 
-  // ==================== Tab Switching ====================
-  function switchTab(tab) {
-    elements.tabs.forEach(t => {
-      t.classList.toggle('active', t.dataset.tab === tab);
+  // ==================== Mode Switching ====================
+  function switchMode(mode) {
+    currentMode = mode;
+
+    // Update mode buttons
+    elements.modeButtons.forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.mode === mode);
     });
 
+    // Update mode label
+    if (elements.activeModeLabel) {
+      elements.activeModeLabel.textContent = mode === 'encode' ? 'Encode' : 'Decode';
+    }
+
+    // Update panels
     elements.panels.forEach(p => {
-      p.classList.toggle('active', p.id === tab + 'Panel');
+      p.classList.toggle('active', p.id === mode + 'Panel');
     });
+
+    // Show/hide morse keyboard section
+    if (elements.morseKeyboardSection) {
+      elements.morseKeyboardSection.classList.toggle('show', mode === 'decode');
+    }
+
+    // Close sidebar on mobile
+    elements.wrapper?.classList.remove('show-sidebar');
   }
 
-  // ==================== Reference Grid ====================
+  // ==================== Mobile Toggle ====================
+  function toggleSidebar() {
+    elements.wrapper?.classList.toggle('show-sidebar');
+  }
+
+  // ==================== Reference Modal ====================
+  function openReferenceModal() {
+    elements.referenceModal?.classList.add('show');
+  }
+
+  function closeReferenceModal() {
+    elements.referenceModal?.classList.remove('show');
+  }
+
   function populateReferenceGrids() {
     // Letters
     const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
-    elements.lettersGrid.innerHTML = letters.map(char => `
-      <div class="reference-item" data-char="${char}">
-        <span class="char">${char}</span>
-        <span class="code">${morseCode[char]}</span>
-      </div>
-    `).join('');
+    if (elements.lettersGrid) {
+      elements.lettersGrid.innerHTML = letters.map(char => `
+        <div class="reference-item" data-char="${char}">
+          <span class="char">${char}</span>
+          <span class="code">${morseCode[char]}</span>
+        </div>
+      `).join('');
+    }
 
     // Numbers
     const numbers = '0123456789'.split('');
-    elements.numbersGrid.innerHTML = numbers.map(char => `
-      <div class="reference-item" data-char="${char}">
-        <span class="char">${char}</span>
-        <span class="code">${morseCode[char]}</span>
-      </div>
-    `).join('');
+    if (elements.numbersGrid) {
+      elements.numbersGrid.innerHTML = numbers.map(char => `
+        <div class="reference-item" data-char="${char}">
+          <span class="char">${char}</span>
+          <span class="code">${morseCode[char]}</span>
+        </div>
+      `).join('');
+    }
 
     // Punctuation
     const punctuation = '.,?\'!/()&:;=+-_"$@'.split('');
-    elements.punctuationGrid.innerHTML = punctuation.map(char => `
-      <div class="reference-item" data-char="${char}">
-        <span class="char">${char}</span>
-        <span class="code">${morseCode[char]}</span>
-      </div>
-    `).join('');
+    if (elements.punctuationGrid) {
+      elements.punctuationGrid.innerHTML = punctuation.map(char => `
+        <div class="reference-item" data-char="${char}">
+          <span class="char">${char}</span>
+          <span class="code">${morseCode[char]}</span>
+        </div>
+      `).join('');
+    }
 
     // Add click handlers
     document.querySelectorAll('.reference-item').forEach(item => {
@@ -250,23 +291,27 @@
         const char = item.dataset.char;
         elements.encodeInput.value += char;
         updateEncode();
-        switchTab('encode');
+        switchMode('encode');
+        closeReferenceModal();
       });
     });
   }
 
   // ==================== Event Listeners ====================
   function initEventListeners() {
-    // Tab switching
-    elements.tabs.forEach(tab => {
-      tab.addEventListener('click', () => switchTab(tab.dataset.tab));
+    // Mode switching
+    elements.modeButtons.forEach(btn => {
+      btn.addEventListener('click', () => switchMode(btn.dataset.mode));
     });
 
+    // Mobile toggle
+    elements.toggleSidebarBtn?.addEventListener('click', toggleSidebar);
+
     // Encode input
-    elements.encodeInput.addEventListener('input', updateEncode);
+    elements.encodeInput?.addEventListener('input', updateEncode);
 
     // Decode input
-    elements.decodeInput.addEventListener('input', updateDecode);
+    elements.decodeInput?.addEventListener('input', updateDecode);
 
     // Morse keyboard
     elements.morseKeys.forEach(key => {
@@ -282,7 +327,7 @@
     });
 
     // Encode actions
-    elements.encPasteBtn.addEventListener('click', async () => {
+    elements.encPasteBtn?.addEventListener('click', async () => {
       try {
         const text = await navigator.clipboard.readText();
         elements.encodeInput.value = text;
@@ -293,13 +338,13 @@
       }
     });
 
-    elements.encClearBtn.addEventListener('click', () => {
+    elements.encClearBtn?.addEventListener('click', () => {
       elements.encodeInput.value = '';
       updateEncode();
       ToolsCommon.showToast('Cleared', 'success');
     });
 
-    elements.encCopyBtn.addEventListener('click', () => {
+    elements.encCopyBtn?.addEventListener('click', () => {
       const morse = encodeToMorse(elements.encodeInput.value);
       if (!morse) {
         ToolsCommon.showToast('Nothing to copy', 'error');
@@ -308,10 +353,10 @@
       ToolsCommon.copyWithToast(morse, 'Copied!');
     });
 
-    elements.playEncodeBtn.addEventListener('click', playMorse);
+    elements.playEncodeBtn?.addEventListener('click', playMorse);
 
     // Decode actions
-    elements.decPasteBtn.addEventListener('click', async () => {
+    elements.decPasteBtn?.addEventListener('click', async () => {
       try {
         const text = await navigator.clipboard.readText();
         elements.decodeInput.value = text;
@@ -322,13 +367,13 @@
       }
     });
 
-    elements.decClearBtn.addEventListener('click', () => {
+    elements.decClearBtn?.addEventListener('click', () => {
       elements.decodeInput.value = '';
       updateDecode();
       ToolsCommon.showToast('Cleared', 'success');
     });
 
-    elements.decCopyBtn.addEventListener('click', () => {
+    elements.decCopyBtn?.addEventListener('click', () => {
       const text = elements.decodeOutput.textContent;
       if (!text || text === 'Decoded text will appear here') {
         ToolsCommon.showToast('Nothing to copy', 'error');
@@ -337,59 +382,51 @@
       ToolsCommon.copyWithToast(text, 'Copied!');
     });
 
-    // Swap buttons
-    elements.swapToDecodeBtn.addEventListener('click', () => {
-      const morse = encodeToMorse(elements.encodeInput.value);
-      elements.decodeInput.value = morse;
-      updateDecode();
-      switchTab('decode');
-    });
-
-    elements.swapToEncodeBtn.addEventListener('click', () => {
-      const text = decodeFromMorse(elements.decodeInput.value);
-      elements.encodeInput.value = text;
-      updateEncode();
-      switchTab('encode');
-    });
-
     // Audio settings
-    elements.speedSlider.addEventListener('input', (e) => {
+    elements.speedSlider?.addEventListener('input', (e) => {
       speed = parseInt(e.target.value);
       elements.speedValue.textContent = speed + ' WPM';
     });
 
-    elements.freqSlider.addEventListener('input', (e) => {
+    elements.freqSlider?.addEventListener('input', (e) => {
       frequency = parseInt(e.target.value);
       elements.freqValue.textContent = frequency + ' Hz';
     });
 
+    // Reference modal
+    elements.showRefBtn?.addEventListener('click', openReferenceModal);
+    elements.closeRefBtn?.addEventListener('click', closeReferenceModal);
+    elements.referenceModal?.addEventListener('click', (e) => {
+      if (e.target === elements.referenceModal) closeReferenceModal();
+    });
+
     // Keyboard shortcuts
     document.addEventListener('keydown', (e) => {
+      // Close modals on Escape
+      if (e.key === 'Escape') {
+        if (elements.referenceModal?.classList.contains('show')) {
+          closeReferenceModal();
+        } else if (elements.wrapper?.classList.contains('show-sidebar')) {
+          elements.wrapper.classList.remove('show-sidebar');
+        }
+        return;
+      }
+
+      // Don't trigger shortcuts when typing
       if (e.target.matches('textarea, input')) return;
 
-      switch (e.key) {
-        case ' ':
-          e.preventDefault();
+      switch (e.key.toLowerCase()) {
+        case 'p':
           playMorse();
           break;
-        case 'c':
-        case 'C':
-          e.preventDefault();
-          const activeTab = document.querySelector('.morse-tab.active').dataset.tab;
-          if (activeTab === 'encode') {
-            elements.encCopyBtn.click();
-          } else if (activeTab === 'decode') {
-            elements.decCopyBtn.click();
-          }
+        case 'r':
+          openReferenceModal();
           break;
         case '1':
-          switchTab('encode');
+          switchMode('encode');
           break;
         case '2':
-          switchTab('decode');
-          break;
-        case '3':
-          switchTab('reference');
+          switchMode('decode');
           break;
       }
     });

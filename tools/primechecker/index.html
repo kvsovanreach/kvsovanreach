@@ -42,7 +42,7 @@
         <a href="../../tools.html" class="back-btn" title="Back to Tools">
           <i class="fa-solid fa-arrow-left"></i>
         </a>
-        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+        <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
           <i class="fa-solid fa-moon"></i>
           <i class="fa-solid fa-sun"></i>
         </button>
@@ -53,161 +53,157 @@
   <!-- Main Content -->
   <main class="tool-page">
     <div class="container">
-      <!-- Prime Checker Wrapper -->
       <div class="prime-wrapper" id="primechecker">
         <!-- Header -->
         <div class="prime-header">
           <h2><i class="fa-solid fa-hashtag"></i> Prime Checker</h2>
-          <div class="prime-actions">
-            <button class="action-btn" id="clearBtn" title="Clear" aria-label="Clear input">
-              <i class="fa-solid fa-trash"></i>
-              <span>Clear</span>
-            </button>
-          </div>
         </div>
 
-        <!-- Content -->
-        <div class="prime-content">
-          <!-- Input Section -->
-          <div class="input-section">
-            <label for="numberInput" class="input-label">Enter a positive integer</label>
-            <div class="input-wrapper">
+        <!-- Main Content Area -->
+        <div class="prime-main">
+          <!-- Left: Input Sidebar -->
+          <div class="input-sidebar">
+            <!-- Input Section -->
+            <div class="sidebar-section">
+              <h4>Check Number</h4>
               <input
                 type="text"
+                class="number-input"
                 id="numberInput"
-                placeholder="e.g., 97"
+                placeholder="Type a number..."
                 autocomplete="off"
                 inputmode="numeric"
               >
-              <button class="action-btn primary" id="checkBtn">
-                <i class="fa-solid fa-magnifying-glass"></i>
-                <span>Check</span>
-              </button>
+              <div class="input-hint" id="inputHint"></div>
             </div>
-            <div class="input-hint" id="inputHint"></div>
-          </div>
 
-          <!-- Quick Tests -->
-          <div class="quick-tests">
-            <span class="quick-label">Try:</span>
-            <button class="quick-btn" data-value="2">2</button>
-            <button class="quick-btn" data-value="17">17</button>
-            <button class="quick-btn" data-value="97">97</button>
-            <button class="quick-btn" data-value="100">100</button>
-            <button class="quick-btn" data-value="1009">1009</button>
-            <button class="quick-btn" data-value="7919">7919</button>
-          </div>
-
-          <!-- Result Section -->
-          <div class="result-section hidden" id="resultSection">
-            <!-- Result Card -->
-            <div class="result-card" id="resultCard">
-              <div class="result-icon" id="resultIcon">
-                <i class="fa-solid fa-check"></i>
+            <!-- Quick Tests -->
+            <div class="sidebar-section">
+              <h4>Quick Tests</h4>
+              <div class="quick-grid">
+                <button type="button" class="quick-btn" data-value="2">2</button>
+                <button type="button" class="quick-btn" data-value="17">17</button>
+                <button type="button" class="quick-btn" data-value="97">97</button>
+                <button type="button" class="quick-btn" data-value="100">100</button>
+                <button type="button" class="quick-btn" data-value="1009">1009</button>
+                <button type="button" class="quick-btn" data-value="7919">7919</button>
               </div>
-              <div class="result-number" id="resultNumber">97</div>
-              <div class="result-label" id="resultLabel">is a prime number</div>
-            </div>
-
-            <!-- Factors Section -->
-            <div class="factors-section" id="factorsSection">
-              <h3><i class="fa-solid fa-divide"></i> Factors</h3>
-              <div class="factors-list" id="factorsList"></div>
-            </div>
-
-            <!-- Explanation Section -->
-            <div class="explanation-section" id="explanationSection">
-              <h3><i class="fa-solid fa-book-open"></i> Explanation</h3>
-              <div class="explanation-content" id="explanationContent"></div>
             </div>
 
             <!-- Number Info -->
-            <div class="number-info" id="numberInfo">
-              <div class="info-item">
-                <span class="info-label">Digits</span>
-                <span class="info-value" id="digitCount">0</span>
-              </div>
-              <div class="info-item">
-                <span class="info-label">Even/Odd</span>
-                <span class="info-value" id="evenOdd">-</span>
-              </div>
-              <div class="info-item">
-                <span class="info-label">Divisible by 3</span>
-                <span class="info-value" id="divBy3">-</span>
-              </div>
-              <div class="info-item">
-                <span class="info-label">Divisible by 5</span>
-                <span class="info-value" id="divBy5">-</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Empty State -->
-          <div class="empty-state" id="emptyState">
-            <i class="fa-solid fa-calculator"></i>
-            <p>Enter a number to check</p>
-            <span>Find out if it's prime and see all its factors</span>
-          </div>
-
-          <!-- Info Panel -->
-          <div class="info-panel">
-            <div class="info-header">
-              <i class="fa-solid fa-circle-info"></i>
-              <span>About Prime Numbers</span>
-            </div>
-            <div class="info-content">
-              <p>A <strong>prime number</strong> is a natural number greater than 1 that has no positive divisors other than 1 and itself.</p>
-              <div class="prime-examples">
-                <span class="example-label">First 10 primes:</span>
-                <div class="example-numbers">
-                  <span>2</span><span>3</span><span>5</span><span>7</span><span>11</span>
-                  <span>13</span><span>17</span><span>19</span><span>23</span><span>29</span>
+            <div class="sidebar-section" id="numberInfoSection" style="display: none;">
+              <h4>Number Properties</h4>
+              <div class="info-grid">
+                <div class="info-row">
+                  <span class="info-label">Digits</span>
+                  <span class="info-value" id="digitCount">0</span>
+                </div>
+                <div class="info-row">
+                  <span class="info-label">Even/Odd</span>
+                  <span class="info-value" id="evenOdd">-</span>
+                </div>
+                <div class="info-row">
+                  <span class="info-label">Divisible by 3</span>
+                  <span class="info-value" id="divBy3">-</span>
+                </div>
+                <div class="info-row">
+                  <span class="info-label">Divisible by 5</span>
+                  <span class="info-value" id="divBy5">-</span>
                 </div>
               </div>
-              <p class="tip"><strong>Fun fact:</strong> 2 is the only even prime number. All other even numbers are divisible by 2.</p>
+            </div>
+
+            <!-- About Section -->
+            <div class="sidebar-section">
+              <h4>About Primes</h4>
+              <div class="about-content">
+                <p>A <strong>prime number</strong> is a natural number greater than 1 with no positive divisors other than 1 and itself.</p>
+                <div class="prime-examples">
+                  <span class="example-label">First 10 primes:</span>
+                  <div class="example-numbers">
+                    <span>2</span><span>3</span><span>5</span><span>7</span><span>11</span>
+                    <span>13</span><span>17</span><span>19</span><span>23</span><span>29</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Clear Button (Mobile) -->
+            <div class="sidebar-section mobile-clear">
+              <button type="button" class="clear-btn" id="clearBtn">
+                <i class="fa-solid fa-trash"></i>
+                Clear All
+              </button>
+            </div>
+          </div>
+
+          <!-- Right: Results Content -->
+          <div class="results-content">
+            <!-- Empty State -->
+            <div class="empty-state" id="emptyState">
+              <i class="fa-solid fa-calculator"></i>
+              <p>Enter a number to check</p>
+              <span>Find out if it's prime and see all its factors</span>
+            </div>
+
+            <!-- Result Section -->
+            <div class="result-section hidden" id="resultSection">
+              <!-- Result Card -->
+              <div class="result-card" id="resultCard">
+                <div class="result-icon" id="resultIcon">
+                  <i class="fa-solid fa-check"></i>
+                </div>
+                <div class="result-number" id="resultNumber">97</div>
+                <div class="result-label" id="resultLabel">is a prime number</div>
+              </div>
+
+              <!-- Factors Section -->
+              <div class="factors-section" id="factorsSection">
+                <h3><i class="fa-solid fa-divide"></i> Factors</h3>
+                <div class="factors-list" id="factorsList"></div>
+              </div>
+
+              <!-- Explanation Section -->
+              <div class="explanation-section" id="explanationSection">
+                <h3><i class="fa-solid fa-book-open"></i> Explanation</h3>
+                <div class="explanation-content" id="explanationContent"></div>
+              </div>
             </div>
           </div>
         </div>
+
+        <!-- Mobile Toggle Button -->
+        <button type="button" class="mobile-toggle-btn" id="toggleInputBtn" title="Show/Hide Input">
+          <i class="fa-solid fa-sliders"></i>
+        </button>
       </div>
     </div>
   </main>
 
-  <!-- Footer -->
-  <footer class="footer">
-    <div class="container">
-      <div class="footer-bottom">
-        <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach. All rights reserved.</p>
-        <p class="footer-made">Made with 💗 and Claude Code xD</p>
-      </div>
-    </div>
-  </footer>
-
   <!-- Toast Notification -->
   <div class="toast" id="toast"></div>
+
+  <!-- Keyboard Shortcuts Hint -->
+  <div class="shortcuts-hint" id="shortcutsHint">
+    <span><kbd>Shift</kbd>+<kbd>?</kbd> : shortcuts</span>
+  </div>
 
   <!-- Keyboard Shortcuts Modal -->
   <div class="shortcuts-modal" id="shortcutsModal">
     <div class="shortcuts-content">
       <div class="shortcuts-header">
         <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
-        <button class="close-shortcuts-btn" id="closeShortcutsBtn" aria-label="Close shortcuts">
+        <button type="button" class="close-shortcuts-btn" id="closeShortcutsBtn" aria-label="Close shortcuts">
           <i class="fa-solid fa-xmark"></i>
         </button>
       </div>
       <div class="shortcuts-body">
         <div class="shortcuts-group">
-          <div class="shortcuts-group-title">Actions</div>
-          <div class="shortcut-row">
-            <div class="shortcut-keys"><kbd>Enter</kbd></div>
-            <div class="shortcut-desc">Check number</div>
-          </div>
+          <div class="shortcuts-group-title">Navigation</div>
           <div class="shortcut-row">
             <div class="shortcut-keys"><kbd>Escape</kbd></div>
             <div class="shortcut-desc">Clear input</div>
           </div>
-        </div>
-        <div class="shortcuts-group">
-          <div class="shortcuts-group-title">General</div>
           <div class="shortcut-row">
             <div class="shortcut-keys"><kbd>?</kbd></div>
             <div class="shortcut-desc">Show shortcuts</div>
@@ -217,14 +213,9 @@
     </div>
   </div>
 
-  <!-- Keyboard Shortcuts Hint -->
-  <div class="shortcuts-hint" id="shortcutsHint">
-    <span><kbd>Shift</kbd>+<kbd>?</kbd> : shortcuts</span>
-  </div>
-
   <!-- Shared Tools JavaScript -->
   <script src="../../js/tools-common.js"></script>
-  <!-- Scripts -->
+  <!-- Prime Checker JavaScript -->
   <script src="primechecker.js"></script>
 </body>
 </html>

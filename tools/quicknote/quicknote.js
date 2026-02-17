@@ -428,15 +428,15 @@
       return;
     }
 
-    // ? - Show shortcuts
-    if (e.key === '?') {
+    // ? - Show shortcuts (don't capture browser shortcuts)
+    if (e.key === '?' && !e.ctrlKey && !e.metaKey) {
       e.preventDefault();
       elements.shortcutsModal.classList.toggle('active');
       return;
     }
 
-    // Escape - Close modals
-    if (e.key === 'Escape') {
+    // Escape - Close modals (don't capture browser shortcuts)
+    if (e.key === 'Escape' && !e.ctrlKey && !e.metaKey) {
       elements.shortcutsModal.classList.remove('active');
       elements.confirmModal.classList.remove('active');
     }

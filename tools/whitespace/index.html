@@ -42,7 +42,7 @@
         <a href="../../tools.html" class="back-btn" title="Back to Tools">
           <i class="fa-solid fa-arrow-left"></i>
         </a>
-        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+        <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
           <i class="fa-solid fa-moon"></i>
           <i class="fa-solid fa-sun"></i>
         </button>
@@ -59,102 +59,151 @@
           <h2><i class="fa-solid fa-eraser"></i> Whitespace Stripper</h2>
         </div>
 
-        <!-- Main Card -->
-        <div class="whitespace-card">
-          <!-- Input Section -->
-          <div class="input-section">
-            <div class="input-header">
-              <label for="inputText">Input Text</label>
-              <div class="input-actions">
-                <button class="action-btn" id="pasteBtn" title="Paste">
-                  <i class="fa-solid fa-paste"></i>
+        <!-- Main Content Area -->
+        <div class="whitespace-main">
+          <!-- Left: Options Sidebar -->
+          <div class="options-sidebar">
+            <!-- Options Section -->
+            <div class="sidebar-section">
+              <h4>Cleaning Options</h4>
+              <div class="options-list">
+                <label class="option-label">
+                  <input type="checkbox" id="optTrimLines" checked>
+                  <span>Trim leading/trailing spaces</span>
+                </label>
+                <label class="option-label">
+                  <input type="checkbox" id="optMultipleSpaces" checked>
+                  <span>Remove multiple spaces</span>
+                </label>
+                <label class="option-label">
+                  <input type="checkbox" id="optBlankLines" checked>
+                  <span>Remove empty lines</span>
+                </label>
+                <label class="option-label">
+                  <input type="checkbox" id="optMultipleBlankLines">
+                  <span>Collapse multiple blank lines</span>
+                </label>
+                <label class="option-label">
+                  <input type="checkbox" id="optTabs">
+                  <span>Convert tabs to spaces</span>
+                </label>
+                <label class="option-label">
+                  <input type="checkbox" id="optNonBreaking">
+                  <span>Remove non-breaking spaces</span>
+                </label>
+              </div>
+            </div>
+
+            <!-- Clean Button -->
+            <div class="sidebar-section">
+              <button type="button" class="clean-btn" id="cleanBtn">
+                <i class="fa-solid fa-broom"></i>
+                Clean Text
+              </button>
+            </div>
+
+            <!-- Stats Section -->
+            <div class="sidebar-section">
+              <h4>Statistics</h4>
+              <div class="stats-grid">
+                <div class="stat-item">
+                  <span class="stat-label">Input Chars</span>
+                  <span class="stat-value" id="inputChars">0</span>
+                </div>
+                <div class="stat-item">
+                  <span class="stat-label">Input Lines</span>
+                  <span class="stat-value" id="inputLines">0</span>
+                </div>
+                <div class="stat-item">
+                  <span class="stat-label">Spaces</span>
+                  <span class="stat-value" id="inputSpaces">0</span>
+                </div>
+                <div class="stat-item">
+                  <span class="stat-label">Output Chars</span>
+                  <span class="stat-value" id="outputChars">0</span>
+                </div>
+                <div class="stat-item">
+                  <span class="stat-label">Output Lines</span>
+                  <span class="stat-value" id="outputLines">0</span>
+                </div>
+                <div class="stat-item removed">
+                  <span class="stat-label">Removed</span>
+                  <span class="stat-value" id="removedChars">0</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Presets -->
+            <div class="sidebar-section">
+              <h4>Quick Presets</h4>
+              <div class="preset-buttons">
+                <button type="button" class="preset-btn" data-preset="minimal">
+                  <i class="fa-solid fa-minus"></i>
+                  Minimal
                 </button>
-                <button class="action-btn" id="clearBtn" title="Clear">
-                  <i class="fa-solid fa-trash"></i>
+                <button type="button" class="preset-btn" data-preset="aggressive">
+                  <i class="fa-solid fa-bolt"></i>
+                  Aggressive
+                </button>
+                <button type="button" class="preset-btn" data-preset="code">
+                  <i class="fa-solid fa-code"></i>
+                  Code
                 </button>
               </div>
             </div>
-            <textarea id="inputText" placeholder="Paste or type your text here..." rows="8"></textarea>
-            <div class="input-stats">
-              <span><span id="inputChars">0</span> characters</span>
-              <span><span id="inputLines">0</span> lines</span>
-              <span><span id="inputSpaces">0</span> spaces</span>
-            </div>
           </div>
 
-          <!-- Options -->
-          <div class="options-section">
-            <h4>Cleaning Options</h4>
-            <div class="options-grid">
-              <label class="option-label">
-                <input type="checkbox" id="optTrimLines" checked>
-                <span>Trim leading/trailing spaces</span>
-              </label>
-              <label class="option-label">
-                <input type="checkbox" id="optMultipleSpaces" checked>
-                <span>Remove multiple spaces</span>
-              </label>
-              <label class="option-label">
-                <input type="checkbox" id="optBlankLines" checked>
-                <span>Remove empty lines</span>
-              </label>
-              <label class="option-label">
-                <input type="checkbox" id="optMultipleBlankLines">
-                <span>Collapse multiple blank lines</span>
-              </label>
-              <label class="option-label">
-                <input type="checkbox" id="optTabs">
-                <span>Convert tabs to spaces</span>
-              </label>
-              <label class="option-label">
-                <input type="checkbox" id="optNonBreaking">
-                <span>Remove non-breaking spaces</span>
-              </label>
-            </div>
-          </div>
-
-          <!-- Clean Button -->
-          <button class="clean-btn" id="cleanBtn">
-            <i class="fa-solid fa-broom"></i>
-            <span>Clean Text</span>
-          </button>
-
-          <!-- Output Section -->
-          <div class="output-section">
-            <div class="output-header">
-              <label>Cleaned Text</label>
-              <div class="output-actions">
-                <button class="action-btn" id="copyBtn">
-                  <i class="fa-solid fa-copy"></i>
-                  <span>Copy</span>
-                </button>
-                <button class="action-btn" id="useAsInputBtn">
-                  <i class="fa-solid fa-arrow-up"></i>
-                  <span>Use as Input</span>
-                </button>
+          <!-- Right: Text Areas -->
+          <div class="text-content">
+            <!-- Input Section -->
+            <div class="text-section">
+              <div class="section-header">
+                <h3>Input</h3>
+                <div class="section-actions">
+                  <button type="button" class="section-btn" id="pasteBtn" title="Paste">
+                    <i class="fa-solid fa-paste"></i>
+                  </button>
+                  <button type="button" class="section-btn" id="clearBtn" title="Clear">
+                    <i class="fa-solid fa-trash"></i>
+                  </button>
+                </div>
               </div>
+              <textarea id="inputText" placeholder="Paste or type your text here..." spellcheck="false"></textarea>
             </div>
-            <textarea id="outputText" readonly placeholder="Cleaned text will appear here..."></textarea>
-            <div class="output-stats">
-              <span><span id="outputChars">0</span> characters</span>
-              <span><span id="outputLines">0</span> lines</span>
-              <span class="removed"><span id="removedChars">0</span> removed</span>
+
+            <!-- Action Bar -->
+            <div class="action-bar">
+              <button type="button" class="swap-btn" id="useAsInputBtn" title="Use output as input">
+                <i class="fa-solid fa-arrow-right-arrow-left"></i>
+                <span>Swap</span>
+              </button>
+            </div>
+
+            <!-- Output Section -->
+            <div class="text-section">
+              <div class="section-header">
+                <h3>Output</h3>
+                <div class="section-actions">
+                  <button type="button" class="section-btn" id="copyBtn" title="Copy">
+                    <i class="fa-solid fa-copy"></i>
+                  </button>
+                  <button type="button" class="section-btn" id="downloadBtn" title="Download">
+                    <i class="fa-solid fa-download"></i>
+                  </button>
+                </div>
+              </div>
+              <textarea id="outputText" readonly placeholder="Cleaned text will appear here..."></textarea>
             </div>
           </div>
         </div>
+
+        <!-- Mobile Toggle Button -->
+        <button type="button" class="mobile-toggle-btn" id="toggleOptionsBtn" title="Show/Hide Options">
+          <i class="fa-solid fa-sliders"></i>
+        </button>
       </div>
     </div>
   </main>
-
-  <!-- Footer -->
-  <footer class="footer">
-    <div class="container">
-      <div class="footer-bottom">
-        <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach. All rights reserved.</p>
-        <p class="footer-made">Made with 💗 and Claude Code xD</p>
-      </div>
-    </div>
-  </footer>
 
   <!-- Toast Notification -->
   <div class="toast" id="toast"></div>
@@ -169,7 +218,7 @@
     <div class="shortcuts-content">
       <div class="shortcuts-header">
         <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
-        <button class="close-shortcuts-btn" id="closeShortcutsBtn">
+        <button type="button" class="close-shortcuts-btn" id="closeShortcutsBtn">
           <i class="fa-solid fa-xmark"></i>
         </button>
       </div>
@@ -181,12 +230,12 @@
             <div class="shortcut-desc">Clean text</div>
           </div>
           <div class="shortcut-row">
-            <div class="shortcut-keys"><kbd>Ctrl</kbd><span class="key-plus">+</span><kbd>C</kbd></div>
-            <div class="shortcut-desc">Copy output</div>
-          </div>
-          <div class="shortcut-row">
             <div class="shortcut-keys"><kbd>?</kbd></div>
             <div class="shortcut-desc">Show shortcuts</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Escape</kbd></div>
+            <div class="shortcut-desc">Close modal</div>
           </div>
         </div>
       </div>

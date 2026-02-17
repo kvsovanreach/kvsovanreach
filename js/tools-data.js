@@ -78,7 +78,7 @@ const toolsData = [
     icon: "fa-solid fa-note-sticky",
     url: "/tools/quicknote/",
     tags: ["notes", "markdown", "text", "write", "memo"],
-    status: "inactive"
+    status: "active"
   },
   {
     id: "unit-converter",
@@ -108,7 +108,7 @@ const toolsData = [
     icon: "fa-solid fa-broom",
     url: "/tools/textcleaner/",
     tags: ["text", "clean", "sort", "duplicate", "trim", "case", "transform"],
-    status: "inactive"
+    status: "active"
   },
   {
     id: "emoji-picker",
@@ -128,7 +128,7 @@ const toolsData = [
     icon: "fa-solid fa-list-check",
     url: "/tools/checklist/",
     tags: ["checklist", "todo", "task", "list", "organize", "productivity"],
-    status: "inactive"
+    status: "active"
   },
   {
     id: "case-converter",
@@ -148,7 +148,7 @@ const toolsData = [
     icon: "fa-solid fa-signal",
     url: "/tools/morse/",
     tags: ["morse", "code", "encode", "decode", "audio", "signal"],
-    status: "inactive"
+    status: "active"
   },
   {
     id: "lorem-ipsum",
@@ -178,7 +178,7 @@ const toolsData = [
     icon: "fa-solid fa-eraser",
     url: "/tools/whitespace/",
     tags: ["whitespace", "strip", "trim", "clean", "space", "text"],
-    status: "inactive"
+    status: "active"
   },
   {
     id: "bmi-calculator",
@@ -248,7 +248,7 @@ const toolsData = [
     icon: "fa-solid fa-quote-left",
     url: "/tools/smartquote/",
     tags: ["quote", "typography", "curly", "apostrophe", "dash", "ellipsis"],
-    status: "inactive"
+    status: "active"
   },
   {
     id: "aspect-ratio",
@@ -348,7 +348,7 @@ const toolsData = [
     icon: "fa-solid fa-coins",
     url: "/tools/cointoss/",
     tags: ["coin", "flip", "toss", "random", "heads", "tails", "decision"],
-    status: "inactive"
+    status: "active"
   },
   {
     id: "pali-glossary",
@@ -358,7 +358,7 @@ const toolsData = [
     icon: "fa-solid fa-om",
     url: "/tools/paliglossary/",
     tags: ["pali", "buddhist", "glossary", "terminology", "dharma", "meditation"],
-    status: "inactive"
+    status: "active"
   },
   {
     id: "prime-checker",
@@ -368,7 +368,7 @@ const toolsData = [
     icon: "fa-solid fa-hashtag",
     url: "/tools/primechecker/",
     tags: ["prime", "number", "math", "factors", "divisibility", "check"],
-    status: "inactive"
+    status: "active"
   },
   {
     id: "stopword-remover",
@@ -620,7 +620,7 @@ const toolsData = [
     icon: "fa-solid fa-hashtag",
     url: "/tools/tokencount/",
     tags: ["token", "count", "gpt", "claude", "llm", "ai", "openai", "anthropic"],
-    status: "inactive"
+    status: "active"
   },
   {
     id: "json-to-table",
@@ -700,7 +700,7 @@ const toolsData = [
     icon: "fa-solid fa-calculator",
     url: "/tools/baseconverter/",
     tags: ["binary", "octal", "decimal", "hex", "convert", "base", "visualize"],
-    status: "inactive"
+    status: "active"
   },
   {
     id: "matrix-calculator",
@@ -1184,7 +1184,7 @@ const toolsData = [
     icon: "fa-solid fa-keyboard",
     url: "/tools/typingtest/",
     tags: ["typing", "speed", "wpm", "test", "accuracy", "practice"],
-    status: "inactive"
+    status: "active"
   },
   {
     id: "memory-match",
@@ -1264,7 +1264,7 @@ const toolsData = [
     icon: "fa-solid fa-palette",
     url: "/tools/colorhunter/",
     tags: ["game", "color", "hex", "rgb", "guess", "perception"],
-    status: "inactive"
+    status: "active"
   },
   {
     id: "bit-shift-defuser",
@@ -1274,7 +1274,7 @@ const toolsData = [
     icon: "fa-solid fa-bomb",
     url: "/tools/bitshift/",
     tags: ["game", "binary", "bitwise", "puzzle", "programming", "logic"],
-    status: "inactive"
+    status: "active"
   },
   {
     id: "dice-roller",

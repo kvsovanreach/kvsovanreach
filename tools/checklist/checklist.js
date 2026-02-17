@@ -23,11 +23,11 @@
   // DOM Elements
   // ============================================
   const elements = {
-    // Header actions
-    newListBtn: document.getElementById('newListBtn'),
-    clearCompletedBtn: document.getElementById('clearCompletedBtn'),
+    // Wrapper
+    wrapper: document.querySelector('.checklist-wrapper'),
 
-    // Lists tabs
+    // Sidebar
+    newListBtn: document.getElementById('newListBtn'),
     listsTabs: document.getElementById('listsTabs'),
 
     // Add item
@@ -46,9 +46,13 @@
     // Actions
     uncheckAllBtn: document.getElementById('uncheckAllBtn'),
     checkAllBtn: document.getElementById('checkAllBtn'),
+    clearCompletedBtn: document.getElementById('clearCompletedBtn'),
+    clearAllBtn: document.getElementById('clearAllBtn'),
     exportTextBtn: document.getElementById('exportTextBtn'),
     exportMarkdownBtn: document.getElementById('exportMarkdownBtn'),
-    clearAllBtn: document.getElementById('clearAllBtn'),
+
+    // Mobile toggle
+    toggleListBtn: document.getElementById('toggleListBtn'),
 
     // New list modal
     newListModal: document.getElementById('newListModal'),
@@ -96,6 +100,9 @@
     elements.exportMarkdownBtn?.addEventListener('click', () => exportList('markdown'));
     elements.clearAllBtn?.addEventListener('click', clearAll);
 
+    // Mobile toggle
+    elements.toggleListBtn?.addEventListener('click', toggleSidebar);
+
     // New list modal
     elements.closeNewListModal?.addEventListener('click', closeNewListModal);
     elements.cancelNewList?.addEventListener('click', closeNewListModal);
@@ -125,6 +132,13 @@
   }
 
   // ============================================
+  // Mobile Toggle
+  // ============================================
+  function toggleSidebar() {
+    elements.wrapper?.classList.toggle('show-list');
+  }
+
+  // ============================================
   // List Management
   // ============================================
   function getActiveList() {
@@ -135,10 +149,10 @@
     if (!elements.listsTabs) return;
 
     elements.listsTabs.innerHTML = state.lists.map(list => `
-      <button class="list-tab ${list.id === state.activeListId ? 'active' : ''}" data-list-id="${list.id}">
-        <span>${escapeHtml(list.name)}</span>
+      <button type="button" class="list-tab ${list.id === state.activeListId ? 'active' : ''}" data-list-id="${list.id}">
+        <span class="tab-name">${escapeHtml(list.name)}</span>
         ${state.lists.length > 1 ? `
-          <button class="delete-tab" data-delete-list="${list.id}" title="Delete list">
+          <button type="button" class="delete-tab" data-delete-list="${list.id}" title="Delete list">
             <i class="fa-solid fa-xmark"></i>
           </button>
         ` : ''}
@@ -167,6 +181,8 @@
     renderLists();
     renderItems();
     updateProgress();
+    // Close sidebar on mobile after selecting
+    elements.wrapper?.classList.remove('show-list');
   }
 
   function openNewListModal() {
@@ -242,15 +258,15 @@
     const itemsHtml = list.items.map(item => `
       <div class="checklist-item ${item.completed ? 'completed' : ''}" data-item-id="${item.id}" draggable="true">
         <i class="fa-solid fa-grip-vertical item-drag"></i>
-        <button class="item-checkbox" data-toggle="${item.id}">
+        <button type="button" class="item-checkbox" data-toggle="${item.id}">
           <i class="fa-solid fa-check"></i>
         </button>
         <span class="item-text">${escapeHtml(item.text)}</span>
         <div class="item-actions">
-          <button class="item-action-btn" data-edit="${item.id}" title="Edit">
+          <button type="button" class="item-action-btn" data-edit="${item.id}" title="Edit">
             <i class="fa-solid fa-pen"></i>
           </button>
-          <button class="item-action-btn delete" data-delete="${item.id}" title="Delete">
+          <button type="button" class="item-action-btn delete" data-delete="${item.id}" title="Delete">
             <i class="fa-solid fa-trash"></i>
           </button>
         </div>
@@ -525,9 +541,15 @@
     const completed = list.items.filter(i => i.completed).length;
     const percentage = total > 0 ? (completed / total) * 100 : 0;
 
-    elements.progressFill.style.width = `${percentage}%`;
-    elements.completedCount.textContent = completed;
-    elements.totalCount.textContent = total;
+    if (elements.progressFill) {
+      elements.progressFill.style.width = `${percentage}%`;
+    }
+    if (elements.completedCount) {
+      elements.completedCount.textContent = completed;
+    }
+    if (elements.totalCount) {
+      elements.totalCount.textContent = total;
+    }
   }
 
   // ============================================
@@ -557,6 +579,8 @@
         closeNewListModal();
       } else if (elements.editItemModal?.classList.contains('show')) {
         closeEditItemModal();
+      } else if (elements.wrapper?.classList.contains('show-list')) {
+        elements.wrapper.classList.remove('show-list');
       }
       return;
     }
@@ -564,22 +588,10 @@
     // Don't trigger shortcuts when typing in inputs
     if (e.target.matches('input, textarea')) return;
 
-    // Ctrl shortcuts
-    if (e.ctrlKey || e.metaKey) {
-      switch (e.key.toLowerCase()) {
-        case 'a':
-          e.preventDefault();
-          checkAll();
-          break;
-        case 'u':
-          e.preventDefault();
-          uncheckAll();
-          break;
-        case 'n':
-          e.preventDefault();
-          openNewListModal();
-          break;
-      }
+    // Ctrl+N for new list
+    if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'n') {
+      e.preventDefault();
+      openNewListModal();
     }
   }
 

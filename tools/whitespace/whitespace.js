@@ -8,13 +8,16 @@
 
   // ==================== DOM Elements ====================
   const elements = {
+    wrapper: document.querySelector('.whitespace-wrapper'),
     inputText: document.getElementById('inputText'),
     outputText: document.getElementById('outputText'),
     pasteBtn: document.getElementById('pasteBtn'),
     clearBtn: document.getElementById('clearBtn'),
     cleanBtn: document.getElementById('cleanBtn'),
     copyBtn: document.getElementById('copyBtn'),
+    downloadBtn: document.getElementById('downloadBtn'),
     useAsInputBtn: document.getElementById('useAsInputBtn'),
+    toggleOptionsBtn: document.getElementById('toggleOptionsBtn'),
     // Stats
     inputChars: document.getElementById('inputChars'),
     inputLines: document.getElementById('inputLines'),
@@ -28,8 +31,43 @@
     optBlankLines: document.getElementById('optBlankLines'),
     optMultipleBlankLines: document.getElementById('optMultipleBlankLines'),
     optTabs: document.getElementById('optTabs'),
-    optNonBreaking: document.getElementById('optNonBreaking')
+    optNonBreaking: document.getElementById('optNonBreaking'),
+    // Presets
+    presetBtns: document.querySelectorAll('.preset-btn')
   };
+
+  // ==================== Presets ====================
+  const presets = {
+    minimal: {
+      trimLines: true,
+      multipleSpaces: false,
+      blankLines: false,
+      multipleBlankLines: false,
+      tabs: false,
+      nonBreaking: false
+    },
+    aggressive: {
+      trimLines: true,
+      multipleSpaces: true,
+      blankLines: true,
+      multipleBlankLines: false,
+      tabs: true,
+      nonBreaking: true
+    },
+    code: {
+      trimLines: true,
+      multipleSpaces: false,
+      blankLines: false,
+      multipleBlankLines: true,
+      tabs: false,
+      nonBreaking: false
+    }
+  };
+
+  // ==================== Mobile Toggle ====================
+  function toggleOptions() {
+    elements.wrapper?.classList.toggle('show-options');
+  }
 
   // ==================== Update Input Stats ====================
   function updateInputStats() {
@@ -47,6 +85,26 @@
     elements.outputChars.textContent = output.length;
     elements.outputLines.textContent = output ? output.split('\n').length : 0;
     elements.removedChars.textContent = input.length - output.length;
+  }
+
+  // ==================== Apply Preset ====================
+  function applyPreset(presetName) {
+    const preset = presets[presetName];
+    if (!preset) return;
+
+    elements.optTrimLines.checked = preset.trimLines;
+    elements.optMultipleSpaces.checked = preset.multipleSpaces;
+    elements.optBlankLines.checked = preset.blankLines;
+    elements.optMultipleBlankLines.checked = preset.multipleBlankLines;
+    elements.optTabs.checked = preset.tabs;
+    elements.optNonBreaking.checked = preset.nonBreaking;
+
+    // Update active state
+    elements.presetBtns.forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.preset === presetName);
+    });
+
+    ToolsCommon.showToast(`${presetName.charAt(0).toUpperCase() + presetName.slice(1)} preset applied`, 'success');
   }
 
   // ==================== Clean Text ====================
@@ -142,6 +200,23 @@
     ToolsCommon.copyWithToast(output, 'Copied to clipboard!');
   }
 
+  function downloadOutput() {
+    const output = elements.outputText.value;
+    if (!output) {
+      ToolsCommon.showToast('Nothing to download', 'error');
+      return;
+    }
+
+    const blob = new Blob([output], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'cleaned-text.txt';
+    a.click();
+    URL.revokeObjectURL(url);
+    ToolsCommon.showToast('Downloaded', 'success');
+  }
+
   function useAsInput() {
     const output = elements.outputText.value;
     if (!output) {
@@ -158,17 +233,37 @@
   // ==================== Event Listeners ====================
   function initEventListeners() {
     // Input changes
-    elements.inputText.addEventListener('input', updateInputStats);
+    elements.inputText?.addEventListener('input', updateInputStats);
+
+    // Mobile toggle
+    elements.toggleOptionsBtn?.addEventListener('click', toggleOptions);
 
     // Action buttons
-    elements.pasteBtn.addEventListener('click', pasteText);
-    elements.clearBtn.addEventListener('click', clearAll);
-    elements.cleanBtn.addEventListener('click', cleanText);
-    elements.copyBtn.addEventListener('click', copyOutput);
-    elements.useAsInputBtn.addEventListener('click', useAsInput);
+    elements.pasteBtn?.addEventListener('click', pasteText);
+    elements.clearBtn?.addEventListener('click', clearAll);
+    elements.cleanBtn?.addEventListener('click', cleanText);
+    elements.copyBtn?.addEventListener('click', copyOutput);
+    elements.downloadBtn?.addEventListener('click', downloadOutput);
+    elements.useAsInputBtn?.addEventListener('click', useAsInput);
+
+    // Preset buttons
+    elements.presetBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        applyPreset(btn.dataset.preset);
+      });
+    });
 
     // Keyboard shortcuts
     document.addEventListener('keydown', (e) => {
+      // Escape to close sidebar
+      if (e.key === 'Escape') {
+        if (elements.wrapper?.classList.contains('show-options')) {
+          elements.wrapper.classList.remove('show-options');
+        }
+        return;
+      }
+
+      // Ctrl+Enter to clean
       if (e.ctrlKey && e.key === 'Enter') {
         e.preventDefault();
         cleanText();

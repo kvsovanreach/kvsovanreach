@@ -10,15 +10,15 @@
   // State
   // ============================================
   const state = {
-    isDarkMode: localStorage.getItem('theme') === 'dark'
+    activeOperation: null
   };
 
   // ============================================
   // DOM Elements
   // ============================================
   const elements = {
-    // Theme
-    themeToggle: document.getElementById('theme-toggle'),
+    // Wrapper
+    wrapper: document.querySelector('.cleaner-wrapper'),
 
     // Input/Output
     inputText: document.getElementById('inputText'),
@@ -43,11 +43,12 @@
     regexMode: document.getElementById('regexMode'),
 
     // Action buttons
-    clearBtn: document.getElementById('clearBtn'),
+    clearInputBtn: document.getElementById('clearInputBtn'),
     swapBtn: document.getElementById('swapBtn'),
     pasteBtn: document.getElementById('pasteBtn'),
     copyBtn: document.getElementById('copyBtn'),
     downloadBtn: document.getElementById('downloadBtn'),
+    toggleOpsBtn: document.getElementById('toggleOpsBtn'),
 
     // Shortcuts
     shortcutsHint: document.getElementById('shortcutsHint'),
@@ -56,7 +57,37 @@
 
     // Other
     toast: document.getElementById('toast'),
-    currentYear: document.getElementById('current-year')
+    activeOperationLabel: document.getElementById('activeOperationLabel')
+  };
+
+  // Operation names for display
+  const operationNames = {
+    removeDuplicates: 'Unique Words',
+    sortAsc: 'Sort A-Z',
+    sortDesc: 'Sort Z-A',
+    sortNumAsc: 'Sort 1-9',
+    sortNumDesc: 'Sort 9-1',
+    reverseLines: 'Reverse',
+    shuffleLines: 'Shuffle',
+    trimLines: 'Trim',
+    removeExtraSpaces: 'Compact',
+    removeAllSpaces: 'No Spaces',
+    removeLineBreaks: 'No Lines',
+    uppercase: 'UPPERCASE',
+    lowercase: 'lowercase',
+    titleCase: 'Title Case',
+    sentenceCase: 'Sentence',
+    camelCase: 'camelCase',
+    snakeCase: 'snake_case',
+    kebabCase: 'kebab-case',
+    addPrefix: 'Add Prefix',
+    removePrefix: 'Remove Prefix',
+    addSuffix: 'Add Suffix',
+    removeSuffix: 'Remove Suffix',
+    numberLines: 'Number Words',
+    removeNumbers: 'Remove #',
+    removeSpecialChars: 'Remove @',
+    findReplace: 'Find & Replace'
   };
 
   // ============================================
@@ -69,32 +100,69 @@
     updateStats('input');
   }
 
+  // Debounce for live processing
+  const processLive = debounce(() => {
+    if (state.activeOperation) {
+      performOperation(state.activeOperation, true);
+    }
+  }, 150);
+
+  function debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+      clearTimeout(timeout);
+      timeout = setTimeout(() => func(...args), wait);
+    };
+  }
+
   function initEventListeners() {
-    // Input changes
-    elements.inputText?.addEventListener('input', () => updateStats('input'));
+    // Input changes - live processing
+    elements.inputText?.addEventListener('input', () => {
+      updateStats('input');
+      processLive();
+    });
     elements.outputText?.addEventListener('input', () => updateStats('output'));
 
-    // Operation buttons
+    // Operation buttons - set active and process
     document.querySelectorAll('.op-btn').forEach(btn => {
-      btn.addEventListener('click', () => performOperation(btn.dataset.op));
+      btn.addEventListener('click', () => {
+        setActiveOperation(btn.dataset.op);
+        performOperation(btn.dataset.op);
+        hideOperations();
+      });
     });
 
-    // Apply buttons
-    document.querySelectorAll('.apply-btn').forEach(btn => {
+    // Apply buttons (mini buttons for prefix/suffix)
+    document.querySelectorAll('.mini-btn').forEach(btn => {
       if (btn.dataset.op) {
-        btn.addEventListener('click', () => performOperation(btn.dataset.op));
+        btn.addEventListener('click', () => {
+          setActiveOperation(btn.dataset.op);
+          performOperation(btn.dataset.op);
+          hideOperations();
+        });
       }
     });
 
     // Replace button
-    elements.replaceBtn?.addEventListener('click', () => performOperation('findReplace'));
+    elements.replaceBtn?.addEventListener('click', () => {
+      setActiveOperation('findReplace');
+      performOperation('findReplace');
+      hideOperations();
+    });
+
+    // Prefix/Suffix inputs - trigger live processing when changed
+    elements.prefixInput?.addEventListener('input', processLive);
+    elements.suffixInput?.addEventListener('input', processLive);
+    elements.findInput?.addEventListener('input', processLive);
+    elements.replaceInput?.addEventListener('input', processLive);
 
     // Action buttons
-    elements.clearBtn?.addEventListener('click', clearAll);
+    elements.clearInputBtn?.addEventListener('click', clearInput);
     elements.swapBtn?.addEventListener('click', swapTexts);
     elements.pasteBtn?.addEventListener('click', pasteFromClipboard);
     elements.copyBtn?.addEventListener('click', copyOutput);
     elements.downloadBtn?.addEventListener('click', downloadOutput);
+    elements.toggleOpsBtn?.addEventListener('click', toggleOperations);
 
     // Keyboard shortcuts (shortcut modal handled by tools-common.js)
     document.addEventListener('keydown', handleKeyboard);
@@ -103,195 +171,224 @@
   // ============================================
   // Operations
   // ============================================
-  function performOperation(op) {
+  function setActiveOperation(op) {
+    state.activeOperation = op;
+
+    // Update active button styling
+    document.querySelectorAll('.op-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.op === op);
+    });
+    document.querySelectorAll('.mini-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.op === op);
+    });
+
+    // Update the active operation label
+    if (elements.activeOperationLabel) {
+      if (op && operationNames[op]) {
+        elements.activeOperationLabel.textContent = operationNames[op];
+        elements.activeOperationLabel.classList.add('has-selection');
+      } else {
+        elements.activeOperationLabel.textContent = 'None selected';
+        elements.activeOperationLabel.classList.remove('has-selection');
+      }
+    }
+  }
+
+  function performOperation(op, silent = false) {
     const input = elements.inputText.value;
-    if (!input && !['findReplace'].includes(op)) {
-      showToast('Please enter some text first', 'error');
+
+    // For live processing, just clear output if no input
+    if (!input) {
+      elements.outputText.value = '';
+      updateStats('output');
       return;
     }
 
     let result;
-    const lines = input.split('\n');
+    const words = input.split(/\s+/).filter(w => w.length > 0);
 
     switch (op) {
-      // Line Operations
+      // Word Operations
       case 'removeDuplicates':
-        result = [...new Set(lines)].join('\n');
-        showToast('Duplicates removed', 'success');
+        result = [...new Set(words)].join(' ');
+        if (!silent) showToast('Duplicates removed', 'success');
         break;
 
       case 'removeEmpty':
-        result = lines.filter(line => line.trim() !== '').join('\n');
-        showToast('Empty lines removed', 'success');
+        result = words.join(' ');
+        if (!silent) showToast('Empty removed', 'success');
         break;
 
       case 'sortAsc':
-        result = [...lines].sort((a, b) => a.localeCompare(b)).join('\n');
-        showToast('Sorted A-Z', 'success');
+        result = [...words].sort((a, b) => a.localeCompare(b)).join(' ');
+        if (!silent) showToast('Sorted A-Z', 'success');
         break;
 
       case 'sortDesc':
-        result = [...lines].sort((a, b) => b.localeCompare(a)).join('\n');
-        showToast('Sorted Z-A', 'success');
+        result = [...words].sort((a, b) => b.localeCompare(a)).join(' ');
+        if (!silent) showToast('Sorted Z-A', 'success');
         break;
 
       case 'sortNumAsc':
-        result = [...lines].sort((a, b) => {
+        result = [...words].sort((a, b) => {
           const numA = parseFloat(a.match(/[\d.-]+/)?.[0]) || 0;
           const numB = parseFloat(b.match(/[\d.-]+/)?.[0]) || 0;
           return numA - numB;
-        }).join('\n');
-        showToast('Sorted numerically', 'success');
+        }).join(' ');
+        if (!silent) showToast('Sorted numerically', 'success');
         break;
 
       case 'sortNumDesc':
-        result = [...lines].sort((a, b) => {
+        result = [...words].sort((a, b) => {
           const numA = parseFloat(a.match(/[\d.-]+/)?.[0]) || 0;
           const numB = parseFloat(b.match(/[\d.-]+/)?.[0]) || 0;
           return numB - numA;
-        }).join('\n');
-        showToast('Sorted numerically (desc)', 'success');
+        }).join(' ');
+        if (!silent) showToast('Sorted numerically (desc)', 'success');
         break;
 
       case 'reverseLines':
-        result = [...lines].reverse().join('\n');
-        showToast('Lines reversed', 'success');
+        result = [...words].reverse().join(' ');
+        if (!silent) showToast('Words reversed', 'success');
         break;
 
       case 'shuffleLines':
-        result = shuffleArray([...lines]).join('\n');
-        showToast('Lines shuffled', 'success');
+        // Don't shuffle on live typing - only on button click
+        if (silent) {
+          result = input;
+        } else {
+          result = shuffleArray([...words]).join(' ');
+          showToast('Words shuffled', 'success');
+        }
         break;
 
       // Whitespace Operations
       case 'trimLines':
-        result = lines.map(line => line.trim()).join('\n');
-        showToast('Lines trimmed', 'success');
+        result = input.trim();
+        if (!silent) showToast('Trimmed', 'success');
         break;
 
       case 'removeExtraSpaces':
-        result = lines.map(line => line.replace(/\s+/g, ' ').trim()).join('\n');
-        showToast('Extra spaces removed', 'success');
+        result = input.replace(/\s+/g, ' ').trim();
+        if (!silent) showToast('Extra spaces removed', 'success');
         break;
 
       case 'removeAllSpaces':
         result = input.replace(/\s/g, '');
-        showToast('All spaces removed', 'success');
+        if (!silent) showToast('All spaces removed', 'success');
         break;
 
       case 'removeLineBreaks':
-        result = lines.join(' ').replace(/\s+/g, ' ').trim();
-        showToast('Line breaks removed', 'success');
+        result = input.replace(/[\r\n]+/g, ' ').replace(/\s+/g, ' ').trim();
+        if (!silent) showToast('Line breaks removed', 'success');
         break;
 
       // Case Conversion
       case 'uppercase':
         result = input.toUpperCase();
-        showToast('Converted to uppercase', 'success');
+        if (!silent) showToast('Converted to uppercase', 'success');
         break;
 
       case 'lowercase':
         result = input.toLowerCase();
-        showToast('Converted to lowercase', 'success');
+        if (!silent) showToast('Converted to lowercase', 'success');
         break;
 
       case 'titleCase':
         result = input.toLowerCase().replace(/\b\w/g, c => c.toUpperCase());
-        showToast('Converted to Title Case', 'success');
+        if (!silent) showToast('Converted to Title Case', 'success');
         break;
 
       case 'sentenceCase':
         result = input.toLowerCase().replace(/(^\s*\w|[.!?]\s+\w)/g, c => c.toUpperCase());
-        showToast('Converted to Sentence case', 'success');
+        if (!silent) showToast('Converted to Sentence case', 'success');
         break;
 
       case 'camelCase':
-        result = lines.map(line => {
-          return line.toLowerCase()
-            .replace(/[^a-zA-Z0-9]+(.)/g, (_, c) => c.toUpperCase())
-            .replace(/^[A-Z]/, c => c.toLowerCase());
-        }).join('\n');
-        showToast('Converted to camelCase', 'success');
+        result = input.toLowerCase()
+          .replace(/[^a-zA-Z0-9]+(.)/g, (_, c) => c.toUpperCase())
+          .replace(/^[A-Z]/, c => c.toLowerCase());
+        if (!silent) showToast('Converted to camelCase', 'success');
         break;
 
       case 'snakeCase':
-        result = lines.map(line => {
-          return line.toLowerCase()
-            .replace(/\s+/g, '_')
-            .replace(/[^a-zA-Z0-9_]/g, '')
-            .replace(/_+/g, '_');
-        }).join('\n');
-        showToast('Converted to snake_case', 'success');
+        result = input.toLowerCase()
+          .replace(/\s+/g, '_')
+          .replace(/[^a-zA-Z0-9_]/g, '')
+          .replace(/_+/g, '_');
+        if (!silent) showToast('Converted to snake_case', 'success');
         break;
 
       case 'kebabCase':
-        result = lines.map(line => {
-          return line.toLowerCase()
-            .replace(/\s+/g, '-')
-            .replace(/[^a-zA-Z0-9-]/g, '')
-            .replace(/-+/g, '-');
-        }).join('\n');
-        showToast('Converted to kebab-case', 'success');
+        result = input.toLowerCase()
+          .replace(/\s+/g, '-')
+          .replace(/[^a-zA-Z0-9-]/g, '')
+          .replace(/-+/g, '-');
+        if (!silent) showToast('Converted to kebab-case', 'success');
         break;
 
       // Add/Remove
       case 'addPrefix':
         const prefix = elements.prefixInput.value;
         if (!prefix) {
-          showToast('Please enter a prefix', 'error');
-          return;
+          if (!silent) showToast('Please enter a prefix', 'error');
+          result = input;
+        } else {
+          result = words.map(word => prefix + word).join(' ');
+          if (!silent) showToast('Prefix added', 'success');
         }
-        result = lines.map(line => prefix + line).join('\n');
-        showToast('Prefix added', 'success');
         break;
 
       case 'removePrefix':
         const prefixToRemove = elements.prefixInput.value;
         if (!prefixToRemove) {
-          showToast('Please enter a prefix to remove', 'error');
-          return;
+          if (!silent) showToast('Please enter a prefix to remove', 'error');
+          result = input;
+        } else {
+          result = words.map(word =>
+            word.startsWith(prefixToRemove) ? word.slice(prefixToRemove.length) : word
+          ).join(' ');
+          if (!silent) showToast('Prefix removed', 'success');
         }
-        result = lines.map(line =>
-          line.startsWith(prefixToRemove) ? line.slice(prefixToRemove.length) : line
-        ).join('\n');
-        showToast('Prefix removed', 'success');
         break;
 
       case 'addSuffix':
         const suffix = elements.suffixInput.value;
         if (!suffix) {
-          showToast('Please enter a suffix', 'error');
-          return;
+          if (!silent) showToast('Please enter a suffix', 'error');
+          result = input;
+        } else {
+          result = words.map(word => word + suffix).join(' ');
+          if (!silent) showToast('Suffix added', 'success');
         }
-        result = lines.map(line => line + suffix).join('\n');
-        showToast('Suffix added', 'success');
         break;
 
       case 'removeSuffix':
         const suffixToRemove = elements.suffixInput.value;
         if (!suffixToRemove) {
-          showToast('Please enter a suffix to remove', 'error');
-          return;
+          if (!silent) showToast('Please enter a suffix to remove', 'error');
+          result = input;
+        } else {
+          result = words.map(word =>
+            word.endsWith(suffixToRemove) ? word.slice(0, -suffixToRemove.length) : word
+          ).join(' ');
+          if (!silent) showToast('Suffix removed', 'success');
         }
-        result = lines.map(line =>
-          line.endsWith(suffixToRemove) ? line.slice(0, -suffixToRemove.length) : line
-        ).join('\n');
-        showToast('Suffix removed', 'success');
         break;
 
       case 'numberLines':
-        result = lines.map((line, i) => `${i + 1}. ${line}`).join('\n');
-        showToast('Lines numbered', 'success');
+        result = words.map((word, i) => `${i + 1}.${word}`).join(' ');
+        if (!silent) showToast('Words numbered', 'success');
         break;
 
       case 'removeNumbers':
         result = input.replace(/\d/g, '');
-        showToast('Numbers removed', 'success');
+        if (!silent) showToast('Numbers removed', 'success');
         break;
 
       case 'removeSpecialChars':
-        result = input.replace(/[^a-zA-Z0-9\s\n]/g, '');
-        showToast('Special characters removed', 'success');
+        result = input.replace(/[^a-zA-Z0-9\s]/g, '');
+        if (!silent) showToast('Special characters removed', 'success');
         break;
 
       // Find & Replace
@@ -301,22 +398,24 @@
         const useRegex = elements.regexMode.checked;
 
         if (!find) {
-          showToast('Please enter text to find', 'error');
-          return;
-        }
-
-        try {
-          if (useRegex) {
-            const regex = new RegExp(find, 'g');
-            result = input.replace(regex, replace);
-          } else {
-            result = input.split(find).join(replace);
+          result = input;
+          if (!silent) showToast('Please enter text to find', 'error');
+        } else {
+          try {
+            if (useRegex) {
+              const regex = new RegExp(find, 'g');
+              result = input.replace(regex, replace);
+            } else {
+              result = input.split(find).join(replace);
+            }
+            if (!silent) {
+              const count = (input.match(useRegex ? new RegExp(find, 'g') : new RegExp(escapeRegex(find), 'g')) || []).length;
+              showToast(`Replaced ${count} occurrence(s)`, 'success');
+            }
+          } catch (e) {
+            result = input;
+            if (!silent) showToast('Invalid regex pattern', 'error');
           }
-          const count = (input.match(useRegex ? new RegExp(find, 'g') : new RegExp(escapeRegex(find), 'g')) || []).length;
-          showToast(`Replaced ${count} occurrence(s)`, 'success');
-        } catch (e) {
-          showToast('Invalid regex pattern', 'error');
-          return;
         }
         break;
 
@@ -360,16 +459,20 @@
     }
   }
 
-  function clearAll() {
+  function clearInput() {
     elements.inputText.value = '';
     elements.outputText.value = '';
-    elements.prefixInput.value = '';
-    elements.suffixInput.value = '';
-    elements.findInput.value = '';
-    elements.replaceInput.value = '';
     updateStats('input');
     updateStats('output');
     showToast('Cleared', 'success');
+  }
+
+  function toggleOperations() {
+    elements.wrapper?.classList.toggle('show-ops');
+  }
+
+  function hideOperations() {
+    elements.wrapper?.classList.remove('show-ops');
   }
 
   function swapTexts() {
@@ -427,13 +530,13 @@
   // Keyboard Handler
   // ============================================
   function handleKeyboard(e) {
+    // Skip if user is typing in an input field
     if (e.target.matches('input, textarea')) {
-      if (e.ctrlKey && e.key === 's') {
-        e.preventDefault();
-        swapTexts();
-      }
       return;
     }
+
+    // Don't capture browser shortcuts
+    if (e.ctrlKey || e.metaKey) return;
 
     switch (e.key) {
       case '?':
@@ -442,6 +545,7 @@
         break;
       case 'Escape':
         elements.shortcutsModal?.classList.remove('show');
+        hideOperations();
         break;
     }
   }

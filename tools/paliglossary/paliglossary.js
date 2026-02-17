@@ -385,15 +385,16 @@
 
   // ==================== DOM Elements ====================
   const elements = {
+    wrapper: document.querySelector('.glossary-wrapper'),
     searchInput: document.getElementById('searchInput'),
     clearSearchBtn: document.getElementById('clearSearchBtn'),
-    toggleModeBtn: document.getElementById('toggleModeBtn'),
-    modeValue: document.getElementById('modeValue'),
     resultsCount: document.getElementById('resultsCount'),
     totalCount: document.getElementById('totalCount'),
     resultsList: document.getElementById('resultsList'),
     noResults: document.getElementById('noResults'),
-    categoryTags: document.querySelectorAll('.category-tag')
+    modeBtns: document.querySelectorAll('.mode-btn'),
+    categoryBtns: document.querySelectorAll('.category-btn'),
+    toggleSearchBtn: document.getElementById('toggleSearchBtn')
   };
 
   // ==================== Core Functions ====================
@@ -485,24 +486,33 @@
     }).join('');
   }
 
-  function toggleSearchMode() {
-    state.searchMode = state.searchMode === 'english' ? 'pali' : 'english';
-    elements.modeValue.textContent = state.searchMode === 'english'
-      ? 'English to Pali'
-      : 'Pali to English';
-    elements.searchInput.placeholder = state.searchMode === 'english'
+  function setSearchMode(mode) {
+    state.searchMode = mode;
+    elements.modeBtns.forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.mode === mode);
+    });
+    elements.searchInput.placeholder = mode === 'english'
       ? 'Type English term or definition...'
       : 'Type Pali term...';
     renderResults();
-    ToolsCommon.Toast.show(`Search mode: ${elements.modeValue.textContent}`, 'info');
+    ToolsCommon.showToast(`Search mode: ${mode === 'english' ? 'English to Pali' : 'Pali to English'}`, 'info');
+  }
+
+  function toggleSearchMode() {
+    const newMode = state.searchMode === 'english' ? 'pali' : 'english';
+    setSearchMode(newMode);
   }
 
   function setCategory(category) {
     state.activeCategory = category;
-    elements.categoryTags.forEach(tag => {
-      tag.classList.toggle('active', tag.dataset.category === category);
+    elements.categoryBtns.forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.category === category);
     });
     renderResults();
+  }
+
+  function toggleSearch() {
+    elements.wrapper?.classList.toggle('show-search');
   }
 
   function clearSearch() {
@@ -518,18 +528,31 @@
     renderResults();
   }
 
+  function handleModeClick(e) {
+    const btn = e.target.closest('.mode-btn');
+    if (!btn) return;
+    setSearchMode(btn.dataset.mode);
+  }
+
   function handleCategoryClick(e) {
-    const tag = e.target.closest('.category-tag');
-    if (!tag) return;
-    setCategory(tag.dataset.category);
+    const btn = e.target.closest('.category-btn');
+    if (!btn) return;
+    setCategory(btn.dataset.category);
   }
 
   function handleKeydown(e) {
-    if (e.target.matches('input, textarea, select, [contenteditable]')) {
-      if (e.key === 'Escape') {
+    // Escape to close sidebar or clear search
+    if (e.key === 'Escape') {
+      if (elements.wrapper?.classList.contains('show-search')) {
+        elements.wrapper.classList.remove('show-search');
+      } else if (e.target.matches('input')) {
         clearSearch();
         elements.searchInput.blur();
       }
+      return;
+    }
+
+    if (e.target.matches('input, textarea, select, [contenteditable]')) {
       return;
     }
 
@@ -555,10 +578,14 @@
   function setupEventListeners() {
     elements.searchInput?.addEventListener('input', ToolsCommon.debounce(handleSearchInput, 150));
     elements.clearSearchBtn?.addEventListener('click', clearSearch);
-    elements.toggleModeBtn?.addEventListener('click', toggleSearchMode);
+    elements.toggleSearchBtn?.addEventListener('click', toggleSearch);
 
-    elements.categoryTags.forEach(tag => {
-      tag.addEventListener('click', handleCategoryClick);
+    elements.modeBtns.forEach(btn => {
+      btn.addEventListener('click', handleModeClick);
+    });
+
+    elements.categoryBtns.forEach(btn => {
+      btn.addEventListener('click', handleCategoryClick);
     });
 
     document.addEventListener('keydown', handleKeydown);

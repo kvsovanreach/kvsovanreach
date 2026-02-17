@@ -18,7 +18,7 @@
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Orbitron:wght@400;500;600;700&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
 
   <!-- Common Tools CSS -->
   <link rel="stylesheet" href="../../css/tools-common.css">
@@ -42,7 +42,7 @@
         <a href="../../tools.html" class="back-btn" title="Back to Tools">
           <i class="fa-solid fa-arrow-left"></i>
         </a>
-        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+        <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
           <i class="fa-solid fa-moon"></i>
           <i class="fa-solid fa-sun"></i>
         </button>
@@ -54,168 +54,172 @@
   <main class="tool-page">
     <div class="container">
       <!-- Game Wrapper -->
-      <div class="game-wrapper" id="colorhunter">
+      <div class="game-wrapper hide-controls" id="colorhunter">
         <!-- Header -->
         <div class="game-header">
           <h2><i class="fa-solid fa-palette"></i> Color Hunter</h2>
-          <div class="game-actions">
-            <button class="action-btn" id="skipBtn" title="Skip this color">
-              <i class="fa-solid fa-forward"></i>
-              <span>Skip</span>
-            </button>
-          </div>
         </div>
 
-        <!-- Game Content -->
-        <div class="game-content">
-          <!-- Stats Bar -->
-          <div class="stats-bar">
-            <div class="stat-item">
-              <i class="fa-solid fa-bullseye"></i>
-              <span class="stat-label">Score</span>
-              <span class="stat-value highlight" id="scoreDisplay">0</span>
+        <!-- Main Content Area -->
+        <div class="game-main">
+          <!-- Left: Controls Sidebar -->
+          <div class="controls-sidebar">
+            <!-- Stats Section -->
+            <div class="sidebar-section">
+              <h4>Status</h4>
+              <div class="stats-grid">
+                <div class="stat-item score">
+                  <i class="fa-solid fa-bullseye"></i>
+                  <span class="stat-label">Score</span>
+                  <span class="stat-value" id="scoreDisplay">0</span>
+                </div>
+                <div class="stat-item">
+                  <i class="fa-solid fa-fire"></i>
+                  <span class="stat-label">Streak</span>
+                  <span class="stat-value" id="streakDisplay">0</span>
+                </div>
+                <div class="stat-item">
+                  <i class="fa-solid fa-hashtag"></i>
+                  <span class="stat-label">Round</span>
+                  <span class="stat-value" id="roundDisplay">1</span>
+                </div>
+                <div class="stat-item">
+                  <i class="fa-solid fa-trophy"></i>
+                  <span class="stat-label">Best</span>
+                  <span class="stat-value" id="bestDisplay">0</span>
+                </div>
+              </div>
             </div>
-            <div class="stat-item">
-              <i class="fa-solid fa-fire"></i>
-              <span class="stat-label">Streak</span>
-              <span class="stat-value" id="streakDisplay">0</span>
-            </div>
-            <div class="stat-item">
-              <i class="fa-solid fa-hashtag"></i>
-              <span class="stat-label">Round</span>
-              <span class="stat-value" id="roundDisplay">1</span>
-            </div>
-            <div class="stat-item">
-              <i class="fa-solid fa-trophy"></i>
-              <span class="stat-label">Best</span>
-              <span class="stat-value" id="bestDisplay">0</span>
-            </div>
-          </div>
 
-          <!-- Color Display -->
-          <div class="color-section">
-            <div class="color-display" id="colorDisplay">
-              <!-- Target color will be shown here -->
-            </div>
-            <div class="color-hint" id="colorHint">What's the hex code?</div>
-          </div>
-
-          <!-- Input Section -->
-          <div class="input-section">
-            <div class="hex-input-wrapper">
-              <span class="hex-prefix">#</span>
-              <input
-                type="text"
-                id="hexInput"
-                maxlength="6"
-                placeholder="FFFFFF"
-                autocomplete="off"
-                spellcheck="false"
-              >
-            </div>
-            <button class="submit-btn" id="submitBtn">
-              <i class="fa-solid fa-check"></i>
-              Guess
-            </button>
-          </div>
-
-          <!-- RGB Sliders (Helper) -->
-          <div class="rgb-helper">
-            <div class="helper-header">
-              <i class="fa-solid fa-sliders"></i>
-              <span>RGB Helper</span>
+            <!-- RGB Helper Section -->
+            <div class="sidebar-section">
+              <h4>RGB Helper</h4>
               <label class="helper-toggle">
                 <input type="checkbox" id="showHelper">
                 <span class="toggle-label">Show Sliders <span class="toggle-hint">(Press H)</span></span>
               </label>
+              <div class="rgb-sliders hidden" id="rgbSliders">
+                <div class="rgb-slider">
+                  <span class="rgb-label" style="color: #ef4444;">R</span>
+                  <input type="range" id="redSlider" min="0" max="255" value="128">
+                  <span class="rgb-value" id="redValue">128</span>
+                </div>
+                <div class="rgb-slider">
+                  <span class="rgb-label" style="color: #22c55e;">G</span>
+                  <input type="range" id="greenSlider" min="0" max="255" value="128">
+                  <span class="rgb-value" id="greenValue">128</span>
+                </div>
+                <div class="rgb-slider">
+                  <span class="rgb-label" style="color: #3b82f6;">B</span>
+                  <input type="range" id="blueSlider" min="0" max="255" value="128">
+                  <span class="rgb-value" id="blueValue">128</span>
+                </div>
+                <div class="preview-color" id="previewColor"></div>
+              </div>
             </div>
-            <div class="rgb-sliders hidden" id="rgbSliders">
-              <div class="rgb-slider">
-                <span class="rgb-label" style="color: #ef4444;">R</span>
-                <input type="range" id="redSlider" min="0" max="255" value="128">
-                <span class="rgb-value" id="redValue">128</span>
+
+            <!-- Actions Section -->
+            <div class="sidebar-section">
+              <h4>Actions</h4>
+              <div class="action-buttons">
+                <button type="button" class="action-btn" id="skipBtn">
+                  <i class="fa-solid fa-forward"></i>
+                  Skip
+                </button>
               </div>
-              <div class="rgb-slider">
-                <span class="rgb-label" style="color: #22c55e;">G</span>
-                <input type="range" id="greenSlider" min="0" max="255" value="128">
-                <span class="rgb-value" id="greenValue">128</span>
+            </div>
+
+            <!-- How to Play Section -->
+            <div class="sidebar-section">
+              <h4>How to Play</h4>
+              <div class="info-list">
+                <div class="info-item"><span class="step-num">1</span> Look at the displayed color</div>
+                <div class="info-item"><span class="step-num">2</span> Guess the hex code (e.g., FF5733)</div>
+                <div class="info-item"><span class="step-num">3</span> Get points based on accuracy</div>
+                <div class="info-item"><span class="step-num">4</span> Build your streak for bonus!</div>
               </div>
-              <div class="rgb-slider">
-                <span class="rgb-label" style="color: #3b82f6;">B</span>
-                <input type="range" id="blueSlider" min="0" max="255" value="128">
-                <span class="rgb-value" id="blueValue">128</span>
-              </div>
-              <div class="preview-color" id="previewColor"></div>
+              <p class="tip"><strong>Tip:</strong> Use the RGB helper sliders to match the color, then convert to hex.</p>
             </div>
           </div>
 
-          <!-- Result Display -->
-          <div class="result-section hidden" id="resultSection">
-            <div class="result-comparison">
-              <div class="result-color">
-                <div class="color-box" id="targetColorBox"></div>
-                <span class="color-label">Target</span>
-                <span class="color-code" id="targetCode">#000000</span>
-              </div>
-              <div class="result-arrow">
-                <i class="fa-solid fa-right-left"></i>
-              </div>
-              <div class="result-color">
-                <div class="color-box" id="guessColorBox"></div>
-                <span class="color-label">Your Guess</span>
-                <span class="color-code" id="guessCode">#000000</span>
-              </div>
+          <!-- Right: Game Content -->
+          <div class="game-content">
+            <!-- Color Display -->
+            <div class="color-section">
+              <div class="color-display" id="colorDisplay"></div>
+              <div class="color-hint" id="colorHint">What's the hex code?</div>
             </div>
-            <div class="result-accuracy">
-              <span class="accuracy-label">Accuracy:</span>
-              <span class="accuracy-value" id="accuracyValue">0%</span>
-            </div>
-            <button class="action-btn primary" id="nextBtn">
-              <i class="fa-solid fa-arrow-right"></i>
-              <span>Next Color</span>
-            </button>
-          </div>
 
-          <!-- Info Panel -->
-          <div class="info-panel">
-            <div class="info-header">
-              <i class="fa-solid fa-circle-info"></i>
-              <span>How to Play</span>
+            <!-- Input Section -->
+            <div class="input-section">
+              <div class="hex-input-wrapper">
+                <span class="hex-prefix">#</span>
+                <input
+                  type="text"
+                  id="hexInput"
+                  maxlength="6"
+                  placeholder="FFFFFF"
+                  autocomplete="off"
+                  spellcheck="false"
+                >
+              </div>
+              <button type="button" class="submit-btn" id="submitBtn">
+                <i class="fa-solid fa-check"></i>
+                Guess
+              </button>
             </div>
-            <div class="info-content">
-              <ol>
-                <li>Look at the displayed <strong>color</strong></li>
-                <li>Guess the <strong>hex code</strong> (e.g., FF5733)</li>
-                <li>Get points based on <strong>accuracy</strong></li>
-                <li>Build your <strong>streak</strong> for bonus points!</li>
-              </ol>
-              <p class="tip"><strong>Tip:</strong> Use the RGB helper sliders to match the color, then convert to hex. Remember: R=00-FF, G=00-FF, B=00-FF</p>
+
+            <!-- Result Display -->
+            <div class="result-section hidden" id="resultSection">
+              <div class="result-comparison">
+                <div class="result-color">
+                  <div class="color-box" id="targetColorBox"></div>
+                  <span class="color-label">Target</span>
+                  <span class="color-code" id="targetCode">#000000</span>
+                </div>
+                <div class="result-arrow">
+                  <i class="fa-solid fa-right-left"></i>
+                </div>
+                <div class="result-color">
+                  <div class="color-box" id="guessColorBox"></div>
+                  <span class="color-label">Your Guess</span>
+                  <span class="color-code" id="guessCode">#000000</span>
+                </div>
+              </div>
+              <div class="result-accuracy">
+                <span class="accuracy-label">Accuracy:</span>
+                <span class="accuracy-value" id="accuracyValue">0%</span>
+              </div>
+              <button type="button" class="continue-btn" id="nextBtn">
+                <i class="fa-solid fa-arrow-right"></i>
+                <span>Next Color</span>
+              </button>
             </div>
           </div>
         </div>
+
+        <!-- Mobile Toggle Button -->
+        <button type="button" class="mobile-toggle-btn" id="toggleControlsBtn" title="Show/Hide Controls">
+          <i class="fa-solid fa-gears"></i>
+        </button>
       </div>
     </div>
   </main>
 
-  <!-- Footer -->
-  <footer class="footer">
-    <div class="container">
-      <div class="footer-bottom">
-        <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach. All rights reserved.</p>
-        <p class="footer-made">Made with 💗 and Claude Code xD</p>
-      </div>
-    </div>
-  </footer>
-
   <!-- Toast Notification -->
   <div class="toast" id="toast"></div>
+
+  <!-- Keyboard Shortcuts Hint -->
+  <div class="shortcuts-hint" id="shortcutsHint">
+    <span><kbd>Shift</kbd>+<kbd>?</kbd> : shortcuts</span>
+  </div>
 
   <!-- Keyboard Shortcuts Modal -->
   <div class="shortcuts-modal" id="shortcutsModal">
     <div class="shortcuts-content">
       <div class="shortcuts-header">
         <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
-        <button class="close-shortcuts-btn" id="closeShortcutsBtn" aria-label="Close shortcuts">
+        <button type="button" class="close-shortcuts-btn" id="closeShortcutsBtn" aria-label="Close shortcuts">
           <i class="fa-solid fa-xmark"></i>
         </button>
       </div>
@@ -244,11 +248,6 @@
         </div>
       </div>
     </div>
-  </div>
-
-  <!-- Keyboard Shortcuts Hint -->
-  <div class="shortcuts-hint" id="shortcutsHint">
-    <span><kbd>Shift</kbd>+<kbd>?</kbd> : shortcuts</span>
   </div>
 
   <!-- Shared Tools JavaScript -->

@@ -18,7 +18,7 @@
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Orbitron:wght@400;500;600;700&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
 
   <!-- Common Tools CSS -->
   <link rel="stylesheet" href="../../css/tools-common.css">
@@ -42,7 +42,7 @@
         <a href="../../tools.html" class="back-btn" title="Back to Tools">
           <i class="fa-solid fa-arrow-left"></i>
         </a>
-        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+        <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
           <i class="fa-solid fa-moon"></i>
           <i class="fa-solid fa-sun"></i>
         </button>
@@ -53,201 +53,188 @@
   <!-- Main Content -->
   <main class="tool-page">
     <div class="container">
-      <!-- Game Wrapper -->
       <div class="game-wrapper" id="bitshift">
         <!-- Header -->
         <div class="game-header">
           <h2><i class="fa-solid fa-bomb"></i> Bit-Shift Defuser</h2>
-          <div class="game-actions">
-            <button class="action-btn" id="undoBtn" title="Undo">
-              <i class="fa-solid fa-rotate-left"></i>
-              <span>Undo</span>
-            </button>
-            <button class="action-btn" id="newGameBtn" title="New puzzle">
-              <i class="fa-solid fa-shuffle"></i>
-              <span>New Puzzle</span>
-            </button>
+        </div>
+
+        <!-- Main Content Area -->
+        <div class="game-main">
+          <!-- Left: Controls Sidebar -->
+          <div class="controls-sidebar">
+            <!-- Stats Section -->
+            <div class="sidebar-section">
+              <h4>Status</h4>
+              <div class="stats-grid">
+                <div class="stat-item timer">
+                  <i class="fa-solid fa-clock"></i>
+                  <span class="stat-label">Time</span>
+                  <span class="stat-value" id="timerDisplay">60</span>
+                </div>
+                <div class="stat-item">
+                  <i class="fa-solid fa-layer-group"></i>
+                  <span class="stat-label">Level</span>
+                  <span class="stat-value" id="levelDisplay">1</span>
+                </div>
+                <div class="stat-item">
+                  <i class="fa-solid fa-hand-pointer"></i>
+                  <span class="stat-label">Moves</span>
+                  <span class="stat-value" id="movesDisplay">0</span>
+                </div>
+                <div class="stat-item score">
+                  <i class="fa-solid fa-trophy"></i>
+                  <span class="stat-label">Score</span>
+                  <span class="stat-value" id="scoreDisplay">0</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Operations Section -->
+            <div class="sidebar-section">
+              <h4>Operations</h4>
+              <div class="operations-grid">
+                <button type="button" class="op-btn" data-op="shl" title="Shift Left">
+                  <span class="op-symbol">&lt;&lt;</span>
+                  <span class="op-name">SHL</span>
+                </button>
+                <button type="button" class="op-btn" data-op="shr" title="Shift Right">
+                  <span class="op-symbol">&gt;&gt;</span>
+                  <span class="op-name">SHR</span>
+                </button>
+                <button type="button" class="op-btn" data-op="not" title="NOT (Invert)">
+                  <span class="op-symbol">~</span>
+                  <span class="op-name">NOT</span>
+                </button>
+                <button type="button" class="op-btn" data-op="and" title="AND with mask">
+                  <span class="op-symbol">&amp;</span>
+                  <span class="op-name">AND</span>
+                </button>
+                <button type="button" class="op-btn" data-op="or" title="OR with mask">
+                  <span class="op-symbol">|</span>
+                  <span class="op-name">OR</span>
+                </button>
+                <button type="button" class="op-btn" data-op="xor" title="XOR with mask">
+                  <span class="op-symbol">^</span>
+                  <span class="op-name">XOR</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Mask Section -->
+            <div class="sidebar-section">
+              <h4>Mask (click bits)</h4>
+              <div class="mask-input">
+                <div class="mask-bits" id="maskBits"></div>
+                <span class="mask-decimal" id="maskDecimal">= 0</span>
+              </div>
+            </div>
+
+            <!-- Actions Section -->
+            <div class="sidebar-section">
+              <h4>Actions</h4>
+              <div class="action-buttons">
+                <button type="button" class="action-btn" id="undoBtn">
+                  <i class="fa-solid fa-rotate-left"></i>
+                  Undo
+                </button>
+                <button type="button" class="action-btn" id="newGameBtn">
+                  <i class="fa-solid fa-shuffle"></i>
+                  New Game
+                </button>
+              </div>
+            </div>
+
+            <!-- Info Section -->
+            <div class="sidebar-section">
+              <h4>Reference</h4>
+              <div class="info-list">
+                <div class="info-item"><code>&lt;&lt;</code> Shift left (×2)</div>
+                <div class="info-item"><code>&gt;&gt;</code> Shift right (÷2)</div>
+                <div class="info-item"><code>~</code> Flip all bits</div>
+                <div class="info-item"><code>&amp;</code> AND with mask</div>
+                <div class="info-item"><code>|</code> OR with mask</div>
+                <div class="info-item"><code>^</code> XOR with mask</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: Game Content -->
+          <div class="game-content">
+            <!-- Binary Display -->
+            <div class="binary-section">
+              <div class="binary-row target">
+                <span class="binary-label">TARGET</span>
+                <div class="binary-display" id="targetBinary"></div>
+                <span class="decimal-value" id="targetDecimal">= 0</span>
+              </div>
+              <div class="binary-arrow">
+                <i class="fa-solid fa-arrow-down"></i>
+              </div>
+              <div class="binary-row current">
+                <span class="binary-label">CURRENT</span>
+                <div class="binary-display" id="currentBinary"></div>
+                <span class="decimal-value" id="currentDecimal">= 0</span>
+              </div>
+            </div>
+
+            <!-- Goal Hint -->
+            <div class="goal-hint">
+              <i class="fa-solid fa-bullseye"></i>
+              <span>Transform CURRENT to match TARGET before time runs out!</span>
+            </div>
+
+            <!-- Win/Lose Overlay -->
+            <div class="game-overlay" id="gameOverlay">
+              <div class="overlay-content">
+                <i class="fa-solid fa-bomb" id="overlayIcon"></i>
+                <h3 id="overlayTitle">DEFUSED!</h3>
+                <p id="overlayMessage">You saved the day!</p>
+                <div class="overlay-stats">
+                  <div class="overlay-stat">
+                    <span class="label">Time Left</span>
+                    <span class="value" id="finalTime">0</span>
+                  </div>
+                  <div class="overlay-stat">
+                    <span class="label">Moves</span>
+                    <span class="value" id="finalMoves">0</span>
+                  </div>
+                  <div class="overlay-stat">
+                    <span class="label">Score</span>
+                    <span class="value" id="finalScore">0</span>
+                  </div>
+                </div>
+                <button type="button" class="continue-btn" id="continueBtn">
+                  <i class="fa-solid fa-arrow-right"></i>
+                  <span>Next Level</span>
+                </button>
+              </div>
+            </div>
           </div>
         </div>
 
-        <!-- Game Content -->
-        <div class="game-content">
-          <!-- Timer & Stats -->
-          <div class="stats-bar">
-            <div class="stat-item timer">
-              <i class="fa-solid fa-clock"></i>
-              <span class="stat-label">Time</span>
-              <span class="stat-value" id="timerDisplay">60</span>
-            </div>
-            <div class="stat-item">
-              <i class="fa-solid fa-layer-group"></i>
-              <span class="stat-label">Level</span>
-              <span class="stat-value" id="levelDisplay">1</span>
-            </div>
-            <div class="stat-item">
-              <i class="fa-solid fa-hand-pointer"></i>
-              <span class="stat-label">Moves</span>
-              <span class="stat-value" id="movesDisplay">0</span>
-            </div>
-            <div class="stat-item">
-              <i class="fa-solid fa-trophy"></i>
-              <span class="stat-label">Score</span>
-              <span class="stat-value highlight" id="scoreDisplay">0</span>
-            </div>
-          </div>
-
-          <!-- Binary Display -->
-          <div class="binary-section">
-            <div class="binary-row target">
-              <span class="binary-label">TARGET</span>
-              <div class="binary-display" id="targetBinary">
-                <!-- Target bits will be shown here -->
-              </div>
-              <span class="decimal-value" id="targetDecimal">0</span>
-            </div>
-            <div class="binary-arrow">
-              <i class="fa-solid fa-arrow-down"></i>
-            </div>
-            <div class="binary-row current">
-              <span class="binary-label">CURRENT</span>
-              <div class="binary-display" id="currentBinary">
-                <!-- Current bits will be shown here -->
-              </div>
-              <span class="decimal-value" id="currentDecimal">0</span>
-            </div>
-          </div>
-
-          <!-- Operations -->
-          <div class="operations-section">
-            <h3><i class="fa-solid fa-gears"></i> Operations</h3>
-            <div class="operations-grid">
-              <button class="op-btn" data-op="shl" title="Shift Left">
-                <span class="op-symbol">&lt;&lt;</span>
-                <span class="op-name">Shift Left</span>
-                <kbd class="op-key">&lt;</kbd>
-              </button>
-              <button class="op-btn" data-op="shr" title="Shift Right">
-                <span class="op-symbol">&gt;&gt;</span>
-                <span class="op-name">Shift Right</span>
-                <kbd class="op-key">&gt;</kbd>
-              </button>
-              <button class="op-btn" data-op="not" title="NOT (Invert)">
-                <span class="op-symbol">~</span>
-                <span class="op-name">NOT</span>
-                <kbd class="op-key">~</kbd>
-              </button>
-              <button class="op-btn" data-op="and" title="AND with mask">
-                <span class="op-symbol">&amp;</span>
-                <span class="op-name">AND</span>
-                <kbd class="op-key">&amp;</kbd>
-              </button>
-              <button class="op-btn" data-op="or" title="OR with mask">
-                <span class="op-symbol">|</span>
-                <span class="op-name">OR</span>
-                <kbd class="op-key">|</kbd>
-              </button>
-              <button class="op-btn" data-op="xor" title="XOR with mask">
-                <span class="op-symbol">^</span>
-                <span class="op-name">XOR</span>
-                <kbd class="op-key">^</kbd>
-              </button>
-            </div>
-            <div class="mask-input" id="maskInput">
-              <span class="mask-label">Mask:</span>
-              <div class="mask-bits" id="maskBits">
-                <!-- Mask bits (clickable) -->
-              </div>
-              <span class="mask-decimal" id="maskDecimal">= 0</span>
-            </div>
-          </div>
-
-          <!-- Win/Lose Overlay -->
-          <div class="game-overlay" id="gameOverlay">
-            <div class="overlay-content">
-              <i class="fa-solid fa-bomb" id="overlayIcon"></i>
-              <h3 id="overlayTitle">DEFUSED!</h3>
-              <p id="overlayMessage">You saved the day!</p>
-              <div class="overlay-stats">
-                <div class="overlay-stat">
-                  <span class="label">Time Left</span>
-                  <span class="value" id="finalTime">0</span>
-                </div>
-                <div class="overlay-stat">
-                  <span class="label">Moves</span>
-                  <span class="value" id="finalMoves">0</span>
-                </div>
-                <div class="overlay-stat">
-                  <span class="label">Score</span>
-                  <span class="value" id="finalScore">0</span>
-                </div>
-              </div>
-              <button class="action-btn primary" id="continueBtn">
-                <i class="fa-solid fa-arrow-right"></i>
-                <span>Next Level</span>
-              </button>
-            </div>
-          </div>
-
-          <!-- Info Panel -->
-          <div class="info-panel">
-            <div class="info-header">
-              <i class="fa-solid fa-circle-info"></i>
-              <span>Bitwise Operations</span>
-            </div>
-            <div class="info-content">
-              <div class="info-grid">
-                <div class="info-item">
-                  <code>&lt;&lt;</code>
-                  <span>Shift all bits left (multiply by 2)</span>
-                </div>
-                <div class="info-item">
-                  <code>&gt;&gt;</code>
-                  <span>Shift all bits right (divide by 2)</span>
-                </div>
-                <div class="info-item">
-                  <code>~</code>
-                  <span>Flip all bits (0→1, 1→0)</span>
-                </div>
-                <div class="info-item">
-                  <code>&amp;</code>
-                  <span>AND: Keep only bits that are 1 in both</span>
-                </div>
-                <div class="info-item">
-                  <code>|</code>
-                  <span>OR: Set bits that are 1 in either</span>
-                </div>
-                <div class="info-item">
-                  <code>^</code>
-                  <span>XOR: Toggle bits where mask is 1</span>
-                </div>
-              </div>
-              <p class="tip"><strong>Goal:</strong> Use bitwise operations to transform CURRENT into TARGET before time runs out!</p>
-            </div>
-          </div>
-        </div>
+        <!-- Mobile Toggle Button -->
+        <button type="button" class="mobile-toggle-btn" id="toggleControlsBtn" title="Show/Hide Controls">
+          <i class="fa-solid fa-gears"></i>
+        </button>
       </div>
     </div>
   </main>
 
-  <!-- Footer -->
-  <footer class="footer">
-    <div class="container">
-      <div class="footer-bottom">
-        <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach. All rights reserved.</p>
-        <p class="footer-made">Made with 💗 and Claude Code xD</p>
-      </div>
-    </div>
-  </footer>
-
   <!-- Toast Notification -->
   <div class="toast" id="toast"></div>
+
+  <!-- Keyboard Shortcuts Hint -->
+  <div class="shortcuts-hint" id="shortcutsHint">
+    <span><kbd>Shift</kbd>+<kbd>?</kbd> : shortcuts</span>
+  </div>
 
   <!-- Keyboard Shortcuts Modal -->
   <div class="shortcuts-modal" id="shortcutsModal">
     <div class="shortcuts-content">
       <div class="shortcuts-header">
         <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
-        <button class="close-shortcuts-btn" id="closeShortcutsBtn" aria-label="Close shortcuts">
+        <button type="button" class="close-shortcuts-btn" id="closeShortcutsBtn" aria-label="Close shortcuts">
           <i class="fa-solid fa-xmark"></i>
         </button>
       </div>
@@ -298,14 +285,9 @@
     </div>
   </div>
 
-  <!-- Keyboard Shortcuts Hint -->
-  <div class="shortcuts-hint" id="shortcutsHint">
-    <span><kbd>Shift</kbd>+<kbd>?</kbd> : shortcuts</span>
-  </div>
-
   <!-- Shared Tools JavaScript -->
   <script src="../../js/tools-common.js"></script>
-  <!-- Scripts -->
+  <!-- Bit-Shift JavaScript -->
   <script src="bitshift.js"></script>
 </body>
 </html>

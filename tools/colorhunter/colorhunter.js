@@ -1,6 +1,7 @@
 /**
- * KVSOVANREACH Color Hunter
+ * Color Hunter
  * Hexadecimal color guessing game
+ * Following colorpicker design pattern
  */
 
 (function() {
@@ -18,6 +19,7 @@
 
   // ==================== DOM Elements ====================
   const elements = {
+    wrapper: document.querySelector('.game-wrapper'),
     colorDisplay: document.getElementById('colorDisplay'),
     colorHint: document.getElementById('colorHint'),
     hexInput: document.getElementById('hexInput'),
@@ -42,7 +44,8 @@
     guessColorBox: document.getElementById('guessColorBox'),
     targetCode: document.getElementById('targetCode'),
     guessCode: document.getElementById('guessCode'),
-    accuracyValue: document.getElementById('accuracyValue')
+    accuracyValue: document.getElementById('accuracyValue'),
+    toggleControlsBtn: document.getElementById('toggleControlsBtn')
   };
 
   // ==================== Color Utilities ====================
@@ -176,13 +179,13 @@
 
     // Color the accuracy based on how good it is
     if (accuracy >= 90) {
-      elements.accuracyValue.style.color = '#22c55e';
+      elements.accuracyValue.style.color = 'var(--color-success)';
       elements.colorHint.textContent = `Perfect! +${points} points`;
     } else if (accuracy >= 70) {
-      elements.accuracyValue.style.color = '#f59e0b';
+      elements.accuracyValue.style.color = 'var(--color-warning)';
       elements.colorHint.textContent = `Good! +${points} points`;
     } else {
-      elements.accuracyValue.style.color = '#ef4444';
+      elements.accuracyValue.style.color = 'var(--color-error)';
       elements.colorHint.textContent = `Keep practicing! +${points} points`;
     }
 
@@ -235,6 +238,10 @@
     elements.rgbSliders.classList.toggle('hidden', !show);
   }
 
+  function toggleControls() {
+    elements.wrapper?.classList.toggle('hide-controls');
+  }
+
   // ==================== Event Handlers ====================
 
   function handleSubmit(e) {
@@ -256,6 +263,14 @@
         handleSubmit(e);
       }
       return;
+    }
+
+    // Close controls on Escape (mobile)
+    if (e.key === 'Escape') {
+      if (window.innerWidth <= 900 && !elements.wrapper?.classList.contains('hide-controls')) {
+        elements.wrapper?.classList.add('hide-controls');
+        return;
+      }
     }
 
     switch (e.key.toLowerCase()) {
@@ -297,6 +312,7 @@
     elements.nextBtn?.addEventListener('click', () => newRound());
     elements.showHelper?.addEventListener('change', toggleHelper);
     elements.hexInput?.addEventListener('input', handleInputChange);
+    elements.toggleControlsBtn?.addEventListener('click', toggleControls);
 
     elements.redSlider?.addEventListener('input', handleSliderChange);
     elements.greenSlider?.addEventListener('input', handleSliderChange);

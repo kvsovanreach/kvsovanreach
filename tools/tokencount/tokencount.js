@@ -1,6 +1,7 @@
 /**
  * Token Counter Tool
  * Count tokens for LLM models and estimate API costs
+ * Following colorpicker design pattern
  */
 
 (function() {
@@ -24,6 +25,7 @@
 
   // ==================== DOM Elements ====================
   const elements = {
+    wrapper: document.querySelector('.token-wrapper'),
     tabs: document.querySelectorAll('.token-tab'),
     panels: document.querySelectorAll('.token-panel'),
     modelSelect: document.getElementById('modelSelect'),
@@ -37,7 +39,12 @@
     inputCost: document.getElementById('inputCost'),
     outputCost: document.getElementById('outputCost'),
     totalCost: document.getElementById('totalCost'),
-    tokenDisplay: document.getElementById('tokenDisplay')
+    tokenDisplay: document.getElementById('tokenDisplay'),
+    toggleControlsBtn: document.getElementById('toggleControlsBtn'),
+    // Mobile stats
+    mobileTokenCount: document.getElementById('mobileTokenCount'),
+    mobileCharCount: document.getElementById('mobileCharCount'),
+    mobileTotalCost: document.getElementById('mobileTotalCost')
   };
 
   // ==================== Token Estimation ====================
@@ -108,6 +115,14 @@
     elements.wordCount.textContent = (text.trim() ? text.trim().split(/\s+/).length : 0).toLocaleString();
     elements.lineCount.textContent = (text ? text.split('\n').length : 0).toLocaleString();
 
+    // Update mobile stats
+    if (elements.mobileTokenCount) {
+      elements.mobileTokenCount.textContent = tokenTotal.toLocaleString();
+    }
+    if (elements.mobileCharCount) {
+      elements.mobileCharCount.textContent = text.length.toLocaleString();
+    }
+
     // Update costs
     updateCosts(tokenTotal, model);
 
@@ -129,6 +144,11 @@
     elements.inputCost.textContent = formatCost(inputCost);
     elements.outputCost.textContent = formatCost(outputCost);
     elements.totalCost.textContent = formatCost(totalCost);
+
+    // Update mobile total cost
+    if (elements.mobileTotalCost) {
+      elements.mobileTotalCost.textContent = formatCost(totalCost);
+    }
   }
 
   // ==================== Format Cost ====================
@@ -197,6 +217,11 @@
     });
   }
 
+  // ==================== Toggle Controls ====================
+  function toggleControls() {
+    elements.wrapper?.classList.toggle('hide-controls');
+  }
+
   // ==================== Actions ====================
   async function pasteFromClipboard() {
     try {
@@ -225,17 +250,28 @@
     });
 
     // Text input
-    elements.textInput.addEventListener('input', ToolsCommon.debounce(updateStats, 100));
+    elements.textInput?.addEventListener('input', ToolsCommon.debounce(updateStats, 100));
 
     // Model selection
-    elements.modelSelect.addEventListener('change', updateStats);
+    elements.modelSelect?.addEventListener('change', updateStats);
 
     // Action buttons
-    elements.pasteBtn.addEventListener('click', pasteFromClipboard);
-    elements.clearBtn.addEventListener('click', clearText);
+    elements.pasteBtn?.addEventListener('click', pasteFromClipboard);
+    elements.clearBtn?.addEventListener('click', clearText);
+
+    // Mobile toggle
+    elements.toggleControlsBtn?.addEventListener('click', toggleControls);
 
     // Keyboard shortcuts
     document.addEventListener('keydown', (e) => {
+      // Close controls on Escape (mobile)
+      if (e.key === 'Escape') {
+        if (window.innerWidth <= 900 && !elements.wrapper?.classList.contains('hide-controls')) {
+          elements.wrapper?.classList.add('hide-controls');
+          return;
+        }
+      }
+
       if (e.target.matches('textarea, input, select')) return;
 
       switch (e.key) {

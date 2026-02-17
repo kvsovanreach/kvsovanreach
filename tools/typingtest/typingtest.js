@@ -1,6 +1,7 @@
 /**
- * KVSOVANREACH Typing Test Tool
+ * Typing Test Tool
  * Measure typing speed and accuracy
+ * Following colorpicker design pattern
  */
 
 (function() {
@@ -8,6 +9,7 @@
 
   // ==================== DOM Elements ====================
   const elements = {
+    wrapper: document.querySelector('.typing-wrapper'),
     textDisplay: document.getElementById('textDisplay'),
     typingInput: document.getElementById('typingInput'),
     inputHint: document.getElementById('inputHint'),
@@ -23,7 +25,8 @@
     finalAccuracy: document.getElementById('finalAccuracy'),
     finalChars: document.getElementById('finalChars'),
     finalErrors: document.getElementById('finalErrors'),
-    tryAgainBtn: document.getElementById('tryAgainBtn')
+    tryAgainBtn: document.getElementById('tryAgainBtn'),
+    toggleControlsBtn: document.getElementById('toggleControlsBtn')
   };
 
   // ==================== Word Lists ====================
@@ -174,6 +177,7 @@
     // Reset UI
     elements.typingInput.value = '';
     elements.typingInput.disabled = false;
+    elements.typingInput.maxLength = state.text.length;
     elements.timerDisplay.textContent = state.duration;
     elements.wpmDisplay.textContent = '0';
     elements.accuracyDisplay.textContent = '100%';
@@ -183,6 +187,10 @@
 
     renderText();
     elements.typingInput.focus();
+  }
+
+  function toggleControls() {
+    elements.wrapper?.classList.toggle('hide-controls');
   }
 
   function handleInput(e) {
@@ -195,45 +203,52 @@
 
     const inputValue = e.target.value;
     const inputLength = inputValue.length;
-    const expectedChar = state.text[state.currentIndex];
 
-    // Get the last typed character
-    if (inputLength > 0) {
+    // Handle backspace - allow going back
+    if (inputLength < state.currentIndex) {
+      // User deleted a character, go back
+      const deletedIndex = inputLength;
+      state.currentIndex = inputLength;
+
+      // Recalculate correct/incorrect from scratch
+      state.correctChars = 0;
+      state.incorrectChars = 0;
+
+      for (let i = 0; i < inputLength; i++) {
+        if (inputValue[i] === state.text[i]) {
+          state.correctChars++;
+        } else {
+          state.incorrectChars++;
+        }
+      }
+
+      // Update all character classes
+      updateCharacterDisplay(inputValue);
+      updateStats();
+      return;
+    }
+
+    // New character typed
+    if (inputLength > state.currentIndex) {
       const typedChar = inputValue[inputLength - 1];
+      const expectedChar = state.text[state.currentIndex];
 
       if (typedChar === expectedChar) {
         state.correctChars++;
-        state.currentIndex++;
-
-        // Mark character as correct
-        const charElement = elements.textDisplay.querySelector(`[data-index="${state.currentIndex - 1}"]`);
-        if (charElement) {
-          charElement.className = 'char correct';
-        }
       } else {
         state.incorrectChars++;
 
-        // Mark character as incorrect
-        const charElement = elements.textDisplay.querySelector(`[data-index="${state.currentIndex}"]`);
-        if (charElement) {
-          charElement.className = 'char incorrect';
-        }
-
-        // Shake animation
+        // Shake animation on error
         elements.typingInput.classList.add('error');
         setTimeout(() => {
           elements.typingInput.classList.remove('error');
         }, 300);
       }
 
-      // Clear input
-      e.target.value = '';
+      state.currentIndex = inputLength;
 
-      // Update current character highlight
-      const nextCharElement = elements.textDisplay.querySelector(`[data-index="${state.currentIndex}"]`);
-      if (nextCharElement) {
-        nextCharElement.className = 'char current';
-      }
+      // Update character display
+      updateCharacterDisplay(inputValue);
 
       // Check if test is complete
       if (state.currentIndex >= state.text.length) {
@@ -242,6 +257,27 @@
     }
 
     updateStats();
+  }
+
+  function updateCharacterDisplay(inputValue) {
+    const chars = elements.textDisplay.querySelectorAll('.char');
+
+    chars.forEach((char, index) => {
+      if (index < inputValue.length) {
+        // Already typed
+        if (inputValue[index] === state.text[index]) {
+          char.className = 'char correct';
+        } else {
+          char.className = 'char incorrect';
+        }
+      } else if (index === inputValue.length) {
+        // Current position
+        char.className = 'char current';
+      } else {
+        // Not yet typed
+        char.className = 'char pending';
+      }
+    });
   }
 
   // ==================== Initialization ====================
@@ -258,21 +294,29 @@
     });
 
     // Difficulty select
-    elements.difficultySelect.addEventListener('change', () => {
+    elements.difficultySelect?.addEventListener('change', () => {
       state.difficulty = elements.difficultySelect.value;
       resetTest();
     });
 
     // Input handler
-    elements.typingInput.addEventListener('input', handleInput);
+    elements.typingInput?.addEventListener('input', handleInput);
 
     // New test button
-    elements.newTestBtn.addEventListener('click', resetTest);
-    elements.tryAgainBtn.addEventListener('click', resetTest);
+    elements.newTestBtn?.addEventListener('click', resetTest);
+    elements.tryAgainBtn?.addEventListener('click', resetTest);
+
+    // Mobile toggle
+    elements.toggleControlsBtn?.addEventListener('click', toggleControls);
 
     // Keyboard shortcuts
     document.addEventListener('keydown', (e) => {
+      // Close controls on Escape (mobile)
       if (e.key === 'Escape') {
+        if (window.innerWidth <= 900 && !elements.wrapper?.classList.contains('hide-controls')) {
+          elements.wrapper?.classList.add('hide-controls');
+          return;
+        }
         resetTest();
       }
       if (e.key === 'Tab' && !state.isRunning) {

@@ -42,7 +42,7 @@
         <a href="../../tools.html" class="back-btn" title="Back to Tools">
           <i class="fa-solid fa-arrow-left"></i>
         </a>
-        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+        <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
           <i class="fa-solid fa-moon"></i>
           <i class="fa-solid fa-sun"></i>
         </button>
@@ -58,231 +58,238 @@
         <!-- Header -->
         <div class="cleaner-header">
           <h2><i class="fa-solid fa-broom"></i> Text Cleaner</h2>
-          <div class="header-actions">
-            <button class="action-btn" id="swapBtn" title="Swap input/output">
-              <i class="fa-solid fa-arrow-right-arrow-left"></i>
-            </button>
-            <button class="action-btn" id="clearBtn" title="Clear all">
-              <i class="fa-solid fa-trash"></i>
-            </button>
+        </div>
+
+        <!-- Main Content Area -->
+        <div class="cleaner-main">
+          <!-- Left: Operations Sidebar -->
+          <div class="operations-sidebar">
+            <div class="sidebar-header">
+              <h4>Operations</h4>
+              <span class="active-operation" id="activeOperationLabel">None selected</span>
+            </div>
+
+            <div class="operations-scroll">
+              <!-- Word Operations -->
+              <div class="operation-group">
+                <h4><i class="fa-solid fa-font"></i> Words</h4>
+                <div class="operation-buttons">
+                  <button type="button" class="op-btn" data-op="removeDuplicates">
+                    <i class="fa-solid fa-clone"></i>
+                    Unique
+                  </button>
+                  <button type="button" class="op-btn" data-op="sortAsc">
+                    <i class="fa-solid fa-arrow-down-a-z"></i>
+                    A-Z
+                  </button>
+                  <button type="button" class="op-btn" data-op="sortDesc">
+                    <i class="fa-solid fa-arrow-up-z-a"></i>
+                    Z-A
+                  </button>
+                  <button type="button" class="op-btn" data-op="sortNumAsc">
+                    <i class="fa-solid fa-arrow-down-1-9"></i>
+                    1-9
+                  </button>
+                  <button type="button" class="op-btn" data-op="sortNumDesc">
+                    <i class="fa-solid fa-arrow-up-9-1"></i>
+                    9-1
+                  </button>
+                  <button type="button" class="op-btn" data-op="reverseLines">
+                    <i class="fa-solid fa-arrows-up-down"></i>
+                    Reverse
+                  </button>
+                  <button type="button" class="op-btn" data-op="shuffleLines">
+                    <i class="fa-solid fa-shuffle"></i>
+                    Shuffle
+                  </button>
+                </div>
+              </div>
+
+              <!-- Whitespace Operations -->
+              <div class="operation-group">
+                <h4><i class="fa-solid fa-eraser"></i> Whitespace</h4>
+                <div class="operation-buttons">
+                  <button type="button" class="op-btn" data-op="trimLines">
+                    <i class="fa-solid fa-text-width"></i>
+                    Trim
+                  </button>
+                  <button type="button" class="op-btn" data-op="removeExtraSpaces">
+                    <i class="fa-solid fa-compress"></i>
+                    Compact
+                  </button>
+                  <button type="button" class="op-btn" data-op="removeAllSpaces">
+                    <i class="fa-solid fa-xmark"></i>
+                    No Spaces
+                  </button>
+                  <button type="button" class="op-btn" data-op="removeLineBreaks">
+                    <i class="fa-solid fa-arrows-to-line"></i>
+                    No Lines
+                  </button>
+                </div>
+              </div>
+
+              <!-- Case Conversion -->
+              <div class="operation-group">
+                <h4><i class="fa-solid fa-font"></i> Case</h4>
+                <div class="operation-buttons">
+                  <button type="button" class="op-btn" data-op="uppercase">
+                    <i class="fa-solid fa-arrow-up"></i>
+                    UPPER
+                  </button>
+                  <button type="button" class="op-btn" data-op="lowercase">
+                    <i class="fa-solid fa-arrow-down"></i>
+                    lower
+                  </button>
+                  <button type="button" class="op-btn" data-op="titleCase">
+                    <i class="fa-solid fa-heading"></i>
+                    Title
+                  </button>
+                  <button type="button" class="op-btn" data-op="sentenceCase">
+                    <i class="fa-solid fa-paragraph"></i>
+                    Sentence
+                  </button>
+                  <button type="button" class="op-btn" data-op="camelCase">
+                    <i class="fa-solid fa-code"></i>
+                    camel
+                  </button>
+                  <button type="button" class="op-btn" data-op="snakeCase">
+                    <i class="fa-solid fa-minus"></i>
+                    snake
+                  </button>
+                  <button type="button" class="op-btn" data-op="kebabCase">
+                    <i class="fa-solid fa-grip-lines-vertical"></i>
+                    kebab
+                  </button>
+                </div>
+              </div>
+
+              <!-- Add/Remove -->
+              <div class="operation-group">
+                <h4><i class="fa-solid fa-plus-minus"></i> Add/Remove</h4>
+                <div class="prefix-suffix-inputs">
+                  <div class="input-row">
+                    <input type="text" id="prefixInput" placeholder="Prefix...">
+                    <button type="button" class="mini-btn" data-op="addPrefix" title="Add">
+                      <i class="fa-solid fa-plus"></i>
+                    </button>
+                    <button type="button" class="mini-btn danger" data-op="removePrefix" title="Remove">
+                      <i class="fa-solid fa-minus"></i>
+                    </button>
+                  </div>
+                  <div class="input-row">
+                    <input type="text" id="suffixInput" placeholder="Suffix...">
+                    <button type="button" class="mini-btn" data-op="addSuffix" title="Add">
+                      <i class="fa-solid fa-plus"></i>
+                    </button>
+                    <button type="button" class="mini-btn danger" data-op="removeSuffix" title="Remove">
+                      <i class="fa-solid fa-minus"></i>
+                    </button>
+                  </div>
+                </div>
+                <div class="operation-buttons">
+                  <button type="button" class="op-btn" data-op="numberLines">
+                    <i class="fa-solid fa-list-ol"></i>
+                    Number
+                  </button>
+                  <button type="button" class="op-btn" data-op="removeNumbers">
+                    <i class="fa-solid fa-hashtag"></i>
+                    Remove #
+                  </button>
+                  <button type="button" class="op-btn" data-op="removeSpecialChars">
+                    <i class="fa-solid fa-at"></i>
+                    Remove @
+                  </button>
+                </div>
+              </div>
+
+              <!-- Find & Replace -->
+              <div class="operation-group">
+                <h4><i class="fa-solid fa-magnifying-glass"></i> Find & Replace</h4>
+                <div class="find-replace-inputs">
+                  <input type="text" id="findInput" placeholder="Find...">
+                  <input type="text" id="replaceInput" placeholder="Replace...">
+                  <button type="button" class="apply-btn" id="replaceBtn">Replace All</button>
+                </div>
+                <label class="checkbox-label">
+                  <input type="checkbox" id="regexMode">
+                  <span>Regex</span>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: Text Areas -->
+          <div class="text-content">
+            <!-- Input Section -->
+            <div class="text-section">
+              <div class="section-header">
+                <h3>Input</h3>
+                <div class="section-actions">
+                  <button type="button" class="section-btn" id="pasteBtn" title="Paste">
+                    <i class="fa-solid fa-paste"></i>
+                  </button>
+                  <button type="button" class="section-btn" id="clearInputBtn" title="Clear">
+                    <i class="fa-solid fa-trash"></i>
+                  </button>
+                </div>
+              </div>
+              <textarea id="inputText" placeholder="Paste or type your text here..." spellcheck="false"></textarea>
+              <div class="text-stats">
+                <span id="inputChars">0 chars</span>
+                <span id="inputWords">0 words</span>
+                <span id="inputLines">0 lines</span>
+              </div>
+            </div>
+
+            <!-- Action Bar -->
+            <div class="action-bar">
+              <button type="button" class="swap-btn" id="swapBtn" title="Swap input/output">
+                <i class="fa-solid fa-arrow-right-arrow-left"></i>
+                <span>Swap</span>
+              </button>
+            </div>
+
+            <!-- Output Section -->
+            <div class="text-section">
+              <div class="section-header">
+                <h3>Output</h3>
+                <div class="section-actions">
+                  <button type="button" class="section-btn" id="copyBtn" title="Copy">
+                    <i class="fa-solid fa-copy"></i>
+                  </button>
+                  <button type="button" class="section-btn" id="downloadBtn" title="Download">
+                    <i class="fa-solid fa-download"></i>
+                  </button>
+                </div>
+              </div>
+              <textarea id="outputText" readonly placeholder="Result will appear here..."></textarea>
+              <div class="text-stats">
+                <span id="outputChars">0 chars</span>
+                <span id="outputWords">0 words</span>
+                <span id="outputLines">0 lines</span>
+              </div>
+            </div>
           </div>
         </div>
 
-        <!-- Main Content -->
-        <div class="cleaner-content">
-          <!-- Input Section -->
-          <div class="cleaner-section">
-            <div class="section-header">
-              <h3>Input Text</h3>
-              <div class="section-actions">
-                <button class="section-btn" id="pasteBtn" title="Paste">
-                  <i class="fa-solid fa-paste"></i>
-                </button>
-              </div>
-            </div>
-            <textarea id="inputText" placeholder="Paste or type your text here..." spellcheck="false"></textarea>
-            <div class="text-stats">
-              <span id="inputChars">0 chars</span>
-              <span id="inputWords">0 words</span>
-              <span id="inputLines">0 lines</span>
-            </div>
-          </div>
-
-          <!-- Operations -->
-          <div class="operations-panel">
-            <h3>Operations</h3>
-
-            <!-- Line Operations -->
-            <div class="operation-group">
-              <h4><i class="fa-solid fa-grip-lines"></i> Line Operations</h4>
-              <div class="operation-buttons">
-                <button class="op-btn" data-op="removeDuplicates">
-                  <i class="fa-solid fa-clone"></i>
-                  Remove Duplicates
-                </button>
-                <button class="op-btn" data-op="removeEmpty">
-                  <i class="fa-solid fa-minus"></i>
-                  Remove Empty Lines
-                </button>
-                <button class="op-btn" data-op="sortAsc">
-                  <i class="fa-solid fa-arrow-down-a-z"></i>
-                  Sort A-Z
-                </button>
-                <button class="op-btn" data-op="sortDesc">
-                  <i class="fa-solid fa-arrow-up-z-a"></i>
-                  Sort Z-A
-                </button>
-                <button class="op-btn" data-op="sortNumAsc">
-                  <i class="fa-solid fa-arrow-down-1-9"></i>
-                  Sort 1-9
-                </button>
-                <button class="op-btn" data-op="sortNumDesc">
-                  <i class="fa-solid fa-arrow-up-9-1"></i>
-                  Sort 9-1
-                </button>
-                <button class="op-btn" data-op="reverseLines">
-                  <i class="fa-solid fa-arrows-up-down"></i>
-                  Reverse Lines
-                </button>
-                <button class="op-btn" data-op="shuffleLines">
-                  <i class="fa-solid fa-shuffle"></i>
-                  Shuffle Lines
-                </button>
-              </div>
-            </div>
-
-            <!-- Whitespace Operations -->
-            <div class="operation-group">
-              <h4><i class="fa-solid fa-eraser"></i> Whitespace</h4>
-              <div class="operation-buttons">
-                <button class="op-btn" data-op="trimLines">
-                  <i class="fa-solid fa-text-width"></i>
-                  Trim Each Line
-                </button>
-                <button class="op-btn" data-op="removeExtraSpaces">
-                  <i class="fa-solid fa-compress"></i>
-                  Remove Extra Spaces
-                </button>
-                <button class="op-btn" data-op="removeAllSpaces">
-                  <i class="fa-solid fa-xmark"></i>
-                  Remove All Spaces
-                </button>
-                <button class="op-btn" data-op="removeLineBreaks">
-                  <i class="fa-solid fa-arrows-to-line"></i>
-                  Remove Line Breaks
-                </button>
-              </div>
-            </div>
-
-            <!-- Case Conversion -->
-            <div class="operation-group">
-              <h4><i class="fa-solid fa-font"></i> Case Conversion</h4>
-              <div class="operation-buttons">
-                <button class="op-btn" data-op="uppercase">
-                  <i class="fa-solid fa-arrow-up"></i>
-                  UPPERCASE
-                </button>
-                <button class="op-btn" data-op="lowercase">
-                  <i class="fa-solid fa-arrow-down"></i>
-                  lowercase
-                </button>
-                <button class="op-btn" data-op="titleCase">
-                  <i class="fa-solid fa-heading"></i>
-                  Title Case
-                </button>
-                <button class="op-btn" data-op="sentenceCase">
-                  <i class="fa-solid fa-paragraph"></i>
-                  Sentence case
-                </button>
-                <button class="op-btn" data-op="camelCase">
-                  <i class="fa-solid fa-code"></i>
-                  camelCase
-                </button>
-                <button class="op-btn" data-op="snakeCase">
-                  <i class="fa-solid fa-minus"></i>
-                  snake_case
-                </button>
-                <button class="op-btn" data-op="kebabCase">
-                  <i class="fa-solid fa-grip-lines-vertical"></i>
-                  kebab-case
-                </button>
-              </div>
-            </div>
-
-            <!-- Add/Remove -->
-            <div class="operation-group">
-              <h4><i class="fa-solid fa-plus-minus"></i> Add/Remove</h4>
-              <div class="prefix-suffix-inputs">
-                <div class="input-group">
-                  <label for="prefixInput">Prefix</label>
-                  <input type="text" id="prefixInput" placeholder="Add to start...">
-                  <button class="apply-btn" data-op="addPrefix">Add</button>
-                  <button class="apply-btn danger" data-op="removePrefix">Remove</button>
-                </div>
-                <div class="input-group">
-                  <label for="suffixInput">Suffix</label>
-                  <input type="text" id="suffixInput" placeholder="Add to end...">
-                  <button class="apply-btn" data-op="addSuffix">Add</button>
-                  <button class="apply-btn danger" data-op="removeSuffix">Remove</button>
-                </div>
-              </div>
-              <div class="operation-buttons">
-                <button class="op-btn" data-op="numberLines">
-                  <i class="fa-solid fa-list-ol"></i>
-                  Number Lines
-                </button>
-                <button class="op-btn" data-op="removeNumbers">
-                  <i class="fa-solid fa-hashtag"></i>
-                  Remove All Numbers
-                </button>
-                <button class="op-btn" data-op="removeSpecialChars">
-                  <i class="fa-solid fa-at"></i>
-                  Remove Special Chars
-                </button>
-              </div>
-            </div>
-
-            <!-- Find & Replace -->
-            <div class="operation-group">
-              <h4><i class="fa-solid fa-magnifying-glass"></i> Find & Replace</h4>
-              <div class="find-replace-inputs">
-                <input type="text" id="findInput" placeholder="Find...">
-                <input type="text" id="replaceInput" placeholder="Replace with...">
-                <button class="apply-btn primary" id="replaceBtn">Replace All</button>
-              </div>
-              <label class="checkbox-label">
-                <input type="checkbox" id="regexMode">
-                <span>Use Regular Expression</span>
-              </label>
-            </div>
-          </div>
-
-          <!-- Output Section -->
-          <div class="cleaner-section">
-            <div class="section-header">
-              <h3>Output</h3>
-              <div class="section-actions">
-                <button class="section-btn" id="copyBtn" title="Copy">
-                  <i class="fa-solid fa-copy"></i>
-                </button>
-                <button class="section-btn" id="downloadBtn" title="Download">
-                  <i class="fa-solid fa-download"></i>
-                </button>
-              </div>
-            </div>
-            <textarea id="outputText" readonly placeholder="Result will appear here..."></textarea>
-            <div class="text-stats">
-              <span id="outputChars">0 chars</span>
-              <span id="outputWords">0 words</span>
-              <span id="outputLines">0 lines</span>
-            </div>
-          </div>
-        </div>
+        <!-- Mobile Toggle Button -->
+        <button type="button" class="mobile-toggle-btn" id="toggleOpsBtn" title="Show/Hide Operations">
+          <i class="fa-solid fa-wand-magic-sparkles"></i>
+        </button>
       </div>
     </div>
   </main>
-
-  <!-- Footer -->
-  <footer class="footer">
-    <div class="container">
-      <div class="footer-bottom">
-        <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach. All rights reserved.</p>
-        <p class="footer-made">Made with 💗 and Claude Code xD</p>
-      </div>
-    </div>
-  </footer>
 
   <!-- Keyboard Shortcuts Modal -->
   <div class="shortcuts-modal" id="shortcutsModal">
     <div class="shortcuts-content">
       <div class="shortcuts-header">
         <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
-        <button class="close-shortcuts-btn" id="closeShortcutsBtn">
+        <button type="button" class="close-shortcuts-btn" id="closeShortcutsBtn">
           <i class="fa-solid fa-xmark"></i>
         </button>
       </div>
       <div class="shortcuts-body">
-        <!-- Actions Section -->
         <div class="shortcuts-group">
           <div class="shortcuts-group-title">Actions</div>
           <div class="shortcut-row">
@@ -293,13 +300,7 @@
             <div class="shortcut-keys"><kbd>Ctrl</kbd><span class="key-plus">+</span><kbd>C</kbd></div>
             <div class="shortcut-desc">Copy output</div>
           </div>
-          <div class="shortcut-row">
-            <div class="shortcut-keys"><kbd>Ctrl</kbd><span class="key-plus">+</span><kbd>S</kbd></div>
-            <div class="shortcut-desc">Swap input/output</div>
-          </div>
         </div>
-
-        <!-- General Section -->
         <div class="shortcuts-group">
           <div class="shortcuts-group-title">General</div>
           <div class="shortcut-row">

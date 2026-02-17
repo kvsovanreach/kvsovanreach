@@ -42,7 +42,7 @@
         <a href="../../tools.html" class="back-btn" title="Back to Tools">
           <i class="fa-solid fa-arrow-left"></i>
         </a>
-        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+        <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
           <i class="fa-solid fa-moon"></i>
           <i class="fa-solid fa-sun"></i>
         </button>
@@ -59,56 +59,106 @@
           <h2><i class="fa-solid fa-tower-broadcast"></i> Morse Code</h2>
         </div>
 
-        <!-- Tab Navigation -->
-        <div class="morse-tabs">
-          <button class="morse-tab active" data-tab="encode">
-            <i class="fa-solid fa-arrow-right"></i>
-            <span>Text to Morse</span>
-          </button>
-          <button class="morse-tab" data-tab="decode">
-            <i class="fa-solid fa-arrow-left"></i>
-            <span>Morse to Text</span>
-          </button>
-          <button class="morse-tab" data-tab="reference">
-            <i class="fa-solid fa-book"></i>
-            <span>Reference</span>
-          </button>
-        </div>
-
         <!-- Main Content Area -->
         <div class="morse-main">
-          <!-- Encode Panel -->
-          <div class="morse-panel active" id="encodePanel">
-            <div class="converter-section">
-              <div class="input-group">
-                <div class="input-header">
-                  <label>Text Input</label>
-                  <div class="input-actions">
-                    <button class="action-btn" id="encPasteBtn" title="Paste">
+          <!-- Left: Controls Sidebar -->
+          <div class="morse-sidebar">
+            <!-- Mode Section -->
+            <div class="sidebar-section">
+              <div class="sidebar-header">
+                <h4>Mode</h4>
+                <span class="active-mode" id="activeModeLabel">Encode</span>
+              </div>
+              <div class="mode-buttons">
+                <button type="button" class="mode-btn active" data-mode="encode">
+                  <i class="fa-solid fa-arrow-right"></i>
+                  Text to Morse
+                </button>
+                <button type="button" class="mode-btn" data-mode="decode">
+                  <i class="fa-solid fa-arrow-left"></i>
+                  Morse to Text
+                </button>
+              </div>
+            </div>
+
+            <!-- Morse Keyboard (for decode mode) -->
+            <div class="sidebar-section morse-keyboard-section" id="morseKeyboardSection">
+              <h4>Input Keys</h4>
+              <div class="morse-keyboard">
+                <button type="button" class="morse-key" data-char=".">.</button>
+                <button type="button" class="morse-key" data-char="-">-</button>
+                <button type="button" class="morse-key" data-char=" ">Space</button>
+                <button type="button" class="morse-key" data-char="/">/</button>
+                <button type="button" class="morse-key" data-char="backspace"><i class="fa-solid fa-delete-left"></i></button>
+              </div>
+            </div>
+
+            <!-- Audio Settings -->
+            <div class="sidebar-section">
+              <h4>Audio Settings</h4>
+              <div class="settings-row">
+                <label>
+                  <i class="fa-solid fa-gauge-high"></i>
+                  Speed
+                </label>
+                <input type="range" id="speedSlider" min="5" max="25" value="15">
+                <span id="speedValue">15 WPM</span>
+              </div>
+              <div class="settings-row">
+                <label>
+                  <i class="fa-solid fa-wave-square"></i>
+                  Frequency
+                </label>
+                <input type="range" id="freqSlider" min="400" max="1000" value="700">
+                <span id="freqValue">700 Hz</span>
+              </div>
+            </div>
+
+            <!-- Quick Reference -->
+            <div class="sidebar-section">
+              <h4>Quick Reference</h4>
+              <div class="quick-ref">
+                <div class="ref-item"><span class="ref-char">SOS</span><span class="ref-code">... --- ...</span></div>
+                <div class="ref-item"><span class="ref-char">.</span><span class="ref-code">dit (short)</span></div>
+                <div class="ref-item"><span class="ref-char">-</span><span class="ref-code">dah (long)</span></div>
+                <div class="ref-item"><span class="ref-char">/</span><span class="ref-code">word gap</span></div>
+              </div>
+              <button type="button" class="show-ref-btn" id="showRefBtn">
+                <i class="fa-solid fa-book"></i>
+                Full Reference
+              </button>
+            </div>
+          </div>
+
+          <!-- Right: Converter Area -->
+          <div class="morse-content">
+            <!-- Encode Panel -->
+            <div class="morse-panel active" id="encodePanel">
+              <!-- Input -->
+              <div class="text-section">
+                <div class="section-header">
+                  <h3>Text Input</h3>
+                  <div class="section-actions">
+                    <button type="button" class="section-btn" id="encPasteBtn" title="Paste">
                       <i class="fa-solid fa-paste"></i>
                     </button>
-                    <button class="action-btn" id="encClearBtn" title="Clear">
+                    <button type="button" class="section-btn" id="encClearBtn" title="Clear">
                       <i class="fa-solid fa-trash"></i>
                     </button>
                   </div>
                 </div>
-                <textarea id="encodeInput" placeholder="Enter text to convert to Morse code..." rows="4"></textarea>
+                <textarea id="encodeInput" placeholder="Enter text to convert to Morse code..." spellcheck="false"></textarea>
               </div>
 
-              <div class="swap-container">
-                <button class="swap-btn" id="swapToDecodeBtn" title="Switch to decode mode">
-                  <i class="fa-solid fa-arrow-down"></i>
-                </button>
-              </div>
-
-              <div class="output-group">
-                <div class="output-header">
-                  <label>Morse Code</label>
-                  <div class="output-actions">
-                    <button class="action-btn" id="playEncodeBtn" title="Play">
+              <!-- Output -->
+              <div class="text-section">
+                <div class="section-header">
+                  <h3>Morse Code</h3>
+                  <div class="section-actions">
+                    <button type="button" class="section-btn play-btn" id="playEncodeBtn" title="Play">
                       <i class="fa-solid fa-play"></i>
                     </button>
-                    <button class="action-btn" id="encCopyBtn" title="Copy">
+                    <button type="button" class="section-btn" id="encCopyBtn" title="Copy">
                       <i class="fa-solid fa-copy"></i>
                     </button>
                   </div>
@@ -118,44 +168,31 @@
                 </div>
               </div>
             </div>
-          </div>
 
-          <!-- Decode Panel -->
-          <div class="morse-panel" id="decodePanel">
-            <div class="converter-section">
-              <div class="input-group">
-                <div class="input-header">
-                  <label>Morse Code Input</label>
-                  <div class="input-actions">
-                    <button class="action-btn" id="decPasteBtn" title="Paste">
+            <!-- Decode Panel -->
+            <div class="morse-panel" id="decodePanel">
+              <!-- Input -->
+              <div class="text-section">
+                <div class="section-header">
+                  <h3>Morse Code Input</h3>
+                  <div class="section-actions">
+                    <button type="button" class="section-btn" id="decPasteBtn" title="Paste">
                       <i class="fa-solid fa-paste"></i>
                     </button>
-                    <button class="action-btn" id="decClearBtn" title="Clear">
+                    <button type="button" class="section-btn" id="decClearBtn" title="Clear">
                       <i class="fa-solid fa-trash"></i>
                     </button>
                   </div>
                 </div>
-                <textarea id="decodeInput" placeholder="Enter Morse code (use . and - or • and −)&#10;Separate letters with space, words with / or |" rows="4"></textarea>
-                <div class="morse-keyboard">
-                  <button class="morse-key" data-char=".">.</button>
-                  <button class="morse-key" data-char="-">-</button>
-                  <button class="morse-key" data-char=" ">Space</button>
-                  <button class="morse-key" data-char="/">/</button>
-                  <button class="morse-key" data-char="backspace"><i class="fa-solid fa-delete-left"></i></button>
-                </div>
+                <textarea id="decodeInput" placeholder="Enter Morse code (use . and - or • and −)&#10;Separate letters with space, words with / or |" spellcheck="false"></textarea>
               </div>
 
-              <div class="swap-container">
-                <button class="swap-btn" id="swapToEncodeBtn" title="Switch to encode mode">
-                  <i class="fa-solid fa-arrow-down"></i>
-                </button>
-              </div>
-
-              <div class="output-group">
-                <div class="output-header">
-                  <label>Decoded Text</label>
-                  <div class="output-actions">
-                    <button class="action-btn" id="decCopyBtn" title="Copy">
+              <!-- Output -->
+              <div class="text-section">
+                <div class="section-header">
+                  <h3>Decoded Text</h3>
+                  <div class="section-actions">
+                    <button type="button" class="section-btn" id="decCopyBtn" title="Copy">
                       <i class="fa-solid fa-copy"></i>
                     </button>
                   </div>
@@ -166,58 +203,41 @@
               </div>
             </div>
           </div>
-
-          <!-- Reference Panel -->
-          <div class="morse-panel" id="referencePanel">
-            <div class="reference-section">
-              <div class="reference-group">
-                <h3>Letters</h3>
-                <div class="reference-grid" id="lettersGrid"></div>
-              </div>
-              <div class="reference-group">
-                <h3>Numbers</h3>
-                <div class="reference-grid" id="numbersGrid"></div>
-              </div>
-              <div class="reference-group">
-                <h3>Punctuation</h3>
-                <div class="reference-grid" id="punctuationGrid"></div>
-              </div>
-            </div>
-          </div>
         </div>
 
-        <!-- Audio Settings -->
-        <div class="audio-settings">
-          <div class="settings-row">
-            <label>
-              <i class="fa-solid fa-volume-high"></i>
-              Speed
-            </label>
-            <input type="range" id="speedSlider" min="5" max="25" value="15">
-            <span id="speedValue">15 WPM</span>
-          </div>
-          <div class="settings-row">
-            <label>
-              <i class="fa-solid fa-wave-square"></i>
-              Frequency
-            </label>
-            <input type="range" id="freqSlider" min="400" max="1000" value="700">
-            <span id="freqValue">700 Hz</span>
-          </div>
-        </div>
+        <!-- Mobile Toggle Button -->
+        <button type="button" class="mobile-toggle-btn" id="toggleSidebarBtn" title="Show/Hide Controls">
+          <i class="fa-solid fa-sliders"></i>
+        </button>
       </div>
     </div>
   </main>
 
-  <!-- Footer -->
-  <footer class="footer">
-    <div class="container">
-      <div class="footer-bottom">
-        <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach. All rights reserved.</p>
-        <p class="footer-made">Made with 💗 and Claude Code xD</p>
+  <!-- Reference Modal -->
+  <div class="reference-modal" id="referenceModal">
+    <div class="reference-modal-content">
+      <div class="reference-modal-header">
+        <h3><i class="fa-solid fa-book"></i> Morse Code Reference</h3>
+        <button type="button" class="close-ref-btn" id="closeRefBtn">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="reference-modal-body">
+        <div class="reference-group">
+          <h4>Letters</h4>
+          <div class="reference-grid" id="lettersGrid"></div>
+        </div>
+        <div class="reference-group">
+          <h4>Numbers</h4>
+          <div class="reference-grid" id="numbersGrid"></div>
+        </div>
+        <div class="reference-group">
+          <h4>Punctuation</h4>
+          <div class="reference-grid" id="punctuationGrid"></div>
+        </div>
       </div>
     </div>
-  </footer>
+  </div>
 
   <!-- Toast Notification -->
   <div class="toast" id="toast"></div>
@@ -232,7 +252,7 @@
     <div class="shortcuts-content">
       <div class="shortcuts-header">
         <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
-        <button class="close-shortcuts-btn" id="closeShortcutsBtn">
+        <button type="button" class="close-shortcuts-btn" id="closeShortcutsBtn">
           <i class="fa-solid fa-xmark"></i>
         </button>
       </div>
@@ -240,12 +260,12 @@
         <div class="shortcuts-group">
           <div class="shortcuts-group-title">Actions</div>
           <div class="shortcut-row">
-            <div class="shortcut-keys"><kbd>Space</kbd></div>
+            <div class="shortcut-keys"><kbd>P</kbd></div>
             <div class="shortcut-desc">Play Morse</div>
           </div>
           <div class="shortcut-row">
-            <div class="shortcut-keys"><kbd>C</kbd></div>
-            <div class="shortcut-desc">Copy output</div>
+            <div class="shortcut-keys"><kbd>R</kbd></div>
+            <div class="shortcut-desc">Show reference</div>
           </div>
         </div>
 
@@ -253,11 +273,11 @@
           <div class="shortcuts-group-title">Navigation</div>
           <div class="shortcut-row">
             <div class="shortcut-keys"><kbd>1</kbd></div>
-            <div class="shortcut-desc">Encode tab</div>
+            <div class="shortcut-desc">Encode mode</div>
           </div>
           <div class="shortcut-row">
             <div class="shortcut-keys"><kbd>2</kbd></div>
-            <div class="shortcut-desc">Decode tab</div>
+            <div class="shortcut-desc">Decode mode</div>
           </div>
           <div class="shortcut-row">
             <div class="shortcut-keys"><kbd>?</kbd></div>

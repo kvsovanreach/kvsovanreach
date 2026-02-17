@@ -1,6 +1,6 @@
 /**
- * KVSOVANREACH Prime Checker Tool
- * Check if a number is prime with detailed explanation
+ * Prime Checker Tool
+ * Following colorpicker design pattern
  */
 
 (function() {
@@ -8,8 +8,8 @@
 
   // ==================== DOM Elements ====================
   const elements = {
+    wrapper: document.querySelector('.prime-wrapper'),
     numberInput: document.getElementById('numberInput'),
-    checkBtn: document.getElementById('checkBtn'),
     clearBtn: document.getElementById('clearBtn'),
     inputHint: document.getElementById('inputHint'),
     quickBtns: document.querySelectorAll('.quick-btn'),
@@ -22,11 +22,13 @@
     factorsList: document.getElementById('factorsList'),
     explanationSection: document.getElementById('explanationSection'),
     explanationContent: document.getElementById('explanationContent'),
+    numberInfoSection: document.getElementById('numberInfoSection'),
     digitCount: document.getElementById('digitCount'),
     evenOdd: document.getElementById('evenOdd'),
     divBy3: document.getElementById('divBy3'),
     divBy5: document.getElementById('divBy5'),
-    emptyState: document.getElementById('emptyState')
+    emptyState: document.getElementById('emptyState'),
+    toggleInputBtn: document.getElementById('toggleInputBtn')
   };
 
   // ==================== Core Functions ====================
@@ -66,22 +68,6 @@
   }
 
   /**
-   * Get factor pairs
-   */
-  function getFactorPairs(n) {
-    const pairs = [];
-    const sqrt = Math.sqrt(n);
-
-    for (let i = 1; i <= sqrt; i++) {
-      if (n % i === 0) {
-        pairs.push([i, n / i]);
-      }
-    }
-
-    return pairs;
-  }
-
-  /**
    * Generate explanation steps
    */
   function generateExplanation(n, prime) {
@@ -101,11 +87,11 @@
     }
 
     const sqrt = Math.floor(Math.sqrt(n));
-    steps.push(`To check if ${n} is prime, we test divisibility up to √${n} ≈ ${sqrt}.`);
+    steps.push(`To check if ${n} is prime, we test divisibility up to \u221A${n} \u2248 ${sqrt}.`);
 
     if (n % 2 === 0) {
       steps.push(`${n} is even (divisible by 2).`);
-      steps.push(`Since ${n} ÷ 2 = ${n / 2}, it has factors other than 1 and itself.`);
+      steps.push(`Since ${n} \u00F7 2 = ${n / 2}, it has factors other than 1 and itself.`);
       return steps;
     }
 
@@ -118,7 +104,7 @@
       // Find the smallest factor
       for (let i = 3; i <= sqrt; i += 2) {
         if (n % i === 0) {
-          steps.push(`Found: ${n} ÷ ${i} = ${n / i}`);
+          steps.push(`Found: ${n} \u00F7 ${i} = ${n / i}`);
           steps.push(`Since ${n} has factors other than 1 and itself, it is not prime.`);
           break;
         }
@@ -156,10 +142,20 @@
   // ==================== UI Functions ====================
 
   /**
-   * Check the number and display results
+   * Check the number and display results (realtime)
    */
   function checkNumber() {
     const value = elements.numberInput.value.trim();
+
+    // Empty input - show empty state
+    if (value === '') {
+      elements.resultSection.classList.add('hidden');
+      elements.emptyState.classList.remove('hidden');
+      elements.numberInfoSection.style.display = 'none';
+      elements.inputHint.textContent = '';
+      return;
+    }
+
     const validation = validateInput(value);
 
     if (!validation.valid) {
@@ -177,7 +173,7 @@
     if (num < 2) {
       elements.resultCard.className = 'result-card invalid';
       elements.resultIcon.innerHTML = '<i class="fa-solid fa-xmark"></i>';
-      elements.resultLabel.textContent = 'is not a valid candidate (must be ≥ 2)';
+      elements.resultLabel.textContent = 'is not a valid candidate (must be \u2265 2)';
     } else if (prime) {
       elements.resultCard.className = 'result-card prime';
       elements.resultIcon.innerHTML = '<i class="fa-solid fa-check"></i>';
@@ -221,6 +217,7 @@
     elements.evenOdd.textContent = num % 2 === 0 ? 'Even' : 'Odd';
     elements.divBy3.textContent = num % 3 === 0 ? 'Yes' : 'No';
     elements.divBy5.textContent = num % 5 === 0 ? 'Yes' : 'No';
+    elements.numberInfoSection.style.display = 'block';
 
     // Show results
     elements.resultSection.classList.remove('hidden');
@@ -235,18 +232,35 @@
     elements.inputHint.textContent = '';
     elements.resultSection.classList.add('hidden');
     elements.emptyState.classList.remove('hidden');
+    elements.numberInfoSection.style.display = 'none';
     elements.numberInput.focus();
+  }
+
+  /**
+   * Toggle mobile input sidebar
+   */
+  function toggleInput() {
+    elements.wrapper?.classList.toggle('hide-input');
   }
 
   // ==================== Event Handlers ====================
 
   function handleInputKeydown(e) {
-    if (e.key === 'Enter') {
-      e.preventDefault();
-      checkNumber();
-    } else if (e.key === 'Escape') {
-      clearAll();
+    if (e.key === 'Escape') {
+      // On mobile, hide the input panel; on desktop, clear input
+      if (window.innerWidth <= 900 && !elements.wrapper?.classList.contains('hide-input')) {
+        elements.wrapper?.classList.add('hide-input');
+      } else {
+        clearAll();
+      }
     }
+  }
+
+  function handleInput(e) {
+    // Only allow digits
+    e.target.value = e.target.value.replace(/[^0-9]/g, '');
+    // Check in realtime
+    checkNumber();
   }
 
   function handleQuickClick(e) {
@@ -261,23 +275,18 @@
 
   function init() {
     // Event listeners
-    elements.checkBtn.addEventListener('click', checkNumber);
-    elements.clearBtn.addEventListener('click', clearAll);
-    elements.numberInput.addEventListener('keydown', handleInputKeydown);
+    elements.clearBtn?.addEventListener('click', clearAll);
+    elements.numberInput?.addEventListener('keydown', handleInputKeydown);
+    elements.numberInput?.addEventListener('input', handleInput);
+    elements.toggleInputBtn?.addEventListener('click', toggleInput);
 
     // Quick test buttons
     elements.quickBtns.forEach(btn => {
       btn.addEventListener('click', handleQuickClick);
     });
 
-    // Input validation (only allow digits)
-    elements.numberInput.addEventListener('input', (e) => {
-      e.target.value = e.target.value.replace(/[^0-9]/g, '');
-      elements.inputHint.textContent = '';
-    });
-
     // Focus input on load
-    elements.numberInput.focus();
+    elements.numberInput?.focus();
   }
 
   // ==================== Bootstrap ====================

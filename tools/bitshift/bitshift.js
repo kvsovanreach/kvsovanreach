@@ -1,5 +1,5 @@
 /**
- * KVSOVANREACH Bit-Shift Defuser
+ * Bit-Shift Defuser
  * Binary bitwise operation puzzle game
  */
 
@@ -26,6 +26,7 @@
 
   // ==================== DOM Elements ====================
   const elements = {
+    wrapper: document.querySelector('.game-wrapper'),
     targetBinary: document.getElementById('targetBinary'),
     currentBinary: document.getElementById('currentBinary'),
     targetDecimal: document.getElementById('targetDecimal'),
@@ -46,6 +47,7 @@
     undoBtn: document.getElementById('undoBtn'),
     newGameBtn: document.getElementById('newGameBtn'),
     continueBtn: document.getElementById('continueBtn'),
+    toggleControlsBtn: document.getElementById('toggleControlsBtn'),
     opBtns: document.querySelectorAll('.op-btn')
   };
 
@@ -165,7 +167,7 @@
     state.current = state.history.pop();
     state.moves--;
     updateDisplay();
-    ToolsCommon.Toast.show('Move undone', 'info');
+    ToolsCommon.showToast('Move undone', 'info');
   }
 
   // ==================== Game Logic ====================
@@ -215,7 +217,7 @@
 
       // Flash when low
       if (state.timeLeft <= 10) {
-        elements.timerDisplay.style.color = '#ef4444';
+        elements.timerDisplay.style.color = 'var(--color-error)';
       }
 
       if (state.timeLeft <= 0) {
@@ -245,13 +247,13 @@
       state.score += roundScore;
 
       elements.overlayIcon.className = 'fa-solid fa-check-circle';
-      elements.overlayIcon.style.color = '#22c55e';
+      elements.overlayIcon.style.color = 'var(--color-success)';
       elements.overlayTitle.textContent = 'DEFUSED!';
       elements.overlayMessage.textContent = `+${roundScore} points!`;
       elements.continueBtn.innerHTML = '<i class="fa-solid fa-arrow-right"></i><span>Next Level</span>';
     } else {
       elements.overlayIcon.className = 'fa-solid fa-bomb explode';
-      elements.overlayIcon.style.color = '#ef4444';
+      elements.overlayIcon.style.color = 'var(--color-error)';
       elements.overlayTitle.textContent = 'BOOM!';
       elements.overlayMessage.textContent = 'The bomb exploded!';
       elements.continueBtn.innerHTML = '<i class="fa-solid fa-rotate-left"></i><span>Try Again</span>';
@@ -280,7 +282,13 @@
     state.level = 1;
     state.score = 0;
     generatePuzzle();
-    ToolsCommon.Toast.show('New game started!', 'success');
+    ToolsCommon.showToast('New game started!', 'success');
+  }
+
+  // ==================== Mobile Toggle ====================
+
+  function toggleControls() {
+    elements.wrapper?.classList.toggle('hide-controls');
   }
 
   // ==================== Event Handlers ====================
@@ -295,6 +303,15 @@
 
   function handleKeydown(e) {
     if (e.target.matches('input, textarea, select, [contenteditable]')) return;
+
+    // Close controls on Escape (mobile)
+    if (e.key === 'Escape') {
+      if (window.innerWidth <= 900 && !elements.wrapper?.classList.contains('hide-controls')) {
+        elements.wrapper?.classList.add('hide-controls');
+        return;
+      }
+    }
+
     if (state.isGameOver) return;
 
     switch (e.key) {
@@ -346,6 +363,7 @@
     elements.undoBtn?.addEventListener('click', undo);
     elements.newGameBtn?.addEventListener('click', newGame);
     elements.continueBtn?.addEventListener('click', continueGame);
+    elements.toggleControlsBtn?.addEventListener('click', toggleControls);
 
     document.addEventListener('keydown', handleKeydown);
 

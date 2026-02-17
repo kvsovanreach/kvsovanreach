@@ -42,7 +42,7 @@
         <a href="../../tools.html" class="back-btn" title="Back to Tools">
           <i class="fa-solid fa-arrow-left"></i>
         </a>
-        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+        <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
           <i class="fa-solid fa-moon"></i>
           <i class="fa-solid fa-sun"></i>
         </button>
@@ -53,93 +53,131 @@
   <!-- Main Content -->
   <main class="tool-page">
     <div class="container">
-      <!-- Glossary Wrapper -->
       <div class="glossary-wrapper" id="paliglossary">
         <!-- Header -->
         <div class="glossary-header">
           <h2><i class="fa-solid fa-om"></i> Pali Glossary</h2>
-          <div class="glossary-actions">
-            <button class="action-btn" id="toggleModeBtn" title="Toggle search mode" aria-label="Toggle search mode">
-              <i class="fa-solid fa-repeat"></i>
-              <span>Mode</span>
-            </button>
-          </div>
         </div>
 
-        <!-- Content -->
-        <div class="glossary-content">
-          <!-- Search Section -->
-          <div class="search-section">
-            <div class="search-mode" id="searchMode">
-              <span class="mode-label">Search:</span>
-              <span class="mode-value" id="modeValue">English to Pali</span>
+        <!-- Main Content Area -->
+        <div class="glossary-main">
+          <!-- Left: Search Sidebar -->
+          <div class="search-sidebar">
+            <!-- Search Section -->
+            <div class="sidebar-section">
+              <h4>Search</h4>
+              <div class="search-box">
+                <i class="fa-solid fa-search search-icon"></i>
+                <input
+                  type="text"
+                  class="search-input"
+                  id="searchInput"
+                  placeholder="Type to search..."
+                  autocomplete="off"
+                >
+                <button type="button" class="clear-search-btn" id="clearSearchBtn" aria-label="Clear search">
+                  <i class="fa-solid fa-xmark"></i>
+                </button>
+              </div>
             </div>
-            <div class="search-box">
-              <i class="fa-solid fa-search search-icon"></i>
-              <input
-                type="text"
-                class="search-input"
-                id="searchInput"
-                placeholder="Type to search terms..."
-                autocomplete="off"
-              >
-              <button class="clear-search-btn" id="clearSearchBtn" aria-label="Clear search">
-                <i class="fa-solid fa-xmark"></i>
-              </button>
+
+            <!-- Search Mode -->
+            <div class="sidebar-section">
+              <h4>Search Mode</h4>
+              <div class="mode-buttons">
+                <button type="button" class="mode-btn active" data-mode="english">
+                  <i class="fa-solid fa-language"></i>
+                  English to Pali
+                </button>
+                <button type="button" class="mode-btn" data-mode="pali">
+                  <i class="fa-solid fa-om"></i>
+                  Pali to English
+                </button>
+              </div>
             </div>
-            <div class="search-stats" id="searchStats">
-              Showing <span id="resultsCount">0</span> of <span id="totalCount">0</span> terms
+
+            <!-- Categories -->
+            <div class="sidebar-section">
+              <h4>Categories</h4>
+              <div class="category-list">
+                <button type="button" class="category-btn active" data-category="all">
+                  <i class="fa-solid fa-layer-group"></i>
+                  All Terms
+                </button>
+                <button type="button" class="category-btn" data-category="core">
+                  <i class="fa-solid fa-circle" style="color: #ef4444;"></i>
+                  Core Concepts
+                </button>
+                <button type="button" class="category-btn" data-category="practice">
+                  <i class="fa-solid fa-circle" style="color: #22c55e;"></i>
+                  Practice
+                </button>
+                <button type="button" class="category-btn" data-category="mind">
+                  <i class="fa-solid fa-circle" style="color: #8b5cf6;"></i>
+                  Mind & Mental
+                </button>
+                <button type="button" class="category-btn" data-category="path">
+                  <i class="fa-solid fa-circle" style="color: #f59e0b;"></i>
+                  The Path
+                </button>
+                <button type="button" class="category-btn" data-category="misc">
+                  <i class="fa-solid fa-circle" style="color: #64748b;"></i>
+                  Miscellaneous
+                </button>
+              </div>
+            </div>
+
+            <!-- Stats -->
+            <div class="sidebar-section">
+              <h4>Statistics</h4>
+              <div class="stats-display">
+                <div class="stat-row">
+                  <span class="stat-label">Showing</span>
+                  <span class="stat-value" id="resultsCount">0</span>
+                </div>
+                <div class="stat-row">
+                  <span class="stat-label">Total Terms</span>
+                  <span class="stat-value" id="totalCount">0</span>
+                </div>
+              </div>
             </div>
           </div>
 
-          <!-- Results Section -->
-          <div class="results-section" id="resultsSection">
+          <!-- Right: Results -->
+          <div class="results-content">
             <div class="results-list" id="resultsList">
               <!-- Results populated by JS -->
             </div>
             <div class="no-results" id="noResults">
               <i class="fa-solid fa-search"></i>
               <p>No terms found</p>
-              <span>Try a different search term</span>
-            </div>
-          </div>
-
-          <!-- Categories Section -->
-          <div class="categories-section">
-            <h3>Categories</h3>
-            <div class="category-tags" id="categoryTags">
-              <button class="category-tag active" data-category="all">All</button>
-              <button class="category-tag" data-category="core">Core Concepts</button>
-              <button class="category-tag" data-category="practice">Practice</button>
-              <button class="category-tag" data-category="mind">Mind & Mental</button>
-              <button class="category-tag" data-category="path">The Path</button>
-              <button class="category-tag" data-category="misc">Miscellaneous</button>
+              <span>Try a different search term or category</span>
             </div>
           </div>
         </div>
+
+        <!-- Mobile Toggle Button -->
+        <button type="button" class="mobile-toggle-btn" id="toggleSearchBtn" title="Show/Hide Search">
+          <i class="fa-solid fa-filter"></i>
+        </button>
       </div>
     </div>
   </main>
 
-  <!-- Footer -->
-  <footer class="footer">
-    <div class="container">
-      <div class="footer-bottom">
-        <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach. All rights reserved.</p>
-        <p class="footer-made">Made with 💗 and Claude Code xD</p>
-      </div>
-    </div>
-  </footer>
-
   <!-- Toast Notification -->
   <div class="toast" id="toast"></div>
+
+  <!-- Keyboard Shortcuts Hint -->
+  <div class="shortcuts-hint" id="shortcutsHint">
+    <span><kbd>Shift</kbd>+<kbd>?</kbd> : shortcuts</span>
+  </div>
 
   <!-- Keyboard Shortcuts Modal -->
   <div class="shortcuts-modal" id="shortcutsModal">
     <div class="shortcuts-content">
       <div class="shortcuts-header">
         <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
-        <button class="close-shortcuts-btn" id="closeShortcutsBtn" aria-label="Close shortcuts">
+        <button type="button" class="close-shortcuts-btn" id="closeShortcutsBtn">
           <i class="fa-solid fa-xmark"></i>
         </button>
       </div>
@@ -154,30 +192,22 @@
             <div class="shortcut-keys"><kbd>M</kbd></div>
             <div class="shortcut-desc">Toggle search mode</div>
           </div>
-        </div>
-        <div class="shortcuts-group">
-          <div class="shortcuts-group-title">General</div>
           <div class="shortcut-row">
             <div class="shortcut-keys"><kbd>?</kbd></div>
             <div class="shortcut-desc">Show shortcuts</div>
           </div>
           <div class="shortcut-row">
             <div class="shortcut-keys"><kbd>Escape</kbd></div>
-            <div class="shortcut-desc">Close modal / Clear search</div>
+            <div class="shortcut-desc">Clear search / Close modal</div>
           </div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Keyboard Shortcuts Hint -->
-  <div class="shortcuts-hint" id="shortcutsHint">
-    <span><kbd>Shift</kbd>+<kbd>?</kbd> : shortcuts</span>
-  </div>
-
   <!-- Shared Tools JavaScript -->
   <script src="../../js/tools-common.js"></script>
-  <!-- Scripts -->
+  <!-- Pali Glossary JavaScript -->
   <script src="paliglossary.js"></script>
 </body>
 </html>

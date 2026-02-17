@@ -1,10 +1,17 @@
 /**
  * Morse Code Translator Styles
+ * Following colorpicker design pattern
  */
 
 /* ==================== Wrapper ==================== */
 .morse-wrapper {
   width: 100%;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+  position: relative;
 }
 
 /* ==================== Header ==================== */
@@ -13,8 +20,7 @@
   align-items: center;
   padding: var(--space-4) var(--space-5);
   background-color: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  border-bottom: 1px solid var(--color-border);
 }
 
 .morse-header h2 {
@@ -24,142 +30,362 @@
   font-size: var(--font-size-xl);
   font-weight: 600;
   color: var(--color-text);
+  margin: 0;
 }
 
 .morse-header h2 i {
   color: var(--color-primary);
 }
 
-/* ==================== Tabs ==================== */
-.morse-tabs {
-  display: flex;
-  background-color: var(--color-bg-secondary);
-  border: 1px solid var(--color-border);
-  border-top: none;
-  overflow: hidden;
-}
-
-.morse-tab {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--space-2);
-  padding: var(--space-3) var(--space-4);
-  font-size: var(--font-size-sm);
-  font-weight: 500;
-  color: var(--color-text-secondary);
-  background: none;
-  border: none;
-  cursor: pointer;
-  transition: all var(--transition-fast);
-  position: relative;
-}
-
-.morse-tab:hover {
-  background-color: var(--color-bg);
-  color: var(--color-text);
-}
-
-.morse-tab.active {
-  color: var(--color-primary);
-  background-color: var(--color-bg);
-}
-
-.morse-tab.active::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background-color: var(--color-primary);
-}
-
-/* ==================== Main Content ==================== */
+/* ==================== Main Layout ==================== */
 .morse-main {
-  background-color: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-top: none;
-  border-radius: 0 0 var(--radius-lg) var(--radius-lg);
-  padding: var(--space-5);
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  min-height: 500px;
 }
 
-.morse-panel {
-  display: none;
-}
-
-.morse-panel.active {
-  display: block;
-}
-
-/* ==================== Converter Section ==================== */
-.converter-section {
+/* ==================== Sidebar (Left) ==================== */
+.morse-sidebar {
+  background: linear-gradient(145deg, var(--color-bg-tertiary), var(--color-bg-secondary));
+  border-right: 1px solid var(--color-border);
   display: flex;
   flex-direction: column;
-  gap: var(--space-4);
+  overflow-y: auto;
 }
 
-.input-group,
-.output-group {
-  display: flex;
-  flex-direction: column;
+.sidebar-section {
+  padding: var(--space-3) var(--space-4);
+  border-bottom: 1px solid var(--color-border);
 }
 
-.input-header,
-.output-header {
+.sidebar-section:last-child {
+  border-bottom: none;
+}
+
+.sidebar-section h4 {
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin: 0 0 var(--space-2) 0;
+}
+
+.sidebar-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin-bottom: var(--space-2);
 }
 
-.input-header label,
-.output-header label {
+.sidebar-header h4 {
+  margin: 0;
+}
+
+.active-mode {
+  font-size: 0.65rem;
+  font-weight: 500;
+  color: white;
+  padding: var(--space-1) var(--space-2);
+  background-color: var(--color-primary);
+  border-radius: var(--radius-full);
+}
+
+/* Mode Buttons */
+.mode-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.mode-btn {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  background-color: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-xs);
+  font-weight: 500;
+  color: var(--color-text);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.mode-btn:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.mode-btn.active {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+  color: white;
+}
+
+.mode-btn i {
+  font-size: 0.6rem;
+}
+
+/* Morse Keyboard Section */
+.morse-keyboard-section {
+  display: none;
+}
+
+.morse-keyboard-section.show {
+  display: block;
+}
+
+.morse-keyboard {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+}
+
+.morse-key {
+  min-width: 40px;
+  padding: var(--space-2);
   font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--color-text);
+  background-color: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.morse-key:hover {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+  color: white;
+}
+
+.morse-key:active {
+  transform: scale(0.95);
+}
+
+/* Audio Settings */
+.settings-row {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  margin-bottom: var(--space-3);
+}
+
+.settings-row:last-child {
+  margin-bottom: 0;
+}
+
+.settings-row label {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--font-size-xs);
   font-weight: 500;
   color: var(--color-text-secondary);
 }
 
-.input-actions,
-.output-actions {
+.settings-row label i {
+  color: var(--color-primary);
+  font-size: 0.65rem;
+}
+
+.settings-row input[type="range"] {
+  width: 100%;
+  height: 6px;
+  background: var(--color-border);
+  border-radius: var(--radius-full);
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.settings-row input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 14px;
+  height: 14px;
+  background: var(--color-primary);
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.settings-row input[type="range"]::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  background: var(--color-primary);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.settings-row span {
+  font-size: 0.65rem;
+  color: var(--color-text-muted);
+  text-align: right;
+}
+
+/* Quick Reference */
+.quick-ref {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  margin-bottom: var(--space-2);
+}
+
+.ref-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-1) var(--space-2);
+  background-color: var(--color-bg-secondary);
+  border-radius: var(--radius-xs);
+  font-size: 0.65rem;
+}
+
+.ref-char {
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.ref-code {
+  font-family: 'Monaco', 'Menlo', monospace;
+  color: var(--color-primary);
+}
+
+.show-ref-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: var(--space-2);
+  background-color: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-xs);
+  font-weight: 500;
+  color: var(--color-text);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.show-ref-btn:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+/* ==================== Content (Right) ==================== */
+.morse-content {
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-4);
+  gap: var(--space-3);
+}
+
+.morse-panel {
+  display: none;
+  flex-direction: column;
+  gap: var(--space-3);
+  height: 100%;
+}
+
+.morse-panel.active {
+  display: flex;
+}
+
+/* Text Sections */
+.text-section {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  background-color: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-2) var(--space-3);
+  background-color: var(--color-bg-secondary);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.section-header h3 {
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--color-text);
+  margin: 0;
+}
+
+.section-actions {
   display: flex;
   gap: var(--space-1);
 }
 
-textarea {
-  width: 100%;
-  padding: var(--space-4);
-  font-size: var(--font-size-base);
-  font-family: inherit;
-  line-height: 1.6;
-  color: var(--color-text);
-  background-color: var(--color-bg);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
-  resize: vertical;
+.section-btn {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  border-radius: var(--radius-sm);
   transition: all var(--transition-fast);
 }
 
-textarea:focus {
-  outline: none;
-  border-color: var(--color-primary);
-  box-shadow: 0 0 0 3px rgba(55, 118, 161, 0.1);
+.section-btn:hover {
+  background-color: var(--color-bg-tertiary);
+  color: var(--color-primary);
 }
 
-/* ==================== Morse Output ==================== */
+.section-btn.play-btn {
+  background-color: var(--color-primary);
+  color: white;
+}
+
+.section-btn.play-btn:hover {
+  background-color: var(--color-primary-dark);
+}
+
+.text-section textarea {
+  flex: 1;
+  min-height: 120px;
+  padding: var(--space-3);
+  background-color: var(--color-bg);
+  border: none;
+  font-family: inherit;
+  font-size: var(--font-size-sm);
+  line-height: 1.6;
+  color: var(--color-text);
+  resize: none;
+  outline: none;
+}
+
+.text-section textarea::placeholder {
+  color: var(--color-text-muted);
+}
+
+/* Morse Output */
 .morse-output,
 .text-output {
-  min-height: 100px;
-  padding: var(--space-4);
+  flex: 1;
+  min-height: 120px;
+  padding: var(--space-3);
   background-color: var(--color-bg);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
   font-family: 'Monaco', 'Menlo', monospace;
-  font-size: var(--font-size-lg);
+  font-size: var(--font-size-base);
   line-height: 1.8;
   word-break: break-word;
   color: var(--color-text);
+  overflow-y: auto;
 }
 
 .morse-output .placeholder,
@@ -182,81 +408,99 @@ textarea:focus {
   width: var(--space-4);
 }
 
-/* ==================== Swap Button ==================== */
-.swap-container {
-  display: flex;
+/* ==================== Reference Modal ==================== */
+.reference-modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1100;
+  align-items: center;
   justify-content: center;
+  padding: var(--space-4);
 }
 
-.swap-btn {
-  width: 40px;
-  height: 40px;
+.reference-modal.show {
+  display: flex;
+}
+
+.reference-modal-content {
+  background-color: var(--color-surface);
+  border-radius: var(--radius-xl);
+  max-width: 600px;
+  width: 100%;
+  max-height: 80vh;
+  overflow: hidden;
+  box-shadow: var(--shadow-xl);
+}
+
+.reference-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-4);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.reference-modal-header h3 {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  color: var(--color-text);
+  margin: 0;
+}
+
+.reference-modal-header h3 i {
+  color: var(--color-primary);
+}
+
+.close-ref-btn {
+  width: 32px;
+  height: 32px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: var(--color-primary);
-  color: #fff;
+  background: none;
   border: none;
-  border-radius: 50%;
+  color: var(--color-text-secondary);
   cursor: pointer;
+  border-radius: var(--radius-sm);
   transition: all var(--transition-fast);
 }
 
-.swap-btn:hover {
-  transform: scale(1.1);
-  box-shadow: var(--shadow-md);
-}
-
-/* ==================== Morse Keyboard ==================== */
-.morse-keyboard {
-  display: flex;
-  gap: var(--space-2);
-  margin-top: var(--space-3);
-  flex-wrap: wrap;
-}
-
-.morse-key {
-  min-width: 50px;
-  padding: var(--space-2) var(--space-3);
-  font-size: var(--font-size-base);
-  font-weight: 600;
-  color: var(--color-text);
+.close-ref-btn:hover {
   background-color: var(--color-bg);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
-  cursor: pointer;
-  transition: all var(--transition-fast);
+  color: var(--color-text);
 }
 
-.morse-key:hover {
-  background-color: var(--color-primary);
-  border-color: var(--color-primary);
-  color: #fff;
+.reference-modal-body {
+  padding: var(--space-4);
+  overflow-y: auto;
+  max-height: calc(80vh - 80px);
 }
 
-.morse-key:active {
-  transform: scale(0.95);
+.reference-group {
+  margin-bottom: var(--space-4);
 }
 
-/* ==================== Reference Section ==================== */
-.reference-section {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-6);
+.reference-group:last-child {
+  margin-bottom: 0;
 }
 
-.reference-group h3 {
-  font-size: var(--font-size-base);
+.reference-group h4 {
+  font-size: var(--font-size-sm);
   font-weight: 600;
   color: var(--color-text);
-  margin-bottom: var(--space-3);
+  margin: 0 0 var(--space-2) 0;
   padding-bottom: var(--space-2);
   border-bottom: 1px solid var(--color-border);
 }
 
 .reference-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
   gap: var(--space-2);
 }
 
@@ -264,10 +508,10 @@ textarea:focus {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: var(--space-3);
+  padding: var(--space-2);
   background-color: var(--color-bg);
   border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-sm);
   text-align: center;
   transition: all var(--transition-fast);
   cursor: pointer;
@@ -280,99 +524,40 @@ textarea:focus {
 }
 
 .reference-item .char {
-  font-size: var(--font-size-xl);
+  font-size: var(--font-size-lg);
   font-weight: 700;
   color: var(--color-text);
-  margin-bottom: var(--space-1);
 }
 
 .reference-item .code {
   font-family: 'Monaco', 'Menlo', monospace;
-  font-size: var(--font-size-sm);
+  font-size: 0.65rem;
   color: var(--color-primary);
-  letter-spacing: 2px;
+  letter-spacing: 1px;
 }
 
-/* ==================== Audio Settings ==================== */
-.audio-settings {
-  margin-top: var(--space-5);
-  padding: var(--space-4);
-  background-color: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
-}
-
-.settings-row {
-  display: flex;
+/* ==================== Mobile Toggle Button ==================== */
+.mobile-toggle-btn {
+  display: none;
+  position: absolute;
+  bottom: var(--space-4);
+  left: var(--space-4);
+  width: 48px;
+  height: 48px;
   align-items: center;
-  gap: var(--space-3);
-  margin-bottom: var(--space-3);
-}
-
-.settings-row:last-child {
-  margin-bottom: 0;
-}
-
-.settings-row label {
-  display: flex;
-  align-items: center;
-  gap: var(--space-2);
-  min-width: 100px;
-  font-size: var(--font-size-sm);
-  font-weight: 500;
-  color: var(--color-text-secondary);
-}
-
-.settings-row label i {
-  color: var(--color-primary);
-}
-
-.settings-row input[type="range"] {
-  flex: 1;
-  height: 6px;
-  background: var(--color-border);
-  border-radius: var(--radius-full);
-  outline: none;
-  -webkit-appearance: none;
-  appearance: none;
-}
-
-.settings-row input[type="range"]::-webkit-slider-runnable-track {
-  height: 6px;
-  border-radius: var(--radius-full);
-  background: var(--color-border);
-}
-
-.settings-row input[type="range"]::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  width: 18px;
-  height: 18px;
-  background: var(--color-primary);
-  border-radius: 50%;
-  cursor: pointer;
-  margin-top: -6px;
-}
-
-.settings-row input[type="range"]::-moz-range-track {
-  height: 6px;
-  border-radius: var(--radius-full);
-  background: var(--color-border);
-}
-
-.settings-row input[type="range"]::-moz-range-thumb {
-  width: 18px;
-  height: 18px;
-  background: var(--color-primary);
+  justify-content: center;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+  color: white;
   border: none;
-  border-radius: 50%;
+  border-radius: var(--radius-full);
   cursor: pointer;
+  box-shadow: var(--shadow-lg);
+  z-index: 10;
+  transition: all var(--transition-fast);
 }
 
-.settings-row span {
-  min-width: 70px;
-  font-size: var(--font-size-sm);
-  color: var(--color-text-muted);
-  text-align: right;
+.mobile-toggle-btn:hover {
+  transform: scale(1.05);
 }
 
 /* ==================== Responsive ==================== */
@@ -380,38 +565,150 @@ textarea:focus {
   .morse-wrapper {
     border-radius: var(--radius-lg);
   }
+
+  .section-btn {
+    width: 26px;
+    height: 26px;
+  }
+
+  .close-ref-btn {
+    width: 28px;
+    height: 28px;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .morse-main {
+    display: block;
+    position: relative;
+  }
+
+  .morse-sidebar {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-right: none;
+    z-index: 5;
+    background: var(--color-bg-secondary);
+  }
+
+  .morse-wrapper.show-sidebar .morse-sidebar {
+    display: flex;
+  }
+
+  .morse-content {
+    min-height: 450px;
+  }
+
+  .mobile-toggle-btn {
+    display: flex;
+  }
 }
 
 @media screen and (max-width: 768px) {
-  .morse-main {
-    padding: var(--space-4);
-    border-radius: 0 0 var(--radius-md) var(--radius-md);
+  .morse-wrapper {
+    border-radius: var(--radius-lg);
+  }
+
+  .morse-header {
+    padding: var(--space-3);
+  }
+
+  .morse-header h2 {
+    font-size: var(--font-size-lg);
+    gap: var(--space-2);
+  }
+
+  .morse-content {
+    padding: var(--space-3);
+  }
+
+  .section-header {
+    padding: var(--space-2);
+  }
+
+  .section-btn {
+    width: 24px;
+    height: 24px;
+  }
+
+  .text-section textarea,
+  .morse-output,
+  .text-output {
+    min-height: 100px;
+    padding: var(--space-2);
+    font-size: var(--font-size-xs);
+  }
+
+  .mobile-toggle-btn {
+    width: 44px;
+    height: 44px;
+    bottom: var(--space-3);
+    left: var(--space-3);
+  }
+
+  .sidebar-section {
+    padding: var(--space-2) var(--space-3);
+  }
+
+  .reference-modal-content {
+    max-width: 100%;
+    max-height: 90vh;
   }
 
   .reference-grid {
-    grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
-  }
-
-  .settings-row {
-    flex-wrap: wrap;
-  }
-
-  .settings-row input[type="range"] {
-    width: 100%;
-    order: 3;
+    grid-template-columns: repeat(4, 1fr);
   }
 }
 
 @media screen and (max-width: 480px) {
-  .morse-tab span {
-    display: none;
+  .morse-header {
+    padding: var(--space-2) var(--space-3);
+  }
+
+  .morse-header h2 {
+    font-size: var(--font-size-base);
+  }
+
+  .morse-content {
+    padding: var(--space-2);
+  }
+
+  .section-header h3 {
+    font-size: var(--font-size-xs);
+  }
+
+  .section-btn {
+    width: 22px;
+    height: 22px;
+    font-size: 0.65rem;
+  }
+
+  .text-section textarea,
+  .morse-output,
+  .text-output {
+    min-height: 80px;
+  }
+
+  .mobile-toggle-btn {
+    width: 40px;
+    height: 40px;
+    bottom: var(--space-2);
+    left: var(--space-2);
   }
 
   .reference-grid {
     grid-template-columns: repeat(3, 1fr);
   }
 
-  .morse-keyboard {
-    justify-content: center;
+  .reference-item {
+    padding: var(--space-1);
+  }
+
+  .reference-item .char {
+    font-size: var(--font-size-base);
   }
 }

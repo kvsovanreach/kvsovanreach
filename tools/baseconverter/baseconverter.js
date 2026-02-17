@@ -1,6 +1,7 @@
 /**
  * KVSOVANREACH Base Converter Tool
  * Convert numbers between different bases with visualization
+ * Following colorpicker design pattern
  */
 
 (function() {
@@ -8,6 +9,7 @@
 
   // ==================== DOM Elements ====================
   const elements = {
+    wrapper: document.querySelector('.base-wrapper'),
     fromBase: document.getElementById('fromBase'),
     fromValue: document.getElementById('fromValue'),
     toBase: document.getElementById('toBase'),
@@ -23,7 +25,8 @@
     stepsSection: document.getElementById('stepsSection'),
     stepsContent: document.getElementById('stepsContent'),
     bitViz: document.getElementById('bitViz'),
-    bitContainer: document.getElementById('bitContainer')
+    bitContainer: document.getElementById('bitContainer'),
+    toggleControlsBtn: document.getElementById('toggleControlsBtn')
   };
 
   // ==================== Constants ====================
@@ -244,6 +247,10 @@
     doConversion();
   }
 
+  function toggleControls() {
+    elements.wrapper?.classList.toggle('hide-controls');
+  }
+
   // ==================== Event Handlers ====================
 
   function handleInput(e) {
@@ -258,6 +265,14 @@
   }
 
   function handleKeydown(e) {
+    // Close controls on Escape (mobile)
+    if (e.key === 'Escape') {
+      if (window.innerWidth <= 900 && !elements.wrapper?.classList.contains('hide-controls')) {
+        elements.wrapper?.classList.add('hide-controls');
+        return;
+      }
+    }
+
     if (e.key === 's' && !e.ctrlKey && !e.metaKey && e.target.tagName !== 'INPUT') {
       e.preventDefault();
       swapBases();
@@ -268,8 +283,8 @@
 
   function init() {
     // Event listeners
-    elements.fromValue.addEventListener('input', handleInput);
-    elements.fromBase.addEventListener('change', () => {
+    elements.fromValue?.addEventListener('input', handleInput);
+    elements.fromBase?.addEventListener('change', () => {
       updateValidChars();
       // Clear input if it contains invalid chars for new base
       const base = parseInt(elements.fromBase.value);
@@ -278,9 +293,9 @@
       }
       doConversion();
     });
-    elements.toBase.addEventListener('change', doConversion);
-    elements.swapBtn.addEventListener('click', swapBases);
-    elements.copyBtn.addEventListener('click', copyResult);
+    elements.toBase?.addEventListener('change', doConversion);
+    elements.swapBtn?.addEventListener('click', swapBases);
+    elements.copyBtn?.addEventListener('click', copyResult);
 
     // Preset buttons
     elements.presetBtns.forEach(btn => {
@@ -289,12 +304,15 @@
       });
     });
 
+    // Mobile toggle
+    elements.toggleControlsBtn?.addEventListener('click', toggleControls);
+
     // Keyboard shortcuts
     document.addEventListener('keydown', handleKeydown);
 
     // Initial state
     updateValidChars();
-    elements.fromValue.focus();
+    elements.fromValue?.focus();
   }
 
   // ==================== Bootstrap ====================
