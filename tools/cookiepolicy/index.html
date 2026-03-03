@@ -58,169 +58,312 @@
         <!-- Header -->
         <div class="cookie-header">
           <h2><i class="fa-solid fa-cookie-bite"></i> Cookie Policy Generator</h2>
-          <div class="cookie-actions">
-            <button class="action-btn" id="resetBtn" title="Reset" aria-label="Reset">
-              <i class="fa-solid fa-rotate"></i>
-              <span>Reset</span>
-            </button>
-          </div>
         </div>
 
-        <!-- Content -->
-        <div class="cookie-content">
-          <!-- Website Info -->
-          <div class="config-section">
-            <h3><i class="fa-solid fa-globe"></i> Website Information</h3>
-            <div class="form-grid">
-              <div class="form-group">
-                <label for="websiteName">Website Name *</label>
-                <input type="text" id="websiteName" placeholder="My Website" required>
-              </div>
-              <div class="form-group">
-                <label for="websiteUrl">Website URL *</label>
-                <input type="url" id="websiteUrl" placeholder="https://example.com" required>
-              </div>
-              <div class="form-group">
-                <label for="companyName">Company/Owner Name</label>
-                <input type="text" id="companyName" placeholder="Company Inc.">
-              </div>
-              <div class="form-group">
-                <label for="contactEmail">Contact Email</label>
-                <input type="email" id="contactEmail" placeholder="privacy@example.com">
-              </div>
-            </div>
-          </div>
-
-          <!-- Cookie Types -->
-          <div class="config-section">
-            <h3><i class="fa-solid fa-list-check"></i> Cookie Types Used</h3>
-            <div class="cookie-types">
-              <label class="cookie-type-card">
-                <input type="checkbox" id="essentialCookies" checked disabled>
-                <div class="type-content">
-                  <span class="type-name">Essential Cookies</span>
-                  <span class="type-desc">Required for basic website functionality</span>
-                  <span class="type-badge required">Required</span>
-                </div>
-              </label>
-              <label class="cookie-type-card">
-                <input type="checkbox" id="performanceCookies">
-                <div class="type-content">
-                  <span class="type-name">Performance Cookies</span>
-                  <span class="type-desc">Analytics and performance monitoring</span>
-                </div>
-              </label>
-              <label class="cookie-type-card">
-                <input type="checkbox" id="functionalCookies">
-                <div class="type-content">
-                  <span class="type-name">Functional Cookies</span>
-                  <span class="type-desc">Enhanced features and personalization</span>
-                </div>
-              </label>
-              <label class="cookie-type-card">
-                <input type="checkbox" id="targetingCookies">
-                <div class="type-content">
-                  <span class="type-name">Targeting/Advertising Cookies</span>
-                  <span class="type-desc">Personalized ads and marketing</span>
-                </div>
-              </label>
-            </div>
-          </div>
-
-          <!-- Third Party Services -->
-          <div class="config-section">
-            <h3><i class="fa-solid fa-plug"></i> Third-Party Services</h3>
-            <div class="services-grid">
-              <label class="service-item">
-                <input type="checkbox" id="googleAnalytics">
-                <span>Google Analytics</span>
-              </label>
-              <label class="service-item">
-                <input type="checkbox" id="googleAds">
-                <span>Google Ads</span>
-              </label>
-              <label class="service-item">
-                <input type="checkbox" id="facebook">
-                <span>Facebook Pixel</span>
-              </label>
-              <label class="service-item">
-                <input type="checkbox" id="hotjar">
-                <span>Hotjar</span>
-              </label>
-              <label class="service-item">
-                <input type="checkbox" id="intercom">
-                <span>Intercom</span>
-              </label>
-              <label class="service-item">
-                <input type="checkbox" id="stripe">
-                <span>Stripe</span>
-              </label>
-            </div>
-          </div>
-
-          <!-- Additional Options -->
-          <div class="config-section">
-            <h3><i class="fa-solid fa-sliders"></i> Additional Options</h3>
-            <div class="options-grid">
-              <label class="option-item">
-                <input type="checkbox" id="gdprCompliance" checked>
-                <span>GDPR Compliance (EU)</span>
-              </label>
-              <label class="option-item">
-                <input type="checkbox" id="ccpaCompliance">
-                <span>CCPA Compliance (California)</span>
-              </label>
-              <label class="option-item">
-                <input type="checkbox" id="includeDataRetention">
-                <span>Include Data Retention Info</span>
-              </label>
-              <label class="option-item">
-                <input type="checkbox" id="includeUserRights" checked>
-                <span>Include User Rights Section</span>
-              </label>
-            </div>
-          </div>
-
-          <!-- Generate Button -->
-          <button class="generate-btn" id="generateBtn">
-            <i class="fa-solid fa-wand-magic-sparkles"></i>
-            <span>Generate Cookie Policy</span>
+        <!-- Tab Navigation -->
+        <div class="tool-tabs">
+          <button class="tool-tab active" data-tab="editor">
+            <i class="fa-solid fa-edit"></i>
+            <span>Editor</span>
           </button>
+          <button class="tool-tab" data-tab="preview">
+            <i class="fa-solid fa-eye"></i>
+            <span>Preview</span>
+          </button>
+          <button class="tool-tab" data-tab="templates">
+            <i class="fa-solid fa-file-lines"></i>
+            <span>Templates</span>
+          </button>
+        </div>
 
-          <!-- Output Section -->
-          <div class="output-section hidden" id="outputSection">
-            <div class="output-header">
-              <h3><i class="fa-solid fa-file-lines"></i> Generated Policy</h3>
-              <div class="output-actions">
-                <button class="action-btn" id="copyHtmlBtn">
-                  <i class="fa-solid fa-code"></i>
-                  <span>Copy HTML</span>
-                </button>
-                <button class="action-btn" id="copyTextBtn">
-                  <i class="fa-solid fa-copy"></i>
-                  <span>Copy Text</span>
-                </button>
+        <!-- Main Content Area -->
+        <div class="cookie-main">
+          <!-- Left: Preview Section -->
+          <div class="cookie-preview-section">
+            <!-- Status Card -->
+            <div class="status-card">
+              <div class="status-header">
+                <h4>Policy Status</h4>
+              </div>
+              <div class="status-grid">
+                <div class="status-item">
+                  <div class="status-icon"><i class="fa-solid fa-globe"></i></div>
+                  <div class="status-content">
+                    <span class="status-value" id="statusWebsite">-</span>
+                    <span class="status-label">Website</span>
+                  </div>
+                </div>
+                <div class="status-item">
+                  <div class="status-icon"><i class="fa-solid fa-cookie"></i></div>
+                  <div class="status-content">
+                    <span class="status-value" id="statusCookies">1</span>
+                    <span class="status-label">Cookie Types</span>
+                  </div>
+                </div>
+                <div class="status-item">
+                  <div class="status-icon"><i class="fa-solid fa-plug"></i></div>
+                  <div class="status-content">
+                    <span class="status-value" id="statusServices">0</span>
+                    <span class="status-label">Services</span>
+                  </div>
+                </div>
+                <div class="status-item">
+                  <div class="status-icon"><i class="fa-solid fa-shield-halved"></i></div>
+                  <div class="status-content">
+                    <span class="status-value" id="statusCompliance">GDPR</span>
+                    <span class="status-label">Compliance</span>
+                  </div>
+                </div>
               </div>
             </div>
-            <div class="output-preview" id="outputPreview">
-              <!-- Generated policy will appear here -->
+
+            <!-- Quick Actions -->
+            <div class="quick-actions">
+              <button class="quick-action-btn" id="generateBtn" title="Generate (G)">
+                <i class="fa-solid fa-wand-magic-sparkles"></i>
+                <span>Generate</span>
+              </button>
+              <button class="quick-action-btn" id="copyBtn" title="Copy (C)">
+                <i class="fa-solid fa-copy"></i>
+                <span>Copy</span>
+              </button>
+              <button class="quick-action-btn" id="resetBtn" title="Reset (R)">
+                <i class="fa-solid fa-rotate"></i>
+                <span>Reset</span>
+              </button>
+            </div>
+
+            <!-- Compliance Badges -->
+            <div class="compliance-card">
+              <div class="compliance-header">
+                <h4><i class="fa-solid fa-shield-halved"></i> Compliance</h4>
+              </div>
+              <div class="compliance-badges" id="complianceBadges">
+                <span class="compliance-badge active" data-type="gdpr">
+                  <i class="fa-solid fa-check"></i> GDPR
+                </span>
+                <span class="compliance-badge" data-type="ccpa">
+                  <i class="fa-solid fa-xmark"></i> CCPA
+                </span>
+              </div>
+            </div>
+
+            <!-- Info Panel -->
+            <div class="info-card">
+              <div class="info-header">
+                <h4><i class="fa-solid fa-circle-info"></i> Notice</h4>
+              </div>
+              <div class="info-content">
+                <p>This tool generates a template. Consult a legal professional for full compliance.</p>
+              </div>
             </div>
           </div>
 
-          <!-- Info Panel -->
-          <div class="info-panel">
-            <div class="info-header">
-              <i class="fa-solid fa-circle-info"></i>
-              <span>Important Notice</span>
+          <!-- Right: Tab Content -->
+          <div class="cookie-content">
+            <!-- Editor Panel -->
+            <div class="cookie-panel active" id="editorPanel">
+              <!-- Website Info -->
+              <div class="config-section">
+                <h3><i class="fa-solid fa-globe"></i> Website Information</h3>
+                <div class="form-grid">
+                  <div class="form-group">
+                    <label for="websiteName">Website Name *</label>
+                    <input type="text" id="websiteName" placeholder="My Website" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="websiteUrl">Website URL *</label>
+                    <input type="url" id="websiteUrl" placeholder="https://example.com" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="companyName">Company/Owner Name</label>
+                    <input type="text" id="companyName" placeholder="Company Inc.">
+                  </div>
+                  <div class="form-group">
+                    <label for="contactEmail">Contact Email</label>
+                    <input type="email" id="contactEmail" placeholder="privacy@example.com">
+                  </div>
+                </div>
+              </div>
+
+              <!-- Cookie Types -->
+              <div class="config-section">
+                <h3><i class="fa-solid fa-list-check"></i> Cookie Types Used</h3>
+                <div class="cookie-types">
+                  <label class="cookie-type-card">
+                    <input type="checkbox" id="essentialCookies" checked disabled>
+                    <div class="type-content">
+                      <span class="type-name">Essential Cookies</span>
+                      <span class="type-desc">Required for basic website functionality</span>
+                      <span class="type-badge required">Required</span>
+                    </div>
+                  </label>
+                  <label class="cookie-type-card">
+                    <input type="checkbox" id="performanceCookies">
+                    <div class="type-content">
+                      <span class="type-name">Performance Cookies</span>
+                      <span class="type-desc">Analytics and performance monitoring</span>
+                    </div>
+                  </label>
+                  <label class="cookie-type-card">
+                    <input type="checkbox" id="functionalCookies">
+                    <div class="type-content">
+                      <span class="type-name">Functional Cookies</span>
+                      <span class="type-desc">Enhanced features and personalization</span>
+                    </div>
+                  </label>
+                  <label class="cookie-type-card">
+                    <input type="checkbox" id="targetingCookies">
+                    <div class="type-content">
+                      <span class="type-name">Targeting/Advertising Cookies</span>
+                      <span class="type-desc">Personalized ads and marketing</span>
+                    </div>
+                  </label>
+                </div>
+              </div>
+
+              <!-- Third Party Services -->
+              <div class="config-section">
+                <h3><i class="fa-solid fa-plug"></i> Third-Party Services</h3>
+                <div class="services-grid">
+                  <label class="service-item">
+                    <input type="checkbox" id="googleAnalytics">
+                    <span>Google Analytics</span>
+                  </label>
+                  <label class="service-item">
+                    <input type="checkbox" id="googleAds">
+                    <span>Google Ads</span>
+                  </label>
+                  <label class="service-item">
+                    <input type="checkbox" id="facebook">
+                    <span>Facebook Pixel</span>
+                  </label>
+                  <label class="service-item">
+                    <input type="checkbox" id="hotjar">
+                    <span>Hotjar</span>
+                  </label>
+                  <label class="service-item">
+                    <input type="checkbox" id="intercom">
+                    <span>Intercom</span>
+                  </label>
+                  <label class="service-item">
+                    <input type="checkbox" id="stripe">
+                    <span>Stripe</span>
+                  </label>
+                </div>
+              </div>
+
+              <!-- Additional Options -->
+              <div class="config-section">
+                <h3><i class="fa-solid fa-sliders"></i> Additional Options</h3>
+                <div class="options-grid">
+                  <label class="option-item">
+                    <input type="checkbox" id="gdprCompliance" checked>
+                    <span>GDPR Compliance (EU)</span>
+                  </label>
+                  <label class="option-item">
+                    <input type="checkbox" id="ccpaCompliance">
+                    <span>CCPA Compliance (California)</span>
+                  </label>
+                  <label class="option-item">
+                    <input type="checkbox" id="includeDataRetention">
+                    <span>Include Data Retention Info</span>
+                  </label>
+                  <label class="option-item">
+                    <input type="checkbox" id="includeUserRights" checked>
+                    <span>Include User Rights Section</span>
+                  </label>
+                </div>
+              </div>
             </div>
-            <div class="info-content">
-              <ul>
-                <li>This tool generates a template - customize for your needs</li>
-                <li>Consult a legal professional for compliance</li>
-                <li>Update your policy when you change cookie usage</li>
-                <li>GDPR requires active consent for non-essential cookies</li>
-              </ul>
-              <p class="tip"><strong>Disclaimer:</strong> This generator provides a template only. It does not constitute legal advice.</p>
+
+            <!-- Preview Panel -->
+            <div class="cookie-panel" id="previewPanel">
+              <div class="preview-header">
+                <h3><i class="fa-solid fa-file-lines"></i> Generated Policy</h3>
+                <div class="preview-actions">
+                  <button class="action-btn" id="copyHtmlBtn" title="Copy HTML">
+                    <i class="fa-solid fa-code"></i>
+                  </button>
+                  <button class="action-btn" id="copyTextBtn" title="Copy Text">
+                    <i class="fa-solid fa-copy"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="preview-content" id="previewContent">
+                <div class="preview-placeholder">
+                  <i class="fa-solid fa-file-lines"></i>
+                  <p>Fill in the form in the Editor tab and click Generate</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Templates Panel -->
+            <div class="cookie-panel" id="templatesPanel">
+              <div class="templates-container">
+                <h3>Policy Templates</h3>
+                <p class="templates-subtitle">Click on a template to load it into the editor</p>
+                <div class="templates-grid" id="templatesGrid">
+                  <div class="template-card" data-template="basic">
+                    <div class="template-icon"><i class="fa-solid fa-file"></i></div>
+                    <div class="template-info">
+                      <span class="template-name">Basic Website</span>
+                      <span class="template-desc">Simple site with essential cookies only</span>
+                    </div>
+                  </div>
+                  <div class="template-card" data-template="blog">
+                    <div class="template-icon"><i class="fa-solid fa-blog"></i></div>
+                    <div class="template-info">
+                      <span class="template-name">Blog/Content Site</span>
+                      <span class="template-desc">Analytics and social sharing</span>
+                    </div>
+                  </div>
+                  <div class="template-card" data-template="ecommerce">
+                    <div class="template-icon"><i class="fa-solid fa-cart-shopping"></i></div>
+                    <div class="template-info">
+                      <span class="template-name">E-Commerce Store</span>
+                      <span class="template-desc">Full tracking and payments</span>
+                    </div>
+                  </div>
+                  <div class="template-card" data-template="saas">
+                    <div class="template-icon"><i class="fa-solid fa-cloud"></i></div>
+                    <div class="template-info">
+                      <span class="template-name">SaaS Application</span>
+                      <span class="template-desc">Analytics and support tools</span>
+                    </div>
+                  </div>
+                  <div class="template-card" data-template="marketing">
+                    <div class="template-icon"><i class="fa-solid fa-bullhorn"></i></div>
+                    <div class="template-info">
+                      <span class="template-name">Marketing Site</span>
+                      <span class="template-desc">Full advertising stack</span>
+                    </div>
+                  </div>
+                  <div class="template-card" data-template="minimal">
+                    <div class="template-icon"><i class="fa-solid fa-leaf"></i></div>
+                    <div class="template-info">
+                      <span class="template-name">Privacy-Focused</span>
+                      <span class="template-desc">Minimal tracking, max privacy</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Tips -->
+                <div class="templates-tips">
+                  <div class="tip-card">
+                    <i class="fa-solid fa-lightbulb"></i>
+                    <div class="tip-content">
+                      <strong>Tip:</strong> Templates provide a starting point. Always customize for your specific needs.
+                    </div>
+                  </div>
+                  <div class="tip-card warning">
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                    <div class="tip-content">
+                      <strong>Disclaimer:</strong> This generator provides a template only. It does not constitute legal advice.
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -241,6 +384,11 @@
   <!-- Toast Notification -->
   <div class="toast" id="toast"></div>
 
+  <!-- Keyboard Shortcuts Hint -->
+  <div class="shortcuts-hint" id="shortcutsHint">
+    <span><kbd>Shift</kbd>+<kbd>?</kbd> : shortcuts</span>
+  </div>
+
   <!-- Keyboard Shortcuts Modal -->
   <div class="shortcuts-modal" id="shortcutsModal">
     <div class="shortcuts-content">
@@ -252,30 +400,42 @@
       </div>
       <div class="shortcuts-body">
         <div class="shortcuts-group">
-          <div class="shortcuts-group-title">Actions</div>
+          <div class="shortcuts-group-title">General</div>
           <div class="shortcut-row">
-            <div class="shortcut-keys"><kbd>Ctrl</kbd>+<kbd>Enter</kbd></div>
+            <div class="shortcut-keys"><kbd>G</kbd></div>
             <div class="shortcut-desc">Generate policy</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>C</kbd></div>
+            <div class="shortcut-desc">Copy policy</div>
           </div>
           <div class="shortcut-row">
             <div class="shortcut-keys"><kbd>R</kbd></div>
             <div class="shortcut-desc">Reset form</div>
           </div>
-        </div>
-        <div class="shortcuts-group">
-          <div class="shortcuts-group-title">General</div>
           <div class="shortcut-row">
             <div class="shortcut-keys"><kbd>?</kbd></div>
             <div class="shortcut-desc">Show shortcuts</div>
           </div>
         </div>
+
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">Navigation</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>1</kbd></div>
+            <div class="shortcut-desc">Editor tab</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>2</kbd></div>
+            <div class="shortcut-desc">Preview tab</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>3</kbd></div>
+            <div class="shortcut-desc">Templates tab</div>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-
-  <!-- Keyboard Shortcuts Hint -->
-  <div class="shortcuts-hint" id="shortcutsHint">
-    <span><kbd>Shift</kbd>+<kbd>?</kbd> : shortcuts</span>
   </div>
 
   <!-- Shared Tools JavaScript -->

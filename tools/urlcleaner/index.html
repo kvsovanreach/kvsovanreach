@@ -58,76 +58,215 @@
         <!-- Header -->
         <div class="cleaner-header">
           <h2><i class="fa-solid fa-broom"></i> URL Cleaner</h2>
-          <div class="cleaner-actions">
-            <button class="action-btn" id="clearBtn" title="Clear" aria-label="Clear">
-              <i class="fa-solid fa-trash"></i>
-              <span>Clear</span>
-            </button>
-          </div>
         </div>
 
-        <!-- Content -->
-        <div class="cleaner-content">
-          <!-- Input Section -->
-          <div class="input-section">
-            <label for="urlInput">Paste URL with tracking parameters</label>
-            <div class="input-wrapper">
-              <input type="text" id="urlInput" placeholder="https://example.com/?utm_source=...&fbclid=..." autocomplete="off" spellcheck="false">
-              <button class="action-btn" id="pasteBtn" title="Paste" aria-label="Paste">
-                <i class="fa-solid fa-paste"></i>
-              </button>
-            </div>
-          </div>
+        <!-- Tab Navigation -->
+        <div class="tool-tabs">
+          <button class="tool-tab active" data-tab="cleaner">
+            <i class="fa-solid fa-link"></i>
+            <span>Cleaner</span>
+          </button>
+          <button class="tool-tab" data-tab="filters">
+            <i class="fa-solid fa-sliders"></i>
+            <span>Filters</span>
+          </button>
+          <button class="tool-tab" data-tab="examples">
+            <i class="fa-solid fa-list"></i>
+            <span>Examples</span>
+          </button>
+        </div>
 
-          <!-- Result Section -->
-          <div class="result-section hidden" id="resultSection">
-            <div class="result-header">
-              <h3><i class="fa-solid fa-check-circle"></i> Cleaned URL</h3>
+        <!-- Main Content -->
+        <div class="cleaner-main">
+          <!-- Left Preview Section -->
+          <div class="cleaner-preview-section">
+            <!-- Status Card -->
+            <div class="status-card">
+              <div class="status-header">
+                <i class="fa-solid fa-chart-simple"></i>
+                <span>Status</span>
+              </div>
+              <div class="status-grid">
+                <div class="status-item">
+                  <span class="status-value" id="removedCount">0</span>
+                  <span class="status-label">Removed</span>
+                </div>
+                <div class="status-item">
+                  <span class="status-value" id="keptCount">0</span>
+                  <span class="status-label">Kept</span>
+                </div>
+                <div class="status-item">
+                  <span class="status-value" id="savedBytes">0</span>
+                  <span class="status-label">Bytes Saved</span>
+                </div>
+                <div class="status-item">
+                  <span class="status-value" id="activeFilters">19</span>
+                  <span class="status-label">Active Filters</span>
+                </div>
+              </div>
             </div>
-            <div class="result-url">
-              <code id="cleanedUrl"></code>
-              <button class="action-btn primary" id="copyBtn" title="Copy" aria-label="Copy">
+
+            <!-- Quick Actions -->
+            <div class="quick-actions">
+              <button class="quick-action-btn" id="pasteBtn" title="Paste URL (V)">
+                <i class="fa-solid fa-paste"></i>
+                <span>Paste</span>
+              </button>
+              <button class="quick-action-btn" id="copyBtn" title="Copy Cleaned URL (C)">
                 <i class="fa-solid fa-copy"></i>
                 <span>Copy</span>
               </button>
+              <button class="quick-action-btn" id="clearBtn" title="Clear All (R)">
+                <i class="fa-solid fa-trash"></i>
+                <span>Clear</span>
+              </button>
+            </div>
+
+            <!-- Cleaned URL Preview -->
+            <div class="preview-url-card" id="previewCard">
+              <div class="preview-url-header">
+                <i class="fa-solid fa-check-circle"></i>
+                <span>Cleaned URL</span>
+              </div>
+              <div class="preview-url-content">
+                <code id="previewUrl">Paste a URL to clean</code>
+              </div>
+            </div>
+
+            <!-- Info Card -->
+            <div class="info-card">
+              <div class="info-card-header">
+                <i class="fa-solid fa-circle-info"></i>
+                <span>Privacy Tip</span>
+              </div>
+              <p>Removing tracking parameters protects your privacy when sharing links.</p>
             </div>
           </div>
 
-          <!-- Removed Parameters -->
-          <div class="removed-section hidden" id="removedSection">
-            <h3><i class="fa-solid fa-filter-circle-xmark"></i> Removed Parameters</h3>
-            <div class="removed-list" id="removedList"></div>
-          </div>
+          <!-- Right Content Section -->
+          <div class="cleaner-content">
+            <!-- Cleaner Panel -->
+            <div class="cleaner-panel active" id="cleanerPanel">
+              <!-- Input Section -->
+              <div class="input-section">
+                <label for="urlInput">Paste URL with tracking parameters</label>
+                <div class="input-wrapper">
+                  <input type="text" id="urlInput" placeholder="https://example.com/?utm_source=...&fbclid=..." autocomplete="off" spellcheck="false">
+                </div>
+              </div>
 
-          <!-- Kept Parameters -->
-          <div class="kept-section hidden" id="keptSection">
-            <h3><i class="fa-solid fa-filter"></i> Kept Parameters</h3>
-            <div class="kept-list" id="keptList"></div>
-          </div>
+              <!-- Result Section -->
+              <div class="result-section hidden" id="resultSection">
+                <div class="result-header">
+                  <h3><i class="fa-solid fa-check-circle"></i> Cleaned URL</h3>
+                </div>
+                <div class="result-url">
+                  <code id="cleanedUrl"></code>
+                  <button class="action-btn primary" id="copyResultBtn" title="Copy">
+                    <i class="fa-solid fa-copy"></i>
+                    <span>Copy</span>
+                  </button>
+                </div>
+              </div>
 
-          <!-- Filter Options -->
-          <div class="filters-section">
-            <h3><i class="fa-solid fa-sliders"></i> Tracking Parameters to Remove</h3>
-            <div class="filters-grid" id="filtersGrid">
-              <!-- Filters will be generated here -->
+              <!-- Removed Parameters -->
+              <div class="params-section hidden" id="removedSection">
+                <h3><i class="fa-solid fa-filter-circle-xmark"></i> Removed Parameters</h3>
+                <div class="params-list" id="removedList"></div>
+              </div>
+
+              <!-- Kept Parameters -->
+              <div class="params-section hidden" id="keptSection">
+                <h3><i class="fa-solid fa-filter"></i> Kept Parameters</h3>
+                <div class="params-list" id="keptList"></div>
+              </div>
             </div>
-          </div>
 
-          <!-- Info Panel -->
-          <div class="info-panel">
-            <div class="info-header">
-              <i class="fa-solid fa-circle-info"></i>
-              <span>About Tracking Parameters</span>
+            <!-- Filters Panel -->
+            <div class="cleaner-panel" id="filtersPanel">
+              <div class="filters-header">
+                <h3><i class="fa-solid fa-sliders"></i> Tracking Parameters to Remove</h3>
+                <div class="filters-actions">
+                  <button class="filter-action-btn" id="selectAllBtn">Select All</button>
+                  <button class="filter-action-btn" id="deselectAllBtn">Deselect All</button>
+                </div>
+              </div>
+              <div class="filters-grid" id="filtersGrid">
+                <!-- Filters will be generated here -->
+              </div>
+              <div class="filters-info">
+                <i class="fa-solid fa-circle-info"></i>
+                <p>These parameters are commonly used for tracking. Check the ones you want to remove from URLs.</p>
+              </div>
             </div>
-            <div class="info-content">
-              <p>Tracking parameters are added to URLs by various services to track where visitors come from:</p>
-              <ul>
-                <li><strong>utm_*</strong> - Google Analytics campaign tracking</li>
-                <li><strong>fbclid</strong> - Facebook click identifier</li>
-                <li><strong>gclid</strong> - Google Ads click identifier</li>
-                <li><strong>ref</strong> - Referral source tracking</li>
-              </ul>
-              <p class="tip"><strong>Privacy tip:</strong> Removing these parameters helps protect your privacy when sharing links.</p>
+
+            <!-- Examples Panel -->
+            <div class="cleaner-panel" id="examplesPanel">
+              <div class="examples-header">
+                <h3><i class="fa-solid fa-list"></i> Sample URLs</h3>
+                <p>Click on any example to load it into the cleaner</p>
+              </div>
+              <div class="examples-grid">
+                <!-- Google Ads -->
+                <div class="example-card" data-url="https://example.com/products/laptop?gclid=CjwKCAjw7o3MBhB1EiwA_1&utm_source=google&utm_medium=cpc&utm_campaign=summer_sale">
+                  <div class="example-card-header">
+                    <i class="fa-brands fa-google"></i>
+                    <span>Google Ads</span>
+                  </div>
+                  <p>URL with Google Click ID and UTM parameters</p>
+                  <code>gclid, utm_source, utm_medium, utm_campaign</code>
+                </div>
+
+                <!-- Facebook -->
+                <div class="example-card" data-url="https://example.com/article/news?fbclid=IwAR1234567890abcdef&ref=share">
+                  <div class="example-card-header">
+                    <i class="fa-brands fa-facebook"></i>
+                    <span>Facebook</span>
+                  </div>
+                  <p>URL with Facebook Click ID and referrer</p>
+                  <code>fbclid, ref</code>
+                </div>
+
+                <!-- Email Campaign -->
+                <div class="example-card" data-url="https://example.com/sale?utm_source=newsletter&utm_medium=email&utm_campaign=weekly&mc_eid=abc123&mc_cid=def456">
+                  <div class="example-card-header">
+                    <i class="fa-solid fa-envelope"></i>
+                    <span>Email Campaign</span>
+                  </div>
+                  <p>URL from Mailchimp newsletter</p>
+                  <code>utm_*, mc_eid, mc_cid</code>
+                </div>
+
+                <!-- Microsoft Ads -->
+                <div class="example-card" data-url="https://example.com/services?msclkid=abcd1234&utm_source=bing&utm_medium=cpc&utm_campaign=brand">
+                  <div class="example-card-header">
+                    <i class="fa-brands fa-microsoft"></i>
+                    <span>Microsoft Ads</span>
+                  </div>
+                  <p>URL with Microsoft Click ID</p>
+                  <code>msclkid, utm_*</code>
+                </div>
+
+                <!-- Instagram -->
+                <div class="example-card" data-url="https://example.com/product/shoes?igshid=YmMyMTA2M2Y%3D&utm_source=ig_web_copy_link">
+                  <div class="example-card-header">
+                    <i class="fa-brands fa-instagram"></i>
+                    <span>Instagram</span>
+                  </div>
+                  <p>URL from Instagram share</p>
+                  <code>igshid, utm_source</code>
+                </div>
+
+                <!-- Analytics -->
+                <div class="example-card" data-url="https://example.com/page?_ga=2.123456789&_gl=1*abc123*_ga*MTIz&gclsrc=aw.ds">
+                  <div class="example-card-header">
+                    <i class="fa-solid fa-chart-line"></i>
+                    <span>Analytics</span>
+                  </div>
+                  <p>URL with Google Analytics tracking</p>
+                  <code>_ga, _gl, gclsrc</code>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -161,12 +300,31 @@
         <div class="shortcuts-group">
           <div class="shortcuts-group-title">Actions</div>
           <div class="shortcut-row">
-            <div class="shortcut-keys"><kbd>Ctrl</kbd><span class="key-plus">+</span><kbd>V</kbd></div>
-            <div class="shortcut-desc">Paste URL</div>
+            <div class="shortcut-keys"><kbd>V</kbd></div>
+            <div class="shortcut-desc">Paste URL from clipboard</div>
           </div>
           <div class="shortcut-row">
-            <div class="shortcut-keys"><kbd>Ctrl</kbd><span class="key-plus">+</span><kbd>C</kbd></div>
+            <div class="shortcut-keys"><kbd>C</kbd></div>
             <div class="shortcut-desc">Copy cleaned URL</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>R</kbd></div>
+            <div class="shortcut-desc">Reset / Clear</div>
+          </div>
+        </div>
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">Navigation</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>1</kbd></div>
+            <div class="shortcut-desc">Cleaner tab</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>2</kbd></div>
+            <div class="shortcut-desc">Filters tab</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>3</kbd></div>
+            <div class="shortcut-desc">Examples tab</div>
           </div>
         </div>
         <div class="shortcuts-group">

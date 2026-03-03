@@ -57,140 +57,247 @@
         <!-- Header -->
         <div class="heatmap-header">
           <h2><i class="fa-solid fa-fire"></i> Repetition Heatmap</h2>
-          <div class="heatmap-actions">
-            <button class="action-btn" id="sampleBtn" title="Load Sample" aria-label="Load sample text">
-              <i class="fa-solid fa-file-lines"></i>
-              <span>Sample</span>
-            </button>
-            <button class="action-btn" id="clearBtn" title="Clear" aria-label="Clear all">
-              <i class="fa-solid fa-trash"></i>
-            </button>
-          </div>
         </div>
 
-        <!-- Content -->
-        <div class="heatmap-content">
-          <!-- Input Section -->
-          <div class="input-section">
-            <div class="input-header">
-              <label for="textInput">Enter Text</label>
-              <div class="input-actions">
-                <button class="action-btn" id="pasteBtn" title="Paste" aria-label="Paste from clipboard">
-                  <i class="fa-solid fa-paste"></i>
-                </button>
-              </div>
-            </div>
-            <textarea id="textInput" placeholder="Paste or type your text here to visualize word repetition..."></textarea>
-          </div>
+        <!-- Tab Navigation -->
+        <div class="tool-tabs">
+          <button class="tool-tab active" data-tab="editor">
+            <i class="fa-solid fa-edit"></i>
+            <span>Editor</span>
+          </button>
+          <button class="tool-tab" data-tab="heatmap">
+            <i class="fa-solid fa-fire"></i>
+            <span>Heatmap</span>
+          </button>
+          <button class="tool-tab" data-tab="samples">
+            <i class="fa-solid fa-book"></i>
+            <span>Samples</span>
+          </button>
+        </div>
 
-          <!-- Options Section -->
-          <div class="options-section">
-            <div class="option-group">
-              <label for="minLengthSelect">Min Word Length</label>
-              <select id="minLengthSelect">
-                <option value="1">1 character</option>
-                <option value="2">2 characters</option>
-                <option value="3" selected>3 characters</option>
-                <option value="4">4 characters</option>
-                <option value="5">5 characters</option>
-              </select>
+        <!-- Main Content Area -->
+        <div class="heatmap-main">
+          <!-- Left: Stats & Preview Section -->
+          <div class="heatmap-preview-section">
+            <!-- Stats Card -->
+            <div class="stats-card">
+              <div class="stats-header">
+                <h4>Text Stats</h4>
+              </div>
+              <div class="stats-grid">
+                <div class="stat-item">
+                  <div class="stat-icon"><i class="fa-solid fa-font"></i></div>
+                  <div class="stat-content">
+                    <span class="stat-value" id="totalWords">0</span>
+                    <span class="stat-label">Total</span>
+                  </div>
+                </div>
+                <div class="stat-item">
+                  <div class="stat-icon"><i class="fa-solid fa-fingerprint"></i></div>
+                  <div class="stat-content">
+                    <span class="stat-value" id="uniqueWords">0</span>
+                    <span class="stat-label">Unique</span>
+                  </div>
+                </div>
+                <div class="stat-item">
+                  <div class="stat-icon"><i class="fa-solid fa-repeat"></i></div>
+                  <div class="stat-content">
+                    <span class="stat-value" id="repeatedWords">0</span>
+                    <span class="stat-label">Repeated</span>
+                  </div>
+                </div>
+                <div class="stat-item">
+                  <div class="stat-icon"><i class="fa-solid fa-fire"></i></div>
+                  <div class="stat-content">
+                    <span class="stat-value" id="maxRepeat">0</span>
+                    <span class="stat-label">Max</span>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="option-group">
-              <label for="minCountSelect">Min Occurrences</label>
-              <select id="minCountSelect">
-                <option value="1">1 time</option>
-                <option value="2" selected>2 times</option>
-                <option value="3">3 times</option>
-                <option value="5">5 times</option>
-              </select>
-            </div>
-            <div class="option-group checkbox-group">
-              <label>
-                <input type="checkbox" id="ignoreCommonCheck" checked>
-                Ignore common words
-              </label>
-            </div>
-          </div>
 
-          <!-- Stats Section -->
-          <div class="stats-section">
-            <div class="stats-grid">
-              <div class="stat-card">
-                <div class="stat-icon"><i class="fa-solid fa-font"></i></div>
-                <div class="stat-content">
-                  <span class="stat-value" id="totalWords">0</span>
-                  <span class="stat-label">Total Words</span>
-                </div>
+            <!-- Quick Actions -->
+            <div class="quick-actions">
+              <button class="quick-action-btn" id="analyzeBtn" title="Analyze (A)">
+                <i class="fa-solid fa-magnifying-glass-chart"></i>
+                <span>Analyze</span>
+              </button>
+              <button class="quick-action-btn" id="copyBtn" title="Copy Report (C)">
+                <i class="fa-solid fa-copy"></i>
+                <span>Copy</span>
+              </button>
+              <button class="quick-action-btn" id="clearBtn" title="Clear (Del)">
+                <i class="fa-solid fa-trash"></i>
+                <span>Clear</span>
+              </button>
+            </div>
+
+            <!-- Top Words -->
+            <div class="topwords-card">
+              <div class="topwords-header">
+                <h4><i class="fa-solid fa-ranking-star"></i> Top Words</h4>
               </div>
-              <div class="stat-card">
-                <div class="stat-icon"><i class="fa-solid fa-fingerprint"></i></div>
-                <div class="stat-content">
-                  <span class="stat-value" id="uniqueWords">0</span>
-                  <span class="stat-label">Unique Words</span>
-                </div>
-              </div>
-              <div class="stat-card">
-                <div class="stat-icon"><i class="fa-solid fa-repeat"></i></div>
-                <div class="stat-content">
-                  <span class="stat-value" id="repeatedWords">0</span>
-                  <span class="stat-label">Repeated</span>
-                </div>
-              </div>
-              <div class="stat-card">
-                <div class="stat-icon"><i class="fa-solid fa-fire"></i></div>
-                <div class="stat-content">
-                  <span class="stat-value" id="maxRepeat">0</span>
-                  <span class="stat-label">Max Repeat</span>
-                </div>
+              <div class="topwords-content" id="topWordsList">
+                <div class="topwords-empty">No data yet</div>
               </div>
             </div>
-          </div>
 
-          <!-- Heatmap Display Section -->
-          <div class="display-section">
-            <div class="display-header">
-              <h3><i class="fa-solid fa-eye"></i> Text Heatmap</h3>
-              <div class="legend">
+            <!-- Legend -->
+            <div class="legend-card">
+              <div class="legend-header">
+                <h4>Heat Scale</h4>
+              </div>
+              <div class="legend-content">
                 <span class="legend-label">Low</span>
                 <div class="legend-gradient"></div>
                 <span class="legend-label">High</span>
               </div>
             </div>
-            <div class="display-content" id="heatmapDisplay">
-              <div class="display-placeholder">
-                <i class="fa-solid fa-fire"></i>
-                <p>Enter text to visualize word repetition</p>
-              </div>
-            </div>
           </div>
 
-          <!-- Top Words Section -->
-          <div class="topwords-section">
-            <div class="topwords-header">
-              <h3><i class="fa-solid fa-ranking-star"></i> Most Repeated Words</h3>
-            </div>
-            <div class="topwords-content" id="topWordsList">
-              <div class="topwords-placeholder">
-                <p>Top repeated words will appear here</p>
+          <!-- Right: Tab Content -->
+          <div class="heatmap-content">
+            <!-- Editor Panel -->
+            <div class="heatmap-panel active" id="editorPanel">
+              <div class="editor-header">
+                <label for="textInput">Enter Text</label>
+                <div class="editor-actions">
+                  <button class="action-btn" id="pasteBtn" title="Paste" aria-label="Paste from clipboard">
+                    <i class="fa-solid fa-paste"></i>
+                  </button>
+                </div>
+              </div>
+              <textarea id="textInput" placeholder="Paste or type your text here to analyze word repetition...
+
+Tips:
+• Enter any text to find overused words
+• Adjust filters using the options below
+• Click 'Analyze' or switch to Heatmap tab to visualize"></textarea>
+
+              <!-- Options Section -->
+              <div class="options-section">
+                <div class="options-header">
+                  <h4><i class="fa-solid fa-sliders"></i> Filter Options</h4>
+                </div>
+                <div class="options-grid">
+                  <div class="option-group">
+                    <label for="minLengthSelect">Min Word Length</label>
+                    <select id="minLengthSelect">
+                      <option value="1">1 character</option>
+                      <option value="2">2 characters</option>
+                      <option value="3" selected>3 characters</option>
+                      <option value="4">4 characters</option>
+                      <option value="5">5 characters</option>
+                    </select>
+                  </div>
+                  <div class="option-group">
+                    <label for="minCountSelect">Min Occurrences</label>
+                    <select id="minCountSelect">
+                      <option value="1">1 time</option>
+                      <option value="2" selected>2 times</option>
+                      <option value="3">3 times</option>
+                      <option value="5">5 times</option>
+                    </select>
+                  </div>
+                  <div class="option-group checkbox-group">
+                    <label>
+                      <input type="checkbox" id="ignoreCommonCheck" checked>
+                      <span>Ignore common words (the, a, is, etc.)</span>
+                    </label>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
 
-          <!-- Info Panel -->
-          <div class="info-panel">
-            <div class="info-header">
-              <i class="fa-solid fa-circle-info"></i>
-              <span>How to Use</span>
+            <!-- Heatmap Panel -->
+            <div class="heatmap-panel" id="heatmapPanel">
+              <div class="display-header">
+                <h3><i class="fa-solid fa-eye"></i> Text Heatmap</h3>
+                <div class="display-actions">
+                  <button class="action-btn" id="deselectBtn" title="Deselect word">
+                    <i class="fa-solid fa-xmark"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="display-content" id="heatmapDisplay">
+                <div class="display-placeholder">
+                  <i class="fa-solid fa-fire"></i>
+                  <p>Enter text in the Editor tab to visualize word repetition</p>
+                </div>
+              </div>
+              <div class="selected-word-info hidden" id="selectedWordInfo">
+                <span class="selected-label">Selected:</span>
+                <span class="selected-word" id="selectedWordText">-</span>
+                <span class="selected-count" id="selectedWordCount">0 times</span>
+              </div>
             </div>
-            <div class="info-content">
-              <ul>
-                <li>Paste or type text to analyze word repetition</li>
-                <li>Words are colored from blue (low) to red (high) based on frequency</li>
-                <li>Hover over words to see their count</li>
-                <li>Click on a word to highlight all occurrences</li>
-                <li>Adjust filters to focus on specific word types</li>
-              </ul>
-              <p class="tip"><strong>Tip:</strong> Use this to identify overused words in your writing and improve variety!</p>
+
+            <!-- Samples Panel -->
+            <div class="heatmap-panel" id="samplesPanel">
+              <div class="samples-container">
+                <h3>Sample Texts</h3>
+                <p class="samples-subtitle">Click on a sample to load it into the editor</p>
+                <div class="samples-grid" id="samplesGrid">
+                  <div class="sample-card" data-sample="fox">
+                    <div class="sample-icon"><i class="fa-solid fa-dog"></i></div>
+                    <div class="sample-info">
+                      <span class="sample-name">The Fox & Dog</span>
+                      <span class="sample-desc">Classic repetition example</span>
+                    </div>
+                  </div>
+                  <div class="sample-card" data-sample="speech">
+                    <div class="sample-icon"><i class="fa-solid fa-microphone"></i></div>
+                    <div class="sample-info">
+                      <span class="sample-name">Speech Excerpt</span>
+                      <span class="sample-desc">Martin Luther King style</span>
+                    </div>
+                  </div>
+                  <div class="sample-card" data-sample="marketing">
+                    <div class="sample-icon"><i class="fa-solid fa-bullhorn"></i></div>
+                    <div class="sample-info">
+                      <span class="sample-name">Marketing Copy</span>
+                      <span class="sample-desc">Product description</span>
+                    </div>
+                  </div>
+                  <div class="sample-card" data-sample="technical">
+                    <div class="sample-icon"><i class="fa-solid fa-code"></i></div>
+                    <div class="sample-info">
+                      <span class="sample-name">Technical Doc</span>
+                      <span class="sample-desc">Programming terms</span>
+                    </div>
+                  </div>
+                  <div class="sample-card" data-sample="story">
+                    <div class="sample-icon"><i class="fa-solid fa-book-open"></i></div>
+                    <div class="sample-info">
+                      <span class="sample-name">Short Story</span>
+                      <span class="sample-desc">Narrative text</span>
+                    </div>
+                  </div>
+                  <div class="sample-card" data-sample="academic">
+                    <div class="sample-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+                    <div class="sample-info">
+                      <span class="sample-name">Academic Writing</span>
+                      <span class="sample-desc">Research style</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Tips -->
+                <div class="samples-tips">
+                  <div class="tip-card">
+                    <i class="fa-solid fa-lightbulb"></i>
+                    <div class="tip-content">
+                      <strong>Tip:</strong> Use this tool to identify overused words in your writing and improve variety!
+                    </div>
+                  </div>
+                  <div class="tip-card">
+                    <i class="fa-solid fa-palette"></i>
+                    <div class="tip-content">
+                      <strong>Color Codes:</strong> Blue (low) → Green → Yellow → Orange → Red (high frequency)
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -227,21 +334,42 @@
       </div>
       <div class="shortcuts-body">
         <div class="shortcuts-group">
-          <div class="shortcuts-group-title">Actions</div>
+          <div class="shortcuts-group-title">General</div>
           <div class="shortcut-row">
-            <div class="shortcut-keys"><kbd>Ctrl</kbd><span class="key-plus">+</span><kbd>V</kbd></div>
-            <div class="shortcut-desc">Paste text</div>
+            <div class="shortcut-keys"><kbd>A</kbd></div>
+            <div class="shortcut-desc">Analyze text</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>C</kbd></div>
+            <div class="shortcut-desc">Copy report</div>
           </div>
           <div class="shortcut-row">
             <div class="shortcut-keys"><kbd>Delete</kbd></div>
             <div class="shortcut-desc">Clear all</div>
           </div>
-        </div>
-        <div class="shortcuts-group">
-          <div class="shortcuts-group-title">General</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Escape</kbd></div>
+            <div class="shortcut-desc">Deselect word</div>
+          </div>
           <div class="shortcut-row">
             <div class="shortcut-keys"><kbd>?</kbd></div>
             <div class="shortcut-desc">Show shortcuts</div>
+          </div>
+        </div>
+
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">Navigation</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>1</kbd></div>
+            <div class="shortcut-desc">Editor tab</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>2</kbd></div>
+            <div class="shortcut-desc">Heatmap tab</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>3</kbd></div>
+            <div class="shortcut-desc">Samples tab</div>
           </div>
         </div>
       </div>

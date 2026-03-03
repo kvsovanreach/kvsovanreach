@@ -1,52 +1,164 @@
 /**
  * KVSOVANREACH Cookie Policy Generator
- * Generate GDPR-compliant cookie policies
+ * Refactored to follow Color Picker design pattern
  */
 
 (function() {
   'use strict';
 
-  // ==================== DOM Elements ====================
-  const elements = {
-    // Website info
-    websiteName: document.getElementById('websiteName'),
-    websiteUrl: document.getElementById('websiteUrl'),
-    companyName: document.getElementById('companyName'),
-    contactEmail: document.getElementById('contactEmail'),
-
-    // Cookie types
-    essentialCookies: document.getElementById('essentialCookies'),
-    performanceCookies: document.getElementById('performanceCookies'),
-    functionalCookies: document.getElementById('functionalCookies'),
-    targetingCookies: document.getElementById('targetingCookies'),
-
-    // Third-party services
-    googleAnalytics: document.getElementById('googleAnalytics'),
-    googleAds: document.getElementById('googleAds'),
-    facebook: document.getElementById('facebook'),
-    hotjar: document.getElementById('hotjar'),
-    intercom: document.getElementById('intercom'),
-    stripe: document.getElementById('stripe'),
-
-    // Options
-    gdprCompliance: document.getElementById('gdprCompliance'),
-    ccpaCompliance: document.getElementById('ccpaCompliance'),
-    includeDataRetention: document.getElementById('includeDataRetention'),
-    includeUserRights: document.getElementById('includeUserRights'),
-
-    // Actions
-    generateBtn: document.getElementById('generateBtn'),
-    resetBtn: document.getElementById('resetBtn'),
-    copyHtmlBtn: document.getElementById('copyHtmlBtn'),
-    copyTextBtn: document.getElementById('copyTextBtn'),
-
-    // Output
-    outputSection: document.getElementById('outputSection'),
-    outputPreview: document.getElementById('outputPreview')
+  // ==================== State ====================
+  const state = {
+    activeTab: 'editor',
+    hasGenerated: false
   };
 
-  // ==================== Core Functions ====================
+  // ==================== Templates ====================
+  const TEMPLATES = {
+    basic: {
+      name: 'Basic Website',
+      websiteName: 'My Website',
+      websiteUrl: 'https://example.com',
+      companyName: '',
+      contactEmail: '',
+      cookies: { performance: false, functional: false, targeting: false },
+      services: { googleAnalytics: false, googleAds: false, facebook: false, hotjar: false, intercom: false, stripe: false },
+      options: { gdpr: true, ccpa: false, dataRetention: false, userRights: true }
+    },
+    blog: {
+      name: 'Blog/Content Site',
+      websiteName: 'My Blog',
+      websiteUrl: 'https://myblog.com',
+      companyName: '',
+      contactEmail: '',
+      cookies: { performance: true, functional: true, targeting: false },
+      services: { googleAnalytics: true, googleAds: false, facebook: false, hotjar: false, intercom: false, stripe: false },
+      options: { gdpr: true, ccpa: false, dataRetention: true, userRights: true }
+    },
+    ecommerce: {
+      name: 'E-Commerce Store',
+      websiteName: 'My Store',
+      websiteUrl: 'https://mystore.com',
+      companyName: 'My Store Inc.',
+      contactEmail: 'privacy@mystore.com',
+      cookies: { performance: true, functional: true, targeting: true },
+      services: { googleAnalytics: true, googleAds: true, facebook: true, hotjar: false, intercom: false, stripe: true },
+      options: { gdpr: true, ccpa: true, dataRetention: true, userRights: true }
+    },
+    saas: {
+      name: 'SaaS Application',
+      websiteName: 'My App',
+      websiteUrl: 'https://myapp.com',
+      companyName: 'My App Inc.',
+      contactEmail: 'support@myapp.com',
+      cookies: { performance: true, functional: true, targeting: false },
+      services: { googleAnalytics: true, googleAds: false, facebook: false, hotjar: true, intercom: true, stripe: true },
+      options: { gdpr: true, ccpa: true, dataRetention: true, userRights: true }
+    },
+    marketing: {
+      name: 'Marketing Site',
+      websiteName: 'My Brand',
+      websiteUrl: 'https://mybrand.com',
+      companyName: 'My Brand LLC',
+      contactEmail: 'hello@mybrand.com',
+      cookies: { performance: true, functional: true, targeting: true },
+      services: { googleAnalytics: true, googleAds: true, facebook: true, hotjar: true, intercom: false, stripe: false },
+      options: { gdpr: true, ccpa: true, dataRetention: true, userRights: true }
+    },
+    minimal: {
+      name: 'Privacy-Focused',
+      websiteName: 'My Site',
+      websiteUrl: 'https://mysite.com',
+      companyName: '',
+      contactEmail: 'privacy@mysite.com',
+      cookies: { performance: false, functional: false, targeting: false },
+      services: { googleAnalytics: false, googleAds: false, facebook: false, hotjar: false, intercom: false, stripe: false },
+      options: { gdpr: true, ccpa: true, dataRetention: false, userRights: true }
+    }
+  };
 
+  // ==================== DOM Elements ====================
+  const elements = {};
+
+  function initElements() {
+    // Tabs
+    elements.tabs = document.querySelectorAll('.tool-tab');
+    elements.panels = document.querySelectorAll('.cookie-panel');
+    elements.cookieMain = document.querySelector('.cookie-main');
+
+    // Website info
+    elements.websiteName = document.getElementById('websiteName');
+    elements.websiteUrl = document.getElementById('websiteUrl');
+    elements.companyName = document.getElementById('companyName');
+    elements.contactEmail = document.getElementById('contactEmail');
+
+    // Cookie types
+    elements.essentialCookies = document.getElementById('essentialCookies');
+    elements.performanceCookies = document.getElementById('performanceCookies');
+    elements.functionalCookies = document.getElementById('functionalCookies');
+    elements.targetingCookies = document.getElementById('targetingCookies');
+
+    // Third-party services
+    elements.googleAnalytics = document.getElementById('googleAnalytics');
+    elements.googleAds = document.getElementById('googleAds');
+    elements.facebook = document.getElementById('facebook');
+    elements.hotjar = document.getElementById('hotjar');
+    elements.intercom = document.getElementById('intercom');
+    elements.stripe = document.getElementById('stripe');
+
+    // Options
+    elements.gdprCompliance = document.getElementById('gdprCompliance');
+    elements.ccpaCompliance = document.getElementById('ccpaCompliance');
+    elements.includeDataRetention = document.getElementById('includeDataRetention');
+    elements.includeUserRights = document.getElementById('includeUserRights');
+
+    // Status
+    elements.statusWebsite = document.getElementById('statusWebsite');
+    elements.statusCookies = document.getElementById('statusCookies');
+    elements.statusServices = document.getElementById('statusServices');
+    elements.statusCompliance = document.getElementById('statusCompliance');
+    elements.complianceBadges = document.getElementById('complianceBadges');
+
+    // Actions
+    elements.generateBtn = document.getElementById('generateBtn');
+    elements.copyBtn = document.getElementById('copyBtn');
+    elements.resetBtn = document.getElementById('resetBtn');
+    elements.copyHtmlBtn = document.getElementById('copyHtmlBtn');
+    elements.copyTextBtn = document.getElementById('copyTextBtn');
+
+    // Preview
+    elements.previewContent = document.getElementById('previewContent');
+
+    // Templates
+    elements.templatesGrid = document.getElementById('templatesGrid');
+  }
+
+  // ==================== Tab Navigation ====================
+  function initTabs() {
+    elements.tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        const tabName = tab.dataset.tab;
+        switchTab(tabName);
+      });
+    });
+  }
+
+  function switchTab(tabName) {
+    elements.tabs.forEach(t => t.classList.remove('active'));
+    elements.panels.forEach(p => p.classList.remove('active'));
+
+    const tab = document.querySelector(`.tool-tab[data-tab="${tabName}"]`);
+    if (tab) {
+      tab.classList.add('active');
+      document.getElementById(tabName + 'Panel').classList.add('active');
+      state.activeTab = tabName;
+
+      // Toggle full-width layout for Templates tab
+      const isFullWidth = tabName === 'templates';
+      elements.cookieMain.classList.toggle('full-width', isFullWidth);
+    }
+  }
+
+  // ==================== Core Functions ====================
   function getFormData() {
     return {
       websiteName: elements.websiteName.value.trim() || 'Our Website',
@@ -197,12 +309,57 @@ ${services.map(s => `  <li>${s}</li>`).join('\n')}
   }
 
   // ==================== UI Functions ====================
+  function updateStatus() {
+    // Website name
+    const name = elements.websiteName.value.trim();
+    elements.statusWebsite.textContent = name ? name.substring(0, 12) + (name.length > 12 ? '...' : '') : '-';
+
+    // Cookie types count
+    let cookieCount = 1; // Essential is always 1
+    if (elements.performanceCookies.checked) cookieCount++;
+    if (elements.functionalCookies.checked) cookieCount++;
+    if (elements.targetingCookies.checked) cookieCount++;
+    elements.statusCookies.textContent = cookieCount;
+
+    // Services count
+    let serviceCount = 0;
+    if (elements.googleAnalytics.checked) serviceCount++;
+    if (elements.googleAds.checked) serviceCount++;
+    if (elements.facebook.checked) serviceCount++;
+    if (elements.hotjar.checked) serviceCount++;
+    if (elements.intercom.checked) serviceCount++;
+    if (elements.stripe.checked) serviceCount++;
+    elements.statusServices.textContent = serviceCount;
+
+    // Compliance
+    const gdpr = elements.gdprCompliance.checked;
+    const ccpa = elements.ccpaCompliance.checked;
+    let compliance = [];
+    if (gdpr) compliance.push('GDPR');
+    if (ccpa) compliance.push('CCPA');
+    elements.statusCompliance.textContent = compliance.length > 0 ? compliance.join('+') : 'None';
+
+    // Update badges
+    updateComplianceBadges(gdpr, ccpa);
+  }
+
+  function updateComplianceBadges(gdpr, ccpa) {
+    const gdprBadge = elements.complianceBadges.querySelector('[data-type="gdpr"]');
+    const ccpaBadge = elements.complianceBadges.querySelector('[data-type="ccpa"]');
+
+    if (gdprBadge) {
+      gdprBadge.classList.toggle('active', gdpr);
+      gdprBadge.innerHTML = gdpr ? '<i class="fa-solid fa-check"></i> GDPR' : '<i class="fa-solid fa-xmark"></i> GDPR';
+    }
+    if (ccpaBadge) {
+      ccpaBadge.classList.toggle('active', ccpa);
+      ccpaBadge.innerHTML = ccpa ? '<i class="fa-solid fa-check"></i> CCPA' : '<i class="fa-solid fa-xmark"></i> CCPA';
+    }
+  }
 
   function generate() {
     if (!elements.websiteName.value.trim()) {
-      if (typeof ToolsCommon !== 'undefined') {
-        ToolsCommon.Toast.error('Please enter a website name');
-      }
+      ToolsCommon.showToast('Please enter a website name', 'error');
       elements.websiteName.focus();
       return;
     }
@@ -210,15 +367,12 @@ ${services.map(s => `  <li>${s}</li>`).join('\n')}
     const data = getFormData();
     const html = generatePolicy(data);
 
-    elements.outputPreview.innerHTML = html;
-    elements.outputSection.classList.remove('hidden');
+    elements.previewContent.innerHTML = html;
+    state.hasGenerated = true;
 
-    // Scroll to output
-    elements.outputSection.scrollIntoView({ behavior: 'smooth' });
-
-    if (typeof ToolsCommon !== 'undefined') {
-      ToolsCommon.Toast.success('Cookie policy generated!');
-    }
+    // Switch to preview tab
+    switchTab('preview');
+    ToolsCommon.showToast('Cookie policy generated!', 'success');
   }
 
   function reset() {
@@ -243,66 +397,156 @@ ${services.map(s => `  <li>${s}</li>`).join('\n')}
     elements.includeDataRetention.checked = false;
     elements.includeUserRights.checked = true;
 
-    elements.outputSection.classList.add('hidden');
+    elements.previewContent.innerHTML = `
+      <div class="preview-placeholder">
+        <i class="fa-solid fa-file-lines"></i>
+        <p>Fill in the form in the Editor tab and click Generate</p>
+      </div>
+    `;
+    state.hasGenerated = false;
 
-    if (typeof ToolsCommon !== 'undefined') {
-      ToolsCommon.Toast.info('Form reset');
+    updateStatus();
+    ToolsCommon.showToast('Form reset', 'info');
+  }
+
+  function copyPolicy() {
+    if (!state.hasGenerated) {
+      ToolsCommon.showToast('Generate a policy first', 'error');
+      return;
     }
+    const text = elements.previewContent.innerText;
+    ToolsCommon.copyWithToast(text, 'Policy copied!');
   }
 
   function copyHtml() {
-    const html = elements.outputPreview.innerHTML;
-    if (typeof ToolsCommon !== 'undefined') {
-      ToolsCommon.Clipboard.copy(html);
+    if (!state.hasGenerated) {
+      ToolsCommon.showToast('Generate a policy first', 'error');
+      return;
     }
+    const html = elements.previewContent.innerHTML;
+    ToolsCommon.copyWithToast(html, 'HTML copied!');
   }
 
   function copyText() {
-    const text = elements.outputPreview.innerText;
-    if (typeof ToolsCommon !== 'undefined') {
-      ToolsCommon.Clipboard.copy(text);
-    }
-  }
-
-  // ==================== Event Handlers ====================
-
-  function handleKeydown(e) {
-    if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
-      e.preventDefault();
-      generate();
+    if (!state.hasGenerated) {
+      ToolsCommon.showToast('Generate a policy first', 'error');
       return;
     }
-
-    if (e.target.tagName === 'INPUT') return;
-
-    if (e.key.toLowerCase() === 'r') {
-      reset();
-    }
+    const text = elements.previewContent.innerText;
+    ToolsCommon.copyWithToast(text, 'Text copied!');
   }
 
-  // ==================== Initialization ====================
+  function loadTemplate(templateName) {
+    const template = TEMPLATES[templateName];
+    if (!template) return;
 
-  function init() {
-    // Generate button
+    elements.websiteName.value = template.websiteName;
+    elements.websiteUrl.value = template.websiteUrl;
+    elements.companyName.value = template.companyName;
+    elements.contactEmail.value = template.contactEmail;
+
+    elements.performanceCookies.checked = template.cookies.performance;
+    elements.functionalCookies.checked = template.cookies.functional;
+    elements.targetingCookies.checked = template.cookies.targeting;
+
+    elements.googleAnalytics.checked = template.services.googleAnalytics;
+    elements.googleAds.checked = template.services.googleAds;
+    elements.facebook.checked = template.services.facebook;
+    elements.hotjar.checked = template.services.hotjar;
+    elements.intercom.checked = template.services.intercom;
+    elements.stripe.checked = template.services.stripe;
+
+    elements.gdprCompliance.checked = template.options.gdpr;
+    elements.ccpaCompliance.checked = template.options.ccpa;
+    elements.includeDataRetention.checked = template.options.dataRetention;
+    elements.includeUserRights.checked = template.options.userRights;
+
+    updateStatus();
+    switchTab('editor');
+    ToolsCommon.showToast(`${template.name} template loaded!`, 'success');
+  }
+
+  // ==================== Event Bindings ====================
+  function bindEvents() {
+    // Form inputs - update status
+    const inputs = document.querySelectorAll('#editorPanel input');
+    inputs.forEach(input => {
+      input.addEventListener('change', updateStatus);
+      input.addEventListener('input', updateStatus);
+    });
+
+    // Quick action buttons
     elements.generateBtn.addEventListener('click', generate);
-
-    // Reset button
+    elements.copyBtn.addEventListener('click', copyPolicy);
     elements.resetBtn.addEventListener('click', reset);
 
-    // Copy buttons
+    // Preview action buttons
     elements.copyHtmlBtn.addEventListener('click', copyHtml);
     elements.copyTextBtn.addEventListener('click', copyText);
+
+    // Template cards
+    elements.templatesGrid.addEventListener('click', (e) => {
+      const card = e.target.closest('.template-card');
+      if (card) {
+        loadTemplate(card.dataset.template);
+      }
+    });
 
     // Keyboard shortcuts
     document.addEventListener('keydown', handleKeydown);
   }
 
-  // ==================== Bootstrap ====================
+  function handleKeydown(e) {
+    // Don't trigger shortcuts when typing in input fields
+    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') {
+      return;
+    }
 
+    switch (e.key.toLowerCase()) {
+      case 'g':
+        e.preventDefault();
+        generate();
+        break;
+
+      case 'c':
+        e.preventDefault();
+        copyPolicy();
+        break;
+
+      case 'r':
+        e.preventDefault();
+        reset();
+        break;
+
+      case '1':
+        e.preventDefault();
+        switchTab('editor');
+        break;
+
+      case '2':
+        e.preventDefault();
+        switchTab('preview');
+        break;
+
+      case '3':
+        e.preventDefault();
+        switchTab('templates');
+        break;
+    }
+  }
+
+  // ==================== Initialize ====================
+  function init() {
+    initElements();
+    initTabs();
+    bindEvents();
+    updateStatus();
+  }
+
+  // Start when DOM is ready
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);
   } else {
     init();
   }
-
 })();

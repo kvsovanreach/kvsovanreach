@@ -770,7 +770,7 @@ const toolsData = [
     icon: "fa-solid fa-fire",
     url: "/tools/repetitionheatmap/",
     tags: ["repetition", "heatmap", "words", "phrases", "text", "analysis"],
-    status: "inactive"
+    status: "active"
   },
   {
     id: "api-request-flow",
@@ -790,7 +790,7 @@ const toolsData = [
     icon: "fa-solid fa-sitemap",
     url: "/tools/jsonschema/",
     tags: ["json", "schema", "visualize", "tree", "structure", "data"],
-    status: "inactive"
+    status: "active"
   },
   {
     id: "http-lifecycle",

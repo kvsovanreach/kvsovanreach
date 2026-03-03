@@ -11,6 +11,7 @@
     urlInput: document.getElementById('urlInput'),
     pasteBtn: document.getElementById('pasteBtn'),
     copyBtn: document.getElementById('copyBtn'),
+    copyResultBtn: document.getElementById('copyResultBtn'),
     clearBtn: document.getElementById('clearBtn'),
     resultSection: document.getElementById('resultSection'),
     cleanedUrl: document.getElementById('cleanedUrl'),
@@ -18,7 +19,21 @@
     removedList: document.getElementById('removedList'),
     keptSection: document.getElementById('keptSection'),
     keptList: document.getElementById('keptList'),
-    filtersGrid: document.getElementById('filtersGrid')
+    filtersGrid: document.getElementById('filtersGrid'),
+    selectAllBtn: document.getElementById('selectAllBtn'),
+    deselectAllBtn: document.getElementById('deselectAllBtn'),
+    // Status elements
+    removedCount: document.getElementById('removedCount'),
+    keptCount: document.getElementById('keptCount'),
+    savedBytes: document.getElementById('savedBytes'),
+    activeFilters: document.getElementById('activeFilters'),
+    // Preview
+    previewCard: document.getElementById('previewCard'),
+    previewUrl: document.getElementById('previewUrl'),
+    // Panels
+    cleanerPanel: document.getElementById('cleanerPanel'),
+    filtersPanel: document.getElementById('filtersPanel'),
+    examplesPanel: document.getElementById('examplesPanel')
   };
 
   // ==================== Tracking Parameters ====================
@@ -46,21 +61,49 @@
 
   // ==================== State ====================
   const state = {
-    filters: {}
+    activeTab: 'cleaner',
+    filters: {},
+    lastResult: null
   };
+
+  // ==================== Tab Navigation ====================
+
+  function switchTab(tabName) {
+    state.activeTab = tabName;
+
+    // Update tab buttons
+    document.querySelectorAll('.tool-tab').forEach(tab => {
+      tab.classList.toggle('active', tab.dataset.tab === tabName);
+    });
+
+    // Update panels
+    document.querySelectorAll('.cleaner-panel').forEach(panel => {
+      panel.classList.remove('active');
+    });
+
+    const panelMap = {
+      'cleaner': elements.cleanerPanel,
+      'filters': elements.filtersPanel,
+      'examples': elements.examplesPanel
+    };
+
+    if (panelMap[tabName]) {
+      panelMap[tabName].classList.add('active');
+    }
+
+    // Toggle full-width mode for examples tab
+    const mainEl = document.querySelector('.cleaner-main');
+    if (mainEl) {
+      mainEl.classList.toggle('full-width', tabName === 'examples');
+    }
+  }
 
   // ==================== Core Functions ====================
 
-  /**
-   * Get enabled filter keys
-   */
   function getEnabledFilters() {
     return Object.keys(state.filters).filter(key => state.filters[key]);
   }
 
-  /**
-   * Clean URL by removing tracking parameters
-   */
   function cleanUrl(urlString) {
     try {
       const url = new URL(urlString);
@@ -70,11 +113,9 @@
       const removed = [];
       const kept = [];
 
-      // Check each parameter
       for (const [key, value] of [...params.entries()]) {
         let shouldRemove = false;
 
-        // Check against enabled filters
         for (const filter of enabledFilters) {
           if (key === filter || key.startsWith(filter)) {
             shouldRemove = true;
@@ -90,11 +131,13 @@
         }
       }
 
-      // Reconstruct URL
       url.search = params.toString();
       const cleanedUrl = url.toString();
+      const originalLength = urlString.length;
+      const cleanedLength = cleanedUrl.length;
+      const bytesSaved = originalLength - cleanedLength;
 
-      return { cleanedUrl, removed, kept };
+      return { cleanedUrl, removed, kept, bytesSaved };
     } catch (e) {
       return null;
     }
@@ -116,14 +159,37 @@
       `;
     }).join('');
 
-    // Add event listeners
     TRACKING_PARAMS.forEach(param => {
       const checkbox = document.getElementById(`filter_${param.key}`);
       checkbox.addEventListener('change', (e) => {
         state.filters[param.key] = e.target.checked;
+        updateActiveFiltersCount();
         processUrl();
       });
     });
+
+    updateActiveFiltersCount();
+  }
+
+  function updateActiveFiltersCount() {
+    const count = getEnabledFilters().length;
+    elements.activeFilters.textContent = count;
+  }
+
+  function updateStatus(removed, kept, bytesSaved) {
+    elements.removedCount.textContent = removed;
+    elements.keptCount.textContent = kept;
+    elements.savedBytes.textContent = bytesSaved;
+  }
+
+  function updatePreview(url) {
+    if (url) {
+      elements.previewUrl.textContent = url;
+      elements.previewCard.classList.add('has-url');
+    } else {
+      elements.previewUrl.textContent = 'Paste a URL to clean';
+      elements.previewCard.classList.remove('has-url');
+    }
   }
 
   function processUrl() {
@@ -133,6 +199,9 @@
       elements.resultSection.classList.add('hidden');
       elements.removedSection.classList.add('hidden');
       elements.keptSection.classList.add('hidden');
+      updateStatus(0, 0, 0);
+      updatePreview(null);
+      state.lastResult = null;
       return;
     }
 
@@ -143,14 +212,20 @@
       return;
     }
 
-    // Show cleaned URL
+    state.lastResult = result;
+
+    // Update cleaned URL display
     elements.cleanedUrl.textContent = result.cleanedUrl;
     elements.resultSection.classList.remove('hidden');
+
+    // Update status
+    updateStatus(result.removed.length, result.kept.length, result.bytesSaved);
+    updatePreview(result.cleanedUrl);
 
     // Show removed parameters
     if (result.removed.length > 0) {
       elements.removedList.innerHTML = result.removed.map(p =>
-        `<span class="param-tag removed">${p.key}=${p.value}</span>`
+        `<span class="param-tag removed">${p.key}=${truncate(p.value, 30)}</span>`
       ).join('');
       elements.removedSection.classList.remove('hidden');
     } else {
@@ -160,7 +235,7 @@
     // Show kept parameters
     if (result.kept.length > 0) {
       elements.keptList.innerHTML = result.kept.map(p =>
-        `<span class="param-tag kept">${p.key}=${p.value}</span>`
+        `<span class="param-tag kept">${p.key}=${truncate(p.value, 30)}</span>`
       ).join('');
       elements.keptSection.classList.remove('hidden');
     } else {
@@ -168,20 +243,28 @@
     }
   }
 
+  function truncate(str, len) {
+    if (str.length <= len) return str;
+    return str.substring(0, len) + '...';
+  }
+
   async function pasteFromClipboard() {
     try {
       const text = await navigator.clipboard.readText();
       elements.urlInput.value = text;
       processUrl();
+      switchTab('cleaner');
     } catch (e) {
       ToolsCommon.Toast.show('Unable to paste from clipboard', 'error');
     }
   }
 
   function copyCleanedUrl() {
-    const cleaned = elements.cleanedUrl.textContent;
-    if (cleaned) {
+    const cleaned = state.lastResult?.cleanedUrl || elements.cleanedUrl.textContent;
+    if (cleaned && cleaned !== 'Paste a URL to clean') {
       ToolsCommon.Clipboard.copy(cleaned);
+    } else {
+      ToolsCommon.Toast.show('No cleaned URL to copy', 'error');
     }
   }
 
@@ -190,7 +273,73 @@
     elements.resultSection.classList.add('hidden');
     elements.removedSection.classList.add('hidden');
     elements.keptSection.classList.add('hidden');
+    updateStatus(0, 0, 0);
+    updatePreview(null);
+    state.lastResult = null;
     elements.urlInput.focus();
+  }
+
+  function selectAllFilters() {
+    TRACKING_PARAMS.forEach(param => {
+      state.filters[param.key] = true;
+      const checkbox = document.getElementById(`filter_${param.key}`);
+      if (checkbox) checkbox.checked = true;
+    });
+    updateActiveFiltersCount();
+    processUrl();
+  }
+
+  function deselectAllFilters() {
+    TRACKING_PARAMS.forEach(param => {
+      state.filters[param.key] = false;
+      const checkbox = document.getElementById(`filter_${param.key}`);
+      if (checkbox) checkbox.checked = false;
+    });
+    updateActiveFiltersCount();
+    processUrl();
+  }
+
+  function loadExample(url) {
+    elements.urlInput.value = url;
+    processUrl();
+    switchTab('cleaner');
+    ToolsCommon.Toast.show('Example loaded', 'success');
+  }
+
+  // ==================== Keyboard Shortcuts ====================
+
+  function handleKeyboard(e) {
+    // Ignore if typing in input
+    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') {
+      return;
+    }
+
+    switch (e.key.toLowerCase()) {
+      case 'v':
+        e.preventDefault();
+        pasteFromClipboard();
+        break;
+      case 'c':
+        e.preventDefault();
+        copyCleanedUrl();
+        break;
+      case 'r':
+        e.preventDefault();
+        clearAll();
+        break;
+      case '1':
+        e.preventDefault();
+        switchTab('cleaner');
+        break;
+      case '2':
+        e.preventDefault();
+        switchTab('filters');
+        break;
+      case '3':
+        e.preventDefault();
+        switchTab('examples');
+        break;
+    }
   }
 
   // ==================== Initialization ====================
@@ -199,11 +348,30 @@
     // Create filters UI
     createFiltersUI();
 
+    // Tab navigation
+    document.querySelectorAll('.tool-tab').forEach(tab => {
+      tab.addEventListener('click', () => switchTab(tab.dataset.tab));
+    });
+
     // Event listeners
     elements.urlInput.addEventListener('input', processUrl);
     elements.pasteBtn.addEventListener('click', pasteFromClipboard);
     elements.copyBtn.addEventListener('click', copyCleanedUrl);
+    elements.copyResultBtn.addEventListener('click', copyCleanedUrl);
     elements.clearBtn.addEventListener('click', clearAll);
+    elements.selectAllBtn.addEventListener('click', selectAllFilters);
+    elements.deselectAllBtn.addEventListener('click', deselectAllFilters);
+
+    // Example cards
+    document.querySelectorAll('.example-card').forEach(card => {
+      card.addEventListener('click', () => {
+        const url = card.dataset.url;
+        if (url) loadExample(url);
+      });
+    });
+
+    // Keyboard shortcuts
+    document.addEventListener('keydown', handleKeyboard);
 
     // Focus input
     elements.urlInput.focus();

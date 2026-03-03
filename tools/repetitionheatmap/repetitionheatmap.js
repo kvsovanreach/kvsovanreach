@@ -1,32 +1,22 @@
 /**
  * KVSOVANREACH Repetition Heatmap
- * Visualize word repetition patterns using heat colors
+ * Refactored to follow Color Picker design pattern
  */
 
 (function() {
   'use strict';
 
-  // ==================== DOM Elements ====================
-  const elements = {
-    textInput: document.getElementById('textInput'),
-    heatmapDisplay: document.getElementById('heatmapDisplay'),
-    topWordsList: document.getElementById('topWordsList'),
-    totalWords: document.getElementById('totalWords'),
-    uniqueWords: document.getElementById('uniqueWords'),
-    repeatedWords: document.getElementById('repeatedWords'),
-    maxRepeat: document.getElementById('maxRepeat'),
-    minLengthSelect: document.getElementById('minLengthSelect'),
-    minCountSelect: document.getElementById('minCountSelect'),
-    ignoreCommonCheck: document.getElementById('ignoreCommonCheck'),
-    sampleBtn: document.getElementById('sampleBtn'),
-    clearBtn: document.getElementById('clearBtn'),
-    pasteBtn: document.getElementById('pasteBtn')
-  };
-
   // ==================== State ====================
   const state = {
+    activeTab: 'editor',
     wordFrequency: {},
-    selectedWord: null
+    selectedWord: null,
+    stats: {
+      total: 0,
+      unique: 0,
+      repeated: 0,
+      maxRepeat: 0
+    }
   };
 
   // ==================== Constants ====================
@@ -43,15 +33,98 @@
     'very', 'just', 'also', 'now', 'here', 'there', 'then', 'if'
   ]);
 
-  const SAMPLE_TEXT = `The quick brown fox jumps over the lazy dog. The dog was not amused by the fox. The fox continued to jump and jump, showing off to the dog. Meanwhile, the dog just watched the fox with the same lazy expression. The quick fox was very proud of being quick. Every day, the fox would jump over the dog, and every day, the dog would just watch. This was the routine of the fox and the dog. The fox loved to jump, and the dog loved to be lazy. It was a perfect arrangement for the fox and the dog.`;
+  // ==================== Sample Texts ====================
+  const SAMPLE_TEXTS = {
+    fox: `The quick brown fox jumps over the lazy dog. The dog was not amused by the fox. The fox continued to jump and jump, showing off to the dog. Meanwhile, the dog just watched the fox with the same lazy expression. The quick fox was very proud of being quick. Every day, the fox would jump over the dog, and every day, the dog would just watch. This was the routine of the fox and the dog. The fox loved to jump, and the dog loved to be lazy. It was a perfect arrangement for the fox and the dog.`,
+
+    speech: `I have a dream that one day this nation will rise up and live out the true meaning of its creed. I have a dream that one day on the red hills of Georgia, sons of former slaves and sons of former slave owners will be able to sit down together at the table of brotherhood. I have a dream that one day even the state of Mississippi will be transformed into an oasis of freedom and justice. I have a dream that my four little children will one day live in a nation where they will not be judged by the color of their skin but by the content of their character. I have a dream today.`,
+
+    marketing: `Introducing the revolutionary new product that will change everything. This product is designed with you in mind. Our product features cutting-edge technology that makes other products obsolete. When you use our product, you'll wonder how you ever lived without this product. The product comes in three amazing colors. Order your product today and receive a free product accessory. Don't miss out on this incredible product opportunity. Our product is the best product on the market. Trust the product that millions already love.`,
+
+    technical: `The function returns a value based on the input parameters. Each function should have a single responsibility. When calling a function, pass the required arguments to the function. The function will process the data and return the result. If the function encounters an error, the function will throw an exception. Functions can call other functions to perform complex operations. Always document your function with clear comments. A well-designed function is reusable across the codebase.`,
+
+    story: `The old man sat by the window, watching the rain fall on the city streets. Every day, the old man would sit in the same chair, looking out at the same view. The rain reminded the old man of days long past. In his youth, the old man had danced in the rain without a care. Now the old man simply watched, content with memories. The rain continued to fall, and the old man continued to watch, finding peace in the simple rhythm of the rain.`,
+
+    academic: `Research indicates that the study of patterns reveals important findings. This research builds upon previous research in the field. The findings of this research suggest that further research is needed. Our research methodology follows established research protocols. The research team conducted extensive research over several years. This research contributes to the growing body of research on the topic. Future research should explore the implications of this research.`
+  };
+
+  // ==================== DOM Elements ====================
+  const elements = {};
+
+  function initElements() {
+    // Tabs
+    elements.tabs = document.querySelectorAll('.tool-tab');
+    elements.panels = document.querySelectorAll('.heatmap-panel');
+    elements.heatmapMain = document.querySelector('.heatmap-main');
+
+    // Editor
+    elements.textInput = document.getElementById('textInput');
+    elements.minLengthSelect = document.getElementById('minLengthSelect');
+    elements.minCountSelect = document.getElementById('minCountSelect');
+    elements.ignoreCommonCheck = document.getElementById('ignoreCommonCheck');
+
+    // Display
+    elements.heatmapDisplay = document.getElementById('heatmapDisplay');
+    elements.selectedWordInfo = document.getElementById('selectedWordInfo');
+    elements.selectedWordText = document.getElementById('selectedWordText');
+    elements.selectedWordCount = document.getElementById('selectedWordCount');
+
+    // Stats
+    elements.totalWords = document.getElementById('totalWords');
+    elements.uniqueWords = document.getElementById('uniqueWords');
+    elements.repeatedWords = document.getElementById('repeatedWords');
+    elements.maxRepeat = document.getElementById('maxRepeat');
+
+    // Top Words
+    elements.topWordsList = document.getElementById('topWordsList');
+
+    // Buttons
+    elements.analyzeBtn = document.getElementById('analyzeBtn');
+    elements.copyBtn = document.getElementById('copyBtn');
+    elements.clearBtn = document.getElementById('clearBtn');
+    elements.pasteBtn = document.getElementById('pasteBtn');
+    elements.deselectBtn = document.getElementById('deselectBtn');
+
+    // Samples
+    elements.samplesGrid = document.getElementById('samplesGrid');
+  }
+
+  // ==================== Tab Navigation ====================
+  function initTabs() {
+    elements.tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        const tabName = tab.dataset.tab;
+        switchTab(tabName);
+      });
+    });
+  }
+
+  function switchTab(tabName) {
+    elements.tabs.forEach(t => t.classList.remove('active'));
+    elements.panels.forEach(p => p.classList.remove('active'));
+
+    const tab = document.querySelector(`.tool-tab[data-tab="${tabName}"]`);
+    if (tab) {
+      tab.classList.add('active');
+      document.getElementById(tabName + 'Panel').classList.add('active');
+      state.activeTab = tabName;
+
+      // Toggle full-width layout for Samples tab
+      const isFullWidth = tabName === 'samples';
+      elements.heatmapMain.classList.toggle('full-width', isFullWidth);
+
+      // Update heatmap when switching to heatmap tab
+      if (tabName === 'heatmap') {
+        analyze();
+      }
+    }
+  }
 
   // ==================== Core Functions ====================
-
   function analyzeText(text) {
     const minLength = parseInt(elements.minLengthSelect.value);
     const ignoreCommon = elements.ignoreCommonCheck.checked;
 
-    // Split into words
     const words = text.match(/\b[a-zA-Z]+\b/g) || [];
     const frequency = {};
 
@@ -94,12 +167,11 @@
   }
 
   // ==================== UI Functions ====================
-
-  function updateStats(stats) {
-    elements.totalWords.textContent = stats.total;
-    elements.uniqueWords.textContent = stats.unique;
-    elements.repeatedWords.textContent = stats.repeated;
-    elements.maxRepeat.textContent = stats.maxRepeat;
+  function updateStats() {
+    elements.totalWords.textContent = state.stats.total;
+    elements.uniqueWords.textContent = state.stats.unique;
+    elements.repeatedWords.textContent = state.stats.repeated;
+    elements.maxRepeat.textContent = state.stats.maxRepeat;
   }
 
   function renderHeatmap(text) {
@@ -107,9 +179,10 @@
       elements.heatmapDisplay.innerHTML = `
         <div class="display-placeholder">
           <i class="fa-solid fa-fire"></i>
-          <p>Enter text to visualize word repetition</p>
+          <p>Enter text in the Editor tab to visualize word repetition</p>
         </div>
       `;
+      elements.selectedWordInfo.classList.add('hidden');
       return;
     }
 
@@ -121,12 +194,10 @@
     const counts = Object.values(frequency).filter(c => c >= minCount);
     const maxCount = counts.length > 0 ? Math.max(...counts) : 1;
 
-    // Process text while preserving structure
     const html = text.replace(/\b([a-zA-Z]+)\b/g, (match) => {
       const lower = match.toLowerCase();
       const count = frequency[lower] || 0;
 
-      // Check if word should be highlighted
       const shouldHighlight = lower.length >= minLength &&
         count >= minCount &&
         (!ignoreCommon || !COMMON_WORDS.has(lower));
@@ -151,10 +222,18 @@
     // Add click handlers
     elements.heatmapDisplay.querySelectorAll('.heat-word[data-word]').forEach(word => {
       word.addEventListener('click', () => {
-        const wordText = word.dataset.word;
-        selectWord(wordText);
+        selectWord(word.dataset.word, parseInt(word.dataset.count));
       });
     });
+
+    // Update selected word info
+    if (state.selectedWord && frequency[state.selectedWord]) {
+      elements.selectedWordInfo.classList.remove('hidden');
+      elements.selectedWordText.textContent = state.selectedWord;
+      elements.selectedWordCount.textContent = frequency[state.selectedWord] + ' times';
+    } else {
+      elements.selectedWordInfo.classList.add('hidden');
+    }
   }
 
   function renderTopWords(frequency) {
@@ -163,21 +242,17 @@
     const sortedWords = Object.entries(frequency)
       .filter(([_, count]) => count >= minCount)
       .sort((a, b) => b[1] - a[1])
-      .slice(0, 15);
+      .slice(0, 10);
 
     if (sortedWords.length === 0) {
-      elements.topWordsList.innerHTML = `
-        <div class="topwords-placeholder">
-          <p>No repeated words found</p>
-        </div>
-      `;
+      elements.topWordsList.innerHTML = '<div class="topwords-empty">No repeated words found</div>';
       return;
     }
 
     const html = sortedWords.map(([word, count]) => {
       const selectedClass = state.selectedWord === word ? 'selected' : '';
       return `
-        <div class="top-word-item ${selectedClass}" data-word="${word}">
+        <div class="top-word-item ${selectedClass}" data-word="${word}" data-count="${count}">
           <span class="word">${word}</span>
           <span class="count">${count}</span>
         </div>
@@ -189,58 +264,75 @@
     // Add click handlers
     elements.topWordsList.querySelectorAll('.top-word-item').forEach(item => {
       item.addEventListener('click', () => {
-        const word = item.dataset.word;
-        selectWord(word);
+        selectWord(item.dataset.word, parseInt(item.dataset.count));
       });
     });
   }
 
-  function selectWord(word) {
-    state.selectedWord = state.selectedWord === word ? null : word;
+  function selectWord(word, count) {
+    if (state.selectedWord === word) {
+      state.selectedWord = null;
+    } else {
+      state.selectedWord = word;
+    }
+    analyze();
+  }
+
+  function deselectWord() {
+    state.selectedWord = null;
     analyze();
   }
 
   function analyze() {
     const text = elements.textInput.value;
     const { frequency } = analyzeText(text);
-    const stats = calculateStats(frequency);
+    state.stats = calculateStats(frequency);
 
-    updateStats(stats);
+    updateStats();
     renderHeatmap(text);
     renderTopWords(frequency);
   }
 
-  // ==================== Event Handlers ====================
-
-  function handleInput() {
-    state.selectedWord = null;
-    analyze();
-  }
-
-  function handleOptionsChange() {
-    state.selectedWord = null;
-    analyze();
-  }
-
-  function loadSample() {
-    elements.textInput.value = SAMPLE_TEXT;
-    state.selectedWord = null;
-    analyze();
-
-    if (typeof ToolsCommon !== 'undefined') {
-      ToolsCommon.Toast.show('Sample text loaded');
+  // ==================== Actions ====================
+  function copyReport() {
+    const text = elements.textInput.value.trim();
+    if (!text) {
+      ToolsCommon.showToast('No text to analyze', 'error');
+      return;
     }
+
+    const { frequency } = analyzeText(text);
+    const stats = calculateStats(frequency);
+    const minCount = parseInt(elements.minCountSelect.value);
+
+    const topWords = Object.entries(frequency)
+      .filter(([_, count]) => count >= minCount)
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 10)
+      .map(([word, count]) => `  ${word}: ${count}`)
+      .join('\n');
+
+    const report = `Repetition Analysis Report
+========================
+Total Words: ${stats.total}
+Unique Words: ${stats.unique}
+Repeated Words: ${stats.repeated}
+Max Repetition: ${stats.maxRepeat}
+
+Top Repeated Words:
+${topWords || '  No repeated words found'}
+`;
+
+    ToolsCommon.copyWithToast(report, 'Report copied!');
   }
 
   function clearAll() {
     elements.textInput.value = '';
     state.selectedWord = null;
     state.wordFrequency = {};
+    state.stats = { total: 0, unique: 0, repeated: 0, maxRepeat: 0 };
     analyze();
-
-    if (typeof ToolsCommon !== 'undefined') {
-      ToolsCommon.Toast.show('Cleared');
-    }
+    ToolsCommon.showToast('Cleared', 'info');
   }
 
   async function pasteText() {
@@ -249,57 +341,132 @@
       elements.textInput.value = text;
       state.selectedWord = null;
       analyze();
-
-      if (typeof ToolsCommon !== 'undefined') {
-        ToolsCommon.Toast.success('Text pasted');
-      }
+      ToolsCommon.showToast('Text pasted', 'success');
     } catch (err) {
-      if (typeof ToolsCommon !== 'undefined') {
-        ToolsCommon.Toast.error('Failed to paste');
-      }
+      ToolsCommon.showToast('Failed to paste', 'error');
     }
   }
 
-  function handleKeydown(e) {
-    if (e.target.tagName === 'TEXTAREA') return;
-
-    if (e.key === 'Delete') {
-      clearAll();
-    } else if (e.key === 'Escape') {
+  function loadSample(sampleName) {
+    const text = SAMPLE_TEXTS[sampleName];
+    if (text) {
+      elements.textInput.value = text;
       state.selectedWord = null;
       analyze();
+      switchTab('editor');
+      ToolsCommon.showToast('Sample loaded!', 'success');
     }
   }
 
-  // ==================== Initialization ====================
+  // ==================== Event Bindings ====================
+  function bindEvents() {
+    // Input events
+    const debouncedAnalyze = ToolsCommon.debounce(() => {
+      state.selectedWord = null;
+      analyze();
+    }, 300);
 
-  function setupEventListeners() {
-    const debouncedInput = typeof ToolsCommon !== 'undefined'
-      ? ToolsCommon.debounce(handleInput, 300)
-      : handleInput;
+    elements.textInput.addEventListener('input', debouncedAnalyze);
+    elements.minLengthSelect.addEventListener('change', () => {
+      state.selectedWord = null;
+      analyze();
+    });
+    elements.minCountSelect.addEventListener('change', () => {
+      state.selectedWord = null;
+      analyze();
+    });
+    elements.ignoreCommonCheck.addEventListener('change', () => {
+      state.selectedWord = null;
+      analyze();
+    });
 
-    elements.textInput.addEventListener('input', debouncedInput);
-    elements.minLengthSelect.addEventListener('change', handleOptionsChange);
-    elements.minCountSelect.addEventListener('change', handleOptionsChange);
-    elements.ignoreCommonCheck.addEventListener('change', handleOptionsChange);
-    elements.sampleBtn.addEventListener('click', loadSample);
+    // Quick action buttons
+    elements.analyzeBtn.addEventListener('click', () => {
+      analyze();
+      if (elements.textInput.value.trim()) {
+        switchTab('heatmap');
+      }
+    });
+    elements.copyBtn.addEventListener('click', copyReport);
     elements.clearBtn.addEventListener('click', clearAll);
+
+    // Editor action buttons
     elements.pasteBtn.addEventListener('click', pasteText);
 
+    // Heatmap action buttons
+    elements.deselectBtn.addEventListener('click', deselectWord);
+
+    // Sample cards
+    elements.samplesGrid.addEventListener('click', (e) => {
+      const card = e.target.closest('.sample-card');
+      if (card) {
+        loadSample(card.dataset.sample);
+      }
+    });
+
+    // Keyboard shortcuts
     document.addEventListener('keydown', handleKeydown);
   }
 
+  function handleKeydown(e) {
+    // Don't trigger shortcuts when typing in input fields
+    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.tagName === 'SELECT') {
+      return;
+    }
+
+    switch (e.key.toLowerCase()) {
+      case 'a':
+        e.preventDefault();
+        analyze();
+        if (elements.textInput.value.trim()) {
+          switchTab('heatmap');
+        }
+        break;
+
+      case 'c':
+        e.preventDefault();
+        copyReport();
+        break;
+
+      case 'delete':
+        e.preventDefault();
+        clearAll();
+        break;
+
+      case 'escape':
+        e.preventDefault();
+        deselectWord();
+        break;
+
+      case '1':
+        e.preventDefault();
+        switchTab('editor');
+        break;
+
+      case '2':
+        e.preventDefault();
+        switchTab('heatmap');
+        break;
+
+      case '3':
+        e.preventDefault();
+        switchTab('samples');
+        break;
+    }
+  }
+
+  // ==================== Initialize ====================
   function init() {
-    setupEventListeners();
+    initElements();
+    initTabs();
+    bindEvents();
     analyze();
   }
 
-  // ==================== Bootstrap ====================
-
+  // Start when DOM is ready
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);
   } else {
     init();
   }
-
 })();

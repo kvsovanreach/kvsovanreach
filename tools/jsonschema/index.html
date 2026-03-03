@@ -57,36 +57,111 @@
         <!-- Header -->
         <div class="schema-header">
           <h2><i class="fa-solid fa-diagram-project"></i> JSON Schema Visualizer</h2>
-          <div class="schema-actions">
-            <button class="action-btn" id="sampleBtn" title="Load Sample" aria-label="Load sample schema">
-              <i class="fa-solid fa-file-code"></i>
-              <span>Sample</span>
-            </button>
-            <button class="action-btn" id="expandAllBtn" title="Expand All" aria-label="Expand all nodes">
-              <i class="fa-solid fa-expand"></i>
-            </button>
-            <button class="action-btn" id="collapseAllBtn" title="Collapse All" aria-label="Collapse all nodes">
-              <i class="fa-solid fa-compress"></i>
-            </button>
-          </div>
         </div>
 
-        <!-- Content -->
-        <div class="schema-content">
-          <!-- Input Section -->
-          <div class="input-section">
-            <div class="input-header">
-              <label for="schemaInput">JSON Schema</label>
-              <div class="input-actions">
-                <button class="action-btn" id="pasteBtn" title="Paste" aria-label="Paste from clipboard">
-                  <i class="fa-solid fa-paste"></i>
-                </button>
-                <button class="action-btn" id="clearBtn" title="Clear" aria-label="Clear input">
-                  <i class="fa-solid fa-trash"></i>
-                </button>
+        <!-- Tab Navigation -->
+        <div class="tool-tabs">
+          <button class="tool-tab active" data-tab="editor">
+            <i class="fa-solid fa-code"></i>
+            <span>Editor</span>
+          </button>
+          <button class="tool-tab" data-tab="tree">
+            <i class="fa-solid fa-sitemap"></i>
+            <span>Tree</span>
+          </button>
+          <button class="tool-tab" data-tab="examples">
+            <i class="fa-solid fa-book"></i>
+            <span>Examples</span>
+          </button>
+        </div>
+
+        <!-- Main Content Area -->
+        <div class="schema-main">
+          <!-- Left: Stats & Preview Section -->
+          <div class="schema-preview-section">
+            <!-- Stats Cards -->
+            <div class="stats-card">
+              <div class="stats-header">
+                <h4>Schema Stats</h4>
+              </div>
+              <div class="stats-grid">
+                <div class="stat-item">
+                  <div class="stat-icon"><i class="fa-solid fa-cube"></i></div>
+                  <div class="stat-content">
+                    <span class="stat-value" id="propertyCount">0</span>
+                    <span class="stat-label">Properties</span>
+                  </div>
+                </div>
+                <div class="stat-item">
+                  <div class="stat-icon"><i class="fa-solid fa-layer-group"></i></div>
+                  <div class="stat-content">
+                    <span class="stat-value" id="depthCount">0</span>
+                    <span class="stat-label">Max Depth</span>
+                  </div>
+                </div>
+                <div class="stat-item">
+                  <div class="stat-icon"><i class="fa-solid fa-asterisk"></i></div>
+                  <div class="stat-content">
+                    <span class="stat-value" id="requiredCount">0</span>
+                    <span class="stat-label">Required</span>
+                  </div>
+                </div>
+                <div class="stat-item">
+                  <div class="stat-icon"><i class="fa-solid fa-shapes"></i></div>
+                  <div class="stat-content">
+                    <span class="stat-value" id="typeCount">0</span>
+                    <span class="stat-label">Types</span>
+                  </div>
+                </div>
               </div>
             </div>
-            <textarea id="schemaInput" placeholder='Paste your JSON Schema here...
+
+            <!-- Quick Actions -->
+            <div class="quick-actions">
+              <button class="quick-action-btn" id="validateBtn" title="Validate Schema (V)">
+                <i class="fa-solid fa-check-circle"></i>
+                <span>Validate</span>
+              </button>
+              <button class="quick-action-btn" id="copyBtn" title="Copy Schema (C)">
+                <i class="fa-solid fa-copy"></i>
+                <span>Copy</span>
+              </button>
+              <button class="quick-action-btn" id="downloadBtn" title="Download (D)">
+                <i class="fa-solid fa-download"></i>
+                <span>Download</span>
+              </button>
+            </div>
+
+            <!-- Schema Info -->
+            <div class="schema-info">
+              <div class="schema-info-header">
+                <h4>Schema Info</h4>
+              </div>
+              <div class="schema-info-content" id="schemaInfoContent">
+                <div class="info-empty">No schema loaded</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: Tab Content -->
+          <div class="schema-content">
+            <!-- Editor Panel -->
+            <div class="schema-panel active" id="editorPanel">
+              <div class="editor-header">
+                <label for="schemaInput">JSON Schema</label>
+                <div class="editor-actions">
+                  <button class="action-btn" id="pasteBtn" title="Paste" aria-label="Paste from clipboard">
+                    <i class="fa-solid fa-paste"></i>
+                  </button>
+                  <button class="action-btn" id="formatBtn" title="Format" aria-label="Format JSON">
+                    <i class="fa-solid fa-align-left"></i>
+                  </button>
+                  <button class="action-btn" id="clearBtn" title="Clear" aria-label="Clear input">
+                    <i class="fa-solid fa-trash"></i>
+                  </button>
+                </div>
+              </div>
+              <textarea id="schemaInput" placeholder='Paste your JSON Schema here...
 
 Example:
 {
@@ -96,77 +171,103 @@ Example:
     "age": { "type": "integer" }
   }
 }'></textarea>
-            <div class="input-error hidden" id="inputError">
-              <i class="fa-solid fa-exclamation-triangle"></i>
-              <span id="errorMessage">Invalid JSON</span>
+              <div class="input-error hidden" id="inputError">
+                <i class="fa-solid fa-exclamation-triangle"></i>
+                <span id="errorMessage">Invalid JSON</span>
+              </div>
             </div>
-          </div>
 
-          <!-- Stats Section -->
-          <div class="stats-section">
-            <div class="stats-grid">
-              <div class="stat-card">
-                <div class="stat-icon"><i class="fa-solid fa-cube"></i></div>
-                <div class="stat-content">
-                  <span class="stat-value" id="propertyCount">0</span>
-                  <span class="stat-label">Properties</span>
+            <!-- Tree Panel -->
+            <div class="schema-panel" id="treePanel">
+              <div class="tree-header">
+                <h3><i class="fa-solid fa-sitemap"></i> Schema Tree</h3>
+                <div class="tree-controls">
+                  <div class="tree-search">
+                    <i class="fa-solid fa-search"></i>
+                    <input type="text" id="searchInput" placeholder="Search properties...">
+                  </div>
+                  <button class="action-btn" id="expandAllBtn" title="Expand All" aria-label="Expand all nodes">
+                    <i class="fa-solid fa-expand"></i>
+                  </button>
+                  <button class="action-btn" id="collapseAllBtn" title="Collapse All" aria-label="Collapse all nodes">
+                    <i class="fa-solid fa-compress"></i>
+                  </button>
                 </div>
               </div>
-              <div class="stat-card">
-                <div class="stat-icon"><i class="fa-solid fa-layer-group"></i></div>
-                <div class="stat-content">
-                  <span class="stat-value" id="depthCount">0</span>
-                  <span class="stat-label">Max Depth</span>
-                </div>
-              </div>
-              <div class="stat-card">
-                <div class="stat-icon"><i class="fa-solid fa-asterisk"></i></div>
-                <div class="stat-content">
-                  <span class="stat-value" id="requiredCount">0</span>
-                  <span class="stat-label">Required</span>
-                </div>
-              </div>
-              <div class="stat-card">
-                <div class="stat-icon"><i class="fa-solid fa-shapes"></i></div>
-                <div class="stat-content">
-                  <span class="stat-value" id="typeCount">0</span>
-                  <span class="stat-label">Types</span>
+              <div class="tree-container" id="treeContainer">
+                <div class="tree-placeholder">
+                  <i class="fa-solid fa-diagram-project"></i>
+                  <p>Paste a JSON Schema to visualize its structure</p>
                 </div>
               </div>
             </div>
-          </div>
 
-          <!-- Tree Visualization Section -->
-          <div class="tree-section">
-            <div class="tree-header">
-              <h3><i class="fa-solid fa-sitemap"></i> Schema Tree</h3>
-              <div class="tree-search">
-                <i class="fa-solid fa-search"></i>
-                <input type="text" id="searchInput" placeholder="Search properties...">
-              </div>
-            </div>
-            <div class="tree-container" id="treeContainer">
-              <div class="tree-placeholder">
-                <i class="fa-solid fa-diagram-project"></i>
-                <p>Paste a JSON Schema to visualize its structure</p>
-              </div>
-            </div>
-          </div>
+            <!-- Examples Panel -->
+            <div class="schema-panel" id="examplesPanel">
+              <div class="examples-container">
+                <h3>Sample Schemas</h3>
+                <p class="examples-subtitle">Click on a sample to load it into the editor</p>
+                <div class="examples-grid" id="examplesGrid">
+                  <div class="example-card" data-example="user">
+                    <div class="example-icon"><i class="fa-solid fa-user"></i></div>
+                    <div class="example-info">
+                      <span class="example-name">User Profile</span>
+                      <span class="example-desc">Basic user data structure</span>
+                    </div>
+                  </div>
+                  <div class="example-card" data-example="product">
+                    <div class="example-icon"><i class="fa-solid fa-box"></i></div>
+                    <div class="example-info">
+                      <span class="example-name">Product</span>
+                      <span class="example-desc">E-commerce product schema</span>
+                    </div>
+                  </div>
+                  <div class="example-card" data-example="address">
+                    <div class="example-icon"><i class="fa-solid fa-location-dot"></i></div>
+                    <div class="example-info">
+                      <span class="example-name">Address</span>
+                      <span class="example-desc">Postal address format</span>
+                    </div>
+                  </div>
+                  <div class="example-card" data-example="event">
+                    <div class="example-icon"><i class="fa-solid fa-calendar"></i></div>
+                    <div class="example-info">
+                      <span class="example-name">Event</span>
+                      <span class="example-desc">Calendar event structure</span>
+                    </div>
+                  </div>
+                  <div class="example-card" data-example="api">
+                    <div class="example-icon"><i class="fa-solid fa-plug"></i></div>
+                    <div class="example-info">
+                      <span class="example-name">API Response</span>
+                      <span class="example-desc">REST API response format</span>
+                    </div>
+                  </div>
+                  <div class="example-card" data-example="config">
+                    <div class="example-icon"><i class="fa-solid fa-gear"></i></div>
+                    <div class="example-info">
+                      <span class="example-name">Config File</span>
+                      <span class="example-desc">Application configuration</span>
+                    </div>
+                  </div>
+                </div>
 
-          <!-- Info Panel -->
-          <div class="info-panel">
-            <div class="info-header">
-              <i class="fa-solid fa-circle-info"></i>
-              <span>How to Use</span>
-            </div>
-            <div class="info-content">
-              <ul>
-                <li>Paste a valid JSON Schema in the input area</li>
-                <li>Click on nodes to expand/collapse nested properties</li>
-                <li>Use search to find specific properties</li>
-                <li>Color-coded types: string (green), number (blue), boolean (purple), object (orange), array (cyan)</li>
-              </ul>
-              <p class="tip"><strong>Tip:</strong> JSON Schema defines the structure and validation rules for JSON data. It supports types, required fields, patterns, and more!</p>
+                <!-- Info Tips -->
+                <div class="examples-tips">
+                  <div class="tip-card">
+                    <i class="fa-solid fa-lightbulb"></i>
+                    <div class="tip-content">
+                      <strong>Tip:</strong> JSON Schema defines the structure and validation rules for JSON data. It supports types, required fields, patterns, and more!
+                    </div>
+                  </div>
+                  <div class="tip-card">
+                    <i class="fa-solid fa-palette"></i>
+                    <div class="tip-content">
+                      <strong>Color Codes:</strong> string (green), number (blue), boolean (purple), object (orange), array (cyan)
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -203,21 +304,50 @@ Example:
       </div>
       <div class="shortcuts-body">
         <div class="shortcuts-group">
-          <div class="shortcuts-group-title">Actions</div>
-          <div class="shortcut-row">
-            <div class="shortcut-keys"><kbd>Ctrl</kbd><span class="key-plus">+</span><kbd>E</kbd></div>
-            <div class="shortcut-desc">Expand all</div>
-          </div>
-          <div class="shortcut-row">
-            <div class="shortcut-keys"><kbd>Ctrl</kbd><span class="key-plus">+</span><kbd>W</kbd></div>
-            <div class="shortcut-desc">Collapse all</div>
-          </div>
-        </div>
-        <div class="shortcuts-group">
           <div class="shortcuts-group-title">General</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>V</kbd></div>
+            <div class="shortcut-desc">Validate schema</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>C</kbd></div>
+            <div class="shortcut-desc">Copy schema</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>D</kbd></div>
+            <div class="shortcut-desc">Download schema</div>
+          </div>
           <div class="shortcut-row">
             <div class="shortcut-keys"><kbd>?</kbd></div>
             <div class="shortcut-desc">Show shortcuts</div>
+          </div>
+        </div>
+
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">Navigation</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>1</kbd></div>
+            <div class="shortcut-desc">Editor tab</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>2</kbd></div>
+            <div class="shortcut-desc">Tree tab</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>3</kbd></div>
+            <div class="shortcut-desc">Examples tab</div>
+          </div>
+        </div>
+
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">Tree View</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>E</kbd></div>
+            <div class="shortcut-desc">Expand all</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>W</kbd></div>
+            <div class="shortcut-desc">Collapse all</div>
           </div>
         </div>
       </div>
