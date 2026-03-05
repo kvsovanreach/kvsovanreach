@@ -15,7 +15,7 @@
     <!-- Navigation -->
     <nav class="nav">
         <div class="nav-container">
-            <a href="#" class="nav-logo">
+            <a href="./" class="nav-logo">
                 <span class="logo-icon">⚡</span>
                 <span class="logo-text">Devabase</span>
             </a>
@@ -23,6 +23,7 @@
                 <a href="#features">Features</a>
                 <a href="#how-it-works">How It Works</a>
                 <a href="#sdk">SDK</a>
+                <a href="docs">Docs</a>
                 <a href="https://github.com/kvsovanreach/devabase" target="_blank" class="nav-github">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
                         <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
@@ -49,7 +50,7 @@
             <div class="hero-content">
                 <div class="hero-badge animate-fade-in">
                     <span class="badge-dot"></span>
-                    <span>Now with App Authentication</span>
+                    <span>Now with Knowledge Graphs & Advanced Retrieval</span>
                 </div>
                 <h1 class="hero-title animate-fade-in-up">
                     Build AI Apps<br>
@@ -57,8 +58,8 @@
                 </h1>
                 <p class="hero-description animate-fade-in-up delay-1">
                     The complete backend for RAG and LLM applications.
-                    Vector storage, document processing, semantic search,
-                    and user authentication — all in one place.
+                    Vector storage, document processing, knowledge graphs,
+                    advanced retrieval strategies, and user authentication — all in one place.
                 </p>
                 <div class="hero-cta animate-fade-in-up delay-2">
                     <a href="#get-started" class="btn btn-primary btn-lg">
@@ -142,7 +143,13 @@ client.<span class="code-function">useProject</span>(<span class="code-string">'
                     <span class="logo-text-brand">Anthropic</span>
                 </div>
                 <div class="logo-item">
+                    <span class="logo-text-brand">Google AI</span>
+                </div>
+                <div class="logo-item">
                     <span class="logo-text-brand">Cohere</span>
+                </div>
+                <div class="logo-item">
+                    <span class="logo-text-brand">Voyage AI</span>
                 </div>
                 <div class="logo-item">
                     <span class="logo-text-brand">PostgreSQL</span>
@@ -268,6 +275,45 @@ client.<span class="code-function">useProject</span>(<span class="code-string">'
                         <li>Cursor-based pagination</li>
                     </ul>
                 </div>
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="0">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <circle cx="6" cy="6" r="3"/>
+                            <circle cx="18" cy="6" r="3"/>
+                            <circle cx="12" cy="18" r="3"/>
+                            <path d="M8.5 7.5L10.5 16M15.5 7.5L13.5 16M7.5 5.5h9"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Knowledge Graphs</h3>
+                    <p class="feature-description">
+                        Extract entities and relationships from documents automatically.
+                        Build connected knowledge for enhanced RAG.
+                    </p>
+                    <ul class="feature-list">
+                        <li>Automatic entity extraction</li>
+                        <li>Relationship mapping</li>
+                        <li>Graph-enhanced retrieval</li>
+                    </ul>
+                </div>
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M9 3v2m6-2v2M9 19v2m6-2v2M3 9h2m-2 6h2m14-6h2m-2 6h2"/>
+                            <rect x="5" y="5" width="14" height="14" rx="2"/>
+                            <path d="M9 9h6v6H9z"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Advanced Retrieval</h3>
+                    <p class="feature-description">
+                        State-of-the-art retrieval strategies that dramatically
+                        improve RAG accuracy and relevance.
+                    </p>
+                    <ul class="feature-list">
+                        <li>HyDE & Multi-Query expansion</li>
+                        <li>Self-Query & contextual compression</li>
+                        <li>Parent-Child chunking</li>
+                    </ul>
+                </div>
             </div>
         </div>
     </section>
@@ -370,7 +416,7 @@ client.<span class="code-function">useProject</span>(<span class="code-string">'
                             <span>Works in Node.js, browsers, and edge runtimes</span>
                         </div>
                     </div>
-                    <a href="https://github.com/kvsovanreach/devabase/tree/main/sdk" class="btn btn-primary" target="_blank">
+                    <a href="https://sovanreach.com/projects/devabase/docs" class="btn btn-primary" target="_blank">
                         View SDK Documentation
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M7 17L17 7M17 7H7M17 7v10"/>
@@ -381,6 +427,7 @@ client.<span class="code-function">useProject</span>(<span class="code-string">'
                     <div class="code-tabs">
                         <button class="code-tab active" data-tab="search">Search</button>
                         <button class="code-tab" data-tab="chat">Chat</button>
+                        <button class="code-tab" data-tab="knowledge">Knowledge</button>
                         <button class="code-tab" data-tab="auth">Auth</button>
                     </div>
                     <div class="code-panels">
@@ -394,12 +441,12 @@ client.<span class="code-function">useProject</span>(<span class="code-string">'
   filter: { category: <span class="code-string">'security'</span> }
 });
 
-<span class="code-comment">// Hybrid search (vector + keyword)</span>
-<span class="code-keyword">const</span> hybrid = <span class="code-keyword">await</span> client.search.<span class="code-function">hybrid</span>({
-  collection: <span class="code-string">'knowledge-base'</span>,
-  query: <span class="code-string">'JWT token refresh'</span>,
-  vector_weight: <span class="code-number">0.7</span>,
-  keyword_weight: <span class="code-number">0.3</span>
+<span class="code-comment">// Advanced retrieval with HyDE strategy</span>
+<span class="code-keyword">const</span> advanced = <span class="code-keyword">await</span> client.search.<span class="code-function">query</span>({
+  collection: <span class="code-string">'docs'</span>,
+  query: <span class="code-string">'How do I implement OAuth?'</span>,
+  strategy: <span class="code-string">'hyde'</span>,  <span class="code-comment">// or 'multi_query'</span>
+  rerank: <span class="code-boolean">true</span>
 });</code></pre>
                         </div>
                         <div class="code-panel" id="chat-panel">
@@ -420,6 +467,22 @@ client.<span class="code-function">useProject</span>(<span class="code-string">'
 <span class="code-keyword">const</span> r2 = <span class="code-keyword">await</span> client.chat.<span class="code-function">continue</span>(
   response.conversation_id,
   <span class="code-string">'What about refresh tokens?'</span>
+);</code></pre>
+                        </div>
+                        <div class="code-panel" id="knowledge-panel">
+                            <pre><code><span class="code-comment">// Extract knowledge from a document</span>
+<span class="code-keyword">await</span> client.knowledge.<span class="code-function">extractFromDocument</span>(<span class="code-string">'doc-id'</span>);
+
+<span class="code-comment">// List entities by type</span>
+<span class="code-keyword">const</span> { data } = <span class="code-keyword">await</span> client.knowledge.entities.<span class="code-function">list</span>({
+  entity_type: <span class="code-string">'PERSON'</span>,
+  limit: <span class="code-number">50</span>
+});
+
+<span class="code-comment">// Get entity graph (relationships)</span>
+<span class="code-keyword">const</span> graph = <span class="code-keyword">await</span> client.knowledge.<span class="code-function">getGraph</span>(
+  <span class="code-string">'entity-123'</span>,
+  { depth: <span class="code-number">2</span> }
 );</code></pre>
                         </div>
                         <div class="code-panel" id="auth-panel">
@@ -511,7 +574,7 @@ console.<span class="code-function">log</span>(tokens.refresh_token);</code></pr
                         </svg>
                         <span>View on GitHub</span>
                     </a>
-                    <a href="docs.html" class="btn btn-outline-white btn-lg">
+                    <a href="docs" class="btn btn-outline-white btn-lg">
                         <span>Read Documentation</span>
                     </a>
                 </div>
@@ -533,7 +596,7 @@ console.<span class="code-function">log</span>(tokens.refresh_token);</code></pr
         <div class="container">
             <div class="footer-grid">
                 <div class="footer-brand">
-                    <a href="#" class="nav-logo">
+                    <a href="./" class="nav-logo">
                         <span class="logo-icon">⚡</span>
                         <span class="logo-text">Devabase</span>
                     </a>
@@ -552,30 +615,30 @@ console.<span class="code-function">log</span>(tokens.refresh_token);</code></pr
                         <li><a href="#features">Features</a></li>
                         <li><a href="#how-it-works">How It Works</a></li>
                         <li><a href="#sdk">SDK</a></li>
-                        <li><a href="#">Pricing</a></li>
+                        <li><a href="#get-started">Get Started</a></li>
                     </ul>
                 </div>
                 <div class="footer-links">
                     <h4>Resources</h4>
                     <ul>
-                        <li><a href="#">Documentation</a></li>
-                        <li><a href="#">API Reference</a></li>
-                        <li><a href="#">Examples</a></li>
-                        <li><a href="#">Blog</a></li>
+                        <li><a href="docs">Documentation</a></li>
+                        <li><a href="docs#api-reference">API Reference</a></li>
+                        <li><a href="docs#examples">Examples</a></li>
+                        <li><a href="https://github.com/kvsovanreach/devabase" target="_blank">GitHub</a></li>
                     </ul>
                 </div>
                 <div class="footer-links">
-                    <h4>Company</h4>
+                    <h4>Community</h4>
                     <ul>
-                        <li><a href="#">About</a></li>
-                        <li><a href="#">Contact</a></li>
-                        <li><a href="#">Privacy Policy</a></li>
-                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="https://github.com/kvsovanreach/devabase" target="_blank">GitHub</a></li>
+                        <li><a href="https://github.com/kvsovanreach/devabase/issues" target="_blank">Issues</a></li>
+                        <li><a href="https://github.com/kvsovanreach/devabase/discussions" target="_blank">Discussions</a></li>
+                        <li><a href="https://www.npmjs.com/package/devabase-sdk" target="_blank">npm</a></li>
                     </ul>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2025 Devabase. All rights reserved.</p>
+                <p>&copy; 2026 Devabase. All rights reserved.</p>
             </div>
         </div>
     </footer>
