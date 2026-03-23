@@ -1,56 +1,81 @@
-/* ==================== Font Face Declarations ==================== */
-@font-face {
-  font-family: 'SF Pro Display';
-  src: url('../assets/fonts/sf-pro-display-regular.woff2') format('woff2'),
-       url('../assets/fonts/sf-pro-display-regular.woff') format('woff');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
+/* ==================== Font ==================== */
 
-@font-face {
-  font-family: 'SF Pro Display';
-  src: url('../assets/fonts/sf-pro-display-medium.woff2') format('woff2'),
-       url('../assets/fonts/sf-pro-display-medium.woff') format('woff');
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'SF Pro Display';
-  src: url('../assets/fonts/sf-pro-display-semibold.woff2') format('woff2'),
-       url('../assets/fonts/sf-pro-display-semibold.woff') format('woff');
+/* ==================== Inline Citations ==================== */
+.citation {
+  font-size: 0.65em;
   font-weight: 600;
-  font-style: normal;
-  font-display: swap;
+  color: var(--color-primary);
+  background-color: var(--color-bg-tertiary);
+  padding: 0.1em 0.35em;
+  border-radius: 3px;
+  margin-left: 0.1em;
+  cursor: default;
+  transition: all var(--transition-fast);
+  vertical-align: super;
+  line-height: 1;
 }
 
-@font-face {
-  font-family: 'SF Pro Display';
-  src: url('../assets/fonts/sf-pro-display-bold.woff2') format('woff2'),
-       url('../assets/fonts/sf-pro-display-bold.woff') format('woff');
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
+.citation:hover {
+  background-color: var(--color-primary);
+  color: white;
 }
 
-@font-face {
-  font-family: 'SF Pro Display';
-  src: url('../assets/fonts/sf-pro-display-heavy.woff2') format('woff2'),
-       url('../assets/fonts/sf-pro-display-heavy.woff') format('woff');
-  font-weight: 800;
-  font-style: normal;
-  font-display: swap;
+/* Dark mode citations */
+.dark-mode .citation {
+  background-color: rgba(55, 118, 161, 0.2);
+  color: var(--color-accent);
 }
 
-@font-face {
-  font-family: 'SF Pro Display';
-  src: url('../assets/fonts/sf-pro-display-light.woff2') format('woff2'),
-       url('../assets/fonts/sf-pro-display-light.woff') format('woff');
+.dark-mode .citation:hover {
+  background-color: var(--color-primary);
+  color: white;
+}
+
+/* ==================== References Slide Styling ==================== */
+.references-slide .slide-bullets {
+  columns: 1;
+}
+
+.references-slide .slide-bullets li {
+  font-size: var(--font-size-xs);
+  line-height: 1.25;
+  margin-bottom: var(--space-1);
+  padding-left: var(--space-4);
+  color: var(--color-text-secondary);
   font-weight: 300;
-  font-style: normal;
-  font-display: swap;
+}
+
+.references-slide .slide-bullets li::before {
+  display: none;
+}
+
+.references-slide .slide-bullets li .citation {
+  font-size: 1em;
+  font-weight: 600;
+  margin-right: 0.3em;
+  background-color: var(--color-primary);
+  color: white;
+  padding: 0.1em 0.35em;
+}
+
+.references-slide .slide-bullets li a {
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
+.references-slide .slide-bullets li a:hover {
+  text-decoration: underline;
+}
+
+.references-slide .slide-title {
+  margin-bottom: var(--space-3);
+}
+
+/* Fullscreen references */
+.presentation.is-fullscreen .references-slide .slide-bullets li {
+  font-size: var(--font-size-sm);
+  line-height: 1.3;
+  margin-bottom: var(--space-2);
 }
 
 /* ==================== CSS Variables ==================== */
@@ -86,7 +111,7 @@
   --shadow-glow: 0 0 40px rgba(55, 118, 161, 0.15);
 
   /* Typography */
-  --font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-family: "SF Pro Display", "SF Pro Text", -apple-system, BlinkMacSystemFont, system-ui, "Segoe UI", Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif;
   --font-size-xs: 0.75rem;
   --font-size-sm: 0.875rem;
   --font-size-base: 1rem;
@@ -238,531 +263,12 @@ body {
   display: none !important;
 }
 
-/* ==================== PDF Capture Container (9:16) ==================== */
-.pdf-capture-container {
-  font-family: var(--font-family);
-  color: var(--color-text);
-}
-
-.pdf-capture-container * {
+/* ==================== PDF/Print Mode Overrides ==================== */
+/* The PDF uses .presentation.is-fullscreen styles, these are additional overrides */
+.presentation.printing * {
   opacity: 1 !important;
   transition: none !important;
   animation: none !important;
-}
-
-.pdf-capture-container .slide {
-  padding: 80px 60px;
-  display: flex;
-  flex-direction: column;
-  background-color: var(--color-bg);
-}
-
-.pdf-capture-container .slide-content {
-  max-width: 100%;
-  width: 100%;
-}
-
-/* PDF Title Styles */
-.pdf-capture-container .slide-title {
-  font-size: 3.5rem;
-  font-weight: 700;
-  color: var(--color-text);
-  margin-bottom: 2rem;
-  padding-left: 1.5rem;
-  position: relative;
-}
-
-.pdf-capture-container .slide-title::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 6px;
-  background: var(--color-primary);
-  border-radius: 3px;
-}
-
-/* PDF Text & Bullets */
-.pdf-capture-container .slide-text {
-  font-size: 2rem;
-  line-height: 1.7;
-  color: var(--color-text-secondary);
-}
-
-.pdf-capture-container .slide-bullets {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.pdf-capture-container .slide-bullets li {
-  font-size: 1.8rem;
-  line-height: 1.6;
-  margin-bottom: 1.5rem;
-  padding-left: 2rem;
-  position: relative;
-  color: var(--color-text);
-}
-
-.pdf-capture-container .slide-bullets li::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0.6em;
-  width: 10px;
-  height: 10px;
-  background-color: var(--color-primary);
-  border-radius: 50%;
-}
-
-/* PDF Hero Slide */
-.pdf-capture-container .hero-slide {
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  padding: 60px;
-}
-
-.pdf-capture-container .hero-hook span {
-  display: inline-block;
-  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
-  color: #fff;
-  padding: 1rem 2.5rem;
-  border-radius: 2rem;
-  font-size: 1.4rem;
-  font-weight: 600;
-  margin-bottom: 2rem;
-}
-
-.pdf-capture-container .hero-title {
-  font-size: 4rem;
-  font-weight: 800;
-  color: var(--color-text);
-  margin-bottom: 0.5rem;
-  line-height: 1.2;
-}
-
-.pdf-capture-container .hero-highlight {
-  color: var(--color-primary);
-}
-
-.pdf-capture-container .hero-subtitle {
-  font-size: 1.6rem;
-  color: var(--color-text-secondary);
-  margin-bottom: 3rem;
-  max-width: 800px;
-}
-
-.pdf-capture-container .presenter-info {
-  margin-top: 2rem;
-}
-
-.pdf-capture-container .presenter-name {
-  font-size: 2.2rem;
-  font-weight: 700;
-  color: var(--color-text);
-}
-
-.pdf-capture-container .presenter-role {
-  font-size: 1.2rem;
-  color: var(--color-text-secondary);
-  margin-bottom: 1rem;
-}
-
-.pdf-capture-container .presenter-meta {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  font-size: 1.1rem;
-  color: var(--color-text-muted);
-}
-
-/* PDF Section Slide */
-.pdf-capture-container .section-slide {
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-
-.pdf-capture-container .section-slide .section-number {
-  font-size: 12rem;
-  font-weight: 800;
-  color: var(--color-border);
-  line-height: 1;
-  margin-bottom: 1rem;
-}
-
-.pdf-capture-container .section-slide .section-title {
-  font-size: 4rem;
-  font-weight: 700;
-  color: var(--color-primary);
-  margin-bottom: 1rem;
-}
-
-.pdf-capture-container .section-slide .section-subtitle {
-  font-size: 1.8rem;
-  color: var(--color-text-secondary);
-}
-
-/* PDF TOC Slide */
-.pdf-capture-container .toc-slide .toc-list {
-  display: flex;
-  flex-direction: column;
-  gap: 1.75rem;
-}
-
-.pdf-capture-container .toc-slide .toc-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 1.75rem;
-  padding: 1.75rem 2.5rem;
-  background-color: var(--color-bg-secondary);
-  border-radius: 1rem;
-}
-
-.pdf-capture-container .toc-slide .toc-number {
-  font-size: 1.8rem;
-  font-weight: 700;
-  color: #fff;
-  background-color: var(--color-primary);
-  width: 3.5rem;
-  height: 3.5rem;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-}
-
-.pdf-capture-container .toc-slide .toc-item-title {
-  font-size: 2.5rem;
-  font-weight: 600;
-  color: var(--color-text);
-  margin-bottom: 0.5rem;
-}
-
-.pdf-capture-container .toc-slide .toc-item-desc {
-  font-size: 1.8rem;
-  color: var(--color-text-secondary);
-  line-height: 1.4;
-}
-
-.pdf-capture-container .toc-slide .toc-list.toc-two-column {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1.5rem;
-}
-
-.pdf-capture-container .toc-slide .toc-two-column .toc-item {
-  padding: 1.5rem 1.75rem;
-}
-
-.pdf-capture-container .toc-slide .toc-two-column .toc-number {
-  font-size: 1.5rem;
-  width: 3rem;
-  height: 3rem;
-}
-
-.pdf-capture-container .toc-slide .toc-two-column .toc-item-title {
-  font-size: 2rem;
-}
-
-.pdf-capture-container .toc-slide .toc-two-column .toc-item-desc {
-  font-size: 1.5rem;
-}
-
-/* PDF Quote Slide */
-.pdf-capture-container .quote-slide {
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  padding: 80px;
-}
-
-.pdf-capture-container .quote-slide .quote-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.pdf-capture-container .quote-slide .quote-icon {
-  font-size: 4rem;
-  color: var(--color-primary);
-  opacity: 0.3;
-  margin-bottom: 2rem;
-}
-
-.pdf-capture-container .quote-slide .quote-text {
-  font-size: 2.5rem;
-  font-weight: 500;
-  font-style: italic;
-  color: var(--color-text);
-  line-height: 1.5;
-  max-width: 900px;
-  margin-bottom: 2rem;
-}
-
-.pdf-capture-container .quote-slide .quote-attribution {
-  display: flex;
-  align-items: center;
-  gap: 1.5rem;
-}
-
-.pdf-capture-container .quote-slide .quote-author-image {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 3px solid var(--color-primary);
-}
-
-.pdf-capture-container .quote-slide .quote-author {
-  font-size: 1.8rem;
-  font-weight: 600;
-  color: var(--color-primary);
-}
-
-.pdf-capture-container .quote-slide .quote-source {
-  font-size: 1.3rem;
-  color: var(--color-text-muted);
-}
-
-/* PDF Quote with Background */
-.pdf-capture-container .quote-slide.has-bg-image .quote-icon,
-.pdf-capture-container .quote-slide.has-bg-image .quote-text,
-.pdf-capture-container .quote-slide.has-bg-image .quote-author,
-.pdf-capture-container .quote-slide.has-bg-image .quote-source {
-  color: #fff;
-}
-
-/* PDF Quote Layout: Left */
-.pdf-capture-container .quote-slide.quote-layout-left {
-  align-items: flex-start;
-  text-align: left;
-}
-
-.pdf-capture-container .quote-slide.quote-layout-left .quote-content {
-  align-items: flex-start;
-}
-
-/* PDF Quote Layout: With Image */
-.pdf-capture-container .quote-slide.quote-layout-with-image {
-  flex-direction: row;
-  gap: 3rem;
-}
-
-.pdf-capture-container .quote-slide.quote-layout-with-image .quote-image {
-  flex: 0 0 35%;
-}
-
-.pdf-capture-container .quote-slide.quote-layout-with-image .quote-image img {
-  width: 100%;
-  height: auto;
-  border-radius: 1rem;
-}
-
-.pdf-capture-container .quote-slide.quote-layout-with-image .quote-content {
-  flex: 1;
-  align-items: flex-start;
-  text-align: left;
-}
-
-/* PDF Two Column Slide */
-.pdf-capture-container .two-column-slide .columns {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 3rem;
-  margin-top: 2rem;
-}
-
-.pdf-capture-container .two-column-slide .column {
-  background-color: var(--color-bg-secondary);
-  padding: 2rem;
-  border-radius: 1rem;
-}
-
-.pdf-capture-container .two-column-slide .column-heading {
-  font-size: 2.2rem;
-  font-weight: 700;
-  color: var(--color-primary);
-  margin-bottom: 1.5rem;
-  padding-bottom: 0.75rem;
-  border-bottom: 2px solid var(--color-border);
-}
-
-.pdf-capture-container .two-column-slide .column .slide-bullets li {
-  font-size: 1.8rem;
-  margin-bottom: 1rem;
-}
-
-/* PDF Comparison Slide */
-.pdf-capture-container .comparison-slide .comparison-wrapper {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 2rem;
-  width: 100%;
-}
-
-.pdf-capture-container .comparison-side {
-  padding: 2rem;
-  border-radius: 1rem;
-  background-color: var(--color-bg-secondary);
-}
-
-.pdf-capture-container .comparison-left {
-  border: 1px solid var(--color-border);
-}
-
-.pdf-capture-container .comparison-right {
-  border: 2px solid var(--color-primary);
-}
-
-.pdf-capture-container .comparison-heading {
-  font-size: 2rem;
-  font-weight: 600;
-  margin-bottom: 1.5rem;
-  padding-bottom: 1rem;
-  border-bottom: 2px solid var(--color-border);
-}
-
-.pdf-capture-container .comparison-left .comparison-heading {
-  color: var(--color-text-secondary);
-}
-
-.pdf-capture-container .comparison-right .comparison-heading {
-  color: var(--color-primary);
-  border-bottom-color: var(--color-primary);
-}
-
-.pdf-capture-container .comparison-side .slide-bullets li {
-  font-size: 1.6rem;
-  margin-bottom: 0.75rem;
-}
-
-.pdf-capture-container .comparison-left .slide-bullets li {
-  color: var(--color-text-secondary);
-}
-
-.pdf-capture-container .comparison-right .slide-bullets li {
-  color: var(--color-text);
-}
-
-/* PDF Discussion Slide */
-.pdf-capture-container .discussion-slide {
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-
-.pdf-capture-container .discussion-slide .discussion-icon {
-  font-size: 5rem;
-  color: var(--color-primary);
-  margin-bottom: 2rem;
-}
-
-.pdf-capture-container .discussion-slide .discussion-title {
-  font-size: 5rem;
-  font-weight: 700;
-  color: var(--color-text);
-  margin-bottom: 1rem;
-}
-
-.pdf-capture-container .discussion-slide .discussion-title::before {
-  display: none;
-}
-
-.pdf-capture-container .discussion-slide .discussion-subtitle {
-  font-size: 2rem;
-  color: var(--color-text-secondary);
-  margin-bottom: 3rem;
-}
-
-.pdf-capture-container .discussion-slide .discussion-prompts {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 1.5rem;
-}
-
-.pdf-capture-container .discussion-slide .discussion-prompt {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  padding: 1.25rem 2rem;
-  background-color: var(--color-bg-secondary);
-  border-radius: 1rem;
-  border: 1px solid var(--color-border);
-}
-
-.pdf-capture-container .discussion-slide .prompt-icon {
-  font-size: 1.5rem;
-  color: var(--color-primary);
-}
-
-.pdf-capture-container .discussion-slide .prompt-text {
-  font-size: 1.3rem;
-  font-weight: 500;
-  color: var(--color-text);
-}
-
-/* PDF Connect Slide */
-.pdf-capture-container .connect-slide {
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-
-.pdf-capture-container .connect-slide .connect-title {
-  font-size: 4rem;
-  font-weight: 700;
-  color: var(--color-text);
-  margin-bottom: 1.5rem;
-}
-
-.pdf-capture-container .connect-slide .connect-title::before {
-  display: none;
-}
-
-.pdf-capture-container .connect-slide .connect-intro {
-  font-size: 1.5rem;
-  color: var(--color-text-secondary);
-  margin-bottom: 3rem;
-  max-width: 800px;
-  line-height: 1.6;
-}
-
-.pdf-capture-container .connect-slide .connect-links {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  margin-bottom: 3rem;
-}
-
-.pdf-capture-container .connect-slide .connect-item {
-  display: flex;
-  align-items: center;
-  gap: 1.5rem;
-  padding: 1.25rem 2rem;
-  background-color: var(--color-bg-secondary);
-  border-radius: 1rem;
-  border: 1px solid var(--color-border);
-  font-size: 1.5rem;
-  color: var(--color-text);
-  text-decoration: none;
-}
-
-.pdf-capture-container .connect-slide .connect-item i {
-  font-size: 1.8rem;
-  width: 2.5rem;
-  text-align: center;
-  color: var(--color-primary);
-}
-
-.pdf-capture-container .connect-slide .connect-thanks {
-  font-size: 4rem;
-  font-weight: 700;
-  color: var(--color-primary);
 }
 
 /* PDF Generation Overlay */
@@ -856,13 +362,14 @@ body {
   display: flex;
   align-items: flex-start;
   justify-content: center;
-  padding: var(--space-16) var(--space-12);
+  padding: var(--space-16) var(--space-10);
   pointer-events: none;
 }
 
 .slide.active {
   pointer-events: auto;
 }
+
 
 /* ==================== Slide Transitions ==================== */
 /* Fade Transition */
@@ -933,11 +440,12 @@ body {
 /* ==================== Common Slide Styles ==================== */
 .slide-content {
   width: 100%;
-  max-width: 1200px;
+  max-width: 100%;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
 }
+
 
 .slide-title {
   font-size: var(--font-size-5xl);
@@ -973,6 +481,7 @@ body {
   max-width: 100%;
   margin: 0 0 var(--space-6);
   text-align: left;
+  font-weight: 300;
 }
 
 .slide-bullets {
@@ -989,6 +498,7 @@ body {
   font-size: var(--font-size-2xl);
   color: var(--color-text-secondary);
   line-height: 1.7;
+  font-weight: 300;
 }
 
 .slide-bullets li::before {
@@ -1016,6 +526,7 @@ body {
   align-items: center;
   justify-content: center;
   width: 100%;
+  max-width: 100%;
   height: 100%;
 }
 
@@ -1063,7 +574,7 @@ body {
 .hero-subtitle {
   font-size: var(--font-size-2xl);
   color: var(--color-text-secondary);
-  font-weight: 400;
+  font-weight: 300;
   max-width: 900px;
   line-height: 1.5;
   margin-bottom: var(--space-12);
@@ -1093,7 +604,7 @@ body {
 .presenter-role {
   font-size: var(--font-size-lg);
   color: var(--color-primary);
-  font-weight: 500;
+  font-weight: 400;
 }
 
 .presenter-meta {
@@ -1121,6 +632,7 @@ body {
 /* ==================== Table of Contents Slide ==================== */
 .toc-slide {
   width: 100%;
+  max-width: 100%;
 }
 
 .toc-list {
@@ -1219,6 +731,7 @@ body {
   align-items: center;
   justify-content: center;
   width: 100%;
+  max-width: 100%;
   height: 100%;
   text-align: center;
 }
@@ -1236,6 +749,7 @@ body {
 .section-slide .section-subtitle {
   font-size: var(--font-size-2xl);
   color: var(--color-text-muted);
+  font-weight: 300;
 }
 
 .section-slide .section-number {
@@ -1251,6 +765,7 @@ body {
 .content-slide {
   text-align: left;
   width: 100%;
+  max-width: 100%;
 }
 
 /* ==================== Image Slide ==================== */
@@ -1259,6 +774,7 @@ body {
   flex-direction: column;
   align-items: flex-start;
   width: 100%;
+  max-width: 100%;
 }
 
 .image-slide .slide-image {
@@ -1281,11 +797,12 @@ body {
 /* ==================== Image-Content Slide ==================== */
 .image-content-slide {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 2fr 3fr;
   gap: var(--space-10);
   align-items: center;
   text-align: left;
   width: 100%;
+  max-width: 100%;
 }
 
 .image-content-slide.image-right {
@@ -1326,12 +843,14 @@ body {
 .two-column-slide {
   text-align: left;
   width: 100%;
+  max-width: 100%;
 }
 
 .two-column-slide .columns-wrapper {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: var(--space-8);
+  width: 100%;
 }
 
 .two-column-slide .column {
@@ -1363,6 +882,7 @@ body {
 /* ==================== Comparison Slide ==================== */
 .comparison-slide {
   width: 100%;
+  max-width: 100%;
 }
 
 .comparison-slide > .slide-text {
@@ -1441,6 +961,7 @@ body {
 .table-slide {
   text-align: left;
   width: 100%;
+  max-width: 100%;
 }
 
 .table-slide .table-wrapper {
@@ -1459,6 +980,10 @@ body {
   padding: var(--space-4) var(--space-5);
   text-align: left;
   border-bottom: 1px solid var(--color-border);
+}
+
+.table-slide td {
+  font-weight: 300;
 }
 
 .table-slide th {
@@ -1518,6 +1043,7 @@ body {
   align-items: center;
   justify-content: center;
   width: 100%;
+  max-width: 100%;
   height: 100%;
   transition: all var(--transition-normal);
 }
@@ -1538,7 +1064,7 @@ body {
 
 .quote-slide .quote-text {
   font-size: var(--font-size-4xl);
-  font-weight: 500;
+  font-weight: 400;
   color: var(--color-text);
   font-style: italic;
   max-width: 100%;
@@ -1642,6 +1168,7 @@ body {
 /* ==================== Image Grid Slide ==================== */
 .image-grid-slide {
   width: 100%;
+  max-width: 100%;
 }
 
 .image-grid-slide .image-grid {
@@ -1687,6 +1214,7 @@ body {
   align-items: center;
   justify-content: center;
   width: 100%;
+  max-width: 100%;
   height: 100%;
   text-align: center;
 }
@@ -1771,6 +1299,7 @@ body {
   align-items: center;
   justify-content: center;
   width: 100%;
+  max-width: 100%;
   height: 100%;
   text-align: center;
 }
@@ -1970,7 +1499,7 @@ body {
 }
 
 .presentation.is-fullscreen .slide {
-  padding: var(--space-10) var(--space-12);
+  padding: var(--space-12) var(--space-16);
 }
 
 .presentation.is-fullscreen .slide-content {

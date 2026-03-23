@@ -256,21 +256,24 @@ const Presentation = {
    */
   renderContentSlide(slide) {
     let content = '';
+    // Check if this is a references slide
+    const isReferences = slide.title && slide.title.toLowerCase().includes('reference');
+    const refClass = isReferences ? ' references-slide' : '';
 
     if (slide.text) {
-      content += `<p class="slide-text">${this.escapeHtml(slide.text)}</p>`;
+      content += `<p class="slide-text">${this.formatWithCitations(slide.text, isReferences)}</p>`;
     }
 
     if (slide.bullets && slide.bullets.length > 0) {
       content += `
         <ul class="slide-bullets">
-          ${slide.bullets.map(bullet => `<li>${this.escapeHtml(bullet)}</li>`).join('')}
+          ${slide.bullets.map(bullet => `<li>${this.formatWithCitations(bullet, isReferences)}</li>`).join('')}
         </ul>
       `;
     }
 
     return `
-      <div class="slide-content content-slide">
+      <div class="slide-content content-slide${refClass}">
         ${this.renderSlideTitle(slide.title, slide.section)}
         ${content}
       </div>
@@ -285,9 +288,9 @@ const Presentation = {
     return `
       <div class="slide-content image-slide">
         ${this.renderSlideTitle(slide.title, slide.section)}
-        ${slide.text ? `<p class="slide-text">${this.escapeHtml(slide.text)}</p>` : ''}
+        ${slide.text ? `<p class="slide-text">${this.formatWithCitations(slide.text)}</p>` : ''}
         <img class="slide-image" src="${this.escapeHtml(img.src)}" alt="${this.escapeHtml(img.alt || '')}">
-        ${img.caption ? `<p class="image-caption">${this.escapeHtml(img.caption)}</p>` : ''}
+        ${img.caption ? `<p class="image-caption">${this.formatWithCitations(img.caption)}</p>` : ''}
       </div>
     `;
   },
@@ -302,12 +305,12 @@ const Presentation = {
 
     let contentHtml = '';
     if (content.text) {
-      contentHtml += `<p class="slide-text">${this.escapeHtml(content.text)}</p>`;
+      contentHtml += `<p class="slide-text">${this.formatWithCitations(content.text)}</p>`;
     }
     if (content.bullets && content.bullets.length > 0) {
       contentHtml += `
         <ul class="slide-bullets">
-          ${content.bullets.map(bullet => `<li>${this.escapeHtml(bullet)}</li>`).join('')}
+          ${content.bullets.map(bullet => `<li>${this.formatWithCitations(bullet)}</li>`).join('')}
         </ul>
       `;
     }
@@ -315,7 +318,7 @@ const Presentation = {
     return `
       <div class="slide-content image-content-slide${layoutClass}">
         ${this.renderSlideTitle(slide.title, slide.section)}
-        ${slide.text ? `<p class="slide-text slide-intro-text">${this.escapeHtml(slide.text)}</p>` : ''}
+        ${slide.text ? `<p class="slide-text slide-intro-text">${this.formatWithCitations(slide.text)}</p>` : ''}
         <div class="image-wrapper">
           <img class="slide-image" src="${this.escapeHtml(img.src)}" alt="${this.escapeHtml(img.alt || '')}">
         </div>
@@ -335,12 +338,12 @@ const Presentation = {
     const columnsHtml = columns.map(col => {
       let colContent = '';
       if (col.text) {
-        colContent += `<p class="slide-text">${this.escapeHtml(col.text)}</p>`;
+        colContent += `<p class="slide-text">${this.formatWithCitations(col.text)}</p>`;
       }
       if (col.bullets && col.bullets.length > 0) {
         colContent += `
           <ul class="slide-bullets">
-            ${col.bullets.map(bullet => `<li>${this.escapeHtml(bullet)}</li>`).join('')}
+            ${col.bullets.map(bullet => `<li>${this.formatWithCitations(bullet)}</li>`).join('')}
           </ul>
         `;
       }
@@ -356,7 +359,7 @@ const Presentation = {
     return `
       <div class="slide-content two-column-slide">
         ${this.renderSlideTitle(slide.title, slide.section)}
-        ${slide.text ? `<p class="slide-text">${this.escapeHtml(slide.text)}</p>` : ''}
+        ${slide.text ? `<p class="slide-text">${this.formatWithCitations(slide.text)}</p>` : ''}
         <div class="columns-wrapper">
           ${columnsHtml}
         </div>
@@ -372,13 +375,13 @@ const Presentation = {
     const right = slide.right || {};
 
     // Build bullet lists
-    const leftBullets = (left.bullets || []).map(b => `<li>${this.escapeHtml(b)}</li>`).join('');
-    const rightBullets = (right.bullets || []).map(b => `<li>${this.escapeHtml(b)}</li>`).join('');
+    const leftBullets = (left.bullets || []).map(b => `<li>${this.formatWithCitations(b)}</li>`).join('');
+    const rightBullets = (right.bullets || []).map(b => `<li>${this.formatWithCitations(b)}</li>`).join('');
 
     return `
       <div class="slide-content comparison-slide">
         ${this.renderSlideTitle(slide.title, slide.section)}
-        ${slide.text ? `<p class="slide-text">${this.escapeHtml(slide.text)}</p>` : ''}
+        ${slide.text ? `<p class="slide-text">${this.formatWithCitations(slide.text)}</p>` : ''}
         <div class="comparison-wrapper">
           <div class="comparison-side comparison-left">
             <h3 class="comparison-heading">${this.escapeHtml(left.heading || 'Before')}</h3>
@@ -402,17 +405,17 @@ const Presentation = {
     const rows = table.rows || [];
     const highlight = table.highlight || [];
 
-    const headerHtml = headers.map(h => `<th>${this.escapeHtml(h)}</th>`).join('');
+    const headerHtml = headers.map(h => `<th>${this.formatWithCitations(h)}</th>`).join('');
     const rowsHtml = rows.map((row, index) => {
       const highlightClass = highlight.includes(index) ? ' class="highlight"' : '';
-      const cells = row.map(cell => `<td>${this.escapeHtml(cell)}</td>`).join('');
+      const cells = row.map(cell => `<td>${this.formatWithCitations(cell)}</td>`).join('');
       return `<tr${highlightClass}>${cells}</tr>`;
     }).join('');
 
     return `
       <div class="slide-content table-slide">
         ${this.renderSlideTitle(slide.title, slide.section)}
-        ${slide.text ? `<p class="slide-text">${this.escapeHtml(slide.text)}</p>` : ''}
+        ${slide.text ? `<p class="slide-text">${this.formatWithCitations(slide.text)}</p>` : ''}
         <div class="table-wrapper">
           <table>
             <thead>
@@ -464,12 +467,12 @@ const Presentation = {
         ${sideImage}
         <div class="quote-content">
           <i class="fa-solid fa-quote-left quote-icon"></i>
-          <p class="quote-text">${this.escapeHtml(slide.quote)}</p>
+          <p class="quote-text">${this.formatWithCitations(slide.quote)}</p>
           <div class="quote-attribution">
             ${authorImage}
             <div class="quote-author-info">
               ${slide.author ? `<p class="quote-author">— ${this.escapeHtml(slide.author)}</p>` : ''}
-              ${slide.source ? `<p class="quote-source">${this.escapeHtml(slide.source)}</p>` : ''}
+              ${slide.source ? `<p class="quote-source">${this.formatWithCitations(slide.source)}</p>` : ''}
             </div>
           </div>
         </div>
@@ -586,6 +589,38 @@ const Presentation = {
     const div = document.createElement('div');
     div.textContent = str;
     return div.innerHTML;
+  },
+
+  /**
+   * Format text with styled citations
+   * Converts [1], [2], etc. to styled superscript spans
+   * @param {string} str - String to process
+   * @param {boolean} allowLinks - Whether to preserve anchor tags
+   * @returns {string} String with styled citations
+   */
+  formatWithCitations(str, allowLinks = false) {
+    if (str === null || str === undefined) return '';
+
+    let result;
+    if (allowLinks) {
+      // Preserve anchor tags by temporarily replacing them
+      const links = [];
+      let temp = str.replace(/<a\s+[^>]*>.*?<\/a>/gi, (match) => {
+        links.push(match);
+        return `__LINK_${links.length - 1}__`;
+      });
+      // Escape the rest
+      temp = this.escapeHtml(temp);
+      // Restore links
+      temp = temp.replace(/__LINK_(\d+)__/g, (_, index) => links[parseInt(index)]);
+      result = temp;
+    } else {
+      result = this.escapeHtml(str);
+    }
+
+    // Convert citation patterns [1], [2], [1][2], etc. to styled spans
+    result = result.replace(/\[(\d+)\]/g, '<sup class="citation" data-ref="$1">[$1]</sup>');
+    return result;
   },
 
   /**
@@ -911,13 +946,13 @@ const Presentation = {
       // Get computed styles
       const bgColor = getComputedStyle(document.documentElement).getPropertyValue('--color-bg').trim() || '#ffffff';
 
-      // Create PDF document - 9:16 portrait format
+      // Create PDF document - 16:9 landscape format
       const { jsPDF } = window.jspdf;
-      const pdfWidth = 1080;
-      const pdfHeight = 1920;
+      const pdfWidth = 1920;
+      const pdfHeight = 1080;
 
       const pdf = new jsPDF({
-        orientation: 'portrait',
+        orientation: 'landscape',
         unit: 'px',
         format: [pdfWidth, pdfHeight],
         hotfixes: ['px_scaling']
@@ -926,9 +961,9 @@ const Presentation = {
       // Store current slide
       const currentSlideNum = this.currentSlide;
 
-      // Create a temporary container for PDF capture with 9:16 aspect ratio
+      // Create a temporary container that mimics fullscreen presentation
       const pdfContainer = document.createElement('div');
-      pdfContainer.className = 'pdf-capture-container';
+      pdfContainer.className = 'presentation is-fullscreen';
       pdfContainer.style.cssText = `
         position: fixed;
         top: 0;
@@ -939,10 +974,20 @@ const Presentation = {
         overflow: hidden;
         background-color: ${bgColor};
       `;
+
+      // Create slides container inside
+      const slidesContainer = document.createElement('div');
+      slidesContainer.className = 'slides-container';
+      slidesContainer.style.cssText = `
+        width: 100%;
+        height: 100%;
+        position: relative;
+      `;
+      pdfContainer.appendChild(slidesContainer);
       document.body.appendChild(pdfContainer);
 
       // Add print class to presentation for styling
-      this.presentation.classList.add('printing');
+      this.container.classList.add('printing');
 
       for (let i = 0; i < this.slides.length; i++) {
         // Update progress
@@ -959,11 +1004,12 @@ const Presentation = {
           height: 100%;
           display: flex;
           opacity: 1;
+          pointer-events: auto;
         `;
 
-        // Clear and add cloned slide to PDF container
-        pdfContainer.innerHTML = '';
-        pdfContainer.appendChild(slideClone);
+        // Clear and add cloned slide to slides container
+        slidesContainer.innerHTML = '';
+        slidesContainer.appendChild(slideClone);
 
         // Wait for render
         await new Promise(r => setTimeout(r, 150));
@@ -992,7 +1038,7 @@ const Presentation = {
       document.body.removeChild(pdfContainer);
 
       // Remove print class
-      this.presentation.classList.remove('printing');
+      this.container.classList.remove('printing');
 
       // Restore original slide
       this.slides.forEach(s => s.classList.remove('active'));
