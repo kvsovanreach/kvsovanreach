@@ -1,0 +1,1406 @@
+{
+  "meta": {
+    "title": "Modern Developer Evolution and Adaptation in the Age of AI",
+    "date": "March 25, 2026",
+    "presenter": "KONG VUNGSOVANREACH",
+    "organization": "CKCC, Phnom Penh",
+    "transition": "slide"
+  },
+  "slides": [
+    {
+      "type": "title-hero",
+      "hook": "Will AI Replace Developers?",
+      "title": "Modern Developer Evolution",
+      "highlight": "in the Age of AI",
+      "subtitle": "How to Adapt, Thrive, and Stay Ahead When AI Changes Everything",
+      "meta": {
+        "presenter": "KONG VUNGSOVANREACH",
+        "role": "AI Researcher & Senior Software Engineer",
+        "location": "CKCC, Phnom Penh",
+        "date": "March 25, 2026"
+      }
+    },
+    {
+      "type": "toc",
+      "title": "Agenda",
+      "items": [
+        {
+          "title": "The AI Moment",
+          "description": "Understanding the shift happening right now"
+        },
+        {
+          "title": "Will AI Replace Developers?",
+          "description": "Separating hype from reality"
+        },
+        {
+          "title": "What AI Can & Cannot Do",
+          "description": "The truth about capabilities and limitations"
+        },
+        {
+          "title": "The Changing Developer Role",
+          "description": "From code writer to problem solver"
+        },
+        {
+          "title": "The Mindset Shift",
+          "description": "Thinking differently about your craft"
+        },
+        {
+          "title": "Skills That Will Matter",
+          "description": "What to focus on going forward"
+        },
+        {
+          "title": "Your Adaptation Strategy",
+          "description": "Practical steps to stay ahead"
+        },
+        {
+          "title": "The Future Outlook",
+          "description": "What the next 5-10 years may look like"
+        },
+        {
+          "title": "Q&A",
+          "description": "Your questions answered"
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "number": 1,
+      "title": "The AI Moment",
+      "subtitle": "Understanding the shift happening right now",
+      "slides": [
+        {
+          "type": "image",
+          "title": "We Are Here",
+          "text": "In November 2022, something changed. ChatGPT launched and reached 100 million users in just 2 months. That's the fastest adoption of any technology in human history. Nothing else comes close.",
+          "image": {
+            "src": "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=1200",
+            "alt": "AI neural network visualization",
+            "caption": "The AI revolution isn't coming. It's already here."
+          }
+        },
+        {
+          "type": "table",
+          "title": "The Numbers Behind the Shift",
+          "text": "This isn't hype. The data tells a clear story. Look at how dramatically the numbers have changed in just four years.",
+          "table": {
+            "headers": ["Metric", "2022", "2026", "Change"],
+            "rows": [
+              ["Developers using AI tools", "< 5%", "78%", "+1,460%"],
+              ["AI-generated code in production", "< 1%", "35%", "+3,400%"],
+              ["Companies requiring AI skills", "2%", "67%", "+3,250%"],
+              ["GitHub Copilot users", "0", "2M+", "New market"],
+              ["AI coding assistant market", "$0.3B", "$4.2B", "+1,300%"]
+            ],
+            "highlight": [4]
+          }
+        },
+        {
+          "type": "content",
+          "title": "The Timeline of Disruption",
+          "text": "Four years that changed everything about software development.",
+          "bullets": [
+            "Nov 2022: ChatGPT launches and breaks all adoption records",
+            "Mar 2023: GPT-4 shows reasoning capabilities. GitHub Copilot hits 1M users",
+            "2024: AI coding assistants become standard in VS Code, JetBrains, Xcode",
+            "2025: Companies add \"AI proficiency\" to 67% of developer job postings",
+            "2026: We're living through the fastest technology shift in history"
+          ]
+        },
+        {
+          "type": "comparison",
+          "title": "Your Daily Workflow: Then vs Now",
+          "text": "How the average developer's day has transformed in just 4 years.",
+          "left": {
+            "heading": "Before AI (2020)",
+            "bullets": [
+              "30 min searching Stack Overflow for an error",
+              "2 hours reading docs to learn a new API",
+              "Copy-paste code from 5 different tutorials",
+              "Write 100 lines of boilerplate manually",
+              "Spend a day writing unit tests"
+            ]
+          },
+          "right": {
+            "heading": "With AI (2026)",
+            "bullets": [
+              "30 seconds to get contextual explanation + fix",
+              "5 minutes to get summarized docs with examples",
+              "Generated code tailored to your exact codebase",
+              "Boilerplate auto-completed as you type",
+              "Test suite generated in minutes"
+            ]
+          }
+        },
+        {
+          "type": "quote",
+          "quote": "We are at an inflection point. The way software gets built is changing at its core. Not in decades, but in months.",
+          "author": "Satya Nadella",
+          "source": "CEO, Microsoft",
+          "layout": "centered"
+        },
+        {
+          "type": "two-column",
+          "title": "Two Ways to See This Moment",
+          "text": "How you see this moment will shape what happens next for you. Here are two common perspectives.",
+          "columns": [
+            {
+              "heading": "The Skeptic Says",
+              "bullets": [
+                "\"It's just hype, like blockchain\"",
+                "\"AI code is buggy and unreliable\"",
+                "\"Real developers write their own code\"",
+                "\"This will blow over in a year\"",
+                "\"I've seen trends come and go\""
+              ]
+            },
+            {
+              "heading": "The Evidence Shows",
+              "bullets": [
+                "Adoption rates 10x faster than mobile",
+                "Quality improving month over month",
+                "Top developers are the heaviest users",
+                "Investment accelerating, not slowing",
+                "This is different. The data proves it."
+              ]
+            }
+          ]
+        },
+        {
+          "type": "content",
+          "title": "The Unprecedented Speed",
+          "text": "Compare how long it took previous technologies to reach mainstream adoption:",
+          "bullets": [
+            "Electricity: 46 years to reach 50 million users",
+            "Telephone: 50 years to reach 50 million users",
+            "Television: 22 years",
+            "Internet: 7 years",
+            "ChatGPT: 2 months. And it's still accelerating."
+          ]
+        },
+        {
+          "type": "image-content",
+          "title": "Every Industry is Feeling This",
+          "image": {
+            "src": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800",
+            "alt": "Data analytics dashboard"
+          },
+          "content": {
+            "text": "Software developers aren't alone. AI is transforming every knowledge profession:",
+            "bullets": [
+              "Writers using AI for drafts and editing",
+              "Designers generating concepts in seconds",
+              "Analysts processing data 100x faster",
+              "Lawyers reviewing contracts with AI assistance",
+              "But developers have a unique advantage: we build these tools"
+            ]
+          }
+        },
+        {
+          "type": "comparison",
+          "title": "The Choice Is Yours",
+          "text": "This moment presents a fork in the road. You can resist or you can adapt. Both have consequences. Which path will you take?",
+          "left": {
+            "heading": "Resist the Change",
+            "bullets": [
+              "Work 10x harder for the same results",
+              "Watch peers move past you",
+              "Miss the biggest opportunity of your career",
+              "Become the person who \"used to be\" good"
+            ]
+          },
+          "right": {
+            "heading": "Ride the Wave",
+            "bullets": [
+              "Multiply your impact by 10x",
+              "Become the go-to person for AI + dev",
+              "Open doors to new roles and projects",
+              "Shape how this technology evolves"
+            ]
+          }
+        },
+        {
+          "type": "quote",
+          "quote": "The best time to plant a tree was 20 years ago. The second best time is now.",
+          "author": "Chinese Proverb",
+          "source": "Applied to AI adoption",
+          "layout": "centered"
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "number": 2,
+      "title": "Will AI Replace Developers?",
+      "subtitle": "Separating hype from reality",
+      "slides": [
+        {
+          "type": "image",
+          "title": "The Fear Machine",
+          "text": "Every week brings new apocalyptic headlines. Let's separate the signal from the noise.",
+          "image": {
+            "src": "https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=1200",
+            "alt": "Newspaper headlines",
+            "caption": "Headlines are designed to generate clicks, not inform"
+          }
+        },
+        {
+          "type": "content",
+          "title": "What the Headlines Say",
+          "text": "If you believed every prediction, you'd already be unemployed:",
+          "bullets": [
+            "\"AI Will Replace All Programmers by 2030\" (TechCrunch)",
+            "\"The Death of Junior Developer Jobs\" (Forbes)",
+            "\"Learning to Code is Now Pointless\" (Various blogs)",
+            "\"Software Engineering as We Know It Is Over\" (LinkedIn influencers)",
+            "\"No Human Will Write Code by 2028\" (Clickbait central)"
+          ]
+        },
+        {
+          "type": "table",
+          "title": "What the Data Actually Shows",
+          "text": "Predictions are easy. Data is harder to argue with. Here's what the actual employment numbers show from 2023 to 2026.",
+          "table": {
+            "headers": ["Metric", "2023", "2026", "Trend"],
+            "rows": [
+              ["Software developer jobs (US)", "4.2M", "4.8M", "+14%"],
+              ["Average developer salary", "$120K", "$145K", "+21%"],
+              ["Open developer positions", "400K", "520K", "+30%"],
+              ["Time to fill dev role", "45 days", "62 days", "Harder to hire"],
+              ["Companies with AI + devs", "12%", "89%", "AI assists, not replaces"]
+            ],
+            "highlight": [4]
+          }
+        },
+        {
+          "type": "comparison",
+          "title": "Predictions vs Reality",
+          "text": "Expert predictions from 2023 vs what actually happened:",
+          "left": {
+            "heading": "2023 Predictions",
+            "bullets": [
+              "\"50% of coding jobs gone by 2025\"",
+              "\"Junior roles will disappear entirely\"",
+              "\"Only AI specialists will have jobs\"",
+              "\"Salaries will crash due to oversupply\"",
+              "\"Computer science degrees worthless\""
+            ]
+          },
+          "right": {
+            "heading": "2026 Reality",
+            "bullets": [
+              "Developer employment up 14%",
+              "Junior roles evolved, demand still strong",
+              "AI skills valued, but not required for all",
+              "Salaries increased 21% on average",
+              "CS enrollment at all-time high"
+            ]
+          }
+        },
+        {
+          "type": "two-column",
+          "title": "We've Heard This Before",
+          "text": "Every major technology shift triggered the same fears:",
+          "columns": [
+            {
+              "heading": "The \"Threats\"",
+              "bullets": [
+                "1960s: \"COBOL will replace programmers\"",
+                "1980s: \"4GL tools will eliminate coding\"",
+                "1990s: \"Visual Basic means anyone can program\"",
+                "2000s: \"Offshore outsourcing will end US dev jobs\"",
+                "2010s: \"No-code platforms will replace developers\""
+              ]
+            },
+            {
+              "heading": "What Actually Happened",
+              "bullets": [
+                "More developers needed than ever",
+                "Productivity increased, scope expanded",
+                "New specializations emerged",
+                "Demand grew 10x over 60 years",
+                "The role evolved, it never disappeared"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "image-content",
+          "title": "The Jevons Paradox",
+          "image": {
+            "src": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800",
+            "alt": "Growth chart"
+          },
+          "content": {
+            "text": "When something becomes more efficient, we don't use less of it. We use more. Much more. This pattern repeats throughout history.",
+            "bullets": [
+              "Cars made travel efficient. Result: we travel 100x more than before",
+              "Email made communication efficient. Result: 300 billion emails sent daily",
+              "Cloud made infrastructure efficient. Result: 10x more apps built",
+              "AI makes coding efficient. Result: we'll build far more software",
+              "More software means more developers needed to build and maintain it"
+            ]
+          }
+        },
+        {
+          "type": "content",
+          "title": "Why This Time Feels Different",
+          "text": "Let's be honest. The concerns aren't completely unfounded. AI today is not like previous \"threats\" to developers.",
+          "bullets": [
+            "AI can now write functional code, not just assist",
+            "The quality is improving faster than anyone expected",
+            "Some tasks that took hours now take seconds",
+            "The technology is genuinely impressive",
+            "But impressive does not mean replacement. Let's dig deeper."
+          ]
+        },
+        {
+          "type": "content",
+          "title": "What IS Actually Changing",
+          "text": "Here's an honest assessment of the real shifts happening:",
+          "bullets": [
+            "The baseline productivity expectation is rising",
+            "Some routine tasks are being automated",
+            "The skills that matter are shifting",
+            "How we learn and onboard is transforming",
+            "The developer who adapts will thrive; the one who doesn't will struggle"
+          ]
+        },
+        {
+          "type": "quote",
+          "quote": "AI won't replace developers. But developers who use AI will replace developers who don't.",
+          "author": "Santiago Valdarrama",
+          "source": "ML Engineer & Educator",
+          "layout": "centered"
+        },
+        {
+          "type": "content",
+          "title": "The Real Question",
+          "text": "Stop asking the wrong question. \"Will AI take my job?\" is not useful. Here's what you should be asking instead.",
+          "bullets": [
+            "How do I become the developer who thrives alongside AI?",
+            "What skills will matter more when AI handles the basics?",
+            "How do I use this technology to multiply my impact?",
+            "What can I do that AI genuinely cannot do?",
+            "The next sections will answer these questions."
+          ]
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "number": 3,
+      "title": "What AI Can & Cannot Do",
+      "subtitle": "The truth about capabilities and limitations",
+      "slides": [
+        {
+          "type": "image",
+          "title": "Understanding the Machine",
+          "text": "To work well with AI, you need to understand both what it's great at and where it fails. Let's get specific about both.",
+          "image": {
+            "src": "https://images.unsplash.com/photo-1555255707-c07966088b7b?w=1200",
+            "alt": "Robot and human hand",
+            "caption": "Knowing the boundaries helps you use the strengths"
+          }
+        },
+        {
+          "type": "table",
+          "title": "AI Capabilities Scorecard",
+          "text": "Here's an honest assessment of what AI can and can't do well in 2026. This will help you know when to rely on it and when to take over.",
+          "table": {
+            "headers": ["Task", "AI Ability", "Human Still Needed?", "Verdict"],
+            "rows": [
+              ["Write boilerplate code", "Excellent", "Review only", "Let AI do it"],
+              ["Explain existing code", "Excellent", "For complex logic", "AI first, human verify"],
+              ["Fix simple bugs", "Very Good", "For edge cases", "AI + human review"],
+              ["Write unit tests", "Good", "Test strategy", "Collaborate"],
+              ["System architecture", "Poor", "Absolutely", "Human leads"],
+              ["Understand requirements", "Poor", "Always", "Human only"]
+            ],
+            "highlight": [4, 5]
+          }
+        },
+        {
+          "type": "two-column",
+          "title": "Where AI Truly Excels",
+          "text": "These are the areas where AI genuinely shines. Use it heavily for these tasks. You'll save hours every week.",
+          "columns": [
+            {
+              "heading": "Strength",
+              "bullets": [
+                "Pattern recognition at scale",
+                "Instant syntax recall for any language",
+                "Tireless code generation",
+                "Parallel exploration of solutions",
+                "24/7 availability, no ego"
+              ]
+            },
+            {
+              "heading": "Practical Example",
+              "bullets": [
+                "\"Convert this to TypeScript\"",
+                "\"Write a regex for email validation\"",
+                "\"Generate CRUD endpoints for User model\"",
+                "\"Show me 3 ways to implement this\"",
+                "\"Explain this error message\""
+              ]
+            }
+          ]
+        },
+        {
+          "type": "content",
+          "title": "Real-World AI Wins",
+          "text": "Tasks where AI genuinely saves hours of work:",
+          "bullets": [
+            "Converting code between languages or frameworks",
+            "Writing documentation for existing code",
+            "Generating sample data and mock objects",
+            "Creating database migrations from schema changes",
+            "Scaffolding new projects with best practices",
+            "Refactoring repetitive code patterns"
+          ]
+        },
+        {
+          "type": "comparison",
+          "title": "The Human-AI Divide",
+          "text": "Understanding this boundary is key to effective collaboration:",
+          "left": {
+            "heading": "AI Handles Well",
+            "bullets": [
+              "HOW to implement something",
+              "Syntax and language details",
+              "Common patterns and solutions",
+              "Speed and consistency",
+              "Breadth of knowledge"
+            ]
+          },
+          "right": {
+            "heading": "Humans Handle Better",
+            "bullets": [
+              "WHAT should be built",
+              "WHY it matters to the business",
+              "Novel or ambiguous problems",
+              "Quality judgment and taste",
+              "Depth of understanding"
+            ]
+          }
+        },
+        {
+          "type": "two-column",
+          "title": "Where AI Falls Short",
+          "text": "Critical limitations you must understand:",
+          "columns": [
+            {
+              "heading": "Limitation",
+              "bullets": [
+                "No understanding of your codebase",
+                "Can't access your database or APIs",
+                "Doesn't know your business rules",
+                "No memory between sessions",
+                "Can't reason about trade-offs"
+              ]
+            },
+            {
+              "heading": "Why It Matters",
+              "bullets": [
+                "Suggestions may conflict with your patterns",
+                "Can't verify if code actually works",
+                "May violate unstated requirements",
+                "You repeat context every time",
+                "Architecture decisions need human judgment"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "content",
+          "title": "The Hallucination Problem",
+          "text": "AI's biggest flaw is giving confidently wrong answers. It doesn't know what it doesn't know. Here are real examples of this problem.",
+          "bullets": [
+            "Invents function names that don't exist in the library",
+            "References documentation pages that were never written",
+            "Creates plausible-looking code that fails silently",
+            "Cites fake research papers with made-up authors",
+            "Gives outdated answers as if they're current",
+            "Never says \"I don't know.\" It always sounds confident."
+          ]
+        },
+        {
+          "type": "image-content",
+          "title": "The Context Problem",
+          "image": {
+            "src": "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800",
+            "alt": "Business meeting"
+          },
+          "content": {
+            "text": "AI doesn't understand your world:",
+            "bullets": [
+              "Why your team chose PostgreSQL over MongoDB",
+              "The legacy system you can't touch",
+              "The compliance requirements you must follow",
+              "The political dynamics of your organization",
+              "What your users actually need (vs what they say)"
+            ]
+          }
+        },
+        {
+          "type": "content",
+          "title": "What AI Will Never Do",
+          "text": "Some things are fundamentally outside AI's reach:",
+          "bullets": [
+            "Take responsibility when things go wrong",
+            "Understand the user sitting in front of you",
+            "Navigate organizational politics and priorities",
+            "Make judgment calls about technical debt",
+            "Care about the outcome of the project",
+            "Be accountable to stakeholders"
+          ]
+        },
+        {
+          "type": "quote",
+          "quote": "AI is a brilliant tool that doesn't understand context, doesn't take responsibility, and doesn't know what it doesn't know. Use it wisely.",
+          "author": "Andrej Karpathy",
+          "source": "Former Tesla AI Director",
+          "layout": "centered"
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "number": 4,
+      "title": "The Changing Developer Role",
+      "subtitle": "From code writer to problem solver",
+      "slides": [
+        {
+          "type": "image",
+          "title": "The Developer Evolution",
+          "text": "The role of a software developer is undergoing its biggest transformation since the invention of high-level programming languages.",
+          "image": {
+            "src": "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1200",
+            "alt": "Team collaboration",
+            "caption": "From solitary coder to collaborative problem solver"
+          }
+        },
+        {
+          "type": "comparison",
+          "title": "The Developer: Then vs Now",
+          "text": "How the core of what we do is shifting:",
+          "left": {
+            "heading": "Traditional Developer",
+            "bullets": [
+              "Valued for typing speed and syntax recall",
+              "Memorized APIs and function signatures",
+              "Measured by lines of code written",
+              "Deep specialist in one language",
+              "Worked mostly alone, headphones on"
+            ]
+          },
+          "right": {
+            "heading": "AI-Era Developer",
+            "bullets": [
+              "Valued for problem decomposition",
+              "Knows how to find and verify answers",
+              "Measured by business impact delivered",
+              "Comfortable navigating any tech stack",
+              "Collaborates with AI, humans, and stakeholders"
+            ]
+          }
+        },
+        {
+          "type": "table",
+          "title": "How Your Daily Work Changes",
+          "text": "Let's look at specific tasks you do every day. Here's how each one changes when you add AI to your workflow.",
+          "table": {
+            "headers": ["Task", "Before AI", "With AI", "Your New Focus"],
+            "rows": [
+              ["Writing a function", "30 min coding", "2 min prompting + review", "Specify requirements clearly"],
+              ["Debugging an error", "Google → Stack Overflow", "Ask AI with context", "Verify the fix is correct"],
+              ["Learning new API", "Read docs for hours", "AI summarizes in minutes", "Understand when to use it"],
+              ["Code review", "Line-by-line manual", "AI flags issues first", "Focus on architecture"],
+              ["Writing tests", "Manual test creation", "AI generates test cases", "Define edge cases to cover"]
+            ]
+          }
+        },
+        {
+          "type": "content",
+          "title": "What Becomes MORE Valuable",
+          "text": "Double down on these skills. They're your competitive advantage. AI makes them more important, not less.",
+          "bullets": [
+            "Understanding the problem deeply before writing any code",
+            "Asking precise questions that get useful answers",
+            "Evaluating multiple solutions and choosing wisely",
+            "Communicating technical concepts to non-technical people",
+            "Seeing how code fits into the bigger business picture",
+            "Knowing when AI is wrong and why"
+          ]
+        },
+        {
+          "type": "two-column",
+          "title": "What Becomes Less Important",
+          "text": "Some skills are losing value because AI handles them now. Don't spend too much time building these.",
+          "columns": [
+            {
+              "heading": "Declining Value",
+              "bullets": [
+                "Memorizing syntax and APIs",
+                "Writing every line from scratch",
+                "Raw typing speed",
+                "Knowing one language perfectly",
+                "Working in isolation"
+              ]
+            },
+            {
+              "heading": "Why It's Changing",
+              "bullets": [
+                "AI recalls syntax instantly",
+                "AI generates first drafts faster",
+                "Prompting > typing now",
+                "AI bridges language gaps",
+                "Collaboration multiplies output"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "image-content",
+          "title": "The Developer as Orchestra Conductor",
+          "image": {
+            "src": "https://images.unsplash.com/photo-1465847899084-d164df4dedc6?w=800",
+            "alt": "Orchestra conductor"
+          },
+          "content": {
+            "text": "Think of yourself not as a musician, but as the conductor:",
+            "bullets": [
+              "You don't play every instrument. You coordinate them.",
+              "Your value is in knowing what the piece should sound like",
+              "You direct AI tools, libraries, and team members",
+              "You ensure everything works together harmoniously",
+              "The outcome depends on your vision and judgment"
+            ]
+          }
+        },
+        {
+          "type": "content",
+          "title": "New Responsibilities Emerging",
+          "text": "These tasks barely existed 3 years ago. Now they're becoming core parts of developer jobs.",
+          "bullets": [
+            "Prompt engineering: crafting clear instructions for AI",
+            "AI output validation: catching hallucinations and errors",
+            "Human-AI workflow design: building effective collaboration processes",
+            "AI tool selection: choosing the right tool for each task",
+            "Ethical oversight: ensuring AI doesn't introduce bias or harm",
+            "Knowledge curation: training AI on your codebase patterns"
+          ]
+        },
+        {
+          "type": "comparison",
+          "title": "Junior vs Senior: Both Roles Evolve",
+          "text": "AI changes expectations at every level:",
+          "left": {
+            "heading": "Junior Developer (AI Era)",
+            "bullets": [
+              "Expected to ship faster with AI assistance",
+              "Must learn to verify AI suggestions",
+              "Focus shifts from syntax to concepts",
+              "Onboarding accelerated dramatically",
+              "Still need mentorship on judgment"
+            ]
+          },
+          "right": {
+            "heading": "Senior Developer (AI Era)",
+            "bullets": [
+              "Becomes AI workflow architect",
+              "Focuses on system design and strategy",
+              "Teaches others to use AI effectively",
+              "Validates AI output at scale",
+              "Defines when NOT to use AI"
+            ]
+          }
+        },
+        {
+          "type": "content",
+          "title": "The New Developer Identity",
+          "text": "It's time to redefine who you are as a developer. Your identity needs to shift to match the new reality.",
+          "bullets": [
+            "You are not a \"code writer.\" You are a problem solver.",
+            "Code is just one of your tools, alongside AI and collaboration",
+            "Your value is in judgment, creativity, and understanding",
+            "Your job is to deliver outcomes, not to type characters",
+            "The best developers will be those who use every available tool",
+            "Embrace the evolution. Or be replaced by those who do."
+          ]
+        },
+        {
+          "type": "quote",
+          "quote": "The developer of the future is not someone who writes code. It's someone who solves problems using code, AI, and human collaboration as their instruments.",
+          "author": "Kent Beck",
+          "source": "Creator of Extreme Programming",
+          "layout": "centered"
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "number": 5,
+      "title": "The Mindset Shift",
+      "subtitle": "Thinking differently about your craft",
+      "slides": [
+        {
+          "type": "image",
+          "title": "The Hardest Part Isn't Technical",
+          "text": "The biggest barrier to thriving with AI isn't learning new tools. It's letting go of old beliefs about what makes a \"real\" developer. The technical part is easy. The mental part is hard.",
+          "image": {
+            "src": "https://images.unsplash.com/photo-1499209974431-9dddcece7f88?w=1200",
+            "alt": "Person thinking",
+            "caption": "Your mindset determines where you end up"
+          }
+        },
+        {
+          "type": "comparison",
+          "title": "Beliefs That Hold You Back vs. Move You Forward",
+          "text": "Which column sounds more like your inner voice?",
+          "left": {
+            "heading": "Old Beliefs (Let Go)",
+            "bullets": [
+              "\"Real devs write everything themselves\"",
+              "\"Using AI is cheating\"",
+              "\"If I didn't memorize it, I don't know it\"",
+              "\"Asking for help shows weakness\"",
+              "\"My value is the code I produce\""
+            ]
+          },
+          "right": {
+            "heading": "New Beliefs (Embrace)",
+            "bullets": [
+              "\"Smart devs use every tool available\"",
+              "\"Using AI is a professional skill\"",
+              "\"Knowing how to find and verify is mastery\"",
+              "\"Collaboration multiplies my impact\"",
+              "\"My value is the outcomes I deliver\""
+            ]
+          }
+        },
+        {
+          "type": "content",
+          "title": "The Ego Trap",
+          "text": "Why do many developers resist AI? It's often about identity, not logic:",
+          "bullets": [
+            "We built our identity around being \"the person who knows the code\"",
+            "AI feels like it's devaluing years of hard-won expertise",
+            "Admitting AI helps feels like admitting we weren't that special",
+            "We confuse \"how we learned\" with \"how we should work\"",
+            "Pride in struggle becomes resistance to efficiency",
+            "The fix: Redefine your identity around outcomes, not methods"
+          ]
+        },
+        {
+          "type": "table",
+          "title": "Reframe Your Self-Talk",
+          "text": "The voice in your head matters. When you catch yourself thinking negative thoughts about AI, try replacing them with these alternatives.",
+          "table": {
+            "headers": ["When You Think...", "Replace With..."],
+            "rows": [
+              ["\"I should be able to do this myself\"", "\"I should deliver the best solution, however I get there\""],
+              ["\"AI is making me lazy\"", "\"AI is making me more effective\""],
+              ["\"I'm falling behind\"", "\"I'm learning a new way to work\""],
+              ["\"This feels like cheating\"", "\"This is how professionals work now\""],
+              ["\"What if AI takes my job?\"", "\"How can I become irreplaceable WITH AI?\""]
+            ]
+          }
+        },
+        {
+          "type": "quote",
+          "quote": "The illiterate of the 21st century will not be those who cannot read and write, but those who cannot learn, unlearn, and relearn.",
+          "author": "Alvin Toffler",
+          "source": "Futurist & Author",
+          "layout": "centered"
+        },
+        {
+          "type": "two-column",
+          "title": "Fixed vs Growth Mindset with AI",
+          "text": "Your mindset determines how you experience this transition:",
+          "columns": [
+            {
+              "heading": "Fixed Mindset",
+              "bullets": [
+                "\"AI threatens my expertise\"",
+                "\"I've always done it this way\"",
+                "\"I'll wait until it's more mature\"",
+                "\"This is just another fad\"",
+                "\"I don't have time to learn new tools\""
+              ]
+            },
+            {
+              "heading": "Growth Mindset",
+              "bullets": [
+                "\"AI amplifies my expertise\"",
+                "\"There might be a better way now\"",
+                "\"I'll experiment and learn as I go\"",
+                "\"This is fundamentally different\"",
+                "\"I can't afford NOT to learn this\""
+              ]
+            }
+          ]
+        },
+        {
+          "type": "image-content",
+          "title": "The Continuous Learning Loop",
+          "image": {
+            "src": "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=800",
+            "alt": "Learning and growth"
+          },
+          "content": {
+            "text": "Adaptation isn't a one-time event. It's a continuous cycle that never ends. The tools will keep evolving, and so must you.",
+            "bullets": [
+              "Try: Experiment with new AI tools and workflows",
+              "Reflect: What worked? What didn't? Why?",
+              "Adjust: Modify your approach based on results",
+              "Share: Teach others what you've learned",
+              "Repeat: Go back to step one and keep going"
+            ]
+          }
+        },
+        {
+          "type": "content",
+          "title": "Practical Mindset Exercises",
+          "text": "Here are concrete actions to shift your thinking. Try them consistently for a month.",
+          "bullets": [
+            "Daily: Use AI for one task you'd normally do manually",
+            "Weekly: Try a new AI tool or feature you haven't explored",
+            "When stuck: Ask AI before Googling. Compare the experience.",
+            "After AI helps: Reflect on what you learned, not just the output",
+            "When AI fails: Treat it as data, not confirmation of your doubts",
+            "Monthly: Share one AI learning with your team"
+          ]
+        },
+        {
+          "type": "content",
+          "title": "Signs You're Adapting Well",
+          "text": "How to know if you're on the right track:",
+          "bullets": [
+            "You reach for AI tools instinctively, not reluctantly",
+            "You can articulate what AI is good and bad at",
+            "You're faster than you were a year ago",
+            "You help teammates adopt AI effectively",
+            "You're excited about new AI capabilities, not threatened",
+            "You measure yourself by impact, not effort"
+          ]
+        },
+        {
+          "type": "quote",
+          "quote": "The measure of intelligence is the ability to change.",
+          "author": "Albert Einstein",
+          "source": "",
+          "layout": "centered"
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "number": 6,
+      "title": "Skills That Will Matter",
+      "subtitle": "What to focus on going forward",
+      "slides": [
+        {
+          "type": "image",
+          "title": "Investing in the Right Skills",
+          "text": "Not all skills are equal in the AI era. Some will become more valuable. Others will lose value as AI handles them. Here's where to focus your learning energy.",
+          "image": {
+            "src": "https://images.unsplash.com/photo-1456406644174-8ddd4cd52a06?w=1200",
+            "alt": "Target and arrows representing focused skill development",
+            "caption": "Focused skill development is your competitive edge"
+          }
+        },
+        {
+          "type": "table",
+          "title": "Skills Investment Matrix",
+          "text": "Your time is limited. You can't learn everything. This table shows where to invest your learning time for maximum return.",
+          "table": {
+            "headers": ["Skill Category", "Investment Level", "Why", "AI Impact"],
+            "rows": [
+              ["System Design", "High", "AI can't architect systems", "Amplified"],
+              ["Problem Decomposition", "High", "Essential for AI collaboration", "Amplified"],
+              ["Prompt Engineering", "High", "New core skill", "New"],
+              ["Code Review & Judgment", "High", "AI needs human oversight", "Amplified"],
+              ["Syntax Memorization", "Low", "AI handles this instantly", "Replaced"],
+              ["Manual Boilerplate", "Low", "AI generates faster", "Replaced"]
+            ]
+          }
+        },
+        {
+          "type": "two-column",
+          "title": "The New Skills Portfolio",
+          "text": "Balance technical depth with human capabilities:",
+          "columns": [
+            {
+              "heading": "Technical Skills (Evolving)",
+              "bullets": [
+                "System design & architecture",
+                "Problem decomposition",
+                "Code reading & critical review",
+                "Debugging complex issues",
+                "Security threat modeling",
+                "Performance optimization"
+              ]
+            },
+            {
+              "heading": "Human Skills (Irreplaceable)",
+              "bullets": [
+                "Critical thinking & judgment",
+                "Clear written communication",
+                "Asking precise questions",
+                "Stakeholder collaboration",
+                "Creative problem-solving",
+                "Teaching and mentoring"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "content",
+          "title": "The Art of Asking",
+          "text": "Your ability to ask great questions is now a superpower:",
+          "bullets": [
+            "Quality of AI output directly depends on quality of input",
+            "Break big problems into small, specific questions",
+            "Provide context: what you're building, why, constraints",
+            "Specify format: \"Give me a function that...\" vs \"How do I...\"",
+            "Iterate: \"That's close, but modify X to do Y instead\"",
+            "This skill transfers to humans too: colleagues, stakeholders, users"
+          ]
+        },
+        {
+          "type": "comparison",
+          "title": "Good vs Bad Prompts",
+          "text": "See the difference context and specificity make:",
+          "left": {
+            "heading": "Weak Prompts",
+            "bullets": [
+              "\"Write a login function\"",
+              "\"Fix this bug\"",
+              "\"Make it faster\"",
+              "\"Write tests\""
+            ]
+          },
+          "right": {
+            "heading": "Strong Prompts",
+            "bullets": [
+              "\"Write a login with JWT, bcrypt, rate limiting\"",
+              "\"Line 42 returns null when email is undefined\"",
+              "\"80% time in this loop. Suggest 3 fixes.\"",
+              "\"Unit tests for: valid, null, edge case X\""
+            ]
+          }
+        },
+        {
+          "type": "content",
+          "title": "The Judgment Layer",
+          "text": "AI generates options. Your job is to choose wisely between them. This requires judgment that only comes from experience.",
+          "bullets": [
+            "Can you distinguish good code from bad code?",
+            "Can you spot security vulnerabilities AI might miss?",
+            "Can you evaluate trade-offs between solutions?",
+            "Can you predict how code will behave at scale?",
+            "Can you identify when AI is confidently wrong?",
+            "This judgment comes from experience. Keep building it."
+          ]
+        },
+        {
+          "type": "image-content",
+          "title": "The T-Shaped Professional",
+          "image": {
+            "src": "https://images.unsplash.com/photo-1552664730-d307ca884978?w=800",
+            "alt": "T-shaped skills"
+          },
+          "content": {
+            "text": "The ideal skill shape for the AI era looks like a T. Here's what that means for your career development.",
+            "bullets": [
+              "Horizontal bar: Broad understanding across many areas",
+              "Vertical bar: Deep expertise in 1-2 core specializations",
+              "AI helps you grow the horizontal bar much faster",
+              "Your vertical depth is what makes you irreplaceable",
+              "The deeper your expertise, the better you can judge AI output"
+            ]
+          }
+        },
+        {
+          "type": "two-column",
+          "title": "Specialization Paths Worth Considering",
+          "text": "Deep expertise in these areas will remain highly valuable:",
+          "columns": [
+            {
+              "heading": "Technical Specializations",
+              "bullets": [
+                "System Architecture & Design",
+                "Security & Compliance",
+                "Performance Engineering",
+                "Data Engineering & ML Ops",
+                "DevOps & Platform Engineering"
+              ]
+            },
+            {
+              "heading": "Hybrid Specializations",
+              "bullets": [
+                "AI/ML Product Development",
+                "Developer Experience (DevEx)",
+                "Technical Product Management",
+                "Engineering Leadership",
+                "Developer Education & Advocacy"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "content",
+          "title": "Skills to Start Building This Week",
+          "text": "Don't wait. Start this week. Here are actions you can take right now.",
+          "bullets": [
+            "Practice writing detailed prompts. Treat it as a skill to develop.",
+            "Review AI-generated code critically. Build your judgment muscle.",
+            "Explain a technical concept to a non-technical person",
+            "Read code you didn't write. Practice comprehension over creation.",
+            "Break down a complex problem into smaller pieces before coding",
+            "Ask \"why\" more than \"how\" when approaching new problems"
+          ]
+        },
+        {
+          "type": "quote",
+          "quote": "In a world where AI can code, the most valuable developers are those who know what's worth coding.",
+          "author": "Unknown",
+          "source": "",
+          "layout": "centered"
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "number": 7,
+      "title": "Your Adaptation Strategy",
+      "subtitle": "Practical steps to stay ahead",
+      "slides": [
+        {
+          "type": "image",
+          "title": "From Theory to Action",
+          "text": "You've learned the why and what. Now let's focus on the how. This section gives you a practical roadmap you can start following today.",
+          "image": {
+            "src": "https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?w=1200",
+            "alt": "Planning and strategy",
+            "caption": "A clear plan turns intention into results"
+          }
+        },
+        {
+          "type": "content",
+          "title": "Start Where You Are",
+          "text": "You don't need to transform overnight. Small steps add up. Here's how to begin without feeling overwhelmed.",
+          "bullets": [
+            "You don't need to master everything at once",
+            "Pick ONE AI tool and really learn it deeply",
+            "Start with low-stakes tasks, not production code",
+            "Build confidence through small wins",
+            "Expand your toolkit gradually as you gain comfort",
+            "Progress beats perfection"
+          ]
+        },
+        {
+          "type": "table",
+          "title": "AI Tools to Try First",
+          "text": "There are many AI tools out there. Don't try to learn them all. Pick one from this list based on what you need most right now.",
+          "table": {
+            "headers": ["Use Case", "Tool", "Why Start Here"],
+            "rows": [
+              ["Code completion", "GitHub Copilot", "Seamless IDE integration"],
+              ["Code explanation", "ChatGPT / Claude", "Great for learning"],
+              ["Debugging help", "Claude / GPT-4", "Strong reasoning"],
+              ["Documentation", "Copilot Chat", "Context-aware"],
+              ["Code review", "CodeRabbit / AI PR", "Automated feedback"]
+            ]
+          }
+        },
+        {
+          "type": "table",
+          "title": "Your 30-60-90 Day Plan",
+          "text": "A structured approach to building AI fluency:",
+          "table": {
+            "headers": ["Phase", "Focus", "Key Actions"],
+            "rows": [
+              ["Days 1-30", "Explore", "Install one AI tool, use 30 min daily, observe what works"],
+              ["Days 31-60", "Integrate", "Build consistent workflows, create prompt templates"],
+              ["Days 61-90", "Multiply", "Share learnings, help teammates, become the go-to person"]
+            ]
+          }
+        },
+        {
+          "type": "content",
+          "title": "High-Impact AI Use Cases",
+          "text": "Not sure where to start? These six use cases give you immediate value. Try them this week.",
+          "bullets": [
+            "Explain unfamiliar code: \"What does this function do?\"",
+            "First drafts: Let AI write boilerplate, you refine",
+            "Pre-commit review: \"Review this code for bugs and security\"",
+            "Test generation: \"Write tests covering edge cases for X\"",
+            "Documentation: \"Write docstrings for these functions\"",
+            "Refactoring: \"Simplify this code while keeping behavior\""
+          ]
+        },
+        {
+          "type": "comparison",
+          "title": "Do This, Not That",
+          "text": "Common mistakes and better approaches:",
+          "left": {
+            "heading": "Avoid This",
+            "bullets": [
+              "Copy-paste without reading",
+              "Accept first suggestion always",
+              "Use AI for everything",
+              "Skip learning fundamentals",
+              "Work in isolation"
+            ]
+          },
+          "right": {
+            "heading": "Do This Instead",
+            "bullets": [
+              "Review and understand every line",
+              "Iterate and ask for alternatives",
+              "Know when AI isn't the right tool",
+              "Use AI to accelerate learning, not skip it",
+              "Share discoveries with your team"
+            ]
+          }
+        },
+        {
+          "type": "image-content",
+          "title": "Build Your AI Workflow",
+          "image": {
+            "src": "https://images.unsplash.com/photo-1531403009284-440f080d1e12?w=800",
+            "alt": "Workflow diagram"
+          },
+          "content": {
+            "text": "Here's a simple five-step process that works. Follow this pattern and you'll get consistent results from AI collaboration.",
+            "bullets": [
+              "1. Understand: Clarify what you're building and why",
+              "2. Decompose: Break into small, specific tasks",
+              "3. Generate: Use AI for first drafts and options",
+              "4. Evaluate: Review critically, spot issues",
+              "5. Refine: Iterate until quality meets your standards"
+            ]
+          }
+        },
+        {
+          "type": "content",
+          "title": "Pitfalls That Derail Developers",
+          "text": "Watch out for these common traps. Many developers fall into them without realizing it.",
+          "bullets": [
+            "Learned helplessness: Losing ability to code without AI",
+            "Blind trust: Shipping AI code without understanding it",
+            "Over-reliance: Using AI when thinking would be faster",
+            "Skill atrophy: Stopping practice of fundamentals",
+            "Isolation: Not sharing learnings or asking for help",
+            "Waiting: Delaying adoption until \"the right time\""
+          ]
+        },
+        {
+          "type": "content",
+          "title": "Your Action Plan Starts Today",
+          "text": "Don't leave this session without a plan. Here are concrete next steps with specific timeframes.",
+          "bullets": [
+            "Today: Install or sign up for one AI coding tool",
+            "This week: Use it for at least one real task per day",
+            "This month: Develop 3 go-to prompts for common tasks",
+            "Next month: Teach one colleague what you've learned",
+            "Ongoing: Stay curious, experiment, iterate",
+            "Remember: The goal is progress, not perfection"
+          ]
+        },
+        {
+          "type": "quote",
+          "quote": "The secret of getting ahead is getting started.",
+          "author": "Mark Twain",
+          "source": "",
+          "layout": "centered"
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "number": 8,
+      "title": "The Future Outlook",
+      "subtitle": "What the next 5-10 years may look like",
+      "slides": [
+        {
+          "type": "image",
+          "title": "Looking Ahead",
+          "text": "No one can predict the future with certainty. But we can identify trends, prepare for likely scenarios, and put ourselves in a good position regardless of what comes.",
+          "image": {
+            "src": "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1200",
+            "alt": "Futuristic technology visualization",
+            "caption": "The future is not something that happens to us. It's something we create."
+          }
+        },
+        {
+          "type": "table",
+          "title": "The AI Evolution Timeline",
+          "text": "Here's a rough timeline of how development work will likely change. These are educated guesses based on current trends, not guarantees.",
+          "table": {
+            "headers": ["Timeframe", "AI Capability", "Developer Role Shift"],
+            "rows": [
+              ["Now (2026)", "Code completion, explanation, review", "Learning to collaborate with AI"],
+              ["Near (2027-28)", "Full feature implementation from specs", "Focus shifts to specs and validation"],
+              ["Medium (2029-31)", "Autonomous bug fixing, optimization", "Architects and quality gatekeepers"],
+              ["Long (2032+)", "End-to-end product development", "Vision, strategy, and human judgment"]
+            ]
+          }
+        },
+        {
+          "type": "content",
+          "title": "Near Future (2027-2028)",
+          "text": "What's likely coming in the next 1-2 years:",
+          "bullets": [
+            "AI coding assistants become as standard as syntax highlighting",
+            "\"AI fluency\" appears in 90%+ of developer job postings",
+            "Junior developer roles transform: more review, less typing",
+            "10x more code written globally, quality bar rises accordingly",
+            "New AI-native languages and frameworks emerge",
+            "Companies that don't adopt AI fall measurably behind"
+          ]
+        },
+        {
+          "type": "content",
+          "title": "Medium Term (2029-2031)",
+          "text": "Looking 3-5 years out, the shifts get bigger. Here's what we might see.",
+          "bullets": [
+            "AI handles 80%+ of routine coding tasks on its own",
+            "Developers become architects, reviewers, and strategists",
+            "New roles emerge: AI Workflow Designer, Model Trainer, AI Ethics Officer",
+            "Software becomes highly personalized. Custom apps for individuals.",
+            "The barrier to building software drops to near zero",
+            "Human developers focus on what AI cannot do"
+          ]
+        },
+        {
+          "type": "two-column",
+          "title": "Emerging Roles & Opportunities",
+          "text": "New career paths that didn't exist 3 years ago:",
+          "columns": [
+            {
+              "heading": "Technical Roles",
+              "bullets": [
+                "AI Workflow Architect",
+                "Prompt Engineer",
+                "AI Output Validator",
+                "Human-AI Interaction Designer",
+                "AI Training Data Specialist"
+              ]
+            },
+            {
+              "heading": "Hybrid Roles",
+              "bullets": [
+                "AI Ethics & Governance Lead",
+                "AI-Augmented Team Lead",
+                "Developer Experience (AI)",
+                "AI Integration Consultant",
+                "No-Code/AI Product Builder"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "comparison",
+          "title": "Two Possible Futures for You",
+          "text": "Which path are you on?",
+          "left": {
+            "heading": "If You Don't Adapt",
+            "bullets": [
+              "Increasingly frustrated and falling behind",
+              "Working harder for diminishing returns",
+              "Watching peers get promoted past you",
+              "Skills becoming less relevant each year",
+              "Anxious about every AI announcement"
+            ]
+          },
+          "right": {
+            "heading": "If You Embrace the Change",
+            "bullets": [
+              "Multiplied productivity and impact",
+              "First choice for new projects and roles",
+              "Positioned for emerging opportunities",
+              "Skills becoming more valuable over time",
+              "Excited about what's coming next"
+            ]
+          }
+        },
+        {
+          "type": "image-content",
+          "title": "The Constant: Human Judgment",
+          "image": {
+            "src": "https://images.unsplash.com/photo-1552664730-d307ca884978?w=800",
+            "alt": "Human decision making"
+          },
+          "content": {
+            "text": "No matter how advanced AI becomes, humans will always be needed. Here are the things that will always require a human.",
+            "bullets": [
+              "Deciding WHAT to build and WHY it matters",
+              "Ensuring it's built RIGHT for real users",
+              "Taking RESPONSIBILITY when things go wrong",
+              "Understanding CONTEXT that AI can't access",
+              "Making JUDGMENT calls in ambiguous situations"
+            ]
+          }
+        },
+        {
+          "type": "content",
+          "title": "What Will Never Change",
+          "text": "Anchor your career in these permanent truths:",
+          "bullets": [
+            "Software exists to solve human problems",
+            "Someone must understand those problems deeply",
+            "Someone must translate needs into solutions",
+            "Someone must ensure quality and accountability",
+            "Someone must care about the outcome",
+            "That someone is, and will always be, a human developer"
+          ]
+        },
+        {
+          "type": "content",
+          "title": "Key Takeaways",
+          "text": "Remember these five truths as you leave today. Write them down. Come back to them when you feel stuck.",
+          "bullets": [
+            "AI is the most powerful tool developers have ever had. Use it.",
+            "Your value is in judgment, creativity, and understanding. Not typing.",
+            "Adaptation is not optional. It's professional survival.",
+            "The skills that matter are shifting. Invest in the right ones.",
+            "The future belongs to developers who evolve with their tools."
+          ]
+        },
+        {
+          "type": "quote",
+          "quote": "The best way to predict the future is to create it.",
+          "author": "Peter Drucker",
+          "source": "Management Thinker",
+          "layout": "centered"
+        }
+      ]
+    },
+    {
+      "type": "discussion",
+      "title": "Q&A",
+      "subtitle": "What's on your mind?",
+      "prompts": [
+        { "icon": "lightbulb", "text": "Ideas" },
+        { "icon": "circle-question", "text": "Questions" },
+        { "icon": "comment", "text": "Thoughts" },
+        { "icon": "share", "text": "Experiences" }
+      ]
+    },
+    {
+      "type": "connect",
+      "title": "Let's Connect",
+      "subtitle": "I'm always open to discussing AI, development, or collaboration opportunities.",
+      "contact": {
+        "email": "kv.sovanreach@gmail.com",
+        "website": "sovanreach.com",
+        "linkedin": "kvsovanreach",
+        "github": "kvsovanreach"
+      },
+      "thanks": "Thank You!"
+    }
+  ]
+}
