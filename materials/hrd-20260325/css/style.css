@@ -358,6 +358,20 @@ body {
   animation: none !important;
 }
 
+/* Fix gradient text for PDF rendering (html2canvas doesn't support -webkit-background-clip: text) */
+.presentation.printing .section-slide .section-title {
+  background: none !important;
+  -webkit-background-clip: unset !important;
+  -webkit-text-fill-color: var(--color-primary) !important;
+  background-clip: unset !important;
+  color: var(--color-primary) !important;
+}
+
+.presentation.printing .hero-highlight {
+  -webkit-text-fill-color: var(--color-primary) !important;
+  color: var(--color-primary) !important;
+}
+
 /* PDF Generation Overlay */
 .pdf-overlay {
   position: fixed;

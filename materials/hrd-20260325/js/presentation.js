@@ -620,6 +620,10 @@ const Presentation = {
 
     // Convert citation patterns [1], [2], [1][2], etc. to styled spans
     result = result.replace(/\[(\d+)\]/g, '<sup class="citation" data-ref="$1">[$1]</sup>');
+
+    // Convert <nl> tags to line breaks
+    result = result.replace(/&lt;nl&gt;/g, '<br>');
+
     return result;
   },
 
@@ -963,7 +967,7 @@ const Presentation = {
 
       // Create a temporary container that mimics fullscreen presentation
       const pdfContainer = document.createElement('div');
-      pdfContainer.className = 'presentation is-fullscreen';
+      pdfContainer.className = 'presentation is-fullscreen printing';
       pdfContainer.style.cssText = `
         position: fixed;
         top: 0;
@@ -1011,21 +1015,54 @@ const Presentation = {
         slidesContainer.innerHTML = '';
         slidesContainer.appendChild(slideClone);
 
-        // Wait for render
-        await new Promise(r => setTimeout(r, 150));
+        // Add page number indicator (same style as fullscreen web view)
+        const pageIndicator = document.createElement('div');
+        pageIndicator.className = 'pdf-page-indicator';
+        pageIndicator.innerHTML = `<span class="current-slide">${i + 1}</span> / ${this.totalSlides}`;
+        pageIndicator.style.cssText = `
+          position: absolute;
+          bottom: 24px;
+          right: 32px;
+          font-size: 14px;
+          font-weight: 500;
+          color: var(--color-text-muted);
+          background-color: var(--color-bg-secondary);
+          padding: 6px 16px;
+          border-radius: 9999px;
+          border: 1px solid var(--color-border);
+          opacity: 0.8;
+          z-index: 100;
+        `;
+        // Style the current slide number
+        const currentSlideSpan = pageIndicator.querySelector('.current-slide');
+        if (currentSlideSpan) {
+          currentSlideSpan.style.cssText = 'color: var(--color-primary); font-weight: 700;';
+        }
+        pdfContainer.appendChild(pageIndicator);
 
-        // Capture the PDF container
+        // Wait for render (reduced for faster generation)
+        await new Promise(r => setTimeout(r, 50));
+
+        // Capture the PDF container (balanced quality and file size)
         const canvas = await html2canvas(pdfContainer, {
-          scale: 2,
+          scale: 1.25,
           useCORS: true,
+          allowTaint: true,
           backgroundColor: bgColor,
           logging: false,
           width: pdfWidth,
-          height: pdfHeight
+          height: pdfHeight,
+          imageTimeout: 5000,
+          removeContainer: true
         });
 
-        // Add to PDF
-        const imgData = canvas.toDataURL('image/jpeg', 0.95);
+        // Remove page indicator after capture
+        if (pageIndicator.parentNode) {
+          pageIndicator.parentNode.removeChild(pageIndicator);
+        }
+
+        // Add to PDF (balanced quality ~3-5MB total)
+        const imgData = canvas.toDataURL('image/jpeg', 0.72);
 
         if (i > 0) {
           pdf.addPage();
