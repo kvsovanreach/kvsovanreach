@@ -1242,6 +1242,60 @@
           ]
         },
         {
+          "type": "two-column",
+          "title": "Practical AI Tricks Most Devs Don't Use",
+          "text": "Beyond basic prompting, these techniques will make you significantly more effective:",
+          "columns": [
+            {
+              "heading": "Advanced Prompting",
+              "bullets": [
+                "Rubber duck with AI: Explain your bug, ask AI to find the flaw in YOUR logic",
+                "Adversarial review: 'Act as a senior dev who hates this code. Criticize it.'",
+                "Multi-persona: 'Explain this as a security expert, then as a performance expert'",
+                "Iterative refinement: Never accept first output. Always ask 'What's wrong with this?'",
+                "Context priming: Paste your coding standards before asking for code"
+              ]
+            },
+            {
+              "heading": "Workflow Hacks",
+              "bullets": [
+                "Generate edge case test data: AI is great at thinking of weird inputs",
+                "Reverse documentation: Paste code, ask 'What requirements would produce this?'",
+                "Commit message generator: Paste diff, get meaningful commit messages",
+                "API contract first: Have AI write interface before implementation",
+                "Pre-mortem: 'This code will fail in production. Why?' before shipping"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "two-column",
+          "title": "Non-Obvious Risks of AI Adoption",
+          "text": "These dangers aren't discussed enough. Being aware protects your career:",
+          "columns": [
+            {
+              "heading": "The Risk",
+              "bullets": [
+                "Knowledge gaps: Learning with AI can skip fundamentals you'll need later",
+                "Speed trap: AI helps you build the wrong thing faster. Still wrong.",
+                "Security blind spots: AI-generated code often has subtle vulnerabilities",
+                "Pattern monoculture: Everyone uses same AI = everyone has same blind spots",
+                "Skill atrophy: Muscles you don't use will weaken over time"
+              ]
+            },
+            {
+              "heading": "How to Protect Yourself",
+              "bullets": [
+                "Periodically code without AI. Keep fundamentals sharp.",
+                "Validate requirements BEFORE coding, not after",
+                "Always security review AI code. Treat it as untrusted input.",
+                "Read solutions from multiple sources, not just AI",
+                "Set 'no AI' practice time weekly. Like athletes do conditioning."
+              ]
+            }
+          ]
+        },
+        {
           "type": "quote",
           "quote": "In a world where AI can code, the most valuable developers are those who know what's worth coding.",
           "author": "Unknown",
