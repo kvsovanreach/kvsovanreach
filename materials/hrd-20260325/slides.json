@@ -232,7 +232,7 @@
           "type": "quote",
           "quote": "We are at an inflection point.<nl>The way software gets built is changing at its core.<nl>Not in decades, but in months.",
           "author": "Satya Nadella",
-          "source": "CEO, Microsoft - Microsoft Build 2023 [11]",
+          "source": "CEO, Microsoft - Microsoft Build 2023 [9]",
           "layout": "centered"
         }
       ]
@@ -247,7 +247,7 @@
           "type": "image-content",
           "title": "The Fear Machine",
           "image": {
-            "src": "https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=1200",
+            "src": "./assets/images/headline.jpeg",
             "alt": "Newspaper headlines"
           },
           "content": {
@@ -295,10 +295,10 @@
             "heading": "2026 Reality",
             "bullets": [
               "Developer employment up 14% [6]",
-              "Junior roles evolved, demand still strong [20]",
+              "Junior roles evolved, demand still strong [17]",
               "AI skills valued, but not required for all [4]",
-              "Salaries increased 21% on average [7]",
-              "CS enrollment at all-time high [22]"
+              "Median salary rose to $133K+, outpacing inflation [7]",
+              "CS enrollment at all-time high [19]"
             ]
           }
         },
@@ -321,7 +321,7 @@
               "bullets": [
                 "Productivity increased, scope expanded",
                 "New specializations emerged",
-                "Demand grew 10x over 60 years [22]",
+                "Demand grew 10x over 60 years [19]",
                 "The role evolved, it never disappeared"
               ]
             }
@@ -329,7 +329,7 @@
         },
         {
           "type": "image-content",
-          "title": "The Jevons Paradox",
+          "title": "The Jevons Paradox [15]",
           "image": {
             "src": "./assets/images/jevons-paradox.png",
             "alt": "Growth chart"
@@ -338,8 +338,8 @@
             "text": "When something becomes more efficient, we don't use less of it. We use more. Much more. This pattern repeats throughout history.",
             "bullets": [
               "Cars made travel efficient. Result: we travel 100x more than before",
-              "Email made communication efficient. Result: 300+ billion emails sent daily [18]",
-              "Cloud made infrastructure efficient. Result: 10x more apps built [21]",
+              "Email made communication efficient. Result: 300+ billion emails sent daily [16]",
+              "Cloud made infrastructure efficient. Result: 10x more apps built [18]",
               "AI makes coding efficient. Result: we'll build far more software",
               "More software means more developers needed to build and maintain it"
             ]
@@ -348,13 +348,13 @@
         {
           "type": "two-column",
           "title": "Why This Time IS Different",
-          "text": "Let's be honest. AI today is genuinely different from previous \"threats\". But impressive ≠ replacement. [8][23]",
+          "text": "Let's be honest. AI today is genuinely different from previous \"threats\". But impressive ≠ replacement. [8][20]",
           "columns": [
             {
               "heading": "What's New",
               "bullets": [
                 "AI writes functional code, not just assists",
-                "Quality improving faster than expected [25]",
+                "Quality improving faster than expected [21]",
                 "Tasks that took hours now take seconds",
                 "The technology is genuinely impressive"
               ]
@@ -363,8 +363,8 @@
               "heading": "What's Actually Changing",
               "bullets": [
                 "Productivity expectations are rising [8]",
-                "Routine tasks being automated [15]",
-                "Skills that matter are shifting [15]",
+                "Routine tasks being automated [13]",
+                "Skills that matter are shifting [13]",
                 "Adapters thrive. Resisters struggle."
               ]
             }
@@ -374,13 +374,13 @@
           "type": "quote",
           "quote": "AI won't replace developers. But developers who use AI will replace developers who don't.",
           "author": "Santiago Valdarrama",
-          "source": "ML Engineer & Educator - Twitter/X, 2023 [12]",
+          "source": "ML Engineer & Educator - Twitter/X, 2023 [10]",
           "layout": "centered"
         },
         {
           "type": "two-column",
           "title": "What Nobody Tells You About AI Adoption",
-          "text": "These counterintuitive truths might surprise you. They go against common assumptions about AI and development. [8][23]",
+          "text": "These counterintuitive truths might surprise you. They go against common assumptions about AI and development. [8][20]",
           "columns": [
             {
               "heading": "Common Assumption",
@@ -429,7 +429,7 @@
           "title": "Understanding the Machine",
           "text": "To work well with AI, you need to understand both what it's great at and where it fails. Let's get specific about both.",
           "image": {
-            "src": "https://images.unsplash.com/photo-1555255707-c07966088b7b?w=1200",
+            "src": "./assets/images/ai-machine.jpeg",
             "alt": "Robot and human hand",
             "caption": "Knowing the boundaries helps you use the strengths"
           }
@@ -573,7 +573,7 @@
           "type": "image-content",
           "title": "The Context Problem",
           "image": {
-            "src": "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800",
+            "src": "./assets/images/context.jpeg",
             "alt": "Business meeting"
           },
           "content": {
@@ -592,7 +592,7 @@
           "title": "What AI Will Never Do",
           "layout": "image-right",
           "image": {
-            "src": "https://raydalsayf.wordpress.com/wp-content/uploads/2017/09/ai-limitation.jpg",
+            "src": "./assets/images/ai-limitation.jpg",
             "alt": "Human connection"
           },
           "content": {
@@ -611,7 +611,7 @@
           "type": "quote",
           "quote": "AI is a brilliant tool that doesn't understand context, doesn't take responsibility, and doesn't know what it doesn't know. Use it wisely.",
           "author": "Andrej Karpathy",
-          "source": "Former Tesla AI Director - Stanford Lecture, 2024 [13]",
+          "source": "Former Tesla AI Director - Stanford Lecture, 2024 [11]",
           "layout": "centered"
         }
       ]
@@ -723,11 +723,11 @@
           "type": "image-content",
           "title": "New Responsibilities Emerging",
           "image": {
-            "src": "https://images.unsplash.com/photo-1551434678-e076c223a692?w=800",
+            "src": "./assets/images/new-responsibility.jpeg",
             "alt": "Modern developer workspace"
           },
           "content": {
-            "text": "These responsibilities barely existed 3 years ago. Now they're becoming core parts of developer jobs [15][20]. If you master them early, you'll be ahead of most developers.",
+            "text": "These responsibilities barely existed 3 years ago. Now they're becoming core parts of developer jobs [13][17]. If you master them early, you'll be ahead of most developers.",
             "bullets": [
               "Prompt engineering: crafting clear AI instructions",
               "AI output validation: catching hallucinations",
@@ -780,7 +780,7 @@
           "type": "quote",
           "quote": "The developer of the future is not someone who writes code. It's someone who solves problems using code, AI, and human collaboration as their instruments.",
           "author": "Kent Beck",
-          "source": "Creator of Extreme Programming - Substack, 2024 [14]",
+          "source": "Creator of Extreme Programming - Substack, 2024 [12]",
           "layout": "centered"
         }
       ]
@@ -831,7 +831,7 @@
           "title": "The Ego Trap",
           "layout": "image-right",
           "image": {
-            "src": "https://images.unsplash.com/photo-1494883759339-0b042055a4ee?w=800",
+            "src": "./assets/images/ego-trap.jpeg",
             "alt": "Person looking in mirror - self reflection and identity"
           },
           "content": {
@@ -901,7 +901,7 @@
           "title": "Investing in the Right Skills",
           "text": "Not all skills are equal in the AI era. Some will become more valuable. Others will lose value as AI handles them. Here's where to focus your learning energy.",
           "image": {
-            "src": "https://images.unsplash.com/photo-1456406644174-8ddd4cd52a06?w=1200",
+            "src": "./assets/images/skills.jpeg",
             "alt": "Target and arrows representing focused skill development",
             "caption": "Focused skill development is your competitive edge"
           }
@@ -909,7 +909,7 @@
         {
           "type": "table",
           "title": "Skills Investment Matrix",
-          "text": "Your time is limited. You can't learn everything. This table shows where to invest your learning time for maximum return. [15][23]",
+          "text": "Your time is limited. You can't learn everything. This table shows where to invest your learning time for maximum return. [13][20]",
           "table": {
             "headers": ["Skill Category", "Investment Level", "Why", "AI Impact"],
             "rows": [
@@ -956,7 +956,7 @@
           "title": "The Art of Asking",
           "layout": "image-right",
           "image": {
-            "src": "https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?w=800",
+            "src": "./assets/images/art-of-asking.jpeg",
             "alt": "Asking the right questions"
           },
           "content": {
@@ -1164,7 +1164,7 @@
       "type": "quote",
       "quote": "The best way to predict the future is to create it.",
       "author": "Peter Drucker",
-      "source": "Management Consultant & Author [16]",
+      "source": "Management Consultant & Author [14]",
       "layout": "centered"
     },
     {
@@ -1187,23 +1187,19 @@
         "[6] U.S. Bureau of Labor Statistics (2024). Software Developers Occupational Outlook. <a href=\"https://www.bls.gov/ooh/computer-and-information-technology/software-developers.htm\" target=\"_blank\">bls.gov/ooh</a>",
         "[7] Levels.fyi (2025). Tech Compensation Data. <a href=\"https://www.levels.fyi/\" target=\"_blank\">levels.fyi</a>",
         "[8] McKinsey & Company (2024). The State of AI in 2024. <a href=\"https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-state-of-ai\" target=\"_blank\">mckinsey.com</a>",
-        "[9] ITIF (2023). ChatGPT Adoption vs Other Technologies. <a href=\"https://itif.org/publications/2023/02/13/openais-chatgpt-user-base-has-grown-faster-than-tiktoks-or-instagrams/\" target=\"_blank\">itif.org</a>",
-        "[10] Visual Capitalist (2023). Technology Adoption Rates Comparison. <a href=\"https://www.visualcapitalist.com/\" target=\"_blank\">visualcapitalist.com</a>",
-        "[11] Nadella, S. (2023). Microsoft Build 2023 Keynote. <a href=\"https://news.microsoft.com/build-2023/\" target=\"_blank\">news.microsoft.com</a>",
-        "[12] Valdarrama, S. (2023). AI and Developer Evolution. <a href=\"https://twitter.com/svpino\" target=\"_blank\">twitter.com/svpino</a>",
-        "[13] Karpathy, A. (2024). Stanford AI Lectures. <a href=\"https://karpathy.ai/\" target=\"_blank\">karpathy.ai</a>",
-        "[14] Beck, K. (2024). Tidy First? Newsletter. <a href=\"https://tidyfirst.substack.com/\" target=\"_blank\">tidyfirst.substack.com</a>",
-        "[15] World Economic Forum (2025). Future of Jobs Report. <a href=\"https://www.weforum.org/publications/the-future-of-jobs-report-2025/\" target=\"_blank\">weforum.org</a>",
-        "[16] Drucker, P. Management Principles. <a href=\"https://www.drucker.institute/\" target=\"_blank\">drucker.institute</a>",
-        "[17] Jevons, W.S. (1865). The Coal Question - Jevons Paradox. <a href=\"https://en.wikipedia.org/wiki/Jevons_paradox\" target=\"_blank\">wikipedia.org</a>",
-        "[18] Radicati Group (2024). Email Statistics Report. <a href=\"https://www.radicati.com/\" target=\"_blank\">radicati.com</a>",
-        "[19] GitHub (2024). The State of Octoverse Report. <a href=\"https://github.blog/news-insights/octoverse/\" target=\"_blank\">github.blog</a>",
-        "[20] Indeed Hiring Lab (2025). Tech Jobs Market Report. <a href=\"https://www.hiringlab.org/\" target=\"_blank\">hiringlab.org</a>",
-        "[21] Gartner (2024). AI in Software Development Forecast. <a href=\"https://www.gartner.com/en/topics/artificial-intelligence\" target=\"_blank\">gartner.com</a>",
-        "[22] CompTIA (2025). State of the Tech Workforce. <a href=\"https://www.comptia.org/content/research/state-of-the-tech-workforce\" target=\"_blank\">comptia.org</a>",
-        "[23] Harvard Business Review (2024). AI and the Future of Work. <a href=\"https://hbr.org/topic/subject/artificial-intelligence\" target=\"_blank\">hbr.org</a>",
-        "[24] MIT Technology Review (2024). AI in Software Development. <a href=\"https://www.technologyreview.com/\" target=\"_blank\">technologyreview.com</a>",
-        "[25] OpenAI (2024). GPT-4 Technical Report. <a href=\"https://openai.com/research\" target=\"_blank\">openai.com/research</a>"
+        "[9] Nadella, S. (2023). Microsoft Build 2023 Keynote. <a href=\"https://news.microsoft.com/build-2023/\" target=\"_blank\">news.microsoft.com</a>",
+        "[10] Valdarrama, S. (2023). AI and Developer Evolution. <a href=\"https://twitter.com/svpino\" target=\"_blank\">twitter.com/svpino</a>",
+        "[11] Karpathy, A. (2024). Stanford AI Lectures. <a href=\"https://karpathy.ai/\" target=\"_blank\">karpathy.ai</a>",
+        "[12] Beck, K. (2024). Tidy First? Newsletter. <a href=\"https://tidyfirst.substack.com/\" target=\"_blank\">tidyfirst.substack.com</a>",
+        "[13] World Economic Forum (2025). Future of Jobs Report. <a href=\"https://www.weforum.org/publications/the-future-of-jobs-report-2025/\" target=\"_blank\">weforum.org</a>",
+        "[14] Drucker, P. Management Principles. <a href=\"https://www.drucker.institute/\" target=\"_blank\">drucker.institute</a>",
+        "[15] Jevons, W.S. (1865). The Coal Question - Jevons Paradox. <a href=\"https://en.wikipedia.org/wiki/Jevons_paradox\" target=\"_blank\">wikipedia.org</a>",
+        "[16] Radicati Group (2024). Email Statistics Report. <a href=\"https://www.radicati.com/\" target=\"_blank\">radicati.com</a>",
+        "[17] Indeed Hiring Lab (2025). Tech Jobs Market Report. <a href=\"https://www.hiringlab.org/\" target=\"_blank\">hiringlab.org</a>",
+        "[18] Gartner (2024). AI in Software Development Forecast. <a href=\"https://www.gartner.com/en/topics/artificial-intelligence\" target=\"_blank\">gartner.com</a>",
+        "[19] CompTIA (2025). State of the Tech Workforce. <a href=\"https://www.comptia.org/content/research/state-of-the-tech-workforce\" target=\"_blank\">comptia.org</a>",
+        "[20] Harvard Business Review (2024). AI and the Future of Work. <a href=\"https://hbr.org/topic/subject/artificial-intelligence\" target=\"_blank\">hbr.org</a>",
+        "[21] OpenAI (2024). GPT-4 Technical Report. <a href=\"https://openai.com/research\" target=\"_blank\">openai.com/research</a>"
       ]
     },
     {

@@ -328,18 +328,27 @@ body {
   font-weight: 500;
 }
 
+.generate-btn,
 .download-btn {
   position: relative;
 }
 
-.download-btn.downloading {
+.generate-btn.generating {
   pointer-events: none;
   opacity: 0.7;
 }
 
-.download-btn.downloading i::before {
+.generate-btn.generating i::before {
   content: "\f110";
   animation: spin 1s linear infinite;
+}
+
+/* Download button as anchor link */
+a.download-btn {
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* Print/PDF Mode - Hide UI elements */

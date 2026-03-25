@@ -663,7 +663,7 @@ const Presentation = {
     // Header buttons
     document.getElementById('theme-toggle')?.addEventListener('click', () => this.toggleTheme());
     document.getElementById('fullscreen-btn')?.addEventListener('click', () => this.toggleFullscreen());
-    document.getElementById('download-pdf')?.addEventListener('click', () => this.downloadPDF());
+    document.getElementById('generate-pdf')?.addEventListener('click', () => this.generatePDF());
 
     // Keyboard navigation
     document.addEventListener('keydown', (e) => this.handleKeyboard(e));
@@ -924,14 +924,14 @@ const Presentation = {
   },
 
   /**
-   * Download presentation as PDF
+   * Generate and download presentation as PDF
    */
-  async downloadPDF() {
-    const btn = document.getElementById('download-pdf');
-    if (!btn || btn.classList.contains('downloading')) return;
+  async generatePDF() {
+    const btn = document.getElementById('generate-pdf');
+    if (!btn || btn.classList.contains('generating')) return;
 
     // Show loading state
-    btn.classList.add('downloading');
+    btn.classList.add('generating');
 
     // Create overlay
     const overlay = document.createElement('div');
@@ -1092,7 +1092,7 @@ const Presentation = {
       if (overlay && overlay.parentNode) {
         overlay.parentNode.removeChild(overlay);
       }
-      btn.classList.remove('downloading');
+      btn.classList.remove('generating');
     }
   }
 };
