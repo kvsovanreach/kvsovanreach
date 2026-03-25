@@ -1045,7 +1045,7 @@ const Presentation = {
 
         // Capture the PDF container (balanced quality and file size)
         const canvas = await html2canvas(pdfContainer, {
-          scale: 1.25,
+          scale: 2,
           useCORS: true,
           allowTaint: true,
           backgroundColor: bgColor,
@@ -1062,7 +1062,7 @@ const Presentation = {
         }
 
         // Add to PDF (balanced quality ~3-5MB total)
-        const imgData = canvas.toDataURL('image/jpeg', 0.72);
+        const imgData = canvas.toDataURL('image/jpeg', 1);
 
         if (i > 0) {
           pdf.addPage();

@@ -11,13 +11,13 @@
       "type": "quote",
       "quote": "In 2023, they said developers would have no job by 2025.<nl>It's 2026 now. Software developer jobs are growing 15%, faster than average.<nl>So... will AI actually replace developers?",
       "author": "",
-      "source": "Data: U.S. Bureau of Labor Statistics, 2024",
+      "source": "Source: U.S. Bureau of Labor Statistics, 2025",
       "layout": "centered"
     },
     {
       "type": "title-hero",
       "hook": "Let's Find Out",
-      "title": "Modern Developer Evolution",
+      "title": "Modern Developer Evolution and Adaptation",
       "highlight": "in the Age of AI",
       "subtitle": "How to Adapt, Thrive, and Stay Ahead When AI Changes Everything",
       "meta": {
@@ -310,7 +310,6 @@
             {
               "heading": "The \"Threats\"",
               "bullets": [
-                "1960s: COBOL will replace programmers",
                 "1980s: 4GL tools will eliminate coding",
                 "1990s: Visual Basic means anyone can program",
                 "2000s: Offshore outsourcing will end US dev jobs",
@@ -320,7 +319,6 @@
             {
               "heading": "What Actually Happened",
               "bullets": [
-                "More developers needed than ever [6]",
                 "Productivity increased, scope expanded",
                 "New specializations emerged",
                 "Demand grew 10x over 60 years [22]",
@@ -331,7 +329,7 @@
         },
         {
           "type": "image-content",
-          "title": "The Jevons Paradox [17]",
+          "title": "The Jevons Paradox",
           "image": {
             "src": "./assets/images/jevons-paradox.png",
             "alt": "Growth chart"
@@ -401,7 +399,7 @@
                 "Juniors can leapfrog with AI - if they verify",
                 "Soft skills become your biggest differentiator",
                 "Code you don't understand is debt you'll pay later",
-                "AI fluency will be baseline in 3 years. Build deeper moats."
+                "AI fluency will be baseline in 3 years"
               ]
             }
           ]
@@ -556,7 +554,7 @@
           "type": "image-content",
           "title": "The Hallucination Problem",
           "image": {
-            "src": "https://www.fashion-ai.eu/wp-content/uploads/2024/08/ai-hallucinations.jpg",
+            "src": "./assets/images/hallucination.jpg",
             "alt": "Illusion and perception"
           },
           "content": {
@@ -1000,7 +998,7 @@
           "type": "image-content",
           "title": "The Judgment Layer",
           "image": {
-            "src": "https://smythos.com/wp-content/uploads/2024/11/human-robot-handshake.jpg",
+            "src": "./assets/images/judgement.jpg",
             "alt": "Critical decision making"
           },
           "content": {
@@ -1148,7 +1146,7 @@
       "type": "image-content",
       "title": "Key Takeaways",
       "image": {
-        "src": "https://modernrestaurantmanagement.com/assets/media/2020/06/Getty_1186317993.jpg",
+        "src": "./assets/images/takeaway.jpg",
         "alt": "Lightbulb moment - key insights"
       },
       "content": {
