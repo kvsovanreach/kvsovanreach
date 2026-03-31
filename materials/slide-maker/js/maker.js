@@ -443,14 +443,32 @@ const App = {
    * Write slides.json to the keyword directory on disk
    */
   async saveToDisk() {
-    if (!this._kwDirHandle && !this._pendingKwDir) return;
+    // No disk access at all — skip silently
+    if (!this._kwDirHandle && !this._pendingKwDir && !this._rootDirHandle) return;
+
+    // Try to restore handle if pending
     if (!this._kwDirHandle) await this._ensureDiskAccess();
+
+    // Try to scaffold from root if we have root but no keyword handle
+    if (!this._kwDirHandle && this._rootDirHandle && this.meta.keyword) {
+      try {
+        const kwDir = await this._rootDirHandle.getDirectoryHandle(this.meta.keyword, { create: true });
+        this._kwDirHandle = kwDir;
+        const assetsDir = await kwDir.getDirectoryHandle('assets', { create: true });
+        await assetsDir.getDirectoryHandle('images', { create: true });
+        await this._storeHandle('kwDir', kwDir);
+      } catch (e) {
+        console.warn('Could not scaffold folder:', e);
+        return;
+      }
+    }
+
     if (!this._kwDirHandle) return;
+
     try {
       const json = this.buildExportJSON();
       let output;
       if (this._encryptEnabled) {
-        // Try loading keys from session storage
         if (!this._secretKey || !this._masterKey) this._loadKeys();
         if (!this._secretKey || !this._masterKey) {
           await this.alertDialog('Keys Expired', 'Your encryption keys have expired (1 hour limit). Please re-enter them in Settings.', 'warn');
@@ -466,7 +484,13 @@ const App = {
       await writable.write(str);
       await writable.close();
     } catch (e) {
-      console.error('saveToDisk failed:', e);
+      if (e.name === 'NotFoundError') {
+        // Handle went stale — clear it so next save re-scaffolds
+        this._kwDirHandle = null;
+        console.warn('Directory handle stale, will re-scaffold on next save');
+      } else {
+        console.error('saveToDisk failed:', e);
+      }
     }
   },
 
@@ -1573,14 +1597,6 @@ const App = {
       localStorage.setItem('slide-maker-data', data);
       this._lastSavedJson = data;
       this._dirty = false;
-
-      // Scaffold folder on first save if needed
-      if (this._rootDirHandle && !this._kwDirHandle && this.meta.keyword) {
-        const kwDir = await this._rootDirHandle.getDirectoryHandle(this.meta.keyword, { create: true });
-        this._kwDirHandle = kwDir;
-        const assetsDir = await kwDir.getDirectoryHandle('assets', { create: true });
-        await assetsDir.getDirectoryHandle('images', { create: true });
-      }
 
       await this.saveToDisk();
       this.setSaveStatus('saved', 'Saved');

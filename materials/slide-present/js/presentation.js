@@ -15,7 +15,8 @@ const Presentation = {
 
   container: null,
   slidesContainer: null,
-  progressDots: null,
+  progressBar: null,
+  progressBarFill: null,
 
   touchStartX: 0,
   touchEndX: 0,
@@ -28,7 +29,8 @@ const Presentation = {
   async init(inlineData) {
     this.container = document.getElementById('presentation');
     this.slidesContainer = document.getElementById('slides-container');
-    this.progressDots = document.getElementById('progress-dots');
+    this.progressBar = document.getElementById('progress-bar');
+    this.progressBarFill = document.getElementById('progress-bar-fill');
 
     this.container.classList.add('loading');
 
@@ -56,7 +58,6 @@ const Presentation = {
       this.renderSlides();
       this.bindEvents();
       this.updateNavButtons();
-      this.renderProgressDots();
       this.updateProgressBar();
 
       document.querySelector('.total-slides').textContent = this.totalSlides;
@@ -118,20 +119,10 @@ const Presentation = {
       </div>`;
   },
 
-  renderProgressDots() {
-    if (!this.progressDots) return;
-    this.progressDots.innerHTML = Array.from({ length: this.totalSlides }, (_, i) => {
-      const cls = i + 1 === this.currentSlide ? 'dot active' : (i + 1 < this.currentSlide ? 'dot visited' : 'dot');
-      return `<span class="${cls}" data-dot="${i + 1}"></span>`;
-    }).join('');
-  },
-
   updateProgressBar() {
-    if (!this.progressDots) return;
-    this.progressDots.querySelectorAll('.dot').forEach((dot, i) => {
-      const n = i + 1;
-      dot.className = n === this.currentSlide ? 'dot active' : (n < this.currentSlide ? 'dot visited' : 'dot');
-    });
+    if (!this.progressBarFill) return;
+    const progress = (this.currentSlide / this.totalSlides) * 100;
+    this.progressBarFill.style.width = `${progress}%`;
   },
 
   bindEvents() {
@@ -173,10 +164,13 @@ const Presentation = {
       });
     }
 
-    if (this.progressDots) {
-      this.progressDots.addEventListener('click', (e) => {
-        const dot = e.target.closest('[data-dot]');
-        if (dot) this.goToSlide(parseInt(dot.dataset.dot));
+    if (this.progressBar) {
+      this.progressBar.addEventListener('click', (e) => {
+        const rect = this.progressBar.getBoundingClientRect();
+        const clickX = e.clientX - rect.left;
+        const percentage = clickX / rect.width;
+        const slideNum = Math.ceil(percentage * this.totalSlides);
+        this.goToSlide(Math.max(1, Math.min(slideNum, this.totalSlides)));
       });
     }
 
@@ -343,7 +337,6 @@ const Presentation = {
               this.totalSlides = this.data.slides.length;
               this.applyThemeColor(data.meta?.themeColor);
               this.renderSlides();
-              this.renderProgressDots();
               document.querySelector('.total-slides').textContent = this.totalSlides;
               const target = msg.slide || this.currentSlide;
               this.goToSlide(Math.min(target, this.totalSlides));
