@@ -1,0 +1,95 @@
+/* ==================== Table Slide ==================== */
+.table-slide {
+  text-align: left;
+  width: 100%;
+  max-width: 100%;
+}
+
+/* Table label — matches figure caption style */
+.table-label {
+  font-size: var(--font-size-xl);
+  color: var(--color-text-muted);
+  font-style: italic;
+  margin-bottom: var(--space-4);
+  line-height: 1.5;
+  text-align: center;
+}
+
+.table-label-num {
+  font-style: normal;
+  font-weight: 600;
+  color: var(--color-primary);
+}
+
+.table-slide .table-wrapper {
+  overflow-x: auto;
+  width: 100%;
+}
+
+.table-slide table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--font-size-2xl);
+  line-height: 1.8;
+}
+
+.table-slide th,
+.table-slide td {
+  padding: var(--space-2) var(--space-5);
+  text-align: left;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.table-slide td {
+  font-weight: 300;
+  color: var(--color-text-secondary);
+}
+
+.table-slide th {
+  background-color: var(--color-primary);
+  color: #fff;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: var(--font-size-lg);
+  letter-spacing: 0.5px;
+}
+
+.table-slide th:first-child {
+  border-radius: var(--radius-md) 0 0 0;
+}
+
+.table-slide th:last-child {
+  border-radius: 0 var(--radius-md) 0 0;
+}
+
+.table-slide tbody tr {
+  transition: background-color var(--transition-fast);
+}
+
+.table-slide tbody tr:hover {
+  background-color: var(--color-bg-secondary);
+}
+
+.table-slide tbody tr:nth-child(even) {
+  background-color: var(--color-bg-tertiary);
+}
+
+.table-slide tbody tr:nth-child(even):hover {
+  background-color: var(--color-bg-secondary);
+}
+
+.table-slide tbody tr.highlight {
+  background-color: rgba(55, 118, 161, 0.1);
+}
+
+.table-slide tbody tr.highlight:hover {
+  background-color: rgba(55, 118, 161, 0.15);
+}
+
+.table-slide .table-caption {
+  margin-top: var(--space-4);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  font-style: italic;
+  text-align: center;
+}

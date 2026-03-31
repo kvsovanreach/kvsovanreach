@@ -1,0 +1,96 @@
+/* ==================== Table of Contents Slide ==================== */
+.toc-slide {
+  width: 100%;
+  max-width: 100%;
+}
+
+.toc-list {
+  width: 100%;
+}
+
+/* One column layout (5 items or less) */
+.toc-list.toc-one-column {
+  display: flex;
+  flex-direction: column;
+  max-width: 800px;
+}
+
+.toc-one-column .toc-item {
+  padding: var(--space-5) 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.toc-one-column .toc-item:last-child {
+  border-bottom: none;
+}
+
+/* Multi-column layout */
+.toc-list.toc-multi-column {
+  display: grid;
+  grid-template-columns: repeat(var(--toc-cols, 2), 1fr);
+  grid-template-rows: repeat(var(--toc-rows), auto);
+  grid-auto-flow: column;
+  gap: var(--space-2) var(--space-12);
+}
+
+.toc-multi-column .toc-item {
+  padding: var(--space-3) 0;
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.toc-multi-column .toc-item-title {
+  font-size: var(--font-size-3xl);
+}
+
+.toc-multi-column .toc-item-desc {
+  font-size: var(--font-size-xl);
+}
+
+/* Common TOC item styles */
+.toc-item {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-4);
+  transition: all var(--transition-fast);
+}
+
+.toc-item-clickable {
+  cursor: pointer;
+}
+
+.toc-item-clickable:hover .toc-number {
+  color: var(--color-primary);
+}
+
+.toc-item-clickable:hover .toc-item-title {
+  color: var(--color-primary);
+}
+
+.toc-number {
+  font-size: var(--font-size-2xl);
+  font-weight: 600;
+  color: var(--color-primary);
+  min-width: 36px;
+  opacity: 0.6;
+  transition: color var(--transition-fast);
+}
+
+.toc-text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  flex: 1;
+}
+
+.toc-item-title {
+  font-size: var(--font-size-4xl);
+  font-weight: 600;
+  color: var(--color-text);
+  transition: color var(--transition-fast);
+}
+
+.toc-item-desc {
+  font-size: var(--font-size-2xl);
+  color: var(--color-text-muted);
+  font-weight: 300;
+}

@@ -1,0 +1,117 @@
+/* ==================== Font ==================== */
+@font-face {
+  font-family: "SF Pro Display";
+  src: url("../../../../assets/fonts/sf-pro-display-light.woff2") format("woff2"),
+       url("../../../../assets/fonts/sf-pro-display-light.woff") format("woff");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "SF Pro Display";
+  src: url("../../../../assets/fonts/sf-pro-display-regular.woff2") format("woff2"),
+       url("../../../../assets/fonts/sf-pro-display-regular.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "SF Pro Display";
+  src: url("../../../../assets/fonts/sf-pro-display-medium.woff2") format("woff2"),
+       url("../../../../assets/fonts/sf-pro-display-medium.woff") format("woff");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "SF Pro Display";
+  src: url("../../../../assets/fonts/sf-pro-display-semibold.woff2") format("woff2"),
+       url("../../../../assets/fonts/sf-pro-display-semibold.woff") format("woff");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "SF Pro Display";
+  src: url("../../../../assets/fonts/sf-pro-display-bold.woff2") format("woff2"),
+       url("../../../../assets/fonts/sf-pro-display-bold.woff") format("woff");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "SF Pro Text";
+  src: url("../../../../assets/fonts/sf-pro-text-light.woff2") format("woff2"),
+       url("../../../../assets/fonts/sf-pro-text-light.woff") format("woff");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "SF Pro Text";
+  src: url("../../../../assets/fonts/sf-pro-text-regular.woff2") format("woff2"),
+       url("../../../../assets/fonts/sf-pro-text-regular.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "SF Pro Text";
+  src: url("../../../../assets/fonts/sf-pro-text-medium.woff2") format("woff2"),
+       url("../../../../assets/fonts/sf-pro-text-medium.woff") format("woff");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "SF Pro Text";
+  src: url("../../../../assets/fonts/sf-pro-text-semibold.woff2") format("woff2"),
+       url("../../../../assets/fonts/sf-pro-text-semibold.woff") format("woff");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "SF Pro Text";
+  src: url("../../../../assets/fonts/sf-pro-text-bold.woff2") format("woff2"),
+       url("../../../../assets/fonts/sf-pro-text-bold.woff") format("woff");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "SF Mono";
+  src: url("../../../../assets/fonts/sfmono-regular.woff2") format("woff2"),
+       url("../../../../assets/fonts/sfmono-regular.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "SF Mono";
+  src: url("../../../../assets/fonts/sfmono-medium.woff2") format("woff2"),
+       url("../../../../assets/fonts/sfmono-medium.woff") format("woff");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "SF Mono";
+  src: url("../../../../assets/fonts/sfmono-semibold.woff2") format("woff2"),
+       url("../../../../assets/fonts/sfmono-semibold.woff") format("woff");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}

@@ -1,0 +1,58 @@
+/* ==================== Code Slide ==================== */
+.code-slide {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.code-block {
+  background: var(--color-bg-tertiary);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+}
+
+.code-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-bg-secondary);
+  border-bottom: 1px solid var(--color-border);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+}
+
+.code-filename i {
+  margin-right: var(--space-2);
+  color: var(--color-primary);
+}
+
+.code-lang {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  background: var(--color-bg-tertiary);
+  padding: 0.15em 0.5em;
+  border-radius: var(--radius-sm);
+}
+
+.code-block pre {
+  margin: 0;
+  padding: var(--space-5);
+  overflow-x: auto;
+  font-size: var(--font-size-sm);
+  line-height: 1.7;
+}
+
+.code-block code {
+  font-family: var(--font-mono);
+  color: var(--color-text);
+  white-space: pre;
+  tab-size: 2;
+}
+
+[data-theme="dark"] .code-block pre code {
+  background: transparent;
+}
+

@@ -1,0 +1,275 @@
+/* ==================== Hero Title Slide (Modern) ==================== */
+.title-hero-slide {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 100%;
+  height: 100%;
+}
+
+/* Reduce slide padding for all hero styles */
+.slide:has(.title-hero-slide) {
+  padding: var(--space-8) var(--space-8);
+}
+
+/* Hero Content */
+.hero-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+}
+
+/* Hook Badge */
+.hero-hook {
+  margin-bottom: var(--space-6);
+}
+
+.hero-hook span {
+  display: inline-block;
+  padding: var(--space-3) var(--space-8);
+  background-color: var(--color-primary);
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-xl);
+  font-weight: 600;
+  color: #fff;
+  letter-spacing: 1px;
+}
+
+/* Hero Title */
+.hero-title {
+  font-size: 5.5rem;
+  font-weight: 800;
+  color: var(--color-text);
+  line-height: 1.05;
+  margin-bottom: var(--space-6);
+}
+
+.hero-highlight {
+  display: block;
+  color: var(--color-primary);
+  -webkit-text-fill-color: var(--color-primary);
+}
+
+/* Hero Subtitle */
+.hero-subtitle {
+  font-size: var(--font-size-3xl);
+  color: var(--color-text-secondary);
+  font-weight: 300;
+  max-width: 900px;
+  line-height: 1.4;
+  margin-bottom: var(--space-8);
+}
+
+/* Presenter Section */
+.hero-presenter {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.presenter-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.presenter-name {
+  font-size: var(--font-size-3xl);
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.presenter-role {
+  font-size: var(--font-size-xl);
+  color: var(--color-primary);
+  font-weight: 400;
+}
+
+.presenter-meta {
+  display: flex;
+  gap: var(--space-8);
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: var(--space-3);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--color-border);
+}
+
+.presenter-meta span {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--font-size-lg);
+  color: var(--color-text-muted);
+}
+
+.presenter-meta i {
+  color: var(--color-primary);
+}
+
+/* --- Title Style 2: Split layout — text left, accent panel right --- */
+.hero-style-2 {
+  flex-direction: row;
+  align-items: stretch;
+  gap: 0;
+}
+
+.slide:has(.hero-style-2) {
+  padding: 0;
+}
+
+.hero-s2-left {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  text-align: left;
+  padding: var(--space-10) var(--space-10);
+  z-index: 1;
+}
+
+.hero-style-2 .hero-hook {
+  margin-bottom: var(--space-4);
+}
+
+.hero-style-2 .hero-hook span {
+  background: transparent;
+  color: var(--color-primary);
+  padding: 0;
+  font-size: var(--font-size-lg);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.hero-style-2 .hero-title {
+  font-size: 5rem;
+  line-height: 1.0;
+  margin-bottom: var(--space-4);
+}
+
+.hero-style-2 .hero-highlight {
+  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-style-2 .hero-subtitle {
+  font-size: var(--font-size-2xl);
+  max-width: 600px;
+  margin-bottom: var(--space-8);
+  border-left: 3px solid var(--color-primary);
+  padding-left: var(--space-4);
+  line-height: 1.5;
+}
+
+.hero-style-2 .hero-presenter { align-items: flex-start; }
+.hero-style-2 .presenter-info { align-items: flex-start; }
+.hero-style-2 .presenter-meta { justify-content: flex-start; }
+
+.hero-s2-right {
+  flex: 0 0 35%;
+  position: relative;
+  background: linear-gradient(160deg, var(--color-primary), var(--color-primary-dark, #1B5886));
+  overflow: hidden;
+}
+
+.hero-s2-accent {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 30% 70%, rgba(255,255,255,0.08) 0%, transparent 60%),
+    radial-gradient(circle at 70% 30%, rgba(255,255,255,0.05) 0%, transparent 50%);
+}
+
+.hero-s2-dots {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(255,255,255,0.12) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+/* --- Title Style 3: Bold gradient with decorative lines --- */
+.hero-style-3 {
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.hero-style-3 .hero-content {
+  align-items: center;
+  text-align: center;
+  z-index: 1;
+}
+
+.hero-style-3 .hero-hook {
+  margin-bottom: var(--space-6);
+}
+
+.hero-style-3 .hero-hook span {
+  background: var(--color-bg-tertiary);
+  color: var(--color-primary);
+  font-size: var(--font-size-base);
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  padding: var(--space-2) var(--space-6);
+  border: 1px solid var(--color-border);
+}
+
+.hero-style-3 .hero-title {
+  font-size: 6rem;
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  line-height: 1.0;
+  background: linear-gradient(135deg, var(--color-text) 40%, var(--color-primary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: var(--space-4);
+}
+
+.hero-style-3 .hero-highlight {
+  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary, var(--color-accent)));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-style-3 .hero-subtitle {
+  font-size: var(--font-size-2xl);
+  font-weight: 300;
+  color: var(--color-text-muted);
+  max-width: 700px;
+  margin-bottom: var(--space-8);
+}
+
+.hero-style-3 .presenter-name {
+  font-size: var(--font-size-2xl);
+}
+
+.hero-style-3 .presenter-meta {
+  border-top: none;
+  padding-top: 0;
+}
+
+.hero-s3-line {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--color-primary), transparent);
+}
+
+.hero-s3-line-top { top: var(--space-8); }
+.hero-s3-line-bottom { bottom: var(--space-8); }

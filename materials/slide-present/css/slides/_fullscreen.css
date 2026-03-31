@@ -1,0 +1,221 @@
+/* ==================== Fullscreen Mode ==================== */
+.presentation.is-fullscreen .header-actions,
+.presentation.is-fullscreen .navigation,
+.presentation.is-fullscreen .keyboard-hint,
+.presentation.is-fullscreen .slide-jump {
+  display: none !important;
+}
+
+.presentation.is-fullscreen .presentation-header {
+  top: auto;
+  bottom: 0;
+  left: auto;
+  right: 0;
+  padding: var(--space-3) var(--space-4);
+  background: transparent;
+}
+
+.presentation.is-fullscreen .slide-indicator {
+  font-size: var(--font-size-xs);
+  background-color: var(--color-bg-secondary);
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-full);
+  border: 1px solid var(--color-border);
+  opacity: 0.7;
+}
+
+.presentation.is-fullscreen .slide {
+  padding: var(--space-12) var(--space-16);
+}
+
+.presentation.is-fullscreen .slide-content {
+  max-width: 100%;
+}
+
+/* Fullscreen Font Scaling */
+.presentation.is-fullscreen .slide-title {
+  font-size: var(--font-size-6xl);
+}
+
+.presentation.is-fullscreen .slide-title::before {
+  width: 6px;
+}
+
+.presentation.is-fullscreen .slide-text {
+  font-size: var(--font-size-3xl);
+}
+
+.presentation.is-fullscreen .slide-bullets li {
+  font-size: var(--font-size-3xl);
+  margin-bottom: var(--space-8);
+  padding-left: var(--space-12);
+}
+
+.presentation.is-fullscreen .slide-bullets li::before {
+  width: 14px;
+  height: 14px;
+}
+
+/* Hero Title - Fullscreen */
+.presentation.is-fullscreen .hero-title {
+  font-size: 5.5rem;
+}
+
+.presentation.is-fullscreen .hero-subtitle {
+  font-size: var(--font-size-3xl);
+}
+
+.presentation.is-fullscreen .hero-hook span {
+  font-size: var(--font-size-xl);
+  padding: var(--space-4) var(--space-10);
+}
+
+.presentation.is-fullscreen .presenter-name {
+  font-size: var(--font-size-4xl);
+}
+
+.presentation.is-fullscreen .presenter-role {
+  font-size: var(--font-size-xl);
+}
+
+.presentation.is-fullscreen .presenter-meta span {
+  font-size: var(--font-size-xl);
+}
+
+/* TOC - Fullscreen */
+.presentation.is-fullscreen .toc-item-title {
+  font-size: var(--font-size-4xl);
+}
+
+.presentation.is-fullscreen .toc-item-desc {
+  font-size: var(--font-size-2xl);
+}
+
+.presentation.is-fullscreen .toc-multi-column .toc-item-title {
+  font-size: var(--font-size-3xl);
+}
+
+.presentation.is-fullscreen .toc-multi-column .toc-item-desc {
+  font-size: var(--font-size-xl);
+}
+
+.presentation.is-fullscreen .toc-number {
+  font-size: var(--font-size-2xl);
+}
+
+/* Section Slide - Fullscreen */
+.presentation.is-fullscreen .section-slide .section-number {
+  font-size: 12rem;
+}
+
+.presentation.is-fullscreen .section-slide .section-title {
+  font-size: 5rem;
+}
+
+.presentation.is-fullscreen .section-slide .section-subtitle {
+  font-size: var(--font-size-3xl);
+}
+
+/* Quote Slide - Fullscreen */
+.presentation.is-fullscreen .quote-slide .quote-text {
+  font-size: var(--font-size-5xl);
+}
+
+.presentation.is-fullscreen .quote-slide .quote-author {
+  font-size: var(--font-size-3xl);
+}
+
+.presentation.is-fullscreen .quote-slide .quote-source {
+  font-size: var(--font-size-xl);
+}
+
+.presentation.is-fullscreen .quote-slide .quote-author-image {
+  width: 80px;
+  height: 80px;
+}
+
+.presentation.is-fullscreen .quote-slide.quote-layout-with-image .quote-image {
+  max-width: 500px;
+}
+
+/* Table Slide - Fullscreen */
+.presentation.is-fullscreen .table-slide table {
+  font-size: var(--font-size-2xl);
+}
+
+.presentation.is-fullscreen .table-slide th {
+  font-size: var(--font-size-xl);
+}
+
+.presentation.is-fullscreen .table-slide th,
+.presentation.is-fullscreen .table-slide td {
+  padding: var(--space-5) var(--space-6);
+}
+
+/* Two Column - Fullscreen */
+.presentation.is-fullscreen .two-column-slide .column-heading {
+  font-size: var(--font-size-4xl);
+}
+
+.presentation.is-fullscreen .two-column-slide .column .slide-bullets li {
+  font-size: var(--font-size-3xl);
+}
+
+/* Comparison Slide - Fullscreen */
+.presentation.is-fullscreen .comparison-heading {
+  font-size: var(--font-size-4xl);
+}
+
+.presentation.is-fullscreen .comparison-side .slide-bullets li {
+  font-size: var(--font-size-3xl);
+}
+
+/* Discussion Slide - Fullscreen */
+.presentation.is-fullscreen .discussion-icon {
+  font-size: 5rem;
+}
+
+.presentation.is-fullscreen .discussion-title {
+  font-size: 5rem;
+}
+
+.presentation.is-fullscreen .discussion-subtitle {
+  font-size: var(--font-size-3xl);
+}
+
+.presentation.is-fullscreen .discussion-prompt {
+  padding: var(--space-5) var(--space-8);
+}
+
+.presentation.is-fullscreen .prompt-icon {
+  font-size: var(--font-size-2xl);
+}
+
+.presentation.is-fullscreen .prompt-text {
+  font-size: var(--font-size-2xl);
+}
+
+/* Connect Slide - Fullscreen */
+.presentation.is-fullscreen .connect-slide .connect-title {
+  font-size: 5rem;
+}
+
+.presentation.is-fullscreen .connect-slide .connect-intro {
+  font-size: var(--font-size-3xl);
+  max-width: 900px;
+}
+
+.presentation.is-fullscreen .connect-slide .connect-item {
+  font-size: var(--font-size-3xl);
+  padding: var(--space-5) var(--space-8);
+}
+
+.presentation.is-fullscreen .connect-slide .connect-item i {
+  font-size: var(--font-size-3xl);
+  width: 48px;
+}
+
+.presentation.is-fullscreen .connect-slide .connect-thanks {
+  font-size: 5rem;
+}
+

@@ -1,0 +1,189 @@
+/* ==================== Quote Slide ==================== */
+.quote-slide {
+  --quote-accent: var(--color-primary);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 100%;
+  height: 100%;
+  transition: all var(--transition-base);
+}
+
+.quote-slide .quote-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 100%;
+}
+
+.quote-slide .quote-icon {
+  font-size: var(--font-size-5xl);
+  color: var(--quote-accent);
+  opacity: 0.3;
+  margin-bottom: var(--space-6);
+}
+
+.quote-slide .quote-text {
+  font-size: var(--font-size-4xl);
+  font-weight: 400;
+  color: var(--color-text);
+  font-style: italic;
+  max-width: 100%;
+  text-align: center;
+  line-height: 1.4;
+  margin-bottom: var(--space-8);
+}
+
+/* --- Attribution --- */
+.quote-slide .quote-attribution {
+  display: flex;
+  align-items: center;
+  gap: var(--space-5);
+}
+
+.quote-attr-line {
+  width: 40px;
+  height: 2px;
+  background: var(--quote-accent);
+  opacity: 0.5;
+  flex-shrink: 0;
+}
+
+.quote-author-image {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--quote-accent);
+  flex-shrink: 0;
+}
+
+.quote-attr-info {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.quote-slide .quote-author {
+  font-size: var(--font-size-2xl);
+  font-weight: 700;
+  color: var(--color-text);
+  letter-spacing: 0.02em;
+}
+
+.quote-slide .quote-source {
+  font-size: var(--font-size-lg);
+  color: var(--quote-accent);
+  font-weight: 500;
+  opacity: 0.8;
+}
+
+/* --- Background Image Overlay --- */
+.quote-slide.has-bg-image {
+  background-size: cover;
+  background-position: center;
+  border-radius: var(--radius-xl);
+}
+
+.quote-slide.has-bg-image .quote-icon,
+.quote-slide.has-bg-image .quote-text,
+.quote-slide.has-bg-image .quote-author {
+  color: #fff;
+}
+
+.quote-slide.has-bg-image .quote-source {
+  color: rgba(255,255,255,0.7);
+}
+
+.quote-slide.has-bg-image .quote-attr-line {
+  background: rgba(255,255,255,0.4);
+}
+
+.quote-slide.has-bg-image .quote-author-image {
+  border-color: rgba(255,255,255,0.6);
+}
+
+.quote-slide.has-bg-image .quote-icon {
+  opacity: 0.5;
+}
+
+/* --- Layout: Left Aligned --- */
+.quote-slide.quote-layout-left {
+  align-items: flex-start;
+  padding: var(--space-12);
+}
+
+.slide:has(.quote-layout-left) {
+  padding: var(--space-12);
+}
+
+.quote-slide.quote-layout-left .quote-content {
+  align-items: flex-start;
+}
+
+.quote-slide.quote-layout-left .quote-icon {
+  align-self: flex-start;
+}
+
+.quote-slide.quote-layout-left .quote-text {
+  text-align: left;
+  max-width: 85%;
+}
+
+.quote-slide.quote-layout-left .quote-attribution {
+  justify-content: flex-start;
+}
+
+/* Extra inner padding when left-aligned with background image */
+.quote-slide.quote-layout-left.has-bg-image {
+  padding: var(--space-16);
+}
+
+/* --- Layout: With Side Image --- */
+.quote-slide.quote-layout-with-image {
+  flex-direction: row;
+  align-items: stretch;
+  gap: 0;
+  padding: 0;
+}
+
+.slide:has(.quote-layout-with-image) {
+  padding: 0;
+}
+
+.quote-side-image {
+  flex: 0 0 40%;
+  overflow: hidden;
+  position: relative;
+}
+
+.quote-side-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.quote-layout-with-image .quote-content {
+  flex: 1;
+  align-items: flex-start;
+  justify-content: center;
+  padding: var(--space-12) var(--space-10);
+}
+
+.quote-layout-with-image .quote-icon {
+  align-self: flex-start;
+  margin-bottom: var(--space-4);
+}
+
+.quote-layout-with-image .quote-text {
+  text-align: left;
+  font-size: var(--font-size-3xl);
+  margin-bottom: var(--space-6);
+}
+
+.quote-layout-with-image .quote-attribution {
+  justify-content: flex-start;
+}

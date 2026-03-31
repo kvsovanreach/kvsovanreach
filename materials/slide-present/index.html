@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slide Presentation</title>
+  <link rel="icon" type="image/x-icon" href="../../assets/img/favicons/favicon.ico">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/presentation.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <style>
+    /* File picker landing screen */
+    .picker-screen {
+      position: fixed; inset: 0; z-index: 99999;
+      background: var(--color-bg, #fff);
+      display: flex; align-items: center; justify-content: center;
+      font-family: "SF Pro Display", "SF Pro Text", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+      transition: opacity 0.4s ease;
+    }
+    .picker-screen.hidden { opacity: 0; pointer-events: none; }
+
+    /* Decrypt modal */
+    .decrypt-overlay {
+      position: fixed; inset: 0; z-index: 100000;
+      background: rgba(0,0,0,0.6); backdrop-filter: blur(12px);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .decrypt-card {
+      background: #ffffff; border-radius: 16px;
+      padding: 36px 32px; width: 380px; max-width: 90vw;
+      box-shadow: 0 24px 48px rgba(0,0,0,0.3); text-align: center;
+    }
+    .decrypt-icon {
+      width: 56px; height: 56px; margin: 0 auto 16px;
+      background: rgba(55,118,161,0.1); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .decrypt-icon i { font-size: 22px; color: #3776A1; }
+    .decrypt-title { font-size: 20px; font-weight: 700; color: #1e293b; margin-bottom: 6px; }
+    .decrypt-desc { font-size: 13px; color: #64748b; margin-bottom: 20px; line-height: 1.5; }
+    .decrypt-input {
+      width: 100%; padding: 12px 14px; font-size: 14px;
+      border: 1.5px solid #e2e8f0; border-radius: 8px;
+      background: #f8fafc; color: #1e293b;
+      outline: none; text-align: center; letter-spacing: 2px;
+      font-family: "SF Mono", monospace;
+    }
+    .decrypt-input:focus { border-color: #3776A1; }
+    .decrypt-input::placeholder { letter-spacing: 0; font-family: inherit; color: #94a3b8; }
+    .decrypt-btn {
+      width: 100%; padding: 12px; margin-top: 14px; border: none;
+      border-radius: 8px; background: #3776A1;
+      color: #fff; font-size: 14px; font-weight: 600; cursor: pointer;
+      transition: background 0.2s;
+    }
+    .decrypt-btn:hover { filter: brightness(1.1); }
+    .decrypt-error {
+      color: #ef4444; font-size: 12px; margin-top: 10px; display: none;
+    }
+    .decrypt-loading { display: none; margin-top: 10px; font-size: 12px; color: #64748b; }
+    .decrypt-loading.visible { display: block; }
+
+    .picker-card {
+      text-align: center; max-width: 460px; width: 90%;
+    }
+    .picker-icon {
+      width: 64px; height: 64px; margin: 0 auto 20px;
+      background: var(--color-primary, #3776A1); border-radius: 16px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .picker-icon i { font-size: 28px; color: #fff; }
+    .picker-title {
+      font-size: 24px; font-weight: 700; color: var(--color-text, #1e293b);
+      margin-bottom: 6px;
+    }
+    .picker-subtitle {
+      font-size: 14px; color: var(--color-text-muted, #64748b);
+      margin-bottom: 28px; font-weight: 300;
+    }
+
+    .drop-zone {
+      border: 2px dashed var(--color-border, #e2e8f0);
+      border-radius: 12px; padding: 40px 24px;
+      cursor: pointer; transition: all 0.2s ease;
+      margin-bottom: 16px;
+    }
+    .drop-zone:hover, .drop-zone.drag-over {
+      border-color: var(--color-primary, #3776A1);
+      background: rgba(55, 118, 161, 0.04);
+    }
+    .drop-zone.drag-over { border-style: solid; }
+    .drop-zone-icon { font-size: 32px; color: var(--color-primary, #3776A1); opacity: 0.4; margin-bottom: 12px; }
+    .drop-zone-text { font-size: 14px; color: var(--color-text-secondary, #475569); font-weight: 400; }
+    .drop-zone-hint { font-size: 12px; color: var(--color-text-muted, #64748b); margin-top: 6px; }
+    .drop-zone-hint b { color: var(--color-primary, #3776A1); font-weight: 600; }
+
+    .picker-or {
+      font-size: 12px; color: var(--color-text-muted, #64748b);
+      margin: 12px 0; text-transform: uppercase; letter-spacing: 0.1em;
+    }
+
+    .picker-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 10px 24px; border-radius: 8px; border: none;
+      font: 500 14px/1 inherit; cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .picker-btn-primary {
+      background: var(--color-primary, #3776A1); color: #fff;
+    }
+    .picker-btn-primary:hover {
+      background: var(--color-primary-light, #5293BB);
+      box-shadow: 0 4px 12px rgba(55, 118, 161, 0.2);
+    }
+    .picker-btn-ghost {
+      background: transparent; color: var(--color-text-secondary, #475569);
+      border: 1px solid var(--color-border, #e2e8f0);
+      margin-left: 8px;
+    }
+    .picker-btn-ghost:hover { background: var(--color-bg-secondary, #f8fafc); }
+
+    .picker-error {
+      color: var(--color-error, #ef4444); font-size: 13px;
+      margin-top: 12px; display: none;
+    }
+    .picker-keyword {
+      margin-top: 20px;
+    }
+    .picker-keyword-label {
+      font-size: 12px; color: var(--color-text-muted, #64748b);
+      text-transform: uppercase; letter-spacing: 0.08em;
+      margin-bottom: 8px; text-align: left;
+    }
+    .keyword-input-wrap {
+      display: flex; gap: 8px;
+    }
+    .keyword-input {
+      flex: 1; padding: 10px 14px; border-radius: 8px;
+      border: 1px solid var(--color-border, #e2e8f0);
+      font: 400 14px/1.4 inherit;
+      color: var(--color-text, #1e293b);
+      background: var(--color-bg, #fff);
+      outline: none; transition: border-color 0.2s ease;
+    }
+    .keyword-input:focus {
+      border-color: var(--color-primary, #3776A1);
+      box-shadow: 0 0 0 3px rgba(55, 118, 161, 0.1);
+    }
+    .keyword-input::placeholder { color: var(--color-text-muted, #94a3b8); }
+    .picker-keyword-hint {
+      font-size: 11px; color: var(--color-text-muted, #94a3b8);
+      margin-top: 6px; text-align: left;
+    }
+    .picker-keyword-loading {
+      display: none; align-items: center; gap: 8px;
+      font-size: 13px; color: var(--color-text-secondary, #475569);
+      margin-top: 10px;
+    }
+    .picker-keyword-loading.visible { display: flex; }
+    .picker-keyword-loading .spinner {
+      width: 16px; height: 16px; border: 2px solid var(--color-border, #e2e8f0);
+      border-top-color: var(--color-primary, #3776A1);
+      border-radius: 50%; animation: kspin 0.6s linear infinite;
+    }
+    @keyframes kspin { to { transform: rotate(360deg); } }
+
+    /* Live sync button */
+    .sync-btn.active {
+      color: #22c55e !important;
+      background: rgba(34, 197, 94, 0.1) !important;
+      border-color: rgba(34, 197, 94, 0.3) !important;
+    }
+    .sync-btn.active i::before { content: "\f0c1"; } /* fa-link */
+    .sync-indicator {
+      position: fixed; top: 12px; left: 50%; transform: translateX(-50%);
+      background: rgba(34,197,94,0.9); color: #fff;
+      font-size: 12px; font-weight: 600; padding: 4px 14px;
+      border-radius: 20px; z-index: 1000;
+      display: none; align-items: center; gap: 6px;
+      animation: sync-fade-in 0.3s ease;
+    }
+    .sync-indicator.visible { display: flex; }
+    .sync-indicator .sync-dot {
+      width: 6px; height: 6px; border-radius: 50%; background: #fff;
+      animation: sync-pulse 1.5s ease-in-out infinite;
+    }
+    @keyframes sync-pulse { 0%,100% { opacity:1; } 50% { opacity:0.3; } }
+    @keyframes sync-fade-in { from { opacity:0; transform:translateX(-50%) translateY(-8px); } to { opacity:1; transform:translateX(-50%) translateY(0); } }
+
+  </style>
+</head>
+
+<body>
+  <!-- File Picker Landing Screen -->
+  <div class="picker-screen" id="picker-screen">
+    <div class="picker-card">
+      <div class="picker-icon"><i class="fa-solid fa-layer-group"></i></div>
+      <div class="picker-title">Slide Presenter</div>
+      <div class="picker-subtitle">Load a slides.json file to start your presentation</div>
+
+      <div class="drop-zone" id="drop-zone">
+        <div class="drop-zone-icon"><i class="fa-solid fa-cloud-arrow-up"></i></div>
+        <div class="drop-zone-text">Drag & drop your <b>slides.json</b> here</div>
+        <div class="drop-zone-hint">or click to <b>browse</b></div>
+      </div>
+
+      <div class="picker-error" id="picker-error"></div>
+
+      <div class="picker-or">or load by keyword</div>
+
+      <div class="picker-keyword">
+        <div class="keyword-input-wrap">
+          <input type="text" class="keyword-input" id="keyword-input" placeholder="e.g. hrd-20260325" autocomplete="off">
+          <button class="picker-btn picker-btn-primary" id="btn-load-keyword"><i class="fa-solid fa-arrow-right"></i> Load</button>
+        </div>
+        <div class="picker-keyword-hint">Loads <code>slides.json</code> from the presentation folder on this site</div>
+        <div class="picker-keyword-loading" id="keyword-loading">
+          <div class="spinner"></div>
+          <span>Loading presentation...</span>
+        </div>
+      </div>
+
+
+      <input type="file" id="file-picker" accept=".json" style="display:none">
+    </div>
+  </div>
+
+  <!-- Presentation (hidden until data loaded) -->
+  <div class="sync-indicator" id="sync-indicator"><span class="sync-dot"></span> Live Sync</div>
+  <div class="presentation" id="presentation" style="display:none">
+    <div class="presentation-header">
+      <div class="slide-indicator">
+        <span class="current-slide">1</span> / <span class="total-slides">0</span>
+      </div>
+      <div class="header-actions">
+        <button class="header-btn sync-btn" id="sync-toggle" aria-label="Toggle live sync" title="Live sync with Slide Maker">
+          <i class="fa-solid fa-link-slash"></i>
+        </button>
+        <button class="header-btn theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+        <button class="header-btn generate-btn" id="generate-pdf" aria-label="Generate PDF" title="Generate PDF">
+          <i class="fa-solid fa-file-pdf"></i>
+        </button>
+        <button class="header-btn fullscreen-btn" id="fullscreen-btn" aria-label="Toggle fullscreen">
+          <i class="fa-solid fa-expand"></i>
+        </button>
+        <button class="header-btn logout-btn" id="logout-btn" aria-label="Exit presentation" title="Exit to landing page">
+          <i class="fa-solid fa-right-from-bracket"></i>
+        </button>
+      </div>
+    </div>
+
+    <div class="slides-container" id="slides-container">
+      <div class="loading-spinner"></div>
+    </div>
+
+    <div class="navigation">
+      <button class="nav-btn nav-prev" id="nav-prev" aria-label="Previous slide">
+        <i class="fa-solid fa-chevron-left"></i>
+      </button>
+      <div class="progress-dots" id="progress-dots"></div>
+      <button class="nav-btn nav-next" id="nav-next" aria-label="Next slide">
+        <i class="fa-solid fa-chevron-right"></i>
+      </button>
+    </div>
+
+    <div class="keyboard-hint">
+      <span><kbd>&larr;</kbd> <kbd>&rarr;</kbd> Navigate</span>
+      <span><kbd>F</kbd> Fullscreen</span>
+    </div>
+
+    <div class="slide-jump">
+      <span>Go to:</span>
+      <input type="number" id="slide-jump-input" min="1" placeholder="#">
+    </div>
+  </div>
+
+  <script src="js/crypto.js"></script>
+  <script src="js/slide-renderer.js"></script>
+  <script src="js/slides/title-hero.js"></script>
+  <script src="js/slides/content.js"></script>
+  <script src="js/slides/two-column.js"></script>
+  <script src="js/slides/comparison.js"></script>
+  <script src="js/slides/quote.js"></script>
+  <script src="js/slides/section.js"></script>
+  <script src="js/slides/toc.js"></script>
+  <script src="js/slides/blank.js"></script>
+  <script src="js/slides/image.js"></script>
+  <script src="js/slides/image-content.js"></script>
+  <script src="js/slides/video.js"></script>
+  <script src="js/slides/image-grid.js"></script>
+  <script src="js/slides/table.js"></script>
+  <script src="js/slides/stats.js"></script>
+  <script src="js/slides/code.js"></script>
+  <script src="js/slides/timeline.js"></script>
+  <script src="js/slides/discussion.js"></script>
+  <script src="js/slides/connect.js"></script>
+  <script src="js/presentation.js"></script>
+  <script>
+    const PickerApp = {
+      init() {
+        const savedTheme = localStorage.getItem('presentation-theme');
+        if (savedTheme) document.documentElement.setAttribute('data-theme', savedTheme);
+
+        const params = new URLSearchParams(window.location.search);
+
+        // Resume saved session on reload (persists for 2 hours)
+        if (!params.toString() && this.tryResumeSession()) return;
+
+        // Auto-load from slide-maker
+        if (params.get('source') === 'maker') {
+          const raw = localStorage.getItem('slide-present-data');
+          if (raw) {
+            try {
+              const kw = params.get('k') || params.get('keyword');
+              if (kw) SlideRenderer.setBaseUrl(`../${kw.replace(/[^a-zA-Z0-9\-_]/g, '')}/`);
+              this.startPresentation(JSON.parse(raw));
+              // Auto-enable live sync when opened from maker
+              setTimeout(() => Presentation.toggleSync(), 100);
+              return;
+            } catch (e) {}
+          }
+        }
+
+        // Auto-load from keyword param (e.g. ?k=hrd-20260325)
+        const keyword = params.get('k') || params.get('keyword');
+        if (keyword) {
+          this.loadKeyword(keyword);
+          return;
+        }
+
+        // Show picker
+        this.bindPicker();
+      },
+
+      bindPicker() {
+        const dropZone = document.getElementById('drop-zone');
+        const fileInput = document.getElementById('file-picker');
+
+        dropZone.addEventListener('click', () => fileInput.click());
+
+        dropZone.addEventListener('dragover', (e) => {
+          e.preventDefault();
+          dropZone.classList.add('drag-over');
+        });
+        dropZone.addEventListener('dragleave', () => dropZone.classList.remove('drag-over'));
+        dropZone.addEventListener('drop', (e) => {
+          e.preventDefault();
+          dropZone.classList.remove('drag-over');
+          const file = e.dataTransfer.files[0];
+          if (file) this.loadFile(file);
+        });
+
+        fileInput.addEventListener('change', (e) => {
+          if (e.target.files[0]) this.loadFile(e.target.files[0]);
+        });
+
+        // Keyword loading
+        const keywordInput = document.getElementById('keyword-input');
+        const btnLoad = document.getElementById('btn-load-keyword');
+
+        btnLoad.addEventListener('click', () => {
+          const kw = keywordInput.value.trim();
+          if (kw) this.loadKeyword(kw);
+        });
+
+        keywordInput.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter') {
+            const kw = keywordInput.value.trim();
+            if (kw) this.loadKeyword(kw);
+          }
+        });
+      },
+
+      async loadKeyword(keyword) {
+        // Sanitize: only allow alphanumeric, dash, underscore
+        const clean = keyword.replace(/[^a-zA-Z0-9\-_]/g, '');
+        if (!clean) {
+          this.showError('Invalid keyword');
+          return;
+        }
+
+        const loading = document.getElementById('keyword-loading');
+        if (loading) loading.classList.add('visible');
+
+        const baseUrl = `../${clean}/`;
+        const jsonUrl = `${baseUrl}slides.json`;
+
+        try {
+          const response = await fetch(jsonUrl);
+          if (!response.ok) throw new Error(`Not found: ${clean}/slides.json`);
+          const data = await response.json();
+
+          // Set base URL so relative image paths resolve correctly
+          SlideRenderer.setBaseUrl(baseUrl);
+          await this.handleData(data);
+        } catch (err) {
+          if (loading) loading.classList.remove('visible');
+          this.showError(err.message);
+        }
+      },
+
+      loadFile(file) {
+        if (!file.name.endsWith('.json')) {
+          this.showError('Please select a .json file');
+          return;
+        }
+        const reader = new FileReader();
+        reader.onload = async (e) => {
+          try {
+            const data = JSON.parse(e.target.result);
+            SlideRenderer.setBaseUrl('');
+            await this.handleData(data);
+          } catch (err) {
+            this.showError('Invalid JSON: ' + err.message);
+          }
+        };
+        reader.readAsText(file);
+      },
+
+      async handleData(data) {
+        if (SlideCrypto.isEncrypted(data)) {
+          // Show decrypt prompt
+          const decrypted = await this.showDecryptPrompt(data);
+          if (!decrypted) return;
+          if (!decrypted.slides || !Array.isArray(decrypted.slides)) {
+            this.showError('Invalid format: missing "slides" array');
+            return;
+          }
+          this.startPresentation(decrypted);
+        } else {
+          if (!data.slides || !Array.isArray(data.slides)) {
+            this.showError('Invalid format: missing "slides" array');
+            return;
+          }
+          this.startPresentation(data);
+        }
+      },
+
+      showDecryptPrompt(envelope) {
+        return new Promise((resolve) => {
+          // Create overlay
+          const overlay = document.createElement('div');
+          overlay.className = 'decrypt-overlay';
+          overlay.innerHTML = `
+            <div class="decrypt-card">
+              <div class="decrypt-icon"><i class="fa-solid fa-lock"></i></div>
+              <div class="decrypt-title">Protected Presentation</div>
+              <div class="decrypt-desc">This presentation is encrypted. Enter the secret key to view it.</div>
+              <input type="password" class="decrypt-input" id="decrypt-key-input" placeholder="Enter secret key" autocomplete="off">
+              <button class="decrypt-btn" id="decrypt-submit-btn"><i class="fa-solid fa-unlock"></i> Unlock</button>
+              <div class="decrypt-loading" id="decrypt-loading"><i class="fa-solid fa-spinner fa-spin"></i> Decrypting...</div>
+              <div class="decrypt-error" id="decrypt-error"></div>
+            </div>
+          `;
+          document.body.appendChild(overlay);
+
+          const input = document.getElementById('decrypt-key-input');
+          const btn = document.getElementById('decrypt-submit-btn');
+          const errorEl = document.getElementById('decrypt-error');
+          const loadingEl = document.getElementById('decrypt-loading');
+
+          const attempt = async () => {
+            const secret = input.value.trim();
+            if (!secret) { input.focus(); return; }
+
+            btn.disabled = true;
+            errorEl.style.display = 'none';
+            loadingEl.classList.add('visible');
+
+            try {
+              const data = await SlideCrypto.decrypt(envelope, secret);
+              overlay.remove();
+              resolve(data);
+            } catch (e) {
+              btn.disabled = false;
+              loadingEl.classList.remove('visible');
+              errorEl.textContent = 'Invalid key. Please try again.';
+              errorEl.style.display = 'block';
+              input.value = '';
+              input.focus();
+            }
+          };
+
+          btn.addEventListener('click', attempt);
+          input.addEventListener('keydown', (e) => { if (e.key === 'Enter') attempt(); });
+          input.focus();
+        });
+      },
+
+      showError(msg) {
+        const el = document.getElementById('picker-error');
+        el.textContent = msg;
+        el.style.display = 'block';
+        setTimeout(() => { el.style.display = 'none'; }, 4000);
+      },
+
+      SESSION_TTL: 2 * 60 * 60 * 1000, // 2 hours
+
+      startPresentation(data) {
+        // Save session for reload persistence
+        try {
+          sessionStorage.setItem('slide-present-session', JSON.stringify({
+            data,
+            baseUrl: SlideRenderer.baseUrl,
+            timestamp: Date.now()
+          }));
+        } catch (e) {}
+
+        // Hide picker, show presentation
+        const picker = document.getElementById('picker-screen');
+        picker.classList.add('hidden');
+        setTimeout(() => picker.style.display = 'none', 400);
+
+        document.getElementById('presentation').style.display = 'flex';
+        Presentation.init(data);
+      },
+
+      /** Try resuming from a saved session */
+      tryResumeSession() {
+        try {
+          const raw = sessionStorage.getItem('slide-present-session');
+          if (!raw) return false;
+          const session = JSON.parse(raw);
+          if (Date.now() - session.timestamp > this.SESSION_TTL) {
+            sessionStorage.removeItem('slide-present-session');
+            return false;
+          }
+          if (session.baseUrl) SlideRenderer.setBaseUrl(session.baseUrl);
+          this.startPresentation(session.data);
+          return true;
+        } catch (e) {
+          return false;
+        }
+      },
+
+      logout() {
+        sessionStorage.removeItem('slide-present-session');
+        location.reload();
+      },
+
+      esc(str) {
+        const d = document.createElement('div');
+        d.textContent = str;
+        return d.innerHTML;
+      }
+    };
+
+    document.addEventListener('DOMContentLoaded', () => {
+      PickerApp.init();
+    });
+  </script>
+</body>
+
+</html>

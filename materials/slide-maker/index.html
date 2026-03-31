@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slide Maker</title>
+  <link rel="icon" type="image/x-icon" href="../../assets/img/favicons/favicon.ico">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="../slide-present/css/presentation.css">
+  <link rel="stylesheet" href="css/maker.css">
+  <!-- Monaco Editor CDN -->
+  <link rel="stylesheet" data-name="vs/editor/editor.main" href="https://cdn.jsdelivr.net/npm/monaco-editor@0.52.2/min/vs/editor/editor.main.css">
+</head>
+
+<body>
+  <!-- Decrypt Modal -->
+  <div class="landing-decrypt-overlay" id="landing-decrypt" style="display:none">
+    <div class="landing-decrypt-card">
+      <div class="landing-decrypt-icon"><i class="fa-solid fa-lock"></i></div>
+      <div class="landing-decrypt-title">Protected Presentation</div>
+      <div class="landing-decrypt-desc">This presentation is encrypted. Enter the secret key to continue editing.</div>
+      <input type="password" class="landing-decrypt-input" id="landing-decrypt-key" placeholder="Enter secret key" autocomplete="off">
+      <button class="landing-decrypt-btn" id="landing-decrypt-submit"><i class="fa-solid fa-unlock"></i> Unlock</button>
+      <div class="landing-decrypt-loading" id="landing-decrypt-loading"><i class="fa-solid fa-spinner fa-spin"></i> Decrypting...</div>
+      <div class="landing-decrypt-error" id="landing-decrypt-error"></div>
+    </div>
+  </div>
+
+  <!-- Landing Screen -->
+  <div class="landing-screen" id="landing-screen" style="display:none">
+    <div class="landing-card">
+      <div class="landing-icon"><i class="fa-solid fa-layer-group"></i></div>
+      <div class="landing-title">Slide Maker</div>
+      <div class="landing-subtitle">Create or resume a presentation</div>
+
+      <div class="landing-section">
+        <label class="landing-label">New Presentation</label>
+        <div class="landing-input-wrap">
+          <input type="text" class="landing-input" id="landing-keyword" placeholder="e.g. hrd-20260325" autocomplete="off">
+        </div>
+        <div class="landing-hint">Keyword becomes the folder name: <code>{keyword}/slides.json</code></div>
+      </div>
+      <button class="landing-btn" id="landing-start"><i class="fa-solid fa-arrow-right"></i> Start</button>
+
+      <div class="landing-or">or</div>
+
+      <div class="landing-section">
+        <label class="landing-label">Continue Existing</label>
+        <div class="landing-drop" id="landing-drop">
+          <i class="fa-solid fa-folder-open"></i>
+          <span>Click to pick a <b>presentation folder</b></span>
+          <span class="landing-drop-hint">Select a folder containing slides.json</span>
+        </div>
+        <div class="landing-error" id="landing-error"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="app" id="app" style="display:none">
+    <!-- Header (kaper-agent style: brand | nav pills | right actions) -->
+    <header class="topbar">
+      <div class="topbar-left">
+        <div class="topbar-brand">
+          <div class="brand-icon"><i class="fa-solid fa-layer-group"></i></div>
+          <div class="brand-text">
+            <span class="brand-name">Slide Maker</span>
+            <span class="brand-tag">PRESENTATION BUILDER</span>
+          </div>
+        </div>
+
+        <nav class="topbar-pills">
+          <!-- Mobile panel switchers (hidden on desktop) -->
+          <button class="nav-pill pill-mobile active" data-pill="slides"><i class="fa-solid fa-layer-group"></i> <span>Slides</span></button>
+          <button class="nav-pill pill-mobile" data-pill="editor"><i class="fa-solid fa-pen-to-square"></i> <span>Editor</span></button>
+          <button class="nav-pill pill-mobile" data-pill="preview"><i class="fa-solid fa-eye"></i> <span>Preview</span></button>
+          <span class="pill-sep pill-desktop"></span>
+          <!-- Action pills (always visible) -->
+          <button class="nav-pill pill-desktop" id="btn-new"><i class="fa-solid fa-file-circle-plus"></i> <span>New</span></button>
+          <button class="nav-pill pill-desktop" id="btn-meta"><i class="fa-solid fa-gear"></i> <span>Settings</span></button>
+          <span class="pill-sep pill-desktop"></span>
+          <div class="topbar-dropdown" id="topbar-dropdown">
+            <button class="nav-pill pill-desktop" id="btn-view-menu"><i class="fa-solid fa-eye"></i> <span>View</span> <i class="fa-solid fa-chevron-down" style="font-size:8px;margin-left:2px;opacity:.5"></i></button>
+            <div class="dropdown-menu" id="view-dropdown" style="display:none">
+              <button class="dropdown-item" id="toggle-slides-pane"><i class="fa-solid fa-layer-group"></i> Slides Pane <i class="fa-solid fa-check dropdown-check"></i></button>
+              <button class="dropdown-item" id="toggle-preview-pane"><i class="fa-solid fa-eye"></i> Preview Pane <i class="fa-solid fa-check dropdown-check"></i></button>
+              <div class="dropdown-sep"></div>
+              <button class="dropdown-item" id="btn-detach-preview-menu"><i class="fa-solid fa-arrow-up-right-from-square"></i> Detach Preview</button>
+            </div>
+          </div>
+        </nav>
+      </div>
+
+      <div class="topbar-right">
+        <button class="tb-btn" id="btn-undo" title="Undo (Ctrl+Z)"><i class="fa-solid fa-rotate-left"></i></button>
+        <button class="tb-btn" id="btn-redo" title="Redo (Ctrl+Y)"><i class="fa-solid fa-rotate-right"></i></button>
+        <span class="topbar-title-display" id="topbar-title-display"></span>
+        <span class="save-status" id="save-status"><i class="fa-solid fa-circle"></i> Draft</span>
+      </div>
+    </header>
+
+    <!-- 3-Pane layout with VS Code resize handles -->
+    <div class="main-layout" id="main-layout">
+      <aside class="pane pane-slides" id="sidebar">
+        <div class="pane-head">
+          <span class="pane-title"><i class="fa-solid fa-layer-group"></i> SLIDES</span>
+        </div>
+        <div class="slide-search">
+          <input type="text" id="slide-search-input" placeholder="Filter slides..." autocomplete="off">
+        </div>
+        <div class="slide-list" id="slide-list"></div>
+        <div class="slide-list-footer">
+          <button class="add-slide-btn" id="btn-add-slide">
+            <i class="fa-solid fa-plus"></i>
+          </button>
+        </div>
+      </aside>
+
+
+      <main class="pane pane-editor" id="editor-panel">
+        <div class="pane-head editor-head" id="editor-head" style="display:none">
+          <div class="editor-head-left">
+            <span class="editor-slide-num" id="editor-slide-num"></span>
+            <span class="editor-slide-type" id="editor-slide-type"></span>
+          </div>
+          <div class="editor-head-right">
+            <!-- Mode toggle: Form / JSON -->
+            <div class="mode-toggle" id="mode-toggle">
+              <button class="mode-btn active" data-mode="form" title="Form editor"><i class="fa-solid fa-sliders"></i></button>
+              <button class="mode-btn" data-mode="json" title="JSON editor"><i class="fa-solid fa-code"></i></button>
+            </div>
+            <div class="head-sep"></div>
+            <button class="tb-btn tb-btn-xs" id="btn-editor-dup" title="Duplicate"><i class="fa-solid fa-copy"></i></button>
+            <button class="tb-btn tb-btn-xs tb-btn-danger" id="btn-editor-del" title="Delete"><i class="fa-solid fa-trash"></i></button>
+          </div>
+        </div>
+        <div class="empty-state" id="empty-state">
+          <i class="fa-solid fa-sliders"></i>
+          <p>Select a slide or add a new one</p>
+        </div>
+        <!-- Form mode -->
+        <div class="editor-scroll" id="editor-scroll" style="display:none">
+          <div class="editor-content" id="editor-content"></div>
+        </div>
+        <!-- JSON mode (Monaco Editor) -->
+        <div class="json-editor-wrap" id="json-editor-wrap" style="display:none">
+          <div class="monaco-container" id="monaco-container"></div>
+          <div class="json-editor-status" id="json-editor-status"></div>
+        </div>
+      </main>
+
+
+      <aside class="pane pane-preview" id="preview-panel">
+        <div class="pane-head">
+          <span class="pane-title"><i class="fa-solid fa-eye"></i> PREVIEW</span>
+        </div>
+        <div class="preview-frame" id="preview-frame">
+          <div class="preview-placeholder">
+            <div class="placeholder-icon"><i class="fa-solid fa-display"></i></div>
+            <p class="placeholder-title">No slide selected</p>
+            <p class="placeholder-hint">Click a slide on the left panel or add a new one to get started</p>
+          </div>
+        </div>
+        <div class="preview-nav" id="preview-nav" style="display:none">
+          <button class="preview-nav-btn" id="preview-prev"><i class="fa-solid fa-chevron-left"></i></button>
+          <div class="preview-progress">
+            <div class="preview-progress-fill" id="preview-progress-fill"></div>
+          </div>
+          <span class="preview-indicator"><span id="preview-current">1</span> / <span id="preview-total">0</span></span>
+          <button class="preview-nav-btn" id="preview-next"><i class="fa-solid fa-chevron-right"></i></button>
+        </div>
+      </aside>
+    </div>
+
+    <!-- Context Menu -->
+    <div class="context-menu" id="context-menu" style="display:none">
+      <button data-ctx="insert-before"><i class="fa-solid fa-arrow-up"></i> Insert Before</button>
+      <button data-ctx="insert-after"><i class="fa-solid fa-arrow-down"></i> Insert After</button>
+      <div class="ctx-sep"></div>
+      <button data-ctx="duplicate"><i class="fa-solid fa-copy"></i> Duplicate</button>
+      <button data-ctx="delete"><i class="fa-solid fa-trash"></i> Delete</button>
+      <div class="ctx-sep"></div>
+      <button data-ctx="move-top"><i class="fa-solid fa-angles-up"></i> Move to Top</button>
+      <button data-ctx="move-bottom"><i class="fa-solid fa-angles-down"></i> Move to Bottom</button>
+    </div>
+
+    <!-- Status bar (kaper-agent style) -->
+    <footer class="statusbar">
+      <div class="statusbar-left">
+        <span class="status-item" id="status-slide-count"><i class="fa-solid fa-layer-group"></i> 0 slides</span>
+        <span class="status-sep">|</span>
+        <span class="status-item status-shortcuts">
+          <kbd>Ctrl+Z</kbd> Undo
+          <kbd>Ctrl+Y</kbd> Redo
+          <kbd>Ctrl+D</kbd> Duplicate
+          <kbd>Del</kbd> Delete
+          <kbd>↑↓</kbd> Navigate
+        </span>
+      </div>
+      <div class="statusbar-right">
+        <span class="status-item">Slide Maker</span>
+        <span class="status-item">KVSOVANREACH</span>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Meta Modal -->
+  <div class="modal-overlay" id="modal-meta" style="display:none">
+    <div class="modal modal-settings">
+      <div class="modal-header">
+        <h3><i class="fa-solid fa-gear" style="color:var(--accent);margin-right:6px"></i> Settings</h3>
+        <button class="btn btn-ghost" data-close="modal-meta"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="modal-body">
+
+        <!-- Project -->
+        <div class="settings-section">
+          <div class="settings-section-header">
+            <i class="fa-solid fa-folder"></i>
+            <span>Project</span>
+          </div>
+          <div class="settings-section-body">
+            <div class="form-group">
+              <label>Keyword</label>
+              <input type="text" id="meta-keyword" placeholder="e.g. hrd-20260325" readonly disabled style="opacity:0.7;cursor:not-allowed">
+              <div class="form-hint">Folder name — images resolve from <code>{keyword}/assets/images/</code></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Appearance -->
+        <div class="settings-section">
+          <div class="settings-section-header">
+            <i class="fa-solid fa-palette"></i>
+            <span>Appearance</span>
+          </div>
+          <div class="settings-section-body">
+            <div class="form-group">
+              <label>Theme Presets</label>
+              <div class="theme-presets" id="theme-presets"></div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Custom Color</label>
+                <div class="color-picker-wrap">
+                  <input type="color" id="meta-color" value="#3776A1">
+                  <span class="color-hex" id="meta-color-hex">#3776A1</span>
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Transition</label>
+                <select id="meta-transition">
+                  <option value="fade">Fade</option>
+                  <option value="slide">Slide</option>
+                  <option value="zoom">Zoom</option>
+                  <option value="flip">Flip</option>
+                  <option value="none">None</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group form-group-inline">
+              <label class="checkbox-label">
+                <input type="checkbox" id="meta-allow-pdf" checked>
+                <span>Allow PDF export in presenter</span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Security -->
+        <div class="settings-section">
+          <div class="settings-section-header">
+            <i class="fa-solid fa-shield-halved"></i>
+            <span>Security</span>
+          </div>
+          <div class="settings-section-body">
+            <div class="form-group">
+              <label class="checkbox-label">
+                <input type="checkbox" id="meta-encrypt">
+                <span>Encrypt presentation</span>
+              </label>
+              <div class="form-hint">Slides will be encrypted on disk. A secret key is required to view.</div>
+            </div>
+            <div id="encrypt-fields" style="display:none">
+              <div class="form-group">
+                <label>Secret Key</label>
+                <input type="password" id="meta-secret" placeholder="Min 12 characters" autocomplete="new-password" minlength="12">
+                <div class="key-strength" id="secret-strength"></div>
+              </div>
+              <div class="form-group">
+                <label>Master Key</label>
+                <input type="password" id="meta-master-key" placeholder="Min 12 characters" autocomplete="new-password" minlength="12">
+                <div class="form-hint">Master key can unlock any encrypted presentation</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-ghost" data-close="modal-meta">Cancel</button>
+        <button class="btn btn-primary" id="btn-save-meta">Save Changes</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add Slide Modal -->
+  <div class="modal-overlay" id="modal-add-slide" style="display:none">
+    <div class="modal modal-lg">
+      <div class="modal-header">
+        <h3>Add Slide</h3>
+        <button class="btn btn-ghost" data-close="modal-add-slide"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="modal-body">
+        <div class="slide-type-grid" id="slide-type-grid"></div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Custom Dialog (replaces native alert/confirm) -->
+  <div class="modal-overlay dialog-overlay" id="dialog-overlay" style="display:none">
+    <div class="modal dialog-modal">
+      <div class="dialog-icon" id="dialog-icon"></div>
+      <div class="dialog-title" id="dialog-title"></div>
+      <div class="dialog-message" id="dialog-message"></div>
+      <div class="dialog-actions" id="dialog-actions"></div>
+    </div>
+  </div>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/monaco-editor@0.52.2/min/vs/loader.js"></script>
+  <!-- Shared from slide-present (single source of truth for rendering) -->
+  <script src="../slide-present/js/crypto.js"></script>
+  <script src="../slide-present/js/slide-renderer.js"></script>
+  <script src="../slide-present/js/slides/title-hero.js"></script>
+  <script src="../slide-present/js/slides/content.js"></script>
+  <script src="../slide-present/js/slides/two-column.js"></script>
+  <script src="../slide-present/js/slides/comparison.js"></script>
+  <script src="../slide-present/js/slides/quote.js"></script>
+  <script src="../slide-present/js/slides/section.js"></script>
+  <script src="../slide-present/js/slides/toc.js"></script>
+  <script src="../slide-present/js/slides/blank.js"></script>
+  <script src="../slide-present/js/slides/image.js"></script>
+  <script src="../slide-present/js/slides/image-content.js"></script>
+  <script src="../slide-present/js/slides/video.js"></script>
+  <script src="../slide-present/js/slides/image-grid.js"></script>
+  <script src="../slide-present/js/slides/table.js"></script>
+  <script src="../slide-present/js/slides/stats.js"></script>
+  <script src="../slide-present/js/slides/code.js"></script>
+  <script src="../slide-present/js/slides/timeline.js"></script>
+  <script src="../slide-present/js/slides/discussion.js"></script>
+  <script src="../slide-present/js/slides/connect.js"></script>
+  <!-- Slide maker own scripts -->
+  <script src="js/slide-types.js"></script>
+  <script src="js/editor-fields.js"></script>
+  <script src="js/editors/title-hero.js"></script>
+  <script src="js/editors/content.js"></script>
+  <script src="js/editors/two-column.js"></script>
+  <script src="js/editors/comparison.js"></script>
+  <script src="js/editors/quote.js"></script>
+  <script src="js/editors/section.js"></script>
+  <script src="js/editors/toc.js"></script>
+  <script src="js/editors/blank.js"></script>
+  <script src="js/editors/image.js"></script>
+  <script src="js/editors/image-content.js"></script>
+  <script src="js/editors/video.js"></script>
+  <script src="js/editors/image-grid.js"></script>
+  <script src="js/editors/table.js"></script>
+  <script src="js/editors/stats.js"></script>
+  <script src="js/editors/code.js"></script>
+  <script src="js/editors/timeline.js"></script>
+  <script src="js/editors/discussion.js"></script>
+  <script src="js/editors/connect.js"></script>
+  <script src="js/preview-renderer.js"></script>
+  <script src="js/maker.js"></script>
+</body>
+
+</html>
