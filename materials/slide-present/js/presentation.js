@@ -134,7 +134,8 @@ const Presentation = {
     document.getElementById('sync-toggle')?.addEventListener('click', () => this.toggleSync());
     document.getElementById('logout-btn')?.addEventListener('click', () => {
       sessionStorage.removeItem('slide-present-session');
-      location.reload();
+      // Navigate to base URL without query params
+      window.location.href = window.location.pathname;
     });
 
     document.addEventListener('keydown', (e) => this.handleKeyboard(e));
