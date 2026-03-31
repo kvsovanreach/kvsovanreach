@@ -331,6 +331,11 @@ const App = {
       const kw = keywordInput.value.replace(/[^a-zA-Z0-9\-_]/g, '');
       if (!kw) { keywordInput.focus(); keywordInput.style.borderColor = 'var(--red)'; return; }
 
+      if (!window.showDirectoryPicker) {
+        showError('Your browser does not support folder access. Please use Chrome or Edge.');
+        return;
+      }
+
       // Step 1: Pick directory and check for duplicates (no files created yet)
       let rootDir;
       try {
@@ -383,6 +388,10 @@ const App = {
 
     // --- Load existing JSON via directory picker ---
     const loadExisting = async () => {
+      if (!window.showDirectoryPicker) {
+        showError('Your browser does not support folder access. Please use Chrome or Edge.');
+        return;
+      }
       try {
         // Let user pick the keyword directory directly (e.g. materials/hrd-20260325/)
         const kwDir = await window.showDirectoryPicker({ mode: 'readwrite' });

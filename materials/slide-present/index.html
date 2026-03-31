@@ -26,7 +26,8 @@
     /* Decrypt modal */
     .decrypt-overlay {
       position: fixed; inset: 0; z-index: 100000;
-      background: rgba(0,0,0,0.6); backdrop-filter: blur(12px);
+      background: rgba(0,0,0,0.6);
+      -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
       display: flex; align-items: center; justify-content: center;
     }
     .decrypt-card {
@@ -191,6 +192,21 @@
     @keyframes sync-pulse { 0%,100% { opacity:1; } 50% { opacity:0.3; } }
     @keyframes sync-fade-in { from { opacity:0; transform:translateX(-50%) translateY(-8px); } to { opacity:1; transform:translateX(-50%) translateY(0); } }
 
+    /* Laser pointer */
+    .laser-svg {
+      position: fixed; inset: 0; z-index: 99999;
+      pointer-events: none; display: none;
+      overflow: visible;
+    }
+    .laser-svg.active { display: block; }
+    .laser-active { cursor: none !important; }
+    .laser-active * { cursor: none !important; }
+    #laser-toggle.active {
+      color: #ef4444 !important;
+      background: rgba(239, 68, 68, 0.1) !important;
+      border-color: rgba(239, 68, 68, 0.3) !important;
+    }
+
   </style>
 </head>
 
@@ -230,6 +246,18 @@
   </div>
 
   <!-- Presentation (hidden until data loaded) -->
+  <svg class="laser-svg" id="laser-svg" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <radialGradient id="laser-glow">
+        <stop offset="0%" stop-color="#ef4444" stop-opacity="1"/>
+        <stop offset="40%" stop-color="#ef4444" stop-opacity="0.6"/>
+        <stop offset="100%" stop-color="#ef4444" stop-opacity="0"/>
+      </radialGradient>
+    </defs>
+    <path id="laser-trail" fill="none" stroke="rgba(239,68,68,0.4)" stroke-width="3" stroke-linecap="round"/>
+    <circle id="laser-dot-glow" r="14" fill="url(#laser-glow)"/>
+    <circle id="laser-dot-core" r="5" fill="#ef4444"/>
+  </svg>
   <div class="sync-indicator" id="sync-indicator"><span class="sync-dot"></span> Live Sync</div>
   <div class="presentation" id="presentation" style="display:none">
     <div class="presentation-header">
@@ -243,6 +271,9 @@
         <button class="header-btn theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
           <i class="fa-solid fa-moon"></i>
           <i class="fa-solid fa-sun"></i>
+        </button>
+        <button class="header-btn" id="laser-toggle" aria-label="Toggle laser pointer" title="Laser pointer (L)">
+          <i class="fa-solid fa-circle-dot"></i>
         </button>
         <button class="header-btn generate-btn" id="generate-pdf" aria-label="Generate PDF" title="Generate PDF">
           <i class="fa-solid fa-file-pdf"></i>

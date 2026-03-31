@@ -66,6 +66,7 @@ const SlideCrypto = {
    * @returns {Object} — encrypted envelope
    */
   async encrypt(data, userSecret, masterSecret) {
+    if (!crypto.subtle) throw new Error('Encryption requires HTTPS');
     // 1. Generate random DEK (Data Encryption Key)
     const dek = await crypto.subtle.generateKey(
       { name: 'AES-GCM', length: 256 }, true, ['encrypt', 'decrypt']
@@ -124,6 +125,7 @@ const SlideCrypto = {
    * @throws if decryption fails (wrong key)
    */
   async decrypt(envelope, secret) {
+    if (!crypto.subtle) throw new Error('Encryption requires HTTPS');
     if (!envelope.encrypted) return envelope;
 
     const iterations = envelope.pbkdf2Iterations || this.PBKDF2_ITERATIONS;

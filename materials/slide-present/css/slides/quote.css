@@ -115,6 +115,7 @@
   padding: var(--space-12);
 }
 
+/* :has() selector — degrades gracefully in older browsers (default padding used instead) */
 .slide:has(.quote-layout-left) {
   padding: var(--space-12);
 }

@@ -132,6 +132,7 @@ const Presentation = {
     document.getElementById('fullscreen-btn')?.addEventListener('click', () => this.toggleFullscreen());
     document.getElementById('generate-pdf')?.addEventListener('click', () => this.generatePDF());
     document.getElementById('sync-toggle')?.addEventListener('click', () => this.toggleSync());
+    document.getElementById('laser-toggle')?.addEventListener('click', () => this.toggleLaser());
     document.getElementById('logout-btn')?.addEventListener('click', () => {
       sessionStorage.removeItem('slide-present-session');
       // Navigate to base URL without query params
@@ -262,6 +263,7 @@ const Presentation = {
       case 'Home': e.preventDefault(); this.goToSlide(1); break;
       case 'End': e.preventDefault(); this.goToSlide(this.totalSlides); break;
       case 'f': case 'F': this.toggleFullscreen(); break;
+      case 'l': case 'L': this.toggleLaser(); break;
       case 'Escape':
         if (document.fullscreenElement) document.exitFullscreen();
         break;
@@ -303,6 +305,92 @@ const Presentation = {
     }
   },
 
+  // --- Laser Pointer ---
+  _laserActive: false,
+  _laserPoints: [],
+  _laserRAF: null,
+  _TRAIL_MS: 150,
+  _TRAIL_MAX: 20,
+
+  toggleLaser() {
+    const btn = document.getElementById('laser-toggle');
+    const svg = document.getElementById('laser-svg');
+    if (!svg) return;
+
+    this._laserActive = !this._laserActive;
+    btn.classList.toggle('active', this._laserActive);
+
+    if (this._laserActive) {
+      svg.classList.add('active');
+      document.body.classList.add('laser-active');
+      this._laserPoints = [];
+
+      this._laserLastPos = null;
+
+      this._laserMoveHandler = (e) => {
+        const x = e.clientX ?? e.touches?.[0]?.clientX;
+        const y = e.clientY ?? e.touches?.[0]?.clientY;
+        if (x == null) return;
+        this._laserLastPos = { x, y };
+        this._laserPoints.push({ x, y, t: Date.now() });
+        if (this._laserPoints.length > this._TRAIL_MAX) this._laserPoints.shift();
+      };
+
+      document.addEventListener('mousemove', this._laserMoveHandler);
+      document.addEventListener('touchmove', this._laserMoveHandler, { passive: true });
+      this._drawLaserLoop();
+    } else {
+      svg.classList.remove('active');
+      document.body.classList.remove('laser-active');
+      document.removeEventListener('mousemove', this._laserMoveHandler);
+      document.removeEventListener('touchmove', this._laserMoveHandler);
+      if (this._laserRAF) cancelAnimationFrame(this._laserRAF);
+      this._laserPoints = [];
+    }
+  },
+
+  _drawLaserLoop() {
+    const now = Date.now();
+    const trail = document.getElementById('laser-trail');
+    const glow = document.getElementById('laser-dot-glow');
+    const core = document.getElementById('laser-dot-core');
+
+    // Expire old points
+    this._laserPoints = this._laserPoints.filter(p => now - p.t < this._TRAIL_MS);
+
+    // Draw trail from active points
+    if (this._laserPoints.length > 1) {
+      let d = `M${this._laserPoints[0].x},${this._laserPoints[0].y}`;
+      for (let i = 1; i < this._laserPoints.length; i++) {
+        const prev = this._laserPoints[i - 1];
+        const curr = this._laserPoints[i];
+        const mx = (prev.x + curr.x) / 2;
+        const my = (prev.y + curr.y) / 2;
+        d += ` Q${prev.x},${prev.y} ${mx},${my}`;
+      }
+      const last = this._laserPoints[this._laserPoints.length - 1];
+      d += ` L${last.x},${last.y}`;
+      trail.setAttribute('d', d);
+    } else {
+      trail.setAttribute('d', '');
+    }
+
+    // Dot always stays at last known mouse position
+    const pos = this._laserLastPos;
+    if (pos) {
+      glow.setAttribute('cx', pos.x);
+      glow.setAttribute('cy', pos.y);
+      core.setAttribute('cx', pos.x);
+      core.setAttribute('cy', pos.y);
+      glow.style.opacity = '1';
+      core.style.opacity = '1';
+    }
+
+    if (this._laserActive) {
+      this._laserRAF = requestAnimationFrame(() => this._drawLaserLoop());
+    }
+  },
+
   // --- Live Sync ---
   _syncChannel: null,
   _syncActive: false,
@@ -325,7 +413,15 @@ const Presentation = {
       btn.title = 'Live sync ON — click to disconnect';
       indicator.classList.add('visible');
 
-      this._syncChannel = new BroadcastChannel('slide-maker-preview');
+      try {
+        this._syncChannel = new BroadcastChannel('slide-maker-preview');
+      } catch (e) {
+        // BroadcastChannel not supported
+        this._syncActive = false;
+        btn.classList.remove('active');
+        indicator.classList.remove('visible');
+        return;
+      }
       this._syncChannel.onmessage = (e) => {
         const msg = e.data;
         if (msg && msg.type === 'reload') {

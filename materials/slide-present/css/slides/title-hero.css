@@ -10,7 +10,7 @@
   height: 100%;
 }
 
-/* Reduce slide padding for all hero styles */
+/* :has() selector — degrades gracefully in older browsers (default padding used instead) */
 .slide:has(.title-hero-slide) {
   padding: var(--space-8) var(--space-8);
 }
