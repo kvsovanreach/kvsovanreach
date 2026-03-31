@@ -320,7 +320,7 @@
           const raw = localStorage.getItem('slide-present-data');
           if (raw) {
             try {
-              const kw = params.get('k') || params.get('keyword');
+              const kw = params.get('k') || params.get('key') || params.get('keyword');
               if (kw) SlideRenderer.setBaseUrl(`../${kw.replace(/[^a-zA-Z0-9\-_]/g, '')}/`);
               this.startPresentation(JSON.parse(raw));
               // Auto-enable live sync when opened from maker
@@ -331,7 +331,7 @@
         }
 
         // Auto-load from keyword param (e.g. ?k=hrd-20260325)
-        const keyword = params.get('k') || params.get('keyword');
+        const keyword = params.get('k') || params.get('key') || params.get('keyword');
         if (keyword) {
           this.loadKeyword(keyword);
           return;
