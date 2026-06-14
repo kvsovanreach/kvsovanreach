@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Batch find and replace text with multiple rules, regex support, live preview, and import/export.">
+  <meta property="og:title" content="KVSOVANREACH | Text Replacer">
+  <meta property="og:description" content="Powerful batch find and replace with regex, presets, live preview, and undo/redo support.">
+  <meta property="og:image" content="/assets/img/favicons/og-image.png">
+  <title>KVSOVANREACH | Text Replacer</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+  <!-- Common Tools CSS -->
+  <link rel="stylesheet" href="../../css/tools-common.css">
+  <!-- Text Replacer CSS -->
+  <link rel="stylesheet" href="textreplacer.css">
+</head>
+<body>
+  <!-- Skip to Content -->
+  <a href="#textreplacer" class="skip-link">Skip to text replacer</a>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">TOOLS</span>
+      </a>
+
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="tool-page">
+    <div class="container">
+      <div class="replacer-wrapper" id="textreplacer">
+        <!-- Header -->
+        <div class="replacer-header">
+          <h2><i class="fa-solid fa-arrow-right-arrow-left"></i> Text Replacer</h2>
+        </div>
+
+        <div class="replacer-main">
+          <!-- Rules Panel -->
+          <div class="rules-panel">
+            <div class="rules-panel-header">
+              <h4><i class="fa-solid fa-list-check"></i> Replacement Rules</h4>
+              <div class="rules-actions">
+                <button type="button" class="rules-action-btn" id="addRuleBtn" title="Add Rule">
+                  <i class="fa-solid fa-plus"></i>
+                </button>
+                <button type="button" class="rules-action-btn" id="importRulesBtn" title="Import Rules">
+                  <i class="fa-solid fa-file-import"></i>
+                </button>
+                <button type="button" class="rules-action-btn" id="exportRulesBtn" title="Export Rules">
+                  <i class="fa-solid fa-file-export"></i>
+                </button>
+              </div>
+            </div>
+
+            <!-- Rules List -->
+            <div class="rules-list" id="rulesList">
+              <!-- Rules will be added dynamically -->
+            </div>
+
+            <!-- Presets -->
+            <div class="presets-section">
+              <h4><i class="fa-solid fa-wand-magic-sparkles"></i> Presets</h4>
+              <div class="preset-buttons">
+                <button type="button" class="preset-btn" data-preset="smartQuotes" title="Replace straight quotes with smart quotes">
+                  <i class="fa-solid fa-quote-right"></i> Smart Quotes
+                </button>
+                <button type="button" class="preset-btn" data-preset="doubleSpaces" title="Replace double spaces with single">
+                  <i class="fa-solid fa-compress"></i> Double Spaces
+                </button>
+                <button type="button" class="preset-btn" data-preset="trailingWhitespace" title="Remove trailing whitespace">
+                  <i class="fa-solid fa-eraser"></i> Trailing WS
+                </button>
+                <button type="button" class="preset-btn" data-preset="htmlEntities" title="Decode common HTML entities">
+                  <i class="fa-solid fa-code"></i> HTML Entities
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Text Areas -->
+          <div class="text-panels">
+            <!-- Input -->
+            <div class="text-section">
+              <div class="section-header">
+                <h3>Input Text</h3>
+                <div class="section-actions">
+                  <button type="button" class="section-btn" id="pasteBtn" title="Paste">
+                    <i class="fa-solid fa-paste"></i>
+                  </button>
+                  <button type="button" class="section-btn" id="clearBtn" title="Clear">
+                    <i class="fa-solid fa-trash"></i>
+                  </button>
+                </div>
+              </div>
+              <textarea id="inputText" placeholder="Paste or type your text here..." spellcheck="false"></textarea>
+            </div>
+
+            <!-- Action Bar -->
+            <div class="action-bar">
+              <div class="action-bar-left">
+                <button type="button" class="undo-btn" id="undoBtn" title="Undo (Ctrl+Z)" disabled>
+                  <i class="fa-solid fa-rotate-left"></i>
+                </button>
+                <button type="button" class="redo-btn" id="redoBtn" title="Redo (Ctrl+Y)" disabled>
+                  <i class="fa-solid fa-rotate-right"></i>
+                </button>
+              </div>
+              <button type="button" class="apply-btn" id="applyBtn">
+                <i class="fa-solid fa-check"></i> Apply All Rules
+              </button>
+              <div class="action-bar-right">
+                <button type="button" class="section-btn" id="copyBtn" title="Copy Result">
+                  <i class="fa-solid fa-copy"></i>
+                </button>
+              </div>
+            </div>
+
+            <!-- Preview -->
+            <div class="text-section">
+              <div class="section-header">
+                <h3>Live Preview</h3>
+                <span class="preview-badge" id="previewBadge">0 replacements</span>
+              </div>
+              <div class="preview-output" id="previewOutput">
+                <span class="preview-placeholder">Preview will appear here as you type rules...</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Hidden file input for import -->
+  <input type="file" id="fileInput" accept=".json" style="display: none;">
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Keyboard Shortcuts Hint -->
+  <div class="shortcuts-hint" id="shortcutsHint">
+    <span><kbd>Ctrl</kbd>+<kbd>Enter</kbd> : apply rules</span>
+  </div>
+
+  <!-- Shared Tools JavaScript -->
+  <script src="../../js/tools-common.js"></script>
+  <!-- Text Replacer JavaScript -->
+  <script src="textreplacer.js"></script>
+</body>
+</html>

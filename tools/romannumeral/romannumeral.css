@@ -11,7 +11,7 @@
   border: 1px solid var(--color-border);
   border-radius: var(--radius-xl);
   overflow: hidden;
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--shadow-card);
 }
 
 /* Header */
@@ -21,7 +21,7 @@
   justify-content: space-between;
   padding: var(--space-4) var(--space-5);
   background-color: var(--color-surface);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border-light);
 }
 
 .roman-header h2 {
@@ -64,6 +64,11 @@
   background-color: var(--color-primary);
   color: #fff;
   border-color: var(--color-primary);
+}
+
+.header-action-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px var(--color-primary-muted);
 }
 
 /* Main Content - Gradient Background */
@@ -134,7 +139,7 @@
 
 .result-card.active {
   border-color: var(--color-primary);
-  background-color: rgba(55, 118, 161, 0.1);
+  background-color: rgba(145, 33, 78, 0.1);
 }
 
 .result-label {

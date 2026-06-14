@@ -658,6 +658,7 @@
         ctx.arc(size / 2, size / 2, size / 2, 0, Math.PI * 2);
         ctx.fill();
       } else if (state.shape === 'rounded') {
+        ctx.beginPath();
         roundRect(ctx, 0, 0, size, size, size * 0.2);
         ctx.fill();
       } else {
@@ -896,7 +897,7 @@ HTML Code:
     a.href = url;
     a.download = filename;
     a.click();
-    URL.revokeObjectURL(url);
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
   }
 
   // ==================== Code Copy ====================

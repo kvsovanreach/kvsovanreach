@@ -11,7 +11,7 @@
   border: 1px solid var(--color-border);
   border-radius: var(--radius-xl);
   overflow: hidden;
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--shadow-card);
 }
 
 /* ==================== Header ==================== */
@@ -20,7 +20,7 @@
   align-items: center;
   padding: var(--space-4) var(--space-5);
   background-color: var(--color-surface);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border-light);
 }
 
 .sentence-header h2 {
@@ -69,13 +69,13 @@
   background-color: var(--color-surface);
   border-radius: var(--radius-lg);
   overflow: hidden;
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--shadow-card);
 }
 
 .stats-header {
   padding: var(--space-3) var(--space-4);
   background-color: var(--color-bg-secondary);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border-light);
 }
 
 .stats-header h4 {
@@ -117,7 +117,7 @@
 }
 
 .stat-value {
-  font-family: 'Fira Code', monospace;
+  font-family: var(--font-mono);
   font-size: var(--font-size-lg);
   font-weight: 700;
   color: var(--color-text);
@@ -146,7 +146,7 @@
   gap: var(--space-1);
   background-color: var(--color-bg-secondary);
   color: var(--color-text-secondary);
-  border: 1px solid var(--color-border);
+  border: 1px solid var(--color-border-light);
   border-radius: var(--radius-md);
   cursor: pointer;
   transition: all var(--transition-fast);
@@ -157,7 +157,7 @@
 }
 
 .quick-action-btn span {
-  font-size: 0.65rem;
+  font-size: var(--font-size-xs);
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.5px;
@@ -165,8 +165,13 @@
 
 .quick-action-btn:hover {
   background-color: var(--color-primary);
-  color: #fff;
+  color: var(--color-bg);
   border-color: var(--color-primary);
+}
+
+.quick-action-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px var(--color-primary-muted);
 }
 
 /* ==================== Sentence List Card ==================== */
@@ -205,6 +210,13 @@
   background-color: var(--color-surface);
   color: var(--color-text);
   cursor: pointer;
+  transition: border-color var(--transition-fast);
+}
+
+.sentencelist-header select:focus-visible {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 4px var(--color-primary-muted);
 }
 
 .sentencelist-content {
@@ -229,6 +241,7 @@
 }
 
 .sentence-item {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -256,7 +269,7 @@
 }
 
 .sentence-item.selected {
-  background-color: rgba(55, 118, 161, 0.15);
+  background-color: var(--color-primary-muted);
 }
 
 .sentence-item.selected::after {
@@ -286,11 +299,11 @@
   border-radius: var(--radius-full);
   font-size: var(--font-size-xs);
   font-weight: 600;
-  color: white;
+  color: var(--color-bg);
 }
 
 .sentence-length.short {
-  background-color: #22c55e;
+  background-color: var(--color-success);
 }
 
 .sentence-length.medium {
@@ -298,11 +311,11 @@
 }
 
 .sentence-length.long {
-  background-color: #f59e0b;
+  background-color: var(--color-warning);
 }
 
 .sentence-length.very-long {
-  background-color: #ef4444;
+  background-color: var(--color-error);
 }
 
 /* ==================== Legend Card ==================== */
@@ -310,13 +323,13 @@
   background-color: var(--color-surface);
   border-radius: var(--radius-lg);
   overflow: hidden;
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--shadow-card);
 }
 
 .legend-header {
   padding: var(--space-3) var(--space-4);
   background-color: var(--color-bg-secondary);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border-light);
 }
 
 .legend-header h4 {
@@ -347,7 +360,7 @@
 }
 
 .legend-color.short {
-  background-color: #22c55e;
+  background-color: var(--color-success);
 }
 
 .legend-color.medium {
@@ -355,11 +368,11 @@
 }
 
 .legend-color.long {
-  background-color: #f59e0b;
+  background-color: var(--color-warning);
 }
 
 .legend-color.very-long {
-  background-color: #ef4444;
+  background-color: var(--color-error);
 }
 
 /* ==================== Content Panels ==================== */
@@ -403,18 +416,19 @@
   min-height: 200px;
   padding: var(--space-4);
   background-color: var(--color-bg-secondary);
-  border: 1px solid var(--color-border);
+  border: 1px solid var(--color-border-light);
   border-radius: var(--radius-lg);
   font-family: inherit;
   font-size: var(--font-size-sm);
   color: var(--color-text);
   resize: vertical;
-  transition: border-color var(--transition-fast);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
 }
 
 #textInput:focus {
   outline: none;
   border-color: var(--color-primary);
+  box-shadow: 0 0 0 4px var(--color-primary-muted);
 }
 
 #textInput::placeholder {
@@ -431,7 +445,7 @@
 .tips-header {
   padding: var(--space-3) var(--space-4);
   background-color: var(--color-bg-tertiary);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border-light);
   border-radius: var(--radius-md) var(--radius-md) 0 0;
 }
 
@@ -471,7 +485,7 @@
   justify-content: center;
   background-color: var(--color-bg-tertiary);
   border-radius: var(--radius-md);
-  font-family: 'Fira Code', monospace;
+  font-family: var(--font-mono);
   font-size: var(--font-size-xs);
   font-weight: 600;
   color: var(--color-primary);
@@ -515,7 +529,7 @@
   align-items: center;
   justify-content: center;
   background-color: var(--color-bg-secondary);
-  border: 1px solid var(--color-border);
+  border: 1px solid var(--color-border-light);
   border-radius: var(--radius-md);
   color: var(--color-text-secondary);
   cursor: pointer;
@@ -530,12 +544,17 @@
 .view-btn.active {
   background-color: var(--color-primary);
   border-color: var(--color-primary);
-  color: white;
+  color: var(--color-bg);
+}
+
+.view-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px var(--color-primary-muted);
 }
 
 .chart-container {
   background-color: var(--color-bg-secondary);
-  border: 1px solid var(--color-border);
+  border: 1px solid var(--color-border-light);
   border-radius: var(--radius-lg);
   padding: var(--space-4);
   min-height: 280px;
@@ -600,7 +619,7 @@
 }
 
 .bar.active {
-  box-shadow: 0 0 10px rgba(55, 118, 161, 0.5);
+  box-shadow: 0 0 10px rgba(145, 33, 78, 0.5);
 }
 
 .bar.dimmed {
@@ -608,11 +627,11 @@
 }
 
 .bar.short {
-  background: linear-gradient(180deg, #22c55e, #16a34a);
+  background: var(--color-success);
 }
 
 .bar.short.active {
-  box-shadow: 0 0 10px rgba(34, 197, 94, 0.5);
+  box-shadow: 0 0 10px color-mix(in srgb, var(--color-success) 50%, transparent);
 }
 
 .bar.medium {
@@ -620,23 +639,23 @@
 }
 
 .bar.long {
-  background: linear-gradient(180deg, #f59e0b, #d97706);
+  background: var(--color-warning);
 }
 
 .bar.long.active {
-  box-shadow: 0 0 10px rgba(245, 158, 11, 0.5);
+  box-shadow: 0 0 10px color-mix(in srgb, var(--color-warning) 50%, transparent);
 }
 
 .bar.very-long {
-  background: linear-gradient(180deg, #ef4444, #dc2626);
+  background: var(--color-error);
 }
 
 .bar.very-long.active {
-  box-shadow: 0 0 10px rgba(239, 68, 68, 0.5);
+  box-shadow: 0 0 10px color-mix(in srgb, var(--color-error) 50%, transparent);
 }
 
 .bar-label {
-  font-size: 0.65rem;
+  font-size: var(--font-size-xs);
   color: var(--color-text-muted);
   margin-top: var(--space-1);
   white-space: nowrap;
@@ -704,7 +723,7 @@
 }
 
 .histogram-bar.short {
-  background: linear-gradient(90deg, #22c55e, #16a34a);
+  background: linear-gradient(90deg, var(--color-success), color-mix(in srgb, var(--color-success) 80%, black));
 }
 
 .histogram-bar.medium {
@@ -712,11 +731,11 @@
 }
 
 .histogram-bar.long {
-  background: linear-gradient(90deg, #f59e0b, #d97706);
+  background: linear-gradient(90deg, var(--color-warning), color-mix(in srgb, var(--color-warning) 80%, black));
 }
 
 .histogram-bar.very-long {
-  background: linear-gradient(90deg, #ef4444, #dc2626);
+  background: var(--color-error);
 }
 
 .histogram-count {
@@ -734,7 +753,7 @@
   margin-top: var(--space-3);
   padding: var(--space-3) var(--space-4);
   background-color: var(--color-bg-secondary);
-  border: 1px solid var(--color-border);
+  border: 1px solid var(--color-border-light);
   border-radius: var(--radius-lg);
 }
 
@@ -756,7 +775,7 @@
 }
 
 .selected-count {
-  font-family: 'Fira Code', monospace;
+  font-family: var(--font-mono);
   font-size: var(--font-size-sm);
   font-weight: 600;
   color: var(--color-primary);
@@ -794,17 +813,23 @@
   gap: var(--space-4);
   padding: var(--space-4);
   background-color: var(--color-bg-secondary);
-  border: 1px solid var(--color-border);
+  border: 1px solid var(--color-border-light);
   border-radius: var(--radius-lg);
   cursor: pointer;
-  transition: all var(--transition-fast);
+  transition: all var(--transition-base);
 }
 
 .sample-card:hover {
   border-color: var(--color-primary);
   background-color: var(--color-surface);
   transform: translateY(-2px);
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--shadow-card);
+}
+
+.sample-card:focus-visible {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 4px var(--color-primary-muted);
 }
 
 .sample-icon {
@@ -849,7 +874,7 @@
   gap: var(--space-3);
   padding: var(--space-4);
   background-color: var(--color-bg-secondary);
-  border: 1px solid var(--color-border);
+  border: 1px solid var(--color-border-light);
   border-left: 3px solid var(--color-primary);
   border-radius: var(--radius-lg);
 }
@@ -965,7 +990,7 @@
 
   .histogram-label {
     min-width: 70px;
-    font-size: 0.65rem;
+    font-size: var(--font-size-xs);
   }
 
   .tips-grid {
@@ -1020,7 +1045,7 @@
   .sentence-length {
     width: 20px;
     height: 20px;
-    font-size: 0.65rem;
+    font-size: var(--font-size-xs);
   }
 
   /* Extra compact panel */

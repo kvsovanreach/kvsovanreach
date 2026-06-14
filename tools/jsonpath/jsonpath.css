@@ -1,0 +1,394 @@
+/**
+ * JSONPath Tester CSS
+ */
+
+/* ==================== Layout ==================== */
+.jsonpath-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.jsonpath-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.jsonpath-header h2 {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-size: var(--font-size-xl);
+  font-weight: 600;
+  color: var(--color-text);
+  letter-spacing: -0.02em;
+}
+
+.jsonpath-header h2 i {
+  color: var(--color-primary);
+  font-size: var(--font-size-xl);
+}
+
+.header-actions {
+  display: flex;
+  gap: var(--space-2);
+}
+
+/* ==================== Content Grid ==================== */
+.jsonpath-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+  min-height: 600px;
+}
+
+/* ==================== Panels ==================== */
+.jsonpath-panel {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+}
+
+.panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-4) var(--space-5);
+  background-color: var(--color-bg-secondary);
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.panel-header h3 {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--color-text-secondary);
+}
+
+.panel-header h3 i {
+  color: var(--color-primary);
+  font-size: var(--font-size-sm);
+}
+
+.panel-actions {
+  display: flex;
+  gap: var(--space-1);
+}
+
+.panel-btn {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-sm);
+  background: none;
+  border: none;
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+  transition: all var(--transition-fast);
+}
+
+.panel-btn:hover {
+  background-color: var(--color-surface-hover);
+  color: var(--color-text);
+}
+
+.panel-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px var(--color-primary-muted);
+}
+
+/* ==================== Editor ==================== */
+.editor-wrap {
+  flex: 1;
+  display: flex;
+  overflow: hidden;
+  position: relative;
+}
+
+.line-numbers {
+  width: 44px;
+  padding: var(--space-3) var(--space-2);
+  background-color: var(--color-bg-secondary);
+  border-right: 1px solid var(--color-border-light);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-xs);
+  line-height: 1.6;
+  color: var(--color-text-muted);
+  text-align: right;
+  user-select: none;
+  overflow: hidden;
+}
+
+.editor-wrap textarea {
+  flex: 1;
+  padding: var(--space-3) var(--space-4);
+  background-color: transparent;
+  border: none;
+  font-family: var(--font-mono);
+  font-size: var(--font-size-sm);
+  line-height: 1.6;
+  color: var(--color-text);
+  resize: none;
+  white-space: pre;
+  overflow: auto;
+  tab-size: 2;
+}
+
+.editor-wrap textarea:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+/* ==================== Panel Status ==================== */
+.panel-status {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-2) var(--space-4);
+  border-top: 1px solid var(--color-border-light);
+  background-color: var(--color-bg-secondary);
+}
+
+.status-indicator {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+}
+
+.status-indicator i {
+  font-size: 8px;
+}
+
+.status-indicator.valid {
+  color: var(--color-success);
+}
+
+.status-indicator.invalid {
+  color: var(--color-error);
+}
+
+.char-count {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  font-family: var(--font-mono);
+}
+
+/* ==================== Query Input ==================== */
+.query-input-wrap {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-4);
+  border-bottom: 1px solid var(--color-border-light);
+  background-color: var(--color-bg-secondary);
+}
+
+.query-prefix {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-base);
+  font-weight: 700;
+  color: var(--color-primary);
+  user-select: none;
+}
+
+.query-input-wrap input {
+  flex: 1;
+  padding: var(--space-2) var(--space-3);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-sm);
+  color: var(--color-text);
+  transition: border-color var(--transition-fast);
+}
+
+.query-input-wrap input:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 4px var(--color-primary-muted);
+}
+
+/* ==================== Query Hints ==================== */
+.query-hints {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+  padding: var(--space-2) var(--space-4);
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.hint-item {
+  padding: 2px var(--space-2);
+  background-color: var(--color-bg-tertiary);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+}
+
+.hint-item:hover {
+  background-color: var(--color-primary-muted);
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+/* ==================== Results ==================== */
+.results-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-4) var(--space-5);
+  border-bottom: 1px solid var(--color-border-light);
+  background-color: var(--color-bg-secondary);
+}
+
+.results-header h3 {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--color-text-secondary);
+}
+
+.results-header h3 i {
+  color: var(--color-primary);
+}
+
+.results-meta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.match-count {
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  color: var(--color-text-muted);
+  font-family: var(--font-mono);
+}
+
+.results-output {
+  flex: 1;
+  overflow: auto;
+  position: relative;
+  min-height: 200px;
+}
+
+.results-output .empty-state {
+  padding: var(--space-10) var(--space-6);
+}
+
+.results-json {
+  padding: var(--space-4);
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: var(--font-size-sm);
+  line-height: 1.6;
+  color: var(--color-text);
+  white-space: pre-wrap;
+  word-break: break-word;
+  display: none;
+}
+
+.results-json.active {
+  display: block;
+}
+
+/* Syntax highlighting in results */
+.results-json .json-key {
+  color: var(--color-primary);
+}
+
+.results-json .json-string {
+  color: var(--color-success);
+}
+
+.results-json .json-number {
+  color: var(--color-info);
+}
+
+.results-json .json-boolean {
+  color: var(--color-warning);
+}
+
+.results-json .json-null {
+  color: var(--color-text-muted);
+}
+
+/* ==================== Error Bar ==================== */
+.error-bar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  background-color: rgba(220, 38, 38, 0.08);
+  border-top: 1px solid rgba(220, 38, 38, 0.2);
+  color: var(--color-error);
+  font-size: var(--font-size-xs);
+  font-weight: 500;
+}
+
+.error-bar i {
+  flex-shrink: 0;
+}
+
+/* ==================== Responsive ==================== */
+@media screen and (max-width: 900px) {
+  .jsonpath-content {
+    grid-template-columns: 1fr;
+    min-height: auto;
+  }
+
+  .input-panel {
+    min-height: 300px;
+  }
+
+  .results-panel {
+    min-height: 400px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .jsonpath-header h2 {
+    font-size: var(--font-size-xl);
+  }
+
+  .query-hints {
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .jsonpath-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-3);
+  }
+
+  .header-actions {
+    width: 100%;
+  }
+
+  .header-actions .action-btn {
+    flex: 1;
+    justify-content: center;
+  }
+}

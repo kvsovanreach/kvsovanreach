@@ -9,7 +9,7 @@
   border: 1px solid var(--color-border);
   border-radius: var(--radius-xl);
   overflow: hidden;
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--shadow-card);
 }
 
 .clock-header {
@@ -18,7 +18,7 @@
   justify-content: space-between;
   padding: var(--space-4) var(--space-5);
   background-color: var(--color-surface);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border-light);
 }
 
 .clock-header h2 {
@@ -55,6 +55,11 @@
   border-color: var(--color-primary);
 }
 
+.header-action-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px var(--color-primary-muted);
+}
+
 .clock-content {
   padding: var(--space-5);
   display: flex;
@@ -64,7 +69,7 @@
 
 .local-time {
   padding: var(--space-5);
-  background: linear-gradient(135deg, rgba(55, 118, 161, 0.1), rgba(55, 118, 161, 0.05));
+  background: linear-gradient(135deg, var(--color-primary-muted), transparent);
   border: 1px solid var(--color-primary);
   border-radius: var(--radius-lg);
   text-align: center;
@@ -81,7 +86,7 @@
   display: block;
   font-size: var(--font-size-4xl);
   font-weight: 700;
-  font-family: 'Fira Code', monospace;
+  font-family: var(--font-mono);
   color: var(--color-primary);
 }
 
@@ -203,9 +208,15 @@
   flex-direction: column;
   padding: var(--space-3);
   background-color: var(--color-bg);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
   position: relative;
+  transition: box-shadow var(--transition-fast);
+}
+
+.clock-card:hover {
+  box-shadow: var(--shadow-md);
 }
 
 .clock-card-header {
@@ -237,6 +248,7 @@
   background-color: var(--color-bg-secondary);
   border-radius: var(--radius-sm);
   font-size: var(--font-size-xs);
+  font-family: var(--font-mono);
   color: var(--color-text-secondary);
 }
 
@@ -249,9 +261,15 @@
   font-size: var(--font-size-xs);
   transition: color var(--transition-fast);
   line-height: 1;
+  border-radius: var(--radius-xs);
 }
 
 .remove-clock:hover { color: var(--color-error); }
+
+.remove-clock:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px var(--color-primary-muted);
+}
 
 .clock-body {
   display: flex;
@@ -262,7 +280,7 @@
 .clock-time {
   font-size: var(--font-size-xl);
   font-weight: 600;
-  font-family: 'Fira Code', monospace;
+  font-family: var(--font-mono);
   color: var(--color-text);
 }
 
@@ -292,6 +310,7 @@
   max-width: 400px;
   max-height: 80vh;
   overflow: hidden;
+  box-shadow: var(--shadow-lg);
 }
 
 .modal-header {
@@ -299,7 +318,7 @@
   justify-content: space-between;
   align-items: center;
   padding: var(--space-4);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border-light);
 }
 
 .modal-header h3 {
@@ -314,9 +333,16 @@
   color: var(--color-text-muted);
   cursor: pointer;
   padding: var(--space-1);
+  border-radius: var(--radius-xs);
+  transition: color var(--transition-fast);
 }
 
 .close-modal-btn:hover { color: var(--color-text); }
+
+.close-modal-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px var(--color-primary-muted);
+}
 
 .modal-body { padding: var(--space-4); }
 
@@ -329,11 +355,13 @@
   font-size: var(--font-size-base);
   color: var(--color-text);
   margin-bottom: var(--space-3);
+  transition: border-color var(--transition-fast);
 }
 
 .search-input:focus {
   outline: none;
   border-color: var(--color-primary);
+  box-shadow: 0 0 0 4px var(--color-primary-muted);
 }
 
 .timezone-list {
@@ -348,7 +376,7 @@
   transition: background-color var(--transition-fast);
 }
 
-.timezone-item:hover { background-color: var(--color-bg); }
+.timezone-item:hover { background-color: var(--color-bg-secondary); }
 
 .timezone-item-city {
   font-size: var(--font-size-sm);
@@ -359,6 +387,7 @@
 .timezone-item-zone {
   font-size: var(--font-size-xs);
   color: var(--color-text-muted);
+  font-family: var(--font-mono);
 }
 
 @media screen and (max-width: 768px) {
@@ -390,9 +419,9 @@
   .clock-card-header { margin-bottom: var(--space-1); }
   .clock-card-info { gap: var(--space-1); }
   .clock-city { font-size: var(--font-size-xs); }
-  .clock-diff { font-size: 0.6rem; padding: 1px 4px; }
+  .clock-diff { font-size: var(--font-size-xs); padding: 1px var(--space-1); }
   .clock-time { font-size: var(--font-size-base); }
-  .clock-date { font-size: 0.6rem; }
+  .clock-date { font-size: var(--font-size-xs); }
   .analog-clock { width: 70px; height: 70px; }
   .clock-mark { transform-origin: 50% 26px; height: 5px; }
   .hand { width: 3px; }

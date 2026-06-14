@@ -8,7 +8,7 @@
   border: 1px solid var(--color-border);
   border-radius: var(--radius-xl);
   overflow: hidden;
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--shadow-card);
 }
 
 /* ==================== Header ==================== */
@@ -18,7 +18,7 @@
   justify-content: space-between;
   padding: var(--space-4) var(--space-5);
   background-color: var(--color-surface);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border-light);
 }
 
 .emoji-header h2 {
@@ -257,7 +257,7 @@
 .preview-code {
   font-size: var(--font-size-xs);
   color: var(--color-text-muted);
-  font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+  font-family: var(--font-mono);
 }
 
 .copy-emoji-btn {
@@ -315,7 +315,7 @@
 
 .clear-copied-btn:hover {
   background-color: #fee2e2;
-  color: #ef4444;
+  color: var(--color-error);
 }
 
 .copied-list {

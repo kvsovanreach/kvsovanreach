@@ -8,7 +8,7 @@
   border: 1px solid var(--color-border);
   border-radius: var(--radius-xl);
   overflow: hidden;
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--shadow-card);
   position: relative;
 }
 
@@ -18,7 +18,7 @@
   align-items: center;
   padding: var(--space-4) var(--space-5);
   background-color: var(--color-surface);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border-light);
   position: relative;
 }
 
@@ -131,7 +131,7 @@
 .time-main {
   font-size: 4rem;
   font-weight: 700;
-  font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+  font-family: var(--font-mono);
   color: var(--color-text);
   line-height: 1;
   letter-spacing: 2px;
@@ -140,7 +140,7 @@
 .time-ms {
   font-size: var(--font-size-2xl);
   font-weight: 500;
-  font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+  font-family: var(--font-mono);
   color: var(--color-text-secondary);
   margin-top: var(--space-2);
 }
@@ -150,12 +150,12 @@
 }
 
 .time-display.countdown.warning .time-main {
-  color: #f97316;
+  color: var(--color-warning, #f97316);
   animation: pulse-warning 1s infinite;
 }
 
 .time-display.countdown.danger .time-main {
-  color: #ef4444;
+  color: var(--color-error);
   animation: pulse-danger 0.5s infinite;
 }
 
@@ -222,7 +222,7 @@
 
 .control-btn.primary:hover {
   transform: scale(1.05);
-  box-shadow: 0 8px 25px rgba(55, 118, 161, 0.3);
+  box-shadow: 0 8px 25px rgba(145, 33, 78, 0.3);
 }
 
 .control-btn.primary.large {
@@ -237,11 +237,22 @@
 }
 
 .control-btn.primary.running {
-  background: linear-gradient(135deg, #f97316, #ea580c);
+  background: linear-gradient(135deg, var(--color-warning, #f97316), #ea580c);
 }
 
 .control-btn.primary.running:hover {
   box-shadow: 0 8px 25px rgba(249, 115, 22, 0.3);
+}
+
+/* Focus ring for all interactive buttons */
+.control-btn:focus-visible,
+.preset-btn:focus-visible,
+.mode-tab:focus-visible,
+.fullscreen-btn:focus-visible,
+.modal-btn:focus-visible,
+.clear-laps-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px var(--color-primary-muted);
 }
 
 /* ==================== Fullscreen Mode ==================== */
@@ -288,7 +299,7 @@
   justify-content: space-between;
   padding: var(--space-3) var(--space-4);
   background-color: var(--color-surface);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border-light);
 }
 
 .laps-header h3 {
@@ -312,8 +323,8 @@
 }
 
 .clear-laps-btn:hover {
-  color: #ef4444;
-  background-color: rgba(239, 68, 68, 0.1);
+  color: var(--color-error);
+  background-color: rgba(220, 38, 38, 0.1);
 }
 
 .laps-list {
@@ -362,7 +373,7 @@
   display: flex;
   align-items: center;
   padding: var(--space-3) var(--space-4);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border-light);
 }
 
 .lap-item:last-child {
@@ -378,24 +389,24 @@
 
 .lap-time {
   flex: 1;
-  font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+  font-family: var(--font-mono);
   font-size: var(--font-size-base);
   font-weight: 600;
   color: var(--color-text);
 }
 
 .lap-diff {
-  font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+  font-family: var(--font-mono);
   font-size: var(--font-size-sm);
   color: var(--color-text-secondary);
 }
 
 .lap-item.best .lap-time {
-  color: #22c55e;
+  color: var(--color-success);
 }
 
 .lap-item.worst .lap-time {
-  color: #ef4444;
+  color: var(--color-error);
 }
 
 /* ==================== Lap Statistics ==================== */
@@ -421,7 +432,7 @@
 }
 
 .lap-stat-value {
-  font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+  font-family: var(--font-mono);
   font-size: var(--font-size-sm);
   font-weight: 600;
   color: var(--color-text);
@@ -453,7 +464,7 @@
   text-align: center;
   font-size: 2rem;
   font-weight: 700;
-  font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+  font-family: var(--font-mono);
   color: var(--color-text);
   background-color: var(--color-bg-secondary);
   border: 2px solid var(--color-border);
@@ -464,7 +475,7 @@
 
 .time-input-field input:focus {
   border-color: var(--color-primary);
-  box-shadow: 0 0 0 3px rgba(55, 118, 161, 0.1);
+  box-shadow: 0 0 0 4px var(--color-primary-muted);
 }
 
 .time-input-field input::-webkit-outer-spin-button,
@@ -558,11 +569,11 @@
 }
 
 .progress-fill.warning {
-  stroke: #f97316;
+  stroke: var(--color-warning, #f97316);
 }
 
 .progress-fill.danger {
-  stroke: #ef4444;
+  stroke: var(--color-error);
 }
 
 /* ==================== Sound Settings ==================== */
@@ -600,7 +611,7 @@
   left: 2px;
   width: 20px;
   height: 20px;
-  background-color: #fff;
+  background-color: var(--color-surface);
   border-radius: var(--radius-full);
   transition: transform var(--transition-fast);
   box-shadow: var(--shadow-sm);
@@ -707,7 +718,7 @@
 
 .modal-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(55, 118, 161, 0.3);
+  box-shadow: 0 8px 25px rgba(145, 33, 78, 0.3);
 }
 
 /* ==================== Responsive - Tablet ==================== */
@@ -892,7 +903,7 @@
   }
 
   .lap-stat-label {
-    font-size: 0.65rem;
+    font-size: var(--font-size-xs);
   }
 
   .lap-stat-value {
@@ -998,7 +1009,7 @@
   }
 
   .preset-btn {
-    padding: 4px 6px;
-    font-size: 0.65rem;
+    padding: var(--space-1) var(--space-2);
+    font-size: var(--font-size-xs);
   }
 }

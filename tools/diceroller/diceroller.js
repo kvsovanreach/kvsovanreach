@@ -58,7 +58,7 @@
     directionalLight.position.set(5, 5, 5);
     scene.add(directionalLight);
 
-    const pointLight = new THREE.PointLight(0x3776a1, 0.4);
+    const pointLight = new THREE.PointLight(0x91214E, 0.4);
     pointLight.position.set(-3, 3, 3);
     scene.add(pointLight);
 
@@ -68,7 +68,7 @@
     window.addEventListener('resize', onWindowResize);
   }
 
-  function createNumberTexture(number, bgColor = '#3776a1', textColor = '#ffffff') {
+  function createNumberTexture(number, bgColor = '#91214E', textColor = '#ffffff') {
     const canvas = document.createElement('canvas');
     canvas.width = 128;
     canvas.height = 128;
@@ -144,7 +144,7 @@
     const dice = new THREE.Mesh(geometry, material);
 
     const edgesGeometry = new THREE.EdgesGeometry(geometry);
-    const edgesMaterial = new THREE.LineBasicMaterial({ color: 0x1d4f6f });
+    const edgesMaterial = new THREE.LineBasicMaterial({ color: 0x6b1038 });
     const edges = new THREE.LineSegments(edgesGeometry, edgesMaterial);
     dice.add(edges);
 
@@ -171,7 +171,7 @@
     faceNumbers.forEach(num => {
       const isResult = num === result;
       materials.push(new THREE.MeshStandardMaterial({
-        map: createNumberTexture(num, isResult ? '#2d8a4e' : '#3776a1'),
+        map: createNumberTexture(num, isResult ? '#16a34a' : '#91214E'),
         roughness: 0.3,
         metalness: 0.1
       }));

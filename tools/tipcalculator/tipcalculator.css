@@ -2,6 +2,14 @@
  * Tip Calculator Styles
  */
 
+/* Hide number input spinners */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type="number"] { -moz-appearance: textfield; }
+
 .tip-wrapper {
   max-width: 1200px;
   margin: 0 auto;
@@ -9,7 +17,7 @@
   border: 1px solid var(--color-border);
   border-radius: var(--radius-xl);
   overflow: hidden;
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--shadow-card);
 }
 
 .tip-header {
@@ -18,7 +26,7 @@
   justify-content: space-between;
   padding: var(--space-4) var(--space-5);
   background-color: var(--color-surface);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border-light);
 }
 
 .tip-header h2 {
@@ -52,8 +60,13 @@
 
 .header-action-btn:hover {
   background-color: var(--color-primary);
-  color: #fff;
+  color: var(--color-bg);
   border-color: var(--color-primary);
+}
+
+.header-action-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px var(--color-primary-muted);
 }
 
 .tip-content {
@@ -93,6 +106,7 @@
   font-size: var(--font-size-xl);
   font-weight: 600;
   color: var(--color-text-secondary);
+  font-family: var(--font-mono);
 }
 
 .input-with-icon input {
@@ -104,12 +118,14 @@
   font-size: var(--font-size-xl);
   font-weight: 600;
   color: var(--color-text);
-  font-family: 'Fira Code', monospace;
+  font-family: var(--font-mono);
+  transition: border-color var(--transition-fast);
 }
 
 .input-with-icon input:focus {
   outline: none;
   border-color: var(--color-primary);
+  box-shadow: 0 0 0 4px var(--color-primary-muted);
 }
 
 .tip-buttons {
@@ -135,10 +151,15 @@
   color: var(--color-primary);
 }
 
+.tip-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px var(--color-primary-muted);
+}
+
 .tip-btn.active {
   background-color: var(--color-primary);
   border-color: var(--color-primary);
-  color: white;
+  color: var(--color-bg);
 }
 
 .custom-tip {
@@ -160,14 +181,16 @@
   border: 2px solid var(--color-border);
   border-radius: var(--radius-md);
   font-size: var(--font-size-sm);
-  font-family: 'Fira Code', monospace;
+  font-family: var(--font-mono);
   color: var(--color-text);
   text-align: center;
+  transition: border-color var(--transition-fast);
 }
 
 .custom-tip input:focus {
   outline: none;
   border-color: var(--color-primary);
+  box-shadow: 0 0 0 4px var(--color-primary-muted);
 }
 
 .custom-tip span {
@@ -198,7 +221,12 @@
 .people-btn:hover {
   background-color: var(--color-primary);
   border-color: var(--color-primary);
-  color: white;
+  color: var(--color-bg);
+}
+
+.people-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px var(--color-primary-muted);
 }
 
 .people-input input {
@@ -209,14 +237,16 @@
   border-radius: var(--radius-md);
   font-size: var(--font-size-lg);
   font-weight: 600;
-  font-family: 'Fira Code', monospace;
+  font-family: var(--font-mono);
   color: var(--color-text);
   text-align: center;
+  transition: border-color var(--transition-fast);
 }
 
 .people-input input:focus {
   outline: none;
   border-color: var(--color-primary);
+  box-shadow: 0 0 0 4px var(--color-primary-muted);
 }
 
 .results-section {
@@ -228,13 +258,14 @@
 .result-card {
   padding: var(--space-4);
   background-color: var(--color-bg);
-  border: 1px solid var(--color-border);
+  border: 1px solid var(--color-border-light);
   border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
   text-align: center;
 }
 
 .result-card.highlight {
-  background: linear-gradient(135deg, rgba(55, 118, 161, 0.1), rgba(55, 118, 161, 0.05));
+  background: linear-gradient(135deg, var(--color-primary-muted), rgba(145, 33, 78, 0.05));
   border-color: var(--color-primary);
 }
 
@@ -248,7 +279,7 @@
 .result-value {
   font-size: var(--font-size-2xl);
   font-weight: 700;
-  font-family: 'Fira Code', monospace;
+  font-family: var(--font-mono);
   color: var(--color-text);
 }
 
@@ -258,6 +289,7 @@
 
 .result-per-person {
   font-size: var(--font-size-xs);
+  font-family: var(--font-mono);
   color: var(--color-text-muted);
   margin-top: var(--space-1);
 }

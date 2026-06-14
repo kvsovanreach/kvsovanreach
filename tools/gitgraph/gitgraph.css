@@ -1,15 +1,15 @@
 /**
  * Git Graph Explorer
  */
-.git-wrapper { max-width: 1400px; margin: 0 auto; background-color: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-xl); overflow: hidden; box-shadow: var(--shadow-lg); }
+.git-wrapper { max-width: 1400px; margin: 0 auto; background-color: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-xl); overflow: hidden; box-shadow: var(--shadow-card); }
 @media screen and (min-width: 1600px) { .git-wrapper { max-width: 1600px; } }
-.git-header { display: flex; align-items: center; justify-content: space-between; padding: var(--space-4) var(--space-5); background: linear-gradient(135deg, #f97316 0%, #ea580c 100%); border-bottom: 1px solid var(--color-border); }
+.git-header { display: flex; align-items: center; justify-content: space-between; padding: var(--space-4) var(--space-5); background: linear-gradient(135deg, #f97316 0%, #ea580c 100%); border-bottom: 1px solid var(--color-border-light); }
 .git-header h2 { display: flex; align-items: center; gap: var(--space-3); font-size: var(--font-size-xl); font-weight: 600; color: white; }
 .git-header h2 i { color: rgba(255, 255, 255, 0.8); }
 .git-actions .action-btn { background-color: rgba(255, 255, 255, 0.15); border-color: rgba(255, 255, 255, 0.3); color: white; }
 .git-content { padding: var(--space-5); display: flex; flex-direction: column; gap: var(--space-4); }
 .actions-section, .graph-section, .branches-section, .commits-section, .info-panel { background-color: var(--color-bg-secondary); border: 1px solid var(--color-border); border-radius: var(--radius-lg); overflow: hidden; }
-.section-header { display: flex; align-items: center; justify-content: space-between; padding: var(--space-3) var(--space-4); background-color: var(--color-bg-tertiary); border-bottom: 1px solid var(--color-border); }
+.section-header { display: flex; align-items: center; justify-content: space-between; padding: var(--space-3) var(--space-4); background-color: var(--color-bg-tertiary); border-bottom: 1px solid var(--color-border-light); }
 .section-header h3 { display: flex; align-items: center; gap: var(--space-2); font-size: var(--font-size-sm); font-weight: 600; color: var(--color-text); }
 .section-header h3 i { color: #f97316; }
 .actions-grid { display: flex; flex-wrap: wrap; gap: var(--space-2); padding: var(--space-4); }
@@ -19,16 +19,17 @@
 .branches-list { display: flex; flex-wrap: wrap; gap: var(--space-2); padding: var(--space-4); }
 .branch-tag { display: flex; align-items: center; gap: var(--space-2); padding: var(--space-2) var(--space-3); background-color: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-full); font-size: var(--font-size-sm); cursor: pointer; transition: all var(--transition-fast); }
 .branch-tag:hover { border-color: #f97316; }
+.branch-tag:focus-visible { outline: none; box-shadow: 0 0 0 4px var(--color-primary-muted); }
 .branch-tag.active { background-color: rgba(249, 115, 22, 0.1); border-color: #f97316; color: #f97316; }
 .branch-tag i { font-size: var(--font-size-xs); }
 .branch-color { width: 10px; height: 10px; border-radius: 50%; }
 .commits-list { padding: var(--space-4); display: flex; flex-direction: column; gap: var(--space-2); max-height: 250px; overflow-y: auto; }
 .commit-item { display: flex; align-items: center; gap: var(--space-3); padding: var(--space-2) var(--space-3); background-color: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-md); font-size: var(--font-size-sm); }
-.commit-hash { font-family: 'Fira Code', monospace; font-size: var(--font-size-xs); color: #f97316; min-width: 70px; }
+.commit-hash { font-family: var(--font-mono); font-size: var(--font-size-xs); color: #f97316; min-width: 70px; }
 .commit-message { flex: 1; color: var(--color-text); }
 .commit-branch { font-size: var(--font-size-xs); color: var(--color-text-muted); padding: var(--space-1) var(--space-2); background-color: var(--color-bg-tertiary); border-radius: var(--radius-sm); }
-.info-header { display: flex; align-items: center; gap: var(--space-2); padding: var(--space-3) var(--space-4); background-color: var(--color-bg-tertiary); border-bottom: 1px solid var(--color-border); font-size: var(--font-size-sm); font-weight: 600; color: var(--color-text); }
-.info-header i { color: #f59e0b; }
+.info-header { display: flex; align-items: center; gap: var(--space-2); padding: var(--space-3) var(--space-4); background-color: var(--color-bg-tertiary); border-bottom: 1px solid var(--color-border-light); font-size: var(--font-size-sm); font-weight: 600; color: var(--color-text); }
+.info-header i { color: var(--color-warning); }
 .info-content { padding: var(--space-4); }
 .info-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: var(--space-2); }
 .info-list li { font-size: var(--font-size-sm); color: var(--color-text-secondary); }

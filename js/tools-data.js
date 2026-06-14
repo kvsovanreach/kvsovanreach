@@ -5,7 +5,7 @@
  * Status options:
  * - "active": Tool is shown on tools.html and fully functional (clickable)
  * - "inactive": Tool is hidden from tools.html completely
- * - "inactive": Tool is shown on tools.html but disabled with "Coming Soon" badge
+ * - "coming-soon": Tool is shown on tools.html but disabled with "Coming Soon" badge
  */
 
 const toolsData = [
@@ -1284,6 +1284,514 @@ const toolsData = [
     icon: "fa-solid fa-dice",
     url: "/tools/diceroller/",
     tags: ["dice", "roll", "random", "game", "d20", "tabletop", "rpg"],
+    status: "active"
+  },
+
+  // ==================== NEW GENERAL TOOLS ====================
+  {
+    id: "fibonacci",
+    name: "Fibonacci Explorer",
+    description: "Explore the Fibonacci sequence with golden ratio visualization and spiral drawing.",
+    category: "general",
+    icon: "fa-solid fa-infinity",
+    url: "/tools/fibonacci/",
+    tags: ["fibonacci", "math", "sequence", "golden ratio", "spiral", "numbers"],
+    status: "active"
+  },
+  {
+    id: "statistics",
+    name: "Statistics Calculator",
+    description: "Calculate mean, median, mode, standard deviation, quartiles with histogram and box plot.",
+    category: "general",
+    icon: "fa-solid fa-chart-column",
+    url: "/tools/statistics/",
+    tags: ["statistics", "mean", "median", "std dev", "histogram", "box plot", "math"],
+    status: "active"
+  },
+  {
+    id: "fractioncalc",
+    name: "Fraction Calculator",
+    description: "Add, subtract, multiply, and divide fractions with step-by-step solutions and pie chart.",
+    category: "general",
+    icon: "fa-solid fa-divide",
+    url: "/tools/fractioncalc/",
+    tags: ["fraction", "math", "calculator", "mixed number", "simplify"],
+    status: "active"
+  },
+  {
+    id: "quadratic",
+    name: "Quadratic Solver",
+    description: "Solve quadratic equations with step-by-step solution, discriminant analysis, and graph.",
+    category: "general",
+    icon: "fa-solid fa-square-root-variable",
+    url: "/tools/quadratic/",
+    tags: ["quadratic", "equation", "math", "parabola", "roots", "solver"],
+    status: "active"
+  },
+  {
+    id: "gcdlcm",
+    name: "GCD & LCM Calculator",
+    description: "Find GCD and LCM with Euclidean algorithm visualization and prime factorization.",
+    category: "general",
+    icon: "fa-solid fa-arrows-split-up-and-left",
+    url: "/tools/gcdlcm/",
+    tags: ["gcd", "lcm", "math", "prime", "factorization", "euclidean"],
+    status: "active"
+  },
+  {
+    id: "scientificnotation",
+    name: "Scientific Notation",
+    description: "Convert between standard, scientific, and engineering notation with preset constants.",
+    category: "general",
+    icon: "fa-solid fa-superscript",
+    url: "/tools/scientificnotation/",
+    tags: ["scientific", "notation", "exponent", "engineering", "math", "convert"],
+    status: "active"
+  },
+  {
+    id: "wordfrequency",
+    name: "Word Frequency",
+    description: "Analyze word frequency with n-grams, bar charts, stop word filtering, and CSV export.",
+    category: "general",
+    icon: "fa-solid fa-chart-bar",
+    url: "/tools/wordfrequency/",
+    tags: ["word", "frequency", "count", "text", "analysis", "ngram"],
+    status: "active"
+  },
+  {
+    id: "textstatistics",
+    name: "Text Statistics",
+    description: "Analyze text readability with Flesch, Gunning Fog, and other readability scores.",
+    category: "general",
+    icon: "fa-solid fa-spell-check",
+    url: "/tools/textstatistics/",
+    tags: ["readability", "flesch", "text", "statistics", "grade", "reading time"],
+    status: "active"
+  },
+  {
+    id: "markdowntable",
+    name: "Markdown Table Builder",
+    description: "Build markdown tables visually with alignment controls, CSV import, and HTML preview.",
+    category: "general",
+    icon: "fa-solid fa-table",
+    url: "/tools/markdowntable/",
+    tags: ["markdown", "table", "builder", "csv", "html", "generator"],
+    status: "active"
+  },
+  {
+    id: "asciiart",
+    name: "ASCII Art Generator",
+    description: "Generate ASCII art from text with multiple font styles, plus image-to-ASCII conversion.",
+    category: "general",
+    icon: "fa-solid fa-font",
+    url: "/tools/asciiart/",
+    tags: ["ascii", "art", "text", "figlet", "font", "image"],
+    status: "active"
+  },
+  {
+    id: "textreplacer",
+    name: "Text Replacer",
+    description: "Batch find and replace with regex support, live preview, and importable rule sets.",
+    category: "general",
+    icon: "fa-solid fa-arrows-rotate",
+    url: "/tools/textreplacer/",
+    tags: ["find", "replace", "regex", "batch", "text", "search"],
+    status: "active"
+  },
+  {
+    id: "texttospeech",
+    name: "Text to Speech",
+    description: "Convert text to speech with voice selection, rate, pitch, and word highlighting.",
+    category: "general",
+    icon: "fa-solid fa-volume-high",
+    url: "/tools/texttospeech/",
+    tags: ["speech", "tts", "voice", "audio", "read", "accessibility"],
+    status: "active"
+  },
+  {
+    id: "bibtex",
+    name: "BibTeX Formatter",
+    description: "Parse and format BibTeX citations in APA, MLA, Chicago, IEEE, and Harvard styles.",
+    category: "general",
+    icon: "fa-solid fa-book-bookmark",
+    url: "/tools/bibtex/",
+    tags: ["bibtex", "citation", "reference", "apa", "mla", "academic"],
+    status: "active"
+  },
+  {
+    id: "textshadow",
+    name: "Text Shadow Generator",
+    description: "Generate CSS text-shadow with multiple layers, presets like neon glow, emboss, and 3D.",
+    category: "general",
+    icon: "fa-solid fa-text-height",
+    url: "/tools/textshadow/",
+    tags: ["css", "text-shadow", "design", "generator", "neon", "3d"],
+    status: "active"
+  },
+  {
+    id: "flexbox",
+    name: "Flexbox Playground",
+    description: "Interactive CSS Flexbox playground with per-item controls and preset layouts.",
+    category: "general",
+    icon: "fa-solid fa-grip",
+    url: "/tools/flexbox/",
+    tags: ["css", "flexbox", "layout", "playground", "responsive", "design"],
+    status: "active"
+  },
+  {
+    id: "gridgenerator",
+    name: "CSS Grid Generator",
+    description: "Build CSS Grid layouts visually with column/row templates, spans, and presets.",
+    category: "general",
+    icon: "fa-solid fa-border-all",
+    url: "/tools/gridgenerator/",
+    tags: ["css", "grid", "layout", "generator", "responsive", "design"],
+    status: "active"
+  },
+  {
+    id: "clippath",
+    name: "Clip-Path Maker",
+    description: "Create CSS clip-path shapes with draggable control points and shape presets.",
+    category: "general",
+    icon: "fa-solid fa-vector-square",
+    url: "/tools/clippath/",
+    tags: ["css", "clip-path", "shape", "polygon", "design", "mask"],
+    status: "active"
+  },
+  {
+    id: "animationgen",
+    name: "CSS Animation Generator",
+    description: "Create CSS @keyframes animations with visual timeline editor and presets.",
+    category: "general",
+    icon: "fa-solid fa-wand-magic-sparkles",
+    url: "/tools/animationgen/",
+    tags: ["css", "animation", "keyframes", "generator", "motion", "design"],
+    status: "active"
+  },
+  {
+    id: "svgwave",
+    name: "SVG Wave Generator",
+    description: "Generate SVG wave dividers with multiple layers, gradients, and shape controls.",
+    category: "general",
+    icon: "fa-solid fa-water",
+    url: "/tools/svgwave/",
+    tags: ["svg", "wave", "divider", "design", "section", "background"],
+    status: "active"
+  },
+  {
+    id: "ipconverter",
+    name: "IP Address Converter",
+    description: "Convert IP addresses between decimal, binary, hex, and octal with class detection.",
+    category: "general",
+    icon: "fa-solid fa-network-wired",
+    url: "/tools/ipconverter/",
+    tags: ["ip", "address", "binary", "hex", "network", "convert"],
+    status: "active"
+  },
+  {
+    id: "networkcidr",
+    name: "CIDR Calculator",
+    description: "Calculate subnets from CIDR notation with host ranges, masks, and subnet division.",
+    category: "general",
+    icon: "fa-solid fa-sitemap",
+    url: "/tools/networkcidr/",
+    tags: ["cidr", "subnet", "network", "ip", "mask", "calculator"],
+    status: "active"
+  },
+  {
+    id: "portreference",
+    name: "Port Reference",
+    description: "Searchable reference of 80+ common network ports with categories and protocols.",
+    category: "general",
+    icon: "fa-solid fa-plug",
+    url: "/tools/portreference/",
+    tags: ["port", "network", "tcp", "udp", "reference", "firewall"],
+    status: "active"
+  },
+
+  // ==================== NEW DEVELOPER TOOLS ====================
+  {
+    id: "jsonpath",
+    name: "JSONPath Tester",
+    description: "Test JSONPath expressions with live evaluation, recursive descent, and filter support.",
+    category: "developer",
+    icon: "fa-solid fa-code-branch",
+    url: "/tools/jsonpath/",
+    tags: ["json", "jsonpath", "query", "filter", "api", "data"],
+    status: "active"
+  },
+  {
+    id: "jwtdecoder",
+    name: "JWT Decoder",
+    description: "Decode, encode, and verify JWT tokens with HMAC-SHA256 using Web Crypto API.",
+    category: "developer",
+    icon: "fa-solid fa-shield-halved",
+    url: "/tools/jwtdecoder/",
+    tags: ["jwt", "token", "decode", "encode", "auth", "security"],
+    status: "active"
+  },
+  {
+    id: "sqlformatter",
+    name: "SQL Formatter",
+    description: "Format and beautify SQL queries with syntax highlighting and keyword uppercase.",
+    category: "developer",
+    icon: "fa-solid fa-database",
+    url: "/tools/sqlformatter/",
+    tags: ["sql", "format", "beautify", "query", "database", "syntax"],
+    status: "active"
+  },
+  {
+    id: "yamlconverter",
+    name: "YAML Converter",
+    description: "Bidirectional YAML ↔ JSON converter with validation and pretty formatting.",
+    category: "developer",
+    icon: "fa-solid fa-file-code",
+    url: "/tools/yamlconverter/",
+    tags: ["yaml", "json", "convert", "validate", "config", "data"],
+    status: "active"
+  },
+  {
+    id: "gitignore",
+    name: ".gitignore Generator",
+    description: "Generate .gitignore files from 30+ templates for languages, frameworks, and IDEs.",
+    category: "developer",
+    icon: "fa-brands fa-git-alt",
+    url: "/tools/gitignore/",
+    tags: ["git", "gitignore", "generator", "template", "vcs"],
+    status: "active"
+  },
+  {
+    id: "htmlpreview",
+    name: "HTML Preview",
+    description: "Live HTML/CSS/JS editor with instant preview, console output, and code presets.",
+    category: "developer",
+    icon: "fa-solid fa-laptop-code",
+    url: "/tools/htmlpreview/",
+    tags: ["html", "css", "javascript", "preview", "editor", "codepen"],
+    status: "active"
+  },
+  {
+    id: "crontranslator",
+    name: "Cron Translator",
+    description: "Translate cron expressions to human-readable text and vice versa with presets.",
+    category: "developer",
+    icon: "fa-solid fa-language",
+    url: "/tools/crontranslator/",
+    tags: ["cron", "translate", "schedule", "human readable", "devops"],
+    status: "active"
+  },
+  {
+    id: "apitester",
+    name: "API Tester",
+    description: "Test API endpoints with custom headers, body, and params. Mini Postman in the browser.",
+    category: "developer",
+    icon: "fa-solid fa-satellite-dish",
+    url: "/tools/apitester/",
+    tags: ["api", "rest", "http", "request", "fetch", "postman"],
+    status: "active"
+  },
+  {
+    id: "httpmethods",
+    name: "HTTP Methods Guide",
+    description: "Reference guide for all HTTP methods with properties, examples, and REST conventions.",
+    category: "developer",
+    icon: "fa-solid fa-globe",
+    url: "/tools/httpmethods/",
+    tags: ["http", "methods", "rest", "api", "get", "post", "reference"],
+    status: "active"
+  },
+  {
+    id: "sslcertdecoder",
+    name: "SSL Certificate Decoder",
+    description: "Decode PEM certificates to view subject, issuer, validity, SANs, and expiry status.",
+    category: "developer",
+    icon: "fa-solid fa-lock",
+    url: "/tools/sslcertdecoder/",
+    tags: ["ssl", "certificate", "x509", "pem", "tls", "security"],
+    status: "active"
+  },
+  {
+    id: "graphplotter",
+    name: "Graph Plotter",
+    description: "Plot mathematical functions with zoom, pan, derivatives, and x-intercept detection.",
+    category: "developer",
+    icon: "fa-solid fa-chart-line",
+    url: "/tools/graphplotter/",
+    tags: ["graph", "plot", "math", "function", "calculus", "derivative"],
+    status: "active"
+  },
+
+  // ==================== NEW AI & ML TOOLS ====================
+  {
+    id: "confusionmatrix",
+    name: "Confusion Matrix",
+    description: "Calculate accuracy, precision, recall, F1, and MCC from a confusion matrix heatmap.",
+    category: "ai",
+    icon: "fa-solid fa-table-cells",
+    url: "/tools/confusionmatrix/",
+    tags: ["confusion matrix", "classification", "metrics", "accuracy", "precision", "recall"],
+    status: "active"
+  },
+  {
+    id: "activationfunctions",
+    name: "Activation Functions",
+    description: "Visualize and compare 10 neural network activation functions with derivatives.",
+    category: "ai",
+    icon: "fa-solid fa-wave-square",
+    url: "/tools/activationfunctions/",
+    tags: ["activation", "neural network", "relu", "sigmoid", "tanh", "deep learning"],
+    status: "active"
+  },
+  {
+    id: "lossfunction",
+    name: "Loss Functions",
+    description: "Compare MSE, MAE, Huber, Cross-Entropy, and Hinge loss functions visually.",
+    category: "ai",
+    icon: "fa-solid fa-chart-area",
+    url: "/tools/lossfunction/",
+    tags: ["loss", "cost function", "mse", "cross-entropy", "training", "optimization"],
+    status: "active"
+  },
+  {
+    id: "decisiontree",
+    name: "Decision Tree Builder",
+    description: "Build and walk through interactive decision trees with yes/no branching logic.",
+    category: "ai",
+    icon: "fa-solid fa-code-fork",
+    url: "/tools/decisiontree/",
+    tags: ["decision tree", "flowchart", "logic", "classification", "ml"],
+    status: "active"
+  },
+  {
+    id: "gradientdescent",
+    name: "Gradient Descent",
+    description: "Visualize gradient descent with contour plots, 4 optimizers, and convergence graphs.",
+    category: "ai",
+    icon: "fa-solid fa-arrow-trend-down",
+    url: "/tools/gradientdescent/",
+    tags: ["gradient descent", "optimization", "adam", "momentum", "learning rate"],
+    status: "active"
+  },
+  {
+    id: "binarysearch",
+    name: "Binary Search Visualizer",
+    description: "Step through binary search with animated low/mid/high pointers and comparison log.",
+    category: "ai",
+    icon: "fa-solid fa-magnifying-glass-chart",
+    url: "/tools/binarysearch/",
+    tags: ["binary search", "algorithm", "search", "sorted array", "ologn"],
+    status: "active"
+  },
+  {
+    id: "stackqueue",
+    name: "Stack & Queue",
+    description: "Interactive stack and queue visualizer with push, pop, enqueue, dequeue animations.",
+    category: "ai",
+    icon: "fa-solid fa-layer-group",
+    url: "/tools/stackqueue/",
+    tags: ["stack", "queue", "data structure", "lifo", "fifo", "push", "pop"],
+    status: "active"
+  },
+  {
+    id: "hashmap",
+    name: "HashMap Visualizer",
+    description: "Visualize hash table operations with collision chaining and load factor tracking.",
+    category: "ai",
+    icon: "fa-solid fa-hashtag",
+    url: "/tools/hashmap/",
+    tags: ["hashmap", "hashtable", "data structure", "collision", "hashing"],
+    status: "active"
+  },
+  {
+    id: "linkedlist",
+    name: "Linked List Visualizer",
+    description: "Visualize singly and doubly linked list operations with animated node connections.",
+    category: "ai",
+    icon: "fa-solid fa-link",
+    url: "/tools/linkedlist/",
+    tags: ["linked list", "data structure", "singly", "doubly", "pointer", "node"],
+    status: "active"
+  },
+  {
+    id: "recursion",
+    name: "Recursion Visualizer",
+    description: "Visualize recursion trees for Fibonacci, factorial, and merge sort with call stack.",
+    category: "ai",
+    icon: "fa-solid fa-arrows-spin",
+    url: "/tools/recursion/",
+    tags: ["recursion", "tree", "fibonacci", "factorial", "call stack", "memoization"],
+    status: "active"
+  },
+  {
+    id: "statemachine",
+    name: "State Machine Simulator",
+    description: "Build and simulate finite state machines with visual state diagrams and string testing.",
+    category: "ai",
+    icon: "fa-solid fa-diagram-project",
+    url: "/tools/statemachine/",
+    tags: ["fsm", "state machine", "automata", "dfa", "transition", "formal"],
+    status: "active"
+  },
+
+  // ==================== NEW FUN TOOLS ====================
+  {
+    id: "tictactoe",
+    name: "Tic Tac Toe",
+    description: "Classic Tic Tac Toe with minimax AI at three difficulty levels and score tracking.",
+    category: "fun",
+    icon: "fa-solid fa-xmark",
+    url: "/tools/tictactoe/",
+    tags: ["game", "tic tac toe", "ai", "strategy", "board"],
+    status: "active"
+  },
+  {
+    id: "hangman",
+    name: "Hangman",
+    description: "Classic hangman word game with 5 categories, hints, and win streak tracking.",
+    category: "fun",
+    icon: "fa-solid fa-person",
+    url: "/tools/hangman/",
+    tags: ["game", "hangman", "word", "guess", "vocabulary"],
+    status: "active"
+  },
+  {
+    id: "simonsays",
+    name: "Simon Says",
+    description: "Memory game with colored sequences, audio tones, and increasing speed.",
+    category: "fun",
+    icon: "fa-solid fa-circle-half-stroke",
+    url: "/tools/simonsays/",
+    tags: ["game", "simon", "memory", "sequence", "pattern", "audio"],
+    status: "active"
+  },
+  {
+    id: "rockpaperscissors",
+    name: "Rock Paper Scissors",
+    description: "RPS with Lizard Spock variant, adaptive AI, win streaks, and best-of modes.",
+    category: "fun",
+    icon: "fa-solid fa-hand-scissors",
+    url: "/tools/rockpaperscissors/",
+    tags: ["game", "rps", "rock", "paper", "scissors", "lizard", "spock"],
+    status: "active"
+  },
+  {
+    id: "snakegame",
+    name: "Snake Game",
+    description: "Classic Snake game with multiple grid sizes, touch support, and high scores.",
+    category: "fun",
+    icon: "fa-solid fa-worm",
+    url: "/tools/snakegame/",
+    tags: ["game", "snake", "arcade", "retro", "high score"],
+    status: "active"
+  },
+  {
+    id: "slidepuzzle",
+    name: "Slide Puzzle",
+    description: "Number sliding puzzle (8/15/24) with timer, move counter, hints, and image mode.",
+    category: "fun",
+    icon: "fa-solid fa-puzzle-piece",
+    url: "/tools/slidepuzzle/",
+    tags: ["game", "puzzle", "sliding", "15 puzzle", "tiles", "brain"],
     status: "active"
   }
 ];

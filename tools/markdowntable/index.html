@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Build and generate Markdown tables visually with a spreadsheet-like editor. Export as Markdown or HTML.">
+  <meta property="og:title" content="KVSOVANREACH | Markdown Table Builder">
+  <meta property="og:description" content="Visual Markdown table generator with alignment controls, CSV import, and live preview.">
+  <meta property="og:image" content="/assets/img/favicons/og-image.png">
+  <title>KVSOVANREACH | Markdown Table Builder</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+  <!-- Common Tools CSS -->
+  <link rel="stylesheet" href="../../css/tools-common.css">
+  <!-- Markdown Table CSS -->
+  <link rel="stylesheet" href="markdowntable.css">
+</head>
+<body>
+  <!-- Skip to Content -->
+  <a href="#markdowntable" class="skip-link">Skip to table builder</a>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">TOOLS</span>
+      </a>
+
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="tool-page">
+    <div class="container">
+      <div class="mdt-wrapper" id="markdowntable">
+        <!-- Header -->
+        <div class="mdt-header">
+          <h2><i class="fa-solid fa-table"></i> Markdown Table Builder</h2>
+          <div class="header-actions">
+            <button type="button" class="header-action-btn" id="clearBtn" title="Clear table">
+              <i class="fa-solid fa-eraser"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Toolbar -->
+        <div class="mdt-toolbar">
+          <div class="toolbar-group">
+            <button type="button" class="toolbar-btn" id="addColBtn" title="Add column">
+              <i class="fa-solid fa-table-columns"></i>
+              <span class="btn-label">+ Col</span>
+            </button>
+            <button type="button" class="toolbar-btn" id="removeColBtn" title="Remove last column">
+              <i class="fa-solid fa-minus"></i>
+              <span class="btn-label">- Col</span>
+            </button>
+          </div>
+          <div class="toolbar-divider"></div>
+          <div class="toolbar-group">
+            <button type="button" class="toolbar-btn" id="addRowBtn" title="Add row">
+              <i class="fa-solid fa-plus"></i>
+              <span class="btn-label">+ Row</span>
+            </button>
+            <button type="button" class="toolbar-btn" id="removeRowBtn" title="Remove last row">
+              <i class="fa-solid fa-minus"></i>
+              <span class="btn-label">- Row</span>
+            </button>
+          </div>
+          <div class="toolbar-divider"></div>
+          <div class="toolbar-group">
+            <label class="toolbar-label">Presets:</label>
+            <select id="presetSelect" class="toolbar-select">
+              <option value="">Choose...</option>
+              <option value="empty3x3">3x3 Empty</option>
+              <option value="comparison">Comparison</option>
+              <option value="schedule">Schedule</option>
+            </select>
+          </div>
+          <div class="toolbar-divider"></div>
+          <div class="toolbar-group">
+            <button type="button" class="toolbar-btn" id="importCsvBtn" title="Import CSV/TSV">
+              <i class="fa-solid fa-file-import"></i>
+              <span class="btn-label">Import</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Import Modal -->
+        <div class="mdt-import-modal" id="importModal" style="display:none;">
+          <div class="import-content">
+            <div class="import-header">
+              <h3><i class="fa-solid fa-file-import"></i> Import CSV / TSV</h3>
+              <button type="button" class="close-btn" id="closeImportBtn" aria-label="Close">
+                <i class="fa-solid fa-xmark"></i>
+              </button>
+            </div>
+            <textarea id="importData" class="import-textarea" placeholder="Paste CSV or TSV data here...&#10;e.g. Name,Age,City&#10;Alice,30,NYC&#10;Bob,25,LA" rows="8"></textarea>
+            <div class="import-actions">
+              <button type="button" class="btn btn-secondary" id="cancelImportBtn">Cancel</button>
+              <button type="button" class="btn btn-primary" id="confirmImportBtn">Import</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Grid Editor -->
+        <div class="mdt-grid-section">
+          <div class="grid-scroll">
+            <table class="mdt-grid" id="editorGrid">
+              <!-- Populated by JS -->
+            </table>
+          </div>
+        </div>
+
+        <!-- Output Section -->
+        <div class="mdt-output-section">
+          <!-- Tabs -->
+          <div class="output-tabs">
+            <button type="button" class="output-tab active" data-tab="markdown">
+              <i class="fa-solid fa-code"></i> Markdown
+            </button>
+            <button type="button" class="output-tab" data-tab="html">
+              <i class="fa-solid fa-file-code"></i> HTML
+            </button>
+            <button type="button" class="output-tab" data-tab="preview">
+              <i class="fa-solid fa-eye"></i> Preview
+            </button>
+          </div>
+
+          <!-- Markdown Output -->
+          <div class="output-panel active" id="markdownPanel">
+            <div class="output-header">
+              <span class="output-label">Markdown Output</span>
+              <button type="button" class="copy-btn" id="copyMdBtn" title="Copy Markdown">
+                <i class="fa-solid fa-copy"></i> Copy
+              </button>
+            </div>
+            <pre class="output-code" id="markdownOutput"></pre>
+          </div>
+
+          <!-- HTML Output -->
+          <div class="output-panel" id="htmlPanel" style="display:none;">
+            <div class="output-header">
+              <span class="output-label">HTML Output</span>
+              <button type="button" class="copy-btn" id="copyHtmlBtn" title="Copy HTML">
+                <i class="fa-solid fa-copy"></i> Copy
+              </button>
+            </div>
+            <pre class="output-code" id="htmlOutput"></pre>
+          </div>
+
+          <!-- Preview -->
+          <div class="output-panel" id="previewPanel" style="display:none;">
+            <div class="output-header">
+              <span class="output-label">Rendered Preview</span>
+            </div>
+            <div class="preview-render" id="previewRender"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Shared Tools JavaScript -->
+  <script src="../../js/tools-common.js"></script>
+  <!-- Markdown Table JS -->
+  <script src="markdowntable.js"></script>
+</body>
+</html>

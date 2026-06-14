@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Interactive Decision Tree builder and visualizer. Create question trees with yes/no branches and walk through decisions.">
+  <meta property="og:title" content="KVSOVANREACH | Decision Tree Builder">
+  <meta property="og:description" content="Build and visualize decision trees with interactive yes/no branching, walk-through mode, and presets.">
+  <meta property="og:image" content="/assets/img/favicons/og-image.png">
+  <title>KVSOVANREACH | Decision Tree Builder</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+  <!-- Common Tools CSS -->
+  <link rel="stylesheet" href="../../css/tools-common.css">
+  <!-- Decision Tree CSS -->
+  <link rel="stylesheet" href="decisiontree.css">
+</head>
+<body>
+  <!-- Skip to Content -->
+  <a href="#decisiontree" class="skip-link">Skip to decision tree builder</a>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">TOOLS</span>
+      </a>
+
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="tool-page">
+    <div class="container">
+      <div class="dt-wrapper" id="decisiontree">
+        <!-- Header -->
+        <div class="dt-header">
+          <h2><i class="fa-solid fa-sitemap"></i> Decision Tree Builder</h2>
+          <div class="dt-header-actions">
+            <button class="dt-btn dt-btn-sm dt-btn-ghost" id="importBtn" title="Import JSON">
+              <i class="fa-solid fa-file-import"></i>
+            </button>
+            <button class="dt-btn dt-btn-sm dt-btn-ghost" id="exportBtn" title="Export JSON">
+              <i class="fa-solid fa-file-export"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Content -->
+        <div class="dt-content">
+          <!-- Toolbar -->
+          <div class="dt-toolbar">
+            <div class="dt-tool-group">
+              <label>Presets</label>
+              <select id="presetSelect">
+                <option value="">-- Load Preset --</option>
+                <option value="outside">Should I Go Outside?</option>
+                <option value="bugtriage">Bug Triage</option>
+                <option value="pet">Choose a Pet</option>
+                <option value="techstack">Tech Stack Picker</option>
+              </select>
+            </div>
+
+            <div class="dt-tool-group dt-tool-actions">
+              <button class="dt-btn dt-btn-primary" id="walkBtn">
+                <i class="fa-solid fa-shoe-prints"></i> Walk Through
+              </button>
+              <button class="dt-btn dt-btn-secondary" id="clearAllBtn">
+                <i class="fa-solid fa-broom"></i> Clear
+              </button>
+            </div>
+          </div>
+
+          <!-- Walk-through panel -->
+          <div class="dt-walk-panel" id="walkPanel" style="display:none">
+            <div class="dt-walk-header">
+              <h3><i class="fa-solid fa-shoe-prints"></i> Walk Through</h3>
+              <button class="dt-btn dt-btn-sm dt-btn-ghost" id="walkCloseBtn">
+                <i class="fa-solid fa-xmark"></i>
+              </button>
+            </div>
+            <div class="dt-walk-question" id="walkQuestion"></div>
+            <div class="dt-walk-buttons" id="walkButtons"></div>
+            <div class="dt-walk-result" id="walkResult" style="display:none"></div>
+            <button class="dt-btn dt-btn-secondary dt-btn-sm" id="walkRestartBtn" style="display:none">
+              <i class="fa-solid fa-rotate-left"></i> Restart
+            </button>
+          </div>
+
+          <!-- Tree View -->
+          <div class="dt-tree-container">
+            <div class="dt-tree-scroll" id="treeScroll">
+              <div class="dt-tree" id="treeView">
+                <div class="dt-tree-empty" id="treeEmpty">
+                  <i class="fa-solid fa-sitemap"></i>
+                  <p>No tree yet. Load a preset or click below to start.</p>
+                  <button class="dt-btn dt-btn-primary" id="addRootBtn">
+                    <i class="fa-solid fa-plus"></i> Add Root Question
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Hidden file input for import -->
+  <input type="file" id="fileInput" accept=".json" style="display:none">
+
+  <!-- Node Edit Modal -->
+  <div class="dt-modal-overlay" id="nodeModal" style="display:none">
+    <div class="dt-modal">
+      <div class="dt-modal-header">
+        <h3 id="modalTitle">Edit Node</h3>
+        <button class="dt-btn dt-btn-sm dt-btn-ghost" id="modalCloseBtn">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="dt-modal-body">
+        <div class="dt-form-group">
+          <label for="nodeTypeSelect">Node Type</label>
+          <select id="nodeTypeSelect">
+            <option value="question">Question</option>
+            <option value="outcome">Outcome (Leaf)</option>
+          </select>
+        </div>
+        <div class="dt-form-group">
+          <label for="nodeTextInput" id="nodeTextLabel">Question</label>
+          <input type="text" id="nodeTextInput" placeholder="Enter question..." maxlength="120">
+        </div>
+        <div class="dt-form-group" id="outcomeColorGroup" style="display:none">
+          <label for="outcomeColorInput">Outcome Color</label>
+          <div class="dt-color-options" id="colorOptions">
+            <button class="dt-color-swatch active" data-color="#10b981" style="background:#10b981" title="Green"></button>
+            <button class="dt-color-swatch" data-color="#f59e0b" style="background:#f59e0b" title="Amber"></button>
+            <button class="dt-color-swatch" data-color="#ef4444" style="background:#ef4444" title="Red"></button>
+            <button class="dt-color-swatch" data-color="#3b82f6" style="background:#3b82f6" title="Blue"></button>
+            <button class="dt-color-swatch" data-color="#8b5cf6" style="background:#8b5cf6" title="Purple"></button>
+            <button class="dt-color-swatch" data-color="#ec4899" style="background:#ec4899" title="Pink"></button>
+          </div>
+        </div>
+      </div>
+      <div class="dt-modal-footer">
+        <button class="dt-btn dt-btn-secondary" id="modalCancelBtn">Cancel</button>
+        <button class="dt-btn dt-btn-primary" id="modalSaveBtn">Save</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach. All rights reserved.</p>
+        <p class="footer-made">Made with 💗 and Claude Code xD</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Shared Tools JavaScript -->
+  <script src="../../js/tools-common.js"></script>
+  <!-- Decision Tree JavaScript -->
+  <script src="decisiontree.js"></script>
+</body>
+</html>

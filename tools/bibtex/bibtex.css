@@ -1,0 +1,391 @@
+/**
+ * BibTeX Manager CSS
+ */
+
+/* ==================== Layout ==================== */
+.bib-wrapper {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+}
+
+.bib-header {
+  padding: var(--space-4) var(--space-5);
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.bib-header h2 {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-size: var(--font-size-xl);
+  font-weight: 600;
+  color: var(--color-text);
+  letter-spacing: -0.02em;
+}
+
+.bib-header h2 i {
+  color: var(--color-primary);
+  font-size: var(--font-size-xl);
+}
+
+/* ==================== Tabs ==================== */
+.bib-wrapper .tool-tabs {
+  border-radius: 0;
+}
+
+/* ==================== Tab Panels ==================== */
+.tab-panel {
+  display: none;
+  padding: var(--space-5);
+}
+
+.tab-panel.active {
+  display: block;
+}
+
+/* ==================== Section Headers ==================== */
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-3);
+}
+
+.section-header h3 {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--color-text-secondary);
+}
+
+.section-header h3 i {
+  font-size: var(--font-size-sm);
+}
+
+.section-actions {
+  display: flex;
+  gap: var(--space-2);
+}
+
+/* ==================== Input ==================== */
+.bib-input-section textarea {
+  width: 100%;
+  min-height: 180px;
+  padding: var(--space-3) var(--space-4);
+  background-color: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  color: var(--color-text);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-sm);
+  line-height: 1.6;
+  resize: vertical;
+  transition: border-color var(--transition-fast);
+}
+
+.bib-input-section textarea:focus {
+  outline: none;
+  border-color: var(--color-primary);
+}
+
+/* ==================== Controls ==================== */
+.bib-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: var(--space-3);
+  margin-top: var(--space-4);
+  margin-bottom: var(--space-4);
+}
+
+.control-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.control-group label {
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.control-group select {
+  padding: var(--space-2) var(--space-3);
+  background-color: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  color: var(--color-text);
+  font-size: var(--font-size-sm);
+  cursor: pointer;
+  transition: border-color var(--transition-fast);
+}
+
+.control-group select:focus {
+  outline: none;
+  border-color: var(--color-primary);
+}
+
+/* ==================== Validation ==================== */
+.bib-validation {
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-sm);
+  line-height: 1.5;
+  margin-bottom: var(--space-4);
+}
+
+.bib-validation.hidden {
+  display: none;
+}
+
+.bib-validation.error {
+  background-color: rgba(231, 76, 60, 0.1);
+  border: 1px solid rgba(231, 76, 60, 0.3);
+  color: #e74c3c;
+}
+
+.bib-validation.success {
+  background-color: rgba(46, 204, 113, 0.1);
+  border: 1px solid rgba(46, 204, 113, 0.3);
+  color: #2ecc71;
+}
+
+.bib-validation.warning {
+  background-color: rgba(241, 196, 15, 0.1);
+  border: 1px solid rgba(241, 196, 15, 0.3);
+  color: #f1c40f;
+}
+
+/* ==================== Citation Cards ==================== */
+.bib-results {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.citation-card {
+  background-color: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: border-color var(--transition-fast);
+}
+
+.citation-card:hover {
+  border-color: var(--color-primary-muted);
+}
+
+.citation-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-3) var(--space-4);
+  background-color: var(--color-bg-tertiary);
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.citation-card-meta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.entry-type-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: 2px var(--space-2);
+  background-color: var(--color-primary);
+  color: #fff;
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.cite-key {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}
+
+.citation-card-actions {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.citation-card-body {
+  padding: var(--space-4);
+}
+
+.citation-formatted {
+  font-size: var(--font-size-sm);
+  line-height: 1.7;
+  color: var(--color-text);
+  word-break: break-word;
+}
+
+.citation-formatted em {
+  font-style: italic;
+}
+
+.citation-fields {
+  margin-top: var(--space-3);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--color-border-light);
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--space-1) var(--space-3);
+  font-size: var(--font-size-xs);
+}
+
+.field-name {
+  font-weight: 600;
+  color: var(--color-primary);
+  font-family: var(--font-mono);
+  text-transform: lowercase;
+}
+
+.field-value {
+  color: var(--color-text-secondary);
+  word-break: break-word;
+}
+
+/* ==================== Generate Tab ==================== */
+.gen-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-5);
+}
+
+.gen-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.gen-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: var(--space-3);
+}
+
+.gen-field,
+.gen-field-full {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.gen-field label,
+.gen-field-full label {
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.gen-field input,
+.gen-field select,
+.gen-field-full input {
+  padding: var(--space-2) var(--space-3);
+  background-color: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  color: var(--color-text);
+  font-size: var(--font-size-sm);
+  transition: border-color var(--transition-fast);
+}
+
+.gen-field input:focus,
+.gen-field select:focus,
+.gen-field-full input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+}
+
+.gen-actions {
+  display: flex;
+  gap: var(--space-3);
+  margin-top: var(--space-2);
+}
+
+.gen-output {
+  display: flex;
+  flex-direction: column;
+}
+
+.gen-output-pre {
+  flex: 1;
+  padding: var(--space-4);
+  background-color: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  color: var(--color-text);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-sm);
+  line-height: 1.6;
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-y: auto;
+  min-height: 200px;
+}
+
+/* ==================== Responsive ==================== */
+@media (max-width: 768px) {
+  .bib-controls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .control-group select {
+    width: 100%;
+  }
+
+  .gen-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .gen-row {
+    grid-template-columns: 1fr;
+  }
+
+  .tab-panel {
+    padding: var(--space-3);
+  }
+
+  .bib-header {
+    padding: var(--space-3) var(--space-4);
+  }
+
+  .section-header {
+    flex-wrap: wrap;
+    gap: var(--space-2);
+  }
+
+  .section-actions {
+    flex-wrap: wrap;
+  }
+
+  .citation-card-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-2);
+  }
+
+  .gen-actions {
+    flex-direction: column;
+  }
+}

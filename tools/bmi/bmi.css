@@ -1,5 +1,29 @@
 /* ==================== BMI Calculator Tool Styles ==================== */
 
+/* ==================== BMI Category Color Vars ==================== */
+.bmi-wrapper {
+  --bmi-underweight: var(--color-info);
+  --bmi-underweight-muted: color-mix(in srgb, var(--color-info) 10%, transparent);
+  --bmi-normal: var(--color-success);
+  --bmi-normal-muted: color-mix(in srgb, var(--color-success) 10%, transparent);
+  --bmi-overweight: var(--color-warning);
+  --bmi-overweight-muted: color-mix(in srgb, var(--color-warning) 10%, transparent);
+  --bmi-obese: var(--color-error);
+  --bmi-obese-muted: color-mix(in srgb, var(--color-error) 10%, transparent);
+}
+
+/* ==================== Hide Number Input Spinners ==================== */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
 /* ==================== Wrapper ==================== */
 .bmi-wrapper {
   max-width: 1200px;
@@ -8,7 +32,7 @@
   border: 1px solid var(--color-border);
   border-radius: var(--radius-xl);
   overflow: hidden;
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--shadow-card);
 }
 
 /* ==================== Header ==================== */
@@ -18,7 +42,7 @@
   justify-content: space-between;
   padding: var(--space-4) var(--space-5);
   background-color: var(--color-surface);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border-light);
 }
 
 .bmi-header h2 {
@@ -56,8 +80,13 @@
 
 .header-action-btn:hover {
   background-color: var(--color-primary);
-  color: #fff;
+  color: var(--color-surface);
   border-color: var(--color-primary);
+}
+
+.header-action-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px var(--color-primary-muted);
 }
 
 /* ==================== Tabs ==================== */
@@ -79,6 +108,7 @@
   color: var(--color-text-secondary);
   background: none;
   border: none;
+  border-radius: 0;
   cursor: pointer;
   transition: all var(--transition-fast);
   position: relative;
@@ -99,6 +129,11 @@
 .bmi-tab:hover {
   color: var(--color-text);
   background-color: var(--color-bg-tertiary);
+}
+
+.bmi-tab:focus-visible {
+  outline: none;
+  box-shadow: inset 0 0 0 4px var(--color-primary-muted);
 }
 
 .bmi-tab.active {
@@ -155,7 +190,7 @@
 .input-group input {
   padding: var(--space-3) var(--space-4);
   font-size: var(--font-size-lg);
-  font-family: inherit;
+  font-family: var(--font-mono);
   color: var(--color-text);
   background-color: var(--color-surface);
   border: 1px solid var(--color-border);
@@ -166,7 +201,7 @@
 .input-group input:focus {
   outline: none;
   border-color: var(--color-primary);
-  box-shadow: 0 0 0 3px rgba(55, 118, 161, 0.1);
+  box-shadow: 0 0 0 4px var(--color-primary-muted);
 }
 
 .input-group input::placeholder {
@@ -198,10 +233,10 @@
   padding: var(--space-4);
   font-size: var(--font-size-base);
   font-weight: 600;
-  color: #fff;
+  color: var(--color-surface);
   background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
   border: none;
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-md);
   cursor: pointer;
   transition: all var(--transition-fast);
 }
@@ -215,6 +250,11 @@
   transform: translateY(0);
 }
 
+.calculate-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px var(--color-primary-muted);
+}
+
 /* ==================== Results Section ==================== */
 .results-section {
   display: flex;
@@ -224,6 +264,7 @@
   background-color: var(--color-surface);
   border-radius: var(--radius-lg);
   border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-card);
 }
 
 .bmi-result {
@@ -231,7 +272,8 @@
 }
 
 .bmi-value {
-  font-size: 4rem;
+  font-size: var(--font-size-4xl);
+  font-family: var(--font-mono);
   font-weight: 700;
   color: var(--color-primary);
   line-height: 1;
@@ -244,10 +286,10 @@
   margin-top: var(--space-2);
 }
 
-.bmi-category.underweight { color: #3b82f6; }
-.bmi-category.normal { color: #22c55e; }
-.bmi-category.overweight { color: #f59e0b; }
-.bmi-category.obese { color: #ef4444; }
+.bmi-category.underweight { color: var(--bmi-underweight); }
+.bmi-category.normal { color: var(--bmi-normal); }
+.bmi-category.overweight { color: var(--bmi-overweight); }
+.bmi-category.obese { color: var(--bmi-obese); }
 
 /* ==================== BMI Scale ==================== */
 .bmi-scale {
@@ -258,14 +300,14 @@
   position: relative;
   height: 12px;
   background: linear-gradient(to right,
-    #3b82f6 0%,
-    #3b82f6 18.5%,
-    #22c55e 18.5%,
-    #22c55e 50%,
-    #f59e0b 50%,
-    #f59e0b 75%,
-    #ef4444 75%,
-    #ef4444 100%
+    var(--bmi-underweight) 0%,
+    var(--bmi-underweight) 18.5%,
+    var(--bmi-normal) 18.5%,
+    var(--bmi-normal) 50%,
+    var(--bmi-overweight) 50%,
+    var(--bmi-overweight) 75%,
+    var(--bmi-obese) 75%,
+    var(--bmi-obese) 100%
   );
   border-radius: var(--radius-full);
 }
@@ -295,6 +337,7 @@
 .scale-labels small {
   display: block;
   font-size: var(--font-size-xs);
+  font-family: var(--font-mono);
   color: var(--color-text-muted);
   opacity: 0.7;
 }
@@ -311,6 +354,7 @@
   padding: var(--space-3);
   background-color: var(--color-bg-secondary);
   border-radius: var(--radius-md);
+  border: 1px solid var(--color-border-light);
   text-align: center;
 }
 
@@ -323,6 +367,7 @@
 
 .info-value {
   font-size: var(--font-size-base);
+  font-family: var(--font-mono);
   font-weight: 600;
   color: var(--color-text);
 }
@@ -331,8 +376,9 @@
 .categories-info {
   padding: var(--space-4);
   background-color: var(--color-surface);
-  border-radius: var(--radius-md);
-  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border-light);
+  box-shadow: var(--shadow-card);
 }
 
 .categories-info h4 {
@@ -358,27 +404,28 @@
 }
 
 .category-item.underweight {
-  background-color: rgba(59, 130, 246, 0.1);
-  color: #3b82f6;
+  background-color: var(--bmi-underweight-muted);
+  color: var(--bmi-underweight);
 }
 
 .category-item.normal {
-  background-color: rgba(34, 197, 94, 0.1);
-  color: #22c55e;
+  background-color: var(--bmi-normal-muted);
+  color: var(--bmi-normal);
 }
 
 .category-item.overweight {
-  background-color: rgba(245, 158, 11, 0.1);
-  color: #f59e0b;
+  background-color: var(--bmi-overweight-muted);
+  color: var(--bmi-overweight);
 }
 
 .category-item.obese {
-  background-color: rgba(239, 68, 68, 0.1);
-  color: #ef4444;
+  background-color: var(--bmi-obese-muted);
+  color: var(--bmi-obese);
 }
 
 .category-range {
   font-size: var(--font-size-lg);
+  font-family: var(--font-mono);
   font-weight: 700;
 }
 
@@ -419,7 +466,7 @@
   }
 
   .bmi-value {
-    font-size: 3rem;
+    font-size: var(--font-size-3xl);
   }
 
   .additional-info {
@@ -455,7 +502,7 @@
   }
 
   .bmi-value {
-    font-size: 2.5rem;
+    font-size: var(--font-size-2xl);
   }
 
   .results-section {
@@ -482,7 +529,7 @@
   }
 
   .bmi-value {
-    font-size: 2rem;
+    font-size: var(--font-size-xl);
   }
 
   .category-range {
@@ -490,6 +537,6 @@
   }
 
   .category-name {
-    font-size: 10px;
+    font-size: var(--font-size-xs);
   }
 }

@@ -575,8 +575,11 @@
     updateAlphaGradient();
     updatePreview();
     updateFormatInputs();
-    updateColorBlindness();
     updateHarmonies();
+    // Only update color blindness when visible (A11y tab)
+    if (state.activeTab === 'accessibility') {
+      updateColorBlindness();
+    }
   }
 
   function updateHarmonies() {
@@ -615,45 +618,9 @@
 
   // ==================== Tab Navigation ====================
   function initTabs() {
-    const pickerMain = document.querySelector('.picker-main');
-
     elements.tabs.forEach(tab => {
       tab.addEventListener('click', () => {
-        const tabName = tab.dataset.tab;
-
-        elements.tabs.forEach(t => t.classList.remove('active'));
-        elements.panels.forEach(p => p.classList.remove('active'));
-
-        tab.classList.add('active');
-        document.getElementById(tabName + 'Panel').classList.add('active');
-
-        const previousTab = state.activeTab;
-        state.activeTab = tabName;
-
-        // Toggle full-width layout for Palettes and A11y tabs
-        const isFullWidth = tabName === 'palettes' || tabName === 'accessibility';
-        pickerMain.classList.toggle('full-width', isFullWidth);
-
-        // Save alpha when leaving Picker tab, restore when returning
-        if (previousTab === 'picker' && tabName !== 'picker') {
-          state.savedAlpha = state.alpha;
-          state.alpha = 1;
-          updateAll();
-        } else if (tabName === 'picker' && previousTab !== 'picker') {
-          state.alpha = state.savedAlpha;
-          updateAll();
-        }
-
-        // Load palettes when switching to palettes tab
-        if (tabName === 'palettes') {
-          loadPalettes('material');
-        }
-
-        // Update accessibility when switching to a11y tab
-        if (tabName === 'accessibility') {
-          updateContrastChecker();
-          updateColorBlindness();
-        }
+        switchTab(tab.dataset.tab);
       });
     });
   }
@@ -1473,17 +1440,12 @@
       badge.classList.toggle('fail', !pass);
     });
 
-    // Update color blindness preview with foreground color
-    updateColorBlindness();
   }
 
   function updateColorBlindness() {
-    // Use foreground color from contrast checker
-    const fgInput = elements.fgColor?.value || '#000000';
-    const fgHex = normalizeHex(fgInput) || '#000000';
-    const rgb = ColorConverter.hexToRgb(fgHex);
-
-    if (!rgb) return;
+    // Use the current picker color for color blindness simulation
+    const currentColor = ColorConverter.getCurrentColor();
+    const rgb = currentColor.rgb;
 
     const types = ['normal', 'protanopia', 'deuteranopia', 'tritanopia', 'achromatopsia'];
 
@@ -1652,40 +1614,46 @@
   }
 
   function switchTab(tabName) {
+    const tab = document.querySelector(`.tool-tab[data-tab="${tabName}"]`);
+    if (!tab) return;
+
+    const pickerMain = document.querySelector('.picker-main');
+    const previousTab = state.activeTab;
+
+    // Skip if already on this tab
+    if (previousTab === tabName) return;
+
     elements.tabs.forEach(t => t.classList.remove('active'));
     elements.panels.forEach(p => p.classList.remove('active'));
 
-    const tab = document.querySelector(`.tool-tab[data-tab="${tabName}"]`);
-    const pickerMain = document.querySelector('.picker-main');
+    tab.classList.add('active');
+    document.getElementById(tabName + 'Panel').classList.add('active');
+    state.activeTab = tabName;
 
-    if (tab) {
-      tab.classList.add('active');
-      document.getElementById(tabName + 'Panel').classList.add('active');
+    // Toggle full-width layout for Palettes and A11y tabs
+    const isFullWidth = tabName === 'palettes' || tabName === 'accessibility';
+    pickerMain.classList.toggle('full-width', isFullWidth);
 
-      const previousTab = state.activeTab;
-      state.activeTab = tabName;
+    // Save alpha when leaving Picker tab, restore when returning
+    if (previousTab === 'picker' && tabName !== 'picker') {
+      state.savedAlpha = state.alpha;
+      state.alpha = 1;
+      updateAll();
+    } else if (tabName === 'picker' && previousTab !== 'picker') {
+      state.alpha = state.savedAlpha;
+      updateAll();
+    }
 
-      // Toggle full-width layout for Palettes and A11y tabs
-      const isFullWidth = tabName === 'palettes' || tabName === 'accessibility';
-      pickerMain.classList.toggle('full-width', isFullWidth);
+    // Load palettes (preserve active category if already selected)
+    if (tabName === 'palettes') {
+      const activeCategory = document.querySelector('.palette-category.active');
+      loadPalettes(activeCategory ? activeCategory.dataset.category : 'material');
+    }
 
-      // Save alpha when leaving Picker tab, restore when returning
-      if (previousTab === 'picker' && tabName !== 'picker') {
-        state.savedAlpha = state.alpha;
-        state.alpha = 1;
-        updateAll();
-      } else if (tabName === 'picker' && previousTab !== 'picker') {
-        state.alpha = state.savedAlpha;
-        updateAll();
-      }
-
-      if (tabName === 'palettes') {
-        loadPalettes('material');
-      }
-      if (tabName === 'accessibility') {
-        updateContrastChecker();
-        updateColorBlindness();
-      }
+    // Update accessibility when switching to a11y tab
+    if (tabName === 'accessibility') {
+      updateContrastChecker();
+      updateColorBlindness();
     }
   }
 
@@ -1704,10 +1672,10 @@
     initAccessibility();
     initKeyboardShortcuts();
 
-    // Set initial color
-    state.hue = 207;
-    state.saturation = 64;
-    state.value = 63;
+    // Set initial color (#91214E - brand primary)
+    state.hue = 336;
+    state.saturation = 77;
+    state.value = 57;
     updateAll();
   }
 

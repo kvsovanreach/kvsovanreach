@@ -9,7 +9,7 @@
   border: 1px solid var(--color-border);
   border-radius: var(--radius-xl);
   overflow: hidden;
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--shadow-card);
 }
 
 .ratio-header {
@@ -18,7 +18,7 @@
   justify-content: space-between;
   padding: var(--space-4) var(--space-5);
   background-color: var(--color-surface);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border-light);
 }
 
 .ratio-header h2 {
@@ -100,7 +100,7 @@
   border-radius: var(--radius-md);
   font-size: var(--font-size-lg);
   font-weight: 600;
-  font-family: 'Fira Code', monospace;
+  font-family: var(--font-mono);
   color: var(--color-text);
   text-align: center;
 }
@@ -124,7 +124,7 @@
   border-radius: var(--radius-md);
   font-size: var(--font-size-base);
   font-weight: 600;
-  font-family: 'Fira Code', monospace;
+  font-family: var(--font-mono);
   color: var(--color-text);
   text-align: center;
 }
@@ -147,7 +147,7 @@
   border-radius: var(--radius-md);
   font-size: var(--font-size-lg);
   font-weight: 600;
-  font-family: 'Fira Code', monospace;
+  font-family: var(--font-mono);
   text-align: center;
 }
 
@@ -274,6 +274,14 @@
   width: 10px;
   height: 10px;
   border-radius: 2px;
+}
+
+/* Focus ring for all interactive buttons */
+.header-action-btn:focus-visible,
+.preset-btn:focus-visible,
+.res-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px var(--color-primary-muted);
 }
 
 /* Responsive */

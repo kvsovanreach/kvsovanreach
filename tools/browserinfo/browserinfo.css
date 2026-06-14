@@ -8,7 +8,7 @@
   border: 1px solid var(--color-border);
   border-radius: var(--radius-xl);
   overflow: hidden;
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--shadow-card);
 }
 
 /* ==================== Header ==================== */
@@ -18,7 +18,7 @@
   justify-content: space-between;
   padding: var(--space-4) var(--space-5);
   background-color: var(--color-surface);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border-light);
 }
 
 .info-header h2 {
@@ -96,7 +96,7 @@
   justify-content: space-between;
   padding: var(--space-3) var(--space-4);
   background-color: var(--color-bg-secondary);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border-light);
 }
 
 .card-header h4 {
@@ -316,13 +316,13 @@
 .user-agent-box {
   padding: var(--space-4);
   background-color: var(--color-bg-secondary);
-  border-top: 1px solid var(--color-border);
+  border-top: 1px solid var(--color-border-light);
 }
 
 .user-agent-box code {
   display: block;
   font-size: var(--font-size-xs);
-  font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+  font-family: var(--font-mono);
   color: var(--color-text-secondary);
   word-break: break-all;
   line-height: 1.6;
@@ -360,17 +360,17 @@
 
 .battery-level {
   height: 100%;
-  background: linear-gradient(90deg, #22c55e, #4ade80);
+  background: linear-gradient(90deg, var(--color-success), color-mix(in srgb, var(--color-success) 70%, white));
   border-radius: 2px;
   transition: width var(--transition-base);
 }
 
 .battery-level.low {
-  background: linear-gradient(90deg, #ef4444, #f87171);
+  background: linear-gradient(90deg, var(--color-error), color-mix(in srgb, var(--color-error) 70%, white));
 }
 
 .battery-level.charging {
-  background: linear-gradient(90deg, #3b82f6, #60a5fa);
+  background: linear-gradient(90deg, var(--color-info), color-mix(in srgb, var(--color-info) 70%, white));
 }
 
 .battery-percentage {
@@ -442,29 +442,29 @@
 }
 
 .feature-item.supported {
-  border-color: #22c55e;
-  background-color: rgba(34, 197, 94, 0.1);
+  border-color: var(--color-success);
+  background-color: color-mix(in srgb, var(--color-success) 10%, transparent);
 }
 
 .feature-item.supported i {
-  color: #22c55e;
+  color: var(--color-success);
 }
 
 .feature-item.supported span {
-  color: #22c55e;
+  color: var(--color-success);
 }
 
 .feature-item.unsupported {
-  border-color: #ef4444;
-  background-color: rgba(239, 68, 68, 0.1);
+  border-color: var(--color-error);
+  background-color: color-mix(in srgb, var(--color-error) 10%, transparent);
 }
 
 .feature-item.unsupported i {
-  color: #ef4444;
+  color: var(--color-error);
 }
 
 .feature-item.unsupported span {
-  color: #ef4444;
+  color: var(--color-error);
 }
 
 /* ==================== Features Summary ==================== */
@@ -488,11 +488,19 @@
 }
 
 .summary-supported {
-  color: #22c55e;
+  color: var(--color-success);
 }
 
 .summary-unsupported {
-  color: #ef4444;
+  color: var(--color-error);
+}
+
+/* Focus ring for all interactive buttons */
+.header-action-btn:focus-visible,
+.copy-btn:focus-visible,
+.feature-category:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px var(--color-primary-muted);
 }
 
 /* ==================== Responsive ==================== */

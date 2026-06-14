@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Create CSS animations and keyframes visually. Customize timing, easing, and keyframe properties with live preview.">
+  <meta property="og:title" content="KVSOVANREACH | CSS Animation Generator">
+  <meta property="og:description" content="Generate CSS @keyframes animations with a visual editor and live preview.">
+  <meta property="og:image" content="/assets/img/favicons/og-image.png">
+  <title>KVSOVANREACH | CSS Animation Generator</title>
+
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  <link rel="stylesheet" href="../../css/tools-common.css">
+  <link rel="stylesheet" href="animationgen.css">
+</head>
+<body>
+  <a href="#animationgen" class="skip-link">Skip to Animation Generator</a>
+
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">TOOLS</span>
+      </a>
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools"><i class="fa-solid fa-arrow-left"></i></a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <main class="tool-page">
+    <div class="container">
+      <div class="anim-wrapper" id="animationgen">
+        <div class="anim-header">
+          <h2><i class="fa-solid fa-wand-magic-sparkles"></i> CSS Animation Generator</h2>
+          <div class="header-actions">
+            <button class="header-action-btn" id="copyBtn" title="Copy CSS (C)">
+              <i class="fa-solid fa-copy"></i>
+            </button>
+            <button class="header-action-btn" id="resetBtn" title="Reset (R)">
+              <i class="fa-solid fa-rotate-left"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="anim-content">
+          <!-- Preview Panel -->
+          <div class="anim-preview-panel">
+            <div class="preview-area">
+              <div class="preview-element" id="previewElement">Animate</div>
+            </div>
+            <div class="preview-controls">
+              <button class="preview-ctrl-btn" id="playBtn" title="Play"><i class="fa-solid fa-play"></i></button>
+              <button class="preview-ctrl-btn" id="pauseBtn" title="Pause"><i class="fa-solid fa-pause"></i></button>
+              <button class="preview-ctrl-btn" id="restartBtn" title="Restart"><i class="fa-solid fa-rotate-right"></i></button>
+              <div class="preview-shape-btns">
+                <button class="shape-btn active" data-shape="box" title="Box">
+                  <i class="fa-solid fa-square"></i>
+                </button>
+                <button class="shape-btn" data-shape="circle" title="Circle">
+                  <i class="fa-solid fa-circle"></i>
+                </button>
+                <button class="shape-btn" data-shape="text" title="Text">
+                  <i class="fa-solid fa-font"></i>
+                </button>
+              </div>
+            </div>
+
+            <!-- Timing Function Visualizer -->
+            <div class="bezier-visualizer">
+              <label>Timing Curve</label>
+              <canvas id="bezierCanvas" width="200" height="120"></canvas>
+            </div>
+          </div>
+
+          <!-- Controls Panel -->
+          <div class="anim-controls">
+            <!-- Presets -->
+            <div class="control-section">
+              <h3>Presets</h3>
+              <div class="presets-grid" id="presetsGrid">
+                <button class="preset-btn" data-preset="bounce">Bounce</button>
+                <button class="preset-btn" data-preset="spin">Spin</button>
+                <button class="preset-btn" data-preset="fadeIn">Fade In</button>
+                <button class="preset-btn" data-preset="slide">Slide</button>
+                <button class="preset-btn" data-preset="pulse">Pulse</button>
+                <button class="preset-btn" data-preset="shake">Shake</button>
+                <button class="preset-btn" data-preset="flip">Flip</button>
+                <button class="preset-btn" data-preset="swing">Swing</button>
+              </div>
+            </div>
+
+            <!-- Animation Properties -->
+            <div class="control-section">
+              <h3>Animation Properties</h3>
+              <div class="control-group">
+                <div class="control-header">
+                  <label for="animName">Name</label>
+                </div>
+                <input type="text" id="animName" value="myAnimation" class="text-input" spellcheck="false">
+              </div>
+
+              <div class="control-group">
+                <div class="control-header">
+                  <label for="duration">Duration</label>
+                  <span class="control-value" id="durationValue">1s</span>
+                </div>
+                <input type="range" id="duration" min="100" max="5000" value="1000" step="100">
+              </div>
+
+              <div class="control-group">
+                <div class="control-header">
+                  <label for="timingFunction">Timing Function</label>
+                </div>
+                <select id="timingFunction" class="select-input">
+                  <option value="ease">ease</option>
+                  <option value="linear">linear</option>
+                  <option value="ease-in">ease-in</option>
+                  <option value="ease-out">ease-out</option>
+                  <option value="ease-in-out">ease-in-out</option>
+                  <option value="cubic-bezier">cubic-bezier (custom)</option>
+                </select>
+              </div>
+
+              <div class="control-group bezier-controls" id="bezierControls" style="display:none;">
+                <div class="bezier-inputs">
+                  <div class="bezier-input-group">
+                    <label>x1</label>
+                    <input type="number" id="bx1" value="0.25" min="0" max="1" step="0.05" class="num-input">
+                  </div>
+                  <div class="bezier-input-group">
+                    <label>y1</label>
+                    <input type="number" id="by1" value="0.1" min="-1" max="2" step="0.05" class="num-input">
+                  </div>
+                  <div class="bezier-input-group">
+                    <label>x2</label>
+                    <input type="number" id="bx2" value="0.25" min="0" max="1" step="0.05" class="num-input">
+                  </div>
+                  <div class="bezier-input-group">
+                    <label>y2</label>
+                    <input type="number" id="by2" value="1" min="-1" max="2" step="0.05" class="num-input">
+                  </div>
+                </div>
+              </div>
+
+              <div class="control-group">
+                <div class="control-header">
+                  <label for="delay">Delay</label>
+                  <span class="control-value" id="delayValue">0s</span>
+                </div>
+                <input type="range" id="delay" min="0" max="3000" value="0" step="100">
+              </div>
+
+              <div class="control-group">
+                <div class="control-header">
+                  <label for="iterationCount">Iteration Count</label>
+                  <span class="control-value" id="iterationValue">1</span>
+                </div>
+                <div class="iteration-row">
+                  <input type="range" id="iterationCount" min="1" max="10" value="1">
+                  <label class="checkbox-label">
+                    <input type="checkbox" id="infiniteLoop">
+                    <span>Infinite</span>
+                  </label>
+                </div>
+              </div>
+
+              <div class="control-group">
+                <div class="control-header">
+                  <label for="direction">Direction</label>
+                </div>
+                <select id="direction" class="select-input">
+                  <option value="normal">normal</option>
+                  <option value="reverse">reverse</option>
+                  <option value="alternate">alternate</option>
+                  <option value="alternate-reverse">alternate-reverse</option>
+                </select>
+              </div>
+
+              <div class="control-group">
+                <div class="control-header">
+                  <label for="fillMode">Fill Mode</label>
+                </div>
+                <select id="fillMode" class="select-input">
+                  <option value="none">none</option>
+                  <option value="forwards">forwards</option>
+                  <option value="backwards">backwards</option>
+                  <option value="both">both</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Keyframe Editor -->
+            <div class="control-section">
+              <h3>Keyframes</h3>
+              <div class="keyframe-timeline" id="keyframeTimeline">
+                <div class="timeline-track" id="timelineTrack"></div>
+              </div>
+              <div class="keyframe-actions">
+                <button class="action-btn" id="addKeyframeBtn"><i class="fa-solid fa-plus"></i> Add Keyframe</button>
+              </div>
+              <div class="keyframes-list" id="keyframesList"></div>
+            </div>
+
+            <!-- Output -->
+            <div class="control-section">
+              <h3>Generated CSS</h3>
+              <div class="output-box">
+                <pre id="cssOutput"></pre>
+                <button class="copy-btn" id="outputCopyBtn" title="Copy"><i class="fa-solid fa-copy"></i></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div class="shortcuts-modal" id="shortcutsModal">
+    <div class="shortcuts-content">
+      <div class="shortcuts-header">
+        <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
+        <button class="close-shortcuts-btn" id="closeShortcutsBtn"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="shortcuts-body">
+        <div class="shortcut-row"><span class="shortcut-key">C</span><span class="shortcut-desc">Copy CSS</span></div>
+        <div class="shortcut-row"><span class="shortcut-key">R</span><span class="shortcut-desc">Reset values</span></div>
+        <div class="shortcut-row"><span class="shortcut-key">Space</span><span class="shortcut-desc">Play / Pause</span></div>
+        <div class="shortcut-row"><span class="shortcut-key">?</span><span class="shortcut-desc">Show shortcuts</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="shortcuts-hint">Press <span class="shortcut-key">?</span> for shortcuts</div>
+  <div class="toast" id="toast"></div>
+
+  <footer class="tool-footer">
+    <p>&copy; <span id="current-year"></span> KVSOVANREACH</p>
+  </footer>
+
+  <script src="../../js/tools-common.js"></script>
+  <script src="animationgen.js"></script>
+</body>
+</html>

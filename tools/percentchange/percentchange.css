@@ -11,7 +11,7 @@
   border: 1px solid var(--color-border);
   border-radius: var(--radius-xl);
   overflow: hidden;
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--shadow-card);
 }
 
 /* Header */
@@ -21,7 +21,7 @@
   justify-content: space-between;
   padding: var(--space-4) var(--space-5);
   background-color: var(--color-surface);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border-light);
 }
 
 .percent-header h2 {
@@ -64,6 +64,11 @@
   background-color: var(--color-primary);
   color: #fff;
   border-color: var(--color-primary);
+}
+
+.header-action-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px var(--color-primary-muted);
 }
 
 /* Content */
@@ -140,11 +145,11 @@
 }
 
 .result-card.percent-main.increase {
-  background: linear-gradient(135deg, #22c55e, #16a34a);
+  background: linear-gradient(135deg, var(--color-success), color-mix(in srgb, var(--color-success) 80%, black));
 }
 
 .result-card.percent-main.decrease {
-  background: linear-gradient(135deg, #ef4444, #dc2626);
+  background: linear-gradient(135deg, var(--color-error), color-mix(in srgb, var(--color-error) 80%, black));
 }
 
 .result-card.percent-main.neutral {
@@ -237,7 +242,7 @@
   padding: var(--space-3);
   background-color: var(--color-bg-tertiary);
   border-radius: var(--radius-md);
-  font-family: monospace;
+  font-family: var(--font-mono);
   font-size: var(--font-size-sm);
 }
 
@@ -261,7 +266,7 @@
   padding: var(--space-2) var(--space-3);
   background-color: var(--color-bg-tertiary);
   border-radius: var(--radius-md);
-  font-family: monospace;
+  font-family: var(--font-mono);
   font-size: var(--font-size-sm);
   color: var(--color-text-secondary);
   text-align: center;

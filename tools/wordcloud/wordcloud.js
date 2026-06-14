@@ -106,7 +106,7 @@
     const excludeCommonWords = elements.excludeCommon.checked;
     const caseSensitive = elements.caseSensitive.checked;
 
-    const cleanedText = text.replace(/[^\w\s'-]/g, '').toLowerCase();
+    const cleanedText = text.replace(/[^\w\s'-]/g, '');
     const rawWords = cleanedText.split(/\s+/).filter(w => w.length > 0);
 
     const words = rawWords.filter(word => {
@@ -582,8 +582,10 @@
     const blob = new Blob([svg], { type: 'image/svg+xml' });
     const link = document.createElement('a');
     link.download = 'wordcloud.svg';
-    link.href = URL.createObjectURL(blob);
+    const url = URL.createObjectURL(blob);
+    link.href = url;
     link.click();
+    URL.revokeObjectURL(url);
 
     ToolsCommon.showToast('Downloaded SVG', 'success');
   }

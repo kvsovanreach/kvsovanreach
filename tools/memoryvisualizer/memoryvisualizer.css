@@ -11,7 +11,7 @@
   border: 1px solid var(--color-border);
   border-radius: var(--radius-xl);
   overflow: hidden;
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--shadow-card);
 }
 
 /* Header */
@@ -21,7 +21,7 @@
   justify-content: space-between;
   padding: var(--space-4) var(--space-5);
   background: linear-gradient(135deg, #ec4899 0%, #db2777 100%);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border-light);
 }
 
 .memory-header h2 {
@@ -84,7 +84,7 @@
 }
 
 .control-group input {
-  font-family: 'Fira Code', monospace;
+  font-family: var(--font-mono);
 }
 
 .control-group input:focus,
@@ -135,7 +135,7 @@
 }
 
 .stat-value {
-  font-family: 'Fira Code', monospace;
+  font-family: var(--font-mono);
   font-size: var(--font-size-xl);
   font-weight: 700;
   color: var(--color-text);
@@ -181,7 +181,7 @@
   justify-content: space-between;
   padding: var(--space-3) var(--space-4);
   background-color: var(--color-surface);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border-light);
 }
 
 .region-header h3 {
@@ -194,11 +194,11 @@
 }
 
 .stack-region .region-header h3 i {
-  color: #3b82f6;
+  color: var(--color-info);
 }
 
 .heap-region .region-header h3 i {
-  color: #22c55e;
+  color: var(--color-success);
 }
 
 .region-info {
@@ -227,16 +227,16 @@
 }
 
 .pointer-label {
-  font-family: 'Fira Code', monospace;
+  font-family: var(--font-mono);
   font-size: var(--font-size-xs);
   font-weight: 600;
-  color: #3b82f6;
+  color: var(--color-info);
 }
 
 .pointer-arrow {
   flex: 1;
   height: 2px;
-  background: linear-gradient(90deg, #3b82f6, transparent);
+  background: linear-gradient(90deg, var(--color-info), transparent);
   position: relative;
 }
 
@@ -246,7 +246,7 @@
   left: 0;
   top: -4px;
   border: 5px solid transparent;
-  border-left-color: #3b82f6;
+  border-left-color: var(--color-info);
 }
 
 /* Memory Block */
@@ -272,11 +272,11 @@
 }
 
 .memory-block.stack {
-  border-left: 3px solid #3b82f6;
+  border-left: 3px solid var(--color-info);
 }
 
 .memory-block.heap {
-  border-left: 3px solid #22c55e;
+  border-left: 3px solid var(--color-success);
 }
 
 .memory-block.free {
@@ -285,18 +285,18 @@
 }
 
 .block-name {
-  font-family: 'Fira Code', monospace;
+  font-family: var(--font-mono);
   font-weight: 600;
   color: var(--color-text);
 }
 
 .block-size {
-  font-family: 'Fira Code', monospace;
+  font-family: var(--font-mono);
   color: var(--color-text-muted);
 }
 
 .block-address {
-  font-family: 'Fira Code', monospace;
+  font-family: var(--font-mono);
   color: var(--color-text-muted);
 }
 
@@ -322,7 +322,7 @@
 }
 
 .address {
-  font-family: 'Fira Code', monospace;
+  font-family: var(--font-mono);
   font-size: var(--font-size-xs);
   color: var(--color-text-muted);
 }
@@ -330,7 +330,7 @@
 .address-line {
   flex: 1;
   width: 2px;
-  background: linear-gradient(180deg, #ec4899, transparent, #22c55e);
+  background: linear-gradient(180deg, #ec4899, transparent, var(--color-success));
   margin: var(--space-2) 0;
 }
 
@@ -348,7 +348,7 @@
   align-items: center;
   padding: var(--space-3) var(--space-4);
   background-color: var(--color-bg-tertiary);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border-light);
 }
 
 .variables-header h3 {
@@ -408,7 +408,7 @@
 }
 
 .variable-name {
-  font-family: 'Fira Code', monospace;
+  font-family: var(--font-mono);
   font-size: var(--font-size-sm);
   font-weight: 600;
   color: var(--color-text);
@@ -422,20 +422,20 @@
 }
 
 .variable-type.stack {
-  background-color: rgba(59, 130, 246, 0.15);
-  color: #3b82f6;
+  background-color: color-mix(in srgb, var(--color-info) 15%, transparent);
+  color: var(--color-info);
 }
 
 .variable-type.heap {
-  background-color: rgba(34, 197, 94, 0.15);
-  color: #22c55e;
+  background-color: color-mix(in srgb, var(--color-success) 15%, transparent);
+  color: var(--color-success);
 }
 
 .variable-meta {
   display: flex;
   align-items: center;
   gap: var(--space-3);
-  font-family: 'Fira Code', monospace;
+  font-family: var(--font-mono);
   font-size: var(--font-size-xs);
   color: var(--color-text-muted);
 }
@@ -454,7 +454,7 @@
   gap: var(--space-2);
   padding: var(--space-3) var(--space-4);
   background-color: var(--color-bg-tertiary);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border-light);
   font-size: var(--font-size-sm);
   font-weight: 600;
   color: var(--color-text);
@@ -549,7 +549,7 @@
     height: 2px;
     width: auto;
     flex: 1;
-    background: linear-gradient(90deg, #ec4899, transparent, #22c55e);
+    background: linear-gradient(90deg, #ec4899, transparent, var(--color-success));
     margin: 0 var(--space-2);
   }
 

@@ -11,7 +11,7 @@
   border: 1px solid var(--color-border);
   border-radius: var(--radius-xl);
   overflow: hidden;
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--shadow-card);
   position: relative;
   display: flex;
   flex-direction: column;
@@ -23,7 +23,7 @@
   align-items: center;
   padding: var(--space-4) var(--space-5);
   background-color: var(--color-surface);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border-light);
 }
 
 .glossary-header h2 {
@@ -37,7 +37,7 @@
 }
 
 .glossary-header h2 i {
-  color: #f59e0b;
+  color: var(--color-warning);
 }
 
 /* ==================== Main Layout ==================== */
@@ -141,8 +141,13 @@
 }
 
 .clear-search-btn:hover {
-  background-color: #ef4444;
+  background-color: var(--color-error);
   color: white;
+}
+
+.clear-search-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px var(--color-primary-muted);
 }
 
 /* Mode Buttons */
@@ -170,6 +175,11 @@
 .mode-btn:hover {
   border-color: var(--color-primary);
   color: var(--color-primary);
+}
+
+.mode-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px var(--color-primary-muted);
 }
 
 .mode-btn.active {
@@ -208,6 +218,11 @@
 .category-btn:hover {
   background-color: var(--color-bg-secondary);
   color: var(--color-text);
+}
+
+.category-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px var(--color-primary-muted);
 }
 
 .category-btn.active {
@@ -318,11 +333,11 @@
   text-transform: uppercase;
 }
 
-.term-category.core { background-color: #ef4444; }
-.term-category.practice { background-color: #22c55e; }
+.term-category.core { background-color: var(--color-error); }
+.term-category.practice { background-color: var(--color-success); }
 .term-category.mind { background-color: #8b5cf6; }
-.term-category.path { background-color: #f59e0b; }
-.term-category.misc { background-color: #64748b; }
+.term-category.path { background-color: var(--color-warning); }
+.term-category.misc { background-color: var(--color-text-secondary); }
 
 .term-etymology {
   font-size: var(--font-size-xs);
@@ -330,7 +345,7 @@
   font-style: italic;
   margin-bottom: var(--space-2);
   padding-left: var(--space-2);
-  border-left: 2px solid var(--color-border);
+  border-left: 2px solid var(--color-border-light);
 }
 
 .term-definition {
@@ -341,7 +356,7 @@
 
 /* Highlight */
 .highlight {
-  background-color: rgba(245, 158, 11, 0.3);
+  background-color: color-mix(in srgb, var(--color-warning) 30%, transparent);
   border-radius: 2px;
   padding: 0 2px;
 }
@@ -406,7 +421,7 @@
   height: 48px;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #f59e0b, #d97706);
+  background: linear-gradient(135deg, var(--color-warning), color-mix(in srgb, var(--color-warning) 80%, black));
   color: white;
   border: none;
   border-radius: var(--radius-full);
@@ -418,6 +433,11 @@
 
 .mobile-toggle-btn:hover {
   transform: scale(1.05);
+}
+
+.mobile-toggle-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px var(--color-primary-muted);
 }
 
 /* ==================== Responsive ==================== */

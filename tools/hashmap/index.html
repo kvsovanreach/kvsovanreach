@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Interactive HashMap/HashTable visualizer with collision chaining, configurable size, and step-by-step insert.">
+  <meta property="og:title" content="KVSOVANREACH | HashMap Visualizer">
+  <meta property="og:description" content="Visualize HashMap operations: insert, get, delete with hash function visualization and collision chaining.">
+  <meta property="og:image" content="/assets/img/favicons/og-image.png">
+  <title>KVSOVANREACH | HashMap Visualizer</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+  <!-- Common Tools CSS -->
+  <link rel="stylesheet" href="../../css/tools-common.css">
+  <!-- HashMap CSS -->
+  <link rel="stylesheet" href="hashmap.css">
+</head>
+<body>
+  <!-- Skip to Content -->
+  <a href="#hashmap" class="skip-link">Skip to HashMap visualizer</a>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">TOOLS</span>
+      </a>
+
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="tool-page">
+    <div class="container">
+      <div class="hm-wrapper" id="hashmap">
+        <!-- Header -->
+        <div class="hm-header">
+          <h2><i class="fa-solid fa-hashtag"></i> HashMap Visualizer</h2>
+        </div>
+
+        <!-- Content -->
+        <div class="hm-content">
+          <!-- Controls Bar -->
+          <div class="hm-controls">
+            <div class="hm-input-row">
+              <div class="hm-input-group">
+                <label for="keyInput">Key</label>
+                <input type="text" id="keyInput" placeholder="Enter key..." maxlength="16">
+              </div>
+              <div class="hm-input-group">
+                <label for="valueInput">Value</label>
+                <input type="text" id="valueInput" placeholder="Enter value..." maxlength="16">
+              </div>
+            </div>
+            <div class="hm-btn-row">
+              <button class="hm-btn hm-btn-insert" id="insertBtn">
+                <i class="fa-solid fa-plus"></i> Insert
+              </button>
+              <button class="hm-btn hm-btn-get" id="getBtn">
+                <i class="fa-solid fa-search"></i> Get
+              </button>
+              <button class="hm-btn hm-btn-delete" id="deleteBtn">
+                <i class="fa-solid fa-trash-can"></i> Delete
+              </button>
+              <button class="hm-btn hm-btn-clear" id="clearBtn">
+                <i class="fa-solid fa-broom"></i> Clear
+              </button>
+              <button class="hm-btn hm-btn-sample" id="sampleBtn">
+                <i class="fa-solid fa-database"></i> Sample
+              </button>
+            </div>
+            <div class="hm-options-row">
+              <div class="hm-option">
+                <label for="tableSizeSelect">Table Size</label>
+                <select id="tableSizeSelect">
+                  <option value="4">4</option>
+                  <option value="8" selected>8</option>
+                  <option value="16">16</option>
+                  <option value="32">32</option>
+                </select>
+              </div>
+              <div class="hm-option">
+                <label>
+                  <input type="checkbox" id="stepModeCheck"> Step-by-step insert
+                </label>
+              </div>
+              <div class="hm-stats">
+                <span class="hm-stat">Entries: <strong id="entryCount">0</strong></span>
+                <span class="hm-stat">Load: <strong id="loadFactor">0.00</strong></span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Hash Visualization -->
+          <div class="hm-hash-viz" id="hashViz">
+            <span class="hm-hash-label">hash("") &rarr; bucket ?</span>
+          </div>
+
+          <!-- Step-by-step panel -->
+          <div class="hm-step-panel" id="stepPanel" style="display:none;">
+            <div class="hm-step-info" id="stepInfo">Ready</div>
+            <button class="hm-btn hm-btn-step" id="stepNextBtn">
+              <i class="fa-solid fa-forward-step"></i> Next Step
+            </button>
+          </div>
+
+          <!-- Buckets Visualization -->
+          <div class="hm-buckets" id="bucketsContainer"></div>
+
+          <!-- Resize suggestion -->
+          <div class="hm-resize-bar" id="resizeBar" style="display:none;">
+            <i class="fa-solid fa-triangle-exclamation"></i>
+            <span>Load factor &gt; 0.75 &mdash; consider resizing the table for better performance.</span>
+            <button class="hm-btn hm-btn-secondary hm-btn-sm" id="autoResizeBtn">Auto Resize</button>
+          </div>
+
+          <!-- Operation History -->
+          <div class="hm-history">
+            <div class="hm-history-header">
+              <h3><i class="fa-solid fa-clock-rotate-left"></i> Operation Log</h3>
+              <button class="hm-btn hm-btn-secondary hm-btn-sm" id="clearHistoryBtn">Clear</button>
+            </div>
+            <div class="hm-history-body" id="historyBody">
+              <div class="hm-history-empty">No operations yet.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach. All rights reserved.</p>
+        <p class="footer-made">Made with 💗 and Claude Code xD</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Shared Tools JavaScript -->
+  <script src="../../js/tools-common.js"></script>
+  <!-- HashMap JavaScript -->
+  <script src="hashmap.js"></script>
+</body>
+</html>

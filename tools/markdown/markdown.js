@@ -115,6 +115,10 @@ function greet(name) {
     // Inline code
     html = html.replace(/`([^`]+)`/g, '<code>$1</code>');
 
+    // Horizontal rules (before bold/italic to prevent *** conflict)
+    html = html.replace(/^---$/gm, '<hr>');
+    html = html.replace(/^\*{3,}$/gm, '<hr>');
+
     // Headers
     html = html.replace(/^###### (.+)$/gm, '<h6>$1</h6>');
     html = html.replace(/^##### (.+)$/gm, '<h5>$1</h5>');
@@ -134,12 +138,11 @@ function greet(name) {
     // Strikethrough
     html = html.replace(/~~(.+?)~~/g, '<del>$1</del>');
 
-    // Blockquotes
-    html = html.replace(/^&gt; (.+)$/gm, '<blockquote><p>$1</p></blockquote>');
-
-    // Horizontal rule
-    html = html.replace(/^---$/gm, '<hr>');
-    html = html.replace(/^\*\*\*$/gm, '<hr>');
+    // Blockquotes - merge consecutive lines
+    html = html.replace(/(^&gt; .+$\n?)+/gm, (block) => {
+      const lines = block.trim().split('\n').map(l => l.replace(/^&gt; /, ''));
+      return '<blockquote><p>' + lines.join('<br>') + '</p></blockquote>';
+    });
 
     // Images
     html = html.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<img src="$2" alt="$1">');
@@ -164,19 +167,26 @@ function greet(name) {
       return '<ul>' + match + '</ul>';
     });
 
-    // Tables
-    html = html.replace(/^\|(.+)\|$/gm, (match, content) => {
-      const cells = content.split('|').map(c => c.trim());
-      if (cells.every(c => /^-+$/.test(c))) {
-        return '<!-- table separator -->';
+    // Tables - collect rows, then build table with proper thead/tbody
+    html = html.replace(/(^\|.+\|$\n?)+/gm, (tableBlock) => {
+      const rows = tableBlock.trim().split('\n');
+      let headerDone = false;
+      let result = '<table>';
+      for (let i = 0; i < rows.length; i++) {
+        const content = rows[i].replace(/^\||\|$/g, '');
+        const cells = content.split('|').map(c => c.trim());
+        // Skip separator row (e.g. | --- | --- |)
+        if (cells.every(c => /^:?-+:?$/.test(c))) {
+          headerDone = true;
+          continue;
+        }
+        const tag = (!headerDone) ? 'th' : 'td';
+        const row = cells.map(c => `<${tag}>${c}</${tag}>`).join('');
+        result += `<tr>${row}</tr>`;
       }
-      const isHeader = html.indexOf(match) === html.indexOf('|');
-      const tag = isHeader ? 'th' : 'td';
-      const row = cells.map(c => `<${tag}>${c}</${tag}>`).join('');
-      return `<tr>${row}</tr>`;
+      result += '</table>';
+      return result;
     });
-    html = html.replace(/(<tr>.*<\/tr>\n?)+/g, '<table>$&</table>');
-    html = html.replace(/<!-- table separator -->\n?/g, '');
 
     // Paragraphs
     html = html.replace(/^(?!<[a-z]|$)(.+)$/gm, '<p>$1</p>');
@@ -385,7 +395,7 @@ function greet(name) {
       showToast(`Loaded: ${file.name}`, 'success');
     };
     reader.onerror = () => {
-      showToast('Failed to read file');
+      showToast('Failed to read file', 'error');
     };
     reader.readAsText(file);
   }

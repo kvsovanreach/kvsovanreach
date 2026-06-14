@@ -93,6 +93,14 @@
     let origLines = original.split('\n');
     let modLines = modified.split('\n');
 
+    // Guard against very large inputs that would exhaust memory
+    const MAX_LINES = 5000;
+    if (origLines.length > MAX_LINES || modLines.length > MAX_LINES) {
+      origLines = origLines.slice(0, MAX_LINES);
+      modLines = modLines.slice(0, MAX_LINES);
+      state._truncated = true;
+    }
+
     if (state.ignoreCase) {
       origLines = origLines.map(l => l.toLowerCase());
       modLines = modLines.map(l => l.toLowerCase());
@@ -164,20 +172,6 @@
     const modLines = [];
     let origLineNum = 0;
     let modLineNum = 0;
-
-    // Group adjacent changes for word-level diff
-    const groups = [];
-    let currentGroup = [];
-
-    diff.forEach((d, i) => {
-      currentGroup.push(d);
-      if (d.type === 'equal' || i === diff.length - 1) {
-        if (currentGroup.length > 0) {
-          groups.push([...currentGroup]);
-          currentGroup = [];
-        }
-      }
-    });
 
     diff.forEach(d => {
       if (d.type === 'equal') {
@@ -279,11 +273,16 @@
     const modified = elements.modifiedText.value;
 
     if (!original && !modified) {
-      showToast('Please enter text in both panels');
+      showToast('Please enter text in at least one panel');
       return;
     }
 
+    state._truncated = false;
     const diff = computeDiff(original, modified);
+
+    if (state._truncated) {
+      showToast('Truncated to 5000 lines for performance', 'warning');
+    }
 
     // Calculate stats
     const additions = diff.filter(d => d.type === 'added').length;
@@ -319,14 +318,7 @@
     elements.modifiedChars.textContent = `${modText.length} chars`;
   }
 
-  function showToast(message, type = 'default') {
-    elements.toast.textContent = message;
-    elements.toast.className = 'toast show' + (type !== 'default' ? ` ${type}` : '');
-
-    setTimeout(() => {
-      elements.toast.classList.remove('show');
-    }, 2500);
-  }
+  const showToast = (message, type) => ToolsCommon.showToast(message, type);
 
   async function pasteFromClipboard(target) {
     try {

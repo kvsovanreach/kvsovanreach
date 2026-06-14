@@ -598,16 +598,7 @@
   // ============================================
   // Toast
   // ============================================
-  function showToast(message, type = 'info') {
-    if (!elements.toast) return;
-
-    elements.toast.textContent = message;
-    elements.toast.className = 'toast show ' + type;
-
-    setTimeout(() => {
-      elements.toast.classList.remove('show');
-    }, 3000);
-  }
+  const showToast = (message, type) => ToolsCommon.showToast(message, type);
 
   // ============================================
   // Initialize

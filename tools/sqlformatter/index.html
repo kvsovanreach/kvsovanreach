@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Format, beautify, and syntax-highlight SQL queries with customizable options.">
+  <meta property="og:title" content="KVSOVANREACH | SQL Formatter">
+  <meta property="og:description" content="Format and beautify SQL queries with syntax highlighting, indentation options, and minify mode.">
+  <meta property="og:image" content="/assets/img/favicons/og-image.png">
+  <title>KVSOVANREACH | SQL Formatter</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+  <!-- Common Tools CSS -->
+  <link rel="stylesheet" href="../../css/tools-common.css">
+  <!-- SQL Formatter CSS -->
+  <link rel="stylesheet" href="sqlformatter.css">
+</head>
+<body>
+  <!-- Skip to Content -->
+  <a href="#sqlformatter" class="skip-link">Skip to SQL formatter</a>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">TOOLS</span>
+      </a>
+
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="tool-page">
+    <div class="container">
+      <div class="sql-wrapper" id="sqlformatter">
+        <!-- Header -->
+        <div class="sql-header">
+          <h2><i class="fa-solid fa-database"></i> SQL Formatter</h2>
+          <div class="header-actions">
+            <button type="button" class="header-action-btn" id="sampleBtn" title="Load sample query">
+              <i class="fa-solid fa-flask"></i>
+            </button>
+            <button type="button" class="header-action-btn" id="clearBtn" title="Clear all">
+              <i class="fa-solid fa-trash"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Options Bar -->
+        <div class="sql-options">
+          <div class="option-group">
+            <label for="indentSize">Indent</label>
+            <select id="indentSize">
+              <option value="2" selected>2 spaces</option>
+              <option value="4">4 spaces</option>
+              <option value="tab">Tab</option>
+            </select>
+          </div>
+          <div class="option-group">
+            <label class="checkbox-label">
+              <input type="checkbox" id="uppercaseKeywords" checked>
+              <span>Uppercase Keywords</span>
+            </label>
+          </div>
+          <div class="option-group">
+            <label class="checkbox-label">
+              <input type="checkbox" id="lineBreakAndOr" checked>
+              <span>Break AND/OR</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Content -->
+        <div class="sql-content">
+          <!-- Input Panel -->
+          <div class="sql-panel input-panel">
+            <div class="panel-header">
+              <h3>Input</h3>
+              <div class="panel-actions">
+                <button type="button" class="panel-btn" id="pasteBtn" title="Paste from clipboard" aria-label="Paste from clipboard">
+                  <i class="fa-solid fa-paste"></i>
+                </button>
+              </div>
+            </div>
+            <div class="editor-container">
+              <textarea id="sqlInput" placeholder="Paste your SQL query here..." spellcheck="false"></textarea>
+            </div>
+            <div class="panel-status">
+              <span class="char-count" id="inputStats">0 chars | 0 lines</span>
+            </div>
+          </div>
+
+          <!-- Controls -->
+          <div class="sql-controls">
+            <button type="button" class="control-btn primary" id="formatBtn">
+              <i class="fa-solid fa-wand-magic-sparkles"></i>
+              <span>Format</span>
+            </button>
+            <button type="button" class="control-btn" id="minifyBtn">
+              <i class="fa-solid fa-compress"></i>
+              <span>Minify</span>
+            </button>
+          </div>
+
+          <!-- Output Panel -->
+          <div class="sql-panel output-panel">
+            <div class="panel-header">
+              <h3>Output</h3>
+              <div class="panel-actions">
+                <button type="button" class="panel-btn" id="copyBtn" title="Copy to clipboard" aria-label="Copy to clipboard">
+                  <i class="fa-solid fa-copy"></i>
+                </button>
+              </div>
+            </div>
+            <div class="editor-container output-container">
+              <pre id="sqlOutput" class="sql-output"></pre>
+            </div>
+            <div class="panel-status">
+              <span class="char-count" id="outputStats">0 chars | 0 lines</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Error Panel -->
+        <div class="error-panel" id="errorPanel">
+          <div class="error-header">
+            <i class="fa-solid fa-triangle-exclamation"></i>
+            <span>Error</span>
+          </div>
+          <div class="error-message" id="errorMessage"></div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach. All rights reserved.</p>
+        <p class="footer-made">Made with 💗 and Claude Code xD</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Shared Tools JavaScript -->
+  <script src="../../js/tools-common.js"></script>
+  <!-- SQL Formatter JavaScript -->
+  <script src="sqlformatter.js"></script>
+</body>
+</html>

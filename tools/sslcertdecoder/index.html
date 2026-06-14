@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Decode and inspect SSL/X.509 certificates in PEM format. View subject, issuer, validity, extensions, and more.">
+  <meta property="og:title" content="KVSOVANREACH | SSL Certificate Decoder">
+  <meta property="og:description" content="Decode PEM certificates to view subject, issuer, validity, SANs, key usage, and expiry status.">
+  <meta property="og:image" content="/assets/img/favicons/og-image.png">
+  <title>KVSOVANREACH | SSL Certificate Decoder</title>
+
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  <link rel="stylesheet" href="../../css/tools-common.css">
+  <link rel="stylesheet" href="sslcertdecoder.css">
+</head>
+<body>
+  <a href="#ssl" class="skip-link">Skip to SSL Decoder</a>
+
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">TOOLS</span>
+      </a>
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <main class="tool-page">
+    <div class="container">
+      <div class="ssl-wrapper" id="ssl">
+        <div class="ssl-header">
+          <h2><i class="fa-solid fa-shield-halved"></i> SSL Certificate Decoder</h2>
+        </div>
+
+        <!-- Input Section -->
+        <div class="ssl-content">
+          <div class="ssl-input-section">
+            <div class="section-header">
+              <h3>PEM Certificate</h3>
+              <div class="section-actions">
+                <button type="button" class="action-btn secondary" id="sampleBtn">
+                  <i class="fa-solid fa-flask"></i>
+                  <span>Sample</span>
+                </button>
+                <button type="button" class="action-btn secondary" id="pasteBtn">
+                  <i class="fa-solid fa-paste"></i>
+                  <span>Paste</span>
+                </button>
+                <button type="button" class="action-btn secondary" id="clearBtn">
+                  <i class="fa-solid fa-trash"></i>
+                  <span>Clear</span>
+                </button>
+              </div>
+            </div>
+            <textarea id="pemInput" spellcheck="false" rows="10" placeholder="-----BEGIN CERTIFICATE-----&#10;Paste your PEM certificate here...&#10;-----END CERTIFICATE-----"></textarea>
+            <button type="button" class="action-btn primary decode-btn" id="decodeBtn">
+              <i class="fa-solid fa-lock-open"></i>
+              <span>Decode Certificate</span>
+            </button>
+          </div>
+
+          <!-- Results Section -->
+          <div class="ssl-results hidden" id="sslResults">
+
+            <!-- Expiry Status Banner -->
+            <div class="expiry-banner" id="expiryBanner">
+              <div class="expiry-icon" id="expiryIcon"></div>
+              <div class="expiry-info">
+                <div class="expiry-status" id="expiryStatus"></div>
+                <div class="expiry-countdown" id="expiryCountdown"></div>
+              </div>
+            </div>
+
+            <!-- Subject -->
+            <div class="cert-section">
+              <div class="cert-section-header">
+                <h3><i class="fa-solid fa-id-card"></i> Subject</h3>
+              </div>
+              <div class="cert-fields" id="subjectFields"></div>
+            </div>
+
+            <!-- Issuer -->
+            <div class="cert-section">
+              <div class="cert-section-header">
+                <h3><i class="fa-solid fa-stamp"></i> Issuer</h3>
+              </div>
+              <div class="cert-fields" id="issuerFields"></div>
+            </div>
+
+            <!-- Validity -->
+            <div class="cert-section">
+              <div class="cert-section-header">
+                <h3><i class="fa-solid fa-calendar-check"></i> Validity</h3>
+              </div>
+              <div class="cert-fields" id="validityFields"></div>
+            </div>
+
+            <!-- Serial & Algorithm -->
+            <div class="cert-section">
+              <div class="cert-section-header">
+                <h3><i class="fa-solid fa-fingerprint"></i> Serial & Algorithm</h3>
+              </div>
+              <div class="cert-fields" id="serialAlgoFields"></div>
+            </div>
+
+            <!-- Key Info -->
+            <div class="cert-section">
+              <div class="cert-section-header">
+                <h3><i class="fa-solid fa-key"></i> Public Key</h3>
+              </div>
+              <div class="cert-fields" id="keyFields"></div>
+            </div>
+
+            <!-- Extensions -->
+            <div class="cert-section">
+              <div class="cert-section-header">
+                <h3><i class="fa-solid fa-puzzle-piece"></i> Extensions</h3>
+              </div>
+              <div class="cert-fields" id="extensionFields"></div>
+            </div>
+
+            <!-- Certificate Chain -->
+            <div class="cert-section">
+              <div class="cert-section-header">
+                <h3><i class="fa-solid fa-link"></i> Chain Info</h3>
+              </div>
+              <div class="cert-fields" id="chainFields"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach.</p>
+        <p class="footer-made">Made with 💗 and Claude Code xD</p>
+      </div>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="../../js/tools-common.js"></script>
+  <script src="sslcertdecoder.js"></script>
+</body>
+</html>

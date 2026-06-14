@@ -878,23 +878,10 @@
   }
 
   function copyToClipboard(text) {
-    navigator.clipboard.writeText(text).then(() => {
-      showToast('Copied to clipboard!', 'success');
-    }).catch(() => {
-      showToast('Failed to copy', 'error');
-    });
+    ToolsCommon.copyWithToast(text, 'Copied to clipboard!', 'Failed to copy');
   }
 
-  function showToast(message, type = 'info') {
-    if (!elements.toast) return;
-
-    elements.toast.textContent = message;
-    elements.toast.className = 'toast show ' + type;
-
-    setTimeout(() => {
-      elements.toast.classList.remove('show');
-    }, 3000);
-  }
+  const showToast = (message, type) => ToolsCommon.showToast(message, type);
 
   // ============================================
   // Initialize

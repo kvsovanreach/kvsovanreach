@@ -286,7 +286,7 @@
     elements.victorySection.classList.remove('hidden');
 
     if (typeof ToolsCommon !== 'undefined') {
-      ToolsCommon.Toast.success('Congratulations! Puzzle solved!');
+      ToolsCommon.Toast.show('Congratulations! Puzzle solved!', 'success');
     }
   }
 
@@ -387,7 +387,7 @@
           renderGrid();
 
           if (typeof ToolsCommon !== 'undefined') {
-            ToolsCommon.Toast.info(`Hint: ${pItem} → ${expectedItem}`);
+            ToolsCommon.Toast.show(`Hint: ${pItem} → ${expectedItem}`, 'info');
           }
           return;
         }

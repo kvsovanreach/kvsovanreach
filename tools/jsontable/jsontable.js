@@ -368,6 +368,21 @@
 
     // Keyboard shortcuts
     document.addEventListener('keydown', (e) => {
+      // Ctrl+Enter to convert (works even in textarea)
+      if (e.ctrlKey && e.key === 'Enter') {
+        e.preventDefault();
+        convert();
+        return;
+      }
+
+      // Ctrl+S to download (works even in textarea)
+      if (e.ctrlKey && e.key === 's') {
+        e.preventDefault();
+        downloadCSV();
+        return;
+      }
+
+      // Tab shortcuts only when not in an input field
       if (e.target.matches('textarea, input, select')) return;
 
       switch (e.key) {
@@ -380,18 +395,6 @@
         case '3':
           switchTab('csv');
           break;
-      }
-
-      // Ctrl+Enter to convert
-      if (e.ctrlKey && e.key === 'Enter') {
-        e.preventDefault();
-        convert();
-      }
-
-      // Ctrl+S to download
-      if (e.ctrlKey && e.key === 's') {
-        e.preventDefault();
-        downloadCSV();
       }
     });
   }

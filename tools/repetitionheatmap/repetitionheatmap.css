@@ -11,7 +11,7 @@
   border: 1px solid var(--color-border);
   border-radius: var(--radius-xl);
   overflow: hidden;
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--shadow-card);
 }
 
 /* ==================== Header ==================== */
@@ -20,7 +20,7 @@
   align-items: center;
   padding: var(--space-4) var(--space-5);
   background-color: var(--color-surface);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border-light);
 }
 
 .heatmap-header h2 {
@@ -119,7 +119,7 @@
 }
 
 .stat-value {
-  font-family: 'Fira Code', monospace;
+  font-family: var(--font-mono);
   font-size: var(--font-size-lg);
   font-weight: 700;
   color: var(--color-text);
@@ -169,6 +169,11 @@
   background-color: var(--color-primary);
   color: #fff;
   border-color: var(--color-primary);
+}
+
+.quick-action-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px var(--color-primary-muted);
 }
 
 /* Top Words Card */
@@ -304,11 +309,11 @@
   height: 12px;
   border-radius: var(--radius-sm);
   background: linear-gradient(90deg,
-    #3b82f6 0%,
-    #22c55e 25%,
+    var(--color-info) 0%,
+    var(--color-success) 25%,
     #eab308 50%,
     #f97316 75%,
-    #ef4444 100%
+    var(--color-error) 100%
   );
 }
 
@@ -385,7 +390,7 @@
   align-items: center;
   padding: var(--space-3) var(--space-4);
   background-color: var(--color-bg-tertiary);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border-light);
 }
 
 .options-header h4 {
@@ -568,17 +573,17 @@
 }
 
 /* Heat levels */
-.heat-1 { background-color: rgba(59, 130, 246, 0.3); color: #1d4ed8; }
-.heat-2 { background-color: rgba(34, 197, 94, 0.3); color: #15803d; }
+.heat-1 { background-color: color-mix(in srgb, var(--color-info) 30%, transparent); color: #1d4ed8; }
+.heat-2 { background-color: color-mix(in srgb, var(--color-success) 30%, transparent); color: #15803d; }
 .heat-3 { background-color: rgba(234, 179, 8, 0.4); color: #a16207; }
 .heat-4 { background-color: rgba(249, 115, 22, 0.4); color: #c2410c; }
-.heat-5 { background-color: rgba(239, 68, 68, 0.5); color: #b91c1c; }
+.heat-5 { background-color: color-mix(in srgb, var(--color-error) 50%, transparent); color: #b91c1c; }
 
-[data-theme="dark"] .heat-1 { background-color: rgba(59, 130, 246, 0.4); color: #60a5fa; }
-[data-theme="dark"] .heat-2 { background-color: rgba(34, 197, 94, 0.4); color: #4ade80; }
+[data-theme="dark"] .heat-1 { background-color: color-mix(in srgb, var(--color-info) 40%, transparent); color: var(--color-info); }
+[data-theme="dark"] .heat-2 { background-color: color-mix(in srgb, var(--color-success) 40%, transparent); color: var(--color-success); }
 [data-theme="dark"] .heat-3 { background-color: rgba(234, 179, 8, 0.5); color: #facc15; }
 [data-theme="dark"] .heat-4 { background-color: rgba(249, 115, 22, 0.5); color: #fb923c; }
-[data-theme="dark"] .heat-5 { background-color: rgba(239, 68, 68, 0.6); color: #f87171; }
+[data-theme="dark"] .heat-5 { background-color: color-mix(in srgb, var(--color-error) 60%, transparent); color: var(--color-error); }
 
 /* Non-highlighted words */
 .heat-word.neutral {
@@ -629,6 +634,11 @@
   background-color: var(--color-bg-tertiary);
   transform: translateY(-2px);
   box-shadow: var(--shadow-md);
+}
+
+.sample-card:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px var(--color-primary-muted);
 }
 
 .sample-icon {

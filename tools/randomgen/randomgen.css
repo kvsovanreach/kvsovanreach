@@ -11,7 +11,7 @@
   border: 1px solid var(--color-border);
   border-radius: var(--radius-xl);
   overflow: hidden;
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--shadow-card);
 }
 
 /* Header */
@@ -21,7 +21,7 @@
   justify-content: space-between;
   padding: var(--space-4) var(--space-5);
   background-color: var(--color-surface);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border-light);
 }
 
 .random-header h2 {
@@ -65,6 +65,11 @@
   border-color: var(--color-primary);
 }
 
+.header-action-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px var(--color-primary-muted);
+}
+
 /* Content */
 .random-content {
   padding: var(--space-5);
@@ -106,7 +111,7 @@
   border: 2px solid var(--color-border);
   border-radius: var(--radius-md);
   font-size: var(--font-size-base);
-  font-family: 'Fira Code', monospace;
+  font-family: var(--font-mono);
   color: var(--color-text);
   transition: border-color var(--transition-fast);
   box-sizing: border-box;
@@ -132,7 +137,7 @@
   border: 2px solid var(--color-border);
   border-radius: var(--radius-md);
   font-size: var(--font-size-base);
-  font-family: 'Fira Code', monospace;
+  font-family: var(--font-mono);
   color: var(--color-text);
   box-sizing: border-box;
 }
@@ -191,6 +196,11 @@
 
 .generate-btn:hover {
   background-color: var(--color-primary-dark);
+}
+
+.generate-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px var(--color-primary-muted);
 }
 
 /* Results Section */
@@ -258,7 +268,7 @@
   background-color: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
-  font-family: 'Fira Code', monospace;
+  font-family: var(--font-mono);
   font-size: var(--font-size-sm);
   color: var(--color-text);
   animation: fadeIn 0.2s ease;
@@ -326,7 +336,7 @@
 }
 
 .stat-value {
-  font-family: 'Fira Code', monospace;
+  font-family: var(--font-mono);
   font-size: var(--font-size-lg);
   font-weight: 600;
   color: var(--color-primary);
@@ -375,6 +385,11 @@
   background-color: var(--color-bg-tertiary);
 }
 
+.preset-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px var(--color-primary-muted);
+}
+
 .preset-btn i {
   font-size: var(--font-size-xl);
   color: var(--color-primary);
@@ -399,7 +414,7 @@
   gap: var(--space-2);
   padding: var(--space-3) var(--space-4);
   background-color: var(--color-bg-tertiary);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border-light);
   font-size: var(--font-size-sm);
   font-weight: 600;
   color: var(--color-text);

@@ -298,7 +298,7 @@
     elements.gameOverlay.classList.remove('hidden');
 
     if (typeof ToolsCommon !== 'undefined') {
-      ToolsCommon.Toast.success('Congratulations! You reached 2048!');
+      ToolsCommon.Toast.show('Congratulations! You reached 2048!', 'success');
     }
   }
 

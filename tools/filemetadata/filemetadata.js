@@ -108,6 +108,22 @@
     return 'Other';
   }
 
+  const CATEGORY_ICONS = {
+    'Image':    { icon: 'fa-image',        class: 'image'   },
+    'Video':    { icon: 'fa-video',         class: 'video'   },
+    'Audio':    { icon: 'fa-music',         class: 'audio'   },
+    'PDF':      { icon: 'fa-file-pdf',      class: 'pdf'     },
+    'Document': { icon: 'fa-file-word',     class: 'doc'     },
+    'Text':     { icon: 'fa-file-code',     class: 'code'    },
+    'Code':     { icon: 'fa-file-code',     class: 'code'    },
+    'Archive':  { icon: 'fa-file-archive',  class: 'archive' },
+    'Other':    { icon: 'fa-file',          class: 'default' }
+  };
+
+  function getCategoryIcon(category) {
+    return CATEGORY_ICONS[category] || CATEGORY_ICONS['Other'];
+  }
+
   // ==================== File Selection ====================
   function selectFile(index) {
     state.selectedIndex = index;
@@ -183,7 +199,7 @@
     elements.fileTypes.textContent = Object.keys(typeCount).length;
 
     elements.typeBreakdown.innerHTML = Object.entries(typeCount).map(([type, count]) => {
-      const iconInfo = getFileIcon(type);
+      const iconInfo = getCategoryIcon(type);
       return `
         <div class="type-badge">
           <i class="fa-solid ${iconInfo.icon} type-badge-icon"></i>

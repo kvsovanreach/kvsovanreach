@@ -9,7 +9,7 @@
   border: 1px solid var(--color-border);
   border-radius: var(--radius-xl);
   overflow: hidden;
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--shadow-card);
 }
 
 .card-header {
@@ -18,7 +18,7 @@
   justify-content: space-between;
   padding: var(--space-4) var(--space-5);
   background-color: var(--color-surface);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border-light);
 }
 
 .card-header h2 {
@@ -92,7 +92,7 @@
 
 .card-number {
   font-size: var(--font-size-xl);
-  font-family: 'Fira Code', monospace;
+  font-family: var(--font-mono);
   font-weight: 500;
   color: white;
   letter-spacing: 2px;
@@ -125,7 +125,7 @@
   border: 2px solid var(--color-border);
   border-radius: var(--radius-md);
   font-size: var(--font-size-xl);
-  font-family: 'Fira Code', monospace;
+  font-family: var(--font-mono);
   color: var(--color-text);
   letter-spacing: 2px;
   text-align: center;
@@ -155,8 +155,8 @@
 }
 
 .result-status i { font-size: var(--font-size-xl); }
-.result-status.valid { color: #22c55e; background-color: rgba(34, 197, 94, 0.1); }
-.result-status.invalid { color: #ef4444; background-color: rgba(239, 68, 68, 0.1); }
+.result-status.valid { color: var(--color-success); background-color: color-mix(in srgb, var(--color-success) 10%, transparent); }
+.result-status.invalid { color: var(--color-error); background-color: color-mix(in srgb, var(--color-error) 10%, transparent); }
 
 .card-info {
   display: flex;
@@ -180,13 +180,13 @@
 .info-value {
   font-size: var(--font-size-sm);
   font-weight: 600;
-  font-family: 'Fira Code', monospace;
+  font-family: var(--font-mono);
   color: var(--color-text);
 }
 
 .test-numbers {
   padding-top: var(--space-4);
-  border-top: 1px solid var(--color-border);
+  border-top: 1px solid var(--color-border-light);
 }
 
 .test-numbers h3 {
@@ -216,6 +216,13 @@
 .test-btn:hover {
   border-color: var(--color-primary);
   color: var(--color-primary);
+}
+
+/* Focus ring for all interactive buttons */
+.header-action-btn:focus-visible,
+.test-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px var(--color-primary-muted);
 }
 
 @media screen and (max-width: 768px) {

@@ -1,0 +1,521 @@
+/* ==================== Port Reference Tool Styles ==================== */
+
+/* ==================== Wrapper ==================== */
+.port-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+}
+
+/* ==================== Header ==================== */
+.port-header {
+  display: flex;
+  align-items: center;
+  padding: var(--space-4) var(--space-5);
+  background-color: var(--color-surface);
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.port-header h2 {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-size: var(--font-size-xl);
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.port-header h2 i {
+  color: var(--color-primary);
+}
+
+/* ==================== Port Ranges ==================== */
+.port-ranges {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-3);
+  padding: var(--space-4) var(--space-5);
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.range-card {
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-lg);
+  background-color: var(--color-bg-secondary);
+  border: 1px solid var(--color-border-light);
+  text-align: center;
+}
+
+.range-label {
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: var(--space-1);
+}
+
+.range-well-known .range-label { color: #2e7d32; }
+.range-registered .range-label { color: #1565c0; }
+.range-dynamic .range-label { color: #6a1b9a; }
+
+.range-value {
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  color: var(--color-text);
+  font-family: var(--font-mono);
+}
+
+.range-desc {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  margin-top: var(--space-1);
+}
+
+/* ==================== Content ==================== */
+.port-content {
+  padding: var(--space-4) var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+/* ==================== Quick Lookup ==================== */
+.quick-lookup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.lookup-box {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.lookup-icon {
+  position: absolute;
+  left: var(--space-4);
+  color: var(--color-primary);
+  pointer-events: none;
+  font-size: var(--font-size-base);
+}
+
+.lookup-box input {
+  width: 100%;
+  padding: var(--space-3) var(--space-4) var(--space-3) calc(var(--space-4) + 28px);
+  font-size: var(--font-size-lg);
+  font-family: var(--font-mono);
+  color: var(--color-text);
+  background-color: var(--color-bg-secondary);
+  border: 2px solid var(--color-primary-muted);
+  border-radius: var(--radius-md);
+  transition: all var(--transition-fast);
+}
+
+.lookup-box input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(145, 33, 78, 0.15);
+}
+
+.lookup-box input::placeholder {
+  color: var(--color-text-muted);
+  font-family: inherit;
+}
+
+/* Hide number input arrows */
+.lookup-box input::-webkit-outer-spin-button,
+.lookup-box input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.lookup-box input[type=number] { -moz-appearance: textfield; }
+
+.quick-result {
+  padding: var(--space-3) var(--space-4);
+  background-color: var(--color-bg-secondary);
+  border-radius: var(--radius-md);
+  border-left: 4px solid var(--color-primary);
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-size: var(--font-size-sm);
+  color: var(--color-text);
+}
+
+.quick-result .qr-port {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: var(--font-size-lg);
+  color: var(--color-primary);
+}
+
+.quick-result .qr-service {
+  font-weight: 600;
+}
+
+.quick-result .qr-desc {
+  color: var(--color-text-secondary);
+}
+
+.quick-result .qr-not-found {
+  color: var(--color-text-muted);
+  font-style: italic;
+}
+
+/* ==================== Search & Filters ==================== */
+.search-filter-row {
+  display: flex;
+  gap: var(--space-3);
+}
+
+.search-box {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+
+.search-icon {
+  position: absolute;
+  left: var(--space-4);
+  color: var(--color-text-muted);
+  pointer-events: none;
+}
+
+.search-box input {
+  width: 100%;
+  padding: var(--space-3) var(--space-10) var(--space-3) calc(var(--space-4) + 24px);
+  font-size: var(--font-size-base);
+  font-family: inherit;
+  color: var(--color-text);
+  background-color: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  transition: all var(--transition-fast);
+}
+
+.search-box input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(145, 33, 78, 0.1);
+}
+
+.search-box input::placeholder {
+  color: var(--color-text-muted);
+}
+
+.clear-search {
+  position: absolute;
+  right: var(--space-3);
+  background: none;
+  border: none;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  padding: var(--space-1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-md);
+  transition: color var(--transition-fast);
+}
+
+.clear-search:hover {
+  color: var(--color-text);
+}
+
+/* ==================== Category Tabs ==================== */
+.category-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.cat-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: var(--space-2) var(--space-3);
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  font-family: inherit;
+  color: var(--color-text-secondary);
+  background-color: var(--color-bg-secondary);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+}
+
+.cat-tab:hover {
+  background-color: var(--color-surface-hover);
+  color: var(--color-text);
+}
+
+.cat-tab.active {
+  background-color: var(--color-primary);
+  color: #fff;
+  border-color: var(--color-primary);
+}
+
+.cat-tab:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* ==================== Result Count ==================== */
+.result-count {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}
+
+/* ==================== Port Table ==================== */
+.port-table-wrapper {
+  overflow-x: auto;
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-lg);
+}
+
+.port-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--font-size-sm);
+}
+
+.port-table thead {
+  background-color: var(--color-bg-tertiary);
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.port-table th {
+  padding: var(--space-3) var(--space-4);
+  text-align: left;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-bottom: 2px solid var(--color-border);
+  white-space: nowrap;
+}
+
+.port-table td {
+  padding: var(--space-3) var(--space-4);
+  color: var(--color-text);
+  border-bottom: 1px solid var(--color-border-light);
+  vertical-align: middle;
+}
+
+.port-table tbody tr {
+  transition: background-color var(--transition-fast);
+  cursor: pointer;
+}
+
+.port-table tbody tr:hover {
+  background-color: var(--color-surface-hover);
+}
+
+.port-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* Column widths */
+.col-port { width: 90px; }
+.col-protocol { width: 100px; }
+.col-service { width: 160px; }
+.col-category { width: 130px; }
+
+/* Port number styling */
+.port-number {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: var(--font-size-base);
+  color: var(--color-primary);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.port-number .copy-hint {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  opacity: 0;
+  transition: opacity var(--transition-fast);
+}
+
+.port-table tbody tr:hover .copy-hint {
+  opacity: 1;
+}
+
+/* Protocol badge */
+.protocol-badge {
+  display: inline-block;
+  padding: 2px var(--space-2);
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  border-radius: var(--radius-md);
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+}
+
+.protocol-badge.tcp {
+  background-color: rgba(25, 118, 210, 0.12);
+  color: #1976d2;
+}
+
+.protocol-badge.udp {
+  background-color: rgba(56, 142, 60, 0.12);
+  color: #388e3c;
+}
+
+.protocol-badge.both {
+  background-color: rgba(123, 31, 162, 0.12);
+  color: #7b1fa2;
+}
+
+/* Service name */
+.service-name {
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+/* Category badge */
+.category-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: 2px var(--space-2);
+  font-size: var(--font-size-xs);
+  font-weight: 500;
+  border-radius: var(--radius-md);
+  white-space: nowrap;
+}
+
+.category-badge.cat-web {
+  background-color: rgba(233, 30, 99, 0.1);
+  color: #c2185b;
+}
+
+.category-badge.cat-email {
+  background-color: rgba(255, 152, 0, 0.1);
+  color: #e65100;
+}
+
+.category-badge.cat-database {
+  background-color: rgba(0, 150, 136, 0.1);
+  color: #00796b;
+}
+
+.category-badge.cat-filetransfer {
+  background-color: rgba(33, 150, 243, 0.1);
+  color: #1565c0;
+}
+
+.category-badge.cat-remote {
+  background-color: rgba(156, 39, 176, 0.1);
+  color: #7b1fa2;
+}
+
+.category-badge.cat-dns {
+  background-color: rgba(76, 175, 80, 0.1);
+  color: #2e7d32;
+}
+
+.category-badge.cat-messaging {
+  background-color: rgba(255, 193, 7, 0.12);
+  color: #f57f17;
+}
+
+.category-badge.cat-other {
+  background-color: rgba(120, 144, 156, 0.12);
+  color: #546e7a;
+}
+
+/* ==================== No Results ==================== */
+.no-results {
+  text-align: center;
+  padding: var(--space-8) var(--space-4);
+  color: var(--color-text-muted);
+}
+
+.no-results i {
+  font-size: 2.5rem;
+  margin-bottom: var(--space-3);
+  opacity: 0.5;
+}
+
+.no-results p {
+  font-size: var(--font-size-base);
+}
+
+/* ==================== Utility ==================== */
+.hidden {
+  display: none !important;
+}
+
+/* ==================== Responsive ==================== */
+@media (max-width: 768px) {
+  .port-ranges {
+    grid-template-columns: 1fr;
+    padding: var(--space-3) var(--space-4);
+  }
+
+  .port-content {
+    padding: var(--space-3) var(--space-4);
+  }
+
+  .port-header {
+    padding: var(--space-3) var(--space-4);
+  }
+
+  .category-tabs {
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    padding-bottom: var(--space-2);
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .port-table th,
+  .port-table td {
+    padding: var(--space-2) var(--space-3);
+  }
+
+  .col-description {
+    min-width: 200px;
+  }
+
+  .col-category {
+    display: none;
+  }
+
+  .port-table th:last-child,
+  .port-table td:last-child {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .port-header h2 {
+    font-size: var(--font-size-lg);
+  }
+
+  .range-value {
+    font-size: var(--font-size-base);
+  }
+
+  .cat-tab {
+    font-size: var(--font-size-xs);
+    padding: var(--space-1) var(--space-2);
+  }
+
+  .cat-tab i {
+    display: none;
+  }
+}

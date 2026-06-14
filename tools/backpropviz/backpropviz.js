@@ -288,7 +288,7 @@
         // Activation value
         ctx.fillStyle = getComputedStyle(document.documentElement)
           .getPropertyValue('--color-text').trim() || '#1e293b';
-        ctx.font = '10px "Fira Code", monospace';
+        ctx.font = '10px "SF Mono", SFMono-Regular, ui-monospace, Menlo, Monaco, "Cascadia Mono", Consolas, monospace';
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
         ctx.fillText(activation.toFixed(2), pos.x, pos.y);

@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="CIDR notation calculator with subnet visualizer, binary representation, subnet division, and range converter.">
+  <meta property="og:title" content="KVSOVANREACH | Network CIDR Calculator">
+  <meta property="og:description" content="CIDR calculator with subnet visualization, binary IP representation, subnet splitting, and supernetting.">
+  <meta property="og:image" content="/assets/img/favicons/og-image.png">
+  <title>KVSOVANREACH | Network CIDR Calculator</title>
+
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  <link rel="stylesheet" href="../../css/tools-common.css">
+  <link rel="stylesheet" href="networkcidr.css">
+</head>
+<body>
+  <a href="#cidr" class="skip-link">Skip to CIDR Calculator</a>
+
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">TOOLS</span>
+      </a>
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <main class="tool-page">
+    <div class="container">
+      <div class="cidr-wrapper" id="cidr">
+        <div class="cidr-header">
+          <h2><i class="fa-solid fa-network-wired"></i> Network CIDR Calculator</h2>
+          <div class="header-actions">
+            <button type="button" class="header-action-btn" id="clearBtn" title="Clear">
+              <i class="fa-solid fa-trash-can"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Tabs -->
+        <div class="tool-tabs">
+          <button type="button" class="tool-tab active" data-tab="calculator">
+            <i class="fa-solid fa-calculator"></i>
+            <span>Calculator</span>
+          </button>
+          <button type="button" class="tool-tab" data-tab="cidr2range">
+            <i class="fa-solid fa-arrows-left-right"></i>
+            <span>CIDR to Range</span>
+          </button>
+          <button type="button" class="tool-tab" data-tab="range2cidr">
+            <i class="fa-solid fa-arrows-turn-right"></i>
+            <span>Range to CIDR</span>
+          </button>
+          <button type="button" class="tool-tab" data-tab="supernet">
+            <i class="fa-solid fa-object-group"></i>
+            <span>Supernet</span>
+          </button>
+        </div>
+
+        <!-- ==================== Calculator Tab ==================== -->
+        <div class="tab-panel active" id="calculatorPanel">
+          <!-- Input -->
+          <div class="input-section">
+            <div class="input-group ip-group">
+              <label for="ipAddress">IP Address / CIDR</label>
+              <div class="cidr-input-row">
+                <input type="text" id="ipAddress" placeholder="192.168.1.0" value="192.168.1.0" spellcheck="false">
+                <span class="cidr-slash">/</span>
+                <input type="number" id="cidrPrefix" min="0" max="32" value="24" class="cidr-num">
+              </div>
+            </div>
+            <div class="quick-cidrs">
+              <button type="button" class="quick-btn" data-cidr="8">/8</button>
+              <button type="button" class="quick-btn" data-cidr="16">/16</button>
+              <button type="button" class="quick-btn" data-cidr="24">/24</button>
+              <button type="button" class="quick-btn" data-cidr="25">/25</button>
+              <button type="button" class="quick-btn" data-cidr="26">/26</button>
+              <button type="button" class="quick-btn" data-cidr="27">/27</button>
+              <button type="button" class="quick-btn" data-cidr="28">/28</button>
+              <button type="button" class="quick-btn" data-cidr="30">/30</button>
+              <button type="button" class="quick-btn" data-cidr="32">/32</button>
+            </div>
+          </div>
+
+          <!-- Results Grid -->
+          <div class="results-grid">
+            <div class="result-card">
+              <span class="result-label">Network Address</span>
+              <span class="result-value" id="networkAddress">-</span>
+              <button type="button" class="copy-field-btn" data-field="networkAddress" title="Copy"><i class="fa-solid fa-copy"></i></button>
+            </div>
+            <div class="result-card">
+              <span class="result-label">Broadcast Address</span>
+              <span class="result-value" id="broadcastAddress">-</span>
+              <button type="button" class="copy-field-btn" data-field="broadcastAddress" title="Copy"><i class="fa-solid fa-copy"></i></button>
+            </div>
+            <div class="result-card">
+              <span class="result-label">Subnet Mask</span>
+              <span class="result-value" id="subnetMask">-</span>
+              <button type="button" class="copy-field-btn" data-field="subnetMask" title="Copy"><i class="fa-solid fa-copy"></i></button>
+            </div>
+            <div class="result-card">
+              <span class="result-label">Wildcard Mask</span>
+              <span class="result-value" id="wildcardMask">-</span>
+              <button type="button" class="copy-field-btn" data-field="wildcardMask" title="Copy"><i class="fa-solid fa-copy"></i></button>
+            </div>
+            <div class="result-card">
+              <span class="result-label">First Usable Host</span>
+              <span class="result-value" id="firstHost">-</span>
+              <button type="button" class="copy-field-btn" data-field="firstHost" title="Copy"><i class="fa-solid fa-copy"></i></button>
+            </div>
+            <div class="result-card">
+              <span class="result-label">Last Usable Host</span>
+              <span class="result-value" id="lastHost">-</span>
+              <button type="button" class="copy-field-btn" data-field="lastHost" title="Copy"><i class="fa-solid fa-copy"></i></button>
+            </div>
+            <div class="result-card">
+              <span class="result-label">Total Addresses</span>
+              <span class="result-value" id="totalHosts">-</span>
+            </div>
+            <div class="result-card">
+              <span class="result-label">Usable Hosts</span>
+              <span class="result-value" id="usableHosts">-</span>
+            </div>
+            <div class="result-card">
+              <span class="result-label">IP Class</span>
+              <span class="result-value" id="ipClass">-</span>
+            </div>
+            <div class="result-card">
+              <span class="result-label">IP Type</span>
+              <span class="result-value" id="ipType">-</span>
+            </div>
+          </div>
+
+          <!-- Binary Visualization -->
+          <div class="binary-section">
+            <h3><i class="fa-solid fa-binary"></i> Binary Representation</h3>
+            <div class="binary-display" id="binaryDisplay">
+              <div class="binary-placeholder">Enter an IP/CIDR to see binary</div>
+            </div>
+            <div class="binary-legend">
+              <span class="legend-item"><span class="legend-color network-bit"></span> Network bits</span>
+              <span class="legend-item"><span class="legend-color host-bit"></span> Host bits</span>
+            </div>
+          </div>
+
+          <!-- Address Space Bar -->
+          <div class="address-bar-section">
+            <h3><i class="fa-solid fa-chart-bar"></i> Address Space</h3>
+            <div class="address-bar" id="addressBar">
+              <div class="address-bar-network" id="addressBarNetwork"></div>
+              <div class="address-bar-host" id="addressBarHost"></div>
+            </div>
+            <div class="address-bar-labels">
+              <span id="addressBarNetworkLabel">Network: 0 bits</span>
+              <span id="addressBarHostLabel">Host: 0 bits</span>
+            </div>
+          </div>
+
+          <!-- Subnet Division -->
+          <div class="subnet-division-section">
+            <h3><i class="fa-solid fa-table-cells"></i> Subnet Division</h3>
+            <div class="division-controls">
+              <label for="splitCidr">Split into</label>
+              <select id="splitCidr"></select>
+            </div>
+            <div class="division-table-wrap">
+              <table class="division-table" id="divisionTable">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Network</th>
+                    <th>First Host</th>
+                    <th>Last Host</th>
+                    <th>Broadcast</th>
+                    <th>Hosts</th>
+                  </tr>
+                </thead>
+                <tbody id="divisionBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- ==================== CIDR to Range Tab ==================== -->
+        <div class="tab-panel" id="cidr2rangePanel">
+          <div class="converter-section">
+            <div class="converter-input-group">
+              <label for="cidrToRangeInput">CIDR Notation</label>
+              <input type="text" id="cidrToRangeInput" placeholder="192.168.1.0/24" spellcheck="false">
+              <button type="button" class="action-btn primary" id="cidrToRangeBtn">
+                <i class="fa-solid fa-arrow-right"></i> Convert
+              </button>
+            </div>
+            <div class="converter-result" id="cidrToRangeResult">
+              <div class="converter-placeholder">Enter a CIDR to convert</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ==================== Range to CIDR Tab ==================== -->
+        <div class="tab-panel" id="range2cidrPanel">
+          <div class="converter-section">
+            <div class="converter-input-group">
+              <label for="rangeStartInput">Start IP</label>
+              <input type="text" id="rangeStartInput" placeholder="192.168.1.0" spellcheck="false">
+            </div>
+            <div class="converter-input-group">
+              <label for="rangeEndInput">End IP</label>
+              <input type="text" id="rangeEndInput" placeholder="192.168.1.255" spellcheck="false">
+            </div>
+            <button type="button" class="action-btn primary" id="rangeToCidrBtn">
+              <i class="fa-solid fa-arrow-right"></i> Convert
+            </button>
+            <div class="converter-result" id="rangeToCidrResult">
+              <div class="converter-placeholder">Enter a range to convert</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ==================== Supernet Tab ==================== -->
+        <div class="tab-panel" id="supernetPanel">
+          <div class="converter-section">
+            <div class="converter-input-group">
+              <label for="supernetInput">Subnets (one per line, CIDR notation)</label>
+              <textarea id="supernetInput" rows="5" placeholder="192.168.1.0/25&#10;192.168.1.128/25" spellcheck="false"></textarea>
+            </div>
+            <button type="button" class="action-btn primary" id="supernetBtn">
+              <i class="fa-solid fa-object-group"></i> Merge Subnets
+            </button>
+            <div class="converter-result" id="supernetResult">
+              <div class="converter-placeholder">Enter subnets to merge</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach.</p>
+        <p class="footer-made">Made with 💗 and Claude Code xD</p>
+      </div>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="../../js/tools-common.js"></script>
+  <script src="networkcidr.js"></script>
+</body>
+</html>

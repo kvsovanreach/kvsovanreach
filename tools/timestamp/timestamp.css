@@ -61,6 +61,11 @@
   color: var(--color-text);
 }
 
+.timestamp-tab:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: -2px;
+}
+
 .timestamp-tab.active {
   color: var(--color-primary);
   background-color: var(--color-bg);
@@ -111,7 +116,7 @@
 .clock-display {
   font-size: 3.5rem;
   font-weight: 700;
-  font-family: 'Monaco', 'Menlo', monospace;
+  font-family: var(--font-mono);
   letter-spacing: 0.05em;
   line-height: 1.2;
 }
@@ -131,8 +136,14 @@
 .timestamp-card {
   padding: var(--space-4);
   background-color: var(--color-bg);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  transition: box-shadow var(--transition-fast);
+}
+
+.timestamp-card:hover {
+  box-shadow: var(--shadow-md);
 }
 
 .card-label {
@@ -152,7 +163,7 @@
 }
 
 .card-value span {
-  font-family: 'Monaco', 'Menlo', monospace;
+  font-family: var(--font-mono);
   font-size: var(--font-size-sm);
   color: var(--color-text);
   word-break: break-all;
@@ -165,8 +176,8 @@
   width: 32px;
   height: 32px;
   background-color: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-md);
   color: var(--color-text-muted);
   cursor: pointer;
   transition: all var(--transition-fast);
@@ -177,6 +188,12 @@
   background-color: var(--color-primary);
   border-color: var(--color-primary);
   color: #fff;
+}
+
+.copy-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--color-primary-muted);
+  border-color: var(--color-primary);
 }
 
 /* ==================== Convert Section ==================== */
@@ -240,7 +257,13 @@
 .input-group input:focus {
   outline: none;
   border-color: var(--color-primary);
-  box-shadow: 0 0 0 3px rgba(55, 118, 161, 0.1);
+  box-shadow: 0 0 0 3px var(--color-primary-muted);
+}
+
+.input-group select:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px var(--color-primary-muted);
 }
 
 .input-options {
@@ -287,14 +310,19 @@
   color: #fff;
   background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
   border: none;
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-md);
   cursor: pointer;
-  transition: all var(--transition-fast);
+  transition: all var(--transition-base);
 }
 
 .convert-btn:hover {
   transform: translateY(-2px);
   box-shadow: var(--shadow-lg);
+}
+
+.convert-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--color-primary-muted), var(--shadow-lg);
 }
 
 /* ==================== Results Section ==================== */
@@ -304,7 +332,8 @@
   gap: var(--space-2);
   padding: var(--space-4);
   background-color: var(--color-bg);
-  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-lg);
 }
 
 .result-item {
@@ -313,7 +342,13 @@
   gap: var(--space-3);
   padding: var(--space-3);
   background-color: var(--color-surface);
-  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-md);
+  transition: background-color var(--transition-fast);
+}
+
+.result-item:hover {
+  background-color: var(--color-surface-hover);
 }
 
 .result-label {
@@ -325,7 +360,7 @@
 
 .result-value {
   flex: 1;
-  font-family: 'Monaco', 'Menlo', monospace;
+  font-family: var(--font-mono);
   font-size: var(--font-size-sm);
   color: var(--color-text);
   word-break: break-all;

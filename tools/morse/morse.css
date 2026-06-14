@@ -10,7 +10,7 @@
   border: 1px solid var(--color-border);
   border-radius: var(--radius-xl);
   overflow: hidden;
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--shadow-card);
   position: relative;
 }
 
@@ -20,7 +20,7 @@
   align-items: center;
   padding: var(--space-4) var(--space-5);
   background-color: var(--color-surface);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border-light);
 }
 
 .morse-header h2 {
@@ -118,6 +118,11 @@
   color: var(--color-primary);
 }
 
+.mode-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px var(--color-primary-muted);
+}
+
 .mode-btn.active {
   background-color: var(--color-primary);
   border-color: var(--color-primary);
@@ -160,6 +165,11 @@
   background-color: var(--color-primary);
   border-color: var(--color-primary);
   color: white;
+}
+
+.morse-key:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px var(--color-primary-muted);
 }
 
 .morse-key:active {
@@ -250,7 +260,7 @@
 }
 
 .ref-code {
-  font-family: 'Monaco', 'Menlo', monospace;
+  font-family: var(--font-mono);
   color: var(--color-primary);
 }
 
@@ -274,6 +284,11 @@
 .show-ref-btn:hover {
   border-color: var(--color-primary);
   color: var(--color-primary);
+}
+
+.show-ref-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px var(--color-primary-muted);
 }
 
 /* ==================== Content (Right) ==================== */
@@ -312,7 +327,7 @@
   justify-content: space-between;
   padding: var(--space-2) var(--space-3);
   background-color: var(--color-bg-secondary);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border-light);
 }
 
 .section-header h3 {
@@ -344,6 +359,11 @@
 .section-btn:hover {
   background-color: var(--color-bg-tertiary);
   color: var(--color-primary);
+}
+
+.section-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px var(--color-primary-muted);
 }
 
 .section-btn.play-btn {
@@ -380,7 +400,7 @@
   min-height: 120px;
   padding: var(--space-3);
   background-color: var(--color-bg);
-  font-family: 'Monaco', 'Menlo', monospace;
+  font-family: var(--font-mono);
   font-size: var(--font-size-base);
   line-height: 1.8;
   word-break: break-word;
@@ -475,6 +495,11 @@
   color: var(--color-text);
 }
 
+.close-ref-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px var(--color-primary-muted);
+}
+
 .reference-modal-body {
   padding: var(--space-4);
   overflow-y: auto;
@@ -530,7 +555,7 @@
 }
 
 .reference-item .code {
-  font-family: 'Monaco', 'Menlo', monospace;
+  font-family: var(--font-mono);
   font-size: 0.65rem;
   color: var(--color-primary);
   letter-spacing: 1px;
@@ -558,6 +583,11 @@
 
 .mobile-toggle-btn:hover {
   transform: scale(1.05);
+}
+
+.mobile-toggle-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px var(--color-primary-muted);
 }
 
 /* ==================== Responsive ==================== */

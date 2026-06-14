@@ -10,7 +10,7 @@
   border: 1px solid var(--color-border);
   border-radius: var(--radius-xl);
   overflow: hidden;
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--shadow-card);
   position: relative;
 }
 
@@ -20,7 +20,7 @@
   align-items: center;
   padding: var(--space-4) var(--space-5);
   background-color: var(--color-surface);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border-light);
 }
 
 .checklist-header h2 {
@@ -47,14 +47,14 @@
 /* ==================== Lists Sidebar (Left) ==================== */
 .lists-sidebar {
   background: linear-gradient(145deg, var(--color-bg-tertiary), var(--color-bg-secondary));
-  border-right: 1px solid var(--color-border);
+  border-right: 1px solid var(--color-border-light);
   display: flex;
   flex-direction: column;
 }
 
 .sidebar-header {
   padding: var(--space-3) var(--space-4);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border-light);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -158,7 +158,7 @@
 /* Add Item Section */
 .add-item-section {
   padding: var(--space-3) var(--space-4);
-  border-top: 1px solid var(--color-border);
+  border-top: 1px solid var(--color-border-light);
 }
 
 .add-item-section h4 {
@@ -213,7 +213,7 @@
 /* Progress Section */
 .progress-section {
   padding: var(--space-3) var(--space-4);
-  border-top: 1px solid var(--color-border);
+  border-top: 1px solid var(--color-border-light);
 }
 
 .progress-header {
@@ -242,7 +242,7 @@
 
 .progress-fill {
   height: 100%;
-  background: linear-gradient(90deg, var(--color-primary), #22c55e);
+  background: linear-gradient(90deg, var(--color-primary), var(--color-success));
   border-radius: var(--radius-full);
   transition: width var(--transition-base);
   width: 0%;
@@ -251,7 +251,7 @@
 /* Actions Section */
 .actions-section {
   padding: var(--space-3) var(--space-4);
-  border-top: 1px solid var(--color-border);
+  border-top: 1px solid var(--color-border-light);
 }
 
 .actions-section h4 {
@@ -291,8 +291,8 @@
 }
 
 .action-btn.danger:hover {
-  border-color: #ef4444;
-  color: #ef4444;
+  border-color: var(--color-error);
+  color: var(--color-error);
 }
 
 .action-btn i {
@@ -302,7 +302,7 @@
 /* Export Section */
 .export-section {
   padding: var(--space-3) var(--space-4);
-  border-top: 1px solid var(--color-border);
+  border-top: 1px solid var(--color-border-light);
 }
 
 .export-section h4 {
@@ -443,8 +443,8 @@
 }
 
 .checklist-item.completed .item-checkbox {
-  background-color: #22c55e;
-  border-color: #22c55e;
+  background-color: var(--color-success);
+  border-color: var(--color-success);
   color: white;
 }
 
@@ -487,7 +487,7 @@
 
 .item-action-btn.delete:hover {
   background-color: #fee2e2;
-  color: #ef4444;
+  color: var(--color-error);
 }
 
 /* ==================== Modal ==================== */
@@ -519,7 +519,7 @@
   align-items: center;
   justify-content: space-between;
   padding: var(--space-4);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border-light);
 }
 
 .modal-header h3 {
@@ -572,7 +572,7 @@
   justify-content: flex-end;
   gap: var(--space-2);
   padding: var(--space-4);
-  border-top: 1px solid var(--color-border);
+  border-top: 1px solid var(--color-border-light);
 }
 
 .modal-btn {
@@ -603,6 +603,21 @@
 
 .modal-btn.primary:hover {
   background-color: var(--color-primary-dark);
+}
+
+/* Focus ring for all interactive buttons */
+.new-list-btn:focus-visible,
+.list-tab:focus-visible,
+.add-item-btn:focus-visible,
+.action-btn:focus-visible,
+.export-btn:focus-visible,
+.item-checkbox:focus-visible,
+.item-action-btn:focus-visible,
+.close-modal-btn:focus-visible,
+.modal-btn:focus-visible,
+.mobile-toggle-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px var(--color-primary-muted);
 }
 
 /* ==================== Mobile Toggle Button ==================== */

@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Visualize recursion trees for Fibonacci, Factorial, Power, Tower of Hanoi, and Merge Sort with animated step-by-step execution.">
+  <meta property="og:title" content="KVSOVANREACH | Recursion Visualizer">
+  <meta property="og:description" content="Interactive recursion tree visualizer with call stack animation.">
+  <meta property="og:image" content="/assets/img/favicons/og-image.png">
+  <title>KVSOVANREACH | Recursion Visualizer</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+  <!-- Common Tools CSS -->
+  <link rel="stylesheet" href="../../css/tools-common.css">
+  <!-- Recursion CSS -->
+  <link rel="stylesheet" href="recursion.css">
+</head>
+<body>
+  <!-- Skip to Content -->
+  <a href="#recursion" class="skip-link">Skip to Recursion Visualizer</a>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">TOOLS</span>
+      </a>
+
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="tool-page">
+    <div class="container">
+      <div class="rc-wrapper" id="recursion">
+        <!-- Header -->
+        <div class="rc-header">
+          <h2><i class="fa-solid fa-sitemap"></i> Recursion Visualizer</h2>
+        </div>
+
+        <!-- Content -->
+        <div class="rc-content">
+          <!-- Configuration -->
+          <div class="rc-config">
+            <div class="rc-config-row">
+              <div class="rc-field">
+                <label for="algoSelect">Algorithm</label>
+                <select id="algoSelect">
+                  <option value="fibonacci">Fibonacci</option>
+                  <option value="factorial">Factorial</option>
+                  <option value="power">Power (2^n)</option>
+                  <option value="hanoi">Tower of Hanoi</option>
+                  <option value="mergesort">Merge Sort</option>
+                </select>
+              </div>
+              <div class="rc-field">
+                <label for="nInput">n =</label>
+                <input type="number" id="nInput" value="5" min="0" max="20" step="1" autocomplete="off">
+              </div>
+              <label class="rc-toggle" id="memoToggleWrap">
+                <input type="checkbox" id="memoToggle">
+                <span>Memoization</span>
+              </label>
+            </div>
+
+            <!-- Speed -->
+            <div class="rc-speed-row">
+              <label for="speedSlider"><i class="fa-solid fa-gauge-high"></i> Speed</label>
+              <input type="range" id="speedSlider" min="1" max="10" value="5" step="1">
+              <span class="rc-speed-label" id="speedLabel">5x</span>
+            </div>
+          </div>
+
+          <!-- Controls -->
+          <div class="rc-controls">
+            <button type="button" class="action-btn primary" id="playBtn">
+              <i class="fa-solid fa-play"></i>
+              <span>Play</span>
+            </button>
+            <button type="button" class="action-btn" id="pauseBtn" disabled>
+              <i class="fa-solid fa-pause"></i>
+              <span>Pause</span>
+            </button>
+            <button type="button" class="action-btn" id="stepBtn">
+              <i class="fa-solid fa-forward-step"></i>
+              <span>Step</span>
+            </button>
+            <button type="button" class="action-btn" id="resetBtn">
+              <i class="fa-solid fa-rotate-left"></i>
+              <span>Reset</span>
+            </button>
+          </div>
+
+          <!-- Stats -->
+          <div class="rc-stats">
+            <div class="rc-stat">
+              <span class="rc-stat-label">Depth</span>
+              <span class="rc-stat-value" id="depthStat">0</span>
+            </div>
+            <div class="rc-stat">
+              <span class="rc-stat-label">Total Calls</span>
+              <span class="rc-stat-value" id="callsStat">0</span>
+            </div>
+            <div class="rc-stat">
+              <span class="rc-stat-label">Step</span>
+              <span class="rc-stat-value" id="stepStat">0 / 0</span>
+            </div>
+          </div>
+
+          <!-- Tree Visualization -->
+          <div class="rc-tree-container" id="treeContainer">
+            <div class="rc-tree-scroll">
+              <svg id="treeSvg" class="rc-tree-svg"></svg>
+            </div>
+            <div class="rc-tree-empty" id="treeEmpty">
+              <i class="fa-solid fa-sitemap"></i>
+              <p>Configure and press Play to visualize</p>
+            </div>
+          </div>
+
+          <!-- Call Stack -->
+          <div class="rc-stack-section">
+            <h3><i class="fa-solid fa-layer-group"></i> Call Stack</h3>
+            <div class="rc-stack" id="callStack">
+              <div class="rc-stack-empty">Empty</div>
+            </div>
+          </div>
+
+          <!-- Info -->
+          <div class="info-panel">
+            <div class="info-header">
+              <i class="fa-solid fa-circle-info"></i>
+              <span>About Recursion Trees</span>
+            </div>
+            <div class="info-content">
+              <p>A <strong>recursion tree</strong> shows how recursive functions decompose problems into sub-problems.</p>
+              <ul>
+                <li><strong class="rc-dot-active">Pink</strong> nodes are currently being executed</li>
+                <li><strong class="rc-dot-complete">Green</strong> nodes have returned their result</li>
+                <li><strong class="rc-dot-pending">Gray</strong> nodes are waiting to be called</li>
+                <li><strong class="rc-dot-pruned">Dashed</strong> nodes are pruned by memoization</li>
+              </ul>
+              <p class="tip"><strong>Tip:</strong> Enable memoization for Fibonacci to see how it reduces calls dramatically.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach. All rights reserved.</p>
+        <p class="footer-made">Made with 💗 and Claude Code xD</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Shared Tools JavaScript -->
+  <script src="../../js/tools-common.js"></script>
+  <!-- Recursion JavaScript -->
+  <script src="recursion.js"></script>
+</body>
+</html>

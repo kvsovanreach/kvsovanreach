@@ -11,7 +11,7 @@
   border: 1px solid var(--color-border);
   border-radius: var(--radius-xl);
   overflow: hidden;
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--shadow-card);
 }
 
 @media screen and (min-width: 1600px) {
@@ -27,7 +27,7 @@
   justify-content: space-between;
   padding: var(--space-4) var(--space-5);
   background: linear-gradient(135deg, #ec4899 0%, #be185d 100%);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border-light);
 }
 
 .attention-header h2 {
@@ -51,6 +51,11 @@
 
 .attention-actions .action-btn:hover {
   background-color: rgba(255, 255, 255, 0.25);
+}
+
+.attention-actions .action-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px var(--color-primary-muted);
 }
 
 /* Content */
@@ -78,7 +83,7 @@
   justify-content: space-between;
   padding: var(--space-3) var(--space-4);
   background-color: var(--color-bg-tertiary);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border-light);
 }
 
 .section-header h3 {
@@ -163,7 +168,7 @@
   display: flex;
   gap: var(--space-3);
   font-size: var(--font-size-xs);
-  font-family: 'Fira Code', monospace;
+  font-family: var(--font-mono);
   color: var(--color-text-muted);
 }
 
@@ -240,13 +245,13 @@
 
 .token-text {
   font-size: var(--font-size-sm);
-  font-family: 'Fira Code', monospace;
+  font-family: var(--font-mono);
   color: var(--color-text);
 }
 
 .token-score {
   font-size: var(--font-size-xs);
-  font-family: 'Fira Code', monospace;
+  font-family: var(--font-mono);
   color: var(--color-text-muted);
   min-width: 40px;
   text-align: right;
@@ -269,7 +274,7 @@
   background-color: var(--color-surface);
   border: 2px solid var(--color-border);
   border-radius: var(--radius-md);
-  font-family: 'Fira Code', monospace;
+  font-family: var(--font-mono);
   font-size: var(--font-size-sm);
   cursor: pointer;
   transition: all var(--transition-fast);
@@ -335,14 +340,14 @@
   gap: var(--space-2);
   padding: var(--space-3) var(--space-4);
   background-color: var(--color-bg-tertiary);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border-light);
   font-size: var(--font-size-sm);
   font-weight: 600;
   color: var(--color-text);
 }
 
 .info-header i {
-  color: #f59e0b;
+  color: var(--color-warning);
 }
 
 .info-content {

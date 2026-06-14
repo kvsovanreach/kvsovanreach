@@ -10,7 +10,7 @@
   border: 1px solid var(--color-border);
   border-radius: var(--radius-xl);
   overflow: hidden;
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--shadow-card);
   position: relative;
 }
 
@@ -20,7 +20,7 @@
   align-items: center;
   padding: var(--space-4) var(--space-5);
   background-color: var(--color-surface);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border-light);
 }
 
 .note-header h2 {
@@ -105,6 +105,11 @@
 .new-note-btn:hover {
   transform: translateY(-2px);
   box-shadow: var(--shadow-md);
+}
+
+.new-note-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px var(--color-primary-muted);
 }
 
 /* Search Bar */
@@ -201,7 +206,7 @@
 
 .note-item {
   padding: var(--space-2) var(--space-3);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border-light);
   border-left: 3px solid transparent;
   cursor: pointer;
   transition: all var(--transition-fast);
@@ -284,7 +289,7 @@
   align-items: center;
   gap: var(--space-3);
   padding: var(--space-4);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border-light);
 }
 
 .note-title-input {
@@ -328,9 +333,14 @@
   color: white;
 }
 
+.editor-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px var(--color-primary-muted);
+}
+
 .editor-btn.danger:hover {
-  background-color: #ef4444;
-  border-color: #ef4444;
+  background-color: var(--color-error);
+  border-color: var(--color-error);
   color: white;
 }
 
@@ -397,6 +407,11 @@
   transform: scale(1.05);
 }
 
+.mobile-toggle-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px var(--color-primary-muted);
+}
+
 /* ==================== Confirm Modal ==================== */
 .confirm-modal {
   position: fixed;
@@ -440,7 +455,7 @@
 
 .confirm-header i {
   font-size: 3rem;
-  color: #ef4444;
+  color: var(--color-error);
   margin-bottom: var(--space-3);
 }
 
@@ -483,13 +498,18 @@
   background-color: var(--color-surface);
 }
 
+.confirm-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px var(--color-primary-muted);
+}
+
 .confirm-btn.danger {
-  background-color: #ef4444;
+  background-color: var(--color-error);
   color: white;
 }
 
 .confirm-btn.danger:hover {
-  background-color: #dc2626;
+  background-color: var(--color-error);
 }
 
 /* ==================== Responsive ==================== */

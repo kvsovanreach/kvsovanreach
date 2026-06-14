@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Statistical calculator with mean, median, mode, standard deviation, quartiles, histogram, and box plot.">
+  <meta property="og:title" content="KVSOVANREACH | Statistics Calculator">
+  <meta property="og:description" content="Comprehensive statistics calculator with visualizations.">
+  <meta property="og:image" content="/assets/img/favicons/og-image.png">
+  <title>KVSOVANREACH | Statistics Calculator</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+  <!-- Common Tools CSS -->
+  <link rel="stylesheet" href="../../css/tools-common.css">
+  <!-- Statistics CSS -->
+  <link rel="stylesheet" href="statistics.css">
+</head>
+<body>
+  <!-- Skip to Content -->
+  <a href="#statistics" class="skip-link">Skip to Statistics Calculator</a>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">TOOLS</span>
+      </a>
+
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="tool-page">
+    <div class="container">
+      <div class="stat-wrapper" id="statistics">
+        <!-- Header -->
+        <div class="stat-header">
+          <h2><i class="fa-solid fa-chart-column"></i> Statistics Calculator</h2>
+        </div>
+
+        <!-- Input Section -->
+        <div class="stat-input-section">
+          <label for="dataInput" class="stat-input-label">Enter data (comma-separated or one per line)</label>
+          <textarea id="dataInput" class="stat-textarea" rows="4" placeholder="e.g. 12, 15, 20, 22, 25, 28, 30, 35, 40&#10;or paste one number per line"></textarea>
+          <div class="stat-input-actions">
+            <button type="button" class="stat-btn primary" id="calculateBtn">
+              <i class="fa-solid fa-calculator"></i> Calculate
+            </button>
+            <button type="button" class="stat-btn" id="sortBtn" title="Sort ascending">
+              <i class="fa-solid fa-arrow-up-short-wide"></i> Sort
+            </button>
+            <button type="button" class="stat-btn" id="removeDupsBtn" title="Remove duplicates">
+              <i class="fa-solid fa-filter-circle-xmark"></i> Deduplicate
+            </button>
+            <button type="button" class="stat-btn" id="removeOutliersBtn" title="Remove outliers (IQR method)">
+              <i class="fa-solid fa-wand-magic-sparkles"></i> Remove Outliers
+            </button>
+            <button type="button" class="stat-btn" id="clearBtn">
+              <i class="fa-solid fa-trash"></i> Clear
+            </button>
+          </div>
+          <div class="stat-sample-data">
+            <span>Try:</span>
+            <button type="button" class="sample-btn" data-sample="small">Small set</button>
+            <button type="button" class="sample-btn" data-sample="grades">Grades</button>
+            <button type="button" class="sample-btn" data-sample="outliers">With outliers</button>
+          </div>
+        </div>
+
+        <!-- Results Section -->
+        <div class="stat-results" id="resultsSection" style="display: none;">
+          <!-- Tab Navigation -->
+          <div class="stat-tabs">
+            <button type="button" class="stat-tab active" data-tab="summary">
+              <i class="fa-solid fa-table"></i> Summary
+            </button>
+            <button type="button" class="stat-tab" data-tab="spread">
+              <i class="fa-solid fa-arrows-left-right"></i> Spread
+            </button>
+            <button type="button" class="stat-tab" data-tab="histogram">
+              <i class="fa-solid fa-chart-bar"></i> Histogram
+            </button>
+            <button type="button" class="stat-tab" data-tab="boxplot">
+              <i class="fa-solid fa-diagram-project"></i> Box Plot
+            </button>
+          </div>
+
+          <!-- Summary Panel -->
+          <div class="stat-panel active" id="summaryPanel">
+            <div class="stat-grid" id="summaryGrid"></div>
+            <div class="stat-copy-row">
+              <button type="button" class="stat-btn" id="copySummaryBtn">
+                <i class="fa-solid fa-copy"></i> Copy Results
+              </button>
+            </div>
+          </div>
+
+          <!-- Spread Panel -->
+          <div class="stat-panel" id="spreadPanel">
+            <div class="stat-grid" id="spreadGrid"></div>
+          </div>
+
+          <!-- Histogram Panel -->
+          <div class="stat-panel" id="histogramPanel">
+            <div class="stat-chart-container">
+              <canvas id="histogramCanvas" width="800" height="400"></canvas>
+            </div>
+          </div>
+
+          <!-- Box Plot Panel -->
+          <div class="stat-panel" id="boxplotPanel">
+            <div class="stat-chart-container">
+              <canvas id="boxplotCanvas" width="800" height="300"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <!-- Empty State -->
+        <div class="stat-empty" id="emptyState">
+          <i class="fa-solid fa-chart-line"></i>
+          <p>Enter your data and click <strong>Calculate</strong></p>
+          <span>Supports comma-separated values or one number per line</span>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach. All rights reserved.</p>
+        <p class="footer-made">Made with 💗 and Claude Code xD</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Shared Tools JavaScript -->
+  <script src="../../js/tools-common.js"></script>
+  <!-- Statistics JavaScript -->
+  <script src="statistics.js"></script>
+</body>
+</html>

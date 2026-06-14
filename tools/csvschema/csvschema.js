@@ -17,6 +17,8 @@ Fiona Green,29,,72000.50,false,2022-08-15
 George White,38,george@mail.com,,true,2020-04-22
 Helen Black,33,helen@org.net,79500.00,true,`;
 
+  const ACCEPTED_EXTENSIONS = ['.csv', '.tsv', '.txt'];
+
   // ==================== State ====================
   const state = {
     parsed: null,
@@ -45,18 +47,50 @@ Helen Black,33,helen@org.net,79500.00,true,`;
   // ==================== CSV Parsing ====================
   function parseCSV(input) {
     const lines = input.split('\n').filter(line => line.trim());
-    const delimiter = detectDelimiter(lines[0]);
 
+    if (lines.length === 0) {
+      return { headers: [], rows: [], delimiter: ',' };
+    }
+
+    const delimiter = detectDelimiter(lines[0]);
     const headers = parseLine(lines[0], delimiter);
-    const rows = lines.slice(1).map(line => parseLine(line, delimiter));
+    const colCount = headers.length;
+
+    // Normalize each row to match header column count
+    const rows = lines.slice(1).map(line => {
+      const parsed = parseLine(line, delimiter);
+      // Pad short rows with empty strings
+      while (parsed.length < colCount) {
+        parsed.push('');
+      }
+      // Truncate extra columns
+      return parsed.slice(0, colCount);
+    });
 
     return { headers, rows, delimiter };
   }
 
   function detectDelimiter(line) {
-    const commas = (line.match(/,/g) || []).length;
-    const tabs = (line.match(/\t/g) || []).length;
-    return tabs > commas ? '\t' : ',';
+    // Count delimiters outside of quoted fields
+    let commas = 0;
+    let tabs = 0;
+    let semicolons = 0;
+    let inQuotes = false;
+
+    for (let i = 0; i < line.length; i++) {
+      const char = line[i];
+      if (char === '"') {
+        inQuotes = !inQuotes;
+      } else if (!inQuotes) {
+        if (char === ',') commas++;
+        else if (char === '\t') tabs++;
+        else if (char === ';') semicolons++;
+      }
+    }
+
+    if (tabs > commas && tabs > semicolons) return '\t';
+    if (semicolons > commas) return ';';
+    return ',';
   }
 
   function parseLine(line, delimiter) {
@@ -67,13 +101,27 @@ Helen Black,33,helen@org.net,79500.00,true,`;
     for (let i = 0; i < line.length; i++) {
       const char = line[i];
 
-      if (char === '"') {
-        inQuotes = !inQuotes;
-      } else if (char === delimiter && !inQuotes) {
-        values.push(current.trim());
-        current = '';
+      if (inQuotes) {
+        if (char === '"') {
+          // Check for escaped quote ("")
+          if (i + 1 < line.length && line[i + 1] === '"') {
+            current += '"';
+            i++; // Skip the next quote
+          } else {
+            inQuotes = false;
+          }
+        } else {
+          current += char;
+        }
       } else {
-        current += char;
+        if (char === '"') {
+          inQuotes = true;
+        } else if (char === delimiter) {
+          values.push(current.trim());
+          current = '';
+        } else {
+          current += char;
+        }
       }
     }
 
@@ -84,7 +132,7 @@ Helen Black,33,helen@org.net,79500.00,true,`;
   // ==================== Schema Analysis ====================
   function analyzeSchema(parsed) {
     return parsed.headers.map((header, index) => {
-      const values = parsed.rows.map(row => row[index] || '');
+      const values = parsed.rows.map(row => row[index] !== undefined ? row[index] : '');
       const nonEmpty = values.filter(v => v !== '');
       const types = nonEmpty.map(detectType);
 
@@ -128,11 +176,11 @@ Helen Black,33,helen@org.net,79500.00,true,`;
   function detectType(value) {
     if (value === '') return 'null';
 
-    // Boolean
-    if (/^(true|false|yes|no|1|0)$/i.test(value)) return 'boolean';
-
-    // Email
+    // Email (check before other types since emails contain dots/numbers)
     if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) return 'email';
+
+    // Boolean (only explicit true/false/yes/no, NOT 1/0 which are valid numbers)
+    if (/^(true|false|yes|no)$/i.test(value)) return 'boolean';
 
     // Date (various formats)
     if (/^\d{4}-\d{2}-\d{2}/.test(value) || /^\d{2}\/\d{2}\/\d{4}/.test(value)) {
@@ -140,8 +188,8 @@ Helen Black,33,helen@org.net,79500.00,true,`;
       if (!isNaN(date.getTime())) return 'date';
     }
 
-    // Number
-    if (/^-?\d+\.?\d*$/.test(value)) return 'number';
+    // Number (integers and decimals, with optional leading minus)
+    if (/^-?\d+\.?\d*$/.test(value) && isFinite(Number(value))) return 'number';
 
     return 'string';
   }
@@ -204,7 +252,7 @@ Helen Black,33,helen@org.net,79500.00,true,`;
           </div>
           <div class="card-stat">
             <span class="card-stat-label">Sample</span>
-            <span class="card-stat-value">${col.sample.slice(0, 2).map(s => truncate(s, 15)).join(', ')}</span>
+            <span class="card-stat-value">${col.sample.slice(0, 2).map(s => escapeHtml(truncate(s, 15))).join(', ')}</span>
           </div>
         </div>
       </div>
@@ -216,7 +264,10 @@ Helen Black,33,helen@org.net,79500.00,true,`;
 
     const headerHtml = `<tr>${state.parsed.headers.map(h => `<th>${escapeHtml(h)}</th>`).join('')}</tr>`;
     const rowsHtml = previewRows.map(row => `
-      <tr>${row.map(cell => `<td>${escapeHtml(cell) || '<em style="opacity:0.5">null</em>'}</td>`).join('')}</tr>
+      <tr>${state.parsed.headers.map((_, i) => {
+        const cell = row[i] !== undefined ? row[i] : '';
+        return `<td>${cell ? escapeHtml(cell) : '<em style="opacity:0.5">null</em>'}</td>`;
+      }).join('')}</tr>
     `).join('');
 
     elements.previewTable.innerHTML = `<thead>${headerHtml}</thead><tbody>${rowsHtml}</tbody>`;
@@ -232,13 +283,23 @@ Helen Black,33,helen@org.net,79500.00,true,`;
 
   // ==================== Utilities ====================
   function escapeHtml(text) {
-    const div = document.createElement('div');
-    div.textContent = text;
-    return div.innerHTML;
+    if (typeof text !== 'string') return '';
+    return text
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#039;');
   }
 
   function truncate(str, max) {
+    if (typeof str !== 'string') return '';
     return str.length > max ? str.slice(0, max) + '...' : str;
+  }
+
+  function isAcceptedFile(file) {
+    const name = file.name.toLowerCase();
+    return ACCEPTED_EXTENSIONS.some(ext => name.endsWith(ext));
   }
 
   // ==================== Actions ====================
@@ -257,11 +318,19 @@ Helen Black,33,helen@org.net,79500.00,true,`;
   }
 
   function readFile(file) {
+    if (!isAcceptedFile(file)) {
+      ToolsCommon.Toast.show('Please upload a CSV, TSV, or TXT file', 'error');
+      return;
+    }
+
     const reader = new FileReader();
     reader.onload = (e) => {
       elements.csvInput.value = e.target.result;
       processCSV();
-      ToolsCommon.Toast.show(`File "${file.name}" loaded`, 'success');
+      ToolsCommon.Toast.show(`File "${escapeHtml(file.name)}" loaded`, 'success');
+    };
+    reader.onerror = () => {
+      ToolsCommon.Toast.show('Failed to read file', 'error');
     };
     reader.readAsText(file);
   }

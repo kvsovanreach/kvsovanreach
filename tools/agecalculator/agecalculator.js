@@ -83,7 +83,13 @@
     if (isNaN(year) || isNaN(month) || isNaN(day)) return null;
     if (year < 1 || month < 1 || month > 12 || day < 1 || day > 31) return null;
 
-    return new Date(year, month - 1, day);
+    const date = new Date(year, month - 1, day);
+    // Validate that the date didn't overflow (e.g. Feb 31 -> Mar 3)
+    if (date.getFullYear() !== year || date.getMonth() !== month - 1 || date.getDate() !== day) {
+      return null;
+    }
+
+    return date;
   }
 
   function setDateToContainer(container, date) {
@@ -160,23 +166,37 @@
   }
 
   function updateBirthdayInfo(birthDate, targetDate) {
-    const nextBirthday = new Date(
-      targetDate.getFullYear(),
-      birthDate.getMonth(),
-      birthDate.getDate()
-    );
+    // Check if today IS the birthday
+    const isBirthday =
+      targetDate.getMonth() === birthDate.getMonth() &&
+      targetDate.getDate() === birthDate.getDate();
 
+    if (isBirthday) {
+      elements.birthdayText.textContent = "Happy Birthday!";
+      return;
+    }
+
+    // Handle leap year birthdays (Feb 29): use Mar 1 in non-leap years
+    const birthMonth = birthDate.getMonth();
+    const birthDay = birthDate.getDate();
+    let nextYear = targetDate.getFullYear();
+
+    function makeBirthday(yr) {
+      const candidate = new Date(yr, birthMonth, birthDay);
+      // If date overflowed (e.g. Feb 29 in non-leap year -> Mar 1), use Mar 1
+      if (candidate.getMonth() !== birthMonth) {
+        return new Date(yr, birthMonth + 1, 1);
+      }
+      return candidate;
+    }
+
+    let nextBirthday = makeBirthday(nextYear);
     if (nextBirthday <= targetDate) {
-      nextBirthday.setFullYear(nextBirthday.getFullYear() + 1);
+      nextBirthday = makeBirthday(nextYear + 1);
     }
 
     const daysUntil = Math.ceil((nextBirthday - targetDate) / (1000 * 60 * 60 * 24));
-
-    if (daysUntil === 365 || daysUntil === 366) {
-      elements.birthdayText.textContent = "Happy Birthday!";
-    } else {
-      elements.birthdayText.textContent = `${daysUntil} days until your next birthday`;
-    }
+    elements.birthdayText.textContent = `${daysUntil} days until your next birthday`;
   }
 
   function resetDisplay() {

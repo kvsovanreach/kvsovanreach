@@ -11,7 +11,7 @@
   border: 1px solid var(--color-border);
   border-radius: var(--radius-xl);
   overflow: hidden;
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--shadow-card);
 }
 
 /* Header */
@@ -21,7 +21,7 @@
   justify-content: space-between;
   padding: var(--space-4) var(--space-5);
   background-color: var(--color-surface);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border-light);
 }
 
 .glass-header h2 {
@@ -122,7 +122,7 @@
   background: rgba(255, 255, 255, 0.25);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  border-radius: 16px;
+  border-radius: var(--radius-xl);
   border: 1px solid rgba(255, 255, 255, 0.18);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
   color: white;
@@ -189,7 +189,7 @@
 }
 
 .control-value {
-  font-family: 'Fira Code', monospace;
+  font-family: var(--font-mono);
   font-size: var(--font-size-sm);
   color: var(--color-primary);
   font-weight: 600;
@@ -245,7 +245,7 @@
   background-color: var(--color-surface);
   border: 2px solid var(--color-border);
   border-radius: var(--radius-md);
-  font-family: 'Fira Code', monospace;
+  font-family: var(--font-mono);
   font-size: var(--font-size-sm);
   color: var(--color-text);
   text-transform: uppercase;
@@ -292,7 +292,7 @@
   align-items: center;
   gap: var(--space-2);
   padding: var(--space-3) var(--space-4);
-  background-color: rgba(245, 158, 11, 0.1);
+  background-color: color-mix(in srgb, var(--color-warning) 10%, transparent);
   border: 1px solid var(--color-warning);
   border-radius: var(--radius-md);
   margin-bottom: var(--space-4);
@@ -339,16 +339,16 @@
 
 .output-code {
   padding: var(--space-4);
-  background-color: #1e1e1e;
+  background-color: var(--color-bg-tertiary);
   border-radius: var(--radius-md);
   overflow-x: auto;
   margin: 0;
 }
 
 .output-code code {
-  font-family: 'Fira Code', monospace;
+  font-family: var(--font-mono);
   font-size: var(--font-size-sm);
-  color: #d4d4d4;
+  color: var(--color-text-secondary);
   line-height: 1.6;
   white-space: pre;
 }
@@ -367,7 +367,7 @@
   gap: var(--space-2);
   padding: var(--space-3) var(--space-4);
   background-color: var(--color-bg-tertiary);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border-light);
   font-size: var(--font-size-sm);
   font-weight: 600;
   color: var(--color-text);
@@ -407,6 +407,14 @@
   border-radius: var(--radius-md);
   border-left: 3px solid var(--color-warning);
   margin: 0;
+}
+
+/* Focus ring for all interactive buttons */
+.header-action-btn:focus-visible,
+.preset-btn:focus-visible,
+.card-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px var(--color-primary-muted);
 }
 
 /* Responsive */

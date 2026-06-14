@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Plot mathematical functions with zoom, pan, derivatives, and intersection detection.">
+  <meta property="og:title" content="KVSOVANREACH | Graph Plotter">
+  <meta property="og:description" content="Interactive mathematical function graph plotter with canvas visualization.">
+  <meta property="og:image" content="/assets/img/favicons/og-image.png">
+  <title>KVSOVANREACH | Graph Plotter</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+  <!-- Common Tools CSS -->
+  <link rel="stylesheet" href="../../css/tools-common.css">
+  <!-- Graph Plotter CSS -->
+  <link rel="stylesheet" href="graphplotter.css">
+</head>
+<body>
+  <!-- Skip to Content -->
+  <a href="#graphplotter" class="skip-link">Skip to Graph Plotter</a>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">TOOLS</span>
+      </a>
+
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="tool-page">
+    <div class="container">
+      <div class="gp-wrapper" id="graphplotter">
+        <!-- Header -->
+        <div class="gp-header">
+          <h2><i class="fa-solid fa-chart-line"></i> Graph Plotter</h2>
+          <div class="gp-actions">
+            <button type="button" class="action-btn" id="resetViewBtn" title="Reset view">
+              <i class="fa-solid fa-expand"></i>
+              <span>Reset</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Content -->
+        <div class="gp-content">
+          <!-- Function Inputs -->
+          <div class="gp-functions">
+            <div class="gp-functions-header">
+              <h3><i class="fa-solid fa-function"></i> Functions</h3>
+              <button type="button" class="action-btn secondary" id="addFnBtn" title="Add function">
+                <i class="fa-solid fa-plus"></i>
+                <span>Add</span>
+              </button>
+            </div>
+            <div class="gp-fn-list" id="fnList">
+              <!-- Function rows inserted dynamically -->
+            </div>
+          </div>
+
+          <!-- Controls -->
+          <div class="gp-controls">
+            <div class="gp-control-row">
+              <!-- Range Controls -->
+              <div class="gp-range-group">
+                <label>X Range</label>
+                <div class="gp-range-inputs">
+                  <input type="number" id="xMin" value="-10" step="1" aria-label="X minimum">
+                  <span>to</span>
+                  <input type="number" id="xMax" value="10" step="1" aria-label="X maximum">
+                </div>
+              </div>
+              <div class="gp-range-group">
+                <label>Y Range</label>
+                <div class="gp-range-inputs">
+                  <input type="number" id="yMin" value="-10" step="1" aria-label="Y minimum">
+                  <span>to</span>
+                  <input type="number" id="yMax" value="10" step="1" aria-label="Y maximum">
+                </div>
+              </div>
+            </div>
+
+            <div class="gp-control-row gp-toggles">
+              <label class="gp-toggle">
+                <input type="checkbox" id="gridToggle" checked>
+                <span>Grid</span>
+              </label>
+              <label class="gp-toggle">
+                <input type="checkbox" id="derivativeToggle">
+                <span>Derivatives</span>
+              </label>
+              <label class="gp-toggle">
+                <input type="checkbox" id="intersectionToggle" checked>
+                <span>X-Intercepts</span>
+              </label>
+            </div>
+
+            <button type="button" class="action-btn primary gp-plot-btn" id="plotBtn">
+              <i class="fa-solid fa-play"></i>
+              <span>Plot</span>
+            </button>
+          </div>
+
+          <!-- Canvas -->
+          <div class="gp-canvas-container">
+            <canvas id="graphCanvas"></canvas>
+            <div class="gp-coords" id="coordsDisplay">x: 0, y: 0</div>
+          </div>
+
+          <!-- Presets -->
+          <div class="gp-presets">
+            <h3><i class="fa-solid fa-lightbulb"></i> Presets</h3>
+            <div class="gp-preset-grid">
+              <button type="button" class="preset-btn" data-fn="x^2" data-label="Parabola">
+                <span class="preset-fn">x<sup>2</sup></span>
+                <span class="preset-label">Parabola</span>
+              </button>
+              <button type="button" class="preset-btn" data-fn="sin(x)" data-label="Sine Wave">
+                <span class="preset-fn">sin(x)</span>
+                <span class="preset-label">Sine Wave</span>
+              </button>
+              <button type="button" class="preset-btn" data-fn="e^x" data-label="Exponential">
+                <span class="preset-fn">e<sup>x</sup></span>
+                <span class="preset-label">Exponential</span>
+              </button>
+              <button type="button" class="preset-btn" data-fn="log(x)" data-label="Logarithm">
+                <span class="preset-fn">log(x)</span>
+                <span class="preset-label">Logarithm</span>
+              </button>
+              <button type="button" class="preset-btn" data-fn="sqrt(x)" data-label="Square Root">
+                <span class="preset-fn">sqrt(x)</span>
+                <span class="preset-label">Square Root</span>
+              </button>
+              <button type="button" class="preset-btn" data-fn="1/x" data-label="Reciprocal">
+                <span class="preset-fn">1/x</span>
+                <span class="preset-label">Reciprocal</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Info -->
+          <div class="info-panel">
+            <div class="info-header">
+              <i class="fa-solid fa-circle-info"></i>
+              <span>Supported Syntax</span>
+            </div>
+            <div class="info-content">
+              <p>Enter math expressions using <strong>x</strong> as the variable.</p>
+              <ul>
+                <li><strong>Operators:</strong> +, -, *, /, ^ (power)</li>
+                <li><strong>Functions:</strong> sin, cos, tan, log, ln, sqrt, abs</li>
+                <li><strong>Constants:</strong> pi, e</li>
+                <li><strong>Examples:</strong> <code>sin(x)*x</code>, <code>x^2-3</code>, <code>ln(abs(x))</code></li>
+              </ul>
+              <p class="tip"><strong>Tip:</strong> Scroll to zoom, drag to pan on the graph.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach. All rights reserved.</p>
+        <p class="footer-made">Made with 💗 and Claude Code xD</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Shared Tools JavaScript -->
+  <script src="../../js/tools-common.js"></script>
+  <!-- Graph Plotter JavaScript -->
+  <script src="graphplotter.js"></script>
+</body>
+</html>

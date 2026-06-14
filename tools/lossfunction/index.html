@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Interactive loss function comparison visualizer with graphs, gradients, and properties.">
+  <meta property="og:title" content="KVSOVANREACH | Loss Function Visualizer">
+  <title>KVSOVANREACH | Loss Function Visualizer</title>
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  <link rel="stylesheet" href="../../css/tools-common.css">
+  <link rel="stylesheet" href="lossfunction.css">
+</head>
+<body>
+  <a href="#lossfunction" class="skip-link">Skip to Loss Function Visualizer</a>
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span><span class="logo-divider">|</span><span class="logo-tools">TOOLS</span>
+      </a>
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools"><i class="fa-solid fa-arrow-left"></i></a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode"><i class="fa-solid fa-moon"></i><i class="fa-solid fa-sun"></i></button>
+      </div>
+    </div>
+  </nav>
+
+  <main class="tool-page">
+    <div class="container">
+      <div class="lf-wrapper" id="lossfunction">
+        <div class="lf-header">
+          <h2><i class="fa-solid fa-chart-area"></i> Loss Function Visualizer</h2>
+        </div>
+
+        <div class="lf-content">
+          <!-- Function Selection -->
+          <div class="lf-section">
+            <div class="section-header">
+              <h3><i class="fa-solid fa-list-check"></i> Loss Functions</h3>
+              <div class="selector-actions">
+                <button class="action-btn small" id="selectAllBtn"><i class="fa-solid fa-check-double"></i><span>All</span></button>
+                <button class="action-btn small" id="clearAllBtn"><i class="fa-solid fa-xmark"></i><span>Clear</span></button>
+              </div>
+            </div>
+            <div class="selector-body">
+              <div class="function-chips" id="functionChips"></div>
+            </div>
+          </div>
+
+          <!-- Controls -->
+          <div class="lf-section">
+            <div class="section-header">
+              <h3><i class="fa-solid fa-sliders"></i> Controls</h3>
+            </div>
+            <div class="controls-body">
+              <div class="control-group">
+                <label>Target Value (y)</label>
+                <input type="range" id="targetSlider" min="0" max="1" step="0.01" value="1">
+                <span class="param-value" id="targetValue">1.00</span>
+              </div>
+              <div class="control-group">
+                <label>Huber Delta</label>
+                <input type="range" id="huberDelta" min="0.1" max="3" step="0.1" value="1">
+                <span class="param-value" id="huberDeltaValue">1.0</span>
+              </div>
+              <div class="options-row">
+                <label class="toggle-label">
+                  <input type="checkbox" id="showGradient">
+                  <span class="toggle-text">Show Gradient Magnitude</span>
+                </label>
+                <label class="toggle-label">
+                  <input type="checkbox" id="showGrid" checked>
+                  <span class="toggle-text">Show Grid</span>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <!-- Loss Graph -->
+          <div class="lf-section">
+            <div class="section-header">
+              <h3><i class="fa-solid fa-chart-line"></i> Loss vs Prediction</h3>
+              <div class="hover-readout" id="hoverReadout"></div>
+            </div>
+            <div class="graph-area">
+              <div class="canvas-wrap">
+                <canvas id="lossCanvas"></canvas>
+              </div>
+              <div class="legend" id="lossLegend"></div>
+            </div>
+          </div>
+
+          <!-- Gradient Graph -->
+          <div class="lf-section" id="gradientSection" style="display:none;">
+            <div class="section-header">
+              <h3><i class="fa-solid fa-arrows-up-down"></i> Gradient Magnitude</h3>
+              <div class="hover-readout" id="gradHoverReadout"></div>
+            </div>
+            <div class="graph-area">
+              <div class="canvas-wrap">
+                <canvas id="gradientCanvas"></canvas>
+              </div>
+            </div>
+          </div>
+
+          <!-- Properties -->
+          <div class="lf-section">
+            <div class="section-header">
+              <h3><i class="fa-solid fa-tags"></i> Properties Comparison</h3>
+            </div>
+            <div class="properties-body" id="propertiesBody"></div>
+          </div>
+
+          <!-- Info -->
+          <div class="info-panel">
+            <div class="info-header"><i class="fa-solid fa-lightbulb"></i><span>About Loss Functions</span></div>
+            <div class="info-content">
+              <p>Loss functions measure the discrepancy between predicted and actual values. Choosing the right loss function affects model convergence, robustness, and sensitivity to outliers.</p>
+              <ul class="info-list">
+                <li><strong>MSE:</strong> Penalizes large errors heavily due to squaring; standard for regression</li>
+                <li><strong>MAE:</strong> Linear penalty, more robust to outliers than MSE</li>
+                <li><strong>Huber:</strong> Combines MSE (small errors) and MAE (large errors) with a tunable delta</li>
+                <li><strong>Cross-Entropy:</strong> Standard for classification; heavily penalizes confident wrong predictions</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer"><div class="container"><div class="footer-bottom">
+    <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach. All rights reserved.</p>
+    <p class="footer-made">Made with Claude Code</p>
+  </div></div></footer>
+
+  <div class="toast" id="toast"></div>
+  <div class="shortcuts-hint" id="shortcutsHint"><span><kbd>Shift</kbd>+<kbd>?</kbd> : shortcuts</span></div>
+  <div class="shortcuts-modal" id="shortcutsModal">
+    <div class="shortcuts-content">
+      <div class="shortcuts-header"><h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3><button class="close-shortcuts-btn" id="closeShortcutsBtn" aria-label="Close"><i class="fa-solid fa-xmark"></i></button></div>
+      <div class="shortcuts-body">
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">Actions</div>
+          <div class="shortcut-row"><div class="shortcut-keys"><kbd>A</kbd></div><div class="shortcut-desc">Select all functions</div></div>
+          <div class="shortcut-row"><div class="shortcut-keys"><kbd>C</kbd></div><div class="shortcut-desc">Clear all</div></div>
+          <div class="shortcut-row"><div class="shortcut-keys"><kbd>G</kbd></div><div class="shortcut-desc">Toggle gradient view</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="../../js/tools-common.js"></script>
+  <script src="lossfunction.js"></script>
+</body>
+</html>

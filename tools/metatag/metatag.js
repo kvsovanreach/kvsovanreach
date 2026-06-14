@@ -197,16 +197,16 @@
     // Twitter Tags
     metaTags.push('');
     metaTags.push('<!-- Twitter -->');
-    metaTags.push(`<meta property="twitter:card" content="${twitterCard}">`);
+    metaTags.push(`<meta name="twitter:card" content="${twitterCard}">`);
     if (url) {
-      metaTags.push(`<meta property="twitter:url" content="${escapeHtml(url)}">`);
+      metaTags.push(`<meta name="twitter:url" content="${escapeHtml(url)}">`);
     }
-    metaTags.push(`<meta property="twitter:title" content="${escapeHtml(title)}">`);
+    metaTags.push(`<meta name="twitter:title" content="${escapeHtml(title)}">`);
     if (description) {
-      metaTags.push(`<meta property="twitter:description" content="${escapeHtml(description)}">`);
+      metaTags.push(`<meta name="twitter:description" content="${escapeHtml(description)}">`);
     }
     if (image) {
-      metaTags.push(`<meta property="twitter:image" content="${escapeHtml(image)}">`);
+      metaTags.push(`<meta name="twitter:image" content="${escapeHtml(image)}">`);
     }
     if (twitterHandle) {
       const handle = twitterHandle.startsWith('@') ? twitterHandle : `@${twitterHandle}`;

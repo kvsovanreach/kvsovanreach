@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Test and evaluate JSONPath queries against JSON data with live results.">
+  <meta property="og:title" content="KVSOVANREACH | JSONPath">
+  <meta property="og:description" content="JSONPath query tester with live evaluation, syntax highlighting, and support for dot notation, wildcards, filters, and recursive descent.">
+  <meta property="og:image" content="/assets/img/favicons/og-image.png">
+  <title>KVSOVANREACH | JSONPath</title>
+
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  <link rel="stylesheet" href="../../css/tools-common.css">
+  <link rel="stylesheet" href="jsonpath.css">
+</head>
+<body>
+  <a href="#jsonpath" class="skip-link">Skip to JSONPath</a>
+
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">TOOLS</span>
+      </a>
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <main class="tool-page">
+    <div class="container">
+      <div class="jsonpath-wrapper" id="jsonpath">
+        <div class="jsonpath-header">
+          <h2><i class="fa-solid fa-magnifying-glass-location"></i> JSONPath Tester</h2>
+          <div class="header-actions">
+            <button type="button" class="action-btn secondary" id="sampleBtn" title="Load sample data">
+              <i class="fa-solid fa-flask"></i>
+              <span>Sample</span>
+            </button>
+            <button type="button" class="action-btn secondary" id="clearBtn" title="Clear all">
+              <i class="fa-solid fa-trash"></i>
+              <span>Clear</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="jsonpath-content">
+          <!-- Left Panel: JSON Input -->
+          <div class="jsonpath-panel input-panel">
+            <div class="panel-header">
+              <h3><i class="fa-solid fa-code"></i> JSON Data</h3>
+              <div class="panel-actions">
+                <button type="button" class="panel-btn" id="pasteBtn" title="Paste from clipboard">
+                  <i class="fa-solid fa-paste"></i>
+                </button>
+                <button type="button" class="panel-btn" id="formatJsonBtn" title="Format JSON">
+                  <i class="fa-solid fa-wand-magic-sparkles"></i>
+                </button>
+              </div>
+            </div>
+            <div class="editor-wrap">
+              <div class="line-numbers" id="lineNumbers"></div>
+              <textarea id="jsonInput" spellcheck="false" placeholder="Paste or type your JSON here..."></textarea>
+            </div>
+            <div class="panel-status">
+              <span class="status-indicator" id="jsonStatus">
+                <i class="fa-solid fa-circle"></i>
+                <span id="jsonStatusText">Ready</span>
+              </span>
+              <span class="char-count" id="charCount">0 chars</span>
+            </div>
+          </div>
+
+          <!-- Right Panel: Query + Results -->
+          <div class="jsonpath-panel results-panel">
+            <div class="panel-header">
+              <h3><i class="fa-solid fa-terminal"></i> Query</h3>
+            </div>
+            <div class="query-input-wrap">
+              <span class="query-prefix">$</span>
+              <input type="text" id="queryInput" placeholder=".store.book[0].title" spellcheck="false" autocomplete="off">
+              <button type="button" class="panel-btn" id="copyQueryBtn" title="Copy full query">
+                <i class="fa-solid fa-copy"></i>
+              </button>
+            </div>
+
+            <div class="query-hints" id="queryHints">
+              <div class="hint-item" data-query="$.store.book[0].title">$.store.book[0].title</div>
+              <div class="hint-item" data-query="$..author">$..author</div>
+              <div class="hint-item" data-query="$.store.book[*].price">$.store.book[*].price</div>
+              <div class="hint-item" data-query="$.store.book[?(@.price<10)]">$.store.book[?(@.price&lt;10)]</div>
+              <div class="hint-item" data-query="$.store.book[0:2]">$.store.book[0:2]</div>
+              <div class="hint-item" data-query="$..book[?(@.isbn)]">$..book[?(@.isbn)]</div>
+            </div>
+
+            <div class="results-header">
+              <h3><i class="fa-solid fa-list"></i> Results</h3>
+              <div class="results-meta">
+                <span class="match-count" id="matchCount">0 matches</span>
+                <button type="button" class="panel-btn" id="copyResultsBtn" title="Copy results">
+                  <i class="fa-solid fa-copy"></i>
+                </button>
+              </div>
+            </div>
+            <div class="results-output" id="resultsOutput">
+              <div class="empty-state" id="emptyState">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <p>No results yet</p>
+                <span>Enter a JSONPath query to see results</span>
+              </div>
+              <pre class="results-json" id="resultsJson"></pre>
+            </div>
+
+            <div class="error-bar hidden" id="errorBar">
+              <i class="fa-solid fa-triangle-exclamation"></i>
+              <span id="errorText"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach.</p>
+        <p class="footer-made">Made with 💗 and Claude Code xD</p>
+      </div>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="../../js/tools-common.js"></script>
+  <script src="jsonpath.js"></script>
+</body>
+</html>

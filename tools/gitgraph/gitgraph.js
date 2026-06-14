@@ -200,7 +200,7 @@
 
       // Hash label
       ctx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--color-text').trim() || '#1e293b';
-      ctx.font = '9px "Fira Code"';
+      ctx.font = '9px "SF Mono", SFMono-Regular, ui-monospace, Menlo, Monaco, "Cascadia Mono", Consolas, monospace';
       ctx.textAlign = 'center';
       ctx.fillText(c.hash.slice(0, 5), x, y + nodeRadius + 14);
     });

@@ -10,7 +10,7 @@
   border: 1px solid var(--color-border);
   border-radius: var(--radius-xl);
   overflow: hidden;
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--shadow-card);
 }
 
 /* ==================== Header ==================== */
@@ -18,9 +18,9 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: var(--space-4) var(--space-6);
-  background-color: var(--color-bg);
-  border-bottom: 1px solid var(--color-border);
+  padding: var(--space-4) var(--space-5);
+  background-color: var(--color-surface);
+  border-bottom: 1px solid var(--color-border-light);
 }
 
 .diff-header h2 {
@@ -28,7 +28,7 @@
   align-items: center;
   gap: var(--space-3);
   font-size: var(--font-size-xl);
-  font-weight: 700;
+  font-weight: 600;
   color: var(--color-text);
 }
 
@@ -50,7 +50,7 @@
   justify-content: space-between;
   padding: var(--space-3) var(--space-6);
   background-color: var(--color-bg);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border-light);
 }
 
 .view-toggle {
@@ -126,9 +126,9 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: var(--space-3) var(--space-4);
-  background-color: var(--color-bg);
-  border-bottom: 1px solid var(--color-border);
+  padding: var(--space-4) var(--space-5);
+  background-color: var(--color-surface);
+  border-bottom: 1px solid var(--color-border-light);
 }
 
 .input-header h3 {
@@ -162,18 +162,29 @@
   color: white;
 }
 
+.input-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px var(--color-primary-muted);
+}
+
 .input-panel textarea {
   flex: 1;
   min-height: 200px;
   padding: var(--space-4);
-  font-family: 'Consolas', 'Monaco', monospace;
+  font-family: var(--font-mono);
   font-size: var(--font-size-sm);
   line-height: 1.6;
   color: var(--color-text);
   background-color: var(--color-surface);
-  border: none;
+  border: 2px solid transparent;
   outline: none;
   resize: none;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.input-panel textarea:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 4px var(--color-primary-muted);
 }
 
 .input-panel textarea::placeholder {
@@ -182,7 +193,7 @@
 
 .input-panel textarea.drag-over {
   border: 2px dashed var(--color-primary);
-  background-color: rgba(55, 118, 161, 0.05);
+  background-color: var(--color-primary-muted);
 }
 
 .file-upload-btn {
@@ -194,7 +205,7 @@
   gap: var(--space-4);
   padding: var(--space-2) var(--space-4);
   background-color: var(--color-bg);
-  border-top: 1px solid var(--color-border);
+  border-top: 1px solid var(--color-border-light);
   font-size: var(--font-size-xs);
   color: var(--color-text-secondary);
 }
@@ -210,6 +221,7 @@
   background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
   color: white;
   border: none;
+  border-radius: 0;
   font-size: var(--font-size-lg);
   font-weight: 600;
   cursor: pointer;
@@ -218,6 +230,11 @@
 
 .compare-btn:hover {
   filter: brightness(1.1);
+}
+
+.compare-btn:focus-visible {
+  outline: none;
+  box-shadow: inset 0 0 0 4px var(--color-primary-muted);
 }
 
 /* ==================== Result Section ==================== */
@@ -236,7 +253,7 @@
   align-items: center;
   padding: var(--space-4) var(--space-6);
   background-color: var(--color-bg);
-  border-top: 1px solid var(--color-border);
+  border-top: 1px solid var(--color-border-light);
 }
 
 .stats-left {
@@ -270,6 +287,11 @@
   color: white;
 }
 
+.export-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px var(--color-primary-muted);
+}
+
 .stat-item {
   display: flex;
   align-items: center;
@@ -279,15 +301,15 @@
 }
 
 .stat-item.additions {
-  color: #22c55e;
+  color: var(--color-success);
 }
 
 .stat-item.deletions {
-  color: #ef4444;
+  color: var(--color-error);
 }
 
 .stat-item.changes {
-  color: #f97316;
+  color: var(--color-warning);
 }
 
 /* ==================== Diff Output ==================== */
@@ -308,7 +330,7 @@
 }
 
 .output-empty i {
-  font-size: 2.5rem;
+  font-size: var(--font-size-4xl);
   margin-bottom: var(--space-3);
   opacity: 0.3;
 }
@@ -338,14 +360,14 @@
 .diff-pane-header {
   padding: var(--space-2) var(--space-3);
   background-color: var(--color-surface);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border-light);
   font-size: var(--font-size-xs);
   font-weight: 600;
   color: var(--color-text-secondary);
 }
 
 .diff-pane-content {
-  font-family: 'Consolas', 'Monaco', monospace;
+  font-family: var(--font-mono);
   font-size: var(--font-size-sm);
   line-height: 1.6;
 }
@@ -363,7 +385,7 @@
   font-size: var(--font-size-xs);
   color: var(--color-text-muted);
   background-color: var(--color-surface);
-  border-right: 1px solid var(--color-border);
+  border-right: 1px solid var(--color-border-light);
   user-select: none;
 }
 
@@ -374,43 +396,77 @@
   word-break: break-all;
 }
 
+/* Diff line highlight colors - subtle green/red/orange tones */
 .diff-line.added {
-  background-color: rgba(34, 197, 94, 0.15);
+  background-color: rgba(22, 163, 74, 0.08);
 }
 
 .diff-line.added .diff-line-number {
-  background-color: rgba(34, 197, 94, 0.2);
-  color: #22c55e;
+  background-color: rgba(22, 163, 74, 0.12);
+  color: var(--color-success);
 }
 
 .diff-line.removed {
-  background-color: rgba(239, 68, 68, 0.15);
+  background-color: rgba(220, 38, 38, 0.08);
 }
 
 .diff-line.removed .diff-line-number {
-  background-color: rgba(239, 68, 68, 0.2);
-  color: #ef4444;
+  background-color: rgba(220, 38, 38, 0.12);
+  color: var(--color-error);
 }
 
 .diff-line.modified {
-  background-color: rgba(249, 115, 22, 0.15);
+  background-color: rgba(217, 119, 6, 0.08);
 }
 
 .diff-line.modified .diff-line-number {
-  background-color: rgba(249, 115, 22, 0.2);
-  color: #f97316;
+  background-color: rgba(217, 119, 6, 0.12);
+  color: var(--color-warning);
+}
+
+/* Dark mode: slightly brighter diff backgrounds */
+[data-theme="dark"] .diff-line.added {
+  background-color: color-mix(in srgb, var(--color-success) 10%, transparent);
+}
+
+[data-theme="dark"] .diff-line.added .diff-line-number {
+  background-color: color-mix(in srgb, var(--color-success) 15%, transparent);
+}
+
+[data-theme="dark"] .diff-line.removed {
+  background-color: color-mix(in srgb, var(--color-error) 10%, transparent);
+}
+
+[data-theme="dark"] .diff-line.removed .diff-line-number {
+  background-color: color-mix(in srgb, var(--color-error) 15%, transparent);
+}
+
+[data-theme="dark"] .diff-line.modified {
+  background-color: color-mix(in srgb, var(--color-warning) 10%, transparent);
+}
+
+[data-theme="dark"] .diff-line.modified .diff-line-number {
+  background-color: color-mix(in srgb, var(--color-warning) 15%, transparent);
 }
 
 /* Word-level highlighting */
 .diff-word-added {
-  background-color: rgba(34, 197, 94, 0.3);
-  border-radius: 2px;
+  background-color: rgba(22, 163, 74, 0.2);
+  border-radius: var(--radius-xs);
 }
 
 .diff-word-removed {
-  background-color: rgba(239, 68, 68, 0.3);
+  background-color: rgba(220, 38, 38, 0.2);
   text-decoration: line-through;
-  border-radius: 2px;
+  border-radius: var(--radius-xs);
+}
+
+[data-theme="dark"] .diff-word-added {
+  background-color: color-mix(in srgb, var(--color-success) 25%, transparent);
+}
+
+[data-theme="dark"] .diff-word-removed {
+  background-color: color-mix(in srgb, var(--color-error) 25%, transparent);
 }
 
 /* Unified View */
@@ -440,8 +496,8 @@
 }
 
 .no-diff i {
-  font-size: 3rem;
-  color: #22c55e;
+  font-size: var(--font-size-4xl);
+  color: var(--color-success);
   margin-bottom: var(--space-3);
 }
 
@@ -551,12 +607,6 @@
     padding-right: var(--space-2);
   }
 
-  .diff-header h2 {
-    font-size: var(--font-size-lg);
-  }
-}
-
-@media screen and (max-width: 480px) {
   .diff-header h2 {
     font-size: var(--font-size-lg);
   }

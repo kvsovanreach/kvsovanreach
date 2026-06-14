@@ -299,13 +299,21 @@
 
     // Keyboard shortcuts
     document.addEventListener('keydown', (e) => {
-      if (e.target.matches('input, select, textarea')) {
-        if (e.ctrlKey && e.key === 'Enter') {
-          e.preventDefault();
-          generateText();
-        }
+      // Global shortcuts (work everywhere)
+      if (e.ctrlKey && e.shiftKey && e.key === 'C') {
+        e.preventDefault();
+        copyText();
         return;
       }
+
+      if (e.ctrlKey && e.key === 'Enter') {
+        e.preventDefault();
+        generateText();
+        return;
+      }
+
+      // Navigation shortcuts (only when not in form fields)
+      if (e.target.matches('input, select, textarea')) return;
 
       switch (e.key) {
         case '1':
@@ -314,11 +322,6 @@
         case '2':
           switchTab('preview');
           break;
-      }
-
-      if (e.ctrlKey && e.key === 'Enter') {
-        e.preventDefault();
-        generateText();
       }
     });
   }

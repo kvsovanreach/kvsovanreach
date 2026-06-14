@@ -9,7 +9,7 @@
   border: 1px solid var(--color-border);
   border-radius: var(--radius-xl);
   overflow: hidden;
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--shadow-card);
 }
 
 .countdown-header {
@@ -18,7 +18,7 @@
   justify-content: space-between;
   padding: var(--space-4) var(--space-5);
   background-color: var(--color-surface);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border-light);
 }
 
 .countdown-header h2 {
@@ -56,7 +56,7 @@
 
 .header-action-btn:hover {
   background-color: var(--color-primary);
-  color: #fff;
+  color: var(--color-surface);
   border-color: var(--color-primary);
 }
 
@@ -98,6 +98,7 @@
 .text-input:focus {
   outline: none;
   border-color: var(--color-primary);
+  box-shadow: 0 0 0 4px var(--color-primary-muted);
 }
 
 .fast-datetime {
@@ -113,13 +114,13 @@
 
 .fast-datetime:focus-within {
   border-color: var(--color-primary);
-  box-shadow: 0 0 0 3px rgba(55, 118, 161, 0.1);
+  box-shadow: 0 0 0 4px var(--color-primary-muted);
 }
 
 .fast-datetime input {
   border: none;
   background: none;
-  font-family: 'Fira Code', monospace;
+  font-family: var(--font-mono);
   font-size: var(--font-size-base);
   color: var(--color-text);
   text-align: center;
@@ -175,7 +176,7 @@
 .countdown-value {
   font-size: var(--font-size-4xl);
   font-weight: 700;
-  font-family: 'Fira Code', monospace;
+  font-family: var(--font-mono);
   color: var(--color-text);
 }
 
@@ -206,7 +207,7 @@
   align-items: center;
   gap: var(--space-3);
   padding-top: var(--space-4);
-  border-top: 1px solid var(--color-border);
+  border-top: 1px solid var(--color-border-light);
 }
 
 .presets-label {
@@ -239,10 +240,10 @@
 }
 
 .countdown-display.expired {
-  background: linear-gradient(145deg, rgba(239, 68, 68, 0.1), rgba(239, 68, 68, 0.05));
+  background: linear-gradient(145deg, color-mix(in srgb, var(--color-error) 10%, transparent), color-mix(in srgb, var(--color-error) 5%, transparent));
 }
 
-.countdown-display.expired .countdown-value { color: #ef4444; }
+.countdown-display.expired .countdown-value { color: var(--color-error); }
 
 @media screen and (max-width: 768px) {
   .countdown-wrapper { border-radius: var(--radius-lg); }

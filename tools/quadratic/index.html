@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Solve quadratic equations with step-by-step solutions, discriminant analysis, and interactive parabola graph.">
+  <meta property="og:title" content="KVSOVANREACH | Quadratic Solver">
+  <meta property="og:description" content="Quadratic equation solver with graph visualization.">
+  <meta property="og:image" content="/assets/img/favicons/og-image.png">
+  <title>KVSOVANREACH | Quadratic Solver</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+  <!-- Common Tools CSS -->
+  <link rel="stylesheet" href="../../css/tools-common.css">
+  <!-- Quadratic Solver CSS -->
+  <link rel="stylesheet" href="quadratic.css">
+</head>
+<body>
+  <!-- Skip to Content -->
+  <a href="#quadratic" class="skip-link">Skip to Quadratic Solver</a>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">TOOLS</span>
+      </a>
+
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="tool-page">
+    <div class="container">
+      <div class="quad-wrapper" id="quadratic">
+        <!-- Header -->
+        <div class="quad-header">
+          <h2><i class="fa-solid fa-square-root-variable"></i> Quadratic Solver</h2>
+          <div class="quad-actions">
+            <button type="button" class="action-btn" id="clearBtn" title="Clear all" aria-label="Clear all">
+              <i class="fa-solid fa-trash"></i>
+              <span>Clear</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Content -->
+        <div class="quad-content">
+          <!-- Equation Display -->
+          <div class="equation-display">
+            <span class="eq-text" id="eqPreview">ax<sup>2</sup> + bx + c = 0</span>
+          </div>
+
+          <!-- Coefficient Inputs -->
+          <div class="coeff-inputs">
+            <div class="coeff-group">
+              <label for="coeffA">a</label>
+              <input type="number" id="coeffA" placeholder="1" step="any" autocomplete="off">
+              <span class="coeff-var">x<sup>2</sup></span>
+            </div>
+            <span class="coeff-op">+</span>
+            <div class="coeff-group">
+              <label for="coeffB">b</label>
+              <input type="number" id="coeffB" placeholder="0" step="any" autocomplete="off">
+              <span class="coeff-var">x</span>
+            </div>
+            <span class="coeff-op">+</span>
+            <div class="coeff-group">
+              <label for="coeffC">c</label>
+              <input type="number" id="coeffC" placeholder="0" step="any" autocomplete="off">
+            </div>
+            <span class="coeff-op">=</span>
+            <span class="coeff-zero">0</span>
+          </div>
+
+          <!-- Solve Button -->
+          <div class="solve-section">
+            <button type="button" class="action-btn primary" id="solveBtn">
+              <i class="fa-solid fa-calculator"></i>
+              <span>Solve</span>
+            </button>
+          </div>
+
+          <!-- Error Message -->
+          <div class="error-message hidden" id="errorMessage">
+            <i class="fa-solid fa-circle-exclamation"></i>
+            <span id="errorText"></span>
+          </div>
+
+          <!-- Results Section -->
+          <div class="results-panel hidden" id="resultsPanel">
+            <!-- Discriminant -->
+            <div class="result-card" id="discriminantCard">
+              <div class="card-header">
+                <h3><i class="fa-solid fa-delta"></i> Discriminant</h3>
+              </div>
+              <div class="card-body">
+                <div class="discriminant-value" id="discriminantValue"></div>
+                <div class="discriminant-explain" id="discriminantExplain"></div>
+              </div>
+            </div>
+
+            <!-- Roots -->
+            <div class="result-card" id="rootsCard">
+              <div class="card-header">
+                <h3><i class="fa-solid fa-crosshairs"></i> Roots</h3>
+              </div>
+              <div class="card-body">
+                <div class="roots-display" id="rootsDisplay"></div>
+              </div>
+            </div>
+
+            <!-- Properties -->
+            <div class="result-card" id="propsCard">
+              <div class="card-header">
+                <h3><i class="fa-solid fa-chart-line"></i> Properties</h3>
+              </div>
+              <div class="card-body">
+                <div class="props-grid" id="propsGrid"></div>
+              </div>
+            </div>
+
+            <!-- Steps -->
+            <div class="result-card" id="stepsCard">
+              <div class="card-header">
+                <h3><i class="fa-solid fa-list-ol"></i> Step-by-Step Solution</h3>
+                <button type="button" class="action-btn secondary" id="toggleSteps">
+                  <i class="fa-solid fa-chevron-down"></i>
+                </button>
+              </div>
+              <div class="card-body" id="stepsBody">
+                <div class="steps-content" id="stepsContent"></div>
+              </div>
+            </div>
+
+            <!-- Graph -->
+            <div class="result-card graph-card" id="graphCard">
+              <div class="card-header">
+                <h3><i class="fa-solid fa-chart-area"></i> Parabola Graph</h3>
+              </div>
+              <div class="card-body graph-body">
+                <canvas id="graphCanvas" width="600" height="400"></canvas>
+              </div>
+            </div>
+          </div>
+
+          <!-- Examples -->
+          <div class="examples-section">
+            <h3><i class="fa-solid fa-lightbulb"></i> Examples</h3>
+            <div class="examples-grid">
+              <button type="button" class="example-btn" data-a="1" data-b="-5" data-c="6">
+                <span>x<sup>2</sup> - 5x + 6 = 0</span>
+                <span class="example-hint">Two real roots</span>
+              </button>
+              <button type="button" class="example-btn" data-a="1" data-b="-6" data-c="9">
+                <span>x<sup>2</sup> - 6x + 9 = 0</span>
+                <span class="example-hint">One repeated root</span>
+              </button>
+              <button type="button" class="example-btn" data-a="1" data-b="2" data-c="5">
+                <span>x<sup>2</sup> + 2x + 5 = 0</span>
+                <span class="example-hint">Complex roots</span>
+              </button>
+              <button type="button" class="example-btn" data-a="-2" data-b="4" data-c="1">
+                <span>-2x<sup>2</sup> + 4x + 1 = 0</span>
+                <span class="example-hint">Opens downward</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Info Panel -->
+          <div class="info-panel">
+            <div class="info-header">
+              <i class="fa-solid fa-circle-info"></i>
+              <span>About Quadratic Equations</span>
+            </div>
+            <div class="info-content">
+              <p>A <strong>quadratic equation</strong> has the form ax<sup>2</sup> + bx + c = 0 where a is not 0.</p>
+              <ul>
+                <li><strong>Two distinct real roots</strong> when discriminant &gt; 0</li>
+                <li><strong>One repeated real root</strong> when discriminant = 0</li>
+                <li><strong>Two complex roots</strong> when discriminant &lt; 0</li>
+              </ul>
+              <p class="tip"><strong>Tip:</strong> The quadratic formula is x = (-b +/- sqrt(b<sup>2</sup> - 4ac)) / (2a)</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach. All rights reserved.</p>
+        <p class="footer-made">Made with 💗 and Claude Code xD</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Keyboard Shortcuts Modal -->
+  <div class="shortcuts-modal" id="shortcutsModal">
+    <div class="shortcuts-content">
+      <div class="shortcuts-header">
+        <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
+        <button type="button" class="close-shortcuts-btn" id="closeShortcutsBtn" aria-label="Close shortcuts">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="shortcuts-body">
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">Actions</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Enter</kbd></div>
+            <div class="shortcut-desc">Solve equation</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Tab</kbd></div>
+            <div class="shortcut-desc">Next field</div>
+          </div>
+        </div>
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">General</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>?</kbd></div>
+            <div class="shortcut-desc">Show shortcuts</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Keyboard Shortcuts Hint -->
+  <div class="shortcuts-hint" id="shortcutsHint">
+    <span><kbd>Shift</kbd>+<kbd>?</kbd> : shortcuts</span>
+  </div>
+
+  <!-- Shared Tools JavaScript -->
+  <script src="../../js/tools-common.js"></script>
+  <!-- Quadratic Solver JavaScript -->
+  <script src="quadratic.js"></script>
+</body>
+</html>

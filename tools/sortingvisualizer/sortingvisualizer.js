@@ -547,7 +547,7 @@
       updateStats();
 
       if (typeof ToolsCommon !== 'undefined') {
-        ToolsCommon.Toast.success('Sorting complete!');
+        ToolsCommon.Toast.show('Sorting complete!', 'success');
       }
     }
 

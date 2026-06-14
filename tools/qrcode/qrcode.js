@@ -1373,18 +1373,7 @@ function initKeyboardShortcuts() {
 }
 
 // ===== TOAST NOTIFICATIONS =====
-let toastTimeout;
-
-function showToast(message, type = 'info') {
-  clearTimeout(toastTimeout);
-
-  elements.toast.textContent = message;
-  elements.toast.className = `toast ${type} show`;
-
-  toastTimeout = setTimeout(() => {
-    elements.toast.classList.remove('show');
-  }, 3000);
-}
+const showToast = (message, type) => ToolsCommon.showToast(message, type);
 
 // ===== INITIALIZE =====
 document.addEventListener('DOMContentLoaded', init);

@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Decode, encode, and verify JWT tokens with HMAC-SHA256 support.">
+  <meta property="og:title" content="KVSOVANREACH | JWT Decoder">
+  <meta property="og:description" content="JWT token decoder, encoder, and verifier with signature validation and expiration checking.">
+  <meta property="og:image" content="/assets/img/favicons/og-image.png">
+  <title>KVSOVANREACH | JWT Decoder</title>
+
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  <link rel="stylesheet" href="../../css/tools-common.css">
+  <link rel="stylesheet" href="jwtdecoder.css">
+</head>
+<body>
+  <a href="#jwt" class="skip-link">Skip to JWT Decoder</a>
+
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">TOOLS</span>
+      </a>
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <main class="tool-page">
+    <div class="container">
+      <div class="jwt-wrapper" id="jwt">
+        <div class="jwt-header">
+          <h2><i class="fa-solid fa-key"></i> JWT Decoder</h2>
+        </div>
+
+        <!-- Tabs -->
+        <div class="tool-tabs">
+          <button type="button" class="tool-tab active" data-tab="decode">
+            <i class="fa-solid fa-lock-open"></i>
+            <span>Decode</span>
+          </button>
+          <button type="button" class="tool-tab" data-tab="encode">
+            <i class="fa-solid fa-lock"></i>
+            <span>Encode</span>
+          </button>
+          <button type="button" class="tool-tab" data-tab="verify">
+            <i class="fa-solid fa-shield-halved"></i>
+            <span>Verify</span>
+          </button>
+        </div>
+
+        <!-- ==================== Decode Tab ==================== -->
+        <div class="tab-panel active" id="decodePanel">
+          <div class="decode-layout">
+            <!-- JWT Input -->
+            <div class="jwt-input-section">
+              <div class="section-header">
+                <h3>Encoded Token</h3>
+                <div class="section-actions">
+                  <button type="button" class="action-btn secondary" id="decodeSampleBtn">
+                    <i class="fa-solid fa-flask"></i>
+                    <span>Sample</span>
+                  </button>
+                  <button type="button" class="action-btn secondary" id="decodePasteBtn">
+                    <i class="fa-solid fa-paste"></i>
+                    <span>Paste</span>
+                  </button>
+                  <button type="button" class="action-btn secondary" id="decodeClearBtn">
+                    <i class="fa-solid fa-trash"></i>
+                    <span>Clear</span>
+                  </button>
+                </div>
+              </div>
+              <div class="jwt-token-input">
+                <textarea id="decodeInput" spellcheck="false" placeholder="Paste your JWT token here..."></textarea>
+              </div>
+            </div>
+
+            <!-- Decoded Output -->
+            <div class="jwt-decoded-section">
+              <!-- Header -->
+              <div class="jwt-part" id="decodedHeader">
+                <div class="part-label header-label">
+                  <i class="fa-solid fa-heading"></i> HEADER
+                  <span class="algo-badge" id="algoBadge"></span>
+                  <button type="button" class="panel-btn copy-part-btn" data-part="header" title="Copy header">
+                    <i class="fa-solid fa-copy"></i>
+                  </button>
+                </div>
+                <pre class="part-content" id="headerContent">Paste a JWT to decode</pre>
+              </div>
+
+              <!-- Payload -->
+              <div class="jwt-part" id="decodedPayload">
+                <div class="part-label payload-label">
+                  <i class="fa-solid fa-cube"></i> PAYLOAD
+                  <span class="expiry-badge" id="expiryBadge"></span>
+                  <button type="button" class="panel-btn copy-part-btn" data-part="payload" title="Copy payload">
+                    <i class="fa-solid fa-copy"></i>
+                  </button>
+                </div>
+                <pre class="part-content" id="payloadContent"></pre>
+              </div>
+
+              <!-- Signature -->
+              <div class="jwt-part" id="decodedSignature">
+                <div class="part-label signature-label">
+                  <i class="fa-solid fa-fingerprint"></i> SIGNATURE
+                  <button type="button" class="panel-btn copy-part-btn" data-part="signature" title="Copy signature">
+                    <i class="fa-solid fa-copy"></i>
+                  </button>
+                </div>
+                <pre class="part-content signature-content" id="signatureContent"></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ==================== Encode Tab ==================== -->
+        <div class="tab-panel" id="encodePanel">
+          <div class="encode-layout">
+            <div class="encode-inputs">
+              <!-- Header Editor -->
+              <div class="encode-field">
+                <div class="section-header">
+                  <h3 class="header-color"><i class="fa-solid fa-heading"></i> Header</h3>
+                </div>
+                <textarea id="encodeHeader" spellcheck="false" rows="4">{
+  "alg": "HS256",
+  "typ": "JWT"
+}</textarea>
+              </div>
+
+              <!-- Payload Editor -->
+              <div class="encode-field">
+                <div class="section-header">
+                  <h3 class="payload-color"><i class="fa-solid fa-cube"></i> Payload</h3>
+                </div>
+                <textarea id="encodePayload" spellcheck="false" rows="8">{
+  "sub": "1234567890",
+  "name": "John Doe",
+  "iat": 1516239022
+}</textarea>
+              </div>
+
+              <!-- Secret -->
+              <div class="encode-field">
+                <div class="section-header">
+                  <h3 class="signature-color"><i class="fa-solid fa-key"></i> Secret</h3>
+                </div>
+                <div class="secret-input-wrap">
+                  <input type="text" id="encodeSecret" placeholder="your-256-bit-secret" value="secret" spellcheck="false">
+                  <button type="button" class="panel-btn" id="toggleSecretBtn" title="Toggle visibility">
+                    <i class="fa-solid fa-eye"></i>
+                  </button>
+                </div>
+              </div>
+
+              <button type="button" class="action-btn primary encode-btn" id="encodeBtn">
+                <i class="fa-solid fa-lock"></i>
+                <span>Generate JWT</span>
+              </button>
+            </div>
+
+            <!-- Encoded Output -->
+            <div class="encode-output">
+              <div class="section-header">
+                <h3>Encoded Token</h3>
+                <button type="button" class="action-btn secondary" id="copyEncodedBtn">
+                  <i class="fa-solid fa-copy"></i>
+                  <span>Copy</span>
+                </button>
+              </div>
+              <div class="encoded-token-display">
+                <pre id="encodedOutput" class="jwt-token-colored">Generate a token to see the result</pre>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ==================== Verify Tab ==================== -->
+        <div class="tab-panel" id="verifyPanel">
+          <div class="verify-layout">
+            <div class="verify-field">
+              <div class="section-header">
+                <h3><i class="fa-solid fa-key"></i> JWT Token</h3>
+              </div>
+              <textarea id="verifyToken" spellcheck="false" rows="4" placeholder="Paste JWT token to verify..."></textarea>
+            </div>
+
+            <div class="verify-field">
+              <div class="section-header">
+                <h3><i class="fa-solid fa-lock"></i> Secret Key</h3>
+              </div>
+              <input type="text" id="verifySecret" placeholder="Enter the secret key" spellcheck="false">
+            </div>
+
+            <button type="button" class="action-btn primary verify-btn" id="verifyBtn">
+              <i class="fa-solid fa-shield-halved"></i>
+              <span>Verify Signature</span>
+            </button>
+
+            <div class="verify-result hidden" id="verifyResult">
+              <div class="verify-icon" id="verifyIcon"></div>
+              <div class="verify-message" id="verifyMessage"></div>
+              <div class="verify-details" id="verifyDetails"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach.</p>
+        <p class="footer-made">Made with 💗 and Claude Code xD</p>
+      </div>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="../../js/tools-common.js"></script>
+  <script src="jwtdecoder.js"></script>
+</body>
+</html>

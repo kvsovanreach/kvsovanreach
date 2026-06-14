@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Interactive Finite State Machine simulator. Build, visualize, and test FSMs with canvas-based diagrams.">
+  <meta property="og:title" content="KVSOVANREACH | State Machine Simulator">
+  <meta property="og:description" content="Build and simulate Finite State Machines with canvas diagrams, transition tables, and string testing.">
+  <meta property="og:image" content="/assets/img/favicons/og-image.png">
+  <title>KVSOVANREACH | State Machine Simulator</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+  <!-- Common Tools CSS -->
+  <link rel="stylesheet" href="../../css/tools-common.css">
+  <!-- State Machine CSS -->
+  <link rel="stylesheet" href="statemachine.css">
+</head>
+<body>
+  <!-- Skip to Content -->
+  <a href="#statemachine" class="skip-link">Skip to state machine simulator</a>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">TOOLS</span>
+      </a>
+
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="tool-page">
+    <div class="container">
+      <div class="fsm-wrapper" id="statemachine">
+        <!-- Header -->
+        <div class="fsm-header">
+          <h2><i class="fa-solid fa-diagram-project"></i> State Machine Simulator</h2>
+          <div class="fsm-header-actions">
+            <button class="fsm-btn fsm-btn-sm fsm-btn-ghost" id="importBtn" title="Import JSON">
+              <i class="fa-solid fa-file-import"></i>
+            </button>
+            <button class="fsm-btn fsm-btn-sm fsm-btn-ghost" id="exportBtn" title="Export JSON">
+              <i class="fa-solid fa-file-export"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Content -->
+        <div class="fsm-content">
+          <!-- Toolbar -->
+          <div class="fsm-toolbar">
+            <div class="fsm-tool-group">
+              <label>Mode</label>
+              <div class="fsm-mode-btns">
+                <button class="fsm-btn fsm-btn-mode active" data-mode="select" title="Select / Move">
+                  <i class="fa-solid fa-arrow-pointer"></i>
+                </button>
+                <button class="fsm-btn fsm-btn-mode" data-mode="addState" title="Add State">
+                  <i class="fa-solid fa-circle-plus"></i>
+                </button>
+                <button class="fsm-btn fsm-btn-mode" data-mode="addTransition" title="Add Transition">
+                  <i class="fa-solid fa-arrow-right-long"></i>
+                </button>
+                <button class="fsm-btn fsm-btn-mode" data-mode="setInitial" title="Set Initial State">
+                  <i class="fa-solid fa-play"></i>
+                </button>
+                <button class="fsm-btn fsm-btn-mode" data-mode="toggleAccept" title="Toggle Accepting State">
+                  <i class="fa-solid fa-circle-check"></i>
+                </button>
+                <button class="fsm-btn fsm-btn-mode" data-mode="delete" title="Delete State/Transition">
+                  <i class="fa-solid fa-trash"></i>
+                </button>
+              </div>
+            </div>
+
+            <div class="fsm-tool-group">
+              <label>Presets</label>
+              <select id="presetSelect">
+                <option value="">-- Load Preset --</option>
+                <option value="divBy3">Binary Divisible by 3</option>
+                <option value="palindrome">Palindrome Checker (aba)</option>
+                <option value="email">Email Validator Pattern</option>
+                <option value="traffic">Traffic Light</option>
+              </select>
+            </div>
+
+            <div class="fsm-tool-group fsm-tool-actions">
+              <button class="fsm-btn fsm-btn-secondary" id="clearAllBtn" title="Clear All">
+                <i class="fa-solid fa-broom"></i> Clear
+              </button>
+            </div>
+          </div>
+
+          <!-- Canvas -->
+          <div class="fsm-canvas-wrap">
+            <canvas id="fsmCanvas" width="900" height="500"></canvas>
+            <div class="fsm-canvas-hint" id="canvasHint">
+              Click <i class="fa-solid fa-circle-plus"></i> mode then click canvas to add states
+            </div>
+          </div>
+
+          <!-- Test Input -->
+          <div class="fsm-test-section">
+            <h3><i class="fa-solid fa-vial"></i> Test Input String</h3>
+            <div class="fsm-test-row">
+              <input type="text" id="testInput" placeholder="Enter input string (e.g. 110)..." maxlength="100">
+              <button class="fsm-btn fsm-btn-primary" id="runTestBtn">
+                <i class="fa-solid fa-play"></i> Run
+              </button>
+              <button class="fsm-btn fsm-btn-secondary" id="stepTestBtn">
+                <i class="fa-solid fa-forward-step"></i> Step
+              </button>
+              <button class="fsm-btn fsm-btn-secondary" id="resetTestBtn">
+                <i class="fa-solid fa-rotate-left"></i> Reset
+              </button>
+            </div>
+            <div class="fsm-test-result" id="testResult"></div>
+            <div class="fsm-test-trace" id="testTrace"></div>
+          </div>
+
+          <!-- Transition Table -->
+          <div class="fsm-table-section">
+            <h3><i class="fa-solid fa-table"></i> Transition Table</h3>
+            <div class="fsm-table-wrap">
+              <table id="transitionTable">
+                <thead><tr><th>State</th></tr></thead>
+                <tbody></tbody>
+              </table>
+              <div class="fsm-table-empty" id="tableEmpty">No states defined yet.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Hidden file input for import -->
+  <input type="file" id="fileInput" accept=".json" style="display:none">
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach. All rights reserved.</p>
+        <p class="footer-made">Made with 💗 and Claude Code xD</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Shared Tools JavaScript -->
+  <script src="../../js/tools-common.js"></script>
+  <!-- State Machine JavaScript -->
+  <script src="statemachine.js"></script>
+</body>
+</html>

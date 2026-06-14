@@ -1,0 +1,381 @@
+/**
+ * Simon Says - Styles
+ */
+
+/* Wrapper */
+.simon-wrapper {
+  max-width: 520px;
+  margin: 0 auto;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+}
+
+/* Header */
+.simon-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-4) var(--space-5);
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.simon-header h2 {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-size: var(--font-size-xl);
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.simon-header h2 i {
+  color: var(--color-primary);
+}
+
+.simon-actions {
+  display: flex;
+  gap: var(--space-2);
+}
+
+/* Content */
+.simon-content {
+  padding: var(--space-5) var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+/* Settings */
+.simon-settings {
+  display: flex;
+  gap: var(--space-4);
+}
+
+.setting-group {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.setting-group label {
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.mode-buttons {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.mode-btn {
+  flex: 1;
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background-color: var(--color-bg);
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  transition: all var(--transition-fast);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  cursor: pointer;
+}
+
+.mode-btn:hover {
+  background-color: var(--color-surface-hover);
+  color: var(--color-text);
+}
+
+.mode-btn.active {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+  color: #fff;
+}
+
+.mode-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px var(--color-primary-muted);
+}
+
+/* Scoreboard */
+.simon-scoreboard {
+  display: flex;
+  gap: var(--space-3);
+}
+
+.score-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-1);
+  padding: var(--space-3);
+  background-color: var(--color-bg-secondary);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border-light);
+}
+
+.score-label {
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.score-value {
+  font-size: var(--font-size-2xl);
+  font-weight: 700;
+  font-family: var(--font-mono);
+  color: var(--color-text);
+}
+
+.high-score .score-value {
+  color: var(--color-primary);
+}
+
+.high-score .score-label i {
+  color: var(--color-primary);
+}
+
+/* Status */
+.simon-status {
+  text-align: center;
+  font-size: var(--font-size-base);
+  font-weight: 600;
+  color: var(--color-text);
+  padding: var(--space-2);
+  border-radius: var(--radius-sm);
+  transition: all var(--transition-fast);
+}
+
+.simon-status.watching {
+  color: var(--color-info);
+}
+
+.simon-status.playing {
+  color: var(--color-success);
+}
+
+.simon-status.wrong {
+  color: var(--color-error);
+}
+
+/* Board */
+.simon-board {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-3);
+  max-width: 320px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.simon-pad {
+  aspect-ratio: 1;
+  border: none;
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: filter var(--transition-fast), transform var(--transition-fast);
+}
+
+.simon-pad .pad-inner {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: var(--radius-lg);
+  transition: opacity var(--transition-fast);
+}
+
+/* Pad colors */
+.simon-pad[data-color="red"] {
+  background-color: #c0392b;
+}
+
+.simon-pad[data-color="red"] .pad-inner {
+  background: radial-gradient(circle at 35% 35%, #e74c3c 0%, #c0392b 70%);
+}
+
+.simon-pad[data-color="blue"] {
+  background-color: #2471a3;
+}
+
+.simon-pad[data-color="blue"] .pad-inner {
+  background: radial-gradient(circle at 35% 35%, #3498db 0%, #2471a3 70%);
+}
+
+.simon-pad[data-color="green"] {
+  background-color: #1e8449;
+}
+
+.simon-pad[data-color="green"] .pad-inner {
+  background: radial-gradient(circle at 35% 35%, #2ecc71 0%, #1e8449 70%);
+}
+
+.simon-pad[data-color="yellow"] {
+  background-color: #d4ac0d;
+}
+
+.simon-pad[data-color="yellow"] .pad-inner {
+  background: radial-gradient(circle at 35% 35%, #f1c40f 0%, #d4ac0d 70%);
+}
+
+/* Dimmed state (default during play) */
+.simon-pad {
+  filter: brightness(0.6);
+}
+
+/* Active/lit state */
+.simon-pad.lit {
+  filter: brightness(1.2);
+  transform: scale(1.04);
+}
+
+/* Hover */
+.simon-pad:hover:not(.disabled) {
+  filter: brightness(0.8);
+}
+
+.simon-pad:active:not(.disabled) {
+  filter: brightness(1.1);
+  transform: scale(0.97);
+}
+
+/* Disabled state (during computer turn) */
+.simon-pad.disabled {
+  cursor: default;
+  pointer-events: none;
+}
+
+/* Focus visible */
+.simon-pad:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px var(--color-primary-muted);
+}
+
+/* Idle state (before game starts) */
+.simon-board.idle .simon-pad {
+  filter: brightness(0.85);
+}
+
+.simon-board.idle .simon-pad:hover {
+  filter: brightness(1);
+}
+
+/* Wrong flash */
+.simon-pad.wrong-flash {
+  animation: wrongShake 0.4s ease;
+}
+
+@keyframes wrongShake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-6px); }
+  50% { transform: translateX(6px); }
+  75% { transform: translateX(-3px); }
+}
+
+/* New high score pulse */
+.score-item.new-high {
+  animation: highScorePulse 0.6s ease;
+}
+
+@keyframes highScorePulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); background-color: var(--color-primary-muted); }
+  100% { transform: scale(1); }
+}
+
+/* Info panel */
+.info-panel {
+  background-color: var(--color-bg-secondary);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.info-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-4) var(--space-5);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.info-header i {
+  color: var(--color-primary);
+}
+
+.info-content {
+  padding: var(--space-3) var(--space-4);
+}
+
+.info-content ul {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.info-content li {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  padding-left: var(--space-4);
+  position: relative;
+}
+
+.info-content li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 8px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: var(--color-primary);
+}
+
+/* Responsive */
+@media screen and (max-width: 480px) {
+  .simon-content {
+    padding: var(--space-4);
+  }
+
+  .simon-header {
+    padding: var(--space-3) var(--space-4);
+  }
+
+  .simon-board {
+    max-width: 260px;
+    gap: var(--space-2);
+  }
+
+  .simon-settings {
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .score-item {
+    padding: var(--space-2);
+  }
+
+  .score-value {
+    font-size: var(--font-size-xl);
+  }
+}

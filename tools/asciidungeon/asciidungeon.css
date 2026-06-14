@@ -11,7 +11,7 @@
   border: 1px solid var(--color-border);
   border-radius: var(--radius-xl);
   overflow: hidden;
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--shadow-card);
 }
 
 /* Header */
@@ -21,7 +21,7 @@
   justify-content: space-between;
   padding: var(--space-4) var(--space-5);
   background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border-light);
 }
 
 .game-header h2 {
@@ -75,7 +75,7 @@
 }
 
 .stat-item.health i {
-  color: #ef4444;
+  color: var(--color-error);
 }
 
 .stat-label {
@@ -89,7 +89,7 @@
 }
 
 .stat-value.gold {
-  color: #fbbf24;
+  color: var(--color-warning);
 }
 
 /* Health Bar */
@@ -105,7 +105,7 @@
 .health-fill {
   height: 100%;
   width: 100%;
-  background: linear-gradient(90deg, #ef4444, #f87171);
+  background: linear-gradient(90deg, var(--color-error), color-mix(in srgb, var(--color-error) 70%, white));
   transition: width 0.3s ease;
 }
 
@@ -116,7 +116,7 @@
 }
 
 .dungeon-display {
-  font-family: 'Fira Code', 'Courier New', monospace;
+  font-family: var(--font-mono);
   font-size: clamp(10px, 2.5vw, 16px);
   line-height: 1.2;
   background-color: #0a0a0a;
@@ -137,13 +137,13 @@
 }
 
 /* ASCII Character Colors */
-.char-player { color: #22c55e; font-weight: bold; text-shadow: 0 0 5px rgba(34, 197, 94, 0.8); }
+.char-player { color: var(--color-success); font-weight: bold; text-shadow: 0 0 5px color-mix(in srgb, var(--color-success) 80%, transparent); }
 .char-wall { color: #555; }
 .char-floor { color: #333; }
-.char-gold { color: #fbbf24; text-shadow: 0 0 3px rgba(251, 191, 36, 0.5); }
-.char-health { color: #ef4444; text-shadow: 0 0 3px rgba(239, 68, 68, 0.5); }
-.char-enemy { color: #ef4444; font-weight: bold; }
-.char-stairs { color: #60a5fa; font-weight: bold; text-shadow: 0 0 5px rgba(96, 165, 250, 0.5); }
+.char-gold { color: var(--color-warning); text-shadow: 0 0 3px rgba(251, 191, 36, 0.5); }
+.char-health { color: var(--color-error); text-shadow: 0 0 3px color-mix(in srgb, var(--color-error) 50%, transparent); }
+.char-enemy { color: var(--color-error); font-weight: bold; }
+.char-stairs { color: var(--color-info); font-weight: bold; text-shadow: 0 0 5px rgba(96, 165, 250, 0.5); }
 
 /* Game Overlay */
 .game-overlay {
@@ -178,11 +178,11 @@
   font-weight: 700;
   font-family: 'Orbitron', sans-serif;
   margin-bottom: var(--space-3);
-  color: #ef4444;
+  color: var(--color-error);
 }
 
 .overlay-content h3.win {
-  color: #22c55e;
+  color: var(--color-success);
 }
 
 .overlay-content p {
@@ -236,7 +236,7 @@
   border: 1px solid #333;
   border-radius: var(--radius-md);
   margin-bottom: var(--space-4);
-  font-family: 'Fira Code', monospace;
+  font-family: var(--font-mono);
   font-size: var(--font-size-xs);
 }
 
@@ -250,19 +250,19 @@
 }
 
 .message-log .message.damage {
-  color: #ef4444;
+  color: var(--color-error);
 }
 
 .message-log .message.heal {
-  color: #22c55e;
+  color: var(--color-success);
 }
 
 .message-log .message.gold {
-  color: #fbbf24;
+  color: var(--color-warning);
 }
 
 .message-log .message.info {
-  color: #60a5fa;
+  color: var(--color-info);
 }
 
 /* Controls Section */
@@ -295,12 +295,17 @@
   color: var(--color-text);
   font-size: var(--font-size-lg);
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all var(--transition-fast);
 }
 
 .control-btn:hover {
   border-color: #a855f7;
   color: #a855f7;
+}
+
+.control-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px var(--color-primary-muted);
 }
 
 .control-btn:active {
@@ -357,19 +362,19 @@
   height: 24px;
   line-height: 24px;
   text-align: center;
-  font-family: 'Fira Code', monospace;
+  font-family: var(--font-mono);
   font-weight: bold;
   background-color: #1a1a1a;
   border-radius: var(--radius-sm);
 }
 
-.legend-char.player { color: #22c55e; }
+.legend-char.player { color: var(--color-success); }
 .legend-char.wall { color: #555; }
 .legend-char.floor { color: #333; }
-.legend-char.gold { color: #fbbf24; }
-.legend-char.health { color: #ef4444; }
-.legend-char.enemy { color: #ef4444; }
-.legend-char.stairs { color: #60a5fa; }
+.legend-char.gold { color: var(--color-warning); }
+.legend-char.health { color: var(--color-error); }
+.legend-char.enemy { color: var(--color-error); }
+.legend-char.stairs { color: var(--color-info); }
 
 /* Info Panel */
 .info-panel {
@@ -385,14 +390,14 @@
   gap: var(--space-2);
   padding: var(--space-3) var(--space-4);
   background-color: var(--color-bg-tertiary);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border-light);
   font-size: var(--font-size-sm);
   font-weight: 600;
   color: var(--color-text);
 }
 
 .info-header i {
-  color: #f59e0b;
+  color: var(--color-warning);
 }
 
 .info-content {

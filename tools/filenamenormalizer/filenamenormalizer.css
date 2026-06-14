@@ -8,7 +8,7 @@
   border: 1px solid var(--color-border);
   border-radius: var(--radius-xl);
   overflow: hidden;
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--shadow-card);
 }
 
 /* ==================== Header ==================== */
@@ -17,7 +17,7 @@
   align-items: center;
   padding: var(--space-4) var(--space-5);
   background-color: var(--color-surface);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border-light);
   position: relative;
 }
 
@@ -58,9 +58,9 @@
 }
 
 .normalizer-actions .action-btn:hover {
-  background-color: #ef4444;
-  border-color: #ef4444;
-  color: #fff;
+  background-color: var(--color-error);
+  border-color: var(--color-error);
+  color: var(--color-surface);
 }
 
 /* ==================== Content ==================== */
@@ -98,7 +98,7 @@
   background-color: var(--color-bg-secondary);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
-  font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+  font-family: var(--font-mono);
   font-size: var(--font-size-sm);
   color: var(--color-text);
   resize: vertical;
@@ -108,7 +108,7 @@
 .input-section textarea:focus {
   outline: none;
   border-color: var(--color-primary);
-  box-shadow: 0 0 0 3px rgba(55, 118, 161, 0.1);
+  box-shadow: 0 0 0 4px var(--color-primary-muted);
 }
 
 .input-section textarea::placeholder {
@@ -129,7 +129,7 @@
   align-items: center;
   padding: var(--space-3) var(--space-4);
   background-color: var(--color-surface);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border-light);
 }
 
 .options-header h3 {
@@ -178,6 +178,7 @@
 .option-group select:focus {
   outline: none;
   border-color: var(--color-primary);
+  box-shadow: 0 0 0 4px var(--color-primary-muted);
 }
 
 .option-group.checkboxes {
@@ -248,7 +249,7 @@
   justify-content: space-between;
   padding: var(--space-3) var(--space-4);
   background-color: var(--color-surface);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border-light);
 }
 
 .results-header h3 {
@@ -282,7 +283,7 @@
 .results-header .action-btn.small:hover {
   background-color: var(--color-primary);
   border-color: var(--color-primary);
-  color: #fff;
+  color: var(--color-surface);
 }
 
 .results-content {
@@ -319,7 +320,7 @@
   justify-content: space-between;
   padding: var(--space-3);
   background-color: var(--color-surface);
-  border: 1px solid var(--color-border);
+  border: 1px solid var(--color-border-light);
   border-radius: var(--radius-md);
   margin-bottom: var(--space-2);
   gap: var(--space-3);
@@ -330,7 +331,7 @@
 }
 
 .result-filename {
-  font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+  font-family: var(--font-mono);
   font-size: var(--font-size-sm);
   color: var(--color-primary);
   word-break: break-all;
@@ -344,7 +345,7 @@
   align-items: center;
   justify-content: center;
   background-color: transparent;
-  border: 1px solid var(--color-border);
+  border: 1px solid var(--color-border-light);
   border-radius: var(--radius-sm);
   color: var(--color-text-muted);
   cursor: pointer;
@@ -354,7 +355,7 @@
 .result-copy:hover {
   background-color: var(--color-primary);
   border-color: var(--color-primary);
-  color: white;
+  color: var(--color-surface);
 }
 
 /* ==================== Preview Section ==================== */
@@ -371,7 +372,7 @@
   align-items: center;
   padding: var(--space-3) var(--space-4);
   background-color: var(--color-surface);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border-light);
 }
 
 .preview-header h3 {
@@ -397,7 +398,7 @@
   gap: var(--space-3);
   padding: var(--space-3);
   background-color: var(--color-surface);
-  border: 1px solid var(--color-border);
+  border: 1px solid var(--color-border-light);
   border-radius: var(--radius-md);
   margin-bottom: var(--space-2);
 }
@@ -409,7 +410,7 @@
 .preview-before,
 .preview-after {
   flex: 1;
-  font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+  font-family: var(--font-mono);
   font-size: var(--font-size-sm);
   word-break: break-all;
 }
@@ -420,7 +421,7 @@
 }
 
 .preview-after {
-  color: #22c55e;
+  color: var(--color-success);
 }
 
 .preview-arrow {
@@ -442,7 +443,7 @@
   gap: var(--space-2);
   padding: var(--space-3) var(--space-4);
   background-color: var(--color-surface);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border-light);
   font-size: var(--font-size-sm);
   font-weight: 600;
   color: var(--color-text);
@@ -474,11 +475,11 @@
 }
 
 .tip-item i.fa-check {
-  color: #22c55e;
+  color: var(--color-success);
 }
 
 .tip-item i.fa-xmark {
-  color: #ef4444;
+  color: var(--color-error);
 }
 
 /* ==================== Responsive - Tablet ==================== */
@@ -622,7 +623,7 @@
 
   .results-header .action-btn.small {
     padding: var(--space-1) var(--space-2);
-    font-size: 0.65rem;
+    font-size: var(--font-size-xs);
   }
 
   .results-header .action-btn.small span {
@@ -636,7 +637,7 @@
 
   .tip-item {
     padding: var(--space-2);
-    font-size: 0.65rem;
+    font-size: var(--font-size-xs);
   }
 }
 

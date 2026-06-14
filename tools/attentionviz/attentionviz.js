@@ -248,7 +248,7 @@
         // Value text
         if (cellSize >= 35) {
           ctx.fillStyle = val > 0.5 ? 'white' : '#1e293b';
-          ctx.font = '10px "Fira Code", monospace';
+          ctx.font = '10px "SF Mono", SFMono-Regular, ui-monospace, Menlo, Monaco, "Cascadia Mono", Consolas, monospace';
           ctx.textAlign = 'center';
           ctx.textBaseline = 'middle';
           ctx.fillText(val.toFixed(2), x + cellSize / 2, y + cellSize / 2);
@@ -259,7 +259,7 @@
     // Draw labels
     ctx.fillStyle = getComputedStyle(document.documentElement)
       .getPropertyValue('--color-text').trim() || '#1e293b';
-    ctx.font = '11px "Fira Code", monospace';
+    ctx.font = '11px "SF Mono", SFMono-Regular, ui-monospace, Menlo, Monaco, "Cascadia Mono", Consolas, monospace';
 
     // Column labels (top)
     ctx.textAlign = 'center';

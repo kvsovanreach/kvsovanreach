@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Play Rock Paper Scissors (or Lizard Spock) against an adaptive AI opponent.">
+  <meta property="og:title" content="KVSOVANREACH | Rock Paper Scissors">
+  <meta property="og:description" content="Rock Paper Scissors with Lizard Spock variant, adaptive AI, and statistics.">
+  <meta property="og:image" content="/assets/img/favicons/og-image.png">
+  <title>KVSOVANREACH | Rock Paper Scissors</title>
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  <link rel="stylesheet" href="../../css/tools-common.css">
+  <link rel="stylesheet" href="rockpaperscissors.css">
+</head>
+<body>
+  <a href="#rps" class="skip-link">Skip to Rock Paper Scissors</a>
+
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">TOOLS</span>
+      </a>
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <main class="tool-page">
+    <div class="container">
+      <div class="rps-wrapper" id="rps">
+        <!-- Header -->
+        <div class="rps-header">
+          <h2><i class="fa-solid fa-hand-fist"></i> Rock Paper Scissors</h2>
+          <div class="rps-actions">
+            <button class="action-btn" id="resetBtn" title="Reset Scores">
+              <i class="fa-solid fa-rotate"></i>
+              <span>Reset</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="rps-content">
+          <!-- Settings -->
+          <div class="rps-settings">
+            <div class="setting-group">
+              <label>Game Mode</label>
+              <div class="mode-buttons">
+                <button class="mode-btn active" data-mode="classic">
+                  <i class="fa-solid fa-hand-scissors"></i> Classic
+                </button>
+                <button class="mode-btn" data-mode="extended">
+                  <i class="fa-solid fa-hand-spock"></i> Lizard Spock
+                </button>
+              </div>
+            </div>
+            <div class="setting-group">
+              <label>Best of</label>
+              <div class="mode-buttons bestof-buttons">
+                <button class="mode-btn bestof-btn" data-bestof="0">Free</button>
+                <button class="mode-btn bestof-btn active" data-bestof="3">Bo3</button>
+                <button class="mode-btn bestof-btn" data-bestof="5">Bo5</button>
+                <button class="mode-btn bestof-btn" data-bestof="10">Bo10</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Scoreboard -->
+          <div class="rps-scoreboard">
+            <div class="score-item player-score">
+              <span class="score-label">You</span>
+              <span class="score-value" id="playerScore">0</span>
+            </div>
+            <div class="score-item draw-score">
+              <span class="score-label">Draw</span>
+              <span class="score-value" id="drawScore">0</span>
+            </div>
+            <div class="score-item cpu-score">
+              <span class="score-label">CPU</span>
+              <span class="score-value" id="cpuScore">0</span>
+            </div>
+          </div>
+
+          <!-- Best-of progress -->
+          <div class="bestof-progress" id="bestofProgress"></div>
+
+          <!-- Status -->
+          <div class="rps-status" id="statusText">Choose your weapon!</div>
+
+          <!-- Arena -->
+          <div class="rps-arena">
+            <div class="arena-side player-side">
+              <div class="arena-label">You</div>
+              <div class="arena-choice" id="playerChoice">
+                <span class="choice-emoji">?</span>
+              </div>
+            </div>
+            <div class="arena-vs">VS</div>
+            <div class="arena-side cpu-side">
+              <div class="arena-label">CPU</div>
+              <div class="arena-choice" id="cpuChoice">
+                <span class="choice-emoji">?</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Choice Buttons -->
+          <div class="rps-choices" id="choicesContainer">
+            <button class="choice-btn" data-choice="rock" title="Rock (R)">
+              <span class="choice-icon">&#x1F44A;</span>
+              <span class="choice-name">Rock</span>
+            </button>
+            <button class="choice-btn" data-choice="paper" title="Paper (P)">
+              <span class="choice-icon">&#x270B;</span>
+              <span class="choice-name">Paper</span>
+            </button>
+            <button class="choice-btn" data-choice="scissors" title="Scissors (S)">
+              <span class="choice-icon">&#x270C;</span>
+              <span class="choice-name">Scissors</span>
+            </button>
+            <button class="choice-btn extended-only" data-choice="lizard" title="Lizard (L)">
+              <span class="choice-icon">&#x1F98E;</span>
+              <span class="choice-name">Lizard</span>
+            </button>
+            <button class="choice-btn extended-only" data-choice="spock" title="Spock (K)">
+              <span class="choice-icon">&#x1F596;</span>
+              <span class="choice-name">Spock</span>
+            </button>
+          </div>
+
+          <!-- Stats -->
+          <div class="rps-stats">
+            <div class="stat-row">
+              <span class="stat-label">Win Rate</span>
+              <span class="stat-value" id="winRate">0%</span>
+            </div>
+            <div class="stat-row">
+              <span class="stat-label">Win Streak</span>
+              <span class="stat-value" id="winStreak">0</span>
+            </div>
+            <div class="stat-row">
+              <span class="stat-label">Best Streak</span>
+              <span class="stat-value" id="bestStreak">0</span>
+            </div>
+            <div class="stat-row">
+              <span class="stat-label">Total Games</span>
+              <span class="stat-value" id="totalGames">0</span>
+            </div>
+          </div>
+
+          <!-- History -->
+          <div class="rps-history">
+            <div class="history-label">Recent</div>
+            <div class="history-list" id="historyList">
+              <span class="history-empty">No games yet</span>
+            </div>
+          </div>
+
+          <!-- Info -->
+          <div class="info-panel">
+            <div class="info-header">
+              <i class="fa-solid fa-circle-info"></i>
+              <span>How to Play</span>
+            </div>
+            <div class="info-content">
+              <ul>
+                <li>Click a choice or use keyboard: <strong>R</strong>=Rock, <strong>P</strong>=Paper, <strong>S</strong>=Scissors, <strong>L</strong>=Lizard, <strong>K</strong>=Spock</li>
+                <li><strong>Classic</strong>: Rock beats Scissors, Scissors beats Paper, Paper beats Rock</li>
+                <li><strong>Lizard Spock</strong>: Lizard eats Paper, poisons Spock. Spock vaporizes Rock, smashes Scissors</li>
+                <li>The AI tracks your patterns and adapts - try to be unpredictable!</li>
+                <li>Use <strong>Best of</strong> modes for structured matches</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach. All rights reserved.</p>
+        <p class="footer-made">Made with 💗 and Claude Code xD</p>
+      </div>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast"></div>
+
+  <div class="shortcuts-modal" id="shortcutsModal">
+    <div class="shortcuts-content">
+      <div class="shortcuts-header">
+        <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
+        <button class="close-shortcuts-btn" id="closeShortcutsBtn" aria-label="Close shortcuts">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="shortcuts-body">
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">Choices</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>R</kbd></div>
+            <div class="shortcut-desc">Rock</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>P</kbd></div>
+            <div class="shortcut-desc">Paper</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>S</kbd></div>
+            <div class="shortcut-desc">Scissors</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>L</kbd></div>
+            <div class="shortcut-desc">Lizard (Extended)</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>K</kbd></div>
+            <div class="shortcut-desc">Spock (Extended)</div>
+          </div>
+        </div>
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">General</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>?</kbd></div>
+            <div class="shortcut-desc">Show shortcuts</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="shortcuts-hint" id="shortcutsHint">
+    <span><kbd>Shift</kbd>+<kbd>?</kbd> : shortcuts</span>
+  </div>
+
+  <script src="../../js/tools-common.js"></script>
+  <script src="rockpaperscissors.js"></script>
+</body>
+</html>

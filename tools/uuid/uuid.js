@@ -57,10 +57,19 @@
   function generateUUIDv7() {
     const now = Date.now();
     const timeHex = now.toString(16).padStart(12, '0');
-    const randA = Math.random().toString(16).slice(2, 5);
-    const randB = Math.random().toString(16).slice(2, 14);
 
-    return `${timeHex.slice(0, 8)}-${timeHex.slice(8, 12)}-7${randA}-${(0x8 | (Math.random() * 4 | 0)).toString(16)}${randB.slice(0, 3)}-${randB.slice(3, 15).padEnd(12, '0')}`;
+    // Generate reliable random hex bytes
+    function randHex(len) {
+      return Array.from({ length: len }, () =>
+        Math.floor(Math.random() * 16).toString(16)
+      ).join('');
+    }
+
+    const randA = randHex(3);
+    const variantChar = (0x8 | (Math.random() * 4 | 0)).toString(16);
+    const randB = randHex(15);
+
+    return `${timeHex.slice(0, 8)}-${timeHex.slice(8, 12)}-7${randA}-${variantChar}${randB.slice(0, 3)}-${randB.slice(3, 15)}`;
   }
 
   function generateNilUUID() {
@@ -99,9 +108,15 @@
   function validateUUID(uuid) {
     const cleanUUID = uuid.replace(/[{}]/g, '').trim();
 
+    // Check for NIL UUID
+    const nilPattern = /^0{8}-0{4}-0{4}-0{4}-0{12}$/;
+    if (nilPattern.test(cleanUUID) || /^0{32}$/.test(cleanUUID)) {
+      return { valid: true, version: 0, variant: 'NIL (all zeros)' };
+    }
+
     const patterns = {
       standard: /^[0-9a-f]{8}-[0-9a-f]{4}-[1-7][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i,
-      noHyphens: /^[0-9a-f]{32}$/i,
+      noHyphens: /^[0-9a-f]{8}[0-9a-f]{4}[1-7][0-9a-f]{3}[89ab][0-9a-f]{3}[0-9a-f]{12}$/i,
       braces: /^\{[0-9a-f]{8}-[0-9a-f]{4}-[1-7][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}\}$/i
     };
 

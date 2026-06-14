@@ -10,7 +10,7 @@
   border: 1px solid var(--color-border);
   border-radius: var(--radius-xl);
   overflow: hidden;
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--shadow-card);
 }
 
 /* ==================== Header ==================== */
@@ -20,7 +20,7 @@
   justify-content: space-between;
   padding: var(--space-4) var(--space-5);
   background-color: var(--color-surface);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border-light);
 }
 
 .regex-header h2 {
@@ -86,7 +86,7 @@
   justify-content: space-between;
   padding: var(--space-3) var(--space-4);
   background-color: var(--color-surface);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border-light);
 }
 
 .section-header h3 {
@@ -118,7 +118,7 @@
   font-size: var(--font-size-xs);
   font-weight: 600;
   color: var(--color-primary);
-  background-color: rgba(55, 118, 161, 0.1);
+  background-color: var(--color-primary-muted);
   padding: var(--space-1) var(--space-2);
   border-radius: var(--radius-sm);
 }
@@ -135,7 +135,7 @@
   font-size: var(--font-size-xl);
   font-weight: 700;
   color: var(--color-primary);
-  font-family: 'Consolas', 'Monaco', monospace;
+  font-family: var(--font-mono);
 }
 
 .pattern-input input {
@@ -144,7 +144,7 @@
   background-color: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
-  font-family: 'Consolas', 'Monaco', monospace;
+  font-family: var(--font-mono);
   font-size: var(--font-size-base);
   color: var(--color-text);
   outline: none;
@@ -153,7 +153,7 @@
 
 .pattern-input input:focus {
   border-color: var(--color-primary);
-  box-shadow: 0 0 0 3px rgba(55, 118, 161, 0.1);
+  box-shadow: 0 0 0 3px var(--color-primary-muted);
 }
 
 .flags-input {
@@ -179,7 +179,7 @@
 }
 
 .flag-option span {
-  font-family: 'Consolas', 'Monaco', monospace;
+  font-family: var(--font-mono);
   font-size: var(--font-size-sm);
   font-weight: 600;
   color: var(--color-text-secondary);
@@ -201,7 +201,7 @@
 .pattern-error {
   padding: 0 var(--space-4) var(--space-3);
   font-size: var(--font-size-sm);
-  color: #ef4444;
+  color: var(--color-error);
   display: none;
 }
 
@@ -225,7 +225,7 @@
   left: 0;
   right: 0;
   padding: var(--space-3);
-  font-family: 'Consolas', 'Monaco', monospace;
+  font-family: var(--font-mono);
   font-size: var(--font-size-sm);
   line-height: 1.6;
   color: transparent;
@@ -237,12 +237,12 @@
 }
 
 .highlighted-text .match {
-  background-color: rgba(34, 197, 94, 0.3);
+  background-color: color-mix(in srgb, var(--color-success) 30%, transparent);
   border-radius: 2px;
 }
 
 .highlighted-text .match-alt {
-  background-color: rgba(59, 130, 246, 0.3);
+  background-color: color-mix(in srgb, var(--color-info) 30%, transparent);
   border-radius: 2px;
 }
 
@@ -254,7 +254,7 @@
   background: transparent;
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
-  font-family: 'Consolas', 'Monaco', monospace;
+  font-family: var(--font-mono);
   font-size: var(--font-size-sm);
   line-height: 1.6;
   color: var(--color-text);
@@ -265,6 +265,7 @@
 
 .test-string-wrapper textarea:focus {
   border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px var(--color-primary-muted);
 }
 
 /* ==================== Results Section ==================== */
@@ -368,7 +369,7 @@
 
 .match-value {
   flex: 1;
-  font-family: 'Consolas', 'Monaco', monospace;
+  font-family: var(--font-mono);
   font-size: var(--font-size-sm);
   color: var(--color-text);
   word-break: break-all;
@@ -401,7 +402,7 @@
   justify-content: space-between;
   padding: var(--space-2) var(--space-3);
   background-color: var(--color-bg);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border-light);
   font-size: var(--font-size-xs);
   font-weight: 600;
   color: var(--color-text-secondary);
@@ -425,7 +426,7 @@
 }
 
 .group-value {
-  font-family: 'Consolas', 'Monaco', monospace;
+  font-family: var(--font-mono);
   font-size: var(--font-size-sm);
   color: var(--color-text);
 }
@@ -449,7 +450,7 @@
   background-color: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
-  font-family: 'Consolas', 'Monaco', monospace;
+  font-family: var(--font-mono);
   font-size: var(--font-size-sm);
   color: var(--color-text);
   outline: none;
@@ -457,6 +458,7 @@
 
 .replace-input-group input:focus {
   border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px var(--color-primary-muted);
 }
 
 .replace-output {
@@ -471,8 +473,8 @@
   align-items: center;
   justify-content: space-between;
   padding: var(--space-2) var(--space-3);
-  background-color: var(--color-bg);
-  border-bottom: 1px solid var(--color-border);
+  background-color: var(--color-surface);
+  border-bottom: 1px solid var(--color-border-light);
 }
 
 .replace-header h4 {
@@ -503,7 +505,7 @@
 .replace-result {
   padding: var(--space-3);
   margin: 0;
-  font-family: 'Consolas', 'Monaco', monospace;
+  font-family: var(--font-mono);
   font-size: var(--font-size-sm);
   line-height: 1.6;
   color: var(--color-text);
@@ -572,7 +574,7 @@
   align-items: center;
   justify-content: space-between;
   padding: var(--space-4);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border-light);
 }
 
 .cheatsheet-header h3 {
@@ -629,7 +631,7 @@
 }
 
 .cheatsheet-item code {
-  font-family: 'Consolas', 'Monaco', monospace;
+  font-family: var(--font-mono);
   font-size: var(--font-size-xs);
   background-color: var(--color-bg);
   padding: var(--space-1) var(--space-2);

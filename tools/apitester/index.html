@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Simple API request tester — send HTTP requests and inspect responses.">
+  <meta property="og:title" content="KVSOVANREACH | API Tester">
+  <meta property="og:description" content="Simple API request tester — like a mini Postman in the browser.">
+  <meta property="og:image" content="/assets/img/favicons/og-image.png">
+  <title>KVSOVANREACH | API Tester</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+  <!-- Common Tools CSS -->
+  <link rel="stylesheet" href="../../css/tools-common.css">
+  <!-- API Tester CSS -->
+  <link rel="stylesheet" href="apitester.css">
+</head>
+<body>
+  <!-- Skip to Content -->
+  <a href="#apitester" class="skip-link">Skip to API Tester</a>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">TOOLS</span>
+      </a>
+
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="tool-page">
+    <div class="container">
+      <div class="api-wrapper" id="apitester">
+
+        <!-- Header -->
+        <div class="api-header">
+          <h2><i class="fa-solid fa-satellite-dish"></i> API Tester</h2>
+          <div class="header-actions">
+            <button type="button" class="action-btn secondary" id="presetsBtn" title="Preset examples">
+              <i class="fa-solid fa-flask"></i>
+              <span>Presets</span>
+            </button>
+            <button type="button" class="action-btn secondary" id="clearBtn" title="Clear all">
+              <i class="fa-solid fa-trash"></i>
+              <span>Clear</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Presets Dropdown -->
+        <div class="presets-dropdown hidden" id="presetsDropdown">
+          <button type="button" class="preset-item" data-method="GET" data-url="https://jsonplaceholder.typicode.com/posts/1">
+            <span class="preset-method get">GET</span>
+            <span>JSONPlaceholder — Get Post</span>
+          </button>
+          <button type="button" class="preset-item" data-method="GET" data-url="https://jsonplaceholder.typicode.com/posts">
+            <span class="preset-method get">GET</span>
+            <span>JSONPlaceholder — All Posts</span>
+          </button>
+          <button type="button" class="preset-item" data-method="POST" data-url="https://jsonplaceholder.typicode.com/posts" data-body='{"title":"foo","body":"bar","userId":1}'>
+            <span class="preset-method post">POST</span>
+            <span>JSONPlaceholder — Create Post</span>
+          </button>
+          <button type="button" class="preset-item" data-method="GET" data-url="https://randomuser.me/api/">
+            <span class="preset-method get">GET</span>
+            <span>Random User</span>
+          </button>
+          <button type="button" class="preset-item" data-method="GET" data-url="https://api.ipify.org?format=json">
+            <span class="preset-method get">GET</span>
+            <span>IP Info (ipify)</span>
+          </button>
+        </div>
+
+        <!-- Request Bar -->
+        <div class="request-bar">
+          <select id="methodSelect" class="method-select">
+            <option value="GET">GET</option>
+            <option value="POST">POST</option>
+            <option value="PUT">PUT</option>
+            <option value="PATCH">PATCH</option>
+            <option value="DELETE">DELETE</option>
+            <option value="HEAD">HEAD</option>
+            <option value="OPTIONS">OPTIONS</option>
+          </select>
+          <input type="url" id="urlInput" class="url-input" placeholder="Enter request URL..." spellcheck="false">
+          <button type="button" class="send-btn" id="sendBtn">
+            <i class="fa-solid fa-paper-plane" id="sendIcon"></i>
+            <i class="fa-solid fa-spinner fa-spin hidden" id="sendSpinner"></i>
+            <span>Send</span>
+          </button>
+        </div>
+
+        <!-- Request Config Tabs -->
+        <div class="config-section">
+          <div class="tool-tabs">
+            <button type="button" class="tool-tab active" data-config="headers">
+              <i class="fa-solid fa-heading"></i>
+              <span>Headers</span>
+            </button>
+            <button type="button" class="tool-tab" data-config="body">
+              <i class="fa-solid fa-file-code"></i>
+              <span>Body</span>
+            </button>
+            <button type="button" class="tool-tab" data-config="params">
+              <i class="fa-solid fa-link"></i>
+              <span>Params</span>
+            </button>
+          </div>
+
+          <!-- Headers Tab -->
+          <div class="config-panel active" id="configHeaders">
+            <div class="kv-table" id="headersTable">
+              <div class="kv-row">
+                <input type="text" class="kv-key" placeholder="Header name" value="Content-Type">
+                <input type="text" class="kv-value" placeholder="Header value" value="application/json">
+                <button type="button" class="kv-remove" title="Remove"><i class="fa-solid fa-xmark"></i></button>
+              </div>
+            </div>
+            <button type="button" class="add-row-btn" id="addHeaderBtn">
+              <i class="fa-solid fa-plus"></i> Add Header
+            </button>
+          </div>
+
+          <!-- Body Tab -->
+          <div class="config-panel" id="configBody">
+            <div class="body-notice hidden" id="bodyNotice">
+              <i class="fa-solid fa-circle-info"></i>
+              <span>Request body is not used with <strong id="bodyNoticeMethod">GET</strong> requests.</span>
+            </div>
+            <textarea id="bodyInput" class="body-input" placeholder='{"key": "value"}' spellcheck="false"></textarea>
+          </div>
+
+          <!-- Params Tab -->
+          <div class="config-panel" id="configParams">
+            <div class="kv-table" id="paramsTable">
+              <div class="kv-row">
+                <input type="text" class="kv-key" placeholder="Parameter name">
+                <input type="text" class="kv-value" placeholder="Parameter value">
+                <button type="button" class="kv-remove" title="Remove"><i class="fa-solid fa-xmark"></i></button>
+              </div>
+            </div>
+            <button type="button" class="add-row-btn" id="addParamBtn">
+              <i class="fa-solid fa-plus"></i> Add Parameter
+            </button>
+          </div>
+        </div>
+
+        <!-- Response Section -->
+        <div class="response-section" id="responseSection">
+          <div class="response-header">
+            <h3>Response</h3>
+            <div class="response-meta">
+              <span class="status-badge" id="statusBadge"></span>
+              <span class="response-time" id="responseTime"></span>
+            </div>
+            <div class="response-actions">
+              <button type="button" class="action-btn secondary" id="copyResponseBtn" title="Copy response body">
+                <i class="fa-solid fa-copy"></i>
+                <span>Copy</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Response Tabs -->
+          <div class="panel-tabs response-tabs">
+            <button type="button" class="panel-tab active" data-response="pretty">Pretty</button>
+            <button type="button" class="panel-tab" data-response="raw">Raw</button>
+            <button type="button" class="panel-tab" data-response="headers">Headers</button>
+          </div>
+
+          <!-- Pretty View -->
+          <div class="response-panel active" id="responsePretty">
+            <pre class="response-body" id="prettyBody"></pre>
+          </div>
+
+          <!-- Raw View -->
+          <div class="response-panel" id="responseRaw">
+            <pre class="response-body raw" id="rawBody"></pre>
+          </div>
+
+          <!-- Response Headers View -->
+          <div class="response-panel" id="responseHeaders">
+            <div class="response-headers-list" id="responseHeadersList"></div>
+          </div>
+
+          <!-- Empty State -->
+          <div class="empty-state" id="responseEmpty">
+            <i class="fa-solid fa-satellite-dish"></i>
+            <p>No response yet</p>
+            <span>Send a request to see the response here</span>
+          </div>
+
+          <!-- Error State -->
+          <div class="response-error hidden" id="responseError">
+            <i class="fa-solid fa-triangle-exclamation"></i>
+            <p id="errorMessage"></p>
+          </div>
+        </div>
+
+        <!-- History Section -->
+        <div class="history-section" id="historySection">
+          <div class="history-header">
+            <h3><i class="fa-solid fa-clock-rotate-left"></i> History</h3>
+            <button type="button" class="action-btn secondary" id="clearHistoryBtn" title="Clear history">
+              <i class="fa-solid fa-trash"></i>
+              <span>Clear</span>
+            </button>
+          </div>
+          <div class="history-list" id="historyList">
+            <div class="history-empty">No requests yet</div>
+          </div>
+        </div>
+
+        <!-- CORS Notice -->
+        <div class="cors-notice">
+          <i class="fa-solid fa-circle-info"></i>
+          Uses <code>fetch()</code> directly — works with CORS-enabled APIs only.
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach.</p>
+        <p class="footer-made">Made with 💗 and Claude Code xD</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Shared Tools JavaScript -->
+  <script src="../../js/tools-common.js"></script>
+  <!-- API Tester JS -->
+  <script src="apitester.js"></script>
+</body>
+</html>

@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Calculate GCD and LCM with step-by-step Euclidean algorithm, prime factorization, and Venn diagram visualization.">
+  <meta property="og:title" content="KVSOVANREACH | GCD & LCM Calculator">
+  <meta property="og:description" content="GCD and LCM calculator with prime factorization.">
+  <meta property="og:image" content="/assets/img/favicons/og-image.png">
+  <title>KVSOVANREACH | GCD & LCM Calculator</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+  <!-- Common Tools CSS -->
+  <link rel="stylesheet" href="../../css/tools-common.css">
+  <!-- GCD LCM CSS -->
+  <link rel="stylesheet" href="gcdlcm.css">
+</head>
+<body>
+  <!-- Skip to Content -->
+  <a href="#gcdlcm" class="skip-link">Skip to GCD & LCM Calculator</a>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">TOOLS</span>
+      </a>
+
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="tool-page">
+    <div class="container">
+      <div class="gl-wrapper" id="gcdlcm">
+        <!-- Header -->
+        <div class="gl-header">
+          <h2><i class="fa-solid fa-divide"></i> GCD & LCM Calculator</h2>
+          <div class="gl-actions">
+            <button type="button" class="action-btn" id="clearBtn" title="Clear all" aria-label="Clear all">
+              <i class="fa-solid fa-trash"></i>
+              <span>Clear</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Content -->
+        <div class="gl-content">
+          <!-- Input Section -->
+          <div class="input-section">
+            <label for="numbersInput">Enter numbers (comma-separated)</label>
+            <input type="text" id="numbersInput" class="numbers-input" placeholder="e.g. 12, 18 or 24, 36, 48" autocomplete="off" inputmode="numeric">
+            <div class="input-hint">Enter two or more positive integers separated by commas</div>
+          </div>
+
+          <!-- Calculate Button -->
+          <div class="solve-section">
+            <button type="button" class="action-btn primary" id="calcBtn">
+              <i class="fa-solid fa-calculator"></i>
+              <span>Calculate</span>
+            </button>
+          </div>
+
+          <!-- Error Message -->
+          <div class="error-message hidden" id="errorMessage">
+            <i class="fa-solid fa-circle-exclamation"></i>
+            <span id="errorText"></span>
+          </div>
+
+          <!-- Results Section -->
+          <div class="results-panel hidden" id="resultsPanel">
+            <!-- GCD & LCM Results -->
+            <div class="result-summary">
+              <div class="summary-item gcd-item">
+                <span class="summary-label">GCD</span>
+                <span class="summary-value" id="gcdValue">-</span>
+                <button type="button" class="copy-btn" id="copyGcd" title="Copy GCD">
+                  <i class="fa-solid fa-copy"></i>
+                </button>
+              </div>
+              <div class="summary-item lcm-item">
+                <span class="summary-label">LCM</span>
+                <span class="summary-value" id="lcmValue">-</span>
+                <button type="button" class="copy-btn" id="copyLcm" title="Copy LCM">
+                  <i class="fa-solid fa-copy"></i>
+                </button>
+              </div>
+            </div>
+
+            <!-- Properties -->
+            <div class="result-card" id="propsCard">
+              <div class="card-header">
+                <h3><i class="fa-solid fa-info-circle"></i> Properties</h3>
+              </div>
+              <div class="card-body">
+                <div class="props-list" id="propsList"></div>
+              </div>
+            </div>
+
+            <!-- Prime Factorization -->
+            <div class="result-card" id="factorsCard">
+              <div class="card-header">
+                <h3><i class="fa-solid fa-sitemap"></i> Prime Factorization</h3>
+              </div>
+              <div class="card-body">
+                <div class="factors-list" id="factorsList"></div>
+              </div>
+            </div>
+
+            <!-- Venn Diagram -->
+            <div class="result-card" id="vennCard">
+              <div class="card-header">
+                <h3><i class="fa-solid fa-circle-nodes"></i> Prime Factor Visualization</h3>
+              </div>
+              <div class="card-body venn-body">
+                <canvas id="vennCanvas" width="500" height="350"></canvas>
+              </div>
+            </div>
+
+            <!-- Euclidean Algorithm Steps -->
+            <div class="result-card" id="stepsCard">
+              <div class="card-header">
+                <h3><i class="fa-solid fa-list-ol"></i> Euclidean Algorithm</h3>
+                <button type="button" class="action-btn secondary" id="toggleSteps">
+                  <i class="fa-solid fa-chevron-down"></i>
+                </button>
+              </div>
+              <div class="card-body" id="stepsBody">
+                <div class="steps-content" id="stepsContent"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick Examples -->
+          <div class="examples-section">
+            <h3><i class="fa-solid fa-lightbulb"></i> Examples</h3>
+            <div class="examples-grid">
+              <button type="button" class="example-btn" data-nums="12, 18">
+                <span>GCD & LCM of 12, 18</span>
+                <span class="example-hint">Basic pair</span>
+              </button>
+              <button type="button" class="example-btn" data-nums="24, 36, 48">
+                <span>GCD & LCM of 24, 36, 48</span>
+                <span class="example-hint">Three numbers</span>
+              </button>
+              <button type="button" class="example-btn" data-nums="7, 13">
+                <span>GCD & LCM of 7, 13</span>
+                <span class="example-hint">Coprime numbers</span>
+              </button>
+              <button type="button" class="example-btn" data-nums="100, 75, 60, 45">
+                <span>GCD & LCM of 100, 75, 60, 45</span>
+                <span class="example-hint">Bulk mode</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Info Panel -->
+          <div class="info-panel">
+            <div class="info-header">
+              <i class="fa-solid fa-circle-info"></i>
+              <span>About GCD & LCM</span>
+            </div>
+            <div class="info-content">
+              <p><strong>GCD</strong> (Greatest Common Divisor) is the largest number that divides all given numbers evenly.</p>
+              <p><strong>LCM</strong> (Least Common Multiple) is the smallest number that is a multiple of all given numbers.</p>
+              <ul>
+                <li>For two numbers: <strong>GCD(a, b) x LCM(a, b) = a x b</strong></li>
+                <li>Numbers are <strong>coprime</strong> if their GCD is 1</li>
+                <li>The <strong>Euclidean algorithm</strong> efficiently computes GCD using repeated division</li>
+              </ul>
+              <p class="tip"><strong>Tip:</strong> Enter comma-separated positive integers. Works with 2 or more numbers.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach. All rights reserved.</p>
+        <p class="footer-made">Made with 💗 and Claude Code xD</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Keyboard Shortcuts Modal -->
+  <div class="shortcuts-modal" id="shortcutsModal">
+    <div class="shortcuts-content">
+      <div class="shortcuts-header">
+        <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
+        <button type="button" class="close-shortcuts-btn" id="closeShortcutsBtn" aria-label="Close shortcuts">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="shortcuts-body">
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">Actions</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Enter</kbd></div>
+            <div class="shortcut-desc">Calculate</div>
+          </div>
+        </div>
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">General</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>?</kbd></div>
+            <div class="shortcut-desc">Show shortcuts</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Keyboard Shortcuts Hint -->
+  <div class="shortcuts-hint" id="shortcutsHint">
+    <span><kbd>Shift</kbd>+<kbd>?</kbd> : shortcuts</span>
+  </div>
+
+  <!-- Shared Tools JavaScript -->
+  <script src="../../js/tools-common.js"></script>
+  <!-- GCD LCM JavaScript -->
+  <script src="gcdlcm.js"></script>
+</body>
+</html>

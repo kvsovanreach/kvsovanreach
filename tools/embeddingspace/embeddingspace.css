@@ -9,7 +9,7 @@
   border: 1px solid var(--color-border);
   border-radius: var(--radius-xl);
   overflow: hidden;
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--shadow-card);
 }
 
 @media screen and (min-width: 1600px) {
@@ -24,7 +24,7 @@
   justify-content: space-between;
   padding: var(--space-4) var(--space-5);
   background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border-light);
 }
 
 .embed-header h2 {
@@ -46,6 +46,11 @@
 
 .embed-actions .action-btn:hover { background-color: rgba(255, 255, 255, 0.25); }
 
+.embed-actions .action-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px var(--color-primary-muted);
+}
+
 .embed-content {
   padding: var(--space-5);
   display: flex;
@@ -66,7 +71,7 @@
   justify-content: space-between;
   padding: var(--space-3) var(--space-4);
   background-color: var(--color-bg-tertiary);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border-light);
 }
 
 .section-header h3 {
@@ -162,7 +167,7 @@
   font-size: var(--font-size-xs);
 }
 
-.word-tag-remove:hover { color: #ef4444; }
+.word-tag-remove:hover { color: var(--color-error); }
 
 .empty-state {
   width: 100%;
@@ -197,7 +202,7 @@
 }
 
 .similarity-table td {
-  font-family: 'Fira Code', monospace;
+  font-family: var(--font-mono);
 }
 
 .similarity-cell {
@@ -211,13 +216,13 @@
   gap: var(--space-2);
   padding: var(--space-3) var(--space-4);
   background-color: var(--color-bg-tertiary);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border-light);
   font-size: var(--font-size-sm);
   font-weight: 600;
   color: var(--color-text);
 }
 
-.info-header i { color: #f59e0b; }
+.info-header i { color: var(--color-warning); }
 
 .info-content {
   padding: var(--space-4);

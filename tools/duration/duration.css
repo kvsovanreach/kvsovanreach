@@ -11,7 +11,7 @@
   border: 1px solid var(--color-border);
   border-radius: var(--radius-xl);
   overflow: hidden;
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--shadow-card);
 }
 
 /* Header */
@@ -21,7 +21,7 @@
   justify-content: space-between;
   padding: var(--space-4) var(--space-5);
   background-color: var(--color-surface);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border-light);
 }
 
 .duration-header h2 {
@@ -91,19 +91,19 @@
 
 .time-entry.add {
   border-color: var(--color-success);
-  background-color: rgba(34, 197, 94, 0.1);
+  background-color: color-mix(in srgb, var(--color-success) 10%, transparent);
 }
 
 .time-entry.subtract {
   border-color: var(--color-error);
-  background-color: rgba(239, 68, 68, 0.1);
+  background-color: color-mix(in srgb, var(--color-error) 10%, transparent);
 }
 
 .entry-time {
   display: flex;
   align-items: center;
   gap: var(--space-2);
-  font-family: monospace;
+  font-family: var(--font-mono);
   font-size: var(--font-size-base);
   font-weight: 500;
 }
@@ -159,7 +159,7 @@
   border-radius: var(--radius-md);
   font-size: var(--font-size-lg);
   font-weight: 600;
-  font-family: monospace;
+  font-family: var(--font-mono);
   text-align: center;
   color: var(--color-text);
 }
@@ -245,7 +245,7 @@
   color: white;
   font-size: 3rem;
   font-weight: 700;
-  font-family: monospace;
+  font-family: var(--font-mono);
 }
 
 .result-cards {
@@ -280,6 +280,14 @@
   font-size: var(--font-size-lg);
   font-weight: 600;
   color: var(--color-text);
+}
+
+/* Focus ring for all interactive buttons */
+.header-action-btn:focus-visible,
+.quick-btn:focus-visible,
+.entry-remove:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px var(--color-primary-muted);
 }
 
 /* Responsive */

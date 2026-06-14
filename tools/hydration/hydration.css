@@ -11,7 +11,7 @@
   border: 1px solid var(--color-border);
   border-radius: var(--radius-xl);
   overflow: hidden;
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--shadow-card);
 }
 
 /* ==================== Header ==================== */
@@ -21,7 +21,7 @@
   justify-content: space-between;
   padding: var(--space-4) var(--space-5);
   background-color: var(--color-surface);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border-light);
 }
 
 .hydration-header h2 {
@@ -61,6 +61,11 @@
   background-color: var(--color-primary);
   color: #fff;
   border-color: var(--color-primary);
+}
+
+.header-action-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px var(--color-primary-muted);
 }
 
 /* ==================== Main Content ==================== */
@@ -162,6 +167,11 @@
   color: white;
 }
 
+.quick-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px var(--color-primary-muted);
+}
+
 .quick-btn i {
   font-size: var(--font-size-lg);
   color: var(--color-primary);
@@ -253,6 +263,11 @@
 .preset-btn:hover {
   border-color: var(--color-primary);
   color: var(--color-primary);
+}
+
+.preset-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px var(--color-primary-muted);
 }
 
 .preset-btn.active {

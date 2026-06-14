@@ -57,7 +57,7 @@
   border: 1px solid var(--color-border);
   border-radius: var(--radius-xl);
   overflow: hidden;
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--shadow-card);
 }
 
 /* ==================== Header ==================== */
@@ -66,7 +66,7 @@
   align-items: center;
   padding: var(--space-4) var(--space-5);
   background-color: var(--color-surface);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border-light);
 }
 
 .lorem-header h2 {
@@ -155,7 +155,7 @@
 .option-group select:focus {
   outline: none;
   border-color: var(--color-primary);
-  box-shadow: 0 0 0 3px rgba(55, 118, 161, 0.1);
+  box-shadow: 0 0 0 4px var(--color-primary-muted);
 }
 
 /* ==================== Checkbox Options ==================== */
@@ -179,6 +179,12 @@
   accent-color: var(--color-primary);
 }
 
+.checkbox-label input:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px var(--color-primary-muted);
+  border-radius: var(--radius-xs);
+}
+
 /* ==================== Generate Button ==================== */
 .generate-btn {
   display: flex;
@@ -191,13 +197,18 @@
   color: #fff;
   background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
   border: none;
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-md);
   transition: all var(--transition-fast);
 }
 
 .generate-btn:hover {
   transform: translateY(-2px);
   box-shadow: var(--shadow-lg);
+}
+
+.generate-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px var(--color-primary-muted);
 }
 
 /* ==================== Output Section ==================== */
@@ -248,6 +259,13 @@
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   resize: vertical;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+#loremOutput:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 4px var(--color-primary-muted);
 }
 
 /* ==================== Preview Section ==================== */
@@ -289,6 +307,11 @@
   outline: none;
 }
 
+.preview-option input[type="range"]:focus-visible {
+  box-shadow: 0 0 0 4px var(--color-primary-muted);
+  border-radius: var(--radius-full);
+}
+
 .preview-option input[type="range"]::-webkit-slider-runnable-track {
   height: 6px;
   border-radius: var(--radius-full);
@@ -323,7 +346,7 @@
 
 .preview-option span {
   font-size: var(--font-size-xs);
-  font-family: 'Monaco', 'Menlo', monospace;
+  font-family: var(--font-mono);
   color: var(--color-text-muted);
   min-width: 50px;
 }
@@ -332,8 +355,8 @@
   min-height: 300px;
   padding: var(--space-5);
   background-color: var(--color-bg);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-lg);
   overflow-y: auto;
 }
 

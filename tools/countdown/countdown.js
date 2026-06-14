@@ -53,6 +53,10 @@
       elements.seconds.textContent = '00';
       elements.countdownDisplay.classList.add('expired');
       elements.eventNameDisplay.textContent = state.eventName ? `${state.eventName} has passed!` : 'Event has passed!';
+      if (state.intervalId) {
+        clearInterval(state.intervalId);
+        state.intervalId = null;
+      }
       return;
     }
 
@@ -80,15 +84,22 @@
 
     if (!year || !month || !day) return null;
 
-    const date = new Date(
-      parseInt(year),
-      parseInt(month) - 1,
-      parseInt(day),
-      parseInt(hour),
-      parseInt(minute)
-    );
+    const y = parseInt(year);
+    const m = parseInt(month);
+    const d = parseInt(day);
+    const h = parseInt(hour);
+    const min = parseInt(minute);
 
-    return isNaN(date.getTime()) ? null : date;
+    if (m < 1 || m > 12 || d < 1 || d > 31 || h > 23 || min > 59) return null;
+
+    const date = new Date(y, m - 1, d, h, min);
+
+    if (isNaN(date.getTime())) return null;
+
+    // Verify date wasn't silently shifted (e.g. Feb 30 -> Mar 2)
+    if (date.getMonth() !== m - 1 || date.getDate() !== d) return null;
+
+    return date;
   }
 
   function setDateToInputs(date) {
@@ -105,6 +116,9 @@
     state.eventName = elements.eventName.value;
     updateCountdown();
     saveState();
+    if (date && !state.intervalId) {
+      state.intervalId = setInterval(updateCountdown, 1000);
+    }
   }
 
   function setupFastDatetimeInput(container) {
@@ -152,9 +166,6 @@
     switch(preset) {
       case 'newyear':
         targetDate = new Date(now.getFullYear() + 1, 0, 1, 0, 0, 0);
-        if (now.getMonth() === 0 && now.getDate() === 1) {
-          targetDate = new Date(now.getFullYear() + 1, 0, 1, 0, 0, 0);
-        }
         eventName = `New Year ${targetDate.getFullYear()}`;
         break;
       case 'christmas':
@@ -182,6 +193,9 @@
 
     updateCountdown();
     saveState();
+    if (!state.intervalId) {
+      state.intervalId = setInterval(updateCountdown, 1000);
+    }
     showToast(`Set countdown to ${eventName}`, 'success');
   }
 
@@ -221,14 +235,20 @@
   }
 
   function loadState() {
-    const saved = localStorage.getItem('countdown');
-    if (saved) {
-      const data = JSON.parse(saved);
-      state.targetDate = new Date(data.targetDate);
-      state.eventName = data.eventName;
+    try {
+      const saved = localStorage.getItem('countdown');
+      if (saved) {
+        const data = JSON.parse(saved);
+        const date = new Date(data.targetDate);
+        if (isNaN(date.getTime())) return;
+        state.targetDate = date;
+        state.eventName = data.eventName || '';
 
-      setDateToInputs(state.targetDate);
-      elements.eventName.value = state.eventName;
+        setDateToInputs(state.targetDate);
+        elements.eventName.value = state.eventName;
+      }
+    } catch {
+      localStorage.removeItem('countdown');
     }
   }
 

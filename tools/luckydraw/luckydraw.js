@@ -6,14 +6,10 @@
 (function() {
   'use strict';
 
-  // VERSION CHECK - if you see this in console, new code is running
-  console.log('LuckyDraw v2.2 loaded at', new Date().toISOString());
-
   // IMMEDIATE: Hide any winner display as soon as possible using inline styles
   // This is the most aggressive approach - inline styles override everything
   (function immediateReset() {
     const hide = () => {
-      console.log('immediateReset running');
       const wd = document.getElementById('winnerDisplay');
       const cc = document.getElementById('confettiContainer');
       if (wd) {
@@ -89,7 +85,6 @@
   window.addEventListener('pageshow', (event) => {
     if (event.persisted) {
       // Page was restored from cache - reset all visual states
-      console.log('Page restored from bfcache - resetting states');
       isPageUnloading = false;
       state.isSpinning = false;
       state.userInitiatedSpin = false;
@@ -136,7 +131,7 @@
 
   // Wheel colors
   const WHEEL_COLORS = [
-    '#3776A1', '#22c55e', '#f59e0b', '#ef4444', '#8b5cf6',
+    '#91214E', '#22c55e', '#f59e0b', '#ef4444', '#8b5cf6',
     '#06b6d4', '#ec4899', '#6366f1', '#14b8a6', '#f97316'
   ];
 
@@ -434,9 +429,6 @@
   }
 
   function spinWheel() {
-    // DEBUG: Log every call
-    console.log('spinWheel called. Stack:', new Error().stack);
-
     if (!canPerformAction() || state.isSpinning || state.entries.length === 0) {
       if (canPerformAction() && state.entries.length === 0) {
         showToast('Add entries first!', 'error');
@@ -517,26 +509,10 @@
   }
 
   function announceWinner(winner, index) {
-    // DEBUG: Log who called this function
-    console.log('announceWinner called:', winner, 'Stack:', new Error().stack);
-
     // CRITICAL: Must be a user-initiated spin - this is the ONLY check that matters
-    if (!state.userInitiatedSpin) {
-      console.warn('BLOCKED: announceWinner called without user initiation');
-      return;
-    }
-
-    // Session must match current page session
-    if (state.currentSpinSession !== SESSION_ID) {
-      console.warn('BLOCKED: announceWinner session mismatch');
-      return;
-    }
-
-    // Page must not be unloading
-    if (isPageUnloading) {
-      console.warn('BLOCKED: announceWinner during page unload');
-      return;
-    }
+    if (!state.userInitiatedSpin) return;
+    if (state.currentSpinSession !== SESSION_ID) return;
+    if (isPageUnloading) return;
 
     // Reset the flags immediately
     state.userInitiatedSpin = false;
@@ -588,9 +564,6 @@
   }
 
   function quickPick() {
-    // DEBUG: Log every call
-    console.log('quickPick called. Stack:', new Error().stack);
-
     if (!canPerformAction() || isPageUnloading) return;
 
     if (state.entries.length === 0) {
@@ -899,16 +872,8 @@
   function addToHistory(winner) {
     // HARD BLOCK: No history additions within 3 seconds of page load
     const timeSinceLoad = Date.now() - PAGE_LOAD_TIME;
-    if (timeSinceLoad < 3000) {
-      console.warn('addToHistory blocked - page too fresh:', timeSinceLoad, 'ms');
-      return;
-    }
-
-    // Final safeguard: don't add to history if page is unloading
-    if (isPageUnloading) {
-      console.warn('Blocked history add - page is unloading');
-      return;
-    }
+    if (timeSinceLoad < 3000) return;
+    if (isPageUnloading) return;
 
     const item = {
       id: Date.now(),
@@ -1215,17 +1180,11 @@
   // Confetti
   // ============================================
   function createConfetti() {
-    // DEBUG: Log who called this function
-    console.log('createConfetti called. userInitiatedSpin:', state.userInitiatedSpin, 'Stack:', new Error().stack);
-
     // CRITICAL: Confetti should NEVER be created on page load
     // It can only be created as part of a valid user-initiated action
     // Note: userInitiatedSpin is reset to false AFTER confetti is created in announceWinner/quickPick
     // So we check if the page is ready instead
-    if (!state.isPageReady || isPageUnloading) {
-      console.warn('BLOCKED: createConfetti - page not ready or unloading');
-      return;
-    }
+    if (!state.isPageReady || isPageUnloading) return;
 
     const container = elements.confettiContainer;
     if (!container) return;
@@ -1262,16 +1221,7 @@
   // ============================================
   // Utilities
   // ============================================
-  function showToast(message, type = 'info') {
-    if (!elements.toast) return;
-
-    elements.toast.textContent = message;
-    elements.toast.className = 'toast show ' + type;
-
-    setTimeout(() => {
-      elements.toast.classList.remove('show');
-    }, 3000);
-  }
+  const showToast = (message, type) => ToolsCommon.showToast(message, type);
 
   function escapeHtml(text) {
     const div = document.createElement('div');

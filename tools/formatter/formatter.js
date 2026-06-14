@@ -428,6 +428,13 @@
       return;
     }
 
+    // Copy output shortcut (Ctrl+Shift+C) - avoid overriding normal Ctrl+C
+    if (e.ctrlKey && e.shiftKey && e.key === 'C') {
+      e.preventDefault();
+      copyOutput();
+      return;
+    }
+
     // Ignore other shortcuts if typing in textarea
     if (e.target.matches('textarea')) return;
 
@@ -454,16 +461,7 @@
   // ============================================
   // Toast
   // ============================================
-  function showToast(message, type = 'info') {
-    if (!elements.toast) return;
-
-    elements.toast.textContent = message;
-    elements.toast.className = 'toast show ' + type;
-
-    setTimeout(() => {
-      elements.toast.classList.remove('show');
-    }, 3000);
-  }
+  const showToast = (message, type) => ToolsCommon.showToast(message, type);
 
   // ============================================
   // Initialize

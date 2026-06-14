@@ -414,21 +414,14 @@
   }
 
   function calculateEntropy(password) {
-    // Calculate charset size based on SETTINGS (what could be in the password)
-    // This is more accurate - attacker doesn't know what's actually used
-    let charsetSize = 0;
-    if (state.settings.uppercase) charsetSize += 26;
-    if (state.settings.lowercase) charsetSize += 26;
-    if (state.settings.numbers) charsetSize += 10;
-    if (state.settings.symbols) charsetSize += 32;
-
-    // Reduce charset if excluding similar/ambiguous characters
-    if (state.settings.excludeSimilar) charsetSize -= 7;  // i, l, L, 1, o, O, 0
-    if (state.settings.excludeAmbiguous) charsetSize -= 14; // {}[]()/'"`~,;:.<>
+    // Calculate charset size from the actual built charset
+    // This accounts correctly for excluded characters overlapping
+    // with unselected character sets
+    const charsetSize = buildCharset().length;
 
     if (charsetSize <= 0) return 0;
 
-    // Entropy = length × log2(charset size)
+    // Entropy = length * log2(charset size)
     return password.length * Math.log2(charsetSize);
   }
 
@@ -666,16 +659,7 @@
   // ============================================
   // Utilities
   // ============================================
-  function showToast(message, type = 'info') {
-    if (!elements.toast) return;
-
-    elements.toast.textContent = message;
-    elements.toast.className = 'toast show ' + type;
-
-    setTimeout(() => {
-      elements.toast.classList.remove('show');
-    }, 3000);
-  }
+  const showToast = (message, type) => ToolsCommon.showToast(message, type);
 
   function escapeHtml(text) {
     const div = document.createElement('div');

@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="BibTeX citation formatter, parser, and generator with multiple citation styles.">
+  <meta property="og:title" content="KVSOVANREACH | BibTeX Manager">
+  <meta property="og:description" content="Parse, format, validate, and generate BibTeX citations in APA, MLA, Chicago, IEEE, and Harvard styles.">
+  <meta property="og:image" content="/assets/img/favicons/og-image.png">
+  <title>KVSOVANREACH | BibTeX Manager</title>
+
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  <link rel="stylesheet" href="../../css/tools-common.css">
+  <link rel="stylesheet" href="bibtex.css">
+</head>
+<body>
+  <a href="#bibtex" class="skip-link">Skip to BibTeX Manager</a>
+
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">TOOLS</span>
+      </a>
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <main class="tool-page">
+    <div class="container">
+      <div class="bib-wrapper" id="bibtex">
+        <div class="bib-header">
+          <h2><i class="fa-solid fa-book-bookmark"></i> BibTeX Manager</h2>
+        </div>
+
+        <!-- Tabs -->
+        <div class="tool-tabs">
+          <button type="button" class="tool-tab active" data-tab="parse">
+            <i class="fa-solid fa-file-import"></i>
+            <span>Parse</span>
+          </button>
+          <button type="button" class="tool-tab" data-tab="generate">
+            <i class="fa-solid fa-file-export"></i>
+            <span>Generate</span>
+          </button>
+        </div>
+
+        <!-- ==================== Parse Tab ==================== -->
+        <div class="tab-panel active" id="parsePanel">
+          <!-- Input -->
+          <div class="bib-input-section">
+            <div class="section-header">
+              <h3>BibTeX Input</h3>
+              <div class="section-actions">
+                <button type="button" class="action-btn secondary" id="sampleBtn">
+                  <i class="fa-solid fa-flask"></i>
+                  <span>Sample</span>
+                </button>
+                <button type="button" class="action-btn secondary" id="pasteBtn">
+                  <i class="fa-solid fa-paste"></i>
+                  <span>Paste</span>
+                </button>
+                <button type="button" class="action-btn secondary" id="clearBtn">
+                  <i class="fa-solid fa-trash"></i>
+                  <span>Clear</span>
+                </button>
+              </div>
+            </div>
+            <textarea id="bibInput" spellcheck="false" rows="10" placeholder="Paste your BibTeX entries here..."></textarea>
+          </div>
+
+          <!-- Controls -->
+          <div class="bib-controls">
+            <div class="control-group">
+              <label for="styleSelect">Citation Style</label>
+              <select id="styleSelect">
+                <option value="apa">APA</option>
+                <option value="mla">MLA</option>
+                <option value="chicago">Chicago</option>
+                <option value="ieee">IEEE</option>
+                <option value="harvard">Harvard</option>
+              </select>
+            </div>
+            <div class="control-group">
+              <label for="sortSelect">Sort By</label>
+              <select id="sortSelect">
+                <option value="none">Original Order</option>
+                <option value="year">Year</option>
+                <option value="author">Author</option>
+                <option value="type">Entry Type</option>
+              </select>
+            </div>
+            <button type="button" class="action-btn primary" id="parseBtn">
+              <i class="fa-solid fa-wand-magic-sparkles"></i>
+              <span>Parse &amp; Format</span>
+            </button>
+            <button type="button" class="action-btn secondary" id="copyAllBtn" disabled>
+              <i class="fa-solid fa-copy"></i>
+              <span>Copy All</span>
+            </button>
+          </div>
+
+          <!-- Validation Messages -->
+          <div class="bib-validation hidden" id="validationMsg"></div>
+
+          <!-- Results -->
+          <div class="bib-results" id="bibResults"></div>
+        </div>
+
+        <!-- ==================== Generate Tab ==================== -->
+        <div class="tab-panel" id="generatePanel">
+          <div class="gen-layout">
+            <div class="gen-form">
+              <div class="section-header">
+                <h3>Entry Details</h3>
+              </div>
+
+              <div class="gen-row">
+                <div class="gen-field">
+                  <label for="genType">Entry Type</label>
+                  <select id="genType">
+                    <option value="article">article</option>
+                    <option value="book">book</option>
+                    <option value="inproceedings">inproceedings</option>
+                    <option value="incollection">incollection</option>
+                    <option value="phdthesis">phdthesis</option>
+                    <option value="mastersthesis">mastersthesis</option>
+                    <option value="techreport">techreport</option>
+                    <option value="misc">misc</option>
+                    <option value="inbook">inbook</option>
+                    <option value="proceedings">proceedings</option>
+                    <option value="unpublished">unpublished</option>
+                  </select>
+                </div>
+                <div class="gen-field">
+                  <label for="genKey">Cite Key</label>
+                  <input type="text" id="genKey" placeholder="e.g. smith2024" spellcheck="false">
+                </div>
+              </div>
+
+              <div class="gen-row">
+                <div class="gen-field">
+                  <label for="genAuthor">Author(s)</label>
+                  <input type="text" id="genAuthor" placeholder="Last, First and Last, First" spellcheck="false">
+                </div>
+                <div class="gen-field">
+                  <label for="genYear">Year</label>
+                  <input type="text" id="genYear" placeholder="2024" spellcheck="false">
+                </div>
+              </div>
+
+              <div class="gen-field-full">
+                <label for="genTitle">Title</label>
+                <input type="text" id="genTitle" placeholder="Title of the work" spellcheck="false">
+              </div>
+
+              <div class="gen-row">
+                <div class="gen-field">
+                  <label for="genJournal">Journal / Booktitle</label>
+                  <input type="text" id="genJournal" placeholder="Journal name" spellcheck="false">
+                </div>
+                <div class="gen-field">
+                  <label for="genPublisher">Publisher</label>
+                  <input type="text" id="genPublisher" placeholder="Publisher name" spellcheck="false">
+                </div>
+              </div>
+
+              <div class="gen-row">
+                <div class="gen-field">
+                  <label for="genVolume">Volume</label>
+                  <input type="text" id="genVolume" placeholder="e.g. 12" spellcheck="false">
+                </div>
+                <div class="gen-field">
+                  <label for="genNumber">Number / Issue</label>
+                  <input type="text" id="genNumber" placeholder="e.g. 3" spellcheck="false">
+                </div>
+                <div class="gen-field">
+                  <label for="genPages">Pages</label>
+                  <input type="text" id="genPages" placeholder="e.g. 1--15" spellcheck="false">
+                </div>
+              </div>
+
+              <div class="gen-row">
+                <div class="gen-field">
+                  <label for="genDoi">DOI</label>
+                  <input type="text" id="genDoi" placeholder="10.xxxx/xxxxx" spellcheck="false">
+                </div>
+                <div class="gen-field">
+                  <label for="genUrl">URL</label>
+                  <input type="text" id="genUrl" placeholder="https://..." spellcheck="false">
+                </div>
+              </div>
+
+              <div class="gen-field-full">
+                <label for="genNote">Note</label>
+                <input type="text" id="genNote" placeholder="Additional notes" spellcheck="false">
+              </div>
+
+              <div class="gen-actions">
+                <button type="button" class="action-btn primary" id="generateBtn">
+                  <i class="fa-solid fa-code"></i>
+                  <span>Generate BibTeX</span>
+                </button>
+                <button type="button" class="action-btn secondary" id="clearFormBtn">
+                  <i class="fa-solid fa-eraser"></i>
+                  <span>Clear Form</span>
+                </button>
+              </div>
+            </div>
+
+            <div class="gen-output">
+              <div class="section-header">
+                <h3>Generated BibTeX</h3>
+                <button type="button" class="action-btn secondary" id="copyGenBtn" disabled>
+                  <i class="fa-solid fa-copy"></i>
+                  <span>Copy</span>
+                </button>
+              </div>
+              <pre id="genOutput" class="gen-output-pre">Fill in the form and click Generate</pre>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach.</p>
+        <p class="footer-made">Made with 💗 and Claude Code xD</p>
+      </div>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="../../js/tools-common.js"></script>
+  <script src="bibtex.js"></script>
+</body>
+</html>

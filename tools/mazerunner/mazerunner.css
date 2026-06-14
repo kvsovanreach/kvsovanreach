@@ -11,7 +11,7 @@
   border: 1px solid var(--color-border);
   border-radius: var(--radius-xl);
   overflow: hidden;
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--shadow-card);
 }
 
 /* Header */
@@ -21,7 +21,7 @@
   justify-content: space-between;
   padding: var(--space-4) var(--space-5);
   background: linear-gradient(135deg, #1e3a5f 0%, #0d1b2a 100%);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border-light);
 }
 
 .game-header h2 {
@@ -35,7 +35,7 @@
 }
 
 .game-header h2 i {
-  color: #60a5fa;
+  color: var(--color-info);
   text-shadow: 0 0 10px rgba(96, 165, 250, 0.5);
 }
 
@@ -71,7 +71,7 @@
 }
 
 .stat-item i {
-  color: #60a5fa;
+  color: var(--color-info);
 }
 
 .stat-label {
@@ -85,7 +85,7 @@
 }
 
 .stat-value.highlight {
-  color: #22c55e;
+  color: var(--color-success);
 }
 
 /* View Toggle */
@@ -108,16 +108,21 @@
   font-size: var(--font-size-sm);
   font-weight: 500;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all var(--transition-fast);
 }
 
 .view-btn:hover {
-  border-color: #60a5fa;
-  color: #60a5fa;
+  border-color: var(--color-info);
+  color: var(--color-info);
+}
+
+.view-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px var(--color-primary-muted);
 }
 
 .view-btn.active {
-  background: linear-gradient(135deg, #3b82f6, #2563eb);
+  background: linear-gradient(135deg, var(--color-info), color-mix(in srgb, var(--color-info) 80%, black));
   border-color: transparent;
   color: white;
 }
@@ -151,7 +156,7 @@
 /* 3D Wall */
 .wall {
   position: absolute;
-  background: linear-gradient(180deg, #3b82f6 0%, #1e40af 100%);
+  background: linear-gradient(180deg, var(--color-info) 0%, #1e40af 100%);
   border: 1px solid rgba(255, 255, 255, 0.2);
   box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5);
   transform-style: preserve-3d;
@@ -189,11 +194,11 @@
 /* Exit marker */
 .exit {
   position: absolute;
-  background: linear-gradient(135deg, #22c55e, #16a34a);
+  background: linear-gradient(135deg, var(--color-success), color-mix(in srgb, var(--color-success) 80%, black));
   border: 2px solid #4ade80;
   border-radius: var(--radius-md);
   animation: exitPulse 1.5s ease-in-out infinite;
-  box-shadow: 0 0 30px rgba(34, 197, 94, 0.5);
+  box-shadow: 0 0 30px color-mix(in srgb, var(--color-success) 50%, transparent);
 }
 
 .exit::after {
@@ -209,8 +214,8 @@
 }
 
 @keyframes exitPulse {
-  0%, 100% { box-shadow: 0 0 20px rgba(34, 197, 94, 0.5); }
-  50% { box-shadow: 0 0 40px rgba(34, 197, 94, 0.8); }
+  0%, 100% { box-shadow: 0 0 20px color-mix(in srgb, var(--color-success) 50%, transparent); }
+  50% { box-shadow: 0 0 40px color-mix(in srgb, var(--color-success) 80%, transparent); }
 }
 
 /* Player indicator */
@@ -224,11 +229,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #f59e0b, #d97706);
+  background: linear-gradient(135deg, var(--color-warning), color-mix(in srgb, var(--color-warning) 80%, black));
   border-radius: 50%;
   color: white;
   font-size: var(--font-size-lg);
-  box-shadow: 0 0 20px rgba(245, 158, 11, 0.5);
+  box-shadow: 0 0 20px color-mix(in srgb, var(--color-warning) 50%, transparent);
   z-index: 10;
 }
 
@@ -268,7 +273,7 @@
 }
 
 .minimap-cell.player {
-  background-color: #f59e0b;
+  background-color: var(--color-warning);
   border-radius: 50%;
   z-index: 5;
   animation: playerBlink 1s ease-in-out infinite;
@@ -280,13 +285,13 @@
 }
 
 .minimap-cell.exit {
-  background-color: #22c55e;
+  background-color: var(--color-success);
   animation: exitGlow 1.5s ease-in-out infinite;
 }
 
 @keyframes exitGlow {
-  0%, 100% { box-shadow: inset 0 0 5px rgba(34, 197, 94, 0.8); }
-  50% { box-shadow: inset 0 0 10px rgba(34, 197, 94, 1); }
+  0%, 100% { box-shadow: inset 0 0 5px color-mix(in srgb, var(--color-success) 80%, transparent); }
+  50% { box-shadow: inset 0 0 10px var(--color-success); }
 }
 
 .minimap-cell.visited {
@@ -323,7 +328,7 @@
 
 .win-content i {
   font-size: 4rem;
-  color: #22c55e;
+  color: var(--color-success);
   margin-bottom: var(--space-3);
   animation: winFlag 1s ease infinite;
 }
@@ -338,7 +343,7 @@
   font-weight: 700;
   font-family: 'Orbitron', sans-serif;
   margin-bottom: var(--space-2);
-  background: linear-gradient(135deg, #60a5fa, #3b82f6);
+  background: linear-gradient(135deg, #60a5fa, var(--color-info));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -351,13 +356,13 @@
 }
 
 .action-btn.primary {
-  background: linear-gradient(135deg, #3b82f6, #2563eb);
+  background: linear-gradient(135deg, var(--color-info), color-mix(in srgb, var(--color-info) 80%, black));
   border-color: transparent;
 }
 
 .action-btn.primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+  box-shadow: 0 4px 15px color-mix(in srgb, var(--color-info) 40%, transparent);
 }
 
 /* Controls Section */
@@ -391,18 +396,23 @@
   color: var(--color-text);
   font-size: var(--font-size-xl);
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all var(--transition-fast);
 }
 
 .control-btn:hover {
-  border-color: #60a5fa;
-  color: #60a5fa;
+  border-color: var(--color-info);
+  color: var(--color-info);
   transform: scale(1.05);
+}
+
+.control-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px var(--color-primary-muted);
 }
 
 .control-btn:active {
   transform: scale(0.95);
-  background-color: #60a5fa;
+  background-color: var(--color-info);
   color: white;
 }
 
@@ -417,7 +427,7 @@
   background-color: var(--color-bg-tertiary);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-sm);
-  font-family: monospace;
+  font-family: var(--font-mono);
   font-size: var(--font-size-xs);
 }
 
@@ -435,14 +445,14 @@
   gap: var(--space-2);
   padding: var(--space-3) var(--space-4);
   background-color: var(--color-bg-tertiary);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border-light);
   font-size: var(--font-size-sm);
   font-weight: 600;
   color: var(--color-text);
 }
 
 .info-header i {
-  color: #f59e0b;
+  color: var(--color-warning);
 }
 
 .info-content {

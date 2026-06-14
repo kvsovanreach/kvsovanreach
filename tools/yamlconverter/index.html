@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Convert between YAML and JSON formats with validation and error reporting.">
+  <meta property="og:title" content="KVSOVANREACH | YAML Converter">
+  <meta property="og:description" content="Bidirectional YAML and JSON converter with live validation and syntax highlighting.">
+  <meta property="og:image" content="/assets/img/favicons/og-image.png">
+  <title>KVSOVANREACH | YAML Converter</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+  <!-- Common Tools CSS -->
+  <link rel="stylesheet" href="../../css/tools-common.css">
+  <!-- YAML Converter CSS -->
+  <link rel="stylesheet" href="yamlconverter.css">
+</head>
+<body>
+  <!-- Skip to Content -->
+  <a href="#yamlconverter" class="skip-link">Skip to YAML converter</a>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">TOOLS</span>
+      </a>
+
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="tool-page">
+    <div class="container">
+      <div class="yaml-wrapper" id="yamlconverter">
+        <!-- Header -->
+        <div class="yaml-header">
+          <h2><i class="fa-solid fa-right-left"></i> YAML Converter</h2>
+          <div class="header-actions">
+            <button type="button" class="header-action-btn" id="sampleBtn" title="Load sample data">
+              <i class="fa-solid fa-flask"></i>
+            </button>
+            <button type="button" class="header-action-btn" id="clearBtn" title="Clear all">
+              <i class="fa-solid fa-trash"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Options Bar -->
+        <div class="yaml-options">
+          <div class="option-group">
+            <label for="jsonIndent">JSON Indent</label>
+            <select id="jsonIndent">
+              <option value="2" selected>2 spaces</option>
+              <option value="4">4 spaces</option>
+            </select>
+          </div>
+          <button type="button" class="swap-btn" id="swapBtn" title="Swap sides">
+            <i class="fa-solid fa-arrows-rotate"></i>
+            <span>Swap</span>
+          </button>
+        </div>
+
+        <!-- Content -->
+        <div class="yaml-content">
+          <!-- YAML Panel -->
+          <div class="yaml-panel" id="yamlPanel">
+            <div class="panel-header">
+              <h3>YAML</h3>
+              <div class="panel-actions">
+                <button type="button" class="panel-btn" id="yamlPasteBtn" title="Paste from clipboard" aria-label="Paste YAML">
+                  <i class="fa-solid fa-paste"></i>
+                </button>
+                <button type="button" class="panel-btn" id="yamlCopyBtn" title="Copy YAML" aria-label="Copy YAML">
+                  <i class="fa-solid fa-copy"></i>
+                </button>
+              </div>
+            </div>
+            <div class="editor-container">
+              <textarea id="yamlInput" placeholder="Enter YAML here..." spellcheck="false"></textarea>
+            </div>
+            <div class="panel-status">
+              <span class="status-indicator" id="yamlStatus">
+                <i class="fa-solid fa-circle"></i>
+                <span>Ready</span>
+              </span>
+              <span class="char-count" id="yamlStats">0 chars</span>
+            </div>
+          </div>
+
+          <!-- Controls -->
+          <div class="yaml-controls">
+            <button type="button" class="control-btn" id="yamlToJsonBtn" title="Convert YAML to JSON">
+              <i class="fa-solid fa-arrow-right"></i>
+              <span>YAML to JSON</span>
+            </button>
+            <button type="button" class="control-btn" id="jsonToYamlBtn" title="Convert JSON to YAML">
+              <i class="fa-solid fa-arrow-left"></i>
+              <span>JSON to YAML</span>
+            </button>
+          </div>
+
+          <!-- JSON Panel -->
+          <div class="yaml-panel" id="jsonPanel">
+            <div class="panel-header">
+              <h3>JSON</h3>
+              <div class="panel-actions">
+                <button type="button" class="panel-btn" id="jsonPasteBtn" title="Paste from clipboard" aria-label="Paste JSON">
+                  <i class="fa-solid fa-paste"></i>
+                </button>
+                <button type="button" class="panel-btn" id="jsonCopyBtn" title="Copy JSON" aria-label="Copy JSON">
+                  <i class="fa-solid fa-copy"></i>
+                </button>
+              </div>
+            </div>
+            <div class="editor-container">
+              <textarea id="jsonInput" placeholder="Enter JSON here..." spellcheck="false"></textarea>
+            </div>
+            <div class="panel-status">
+              <span class="status-indicator" id="jsonStatus">
+                <i class="fa-solid fa-circle"></i>
+                <span>Ready</span>
+              </span>
+              <span class="char-count" id="jsonStats">0 chars</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Error Panel -->
+        <div class="error-panel" id="errorPanel">
+          <div class="error-header">
+            <i class="fa-solid fa-triangle-exclamation"></i>
+            <span>Error</span>
+          </div>
+          <div class="error-message" id="errorMessage"></div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach. All rights reserved.</p>
+        <p class="footer-made">Made with 💗 and Claude Code xD</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Shared Tools JavaScript -->
+  <script src="../../js/tools-common.js"></script>
+  <!-- YAML Converter JavaScript -->
+  <script src="yamlconverter.js"></script>
+</body>
+</html>

@@ -10,7 +10,7 @@
   border: 1px solid var(--color-border);
   border-radius: var(--radius-xl);
   overflow: hidden;
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--shadow-card);
 }
 
 /* ==================== Header ==================== */
@@ -18,9 +18,9 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: var(--space-4) var(--space-6);
-  background-color: var(--color-bg);
-  border-bottom: 1px solid var(--color-border);
+  padding: var(--space-4) var(--space-5);
+  background-color: var(--color-surface);
+  border-bottom: 1px solid var(--color-border-light);
 }
 
 .cron-header h2 {
@@ -28,7 +28,7 @@
   align-items: center;
   gap: var(--space-3);
   font-size: var(--font-size-xl);
-  font-weight: 700;
+  font-weight: 600;
   color: var(--color-text);
 }
 
@@ -55,6 +55,11 @@
   background-color: var(--color-primary);
   color: #fff;
   border-color: var(--color-primary);
+}
+
+.header-action-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px var(--color-primary-muted);
 }
 
 /* ==================== Content ==================== */
@@ -86,7 +91,7 @@
 .cron-input-row input {
   flex: 1;
   padding: var(--space-4);
-  font-family: 'Consolas', 'Monaco', monospace;
+  font-family: var(--font-mono);
   font-size: var(--font-size-xl);
   font-weight: 600;
   text-align: center;
@@ -96,11 +101,12 @@
   border: 2px solid var(--color-border);
   border-radius: var(--radius-lg);
   outline: none;
-  transition: border-color var(--transition-fast);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
 }
 
 .cron-input-row input:focus {
   border-color: var(--color-primary);
+  box-shadow: 0 0 0 4px var(--color-primary-muted);
 }
 
 .cron-input-row input::placeholder {
@@ -125,7 +131,12 @@
 
 .parse-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(55, 118, 161, 0.3);
+  box-shadow: 0 8px 25px var(--color-primary-muted);
+}
+
+.parse-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px var(--color-primary-muted);
 }
 
 /* Cron Format Display */
@@ -154,7 +165,7 @@
 }
 
 .format-value {
-  font-family: 'Consolas', 'Monaco', monospace;
+  font-family: var(--font-mono);
   font-size: var(--font-size-lg);
   font-weight: 700;
   color: var(--color-primary);
@@ -172,8 +183,9 @@
   gap: var(--space-4);
   padding: var(--space-4);
   background-color: var(--color-bg);
-  border: 1px solid var(--color-border);
+  border: 1px solid var(--color-border-light);
   border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
   position: relative;
 }
 
@@ -182,7 +194,7 @@
 }
 
 .result-card.highlight {
-  background: linear-gradient(135deg, rgba(55, 118, 161, 0.1), rgba(55, 118, 161, 0.05));
+  background: linear-gradient(135deg, var(--color-primary-muted), transparent);
   border-color: var(--color-primary);
 }
 
@@ -214,13 +226,18 @@
   color: white;
 }
 
+.copy-result-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px var(--color-primary-muted);
+}
+
 .result-icon {
   width: 48px;
   height: 48px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+  background-color: var(--color-primary);
   border-radius: var(--radius-md);
   color: white;
   font-size: var(--font-size-xl);
@@ -255,7 +272,7 @@
 .result-content li {
   font-size: var(--font-size-sm);
   color: var(--color-text);
-  font-family: 'Consolas', 'Monaco', monospace;
+  font-family: var(--font-mono);
 }
 
 .next-run-time {
@@ -298,7 +315,7 @@
 }
 
 .error-message {
-  color: #ef4444;
+  color: var(--color-error);
   font-weight: 500;
 }
 
@@ -323,19 +340,24 @@
   gap: var(--space-2);
   padding: var(--space-3);
   background-color: var(--color-bg);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-md);
   cursor: pointer;
   transition: all var(--transition-fast);
 }
 
 .example-btn:hover {
   border-color: var(--color-primary);
-  background-color: rgba(55, 118, 161, 0.05);
+  background-color: var(--color-primary-muted);
+}
+
+.example-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px var(--color-primary-muted);
 }
 
 .example-cron {
-  font-family: 'Consolas', 'Monaco', monospace;
+  font-family: var(--font-mono);
   font-size: var(--font-size-sm);
   font-weight: 600;
   color: var(--color-primary);
@@ -414,7 +436,7 @@
   background-color: var(--color-bg);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
-  font-family: 'Consolas', 'Monaco', monospace;
+  font-family: var(--font-mono);
   font-size: var(--font-size-lg);
   font-weight: 700;
   color: var(--color-primary);

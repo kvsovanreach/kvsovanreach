@@ -11,7 +11,7 @@
   border: 1px solid var(--color-border);
   border-radius: var(--radius-xl);
   overflow: hidden;
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--shadow-card);
 }
 
 /* Header */
@@ -21,7 +21,7 @@
   justify-content: space-between;
   padding: var(--space-4) var(--space-5);
   background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border-light);
 }
 
 .game-header h2 {
@@ -91,11 +91,11 @@
 }
 
 .stat-value.target {
-  color: #f59e0b;
+  color: var(--color-warning);
 }
 
 .stat-value.highlight {
-  color: #22c55e;
+  color: var(--color-success);
 }
 
 /* Difficulty Section */
@@ -127,12 +127,17 @@
   font-size: var(--font-size-sm);
   font-weight: 500;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all var(--transition-fast);
 }
 
 .difficulty-btn:hover {
   border-color: #06b6d4;
   color: #06b6d4;
+}
+
+.difficulty-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px var(--color-primary-muted);
 }
 
 .difficulty-btn.active {
@@ -183,7 +188,7 @@
   border: 2px solid var(--color-border);
   border-radius: var(--radius-lg);
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all var(--transition-base);
   overflow: hidden;
 }
 
@@ -278,7 +283,7 @@
 
 .win-content i {
   font-size: 4rem;
-  color: #fbbf24;
+  color: var(--color-warning);
   margin-bottom: var(--space-3);
   animation: winTrophy 1s ease infinite;
 }
@@ -384,14 +389,14 @@
   gap: var(--space-2);
   padding: var(--space-3) var(--space-4);
   background-color: var(--color-bg-tertiary);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border-light);
   font-size: var(--font-size-sm);
   font-weight: 600;
   color: var(--color-text);
 }
 
 .info-header i {
-  color: #f59e0b;
+  color: var(--color-warning);
 }
 
 .info-content {

@@ -67,6 +67,9 @@
         // Step values: */5 or 0-30/5
         const [range, step] = part.split('/');
         const stepNum = parseInt(step);
+        if (isNaN(stepNum) || stepNum <= 0) {
+          throw new Error(`Invalid step value "${step}".`);
+        }
         let start = min, end = max;
 
         if (range !== '*') {
@@ -87,14 +90,23 @@
         const [s, e] = part.split('-');
         const start = parseNamedValue(s, type);
         const end = parseNamedValue(e, type);
+        if (isNaN(start) || isNaN(end)) {
+          throw new Error(`Invalid range "${part}".`);
+        }
         for (let i = start; i <= end; i++) {
           if (i >= min && i <= max) values.add(i);
         }
       } else {
         // Single value (number or name)
-        const num = parseNamedValue(part, type);
+        let num = parseNamedValue(part, type);
+        // Treat day-of-week 7 as Sunday (0)
+        if (type === 'day' && num === 7) num = 0;
         if (!isNaN(num) && num >= min && num <= max) values.add(num);
       }
+    }
+
+    if (values.size === 0) {
+      throw new Error(`No valid values found for field "${field}".`);
     }
 
     return { values: Array.from(values).sort((a, b) => a - b), isAny: false };
@@ -198,7 +210,7 @@
     current.setSeconds(0);
     current.setMilliseconds(0);
 
-    const maxIterations = 1000000;
+    const maxIterations = 525960; // ~1 year of minutes
     let iterations = 0;
 
     while (runs.length < count && iterations < maxIterations) {
@@ -301,6 +313,8 @@
   function displayError(message) {
     elements.humanReadable.textContent = message;
     elements.humanReadable.classList.add('error-message');
+    elements.nextRunTime.textContent = '-';
+    elements.nextRunRelative.textContent = '';
     elements.nextRuns.innerHTML = '<li>-</li>';
   }
 

@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="HTTP Methods Reference - Complete guide to all HTTP methods with properties, examples, and REST conventions.">
+  <meta property="og:title" content="KVSOVANREACH | HTTP Methods Reference">
+  <meta property="og:description" content="All 9 HTTP methods explained with properties, examples, and REST CRUD mapping.">
+  <meta property="og:image" content="/assets/img/favicons/og-image.png">
+  <title>KVSOVANREACH | HTTP Methods Reference</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+  <!-- Common Tools CSS -->
+  <link rel="stylesheet" href="../../css/tools-common.css">
+  <!-- HTTP Methods CSS -->
+  <link rel="stylesheet" href="httpmethods.css">
+</head>
+<body>
+  <!-- Skip to Content -->
+  <a href="#httpmethods" class="skip-link">Skip to HTTP methods reference</a>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">TOOLS</span>
+      </a>
+
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="tool-page">
+    <div class="container">
+      <div class="hm-wrapper" id="httpmethods">
+        <!-- Header -->
+        <div class="hm-header">
+          <h2><i class="fa-solid fa-route"></i> HTTP Methods Reference</h2>
+        </div>
+
+        <!-- View Tabs -->
+        <div class="tool-tabs">
+          <button class="tool-tab active" data-view="cards">
+            <i class="fa-solid fa-grip"></i> Cards
+          </button>
+          <button class="tool-tab" data-view="table">
+            <i class="fa-solid fa-table"></i> Table
+          </button>
+          <button class="tool-tab" data-view="rest">
+            <i class="fa-solid fa-arrows-rotate"></i> REST Guide
+          </button>
+        </div>
+
+        <!-- Main Content Area -->
+        <div class="hm-content">
+          <!-- Search & Filter (Cards/Table views) -->
+          <div class="search-section" id="searchSection">
+            <div class="search-box">
+              <i class="fa-solid fa-search search-icon"></i>
+              <input type="text" id="searchInput" placeholder="Search methods...">
+              <button class="clear-search-btn hidden" id="clearSearchBtn" aria-label="Clear search" title="Clear search">
+                <i class="fa-solid fa-xmark"></i>
+              </button>
+            </div>
+            <div class="filter-chips">
+              <button class="filter-chip active" data-filter="all">All</button>
+              <button class="filter-chip filter-chip--safe" data-filter="safe">Safe</button>
+              <button class="filter-chip filter-chip--modify" data-filter="modify">Modification</button>
+              <button class="filter-chip filter-chip--other" data-filter="other">Other</button>
+            </div>
+          </div>
+
+          <!-- Cards View -->
+          <div class="hm-view hm-view--cards active" id="cardsView">
+            <div class="methods-grid" id="methodsGrid">
+              <!-- Method cards rendered by JS -->
+            </div>
+            <div class="no-results hidden" id="noResults">
+              <i class="fa-solid fa-search"></i>
+              <p>No methods found</p>
+            </div>
+          </div>
+
+          <!-- Table View -->
+          <div class="hm-view hm-view--table" id="tableView">
+            <div class="table-scroll">
+              <table class="methods-table" id="methodsTable">
+                <!-- Rendered by JS -->
+              </table>
+            </div>
+          </div>
+
+          <!-- REST Guide View -->
+          <div class="hm-view hm-view--rest" id="restView">
+            <div class="rest-guide" id="restGuide">
+              <!-- Rendered by JS -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Method Detail Modal -->
+  <div class="method-modal" id="methodModal">
+    <div class="method-modal-content">
+      <div class="method-modal-header">
+        <div class="method-modal-badge" id="modalBadge">GET</div>
+        <h3 class="method-modal-title" id="modalTitle">Description</h3>
+        <button class="close-modal-btn" id="closeModalBtn" aria-label="Close modal">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="method-modal-body" id="modalBody">
+        <!-- Filled by JS -->
+      </div>
+      <div class="method-modal-footer">
+        <button class="copy-code-btn" id="copyRequestBtn">
+          <i class="fa-solid fa-copy"></i>
+          <span>Copy Example Request</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach. All rights reserved.</p>
+        <p class="footer-made">Made with 💗 and Claude Code xD</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Shared Tools JavaScript -->
+  <script src="../../js/tools-common.js"></script>
+  <!-- HTTP Methods JavaScript -->
+  <script src="httpmethods.js"></script>
+</body>
+</html>

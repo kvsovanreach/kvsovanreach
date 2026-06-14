@@ -10,7 +10,7 @@
   border: 1px solid var(--color-border);
   border-radius: var(--radius-xl);
   overflow: hidden;
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--shadow-card);
 }
 
 /* ==================== Header ==================== */
@@ -20,7 +20,7 @@
   justify-content: space-between;
   padding: var(--space-4) var(--space-5);
   background-color: var(--color-surface);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border-light);
 }
 
 .gradient-header h2 {
@@ -95,7 +95,7 @@
 .gradient-controls {
   padding: var(--space-4);
   background-color: var(--color-bg);
-  border-left: 1px solid var(--color-border);
+  border-left: 1px solid var(--color-border-light);
   display: flex;
   flex-direction: column;
   gap: var(--space-4);
@@ -121,7 +121,7 @@
 }
 
 .control-value {
-  font-family: 'Fira Code', monospace;
+  font-family: var(--font-mono);
   font-size: var(--font-size-sm);
   font-weight: 600;
   color: var(--color-primary);
@@ -241,7 +241,7 @@
   background-color: var(--color-bg);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-sm);
-  font-family: 'Fira Code', monospace;
+  font-family: var(--font-mono);
   font-size: var(--font-size-sm);
   color: var(--color-text);
   text-align: center;
@@ -300,7 +300,7 @@
 
 /* Output Box */
 .output-box {
-  background-color: #1e1e1e;
+  background-color: var(--color-bg-tertiary);
   border-radius: var(--radius-md);
   overflow: hidden;
 }
@@ -308,13 +308,23 @@
 .output-box pre {
   padding: var(--space-3);
   margin: 0;
-  font-family: 'Fira Code', monospace;
+  font-family: var(--font-mono);
   font-size: var(--font-size-xs);
-  color: #d4d4d4;
+  color: var(--color-text-secondary);
   line-height: 1.6;
   overflow-x: auto;
   white-space: pre-wrap;
   word-break: break-all;
+}
+
+/* Focus ring for all interactive buttons */
+.header-action-btn:focus-visible,
+.type-btn:focus-visible,
+.add-color-btn:focus-visible,
+.color-stop .remove-btn:focus-visible,
+.copy-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px var(--color-primary-muted);
 }
 
 /* ==================== Responsive ==================== */

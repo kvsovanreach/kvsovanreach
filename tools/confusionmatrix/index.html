@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Confusion matrix calculator and visualizer with heatmap, per-class and overall metrics.">
+  <meta property="og:title" content="KVSOVANREACH | Confusion Matrix Calculator">
+  <title>KVSOVANREACH | Confusion Matrix Calculator</title>
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  <link rel="stylesheet" href="../../css/tools-common.css">
+  <link rel="stylesheet" href="confusionmatrix.css">
+</head>
+<body>
+  <a href="#confusionmatrix" class="skip-link">Skip to Confusion Matrix Calculator</a>
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span><span class="logo-divider">|</span><span class="logo-tools">TOOLS</span>
+      </a>
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools"><i class="fa-solid fa-arrow-left"></i></a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode"><i class="fa-solid fa-moon"></i><i class="fa-solid fa-sun"></i></button>
+      </div>
+    </div>
+  </nav>
+
+  <main class="tool-page">
+    <div class="container">
+      <div class="cm-wrapper" id="confusionmatrix">
+        <div class="cm-header">
+          <h2><i class="fa-solid fa-table-cells"></i> Confusion Matrix Calculator</h2>
+        </div>
+
+        <div class="cm-content">
+          <!-- Controls -->
+          <div class="cm-controls">
+            <div class="section-header">
+              <h3><i class="fa-solid fa-sliders"></i> Settings</h3>
+              <div class="controls-inline">
+                <label class="toggle-label">
+                  <input type="checkbox" id="normalizedToggle">
+                  <span class="toggle-text">Normalized (%)</span>
+                </label>
+              </div>
+            </div>
+            <div class="controls-body">
+              <div class="controls-row">
+                <div class="control-group">
+                  <label>Matrix Size</label>
+                  <select id="matrixSize">
+                    <option value="2" selected>2x2 (Binary)</option>
+                    <option value="3">3x3</option>
+                    <option value="4">4x4</option>
+                    <option value="5">5x5</option>
+                  </select>
+                </div>
+                <div class="control-group">
+                  <label>Preset Examples</label>
+                  <select id="presetSelect">
+                    <option value="custom">Custom</option>
+                    <option value="binary-good">Binary - Good Classifier</option>
+                    <option value="binary-bad">Binary - Poor Classifier</option>
+                    <option value="binary-imbalanced">Binary - Imbalanced</option>
+                    <option value="multi3">Multi-class (3)</option>
+                    <option value="multi4">Multi-class (4)</option>
+                    <option value="multi5">Multi-class (5)</option>
+                  </select>
+                </div>
+              </div>
+              <div class="controls-actions">
+                <button class="action-btn primary" id="calculateBtn"><i class="fa-solid fa-calculator"></i><span>Calculate</span></button>
+                <button class="action-btn" id="clearBtn"><i class="fa-solid fa-eraser"></i><span>Clear</span></button>
+                <button class="action-btn" id="copyBtn"><i class="fa-solid fa-copy"></i><span>Copy Metrics</span></button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Matrix Input -->
+          <div class="cm-matrix-section">
+            <div class="section-header">
+              <h3><i class="fa-solid fa-grip"></i> Matrix Input</h3>
+              <span class="axis-hint">Rows = Actual, Columns = Predicted</span>
+            </div>
+            <div class="matrix-body">
+              <div class="matrix-container" id="matrixContainer"></div>
+            </div>
+          </div>
+
+          <!-- Heatmap -->
+          <div class="cm-heatmap-section">
+            <div class="section-header">
+              <h3><i class="fa-solid fa-fire"></i> Heatmap Visualization</h3>
+            </div>
+            <div class="heatmap-body">
+              <div class="heatmap-container" id="heatmapContainer"></div>
+              <div class="heatmap-legend" id="heatmapLegend">
+                <span class="legend-label">Low</span>
+                <div class="legend-gradient"></div>
+                <span class="legend-label">High</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Overall Metrics -->
+          <div class="cm-metrics-section">
+            <div class="section-header">
+              <h3><i class="fa-solid fa-chart-bar"></i> Overall Metrics</h3>
+            </div>
+            <div class="metrics-grid" id="overallMetrics"></div>
+          </div>
+
+          <!-- Per-class Metrics -->
+          <div class="cm-perclass-section">
+            <div class="section-header">
+              <h3><i class="fa-solid fa-layer-group"></i> Per-Class Metrics</h3>
+            </div>
+            <div class="perclass-body" id="perclassMetrics"></div>
+          </div>
+
+          <!-- Info -->
+          <div class="info-panel">
+            <div class="info-header"><i class="fa-solid fa-lightbulb"></i><span>About Confusion Matrix Metrics</span></div>
+            <div class="info-content">
+              <p>A confusion matrix summarizes the prediction results of a classifier. Each row represents actual classes, each column represents predicted classes.</p>
+              <ul class="info-list">
+                <li><strong>Accuracy:</strong> Overall correct predictions / total predictions</li>
+                <li><strong>Precision:</strong> True positives / (True positives + False positives)</li>
+                <li><strong>Recall:</strong> True positives / (True positives + False negatives)</li>
+                <li><strong>F1-Score:</strong> Harmonic mean of precision and recall</li>
+                <li><strong>Specificity:</strong> True negatives / (True negatives + False positives)</li>
+                <li><strong>MCC:</strong> Matthews Correlation Coefficient, balanced measure even for imbalanced data</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer"><div class="container"><div class="footer-bottom">
+    <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach. All rights reserved.</p>
+    <p class="footer-made">Made with Claude Code</p>
+  </div></div></footer>
+
+  <div class="toast" id="toast"></div>
+  <div class="shortcuts-hint" id="shortcutsHint"><span><kbd>Shift</kbd>+<kbd>?</kbd> : shortcuts</span></div>
+  <div class="shortcuts-modal" id="shortcutsModal">
+    <div class="shortcuts-content">
+      <div class="shortcuts-header"><h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3><button class="close-shortcuts-btn" id="closeShortcutsBtn" aria-label="Close"><i class="fa-solid fa-xmark"></i></button></div>
+      <div class="shortcuts-body">
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">Actions</div>
+          <div class="shortcut-row"><div class="shortcut-keys"><kbd>Enter</kbd></div><div class="shortcut-desc">Calculate metrics</div></div>
+          <div class="shortcut-row"><div class="shortcut-keys"><kbd>Ctrl</kbd>+<kbd>C</kbd></div><div class="shortcut-desc">Copy metrics</div></div>
+          <div class="shortcut-row"><div class="shortcut-keys"><kbd>N</kbd></div><div class="shortcut-desc">Toggle normalized view</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="../../js/tools-common.js"></script>
+  <script src="confusionmatrix.js"></script>
+</body>
+</html>

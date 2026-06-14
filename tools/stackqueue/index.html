@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Interactive Stack and Queue data structure visualizer. Push, pop, enqueue, dequeue with animations.">
+  <meta property="og:title" content="KVSOVANREACH | Stack & Queue Visualizer">
+  <meta property="og:description" content="Visualize Stack (LIFO) and Queue (FIFO) operations with animated push, pop, enqueue, and dequeue.">
+  <meta property="og:image" content="/assets/img/favicons/og-image.png">
+  <title>KVSOVANREACH | Stack & Queue Visualizer</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+  <!-- Common Tools CSS -->
+  <link rel="stylesheet" href="../../css/tools-common.css">
+  <!-- Stack Queue CSS -->
+  <link rel="stylesheet" href="stackqueue.css">
+</head>
+<body>
+  <!-- Skip to Content -->
+  <a href="#stackqueue" class="skip-link">Skip to stack and queue visualizer</a>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">TOOLS</span>
+      </a>
+
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="tool-page">
+    <div class="container">
+      <div class="sq-wrapper" id="stackqueue">
+        <!-- Header -->
+        <div class="sq-header">
+          <h2><i class="fa-solid fa-layer-group"></i> Stack & Queue Visualizer</h2>
+        </div>
+
+        <!-- Content -->
+        <div class="sq-content">
+          <!-- Input Bar -->
+          <div class="sq-input-bar">
+            <div class="sq-input-group">
+              <label for="valueInput">Value</label>
+              <input type="text" id="valueInput" placeholder="Enter a value..." maxlength="10">
+            </div>
+            <button class="sq-btn sq-btn-secondary" id="undoBtn" title="Undo Last Operation">
+              <i class="fa-solid fa-rotate-left"></i> Undo
+            </button>
+          </div>
+
+          <!-- Panels -->
+          <div class="sq-panels">
+            <!-- Stack Panel -->
+            <div class="sq-panel">
+              <div class="sq-panel-header sq-panel-stack">
+                <div class="sq-panel-title">
+                  <i class="fa-solid fa-layer-group"></i>
+                  <span>Stack</span>
+                  <span class="sq-badge">LIFO</span>
+                </div>
+                <div class="sq-panel-meta">
+                  <span class="sq-size" id="stackSize">0 / 10</span>
+                </div>
+              </div>
+
+              <div class="sq-panel-controls">
+                <button class="sq-btn sq-btn-push" id="stackPushBtn">
+                  <i class="fa-solid fa-arrow-down"></i> Push
+                </button>
+                <button class="sq-btn sq-btn-pop" id="stackPopBtn">
+                  <i class="fa-solid fa-arrow-up"></i> Pop
+                </button>
+                <button class="sq-btn sq-btn-peek" id="stackPeekBtn">
+                  <i class="fa-solid fa-eye"></i> Peek
+                </button>
+                <button class="sq-btn sq-btn-clear" id="stackClearBtn">
+                  <i class="fa-solid fa-trash"></i>
+                </button>
+              </div>
+
+              <!-- Stack Visual -->
+              <div class="sq-visual sq-visual-stack">
+                <div class="sq-pointer-label sq-top-pointer" id="stackTopPointer">
+                  <i class="fa-solid fa-arrow-right"></i> TOP
+                </div>
+                <div class="sq-items-stack" id="stackItems">
+                  <div class="sq-empty-msg" id="stackEmptyMsg">Stack is empty</div>
+                </div>
+                <div class="sq-base-label">BOTTOM</div>
+              </div>
+            </div>
+
+            <!-- Queue Panel -->
+            <div class="sq-panel">
+              <div class="sq-panel-header sq-panel-queue">
+                <div class="sq-panel-title">
+                  <i class="fa-solid fa-arrows-left-right"></i>
+                  <span>Queue</span>
+                  <span class="sq-badge">FIFO</span>
+                </div>
+                <div class="sq-panel-meta">
+                  <span class="sq-size" id="queueSize">0 / 10</span>
+                </div>
+              </div>
+
+              <div class="sq-panel-controls">
+                <button class="sq-btn sq-btn-push" id="queueEnqueueBtn">
+                  <i class="fa-solid fa-arrow-right"></i> Enqueue
+                </button>
+                <button class="sq-btn sq-btn-pop" id="queueDequeueBtn">
+                  <i class="fa-solid fa-arrow-left"></i> Dequeue
+                </button>
+                <button class="sq-btn sq-btn-peek" id="queuePeekBtn">
+                  <i class="fa-solid fa-eye"></i> Peek
+                </button>
+                <button class="sq-btn sq-btn-clear" id="queueClearBtn">
+                  <i class="fa-solid fa-trash"></i>
+                </button>
+              </div>
+
+              <!-- Queue Visual -->
+              <div class="sq-visual sq-visual-queue">
+                <div class="sq-queue-pointers">
+                  <span class="sq-front-label" id="queueFrontPointer">FRONT <i class="fa-solid fa-arrow-down"></i></span>
+                  <span class="sq-rear-label" id="queueRearPointer">REAR <i class="fa-solid fa-arrow-down"></i></span>
+                </div>
+                <div class="sq-items-queue" id="queueItems">
+                  <div class="sq-empty-msg" id="queueEmptyMsg">Queue is empty</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Operation History -->
+          <div class="sq-history">
+            <div class="sq-history-header">
+              <h3><i class="fa-solid fa-clock-rotate-left"></i> Operation History</h3>
+              <button class="sq-btn sq-btn-secondary sq-btn-sm" id="clearHistoryBtn">Clear</button>
+            </div>
+            <div class="sq-history-body" id="historyBody">
+              <div class="sq-history-empty">No operations yet.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach. All rights reserved.</p>
+        <p class="footer-made">Made with 💗 and Claude Code xD</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Shared Tools JavaScript -->
+  <script src="../../js/tools-common.js"></script>
+  <!-- Stack Queue JavaScript -->
+  <script src="stackqueue.js"></script>
+</body>
+</html>

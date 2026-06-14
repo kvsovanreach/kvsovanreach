@@ -10,7 +10,7 @@
   border: 1px solid var(--color-border);
   border-radius: var(--radius-xl);
   overflow: hidden;
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--shadow-card);
   position: relative;
 }
 
@@ -20,7 +20,7 @@
   align-items: center;
   padding: var(--space-4) var(--space-5);
   background-color: var(--color-surface);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border-light);
 }
 
 .typing-header h2 {
@@ -111,7 +111,7 @@
 .stat-value {
   font-size: var(--font-size-lg);
   font-weight: 700;
-  font-family: 'Fira Code', monospace;
+  font-family: var(--font-mono);
   color: var(--color-text);
 }
 
@@ -141,6 +141,11 @@
 .duration-btn:hover {
   border-color: var(--color-primary);
   color: var(--color-text);
+}
+
+.duration-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px var(--color-primary-muted);
 }
 
 .duration-btn.active {
@@ -193,6 +198,11 @@
   background-color: var(--color-primary);
   border-color: var(--color-primary);
   color: white;
+}
+
+.action-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px var(--color-primary-muted);
 }
 
 /* Info List */
@@ -266,7 +276,7 @@
 
 .char {
   position: relative;
-  font-family: 'Fira Code', monospace;
+  font-family: var(--font-mono);
   transition: color 0.1s ease;
 }
 
@@ -282,7 +292,7 @@
 
 .char.incorrect {
   color: var(--color-error);
-  background-color: rgba(239, 68, 68, 0.2);
+  background-color: color-mix(in srgb, var(--color-error) 20%, transparent);
   border-radius: 2px;
 }
 
@@ -303,7 +313,7 @@
   border: 2px solid var(--color-border);
   border-radius: var(--radius-lg);
   font-size: var(--font-size-base);
-  font-family: 'Fira Code', monospace;
+  font-family: var(--font-mono);
   color: var(--color-text);
   transition: border-color var(--transition-fast);
   text-align: left;
@@ -352,7 +362,7 @@
 
 .results-card {
   padding: var(--space-5);
-  background: linear-gradient(135deg, rgba(34, 197, 94, 0.1), rgba(34, 197, 94, 0.05));
+  background: linear-gradient(135deg, color-mix(in srgb, var(--color-success) 10%, transparent), color-mix(in srgb, var(--color-success) 5%, transparent));
   border: 2px solid var(--color-success);
   border-radius: var(--radius-xl);
   text-align: center;
@@ -370,7 +380,7 @@
 }
 
 .results-card h3 i {
-  color: #fbbf24;
+  color: var(--color-warning);
 }
 
 .results-grid {
@@ -392,7 +402,7 @@
 
 .result-value {
   display: block;
-  font-family: 'Fira Code', monospace;
+  font-family: var(--font-mono);
   font-size: var(--font-size-xl);
   font-weight: 700;
   color: var(--color-text);
@@ -408,7 +418,7 @@
   align-items: center;
   gap: var(--space-2);
   padding: var(--space-2) var(--space-4);
-  background: linear-gradient(135deg, var(--color-primary), #2563eb);
+  background: linear-gradient(135deg, var(--color-primary), var(--color-info));
   border: none;
   border-radius: var(--radius-md);
   color: white;
@@ -420,7 +430,12 @@
 
 .continue-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+  box-shadow: 0 4px 15px color-mix(in srgb, var(--color-info) 40%, transparent);
+}
+
+.continue-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px var(--color-primary-muted);
 }
 
 /* ==================== Mobile Toggle Button ==================== */
@@ -433,7 +448,7 @@
   height: 48px;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, var(--color-primary), #2563eb);
+  background: linear-gradient(135deg, var(--color-primary), var(--color-info));
   color: white;
   border: none;
   border-radius: var(--radius-full);
@@ -445,6 +460,11 @@
 
 .mobile-toggle-btn:hover {
   transform: scale(1.05);
+}
+
+.mobile-toggle-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px var(--color-primary-muted);
 }
 
 /* ==================== Responsive ==================== */

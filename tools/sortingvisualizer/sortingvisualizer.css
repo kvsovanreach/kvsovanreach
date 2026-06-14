@@ -11,7 +11,7 @@
   border: 1px solid var(--color-border);
   border-radius: var(--radius-xl);
   overflow: hidden;
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--shadow-card);
 }
 
 /* Header */
@@ -21,7 +21,7 @@
   justify-content: space-between;
   padding: var(--space-4) var(--space-5);
   background: linear-gradient(135deg, #7c3aed 0%, #5b21b6 100%);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border-light);
 }
 
 .sorting-header h2 {
@@ -139,7 +139,7 @@
 }
 
 .stat-item .stat-value {
-  font-family: 'Fira Code', monospace;
+  font-family: var(--font-mono);
   font-size: var(--font-size-base);
   font-weight: 600;
   color: var(--color-text);
@@ -174,17 +174,17 @@
 }
 
 .bar.comparing {
-  background: linear-gradient(180deg, #f59e0b, #d97706);
-  box-shadow: 0 0 10px rgba(245, 158, 11, 0.5);
+  background: var(--color-warning);
+  box-shadow: 0 0 10px color-mix(in srgb, var(--color-warning) 50%, transparent);
 }
 
 .bar.swapping {
-  background: linear-gradient(180deg, #ef4444, #dc2626);
-  box-shadow: 0 0 10px rgba(239, 68, 68, 0.5);
+  background: var(--color-error);
+  box-shadow: 0 0 10px color-mix(in srgb, var(--color-error) 50%, transparent);
 }
 
 .bar.sorted {
-  background: linear-gradient(180deg, #22c55e, #16a34a);
+  background: var(--color-success);
 }
 
 .bar.pivot {
@@ -223,15 +223,15 @@
 }
 
 .legend-color.comparing {
-  background: linear-gradient(180deg, #f59e0b, #d97706);
+  background: var(--color-warning);
 }
 
 .legend-color.swapping {
-  background: linear-gradient(180deg, #ef4444, #dc2626);
+  background: var(--color-error);
 }
 
 .legend-color.sorted {
-  background: linear-gradient(180deg, #22c55e, #16a34a);
+  background: var(--color-success);
 }
 
 /* Info Panel */
@@ -248,7 +248,7 @@
   gap: var(--space-2);
   padding: var(--space-3) var(--space-4);
   background-color: var(--color-bg-tertiary);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border-light);
   font-size: var(--font-size-sm);
   font-weight: 600;
   color: var(--color-text);
@@ -291,7 +291,7 @@
 }
 
 .complexity-value {
-  font-family: 'Fira Code', monospace;
+  font-family: var(--font-mono);
   font-size: var(--font-size-sm);
   font-weight: 600;
   color: #7c3aed;

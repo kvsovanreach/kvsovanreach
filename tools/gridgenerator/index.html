@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="CSS Grid layout generator with visual preview. Create grid layouts with custom templates, gaps, and cell spanning.">
+  <meta property="og:title" content="KVSOVANREACH | CSS Grid Generator">
+  <meta property="og:description" content="Visual CSS Grid layout generator with presets and responsive preview.">
+  <meta property="og:image" content="/assets/img/favicons/og-image.png">
+  <title>KVSOVANREACH | CSS Grid Generator</title>
+
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  <link rel="stylesheet" href="../../css/tools-common.css">
+  <link rel="stylesheet" href="gridgenerator.css">
+</head>
+<body>
+  <a href="#gridgenerator" class="skip-link">Skip to Grid Generator</a>
+
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">TOOLS</span>
+      </a>
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools"><i class="fa-solid fa-arrow-left"></i></a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <main class="tool-page">
+    <div class="container">
+      <div class="gg-wrapper" id="gridgenerator">
+        <div class="gg-header">
+          <h2><i class="fa-solid fa-grip"></i> CSS Grid Generator</h2>
+          <div class="header-actions">
+            <button class="header-action-btn" id="copyBtn" title="Copy CSS (C)">
+              <i class="fa-solid fa-copy"></i>
+            </button>
+            <button class="header-action-btn" id="resetBtn" title="Reset (R)">
+              <i class="fa-solid fa-rotate-left"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="gg-content">
+          <div class="gg-controls-panel">
+            <div class="gg-section">
+              <h3>Presets</h3>
+              <div class="gg-preset-grid">
+                <button class="gg-preset-btn" data-preset="12col">12-Column</button>
+                <button class="gg-preset-btn" data-preset="dashboard">Dashboard</button>
+                <button class="gg-preset-btn" data-preset="gallery">Photo Gallery</button>
+                <button class="gg-preset-btn" data-preset="magazine">Magazine</button>
+              </div>
+            </div>
+
+            <div class="gg-section">
+              <h3>Grid Setup</h3>
+              <div class="gg-control-group">
+                <label for="colCount">Columns</label>
+                <div class="gg-range-row">
+                  <input type="range" id="colCount" min="1" max="12" value="3">
+                  <span class="control-value" id="colCountValue">3</span>
+                </div>
+              </div>
+              <div class="gg-control-group">
+                <label for="rowCount">Rows</label>
+                <div class="gg-range-row">
+                  <input type="range" id="rowCount" min="1" max="12" value="3">
+                  <span class="control-value" id="rowCountValue">3</span>
+                </div>
+              </div>
+              <div class="gg-control-group">
+                <label for="colGap">Column Gap</label>
+                <div class="gg-range-row">
+                  <input type="range" id="colGap" min="0" max="40" value="10">
+                  <span class="control-value" id="colGapValue">10px</span>
+                </div>
+              </div>
+              <div class="gg-control-group">
+                <label for="rowGap">Row Gap</label>
+                <div class="gg-range-row">
+                  <input type="range" id="rowGap" min="0" max="40" value="10">
+                  <span class="control-value" id="rowGapValue">10px</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="gg-section">
+              <h3>Templates</h3>
+              <div class="gg-control-group">
+                <label for="colTemplate">grid-template-columns</label>
+                <input type="text" id="colTemplate" class="gg-text-input" value="1fr 1fr 1fr" placeholder="e.g. 1fr 2fr 1fr">
+              </div>
+              <div class="gg-control-group">
+                <label for="rowTemplate">grid-template-rows</label>
+                <input type="text" id="rowTemplate" class="gg-text-input" value="1fr 1fr 1fr" placeholder="e.g. 200px auto 1fr">
+              </div>
+            </div>
+
+            <div class="gg-section">
+              <h3>
+                Cell Properties
+                <select id="selectedCell" class="gg-cell-select"></select>
+              </h3>
+              <div class="gg-control-group">
+                <label for="colSpan">Column Span</label>
+                <div class="gg-range-row">
+                  <input type="range" id="colSpan" min="1" max="12" value="1">
+                  <span class="control-value" id="colSpanValue">1</span>
+                </div>
+              </div>
+              <div class="gg-control-group">
+                <label for="rowSpan">Row Span</label>
+                <div class="gg-range-row">
+                  <input type="range" id="rowSpan" min="1" max="12" value="1">
+                  <span class="control-value" id="rowSpanValue">1</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="gg-section">
+              <h3>Responsive Preview</h3>
+              <div class="gg-viewport-btns">
+                <button class="gg-viewport-btn active" data-width="100%" title="Desktop"><i class="fa-solid fa-desktop"></i></button>
+                <button class="gg-viewport-btn" data-width="768px" title="Tablet"><i class="fa-solid fa-tablet-screen-button"></i></button>
+                <button class="gg-viewport-btn" data-width="375px" title="Mobile"><i class="fa-solid fa-mobile-screen-button"></i></button>
+              </div>
+            </div>
+
+            <div class="output-section">
+              <h3>CSS Output</h3>
+              <div class="output-box">
+                <pre id="cssOutput"></pre>
+              </div>
+            </div>
+          </div>
+
+          <div class="gg-preview-panel">
+            <div class="gg-preview-frame" id="previewFrame">
+              <div class="gg-preview" id="previewArea"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div class="shortcuts-modal" id="shortcutsModal">
+    <div class="shortcuts-content">
+      <div class="shortcuts-header">
+        <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
+        <button class="close-shortcuts-btn" id="closeShortcutsBtn"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="shortcuts-body">
+        <div class="shortcut-row"><span class="shortcut-key">C</span><span class="shortcut-desc">Copy CSS</span></div>
+        <div class="shortcut-row"><span class="shortcut-key">R</span><span class="shortcut-desc">Reset values</span></div>
+        <div class="shortcut-row"><span class="shortcut-key">?</span><span class="shortcut-desc">Show shortcuts</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="shortcuts-hint">Press <span class="shortcut-key">?</span> for shortcuts</div>
+  <div class="toast" id="toast"></div>
+
+  <script src="../../js/tools-common.js"></script>
+  <script src="gridgenerator.js"></script>
+</body>
+</html>

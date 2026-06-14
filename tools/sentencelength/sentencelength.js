@@ -25,7 +25,7 @@
   // ==================== Constants ====================
   const LENGTH_CATEGORIES = {
     short: { max: 10, label: 'Short (1-10)', color: '#22c55e' },
-    medium: { max: 20, label: 'Medium (11-20)', color: '#3776A1' },
+    medium: { max: 20, label: 'Medium (11-20)', color: '#91214E' },
     long: { max: 30, label: 'Long (21-30)', color: '#f59e0b' },
     veryLong: { max: Infinity, label: 'Very Long (30+)', color: '#ef4444' }
   };

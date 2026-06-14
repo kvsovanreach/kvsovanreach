@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Create CSS text shadows with a visual editor. Multiple layers, presets, and live preview.">
+  <meta property="og:title" content="KVSOVANREACH | Text Shadow Generator">
+  <meta property="og:description" content="Create and customize CSS text shadows visually with multiple layers and presets.">
+  <meta property="og:image" content="/assets/img/favicons/og-image.png">
+  <title>KVSOVANREACH | Text Shadow Generator</title>
+
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  <link rel="stylesheet" href="../../css/tools-common.css">
+  <link rel="stylesheet" href="textshadow.css">
+</head>
+<body>
+  <a href="#textshadow" class="skip-link">Skip to Text Shadow Generator</a>
+
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">TOOLS</span>
+      </a>
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools"><i class="fa-solid fa-arrow-left"></i></a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <main class="tool-page">
+    <div class="container">
+      <div class="ts-wrapper" id="textshadow">
+        <div class="ts-header">
+          <h2><i class="fa-solid fa-font"></i> Text Shadow Generator</h2>
+          <div class="header-actions">
+            <button class="header-action-btn" id="copyBtn" title="Copy CSS (C)">
+              <i class="fa-solid fa-copy"></i>
+            </button>
+            <button class="header-action-btn" id="resetBtn" title="Reset (R)">
+              <i class="fa-solid fa-rotate-left"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="ts-content">
+          <div class="ts-preview-panel">
+            <div class="ts-preview" id="previewArea">
+              <span class="ts-preview-text" id="previewText" contenteditable="true" spellcheck="false">Shadow</span>
+            </div>
+            <div class="ts-preview-controls">
+              <div class="ts-inline-control">
+                <label for="bgColor">Background</label>
+                <input type="color" id="bgColor" value="#1a1a2e">
+              </div>
+              <div class="ts-inline-control">
+                <label for="textColor">Text Color</label>
+                <input type="color" id="textColor" value="#ffffff">
+              </div>
+              <div class="ts-inline-control">
+                <label for="fontSize">Size</label>
+                <input type="range" id="fontSize" min="16" max="120" value="64">
+                <span class="control-value" id="fontSizeValue">64px</span>
+              </div>
+              <div class="ts-inline-control">
+                <label for="fontWeight">Weight</label>
+                <select id="fontWeight">
+                  <option value="300">Light</option>
+                  <option value="400">Regular</option>
+                  <option value="500">Medium</option>
+                  <option value="600">Semi Bold</option>
+                  <option value="700" selected>Bold</option>
+                  <option value="800">Extra Bold</option>
+                  <option value="900">Black</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="ts-controls-panel">
+            <div class="ts-presets">
+              <h3>Presets</h3>
+              <div class="ts-preset-grid">
+                <button class="ts-preset-btn" data-preset="neon">Neon Glow</button>
+                <button class="ts-preset-btn" data-preset="emboss">Emboss</button>
+                <button class="ts-preset-btn" data-preset="retro">Retro</button>
+                <button class="ts-preset-btn" data-preset="fire">Fire</button>
+                <button class="ts-preset-btn" data-preset="threed">3D</button>
+                <button class="ts-preset-btn" data-preset="outline">Outline</button>
+              </div>
+            </div>
+
+            <div class="ts-layers-header">
+              <h3>Shadow Layers</h3>
+              <button class="ts-add-layer-btn" id="addLayerBtn" title="Add layer">
+                <i class="fa-solid fa-plus"></i> Add
+              </button>
+            </div>
+
+            <div class="ts-layers" id="layersList"></div>
+
+            <div class="output-section">
+              <h3>CSS Output</h3>
+              <div class="output-box">
+                <pre id="cssOutput"></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div class="shortcuts-modal" id="shortcutsModal">
+    <div class="shortcuts-content">
+      <div class="shortcuts-header">
+        <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
+        <button class="close-shortcuts-btn" id="closeShortcutsBtn"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="shortcuts-body">
+        <div class="shortcut-row"><span class="shortcut-key">C</span><span class="shortcut-desc">Copy CSS</span></div>
+        <div class="shortcut-row"><span class="shortcut-key">R</span><span class="shortcut-desc">Reset values</span></div>
+        <div class="shortcut-row"><span class="shortcut-key">A</span><span class="shortcut-desc">Add layer</span></div>
+        <div class="shortcut-row"><span class="shortcut-key">?</span><span class="shortcut-desc">Show shortcuts</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="shortcuts-hint">Press <span class="shortcut-key">?</span> for shortcuts</div>
+  <div class="toast" id="toast"></div>
+
+  <script src="../../js/tools-common.js"></script>
+  <script src="textshadow.js"></script>
+</body>
+</html>

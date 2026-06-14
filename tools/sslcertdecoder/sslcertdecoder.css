@@ -1,0 +1,398 @@
+/**
+ * SSL Certificate Decoder CSS
+ */
+
+/* ==================== Layout ==================== */
+.ssl-wrapper {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+}
+
+.ssl-header {
+  padding: var(--space-4) var(--space-5);
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.ssl-header h2 {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-size: var(--font-size-xl);
+  font-weight: 600;
+  color: var(--color-text);
+  letter-spacing: -0.02em;
+}
+
+.ssl-header h2 i {
+  color: var(--color-primary);
+  font-size: var(--font-size-xl);
+}
+
+.ssl-content {
+  padding: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+/* ==================== Input Section ==================== */
+.ssl-input-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.section-header h3 {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--color-text-secondary);
+}
+
+.section-header h3 i {
+  font-size: var(--font-size-sm);
+}
+
+.section-actions {
+  display: flex;
+  gap: var(--space-2);
+}
+
+#pemInput {
+  width: 100%;
+  padding: var(--space-4);
+  background-color: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-sm);
+  line-height: 1.6;
+  color: var(--color-text);
+  resize: vertical;
+}
+
+#pemInput:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 4px var(--color-primary-muted);
+}
+
+.decode-btn {
+  align-self: flex-start;
+  padding: var(--space-3) var(--space-6);
+}
+
+/* ==================== Expiry Banner ==================== */
+.expiry-banner {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-4) var(--space-5);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+}
+
+.expiry-banner.valid {
+  background-color: rgba(22, 163, 74, 0.06);
+  border-color: rgba(22, 163, 74, 0.2);
+}
+
+.expiry-banner.expired {
+  background-color: rgba(220, 38, 38, 0.06);
+  border-color: rgba(220, 38, 38, 0.2);
+}
+
+.expiry-banner.not-yet-valid {
+  background-color: rgba(234, 179, 8, 0.06);
+  border-color: rgba(234, 179, 8, 0.2);
+}
+
+.expiry-icon {
+  font-size: 2rem;
+  flex-shrink: 0;
+}
+
+.expiry-banner.valid .expiry-icon { color: var(--color-success); }
+.expiry-banner.expired .expiry-icon { color: var(--color-error); }
+.expiry-banner.not-yet-valid .expiry-icon { color: #eab308; }
+
+.expiry-info {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.expiry-status {
+  font-size: var(--font-size-lg);
+  font-weight: 700;
+}
+
+.expiry-banner.valid .expiry-status { color: var(--color-success); }
+.expiry-banner.expired .expiry-status { color: var(--color-error); }
+.expiry-banner.not-yet-valid .expiry-status { color: #eab308; }
+
+.expiry-countdown {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+}
+
+/* ==================== Certificate Sections ==================== */
+.cert-section {
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.cert-section-header {
+  padding: var(--space-3) var(--space-4);
+  background-color: var(--color-bg-tertiary);
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.cert-section-header h3 {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--color-text);
+  margin: 0;
+}
+
+.cert-section-header h3 i {
+  color: var(--color-primary);
+  font-size: var(--font-size-sm);
+}
+
+.cert-fields {
+  display: flex;
+  flex-direction: column;
+}
+
+.cert-field {
+  display: flex;
+  align-items: flex-start;
+  padding: var(--space-2) var(--space-4);
+  border-bottom: 1px solid var(--color-border-light);
+  gap: var(--space-3);
+}
+
+.cert-field:last-child {
+  border-bottom: none;
+}
+
+.cert-field:hover {
+  background-color: var(--color-surface-hover);
+}
+
+.cert-field-label {
+  flex-shrink: 0;
+  min-width: 160px;
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  color: var(--color-text-muted);
+  padding-top: 2px;
+}
+
+.cert-field-value {
+  flex: 1;
+  font-size: var(--font-size-sm);
+  font-family: var(--font-mono);
+  color: var(--color-text);
+  word-break: break-all;
+  line-height: 1.5;
+}
+
+.cert-field-copy {
+  flex-shrink: 0;
+  width: 26px;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  border-radius: var(--radius-sm);
+  color: var(--color-text-muted);
+  font-size: var(--font-size-xs);
+  cursor: pointer;
+  opacity: 0;
+  transition: all var(--transition-fast);
+}
+
+.cert-field:hover .cert-field-copy {
+  opacity: 1;
+}
+
+.cert-field-copy:hover {
+  color: var(--color-primary);
+  background-color: var(--color-surface-hover);
+}
+
+.cert-field-copy:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px var(--color-primary-muted);
+  opacity: 1;
+}
+
+/* SAN tags */
+.san-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+}
+
+.san-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: 2px var(--space-2);
+  background-color: var(--color-bg-secondary);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-xs);
+  font-family: var(--font-mono);
+  color: var(--color-text);
+}
+
+.san-tag .san-copy-btn {
+  background: none;
+  border: none;
+  color: var(--color-text-muted);
+  font-size: 10px;
+  cursor: pointer;
+  padding: 0;
+  margin-left: 2px;
+  transition: color var(--transition-fast);
+}
+
+.san-tag .san-copy-btn:hover {
+  color: var(--color-primary);
+}
+
+/* Key usage badges */
+.usage-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+}
+
+.usage-badge {
+  padding: 2px var(--space-2);
+  background-color: rgba(145, 33, 78, 0.08);
+  border: 1px solid rgba(145, 33, 78, 0.15);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-xs);
+  color: var(--color-primary);
+  font-weight: 500;
+}
+
+[data-theme="dark"] .usage-badge {
+  background-color: rgba(145, 33, 78, 0.2);
+  border-color: rgba(145, 33, 78, 0.3);
+}
+
+/* Self-signed / chain badges */
+.chain-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: 2px var(--space-2);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+}
+
+.chain-badge.self-signed {
+  background-color: rgba(234, 179, 8, 0.1);
+  border: 1px solid rgba(234, 179, 8, 0.2);
+  color: #b45309;
+}
+
+.chain-badge.ca-signed {
+  background-color: rgba(22, 163, 74, 0.08);
+  border: 1px solid rgba(22, 163, 74, 0.15);
+  color: var(--color-success);
+}
+
+[data-theme="dark"] .chain-badge.self-signed {
+  color: #fbbf24;
+}
+
+/* ==================== Responsive ==================== */
+@media screen and (max-width: 768px) {
+  .ssl-content {
+    padding: var(--space-4);
+  }
+
+  .ssl-header h2 {
+    font-size: var(--font-size-xl);
+  }
+
+  .ssl-header {
+    padding: var(--space-3) var(--space-4);
+  }
+
+  .cert-field {
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+
+  .cert-field-label {
+    min-width: auto;
+  }
+
+  .cert-field-copy {
+    opacity: 1;
+    position: absolute;
+    right: var(--space-2);
+    top: var(--space-2);
+  }
+
+  .cert-field {
+    position: relative;
+    padding-right: var(--space-8);
+  }
+
+  .section-actions {
+    flex-wrap: wrap;
+  }
+
+  .expiry-banner {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .ssl-content {
+    padding: var(--space-3);
+  }
+
+  .section-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-2);
+  }
+
+  .section-actions {
+    width: 100%;
+  }
+
+  .section-actions .action-btn {
+    flex: 1;
+    justify-content: center;
+  }
+}

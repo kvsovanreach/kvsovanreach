@@ -479,8 +479,9 @@
         if (entry) {
           // Switch to the category
           changeCategory(entry.category);
-          // Extract numeric value from the "from" string
-          const fromValue = entry.from.replace(/[^\d.-]/g, '');
+          // Extract numeric value from the "from" string (support scientific notation)
+          const match = entry.from.match(/^[\d,.\-+e]+/i);
+          const fromValue = match ? match[0].replace(/,/g, '') : '';
           elements.fromValue.value = fromValue;
           convert();
         }
@@ -507,7 +508,7 @@
     // Swap values if there's a result
     if (elements.toValue.value) {
       const resultValue = elements.toValue.value.replace(/,/g, '');
-      elements.fromValue.value = resultValue;
+      elements.fromValue.value = parseFloat(resultValue);
     }
 
     convert();
@@ -532,11 +533,7 @@
   }
 
   // ==================== Toast ====================
-  function showToast(message) {
-    if (typeof window.showToast === 'function') {
-      window.showToast(message);
-    }
-  }
+  const showToast = (message, type) => ToolsCommon.showToast(message, type);
 
   // ==================== Copy Result ====================
   function copyResult() {

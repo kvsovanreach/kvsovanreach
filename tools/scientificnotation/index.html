@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Convert between standard notation, scientific notation, and engineering notation with significant figures control and comparison mode.">
+  <meta property="og:title" content="KVSOVANREACH | Scientific Notation Converter">
+  <meta property="og:description" content="Scientific notation converter with engineering mode and comparison.">
+  <meta property="og:image" content="/assets/img/favicons/og-image.png">
+  <title>KVSOVANREACH | Scientific Notation Converter</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+  <!-- Common Tools CSS -->
+  <link rel="stylesheet" href="../../css/tools-common.css">
+  <!-- Scientific Notation CSS -->
+  <link rel="stylesheet" href="scientificnotation.css">
+</head>
+<body>
+  <!-- Skip to Content -->
+  <a href="#scientificnotation" class="skip-link">Skip to Scientific Notation Converter</a>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">TOOLS</span>
+      </a>
+
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="tool-page">
+    <div class="container">
+      <div class="sn-wrapper" id="scientificnotation">
+        <!-- Header -->
+        <div class="sn-header">
+          <h2><i class="fa-solid fa-superscript"></i> Scientific Notation Converter</h2>
+          <div class="sn-actions">
+            <button type="button" class="action-btn" id="clearBtn" title="Clear all" aria-label="Clear all">
+              <i class="fa-solid fa-trash"></i>
+              <span>Clear</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Content -->
+        <div class="sn-content">
+          <!-- Mode Tabs -->
+          <div class="mode-tabs">
+            <button type="button" class="mode-tab active" data-mode="convert">
+              <i class="fa-solid fa-arrows-rotate"></i> Convert
+            </button>
+            <button type="button" class="mode-tab" data-mode="compare">
+              <i class="fa-solid fa-scale-balanced"></i> Compare
+            </button>
+          </div>
+
+          <!-- Convert Mode -->
+          <div class="mode-panel" id="convertPanel">
+            <!-- Input Section -->
+            <div class="input-section">
+              <label for="numberInput">Enter a number</label>
+              <input type="text" id="numberInput" class="number-input" placeholder="e.g. 299792458 or 3.0e8" autocomplete="off">
+              <div class="input-hint">Enter a regular number or scientific notation (e.g., 6.022e23)</div>
+            </div>
+
+            <!-- Options -->
+            <div class="options-row">
+              <div class="option-group">
+                <label for="sigFigs">Significant figures</label>
+                <div class="sig-fig-control">
+                  <button type="button" class="sf-btn" id="sfMinus" aria-label="Decrease significant figures">
+                    <i class="fa-solid fa-minus"></i>
+                  </button>
+                  <input type="number" id="sigFigs" class="sf-input" value="4" min="1" max="10">
+                  <button type="button" class="sf-btn" id="sfPlus" aria-label="Increase significant figures">
+                    <i class="fa-solid fa-plus"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="option-group">
+                <label>Notation mode</label>
+                <div class="notation-toggle">
+                  <button type="button" class="notation-btn active" data-notation="scientific">Scientific</button>
+                  <button type="button" class="notation-btn" data-notation="engineering">Engineering</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Convert Button -->
+            <div class="solve-section">
+              <button type="button" class="action-btn primary" id="convertBtn">
+                <i class="fa-solid fa-arrows-rotate"></i>
+                <span>Convert</span>
+              </button>
+            </div>
+
+            <!-- Error Message -->
+            <div class="error-message hidden" id="errorMessage">
+              <i class="fa-solid fa-circle-exclamation"></i>
+              <span id="errorText"></span>
+            </div>
+
+            <!-- Results Section -->
+            <div class="results-panel hidden" id="resultsPanel">
+              <!-- Result Cards -->
+              <div class="result-grid">
+                <div class="result-format-card">
+                  <div class="format-label">Scientific Notation</div>
+                  <div class="format-value" id="sciValue">-</div>
+                  <button type="button" class="format-copy" id="copySci" title="Copy scientific notation">
+                    <i class="fa-solid fa-copy"></i>
+                  </button>
+                </div>
+                <div class="result-format-card">
+                  <div class="format-label">Engineering Notation</div>
+                  <div class="format-value" id="engValue">-</div>
+                  <button type="button" class="format-copy" id="copyEng" title="Copy engineering notation">
+                    <i class="fa-solid fa-copy"></i>
+                  </button>
+                </div>
+                <div class="result-format-card">
+                  <div class="format-label">Standard Form</div>
+                  <div class="format-value" id="stdValue">-</div>
+                  <button type="button" class="format-copy" id="copyStd" title="Copy standard form">
+                    <i class="fa-solid fa-copy"></i>
+                  </button>
+                </div>
+                <div class="result-format-card">
+                  <div class="format-label">E-Notation</div>
+                  <div class="format-value" id="eValue">-</div>
+                  <button type="button" class="format-copy" id="copyE" title="Copy e-notation">
+                    <i class="fa-solid fa-copy"></i>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Details Card -->
+              <div class="result-card" id="detailsCard">
+                <div class="card-header">
+                  <h3><i class="fa-solid fa-info-circle"></i> Details</h3>
+                </div>
+                <div class="card-body">
+                  <div class="details-grid" id="detailsGrid"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Compare Mode -->
+          <div class="mode-panel hidden" id="comparePanel">
+            <div class="compare-inputs">
+              <div class="input-section">
+                <label for="compareA">Number A</label>
+                <input type="text" id="compareA" class="number-input" placeholder="e.g. 299792458" autocomplete="off">
+              </div>
+              <div class="compare-vs">vs</div>
+              <div class="input-section">
+                <label for="compareB">Number B</label>
+                <input type="text" id="compareB" class="number-input" placeholder="e.g. 340.29" autocomplete="off">
+              </div>
+            </div>
+
+            <div class="solve-section">
+              <button type="button" class="action-btn primary" id="compareBtn">
+                <i class="fa-solid fa-scale-balanced"></i>
+                <span>Compare</span>
+              </button>
+            </div>
+
+            <!-- Compare Error -->
+            <div class="error-message hidden" id="compareError">
+              <i class="fa-solid fa-circle-exclamation"></i>
+              <span id="compareErrorText"></span>
+            </div>
+
+            <!-- Compare Results -->
+            <div class="results-panel hidden" id="compareResults">
+              <div class="compare-result-grid">
+                <div class="compare-card">
+                  <div class="compare-label">Number A</div>
+                  <div class="compare-sci" id="compSciA">-</div>
+                  <div class="compare-std" id="compStdA">-</div>
+                </div>
+                <div class="compare-card">
+                  <div class="compare-label">Number B</div>
+                  <div class="compare-sci" id="compSciB">-</div>
+                  <div class="compare-std" id="compStdB">-</div>
+                </div>
+              </div>
+              <div class="compare-summary" id="compareSummary"></div>
+            </div>
+          </div>
+
+          <!-- Preset Examples -->
+          <div class="examples-section">
+            <h3><i class="fa-solid fa-lightbulb"></i> Preset Constants</h3>
+            <div class="examples-grid">
+              <button type="button" class="example-btn" data-value="299792458">
+                <span>Speed of Light</span>
+                <span class="example-hint">299,792,458 m/s</span>
+              </button>
+              <button type="button" class="example-btn" data-value="6.02214076e23">
+                <span>Avogadro's Number</span>
+                <span class="example-hint">6.022 x 10^23</span>
+              </button>
+              <button type="button" class="example-btn" data-value="6.62607015e-34">
+                <span>Planck Constant</span>
+                <span class="example-hint">6.626 x 10^-34 J*s</span>
+              </button>
+              <button type="button" class="example-btn" data-value="9.1093837015e-31">
+                <span>Electron Mass</span>
+                <span class="example-hint">9.109 x 10^-31 kg</span>
+              </button>
+              <button type="button" class="example-btn" data-value="36000000000000">
+                <span>US National Debt</span>
+                <span class="example-hint">~$36 trillion</span>
+              </button>
+              <button type="button" class="example-btn" data-value="0.000000001">
+                <span>Nanometer</span>
+                <span class="example-hint">1 nm in meters</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Info Panel -->
+          <div class="info-panel">
+            <div class="info-header">
+              <i class="fa-solid fa-circle-info"></i>
+              <span>About Scientific Notation</span>
+            </div>
+            <div class="info-content">
+              <p><strong>Scientific notation</strong> expresses numbers as <code>a x 10^n</code> where 1 &le; |a| &lt; 10.</p>
+              <p><strong>Engineering notation</strong> restricts the exponent to multiples of 3 (kilo, mega, giga, etc.).</p>
+              <ul>
+                <li><strong>Large numbers:</strong> 299,792,458 = 2.998 x 10^8</li>
+                <li><strong>Small numbers:</strong> 0.00000001 = 1.0 x 10^-8</li>
+                <li><strong>E-notation:</strong> 3.0e8 means 3.0 x 10^8</li>
+              </ul>
+              <p class="tip"><strong>Tip:</strong> Use e-notation for input (e.g., 6.022e23) or type the full number.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach. All rights reserved.</p>
+        <p class="footer-made">Made with 💗 and Claude Code xD</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Keyboard Shortcuts Modal -->
+  <div class="shortcuts-modal" id="shortcutsModal">
+    <div class="shortcuts-content">
+      <div class="shortcuts-header">
+        <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
+        <button type="button" class="close-shortcuts-btn" id="closeShortcutsBtn" aria-label="Close shortcuts">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="shortcuts-body">
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">Actions</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Enter</kbd></div>
+            <div class="shortcut-desc">Convert / Compare</div>
+          </div>
+        </div>
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">General</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>?</kbd></div>
+            <div class="shortcut-desc">Show shortcuts</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Keyboard Shortcuts Hint -->
+  <div class="shortcuts-hint" id="shortcutsHint">
+    <span><kbd>Shift</kbd>+<kbd>?</kbd> : shortcuts</span>
+  </div>
+
+  <!-- Shared Tools JavaScript -->
+  <script src="../../js/tools-common.js"></script>
+  <!-- Scientific Notation JavaScript -->
+  <script src="scientificnotation.js"></script>
+</body>
+</html>

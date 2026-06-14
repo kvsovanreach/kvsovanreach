@@ -5,13 +5,13 @@
 
 /* Wrapper */
 .solver-wrapper {
-  max-width: 800px;
+  max-width: 1200px;
   margin: 0 auto;
   background-color: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-xl);
   overflow: hidden;
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--shadow-card);
 }
 
 /* Header */
@@ -21,7 +21,7 @@
   justify-content: space-between;
   padding: var(--space-4) var(--space-5);
   background-color: var(--color-surface);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border-light);
 }
 
 .solver-header h2 {
@@ -81,6 +81,11 @@
   border-color: var(--color-primary);
 }
 
+.size-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px var(--color-primary-muted);
+}
+
 .size-btn.active {
   background-color: var(--color-primary);
   border-color: var(--color-primary);
@@ -117,7 +122,7 @@
   width: 60px;
   height: 40px;
   text-align: center;
-  font-family: 'Fira Code', monospace;
+  font-family: var(--font-mono);
   font-size: var(--font-size-base);
   background-color: var(--color-surface);
   border: 2px solid var(--color-border);
@@ -132,7 +137,7 @@
 }
 
 .equation-term .var-label {
-  font-family: 'Fira Code', monospace;
+  font-family: var(--font-mono);
   font-size: var(--font-size-base);
   font-weight: 600;
   color: var(--color-primary);
@@ -153,7 +158,7 @@
 /* Result Section */
 .result-section {
   padding: var(--space-4);
-  background: linear-gradient(135deg, rgba(34, 197, 94, 0.1), rgba(34, 197, 94, 0.05));
+  background: linear-gradient(135deg, color-mix(in srgb, var(--color-success) 10%, transparent), color-mix(in srgb, var(--color-success) 5%, transparent));
   border: 2px solid var(--color-success);
   border-radius: var(--radius-lg);
   margin-bottom: var(--space-4);
@@ -164,12 +169,12 @@
 }
 
 .result-section.no-solution {
-  background: linear-gradient(135deg, rgba(239, 68, 68, 0.1), rgba(239, 68, 68, 0.05));
+  background: linear-gradient(135deg, color-mix(in srgb, var(--color-error) 10%, transparent), color-mix(in srgb, var(--color-error) 5%, transparent));
   border-color: var(--color-error);
 }
 
 .result-section.infinite {
-  background: linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(245, 158, 11, 0.05));
+  background: linear-gradient(135deg, color-mix(in srgb, var(--color-warning) 10%, transparent), color-mix(in srgb, var(--color-warning) 5%, transparent));
   border-color: var(--color-warning);
 }
 
@@ -215,7 +220,7 @@
 }
 
 .result-var {
-  font-family: 'Fira Code', monospace;
+  font-family: var(--font-mono);
   font-size: var(--font-size-xl);
   font-weight: 600;
   color: var(--color-primary);
@@ -227,7 +232,7 @@
 }
 
 .result-value {
-  font-family: 'Fira Code', monospace;
+  font-family: var(--font-mono);
   font-size: var(--font-size-xl);
   font-weight: 700;
   color: var(--color-success);
@@ -313,7 +318,7 @@
   padding: 2px 6px;
   background-color: var(--color-bg-tertiary);
   border-radius: var(--radius-sm);
-  font-family: 'Fira Code', monospace;
+  font-family: var(--font-mono);
   font-size: var(--font-size-xs);
   color: var(--color-primary);
 }
@@ -324,7 +329,7 @@
   align-items: center;
   gap: var(--space-2);
   padding: var(--space-3) var(--space-4);
-  background-color: rgba(239, 68, 68, 0.1);
+  background-color: color-mix(in srgb, var(--color-error) 10%, transparent);
   border: 1px solid var(--color-error);
   border-radius: var(--radius-md);
   color: var(--color-error);
@@ -378,8 +383,13 @@
   background-color: var(--color-bg-tertiary);
 }
 
+.example-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px var(--color-primary-muted);
+}
+
 .example-btn span {
-  font-family: 'Fira Code', monospace;
+  font-family: var(--font-mono);
   font-size: var(--font-size-sm);
   color: var(--color-text-secondary);
 }
@@ -398,7 +408,7 @@
   gap: var(--space-2);
   padding: var(--space-3) var(--space-4);
   background-color: var(--color-bg-tertiary);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border-light);
   font-size: var(--font-size-sm);
   font-weight: 600;
   color: var(--color-text);

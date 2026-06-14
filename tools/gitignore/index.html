@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Generate .gitignore files from curated templates for languages, frameworks, IDEs, and operating systems.">
+  <meta property="og:title" content="KVSOVANREACH | .gitignore Generator">
+  <meta property="og:description" content="Generate .gitignore files from curated templates for languages, frameworks, IDEs, and OS.">
+  <meta property="og:image" content="/assets/img/favicons/og-image.png">
+  <title>KVSOVANREACH | .gitignore Generator</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+  <!-- Common Tools CSS -->
+  <link rel="stylesheet" href="../../css/tools-common.css">
+  <!-- Gitignore CSS -->
+  <link rel="stylesheet" href="gitignore.css">
+</head>
+<body>
+  <!-- Skip to Content -->
+  <a href="#gitignore" class="skip-link">Skip to .gitignore generator</a>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">TOOLS</span>
+      </a>
+
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="tool-page">
+    <div class="container">
+      <div class="gi-wrapper" id="gitignore">
+        <!-- Header -->
+        <div class="gi-header">
+          <h2><i class="fa-brands fa-git-alt"></i> .gitignore Generator</h2>
+          <div class="gi-actions">
+            <button class="action-btn" id="clearAllBtn" title="Clear all selections">
+              <i class="fa-solid fa-trash"></i>
+              <span>Clear</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Content -->
+        <div class="gi-content">
+          <!-- Left: Template Selection -->
+          <div class="gi-templates">
+            <!-- Search -->
+            <div class="gi-search">
+              <i class="fa-solid fa-magnifying-glass"></i>
+              <input type="text" id="searchInput" placeholder="Search templates..." autocomplete="off">
+            </div>
+
+            <!-- Selected Tags -->
+            <div class="gi-selected" id="selectedTags"></div>
+
+            <!-- Category Tabs -->
+            <div class="gi-category-tabs" id="categoryTabs">
+              <button class="gi-cat-tab active" data-category="all">All</button>
+              <button class="gi-cat-tab" data-category="languages">Languages</button>
+              <button class="gi-cat-tab" data-category="frameworks">Frameworks</button>
+              <button class="gi-cat-tab" data-category="ides">IDEs</button>
+              <button class="gi-cat-tab" data-category="os">OS</button>
+              <button class="gi-cat-tab" data-category="other">Other</button>
+            </div>
+
+            <!-- Template List -->
+            <div class="gi-template-list" id="templateList"></div>
+          </div>
+
+          <!-- Right: Preview -->
+          <div class="gi-preview-panel">
+            <div class="gi-preview-header">
+              <h3><i class="fa-solid fa-file-code"></i> .gitignore Preview</h3>
+              <div class="gi-preview-actions">
+                <button class="action-btn" id="copyBtn" title="Copy to clipboard">
+                  <i class="fa-solid fa-copy"></i>
+                  <span>Copy</span>
+                </button>
+                <button class="action-btn" id="downloadBtn" title="Download .gitignore">
+                  <i class="fa-solid fa-download"></i>
+                  <span>Download</span>
+                </button>
+              </div>
+            </div>
+            <pre class="gi-preview-code" id="previewCode"><code id="previewContent"># Select templates from the left to generate your .gitignore</code></pre>
+
+            <!-- Custom Rules -->
+            <div class="gi-custom">
+              <label class="gi-custom-label" for="customRules">
+                <i class="fa-solid fa-pen"></i> Custom Rules
+              </label>
+              <textarea id="customRules" class="gi-custom-textarea" placeholder="Add your own patterns, one per line...&#10;&#10;# Example:&#10;*.log&#10;.env.local&#10;dist/"></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach. All rights reserved.</p>
+        <p class="footer-made">Made with 💗 and Claude Code xD</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Shared Tools JavaScript -->
+  <script src="../../js/tools-common.js"></script>
+  <!-- Scripts -->
+  <script src="gitignore.js"></script>
+</body>
+</html>

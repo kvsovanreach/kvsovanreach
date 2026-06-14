@@ -6,6 +6,10 @@
 (function() {
   'use strict';
 
+  // ==================== Constants ====================
+  const MAX_MATCHES = 1000;
+  const REGEX_TIMEOUT_MS = 2000;
+
   // ==================== State ====================
   const state = {
     currentTab: 'matches'
@@ -155,9 +159,11 @@
       return;
     }
 
-    // Find matches
+    // Find matches with timeout protection against ReDoS
     const matches = [];
     let match;
+    let truncated = false;
+    const startTime = performance.now();
 
     if (regex.global) {
       while ((match = regex.exec(testStr)) !== null) {
@@ -171,6 +177,16 @@
         if (match.index === regex.lastIndex) {
           regex.lastIndex++;
         }
+        // Guard against catastrophic backtracking / too many matches
+        if (matches.length >= MAX_MATCHES) {
+          truncated = true;
+          break;
+        }
+        if (performance.now() - startTime > REGEX_TIMEOUT_MS) {
+          truncated = true;
+          showError('Pattern took too long — possible catastrophic backtracking. Showing partial results.');
+          break;
+        }
       }
     } else {
       match = regex.exec(testStr);
@@ -182,10 +198,13 @@
           namedGroups: match.groups || {}
         });
       }
+      if (performance.now() - startTime > REGEX_TIMEOUT_MS) {
+        showError('Pattern took too long — possible catastrophic backtracking.');
+      }
     }
 
     // Update UI
-    updateMatchCount(matches.length);
+    updateMatchCount(matches.length, truncated);
     highlightMatches(testStr, matches);
     renderMatches(matches);
     renderGroups(matches);
@@ -304,15 +323,36 @@
     try {
       const flags = getFlags();
       const regex = new RegExp(pattern, flags);
-      const result = testStr.replace(regex, replacement);
+      const startTime = performance.now();
+      const result = testStr.replace(regex, function() {
+        if (performance.now() - startTime > REGEX_TIMEOUT_MS) {
+          throw new Error('Replace timed out');
+        }
+        // Reconstruct default replace behavior with all arguments
+        const args = Array.from(arguments);
+        // String.prototype.replace callback: (match, ...groups, offset, string, namedGroups)
+        // We just need to return what the replacement string would produce
+        return replacement.replace(/\$(\d+|\$|&|`|')/g, function(m, ref) {
+          if (ref === '$') return '$';
+          if (ref === '&') return args[0];
+          if (ref === '`') return testStr.slice(0, args[args.length - 2]);
+          if (ref === "'") return testStr.slice(args[args.length - 2] + args[0].length);
+          const idx = parseInt(ref, 10);
+          return idx > 0 && idx < args.length - 2 ? (args[idx] || '') : m;
+        });
+      });
       elements.replaceResult.textContent = result;
     } catch (e) {
-      elements.replaceResult.textContent = 'Invalid regex';
+      elements.replaceResult.textContent = e.message === 'Replace timed out'
+        ? 'Replace timed out — pattern may cause catastrophic backtracking'
+        : 'Invalid regex';
     }
   }
 
-  function updateMatchCount(count) {
-    elements.matchCount.textContent = `${count} match${count !== 1 ? 'es' : ''}`;
+  function updateMatchCount(count, truncated) {
+    const suffix = count !== 1 ? 'es' : '';
+    const prefix = truncated ? count + '+' : count;
+    elements.matchCount.textContent = `${prefix} match${suffix}`;
   }
 
   // ====================

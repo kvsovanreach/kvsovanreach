@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Interactive Linked List visualizer with singly and doubly linked list operations, animations, and step-by-step mode.">
+  <meta property="og:title" content="KVSOVANREACH | Linked List Visualizer">
+  <meta property="og:description" content="Visualize singly and doubly linked list operations: insert, delete, search, reverse with animations.">
+  <meta property="og:image" content="/assets/img/favicons/og-image.png">
+  <title>KVSOVANREACH | Linked List Visualizer</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+  <!-- Common Tools CSS -->
+  <link rel="stylesheet" href="../../css/tools-common.css">
+  <!-- Linked List CSS -->
+  <link rel="stylesheet" href="linkedlist.css">
+</head>
+<body>
+  <!-- Skip to Content -->
+  <a href="#linkedlist" class="skip-link">Skip to linked list visualizer</a>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">TOOLS</span>
+      </a>
+
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="tool-page">
+    <div class="container">
+      <div class="ll-wrapper" id="linkedlist">
+        <!-- Header -->
+        <div class="ll-header">
+          <h2><i class="fa-solid fa-link"></i> Linked List Visualizer</h2>
+        </div>
+
+        <!-- Content -->
+        <div class="ll-content">
+          <!-- Type Toggle & Info -->
+          <div class="ll-type-bar">
+            <div class="ll-type-toggle">
+              <button class="ll-type-btn active" id="singlyBtn" data-type="singly">Singly</button>
+              <button class="ll-type-btn" id="doublyBtn" data-type="doubly">Doubly</button>
+            </div>
+            <div class="ll-info">
+              <span class="ll-stat">Size: <strong id="listSize">0</strong></span>
+            </div>
+          </div>
+
+          <!-- Controls -->
+          <div class="ll-controls">
+            <div class="ll-input-row">
+              <div class="ll-input-group">
+                <label for="valueInput">Value</label>
+                <input type="text" id="valueInput" placeholder="Enter value..." maxlength="10">
+              </div>
+              <div class="ll-input-group">
+                <label for="indexInput">Index</label>
+                <input type="number" id="indexInput" placeholder="0" min="0">
+              </div>
+            </div>
+            <div class="ll-btn-row">
+              <button class="ll-btn ll-btn-insert" id="insertHeadBtn">
+                <i class="fa-solid fa-arrow-right-to-bracket"></i> Head
+              </button>
+              <button class="ll-btn ll-btn-insert" id="insertTailBtn">
+                <i class="fa-solid fa-arrow-right-from-bracket"></i> Tail
+              </button>
+              <button class="ll-btn ll-btn-insert-at" id="insertAtBtn">
+                <i class="fa-solid fa-arrow-down"></i> At Index
+              </button>
+              <button class="ll-btn ll-btn-delete" id="deleteValBtn">
+                <i class="fa-solid fa-xmark"></i> Del Value
+              </button>
+              <button class="ll-btn ll-btn-delete" id="deleteAtBtn">
+                <i class="fa-solid fa-trash-can"></i> Del Index
+              </button>
+              <button class="ll-btn ll-btn-search" id="searchBtn">
+                <i class="fa-solid fa-magnifying-glass"></i> Search
+              </button>
+              <button class="ll-btn ll-btn-reverse" id="reverseBtn">
+                <i class="fa-solid fa-arrows-rotate"></i> Reverse
+              </button>
+              <button class="ll-btn ll-btn-clear" id="clearBtn">
+                <i class="fa-solid fa-broom"></i> Clear
+              </button>
+            </div>
+            <div class="ll-options-row">
+              <label class="ll-option-label">
+                <input type="checkbox" id="stepModeCheck"> Step-by-step
+              </label>
+              <div class="ll-step-controls" id="stepControls" style="display:none;">
+                <button class="ll-btn ll-btn-step ll-btn-sm" id="stepNextBtn">
+                  <i class="fa-solid fa-forward-step"></i> Next
+                </button>
+                <button class="ll-btn ll-btn-secondary ll-btn-sm" id="stepSkipBtn">
+                  <i class="fa-solid fa-forward"></i> Skip
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Step Info -->
+          <div class="ll-step-panel" id="stepPanel" style="display:none;">
+            <div class="ll-step-info" id="stepInfo">Ready</div>
+          </div>
+
+          <!-- Visualization -->
+          <div class="ll-visual" id="llVisual">
+            <div class="ll-canvas" id="llCanvas">
+              <div class="ll-empty-msg" id="llEmpty">List is empty. Insert some nodes to get started.</div>
+            </div>
+          </div>
+
+          <!-- Operation History -->
+          <div class="ll-history">
+            <div class="ll-history-header">
+              <h3><i class="fa-solid fa-clock-rotate-left"></i> Operation Log</h3>
+              <button class="ll-btn ll-btn-secondary ll-btn-sm" id="clearHistoryBtn">Clear</button>
+            </div>
+            <div class="ll-history-body" id="historyBody">
+              <div class="ll-history-empty">No operations yet.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach. All rights reserved.</p>
+        <p class="footer-made">Made with 💗 and Claude Code xD</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Shared Tools JavaScript -->
+  <script src="../../js/tools-common.js"></script>
+  <!-- Linked List JavaScript -->
+  <script src="linkedlist.js"></script>
+</body>
+</html>

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Generate ASCII art text in multiple font styles. Convert images to ASCII characters.">
+  <meta property="og:title" content="KVSOVANREACH | ASCII Art Generator">
+  <meta property="og:description" content="Create ASCII art text with multiple fonts and convert images to ASCII characters.">
+  <meta property="og:image" content="/assets/img/favicons/og-image.png">
+  <title>KVSOVANREACH | ASCII Art Generator</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+  <!-- Common Tools CSS -->
+  <link rel="stylesheet" href="../../css/tools-common.css">
+  <!-- ASCII Art CSS -->
+  <link rel="stylesheet" href="asciiart.css">
+</head>
+<body>
+  <!-- Skip to Content -->
+  <a href="#asciiart" class="skip-link">Skip to ASCII art generator</a>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">TOOLS</span>
+      </a>
+
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="tool-page">
+    <div class="container">
+      <div class="ascii-wrapper" id="asciiart">
+        <!-- Header -->
+        <div class="ascii-header">
+          <h2><i class="fa-solid fa-font"></i> ASCII Art Generator</h2>
+        </div>
+
+        <!-- Tabs -->
+        <div class="ascii-tabs">
+          <button type="button" class="ascii-tab active" data-tab="text">
+            <i class="fa-solid fa-keyboard"></i>
+            <span>Text to ASCII</span>
+          </button>
+          <button type="button" class="ascii-tab" data-tab="image">
+            <i class="fa-solid fa-image"></i>
+            <span>Image to ASCII</span>
+          </button>
+        </div>
+
+        <!-- Text Tab -->
+        <div class="ascii-panel active" id="textPanel">
+          <!-- Input -->
+          <div class="ascii-card">
+            <div class="card-header">
+              <h3><i class="fa-solid fa-pen"></i> Input Text</h3>
+            </div>
+            <input type="text" id="textInput" class="ascii-input" placeholder="Type something..." value="Hello" maxlength="30" autocomplete="off">
+          </div>
+
+          <!-- Options -->
+          <div class="ascii-card">
+            <div class="card-header">
+              <h3><i class="fa-solid fa-sliders"></i> Options</h3>
+            </div>
+            <div class="options-grid">
+              <div class="option-group">
+                <label class="option-label">Font Style</label>
+                <select id="fontSelect" class="option-select">
+                  <option value="standard">Standard</option>
+                  <option value="big">Big</option>
+                  <option value="block">Block</option>
+                  <option value="slant">Slant</option>
+                  <option value="banner">Banner</option>
+                  <option value="digital">Digital</option>
+                  <option value="mini">Mini</option>
+                </select>
+              </div>
+              <div class="option-group">
+                <label class="option-label">Character Width</label>
+                <div class="toggle-group">
+                  <button type="button" class="toggle-btn active" data-width="fitted">Fitted</button>
+                  <button type="button" class="toggle-btn" data-width="full">Full Width</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Output -->
+          <div class="ascii-card">
+            <div class="card-header">
+              <h3><i class="fa-solid fa-terminal"></i> Output</h3>
+              <button type="button" class="copy-btn" id="copyTextBtn">
+                <i class="fa-solid fa-copy"></i> Copy
+              </button>
+            </div>
+            <pre class="ascii-output" id="textOutput"></pre>
+          </div>
+        </div>
+
+        <!-- Image Tab -->
+        <div class="ascii-panel" id="imagePanel" style="display:none;">
+          <div class="ascii-card">
+            <div class="card-header">
+              <h3><i class="fa-solid fa-upload"></i> Upload Image</h3>
+            </div>
+            <label class="upload-zone" id="uploadZone">
+              <i class="fa-solid fa-cloud-arrow-up"></i>
+              <span>Click or drop an image here</span>
+              <span class="upload-hint">PNG, JPG, GIF - small images work best</span>
+              <input type="file" id="imageInput" accept="image/*" hidden>
+            </label>
+
+            <div class="image-options">
+              <div class="option-group">
+                <label class="option-label">Output Width (chars)</label>
+                <input type="range" id="imgWidthRange" min="20" max="150" value="80" class="option-range">
+                <span class="range-value" id="imgWidthValue">80</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Image Output -->
+          <div class="ascii-card" id="imageOutputCard" style="display:none;">
+            <div class="card-header">
+              <h3><i class="fa-solid fa-terminal"></i> ASCII Output</h3>
+              <button type="button" class="copy-btn" id="copyImgBtn">
+                <i class="fa-solid fa-copy"></i> Copy
+              </button>
+            </div>
+            <pre class="ascii-output ascii-output-img" id="imageOutput"></pre>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Hidden canvas for image processing -->
+  <canvas id="hiddenCanvas" style="display:none;"></canvas>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Shared Tools JavaScript -->
+  <script src="../../js/tools-common.js"></script>
+  <!-- ASCII Art JS -->
+  <script src="asciiart.js"></script>
+</body>
+</html>

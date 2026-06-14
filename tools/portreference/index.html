@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Searchable reference guide for common network ports, protocols, and services.">
+  <meta property="og:title" content="KVSOVANREACH | Port Reference">
+  <meta property="og:description" content="Common network ports reference guide with search and filtering.">
+  <meta property="og:image" content="/assets/img/favicons/og-image.png">
+  <title>KVSOVANREACH | Port Reference</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+  <!-- Common Tools CSS -->
+  <link rel="stylesheet" href="../../css/tools-common.css">
+  <!-- Port Reference CSS -->
+  <link rel="stylesheet" href="portreference.css">
+</head>
+<body>
+  <!-- Skip to Content -->
+  <a href="#portreference" class="skip-link">Skip to Port Reference</a>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">TOOLS</span>
+      </a>
+
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="tool-page">
+    <div class="container">
+      <div class="port-wrapper" id="portreference">
+        <!-- Header -->
+        <div class="port-header">
+          <h2><i class="fa-solid fa-network-wired"></i> Port Reference</h2>
+        </div>
+
+        <!-- Port Range Info -->
+        <div class="port-ranges">
+          <div class="range-card range-well-known">
+            <div class="range-label">Well-Known</div>
+            <div class="range-value">0 - 1023</div>
+            <div class="range-desc">System / standard services</div>
+          </div>
+          <div class="range-card range-registered">
+            <div class="range-label">Registered</div>
+            <div class="range-value">1024 - 49151</div>
+            <div class="range-desc">User / vendor services</div>
+          </div>
+          <div class="range-card range-dynamic">
+            <div class="range-label">Dynamic</div>
+            <div class="range-value">49152 - 65535</div>
+            <div class="range-desc">Ephemeral / private use</div>
+          </div>
+        </div>
+
+        <!-- Content -->
+        <div class="port-content">
+          <!-- Quick Lookup -->
+          <div class="quick-lookup">
+            <div class="lookup-box">
+              <i class="fa-solid fa-bolt lookup-icon"></i>
+              <input type="number" id="quickLookup" placeholder="Type a port number..." min="0" max="65535" autocomplete="off">
+            </div>
+            <div class="quick-result hidden" id="quickResult"></div>
+          </div>
+
+          <!-- Search & Filters -->
+          <div class="search-filter-row">
+            <div class="search-box">
+              <i class="fa-solid fa-magnifying-glass search-icon"></i>
+              <input type="text" id="searchInput" placeholder="Search by port, service, or description..." autocomplete="off" spellcheck="false">
+              <button type="button" class="clear-search hidden" id="clearSearch" aria-label="Clear search">
+                <i class="fa-solid fa-xmark"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Category Tabs -->
+          <div class="category-tabs" id="categoryTabs">
+            <button type="button" class="cat-tab active" data-category="all">
+              <i class="fa-solid fa-globe"></i> All
+            </button>
+            <button type="button" class="cat-tab" data-category="web">
+              <i class="fa-solid fa-window-maximize"></i> Web
+            </button>
+            <button type="button" class="cat-tab" data-category="email">
+              <i class="fa-solid fa-envelope"></i> Email
+            </button>
+            <button type="button" class="cat-tab" data-category="database">
+              <i class="fa-solid fa-database"></i> Database
+            </button>
+            <button type="button" class="cat-tab" data-category="filetransfer">
+              <i class="fa-solid fa-file-arrow-up"></i> File Transfer
+            </button>
+            <button type="button" class="cat-tab" data-category="remote">
+              <i class="fa-solid fa-terminal"></i> Remote
+            </button>
+            <button type="button" class="cat-tab" data-category="dns">
+              <i class="fa-solid fa-server"></i> DNS/DHCP
+            </button>
+            <button type="button" class="cat-tab" data-category="messaging">
+              <i class="fa-solid fa-comments"></i> Messaging
+            </button>
+            <button type="button" class="cat-tab" data-category="other">
+              <i class="fa-solid fa-ellipsis"></i> Other
+            </button>
+          </div>
+
+          <!-- Count -->
+          <div class="result-count" id="resultCount"></div>
+
+          <!-- Port Table -->
+          <div class="port-table-wrapper">
+            <table class="port-table" id="portTable">
+              <thead>
+                <tr>
+                  <th class="col-port">Port</th>
+                  <th class="col-protocol">Protocol</th>
+                  <th class="col-service">Service</th>
+                  <th class="col-description">Description</th>
+                  <th class="col-category">Category</th>
+                </tr>
+              </thead>
+              <tbody id="portTableBody"></tbody>
+            </table>
+          </div>
+
+          <!-- No Results -->
+          <div class="no-results hidden" id="noResults">
+            <i class="fa-solid fa-circle-question"></i>
+            <p>No matching ports found</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Keyboard Shortcuts Hint -->
+  <div class="shortcuts-hint" id="shortcutsHint">
+    <span><kbd>Shift</kbd>+<kbd>?</kbd> : shortcuts</span>
+  </div>
+
+  <!-- Keyboard Shortcuts Modal -->
+  <div class="shortcuts-modal" id="shortcutsModal">
+    <div class="shortcuts-content">
+      <div class="shortcuts-header">
+        <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
+        <button type="button" class="close-shortcuts-btn" id="closeShortcutsBtn" aria-label="Close shortcuts">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="shortcuts-body">
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">Actions</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>/</kbd></div>
+            <div class="shortcut-desc">Focus search</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Esc</kbd></div>
+            <div class="shortcut-desc">Clear search</div>
+          </div>
+        </div>
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">General</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>?</kbd></div>
+            <div class="shortcut-desc">Show shortcuts</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Shared Tools JavaScript -->
+  <script src="../../js/tools-common.js"></script>
+  <!-- Scripts -->
+  <script src="portreference.js"></script>
+</body>
+</html>

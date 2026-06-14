@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Convert IP addresses between decimal, binary, hexadecimal, and octal formats with classification.">
+  <meta property="og:title" content="KVSOVANREACH | IP Converter">
+  <meta property="og:description" content="IP address format converter with class detection and validation.">
+  <meta property="og:image" content="/assets/img/favicons/og-image.png">
+  <title>KVSOVANREACH | IP Converter</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+  <!-- Common Tools CSS -->
+  <link rel="stylesheet" href="../../css/tools-common.css">
+  <!-- IP Converter CSS -->
+  <link rel="stylesheet" href="ipconverter.css">
+</head>
+<body>
+  <!-- Skip to Content -->
+  <a href="#ipconverter" class="skip-link">Skip to IP Converter</a>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">TOOLS</span>
+      </a>
+
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="tool-page">
+    <div class="container">
+      <div class="ip-wrapper" id="ipconverter">
+        <!-- Header -->
+        <div class="ip-header">
+          <h2><i class="fa-solid fa-network-wired"></i> IP Converter</h2>
+        </div>
+
+        <!-- Content -->
+        <div class="ip-content">
+          <!-- Input Section -->
+          <div class="ip-input-section">
+            <!-- Format Selector -->
+            <div class="format-selector">
+              <label for="inputFormat">Input Format</label>
+              <div class="format-tabs" id="formatTabs">
+                <button type="button" class="fmt-tab active" data-format="ipv4">IPv4</button>
+                <button type="button" class="fmt-tab" data-format="decimal">Decimal</button>
+                <button type="button" class="fmt-tab" data-format="binary">Binary</button>
+                <button type="button" class="fmt-tab" data-format="hex">Hex</button>
+                <button type="button" class="fmt-tab" data-format="octal">Octal</button>
+                <button type="button" class="fmt-tab" data-format="ipv6">IPv6</button>
+              </div>
+            </div>
+
+            <!-- Input Box -->
+            <div class="input-group">
+              <div class="input-box">
+                <input type="text" id="ipInput" placeholder="192.168.1.1" autocomplete="off" spellcheck="false">
+                <button type="button" class="clear-btn" id="clearBtn" aria-label="Clear input">
+                  <i class="fa-solid fa-xmark"></i>
+                </button>
+              </div>
+              <div class="input-hint" id="inputHint">Enter an IPv4 address (e.g. 192.168.1.1)</div>
+              <div class="input-error hidden" id="inputError"></div>
+            </div>
+
+            <!-- Quick Examples -->
+            <div class="quick-examples">
+              <span class="examples-label">Examples:</span>
+              <button type="button" class="example-btn" data-value="192.168.1.1" data-format="ipv4">192.168.1.1</button>
+              <button type="button" class="example-btn" data-value="10.0.0.1" data-format="ipv4">10.0.0.1</button>
+              <button type="button" class="example-btn" data-value="127.0.0.1" data-format="ipv4">127.0.0.1</button>
+              <button type="button" class="example-btn" data-value="255.255.255.0" data-format="ipv4">255.255.255.0</button>
+              <button type="button" class="example-btn" data-value="::1" data-format="ipv6">::1</button>
+              <button type="button" class="example-btn" data-value="fe80::1" data-format="ipv6">fe80::1</button>
+            </div>
+          </div>
+
+          <!-- Results Section -->
+          <div class="ip-results hidden" id="results">
+            <!-- Classification -->
+            <div class="classification-row" id="classificationRow">
+              <div class="class-badge" id="classBadge"></div>
+              <div class="type-badge" id="typeBadge"></div>
+            </div>
+
+            <!-- Conversion Cards -->
+            <div class="conversion-grid">
+              <!-- IPv4 Dotted Decimal -->
+              <div class="conv-card" id="cardIpv4">
+                <div class="conv-label">IPv4 Dotted Decimal</div>
+                <div class="conv-value-row">
+                  <span class="conv-value" id="valIpv4"></span>
+                  <button type="button" class="copy-btn" data-target="valIpv4" title="Copy"><i class="fa-regular fa-copy"></i></button>
+                </div>
+              </div>
+
+              <!-- Decimal (32-bit) -->
+              <div class="conv-card" id="cardDecimal">
+                <div class="conv-label">Decimal (32-bit integer)</div>
+                <div class="conv-value-row">
+                  <span class="conv-value mono" id="valDecimal"></span>
+                  <button type="button" class="copy-btn" data-target="valDecimal" title="Copy"><i class="fa-regular fa-copy"></i></button>
+                </div>
+              </div>
+
+              <!-- Binary -->
+              <div class="conv-card" id="cardBinary">
+                <div class="conv-label">Binary (dotted)</div>
+                <div class="conv-value-row">
+                  <span class="conv-value mono" id="valBinary"></span>
+                  <button type="button" class="copy-btn" data-target="valBinary" title="Copy"><i class="fa-regular fa-copy"></i></button>
+                </div>
+              </div>
+
+              <!-- Hexadecimal -->
+              <div class="conv-card" id="cardHex">
+                <div class="conv-label">Hexadecimal</div>
+                <div class="conv-value-row">
+                  <span class="conv-value mono" id="valHex"></span>
+                  <button type="button" class="copy-btn" data-target="valHex" title="Copy"><i class="fa-regular fa-copy"></i></button>
+                </div>
+              </div>
+
+              <!-- Octal -->
+              <div class="conv-card" id="cardOctal">
+                <div class="conv-label">Octal</div>
+                <div class="conv-value-row">
+                  <span class="conv-value mono" id="valOctal"></span>
+                  <button type="button" class="copy-btn" data-target="valOctal" title="Copy"><i class="fa-regular fa-copy"></i></button>
+                </div>
+              </div>
+
+              <!-- IPv6 Mapped -->
+              <div class="conv-card" id="cardIpv6">
+                <div class="conv-label">IPv6-Mapped Address</div>
+                <div class="conv-value-row">
+                  <span class="conv-value mono" id="valIpv6"></span>
+                  <button type="button" class="copy-btn" data-target="valIpv6" title="Copy"><i class="fa-regular fa-copy"></i></button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Octet Breakdown -->
+            <div class="octet-breakdown" id="octetBreakdown">
+              <h3><i class="fa-solid fa-table-cells"></i> Octet Breakdown</h3>
+              <div class="octet-table-wrap">
+                <table class="octet-table">
+                  <thead>
+                    <tr>
+                      <th>Octet</th>
+                      <th>Decimal</th>
+                      <th>Binary</th>
+                      <th>Hex</th>
+                      <th>Octal</th>
+                    </tr>
+                  </thead>
+                  <tbody id="octetTableBody"></tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- Binary Visualization -->
+            <div class="binary-viz" id="binaryViz">
+              <h3><i class="fa-solid fa-cubes"></i> Binary Visualization</h3>
+              <div class="bit-rows" id="bitRows"></div>
+              <div class="bit-legend">
+                <span class="legend-item"><span class="legend-dot oct1"></span> Octet 1</span>
+                <span class="legend-item"><span class="legend-dot oct2"></span> Octet 2</span>
+                <span class="legend-item"><span class="legend-dot oct3"></span> Octet 3</span>
+                <span class="legend-item"><span class="legend-dot oct4"></span> Octet 4</span>
+              </div>
+            </div>
+
+            <!-- IPv6 Section (shown only for IPv6 input) -->
+            <div class="ipv6-section hidden" id="ipv6Section">
+              <h3><i class="fa-solid fa-diagram-project"></i> IPv6 Details</h3>
+              <div class="ipv6-details">
+                <div class="conv-card">
+                  <div class="conv-label">Full (Expanded)</div>
+                  <div class="conv-value-row">
+                    <span class="conv-value mono" id="valIpv6Full"></span>
+                    <button type="button" class="copy-btn" data-target="valIpv6Full" title="Copy"><i class="fa-regular fa-copy"></i></button>
+                  </div>
+                </div>
+                <div class="conv-card">
+                  <div class="conv-label">Compressed</div>
+                  <div class="conv-value-row">
+                    <span class="conv-value mono" id="valIpv6Compressed"></span>
+                    <button type="button" class="copy-btn" data-target="valIpv6Compressed" title="Copy"><i class="fa-regular fa-copy"></i></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Keyboard Shortcuts Hint -->
+  <div class="shortcuts-hint" id="shortcutsHint">
+    <span><kbd>Shift</kbd>+<kbd>?</kbd> : shortcuts</span>
+  </div>
+
+  <!-- Keyboard Shortcuts Modal -->
+  <div class="shortcuts-modal" id="shortcutsModal">
+    <div class="shortcuts-content">
+      <div class="shortcuts-header">
+        <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
+        <button type="button" class="close-shortcuts-btn" id="closeShortcutsBtn" aria-label="Close shortcuts">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="shortcuts-body">
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">Actions</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>/</kbd></div>
+            <div class="shortcut-desc">Focus input</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Esc</kbd></div>
+            <div class="shortcut-desc">Clear input</div>
+          </div>
+        </div>
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">General</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>?</kbd></div>
+            <div class="shortcut-desc">Show shortcuts</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Shared Tools JavaScript -->
+  <script src="../../js/tools-common.js"></script>
+  <!-- Scripts -->
+  <script src="ipconverter.js"></script>
+</body>
+</html>

@@ -104,7 +104,10 @@
   function initEventListeners() {
     // Input events
     elements.jsonInput?.addEventListener('input', handleInput);
-    elements.jsonInput?.addEventListener('scroll', syncScroll);
+    elements.jsonInput?.addEventListener('scroll', syncInputScroll);
+
+    // Output scroll sync
+    elements.jsonOutput?.addEventListener('scroll', syncOutputScroll);
 
     // Control buttons
     elements.formatBtn?.addEventListener('click', formatJson);
@@ -193,8 +196,12 @@
     elements.charCount.textContent = `${count.toLocaleString()} chars`;
   }
 
-  function syncScroll() {
+  function syncInputScroll() {
     elements.inputLineNumbers.scrollTop = elements.jsonInput.scrollTop;
+  }
+
+  function syncOutputScroll() {
+    elements.outputLineNumbers.scrollTop = elements.jsonOutput.scrollTop;
   }
 
   // ====================
@@ -270,12 +277,26 @@
     showError(message);
     showToast('Invalid JSON', 'error');
 
-    // Try to find position
-    const posMatch = message.match(/position (\d+)/);
+    // Try to find position (Chrome: "position N", Firefox: "line N column N")
+    const posMatch = message.match(/position\s+(\d+)/);
     if (posMatch) {
       const pos = parseInt(posMatch[1]);
       elements.jsonInput.focus();
       elements.jsonInput.setSelectionRange(pos, pos + 1);
+    } else {
+      const lineColMatch = message.match(/line\s+(\d+)\s+column\s+(\d+)/);
+      if (lineColMatch) {
+        const line = parseInt(lineColMatch[1]);
+        const col = parseInt(lineColMatch[2]);
+        const lines = elements.jsonInput.value.split('\n');
+        let pos = 0;
+        for (let i = 0; i < Math.min(line - 1, lines.length); i++) {
+          pos += lines[i].length + 1;
+        }
+        pos += col - 1;
+        elements.jsonInput.focus();
+        elements.jsonInput.setSelectionRange(pos, pos + 1);
+      }
     }
   }
 
@@ -612,9 +633,11 @@
   // Utilities
   // ====================
   function escapeHtml(text) {
-    const div = document.createElement('div');
-    div.textContent = text;
-    return div.innerHTML;
+    return text
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
   }
 
   // ==================== Bootstrap ====================

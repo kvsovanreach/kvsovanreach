@@ -229,7 +229,7 @@
       // Label
       ctx.globalAlpha = 1;
       ctx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--color-text').trim() || '#1e293b';
-      ctx.font = '11px "Fira Code", monospace';
+      ctx.font = '11px "SF Mono", SFMono-Regular, ui-monospace, Menlo, Monaco, "Cascadia Mono", Consolas, monospace';
       ctx.textAlign = 'center';
       ctx.fillText(word, x, y - size - 5);
     });

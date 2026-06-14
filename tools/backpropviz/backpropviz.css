@@ -11,7 +11,7 @@
   border: 1px solid var(--color-border);
   border-radius: var(--radius-xl);
   overflow: hidden;
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--shadow-card);
 }
 
 @media screen and (min-width: 1600px) {
@@ -26,8 +26,8 @@
   align-items: center;
   justify-content: space-between;
   padding: var(--space-4) var(--space-5);
-  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
-  border-bottom: 1px solid var(--color-border);
+  background: linear-gradient(135deg, var(--color-error) 0%, var(--color-error) 100%);
+  border-bottom: 1px solid var(--color-border-light);
 }
 
 .backprop-header h2 {
@@ -51,6 +51,11 @@
 
 .backprop-actions .action-btn:hover {
   background-color: rgba(255, 255, 255, 0.25);
+}
+
+.backprop-actions .action-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px var(--color-primary-muted);
 }
 
 /* Content */
@@ -78,7 +83,7 @@
   justify-content: space-between;
   padding: var(--space-3) var(--space-4);
   background-color: var(--color-bg-tertiary);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border-light);
 }
 
 .section-header h3 {
@@ -91,7 +96,7 @@
 }
 
 .section-header h3 i {
-  color: #ef4444;
+  color: var(--color-error);
 }
 
 /* Controls */
@@ -129,7 +134,7 @@
 
 .control-group input:focus,
 .control-group select:focus {
-  border-color: #ef4444;
+  border-color: var(--color-error);
 }
 
 .controls-actions {
@@ -152,13 +157,13 @@
 }
 
 .pass-indicator.forward {
-  background-color: rgba(59, 130, 246, 0.1);
-  color: #3b82f6;
+  background-color: color-mix(in srgb, var(--color-info) 10%, transparent);
+  color: var(--color-info);
 }
 
 .pass-indicator.backward {
-  background-color: rgba(239, 68, 68, 0.1);
-  color: #ef4444;
+  background-color: color-mix(in srgb, var(--color-error) 10%, transparent);
+  color: var(--color-error);
 }
 
 /* Network Canvas */
@@ -212,7 +217,7 @@
 
 .gradient-bar-fill {
   height: 100%;
-  background: linear-gradient(90deg, #ef4444, #f97316);
+  background: linear-gradient(90deg, var(--color-error), #f97316);
   border-radius: var(--radius-sm);
   transition: width 0.5s ease-out;
 }
@@ -220,7 +225,7 @@
 .gradient-bar-value {
   min-width: 60px;
   font-size: var(--font-size-xs);
-  font-family: 'Fira Code', monospace;
+  font-family: var(--font-mono);
   color: var(--color-text);
   text-align: right;
 }
@@ -251,19 +256,19 @@
 }
 
 .legend-color.forward {
-  background-color: #3b82f6;
+  background-color: var(--color-info);
 }
 
 .legend-color.backward {
-  background-color: #ef4444;
+  background-color: var(--color-error);
 }
 
 .legend-color.positive {
-  background-color: #22c55e;
+  background-color: var(--color-success);
 }
 
 .legend-color.negative {
-  background-color: #f59e0b;
+  background-color: var(--color-warning);
 }
 
 /* Info Panel */
@@ -273,14 +278,14 @@
   gap: var(--space-2);
   padding: var(--space-3) var(--space-4);
   background-color: var(--color-bg-tertiary);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border-light);
   font-size: var(--font-size-sm);
   font-weight: 600;
   color: var(--color-text);
 }
 
 .info-header i {
-  color: #f59e0b;
+  color: var(--color-warning);
 }
 
 .info-content {
@@ -308,7 +313,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #ef4444;
+  background-color: var(--color-error);
   border-radius: 50%;
   font-size: var(--font-size-xs);
   font-weight: 600;

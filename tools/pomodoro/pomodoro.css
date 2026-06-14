@@ -9,7 +9,7 @@
   border: 1px solid var(--color-border);
   border-radius: var(--radius-xl);
   overflow: hidden;
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--shadow-card);
 }
 
 .pomodoro-header {
@@ -18,7 +18,7 @@
   justify-content: space-between;
   padding: var(--space-4) var(--space-5);
   background-color: var(--color-surface);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border-light);
 }
 
 .pomodoro-header h2 {
@@ -54,6 +54,11 @@
   background-color: var(--color-primary);
   color: #fff;
   border-color: var(--color-primary);
+}
+
+.header-action-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px var(--color-primary-muted);
 }
 
 /* Tab styles use .tool-tabs/.tool-tab from tools-common.css */
@@ -106,7 +111,7 @@
 .timer-time {
   font-size: var(--font-size-4xl);
   font-weight: 700;
-  font-family: 'Fira Code', monospace;
+  font-family: var(--font-mono);
   color: var(--color-text);
 }
 
@@ -141,23 +146,28 @@
   color: var(--color-primary);
 }
 
+.control-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px var(--color-primary-muted);
+}
+
 .control-btn.primary {
-  background: linear-gradient(135deg, #22c55e, #16a34a);
+  background: linear-gradient(135deg, var(--color-success), color-mix(in srgb, var(--color-success) 80%, black));
   border-color: transparent;
   color: white;
 }
 
 .control-btn.primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(34, 197, 94, 0.3);
+  box-shadow: 0 8px 25px color-mix(in srgb, var(--color-success) 30%, transparent);
 }
 
 .control-btn.primary.running {
-  background: linear-gradient(135deg, #f59e0b, #d97706);
+  background: linear-gradient(135deg, var(--color-warning), color-mix(in srgb, var(--color-warning) 80%, black));
 }
 
 .control-btn.primary.running:hover {
-  box-shadow: 0 8px 25px rgba(245, 158, 11, 0.3);
+  box-shadow: 0 8px 25px color-mix(in srgb, var(--color-warning) 30%, transparent);
 }
 
 .session-info {
@@ -174,7 +184,7 @@
 .count-value {
   font-size: var(--font-size-3xl);
   font-weight: 700;
-  font-family: 'Fira Code', monospace;
+  font-family: var(--font-mono);
   color: var(--color-primary);
 }
 
@@ -186,7 +196,7 @@
 .settings-section {
   width: 100%;
   padding-top: var(--space-4);
-  border-top: 1px solid var(--color-border);
+  border-top: 1px solid var(--color-border-light);
 }
 
 .settings-section h3 {
@@ -221,7 +231,7 @@
   border: 2px solid var(--color-border);
   border-radius: var(--radius-md);
   font-size: var(--font-size-base);
-  font-family: 'Fira Code', monospace;
+  font-family: var(--font-mono);
   color: var(--color-text);
   text-align: center;
 }

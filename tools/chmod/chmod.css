@@ -9,7 +9,7 @@
   border: 1px solid var(--color-border);
   border-radius: var(--radius-xl);
   overflow: hidden;
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--shadow-card);
 }
 
 .chmod-header {
@@ -18,7 +18,7 @@
   justify-content: space-between;
   padding: var(--space-4) var(--space-5);
   background-color: var(--color-surface);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border-light);
 }
 
 .chmod-header h2 {
@@ -91,7 +91,7 @@
 }
 
 .permission-row {
-  border-top: 1px solid var(--color-border);
+  border-top: 1px solid var(--color-border-light);
 }
 
 .role-label {
@@ -166,7 +166,7 @@
   border: 2px solid var(--color-border);
   border-radius: var(--radius-md);
   font-size: var(--font-size-xl);
-  font-family: 'Fira Code', monospace;
+  font-family: var(--font-mono);
   font-weight: 600;
   color: var(--color-primary);
   text-align: center;
@@ -183,7 +183,7 @@
   background-color: var(--color-bg);
   border-radius: var(--radius-md);
   font-size: var(--font-size-base);
-  font-family: 'Fira Code', monospace;
+  font-family: var(--font-mono);
   color: var(--color-text);
   display: flex;
   align-items: center;
@@ -206,7 +206,7 @@
 
 .presets-section {
   padding-top: var(--space-4);
-  border-top: 1px solid var(--color-border);
+  border-top: 1px solid var(--color-border-light);
 }
 
 .presets-section > label {
@@ -229,7 +229,7 @@
   border: 2px solid var(--color-border);
   border-radius: var(--radius-md);
   font-size: var(--font-size-xs);
-  font-family: 'Fira Code', monospace;
+  font-family: var(--font-mono);
   color: var(--color-text-secondary);
   cursor: pointer;
   transition: all var(--transition-fast);
@@ -238,6 +238,14 @@
 .preset-btn:hover {
   border-color: var(--color-primary);
   color: var(--color-primary);
+}
+
+/* Focus ring for all interactive buttons */
+.header-action-btn:focus-visible,
+.copy-btn:focus-visible,
+.preset-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px var(--color-primary-muted);
 }
 
 @media screen and (max-width: 768px) {

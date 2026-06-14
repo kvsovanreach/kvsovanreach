@@ -8,7 +8,7 @@
   border: 1px solid var(--color-border);
   border-radius: var(--radius-xl);
   overflow: hidden;
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--shadow-card);
 }
 
 /* ==================== Header ==================== */
@@ -18,7 +18,7 @@
   justify-content: space-between;
   padding: var(--space-4) var(--space-5);
   background-color: var(--color-surface);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border-light);
 }
 
 .image-header h2 {
@@ -60,9 +60,14 @@
   color: #fff;
 }
 
+.image-header-actions .header-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px var(--color-primary-muted);
+}
+
 .image-header-actions .header-btn.danger:hover {
-  background-color: #ef4444;
-  border-color: #ef4444;
+  background-color: var(--color-error);
+  border-color: var(--color-error);
 }
 
 /* ==================== Upload Zone ==================== */
@@ -80,7 +85,7 @@
 .upload-zone:hover,
 .upload-zone.dragover {
   border-color: var(--color-primary);
-  background-color: rgba(55, 118, 161, 0.05);
+  background-color: var(--color-primary-muted);
 }
 
 .upload-zone.dragover {
@@ -189,7 +194,7 @@
 .quality-value {
   font-size: var(--font-size-sm);
   font-weight: 600;
-  font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+  font-family: var(--font-mono);
   color: var(--color-primary);
   min-width: 42px;
   text-align: right;
@@ -226,6 +231,11 @@
   transform: scale(1.05);
 }
 
+.add-level-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px var(--color-primary-muted);
+}
+
 .add-level-btn:active {
   transform: scale(0.95);
 }
@@ -234,7 +244,7 @@
 .saved-levels-row {
   margin-top: var(--space-3);
   padding-top: var(--space-3);
-  border-top: 1px solid var(--color-border);
+  border-top: 1px solid var(--color-border-light);
 }
 
 .saved-levels-row > label {
@@ -271,7 +281,7 @@
   border-radius: var(--radius-full);
   font-size: var(--font-size-sm);
   font-weight: 600;
-  font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+  font-family: var(--font-mono);
   color: var(--color-primary);
 }
 
@@ -291,7 +301,7 @@
 }
 
 .level-tag .remove-level:hover {
-  background-color: #ef4444;
+  background-color: var(--color-error);
   color: #fff;
 }
 
@@ -315,7 +325,7 @@
 .setting-group input[type="number"]:focus {
   outline: none;
   border-color: var(--color-primary);
-  box-shadow: 0 0 0 3px rgba(55, 118, 161, 0.1);
+  box-shadow: 0 0 0 4px var(--color-primary-muted);
 }
 
 .setting-group select {
@@ -339,7 +349,7 @@
 .setting-group select:focus {
   outline: none;
   border-color: var(--color-primary);
-  box-shadow: 0 0 0 3px rgba(55, 118, 161, 0.1);
+  box-shadow: 0 0 0 4px var(--color-primary-muted);
 }
 
 /* ==================== Image List ==================== */
@@ -444,14 +454,14 @@
 .size-compressed {
   font-size: var(--font-size-xs);
   font-weight: 600;
-  color: #22c55e;
+  color: var(--color-success);
 }
 
 .size-savings {
   font-size: 0.65rem;
   font-weight: 600;
-  color: #22c55e;
-  background-color: rgba(34, 197, 94, 0.1);
+  color: var(--color-success);
+  background-color: rgba(22, 163, 74, 0.1);
   padding: 2px 6px;
   border-radius: var(--radius-sm);
 }
@@ -470,7 +480,7 @@
   gap: var(--space-1);
   padding: 2px 6px;
   background-color: var(--color-surface);
-  border: 1px solid var(--color-border);
+  border: 1px solid var(--color-border-light);
   border-radius: var(--radius-sm);
   font-size: 0.65rem;
   cursor: default;
@@ -486,12 +496,12 @@
 }
 
 .version-savings {
-  color: #22c55e;
+  color: var(--color-success);
   font-weight: 600;
 }
 
 .version-tag.larger .version-savings {
-  color: #ef4444;
+  color: var(--color-error);
 }
 
 /* ==================== Status Icons ==================== */
@@ -516,18 +526,18 @@
 }
 
 .status-icon.processing {
-  background-color: rgba(59, 130, 246, 0.1);
-  color: #3b82f6;
+  background-color: color-mix(in srgb, var(--color-info) 10%, transparent);
+  color: var(--color-info);
 }
 
 .status-icon.done {
-  background-color: rgba(34, 197, 94, 0.1);
-  color: #22c55e;
+  background-color: rgba(22, 163, 74, 0.1);
+  color: var(--color-success);
 }
 
 .status-icon.error {
-  background-color: rgba(239, 68, 68, 0.1);
-  color: #ef4444;
+  background-color: rgba(220, 38, 38, 0.1);
+  color: var(--color-error);
 }
 
 /* ==================== Image Item Actions ==================== */
@@ -556,9 +566,14 @@
   color: #fff;
 }
 
+.item-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px var(--color-primary-muted);
+}
+
 .item-btn.danger:hover {
-  background-color: #ef4444;
-  border-color: #ef4444;
+  background-color: var(--color-error);
+  border-color: var(--color-error);
 }
 
 .item-btn:disabled {
@@ -612,7 +627,7 @@
 .summary-value {
   font-size: var(--font-size-lg);
   font-weight: 700;
-  font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+  font-family: var(--font-mono);
   color: var(--color-text);
 }
 
@@ -621,11 +636,11 @@
 }
 
 .summary-value.success {
-  color: #22c55e;
+  color: var(--color-success);
 }
 
 .summary-value.error {
-  color: #ef4444;
+  color: var(--color-error);
 }
 
 /* ==================== Responsive - Tablet ==================== */
@@ -967,7 +982,7 @@
   border-radius: var(--radius-lg);
   max-width: 400px;
   width: 100%;
-  box-shadow: var(--shadow-xl);
+  box-shadow: var(--shadow-lg);
   animation: slideIn 0.2s ease;
 }
 
@@ -1005,9 +1020,14 @@
 }
 
 .close-modal-btn:hover {
-  background-color: #ef4444;
-  border-color: #ef4444;
+  background-color: var(--color-error);
+  border-color: var(--color-error);
   color: #fff;
+}
+
+.close-modal-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px var(--color-primary-muted);
 }
 
 .download-modal-body {
@@ -1048,6 +1068,11 @@
 
 .download-version-btn:hover i {
   color: var(--color-primary);
+}
+
+.download-version-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px var(--color-primary-muted);
 }
 
 .download-version-btn .version-info {
@@ -1093,6 +1118,11 @@
 
 .download-all-versions-btn:hover {
   background-color: var(--color-primary-dark);
+}
+
+.download-all-versions-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px var(--color-primary-muted);
 }
 
 /* ==================== Download Modal Responsive ==================== */

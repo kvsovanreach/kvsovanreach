@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Live HTML, CSS, and JavaScript editor with real-time preview. A mini CodePen in your browser.">
+  <meta property="og:title" content="KVSOVANREACH | HTML Preview">
+  <meta property="og:description" content="Live HTML/CSS/JS editor with real-time preview and console output.">
+  <meta property="og:image" content="/assets/img/favicons/og-image.png">
+  <title>KVSOVANREACH | HTML Preview</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+  <!-- Common Tools CSS -->
+  <link rel="stylesheet" href="../../css/tools-common.css">
+  <!-- HTML Preview CSS -->
+  <link rel="stylesheet" href="htmlpreview.css">
+</head>
+<body>
+  <!-- Skip to Content -->
+  <a href="#htmlpreview" class="skip-link">Skip to HTML preview editor</a>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">TOOLS</span>
+      </a>
+
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="tool-page">
+    <div class="container">
+      <div class="hp-wrapper" id="htmlpreview">
+        <!-- Toolbar -->
+        <div class="hp-toolbar">
+          <div class="hp-toolbar-left">
+            <h2><i class="fa-solid fa-code"></i> HTML Preview</h2>
+          </div>
+          <div class="hp-toolbar-right">
+            <!-- Presets -->
+            <div class="hp-preset-group">
+              <label class="hp-toolbar-label">Preset:</label>
+              <select id="presetSelect" class="hp-select">
+                <option value="">-- Select --</option>
+                <option value="hello">Hello World</option>
+                <option value="animation">CSS Animation</option>
+                <option value="fetch">API Fetch</option>
+                <option value="canvas">Canvas Drawing</option>
+                <option value="form">Form Validation</option>
+              </select>
+            </div>
+
+            <!-- Layout Toggle -->
+            <div class="hp-layout-group">
+              <button class="hp-layout-btn active" data-layout="horizontal" title="Horizontal split">
+                <i class="fa-solid fa-columns"></i>
+              </button>
+              <button class="hp-layout-btn" data-layout="vertical" title="Vertical split">
+                <i class="fa-solid fa-table-rows"></i>
+              </button>
+            </div>
+
+            <!-- Auto-run -->
+            <label class="hp-toggle-label">
+              <input type="checkbox" id="autoRunToggle" checked>
+              <span>Auto-run</span>
+            </label>
+
+            <!-- Run Button -->
+            <button class="hp-run-btn" id="runBtn" title="Run code (Ctrl+Enter)">
+              <i class="fa-solid fa-play"></i>
+              <span>Run</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Editor + Preview -->
+        <div class="hp-body" id="hpBody" data-layout="horizontal">
+          <!-- Editor Panels -->
+          <div class="hp-editors">
+            <!-- Editor Tabs -->
+            <div class="hp-editor-tabs">
+              <button class="hp-editor-tab active" data-lang="html">
+                <i class="fa-brands fa-html5"></i> HTML
+              </button>
+              <button class="hp-editor-tab" data-lang="css">
+                <i class="fa-brands fa-css3-alt"></i> CSS
+              </button>
+              <button class="hp-editor-tab" data-lang="js">
+                <i class="fa-brands fa-js"></i> JavaScript
+              </button>
+            </div>
+
+            <!-- Code Areas -->
+            <div class="hp-editor-area" id="editorArea">
+              <div class="hp-code-panel active" data-lang="html">
+                <div class="hp-code-wrapper">
+                  <div class="hp-line-numbers" id="htmlLineNumbers">1</div>
+                  <textarea id="htmlEditor" class="hp-code-input" spellcheck="false" placeholder="Write HTML here..." data-lang="html"></textarea>
+                </div>
+              </div>
+              <div class="hp-code-panel" data-lang="css">
+                <div class="hp-code-wrapper">
+                  <div class="hp-line-numbers" id="cssLineNumbers">1</div>
+                  <textarea id="cssEditor" class="hp-code-input" spellcheck="false" placeholder="Write CSS here..." data-lang="css"></textarea>
+                </div>
+              </div>
+              <div class="hp-code-panel" data-lang="js">
+                <div class="hp-code-wrapper">
+                  <div class="hp-line-numbers" id="jsLineNumbers">1</div>
+                  <textarea id="jsEditor" class="hp-code-input" spellcheck="false" placeholder="Write JavaScript here..." data-lang="js"></textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Preview + Console -->
+          <div class="hp-output">
+            <!-- Preview -->
+            <div class="hp-preview-container">
+              <div class="hp-preview-header">
+                <span><i class="fa-solid fa-eye"></i> Preview</span>
+              </div>
+              <iframe id="previewFrame" class="hp-preview-frame" sandbox="allow-scripts allow-modals"></iframe>
+            </div>
+
+            <!-- Console -->
+            <div class="hp-console-container">
+              <div class="hp-console-header">
+                <span><i class="fa-solid fa-terminal"></i> Console</span>
+                <button class="hp-console-clear" id="clearConsoleBtn" title="Clear console">
+                  <i class="fa-solid fa-trash"></i>
+                </button>
+              </div>
+              <div class="hp-console-output" id="consoleOutput"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach. All rights reserved.</p>
+        <p class="footer-made">Made with 💗 and Claude Code xD</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Shared Tools JavaScript -->
+  <script src="../../js/tools-common.js"></script>
+  <!-- Scripts -->
+  <script src="htmlpreview.js"></script>
+</body>
+</html>

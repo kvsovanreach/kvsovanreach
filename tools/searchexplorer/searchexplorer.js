@@ -491,7 +491,7 @@
    */
   function showFound(index) {
     elements.result.textContent = `Found at index ${index}`;
-    elements.result.style.color = '#22c55e';
+    elements.result.style.color = 'var(--color-success)';
     updateArrayDisplay();
     ToolsCommon.Toast.show(`Target ${searchState.target} found at index ${index}!`, 'success');
   }
@@ -501,7 +501,7 @@
    */
   function showNotFound() {
     elements.result.textContent = 'Not Found';
-    elements.result.style.color = '#ef4444';
+    elements.result.style.color = 'var(--color-error)';
     updateArrayDisplay();
     ToolsCommon.Toast.show(`Target ${searchState.target} not found in array`, 'error');
   }

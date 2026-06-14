@@ -9,7 +9,7 @@
   border: 1px solid var(--color-border);
   border-radius: var(--radius-xl);
   overflow: hidden;
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--shadow-card);
 }
 
 .radius-header {
@@ -18,7 +18,7 @@
   justify-content: space-between;
   padding: var(--space-4) var(--space-5);
   background-color: var(--color-surface);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border-light);
 }
 
 .radius-header h2 {
@@ -162,7 +162,7 @@
   border: 2px solid var(--color-border);
   border-radius: var(--radius-sm);
   font-size: var(--font-size-sm);
-  font-family: 'Fira Code', monospace;
+  font-family: var(--font-mono);
   color: var(--color-text);
   text-align: center;
 }
@@ -228,7 +228,7 @@
 
 .code-output code {
   flex: 1;
-  font-family: 'Fira Code', monospace;
+  font-family: var(--font-mono);
   font-size: var(--font-size-sm);
   color: var(--color-primary);
 }
@@ -243,6 +243,14 @@
 }
 
 .copy-btn:hover { color: var(--color-primary); }
+
+/* Focus ring for all interactive buttons */
+.header-action-btn:focus-visible,
+.preset-btn:focus-visible,
+.copy-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px var(--color-primary-muted);
+}
 
 @media screen and (max-width: 768px) {
   .radius-wrapper { border-radius: var(--radius-lg); }

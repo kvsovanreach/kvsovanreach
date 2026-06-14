@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Translate cron expressions to human-readable text and vice versa. Bidirectional cron translator with presets and validation.">
+  <meta property="og:title" content="KVSOVANREACH | Cron Translator">
+  <meta property="og:description" content="Bidirectional cron expression translator with presets, validation, and field breakdown.">
+  <meta property="og:image" content="/assets/img/favicons/og-image.png">
+  <title>KVSOVANREACH | Cron Translator</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+  <!-- Common Tools CSS -->
+  <link rel="stylesheet" href="../../css/tools-common.css">
+  <!-- Cron Translator CSS -->
+  <link rel="stylesheet" href="crontranslator.css">
+</head>
+<body>
+  <!-- Skip to Content -->
+  <a href="#crontranslator" class="skip-link">Skip to cron translator</a>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">TOOLS</span>
+      </a>
+
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="tool-page">
+    <div class="container">
+      <div class="ct-wrapper" id="crontranslator">
+
+        <!-- Header -->
+        <div class="ct-header">
+          <h2><i class="fa-solid fa-language"></i> Cron Translator</h2>
+          <p class="ct-subtitle">Translate between cron expressions and human-readable descriptions</p>
+        </div>
+
+        <!-- Mode Tabs -->
+        <div class="ct-tabs">
+          <button type="button" class="ct-tab active" data-mode="cron-to-text">
+            <i class="fa-solid fa-code"></i>
+            <span>Cron to Text</span>
+          </button>
+          <button type="button" class="ct-tab" data-mode="text-to-cron">
+            <i class="fa-solid fa-font"></i>
+            <span>Text to Cron</span>
+          </button>
+        </div>
+
+        <!-- Cron to Text Mode -->
+        <div class="ct-panel" id="cronToTextPanel">
+          <div class="ct-input-section">
+            <label class="ct-label" for="cronInput">Cron Expression</label>
+            <div class="ct-input-row">
+              <input type="text" id="cronInput" class="ct-input" placeholder="* * * * *" value="0 9 * * 1" spellcheck="false" autocomplete="off">
+              <button type="button" class="action-btn primary" id="translateBtn">
+                <i class="fa-solid fa-arrow-right"></i>
+                <span>Translate</span>
+              </button>
+            </div>
+            <div class="ct-field-errors" id="fieldErrors"></div>
+          </div>
+
+          <!-- Field Breakdown -->
+          <div class="ct-breakdown" id="fieldBreakdown">
+            <div class="ct-breakdown-item" data-field="minute">
+              <span class="ct-breakdown-label">Minute</span>
+              <span class="ct-breakdown-value" id="bkMinute">0</span>
+              <span class="ct-breakdown-desc" id="bkMinuteDesc">At minute 0</span>
+            </div>
+            <div class="ct-breakdown-item" data-field="hour">
+              <span class="ct-breakdown-label">Hour</span>
+              <span class="ct-breakdown-value" id="bkHour">9</span>
+              <span class="ct-breakdown-desc" id="bkHourDesc">At 09:00</span>
+            </div>
+            <div class="ct-breakdown-item" data-field="day">
+              <span class="ct-breakdown-label">Day of Month</span>
+              <span class="ct-breakdown-value" id="bkDay">*</span>
+              <span class="ct-breakdown-desc" id="bkDayDesc">Every day</span>
+            </div>
+            <div class="ct-breakdown-item" data-field="month">
+              <span class="ct-breakdown-label">Month</span>
+              <span class="ct-breakdown-value" id="bkMonth">*</span>
+              <span class="ct-breakdown-desc" id="bkMonthDesc">Every month</span>
+            </div>
+            <div class="ct-breakdown-item" data-field="weekday">
+              <span class="ct-breakdown-label">Weekday</span>
+              <span class="ct-breakdown-value" id="bkWeekday">1</span>
+              <span class="ct-breakdown-desc" id="bkWeekdayDesc">On Monday</span>
+            </div>
+          </div>
+
+          <!-- Result -->
+          <div class="ct-result" id="cronResult">
+            <div class="ct-result-card">
+              <div class="ct-result-icon"><i class="fa-solid fa-comment-dots"></i></div>
+              <div class="ct-result-body">
+                <h4>Human-Readable</h4>
+                <p id="humanReadable">At 09:00 on every Monday</p>
+              </div>
+              <button type="button" class="ct-copy-btn" id="copyDescription" title="Copy description">
+                <i class="fa-solid fa-copy"></i>
+              </button>
+            </div>
+            <div class="ct-result-card">
+              <div class="ct-result-icon"><i class="fa-solid fa-code"></i></div>
+              <div class="ct-result-body">
+                <h4>Expression</h4>
+                <p id="expressionDisplay" class="ct-mono">0 9 * * 1</p>
+              </div>
+              <button type="button" class="ct-copy-btn" id="copyExpression" title="Copy expression">
+                <i class="fa-solid fa-copy"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Text to Cron Mode -->
+        <div class="ct-panel hidden" id="textToCronPanel">
+          <div class="ct-input-section">
+            <label class="ct-label" for="textInput">Describe when you want it to run</label>
+            <div class="ct-input-row">
+              <input type="text" id="textInput" class="ct-input" placeholder="e.g. every weekday at 9am" spellcheck="false" autocomplete="off">
+              <button type="button" class="action-btn primary" id="suggestBtn">
+                <i class="fa-solid fa-wand-magic-sparkles"></i>
+                <span>Suggest</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="ct-suggestion hidden" id="suggestionResult">
+            <div class="ct-result-card">
+              <div class="ct-result-icon"><i class="fa-solid fa-code"></i></div>
+              <div class="ct-result-body">
+                <h4>Suggested Expression</h4>
+                <p id="suggestedCron" class="ct-mono"></p>
+              </div>
+              <button type="button" class="ct-copy-btn" id="copySuggested" title="Copy expression">
+                <i class="fa-solid fa-copy"></i>
+              </button>
+            </div>
+            <div class="ct-result-card">
+              <div class="ct-result-icon"><i class="fa-solid fa-comment-dots"></i></div>
+              <div class="ct-result-body">
+                <h4>Interpretation</h4>
+                <p id="suggestedDesc"></p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Presets -->
+        <div class="ct-presets">
+          <h3><i class="fa-solid fa-bolt"></i> Common Presets</h3>
+          <div class="ct-presets-grid">
+            <button type="button" class="ct-preset" data-cron="* * * * *">
+              <span class="ct-preset-cron">* * * * *</span>
+              <span class="ct-preset-desc">Every minute</span>
+            </button>
+            <button type="button" class="ct-preset" data-cron="0 * * * *">
+              <span class="ct-preset-cron">0 * * * *</span>
+              <span class="ct-preset-desc">Every hour</span>
+            </button>
+            <button type="button" class="ct-preset" data-cron="0 0 * * *">
+              <span class="ct-preset-cron">0 0 * * *</span>
+              <span class="ct-preset-desc">Daily at midnight</span>
+            </button>
+            <button type="button" class="ct-preset" data-cron="0 9 * * 1-5">
+              <span class="ct-preset-cron">0 9 * * 1-5</span>
+              <span class="ct-preset-desc">Weekdays at 9 AM</span>
+            </button>
+            <button type="button" class="ct-preset" data-cron="0 12 * * 0">
+              <span class="ct-preset-cron">0 12 * * 0</span>
+              <span class="ct-preset-desc">Every Sunday at noon</span>
+            </button>
+            <button type="button" class="ct-preset" data-cron="0 0 1 * *">
+              <span class="ct-preset-cron">0 0 1 * *</span>
+              <span class="ct-preset-desc">First of every month</span>
+            </button>
+            <button type="button" class="ct-preset" data-cron="*/5 * * * *">
+              <span class="ct-preset-cron">*/5 * * * *</span>
+              <span class="ct-preset-desc">Every 5 minutes</span>
+            </button>
+            <button type="button" class="ct-preset" data-cron="0 0 1 1,4,7,10 *">
+              <span class="ct-preset-cron">0 0 1 1,4,7,10 *</span>
+              <span class="ct-preset-desc">Quarterly (Jan, Apr, Jul, Oct)</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- History -->
+        <div class="ct-history" id="historySection">
+          <div class="ct-history-header">
+            <h3><i class="fa-solid fa-clock-rotate-left"></i> Recent Conversions</h3>
+            <button type="button" class="ct-clear-history" id="clearHistoryBtn" title="Clear history">
+              <i class="fa-solid fa-trash-can"></i>
+            </button>
+          </div>
+          <div class="ct-history-list" id="historyList">
+            <div class="ct-history-empty" id="historyEmpty">
+              <i class="fa-solid fa-inbox"></i>
+              <span>No recent conversions</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick Reference -->
+        <div class="ct-reference">
+          <h3><i class="fa-solid fa-book-open"></i> Cron Syntax Reference</h3>
+          <div class="ct-reference-table-wrap">
+            <table class="ct-reference-table">
+              <thead>
+                <tr>
+                  <th>Field</th>
+                  <th>Allowed Values</th>
+                  <th>Special Characters</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Minute</strong></td>
+                  <td>0 &ndash; 59</td>
+                  <td><code>*</code> <code>,</code> <code>-</code> <code>/</code></td>
+                </tr>
+                <tr>
+                  <td><strong>Hour</strong></td>
+                  <td>0 &ndash; 23</td>
+                  <td><code>*</code> <code>,</code> <code>-</code> <code>/</code></td>
+                </tr>
+                <tr>
+                  <td><strong>Day of Month</strong></td>
+                  <td>1 &ndash; 31</td>
+                  <td><code>*</code> <code>,</code> <code>-</code> <code>/</code></td>
+                </tr>
+                <tr>
+                  <td><strong>Month</strong></td>
+                  <td>1 &ndash; 12 or JAN &ndash; DEC</td>
+                  <td><code>*</code> <code>,</code> <code>-</code> <code>/</code></td>
+                </tr>
+                <tr>
+                  <td><strong>Day of Week</strong></td>
+                  <td>0 &ndash; 6 (SUN = 0) or SUN &ndash; SAT</td>
+                  <td><code>*</code> <code>,</code> <code>-</code> <code>/</code></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="ct-special-chars">
+            <div class="ct-char-item">
+              <span class="ct-char">*</span>
+              <span>Any value</span>
+            </div>
+            <div class="ct-char-item">
+              <span class="ct-char">,</span>
+              <span>Value list separator</span>
+            </div>
+            <div class="ct-char-item">
+              <span class="ct-char">-</span>
+              <span>Range of values</span>
+            </div>
+            <div class="ct-char-item">
+              <span class="ct-char">/</span>
+              <span>Step values</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach.</p>
+        <p class="footer-made">Made with 💗 and Claude Code xD</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Shared Tools JavaScript -->
+  <script src="../../js/tools-common.js"></script>
+  <!-- Cron Translator JS -->
+  <script src="crontranslator.js"></script>
+</body>
+</html>

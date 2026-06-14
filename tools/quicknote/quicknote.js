@@ -305,11 +305,7 @@
       .replace(/'/g, '&#039;');
   }
 
-  function showToast(message) {
-    if (typeof window.showToast === 'function') {
-      window.showToast(message);
-    }
-  }
+  const showToast = (message, type) => ToolsCommon.showToast(message, type);
 
   // ==================== Event Bindings ====================
   function bindEvents() {

@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Play Tic Tac Toe against an unbeatable AI or a friend. Multiple difficulty levels.">
+  <meta property="og:title" content="KVSOVANREACH | Tic Tac Toe">
+  <meta property="og:description" content="Tic Tac Toe with minimax AI, multiple difficulties, and score tracking.">
+  <meta property="og:image" content="/assets/img/favicons/og-image.png">
+  <title>KVSOVANREACH | Tic Tac Toe</title>
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  <link rel="stylesheet" href="../../css/tools-common.css">
+  <link rel="stylesheet" href="tictactoe.css">
+</head>
+<body>
+  <a href="#tictactoe" class="skip-link">Skip to Tic Tac Toe</a>
+
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">TOOLS</span>
+      </a>
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <main class="tool-page">
+    <div class="container">
+      <div class="ttt-wrapper" id="tictactoe">
+        <!-- Header -->
+        <div class="ttt-header">
+          <h2><i class="fa-solid fa-gamepad"></i> Tic Tac Toe</h2>
+          <div class="ttt-actions">
+            <button class="action-btn" id="restartBtn" title="Restart (R)">
+              <i class="fa-solid fa-rotate"></i>
+              <span>Restart</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="ttt-content">
+          <!-- Settings -->
+          <div class="ttt-settings">
+            <div class="setting-group">
+              <label>Mode</label>
+              <div class="mode-buttons">
+                <button class="mode-btn active" data-mode="ai">
+                  <i class="fa-solid fa-robot"></i> vs AI
+                </button>
+                <button class="mode-btn" data-mode="pvp">
+                  <i class="fa-solid fa-user-group"></i> vs Player
+                </button>
+              </div>
+            </div>
+            <div class="setting-group" id="difficultyGroup">
+              <label>Difficulty</label>
+              <div class="difficulty-buttons">
+                <button class="diff-btn" data-diff="easy">Easy</button>
+                <button class="diff-btn active" data-diff="medium">Medium</button>
+                <button class="diff-btn" data-diff="hard">Hard</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Scoreboard -->
+          <div class="ttt-scoreboard">
+            <div class="score-item x-score">
+              <span class="score-label" id="xLabel">You (X)</span>
+              <span class="score-value" id="xScore">0</span>
+            </div>
+            <div class="score-item draw-score">
+              <span class="score-label">Draw</span>
+              <span class="score-value" id="drawScore">0</span>
+            </div>
+            <div class="score-item o-score">
+              <span class="score-label" id="oLabel">AI (O)</span>
+              <span class="score-value" id="oScore">0</span>
+            </div>
+          </div>
+
+          <!-- Status -->
+          <div class="ttt-status" id="statusText">Your turn (X)</div>
+
+          <!-- Board -->
+          <div class="ttt-board" id="board">
+            <div class="ttt-cell" data-index="0" tabindex="0"></div>
+            <div class="ttt-cell" data-index="1" tabindex="0"></div>
+            <div class="ttt-cell" data-index="2" tabindex="0"></div>
+            <div class="ttt-cell" data-index="3" tabindex="0"></div>
+            <div class="ttt-cell" data-index="4" tabindex="0"></div>
+            <div class="ttt-cell" data-index="5" tabindex="0"></div>
+            <div class="ttt-cell" data-index="6" tabindex="0"></div>
+            <div class="ttt-cell" data-index="7" tabindex="0"></div>
+            <div class="ttt-cell" data-index="8" tabindex="0"></div>
+            <!-- Win line overlay -->
+            <svg class="win-line-svg" id="winLineSvg" viewBox="0 0 300 300">
+              <line id="winLine" x1="0" y1="0" x2="0" y2="0" />
+            </svg>
+          </div>
+
+          <!-- Info -->
+          <div class="info-panel">
+            <div class="info-header">
+              <i class="fa-solid fa-circle-info"></i>
+              <span>How to Play</span>
+            </div>
+            <div class="info-content">
+              <ul>
+                <li>Click a cell or press <strong>1-9</strong> (numpad layout) to place your mark</li>
+                <li>Get three in a row to win</li>
+                <li>Press <strong>R</strong> to restart the game</li>
+                <li><strong>Hard mode</strong> uses minimax AI - can you beat it?</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach. All rights reserved.</p>
+        <p class="footer-made">Made with 💗 and Claude Code xD</p>
+      </div>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast"></div>
+
+  <div class="shortcuts-modal" id="shortcutsModal">
+    <div class="shortcuts-content">
+      <div class="shortcuts-header">
+        <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
+        <button class="close-shortcuts-btn" id="closeShortcutsBtn" aria-label="Close shortcuts">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="shortcuts-body">
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">Grid Positions</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>7</kbd> <kbd>8</kbd> <kbd>9</kbd></div>
+            <div class="shortcut-desc">Top row</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>4</kbd> <kbd>5</kbd> <kbd>6</kbd></div>
+            <div class="shortcut-desc">Middle row</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>1</kbd> <kbd>2</kbd> <kbd>3</kbd></div>
+            <div class="shortcut-desc">Bottom row</div>
+          </div>
+        </div>
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">Actions</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>R</kbd></div>
+            <div class="shortcut-desc">Restart game</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>?</kbd></div>
+            <div class="shortcut-desc">Show shortcuts</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="shortcuts-hint" id="shortcutsHint">
+    <span><kbd>Shift</kbd>+<kbd>?</kbd> : shortcuts</span>
+  </div>
+
+  <script src="../../js/tools-common.js"></script>
+  <script src="tictactoe.js"></script>
+</body>
+</html>

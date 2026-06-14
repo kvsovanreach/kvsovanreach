@@ -10,7 +10,7 @@
   border: 1px solid var(--color-border);
   border-radius: var(--radius-xl);
   overflow: hidden;
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--shadow-card);
 }
 
 /* ==================== Header ==================== */
@@ -19,7 +19,7 @@
   align-items: center;
   padding: var(--space-4) var(--space-5);
   background-color: var(--color-surface);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border-light);
 }
 
 .favicon-header h2 {
@@ -77,7 +77,7 @@
 .upload-area:hover,
 .upload-area.drag-over {
   border-color: var(--color-primary);
-  background-color: rgba(55, 118, 161, 0.05);
+  background-color: var(--color-primary-muted);
 }
 
 .upload-content {
@@ -136,10 +136,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(45deg, #e5e5e5 25%, transparent 25%),
-              linear-gradient(-45deg, #e5e5e5 25%, transparent 25%),
-              linear-gradient(45deg, transparent 75%, #e5e5e5 75%),
-              linear-gradient(-45deg, transparent 75%, #e5e5e5 75%);
+  background: linear-gradient(45deg, var(--color-surface-hover) 25%, transparent 25%),
+              linear-gradient(-45deg, var(--color-surface-hover) 25%, transparent 25%),
+              linear-gradient(45deg, transparent 75%, var(--color-surface-hover) 75%),
+              linear-gradient(-45deg, transparent 75%, var(--color-surface-hover) 75%);
   background-size: 10px 10px;
   background-position: 0 0, 0 5px, 5px -5px, -5px 0px;
   border-radius: var(--radius-lg);
@@ -163,7 +163,7 @@
 .image-source-details span {
   font-size: var(--font-size-sm);
   color: var(--color-text);
-  font-family: 'Consolas', 'Monaco', monospace;
+  font-family: var(--font-mono);
 }
 
 .change-image-btn {
@@ -177,7 +177,12 @@
   font-size: var(--font-size-sm);
   color: var(--color-text-muted);
   cursor: pointer;
-  transition: all var(--transition-fast);
+  transition: all var(--transition-base);
+}
+
+.change-image-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px var(--color-primary-muted);
 }
 
 .change-image-btn:hover {
@@ -223,10 +228,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(45deg, #e5e5e5 25%, transparent 25%),
-              linear-gradient(-45deg, #e5e5e5 25%, transparent 25%),
-              linear-gradient(45deg, transparent 75%, #e5e5e5 75%),
-              linear-gradient(-45deg, transparent 75%, #e5e5e5 75%);
+  background: linear-gradient(45deg, var(--color-surface-hover) 25%, transparent 25%),
+              linear-gradient(-45deg, var(--color-surface-hover) 25%, transparent 25%),
+              linear-gradient(45deg, transparent 75%, var(--color-surface-hover) 75%),
+              linear-gradient(-45deg, transparent 75%, var(--color-surface-hover) 75%);
   background-size: 10px 10px;
   background-position: 0 0, 0 5px, 5px -5px, -5px 0px;
   border-radius: var(--radius-lg);
@@ -278,6 +283,13 @@
   border-radius: var(--radius-md);
   background-color: var(--color-surface);
   color: var(--color-text);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.creator-option-group input[type="text"]:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 4px var(--color-primary-muted);
 }
 
 .creator-option-group select {
@@ -288,6 +300,13 @@
   background-color: var(--color-surface);
   color: var(--color-text);
   cursor: pointer;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.creator-option-group select:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 4px var(--color-primary-muted);
 }
 
 .creator-option-group input[type="color"] {
@@ -374,9 +393,14 @@
   border-color: var(--color-primary);
 }
 
+.creator-bg-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px var(--color-primary-muted);
+}
+
 .creator-bg-btn.active {
   border-color: var(--color-primary);
-  box-shadow: 0 0 0 2px rgba(55, 118, 161, 0.2);
+  box-shadow: 0 0 0 4px var(--color-primary-muted);
 }
 
 .creator-bg-btn span {
@@ -453,6 +477,13 @@
   border-radius: var(--radius-md);
   background-color: var(--color-surface);
   color: var(--color-text);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.text-input-full input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 4px var(--color-primary-muted);
 }
 
 .creator-padding {
@@ -499,9 +530,14 @@
   color: var(--color-primary);
 }
 
+.creator-shape-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px var(--color-primary-muted);
+}
+
 .creator-shape-btn.active {
   border-color: var(--color-primary);
-  background-color: rgba(55, 118, 161, 0.1);
+  background-color: var(--color-primary-muted);
   color: var(--color-primary);
 }
 
@@ -546,6 +582,13 @@
   border: 2px solid var(--color-border);
   border-radius: var(--radius-md);
   background-color: var(--color-surface);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.emoji-input-row input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 4px var(--color-primary-muted);
 }
 
 .emoji-picker-row {
@@ -579,7 +622,7 @@
 
 .emoji-picker-row .emoji-btn.active {
   border-color: var(--color-primary);
-  background-color: rgba(55, 118, 161, 0.1);
+  background-color: var(--color-primary-muted);
 }
 
 /* ==================== Live Preview ==================== */
@@ -595,10 +638,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(45deg, #e5e5e5 25%, transparent 25%),
-              linear-gradient(-45deg, #e5e5e5 25%, transparent 25%),
-              linear-gradient(45deg, transparent 75%, #e5e5e5 75%),
-              linear-gradient(-45deg, transparent 75%, #e5e5e5 75%);
+  background: linear-gradient(45deg, var(--color-surface-hover) 25%, transparent 25%),
+              linear-gradient(-45deg, var(--color-surface-hover) 25%, transparent 25%),
+              linear-gradient(45deg, transparent 75%, var(--color-surface-hover) 75%),
+              linear-gradient(-45deg, transparent 75%, var(--color-surface-hover) 75%);
   background-size: 10px 10px;
   background-position: 0 0, 0 5px, 5px -5px, -5px 0px;
   border-radius: var(--radius-lg);
@@ -650,8 +693,9 @@
 
 .text-input-group input:focus,
 .emoji-input-group input:focus {
+  outline: none;
   border-color: var(--color-primary);
-  box-shadow: 0 0 0 3px rgba(55, 118, 161, 0.1);
+  box-shadow: 0 0 0 4px var(--color-primary-muted);
 }
 
 .text-options {
@@ -678,7 +722,9 @@
 }
 
 .text-option-group select:focus {
+  outline: none;
   border-color: var(--color-primary);
+  box-shadow: 0 0 0 4px var(--color-primary-muted);
 }
 
 .text-option-group input[type="color"] {
@@ -701,14 +747,19 @@
   color: white;
   background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
   border: none;
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-md);
   cursor: pointer;
-  transition: all var(--transition-fast);
+  transition: all var(--transition-base);
 }
 
 .create-btn:hover {
   transform: translateY(-2px);
   box-shadow: var(--shadow-lg);
+}
+
+.create-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px var(--color-primary-muted);
 }
 
 /* ==================== Emoji Creator ==================== */
@@ -739,7 +790,7 @@
 
 .emoji-btn.active {
   border-color: var(--color-primary);
-  background-color: rgba(55, 118, 161, 0.1);
+  background-color: var(--color-primary-muted);
 }
 
 .emoji-options {
@@ -779,7 +830,7 @@
 
 .emoji-bg-btn.active {
   border-color: var(--color-primary);
-  box-shadow: 0 0 0 2px rgba(55, 118, 161, 0.2);
+  box-shadow: 0 0 0 4px var(--color-primary-muted);
 }
 
 .emoji-bg-btn span {
@@ -860,7 +911,7 @@
 }
 
 .gradient-bg {
-  background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+  background: linear-gradient(135deg, var(--color-info), #8b5cf6);
   cursor: pointer;
 }
 
@@ -908,7 +959,9 @@
 }
 
 .editor-option-group input[type="text"]:focus {
+  outline: none;
   border-color: var(--color-primary);
+  box-shadow: 0 0 0 4px var(--color-primary-muted);
 }
 
 .editor-option-group select {
@@ -956,7 +1009,7 @@
 
 .editor-emoji-bg-btn.active {
   border-color: var(--color-primary);
-  box-shadow: 0 0 0 2px rgba(55, 118, 161, 0.2);
+  box-shadow: 0 0 0 4px var(--color-primary-muted);
 }
 
 .editor-emoji-bg-btn span {
@@ -990,10 +1043,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(45deg, #e5e5e5 25%, transparent 25%),
-              linear-gradient(-45deg, #e5e5e5 25%, transparent 25%),
-              linear-gradient(45deg, transparent 75%, #e5e5e5 75%),
-              linear-gradient(-45deg, transparent 75%, #e5e5e5 75%);
+  background: linear-gradient(45deg, var(--color-surface-hover) 25%, transparent 25%),
+              linear-gradient(-45deg, var(--color-surface-hover) 25%, transparent 25%),
+              linear-gradient(45deg, transparent 75%, var(--color-surface-hover) 75%),
+              linear-gradient(-45deg, transparent 75%, var(--color-surface-hover) 75%);
   background-size: 10px 10px;
   background-position: 0 0, 0 5px, 5px -5px, -5px 0px;
   border-radius: var(--radius-md);
@@ -1017,7 +1070,7 @@
 .source-info span {
   font-size: var(--font-size-sm);
   color: var(--color-text-secondary);
-  font-family: 'Consolas', 'Monaco', monospace;
+  font-family: var(--font-mono);
 }
 
 .change-source-btn {
@@ -1087,7 +1140,7 @@
 .bg-option.active,
 .shape-option.active {
   border-color: var(--color-primary);
-  box-shadow: 0 0 0 2px rgba(55, 118, 161, 0.2);
+  box-shadow: 0 0 0 4px var(--color-primary-muted);
 }
 
 .bg-option span {
@@ -1098,10 +1151,10 @@
 }
 
 .transparent-bg {
-  background: linear-gradient(45deg, #e5e5e5 25%, transparent 25%),
-              linear-gradient(-45deg, #e5e5e5 25%, transparent 25%),
-              linear-gradient(45deg, transparent 75%, #e5e5e5 75%),
-              linear-gradient(-45deg, transparent 75%, #e5e5e5 75%);
+  background: linear-gradient(45deg, var(--color-surface-hover) 25%, transparent 25%),
+              linear-gradient(-45deg, var(--color-surface-hover) 25%, transparent 25%),
+              linear-gradient(45deg, transparent 75%, var(--color-surface-hover) 75%),
+              linear-gradient(-45deg, transparent 75%, var(--color-surface-hover) 75%);
   background-size: 8px 8px;
   background-position: 0 0, 0 4px, 4px -4px, -4px 0px;
   cursor: pointer;
@@ -1207,13 +1260,13 @@
   justify-content: center;
   width: 80px;
   height: 80px;
-  background: linear-gradient(45deg, #e5e5e5 25%, transparent 25%),
-              linear-gradient(-45deg, #e5e5e5 25%, transparent 25%),
-              linear-gradient(45deg, transparent 75%, #e5e5e5 75%),
-              linear-gradient(-45deg, transparent 75%, #e5e5e5 75%);
+  background: linear-gradient(45deg, var(--color-surface-hover) 25%, transparent 25%),
+              linear-gradient(-45deg, var(--color-surface-hover) 25%, transparent 25%),
+              linear-gradient(45deg, transparent 75%, var(--color-surface-hover) 75%),
+              linear-gradient(-45deg, transparent 75%, var(--color-surface-hover) 75%);
   background-size: 8px 8px;
   background-position: 0 0, 0 4px, 4px -4px, -4px 0px;
-  border: 1px solid var(--color-border);
+  border: 1px solid var(--color-border-light);
   border-radius: var(--radius-md);
   overflow: hidden;
   flex-shrink: 0;
@@ -1295,7 +1348,7 @@
 
 .browser-url i {
   font-size: 10px;
-  color: #22c55e;
+  color: var(--color-success);
 }
 
 /* ==================== Download Section ==================== */
@@ -1312,9 +1365,10 @@
   gap: var(--space-3);
   padding: var(--space-3);
   background-color: var(--color-bg);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
-  transition: all var(--transition-fast);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  transition: all var(--transition-base);
 }
 
 .download-card:hover {
@@ -1335,7 +1389,7 @@
 }
 
 .download-icon.ico {
-  background: linear-gradient(135deg, #22c55e, #16a34a);
+  background: linear-gradient(135deg, var(--color-success), color-mix(in srgb, var(--color-success) 80%, black));
 }
 
 .download-icon.svg {
@@ -1347,7 +1401,7 @@
 }
 
 .download-icon.package {
-  background: linear-gradient(135deg, #f59e0b, #ef4444);
+  background: linear-gradient(135deg, var(--color-warning), var(--color-error));
 }
 
 .download-info {
@@ -1380,12 +1434,17 @@
   color: var(--color-text-secondary);
   white-space: nowrap;
   cursor: pointer;
-  transition: all var(--transition-fast);
+  transition: all var(--transition-base);
 }
 
 .download-btn:hover {
   border-color: var(--color-primary);
   color: var(--color-primary);
+}
+
+.download-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px var(--color-primary-muted);
 }
 
 .download-btn.primary {
@@ -1411,7 +1470,7 @@
   align-items: center;
   justify-content: space-between;
   padding: var(--space-3) var(--space-4);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border-light);
 }
 
 .code-header h3 {
@@ -1433,7 +1492,7 @@
   font-weight: 500;
   color: var(--color-text-secondary);
   cursor: pointer;
-  transition: all var(--transition-fast);
+  transition: all var(--transition-base);
 }
 
 .copy-code-btn:hover {
@@ -1441,10 +1500,15 @@
   color: var(--color-primary);
 }
 
+.copy-code-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px var(--color-primary-muted);
+}
+
 .code-block {
   margin: 0;
   padding: var(--space-4);
-  font-family: 'Consolas', 'Monaco', monospace;
+  font-family: var(--font-mono);
   font-size: var(--font-size-xs);
   line-height: 1.8;
   color: var(--color-text-secondary);
@@ -1862,7 +1926,7 @@
 .inline-editor-content {
   padding: var(--space-5);
   padding-top: 0;
-  border-top: 1px solid var(--color-border);
+  border-top: 1px solid var(--color-border-light);
   margin-top: var(--space-4);
 }
 
@@ -1912,7 +1976,7 @@
   justify-content: center;
   padding: var(--space-2);
   background-color: var(--color-bg);
-  border: 1px solid var(--color-border);
+  border: 1px solid var(--color-border-light);
   border-radius: var(--radius-md);
 }
 

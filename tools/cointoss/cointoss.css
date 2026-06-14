@@ -10,7 +10,7 @@
   border: 1px solid var(--color-border);
   border-radius: var(--radius-xl);
   overflow: hidden;
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--shadow-card);
   position: relative;
 }
 
@@ -20,7 +20,7 @@
   align-items: center;
   padding: var(--space-4) var(--space-5);
   background-color: var(--color-surface);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border-light);
 }
 
 .cointoss-header h2 {
@@ -34,7 +34,7 @@
 }
 
 .cointoss-header h2 i {
-  color: #f59e0b;
+  color: var(--color-warning);
 }
 
 /* ==================== Main Layout ==================== */
@@ -47,7 +47,7 @@
 /* ==================== Stats Sidebar (Left) ==================== */
 .stats-sidebar {
   background: linear-gradient(145deg, var(--color-bg-tertiary), var(--color-bg-secondary));
-  border-right: 1px solid var(--color-border);
+  border-right: 1px solid var(--color-border-light);
   display: flex;
   flex-direction: column;
   overflow-y: auto;
@@ -55,7 +55,7 @@
 
 .sidebar-section {
   padding: var(--space-3) var(--space-4);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border-light);
 }
 
 .sidebar-section:last-child {
@@ -89,13 +89,13 @@
 }
 
 .stat-item.heads {
-  border-color: #f59e0b;
-  background-color: rgba(245, 158, 11, 0.1);
+  border-color: var(--color-warning);
+  background-color: color-mix(in srgb, var(--color-warning) 10%, transparent);
 }
 
 .stat-item.tails {
-  border-color: #64748b;
-  background-color: rgba(100, 116, 139, 0.1);
+  border-color: var(--color-text-secondary);
+  background-color: color-mix(in srgb, var(--color-text-secondary) 10%, transparent);
 }
 
 .stat-label {
@@ -110,11 +110,11 @@
 }
 
 .stat-item.heads .stat-value {
-  color: #f59e0b;
+  color: var(--color-warning);
 }
 
 .stat-item.tails .stat-value {
-  color: #64748b;
+  color: var(--color-text-secondary);
 }
 
 /* Probability Display */
@@ -139,12 +139,12 @@
 }
 
 .prob-row.heads .prob-label i {
-  color: #f59e0b;
+  color: var(--color-warning);
   font-size: 0.5rem;
 }
 
 .prob-row.tails .prob-label i {
-  color: #64748b;
+  color: var(--color-text-secondary);
   font-size: 0.5rem;
 }
 
@@ -167,11 +167,11 @@
 }
 
 .bar-fill.heads {
-  background: linear-gradient(90deg, #f59e0b, #fbbf24);
+  background: linear-gradient(90deg, var(--color-warning), color-mix(in srgb, var(--color-warning) 70%, white));
 }
 
 .bar-fill.tails {
-  background: linear-gradient(90deg, #64748b, #94a3b8);
+  background: linear-gradient(90deg, var(--color-text-secondary), var(--color-text-muted));
 }
 
 /* History Section */
@@ -202,7 +202,7 @@
 
 .clear-history-btn:hover {
   background-color: var(--color-bg-secondary);
-  color: #ef4444;
+  color: var(--color-error);
 }
 
 .history-list {
@@ -230,15 +230,15 @@
 }
 
 .history-item.heads {
-  background-color: rgba(245, 158, 11, 0.2);
-  color: #f59e0b;
-  border: 1px solid #f59e0b;
+  background-color: color-mix(in srgb, var(--color-warning) 20%, transparent);
+  color: var(--color-warning);
+  border: 1px solid var(--color-warning);
 }
 
 .history-item.tails {
-  background-color: rgba(100, 116, 139, 0.2);
-  color: #64748b;
-  border: 1px solid #64748b;
+  background-color: color-mix(in srgb, var(--color-text-secondary) 20%, transparent);
+  color: var(--color-text-secondary);
+  border: 1px solid var(--color-text-secondary);
 }
 
 /* Mobile Flip Section */
@@ -284,11 +284,11 @@
 }
 
 .result-display.heads .result-text {
-  color: #f59e0b;
+  color: var(--color-warning);
 }
 
 .result-display.tails .result-text {
-  color: #64748b;
+  color: var(--color-text-secondary);
 }
 
 .result-display.flipping .result-text {
@@ -301,7 +301,7 @@
   align-items: center;
   gap: var(--space-2);
   padding: var(--space-3) var(--space-6);
-  background: linear-gradient(135deg, #f59e0b, #d97706);
+  background: linear-gradient(135deg, var(--color-warning), color-mix(in srgb, var(--color-warning) 80%, black));
   border: none;
   border-radius: var(--radius-full);
   font-size: var(--font-size-base);
@@ -348,6 +348,14 @@
   font-size: 0.65rem;
 }
 
+/* Focus ring for all interactive buttons */
+.flip-btn:focus-visible,
+.clear-history-btn:focus-visible,
+.mobile-toggle-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px var(--color-primary-muted);
+}
+
 /* ==================== Mobile Toggle Button ==================== */
 .mobile-toggle-btn {
   display: none;
@@ -358,7 +366,7 @@
   height: 48px;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #f59e0b, #d97706);
+  background: linear-gradient(135deg, var(--color-warning), color-mix(in srgb, var(--color-warning) 80%, black));
   color: white;
   border: none;
   border-radius: var(--radius-full);

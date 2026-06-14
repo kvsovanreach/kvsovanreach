@@ -11,7 +11,7 @@
   border: 1px solid var(--color-border);
   border-radius: var(--radius-xl);
   overflow: hidden;
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--shadow-card);
 }
 
 /* Header */
@@ -21,7 +21,7 @@
   justify-content: space-between;
   padding: var(--space-4) var(--space-5);
   background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border-light);
 }
 
 .graph-header h2 {
@@ -123,7 +123,7 @@
   align-items: center;
   padding: var(--space-3) var(--space-4);
   background-color: var(--color-bg-tertiary);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border-light);
 }
 
 .builder-header h3 {
@@ -174,7 +174,7 @@
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   font-size: var(--font-size-sm);
-  font-family: 'Fira Code', monospace;
+  font-family: var(--font-mono);
   color: var(--color-text);
 }
 
@@ -218,7 +218,7 @@
   justify-content: space-between;
   padding: var(--space-3) var(--space-4);
   background-color: var(--color-bg-tertiary);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border-light);
 }
 
 .vis-header h3 {
@@ -243,7 +243,7 @@
 
 .vis-stats strong {
   color: #10b981;
-  font-family: 'Fira Code', monospace;
+  font-family: var(--font-mono);
 }
 
 .vis-container {
@@ -294,25 +294,25 @@
 }
 
 .graph-edge.current {
-  stroke: #f59e0b;
+  stroke: var(--color-warning);
   stroke-width: 3;
 }
 
 .graph-node {
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all var(--transition-base);
 }
 
 .graph-node circle {
   fill: var(--color-surface);
   stroke: var(--color-border);
   stroke-width: 2;
-  transition: all 0.3s ease;
+  transition: all var(--transition-base);
 }
 
 .graph-node text {
   fill: var(--color-text);
-  font-family: 'Fira Code', monospace;
+  font-family: var(--font-mono);
   font-size: 14px;
   font-weight: 600;
   text-anchor: middle;
@@ -326,16 +326,16 @@
 }
 
 .graph-node.queued circle {
-  fill: rgba(245, 158, 11, 0.2);
-  stroke: #f59e0b;
+  fill: color-mix(in srgb, var(--color-warning) 20%, transparent);
+  stroke: var(--color-warning);
   stroke-width: 3;
 }
 
 .graph-node.current circle {
-  fill: #f59e0b;
-  stroke: #f59e0b;
+  fill: var(--color-warning);
+  stroke: var(--color-warning);
   stroke-width: 3;
-  filter: drop-shadow(0 0 8px rgba(245, 158, 11, 0.5));
+  filter: drop-shadow(0 0 8px color-mix(in srgb, var(--color-warning) 50%, transparent));
 }
 
 .graph-node.current text {
@@ -365,7 +365,7 @@
   align-items: center;
   padding: var(--space-3) var(--space-4);
   background-color: var(--color-bg-tertiary);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border-light);
 }
 
 .output-header h3 {
@@ -407,7 +407,7 @@
   height: 36px;
   background-color: #10b981;
   border-radius: 50%;
-  font-family: 'Fira Code', monospace;
+  font-family: var(--font-mono);
   font-size: var(--font-size-sm);
   font-weight: 600;
   color: white;
@@ -453,13 +453,13 @@
 
 .queue-item {
   padding: var(--space-1) var(--space-3);
-  background-color: rgba(245, 158, 11, 0.15);
-  border: 1px solid #f59e0b;
+  background-color: color-mix(in srgb, var(--color-warning) 15%, transparent);
+  border: 1px solid var(--color-warning);
   border-radius: var(--radius-md);
-  font-family: 'Fira Code', monospace;
+  font-family: var(--font-mono);
   font-size: var(--font-size-sm);
   font-weight: 500;
-  color: #f59e0b;
+  color: var(--color-warning);
 }
 
 /* Legend Section */
@@ -494,8 +494,8 @@
 }
 
 .legend-color.current {
-  background-color: #f59e0b;
-  box-shadow: 0 0 6px rgba(245, 158, 11, 0.5);
+  background-color: var(--color-warning);
+  box-shadow: 0 0 6px color-mix(in srgb, var(--color-warning) 50%, transparent);
 }
 
 .legend-color.visited {
@@ -503,8 +503,8 @@
 }
 
 .legend-color.queued {
-  background-color: rgba(245, 158, 11, 0.2);
-  border: 2px solid #f59e0b;
+  background-color: color-mix(in srgb, var(--color-warning) 20%, transparent);
+  border: 2px solid var(--color-warning);
 }
 
 /* Info Panel */
@@ -521,7 +521,7 @@
   gap: var(--space-2);
   padding: var(--space-3) var(--space-4);
   background-color: var(--color-bg-tertiary);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border-light);
   font-size: var(--font-size-sm);
   font-weight: 600;
   color: var(--color-text);
@@ -564,7 +564,7 @@
 }
 
 .complexity-value {
-  font-family: 'Fira Code', monospace;
+  font-family: var(--font-mono);
   font-size: var(--font-size-sm);
   font-weight: 600;
   color: #10b981;

@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Interactive binary search algorithm visualizer. Step through the binary search process on sorted arrays with animations.">
+  <meta property="og:title" content="KVSOVANREACH | Binary Search Visualizer">
+  <meta property="og:description" content="Visualize how binary search works step by step with animated highlights and comparisons.">
+  <meta property="og:image" content="/assets/img/favicons/og-image.png">
+  <title>KVSOVANREACH | Binary Search Visualizer</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+  <!-- Common Tools CSS -->
+  <link rel="stylesheet" href="../../css/tools-common.css">
+  <!-- Binary Search CSS -->
+  <link rel="stylesheet" href="binarysearch.css">
+</head>
+<body>
+  <!-- Skip to Content -->
+  <a href="#binarysearch" class="skip-link">Skip to binary search visualizer</a>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">TOOLS</span>
+      </a>
+
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="tool-page">
+    <div class="container">
+      <div class="bs-wrapper" id="binarysearch">
+        <!-- Header -->
+        <div class="bs-header">
+          <h2><i class="fa-solid fa-magnifying-glass-chart"></i> Binary Search Visualizer</h2>
+        </div>
+
+        <!-- Controls -->
+        <div class="bs-content">
+          <div class="bs-controls">
+            <div class="control-row">
+              <div class="control-group">
+                <label for="targetInput">Target Value</label>
+                <div class="input-with-btn">
+                  <input type="number" id="targetInput" placeholder="Enter target..." min="0" max="999">
+                </div>
+              </div>
+
+              <div class="control-group">
+                <label for="speedSlider">Speed</label>
+                <div class="slider-group">
+                  <input type="range" id="speedSlider" min="1" max="10" value="5">
+                  <span id="speedValue" class="slider-value">5x</span>
+                </div>
+              </div>
+
+              <div class="control-group control-buttons">
+                <div class="btn-row">
+                  <button class="bs-btn bs-btn-primary" id="searchBtn" title="Start Search">
+                    <i class="fa-solid fa-play"></i> Search
+                  </button>
+                  <button class="bs-btn bs-btn-secondary" id="pauseBtn" title="Pause/Resume" disabled>
+                    <i class="fa-solid fa-pause"></i>
+                  </button>
+                  <button class="bs-btn bs-btn-secondary" id="stepBtn" title="Step Forward" disabled>
+                    <i class="fa-solid fa-forward-step"></i>
+                  </button>
+                  <button class="bs-btn bs-btn-secondary" id="resetBtn" title="Reset">
+                    <i class="fa-solid fa-rotate-left"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="control-row">
+              <div class="control-group">
+                <label for="arraySizeSlider">Array Size</label>
+                <div class="slider-group">
+                  <input type="range" id="arraySizeSlider" min="10" max="30" value="15">
+                  <span id="arraySizeValue" class="slider-value">15</span>
+                </div>
+              </div>
+
+              <div class="control-group">
+                <button class="bs-btn bs-btn-accent" id="generateBtn">
+                  <i class="fa-solid fa-shuffle"></i> Random Array
+                </button>
+              </div>
+
+              <div class="control-group control-group-wide">
+                <label for="customArrayInput">Custom Array (comma-separated)</label>
+                <div class="input-with-btn">
+                  <input type="text" id="customArrayInput" placeholder="e.g. 2, 5, 8, 12, 16, 23, 38, 56">
+                  <button class="bs-btn bs-btn-secondary" id="loadCustomBtn" title="Load Array">
+                    <i class="fa-solid fa-upload"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Array Display -->
+          <div class="bs-array-section">
+            <div class="bs-array-labels">
+              <span class="bs-label bs-label-index">Index</span>
+            </div>
+            <div class="bs-array-container" id="arrayContainer"></div>
+            <div class="bs-pointers" id="pointers"></div>
+          </div>
+
+          <!-- Comparison Display -->
+          <div class="bs-comparison" id="comparisonDisplay">
+            <div class="comparison-text" id="comparisonText">
+              Generate an array and enter a target to begin searching.
+            </div>
+          </div>
+
+          <!-- Step Log -->
+          <div class="bs-step-log">
+            <div class="step-log-header">
+              <h3><i class="fa-solid fa-list-ol"></i> Step Log</h3>
+              <span class="step-counter" id="stepCounter">Step 0</span>
+            </div>
+            <div class="step-log-body" id="stepLogBody">
+              <div class="step-placeholder">Steps will appear here as the search runs.</div>
+            </div>
+          </div>
+
+          <!-- Complexity Info -->
+          <div class="bs-info">
+            <div class="info-card">
+              <div class="info-card-header">
+                <i class="fa-solid fa-clock"></i> Time Complexity
+              </div>
+              <div class="info-card-body">
+                <div class="info-row">
+                  <span class="info-label">Best Case</span>
+                  <span class="info-value info-green">O(1)</span>
+                </div>
+                <div class="info-row">
+                  <span class="info-label">Average Case</span>
+                  <span class="info-value info-yellow">O(log n)</span>
+                </div>
+                <div class="info-row">
+                  <span class="info-label">Worst Case</span>
+                  <span class="info-value info-red">O(log n)</span>
+                </div>
+              </div>
+            </div>
+            <div class="info-card">
+              <div class="info-card-header">
+                <i class="fa-solid fa-memory"></i> Space Complexity
+              </div>
+              <div class="info-card-body">
+                <div class="info-row">
+                  <span class="info-label">Iterative</span>
+                  <span class="info-value info-green">O(1)</span>
+                </div>
+                <div class="info-row">
+                  <span class="info-label">Recursive</span>
+                  <span class="info-value info-yellow">O(log n)</span>
+                </div>
+              </div>
+            </div>
+            <div class="info-card info-card-wide">
+              <div class="info-card-header">
+                <i class="fa-solid fa-circle-info"></i> How It Works
+              </div>
+              <div class="info-card-body">
+                <p>Binary search works on <strong>sorted arrays</strong> by repeatedly dividing the search interval in half. It compares the target with the middle element:</p>
+                <ul>
+                  <li>If target equals mid, the element is found.</li>
+                  <li>If target is less than mid, search the left half.</li>
+                  <li>If target is greater than mid, search the right half.</li>
+                </ul>
+                <p>This eliminates half the remaining elements each step, making it exponentially faster than linear search for large arrays.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Legend -->
+          <div class="bs-legend">
+            <div class="legend-item"><span class="legend-color legend-low"></span> Low</div>
+            <div class="legend-item"><span class="legend-color legend-high"></span> High</div>
+            <div class="legend-item"><span class="legend-color legend-mid"></span> Mid</div>
+            <div class="legend-item"><span class="legend-color legend-found"></span> Found</div>
+            <div class="legend-item"><span class="legend-color legend-eliminated"></span> Eliminated</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach. All rights reserved.</p>
+        <p class="footer-made">Made with 💗 and Claude Code xD</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Shared Tools JavaScript -->
+  <script src="../../js/tools-common.js"></script>
+  <!-- Binary Search JavaScript -->
+  <script src="binarysearch.js"></script>
+</body>
+</html>

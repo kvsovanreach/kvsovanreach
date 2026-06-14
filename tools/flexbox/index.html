@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Interactive CSS Flexbox playground. Visualize flex container and item properties with live preview.">
+  <meta property="og:title" content="KVSOVANREACH | Flexbox Playground">
+  <meta property="og:description" content="Learn and experiment with CSS Flexbox properties interactively.">
+  <meta property="og:image" content="/assets/img/favicons/og-image.png">
+  <title>KVSOVANREACH | Flexbox Playground</title>
+
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  <link rel="stylesheet" href="../../css/tools-common.css">
+  <link rel="stylesheet" href="flexbox.css">
+</head>
+<body>
+  <a href="#flexbox" class="skip-link">Skip to Flexbox Playground</a>
+
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">TOOLS</span>
+      </a>
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools"><i class="fa-solid fa-arrow-left"></i></a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <main class="tool-page">
+    <div class="container">
+      <div class="fb-wrapper" id="flexbox">
+        <div class="fb-header">
+          <h2><i class="fa-solid fa-table-cells"></i> Flexbox Playground</h2>
+          <div class="header-actions">
+            <button class="header-action-btn" id="copyBtn" title="Copy CSS (C)">
+              <i class="fa-solid fa-copy"></i>
+            </button>
+            <button class="header-action-btn" id="resetBtn" title="Reset (R)">
+              <i class="fa-solid fa-rotate-left"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="fb-content">
+          <div class="fb-preview-panel">
+            <div class="fb-preview" id="previewArea"></div>
+            <div class="fb-item-bar">
+              <button class="fb-item-bar-btn" id="addItemBtn" title="Add item">
+                <i class="fa-solid fa-plus"></i> Add Item
+              </button>
+              <button class="fb-item-bar-btn danger" id="removeItemBtn" title="Remove last item">
+                <i class="fa-solid fa-minus"></i> Remove
+              </button>
+              <span class="fb-item-count" id="itemCount">3 items</span>
+            </div>
+          </div>
+
+          <div class="fb-controls-panel">
+            <div class="fb-presets">
+              <h3>Presets</h3>
+              <div class="fb-preset-grid">
+                <button class="fb-preset-btn" data-preset="navbar">Navbar</button>
+                <button class="fb-preset-btn" data-preset="cardgrid">Card Grid</button>
+                <button class="fb-preset-btn" data-preset="holygrail">Holy Grail</button>
+                <button class="fb-preset-btn" data-preset="sidebar">Sidebar</button>
+                <button class="fb-preset-btn" data-preset="centered">Centered</button>
+              </div>
+            </div>
+
+            <div class="fb-section">
+              <h3>Container Properties</h3>
+              <div class="fb-control-group">
+                <label for="flexDirection">flex-direction</label>
+                <select id="flexDirection">
+                  <option value="row" selected>row</option>
+                  <option value="row-reverse">row-reverse</option>
+                  <option value="column">column</option>
+                  <option value="column-reverse">column-reverse</option>
+                </select>
+              </div>
+              <div class="fb-control-group">
+                <label for="flexWrap">flex-wrap</label>
+                <select id="flexWrap">
+                  <option value="nowrap" selected>nowrap</option>
+                  <option value="wrap">wrap</option>
+                  <option value="wrap-reverse">wrap-reverse</option>
+                </select>
+              </div>
+              <div class="fb-control-group">
+                <label for="justifyContent">justify-content</label>
+                <select id="justifyContent">
+                  <option value="flex-start" selected>flex-start</option>
+                  <option value="flex-end">flex-end</option>
+                  <option value="center">center</option>
+                  <option value="space-between">space-between</option>
+                  <option value="space-around">space-around</option>
+                  <option value="space-evenly">space-evenly</option>
+                </select>
+              </div>
+              <div class="fb-control-group">
+                <label for="alignItems">align-items</label>
+                <select id="alignItems">
+                  <option value="stretch" selected>stretch</option>
+                  <option value="flex-start">flex-start</option>
+                  <option value="flex-end">flex-end</option>
+                  <option value="center">center</option>
+                  <option value="baseline">baseline</option>
+                </select>
+              </div>
+              <div class="fb-control-group">
+                <label for="alignContent">align-content</label>
+                <select id="alignContent">
+                  <option value="stretch" selected>stretch</option>
+                  <option value="flex-start">flex-start</option>
+                  <option value="flex-end">flex-end</option>
+                  <option value="center">center</option>
+                  <option value="space-between">space-between</option>
+                  <option value="space-around">space-around</option>
+                </select>
+              </div>
+              <div class="fb-control-group">
+                <label for="gap">gap</label>
+                <div class="fb-range-row">
+                  <input type="range" id="gap" min="0" max="40" value="10">
+                  <span class="control-value" id="gapValue">10px</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="fb-section">
+              <h3>
+                Item Properties
+                <select id="selectedItem" class="fb-item-select"></select>
+              </h3>
+              <div class="fb-control-group">
+                <label for="flexGrow">flex-grow</label>
+                <div class="fb-range-row">
+                  <input type="range" id="flexGrow" min="0" max="5" value="0">
+                  <span class="control-value" id="flexGrowValue">0</span>
+                </div>
+              </div>
+              <div class="fb-control-group">
+                <label for="flexShrink">flex-shrink</label>
+                <div class="fb-range-row">
+                  <input type="range" id="flexShrink" min="0" max="5" value="1">
+                  <span class="control-value" id="flexShrinkValue">1</span>
+                </div>
+              </div>
+              <div class="fb-control-group">
+                <label for="flexBasis">flex-basis</label>
+                <select id="flexBasis">
+                  <option value="auto" selected>auto</option>
+                  <option value="0">0</option>
+                  <option value="50px">50px</option>
+                  <option value="100px">100px</option>
+                  <option value="150px">150px</option>
+                  <option value="200px">200px</option>
+                  <option value="25%">25%</option>
+                  <option value="33%">33%</option>
+                  <option value="50%">50%</option>
+                </select>
+              </div>
+              <div class="fb-control-group">
+                <label for="alignSelf">align-self</label>
+                <select id="alignSelf">
+                  <option value="auto" selected>auto</option>
+                  <option value="flex-start">flex-start</option>
+                  <option value="flex-end">flex-end</option>
+                  <option value="center">center</option>
+                  <option value="stretch">stretch</option>
+                  <option value="baseline">baseline</option>
+                </select>
+              </div>
+              <div class="fb-control-group">
+                <label for="order">order</label>
+                <div class="fb-range-row">
+                  <input type="range" id="order" min="-5" max="5" value="0">
+                  <span class="control-value" id="orderValue">0</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="output-section">
+              <h3>CSS Output</h3>
+              <div class="output-box">
+                <pre id="cssOutput"></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div class="shortcuts-modal" id="shortcutsModal">
+    <div class="shortcuts-content">
+      <div class="shortcuts-header">
+        <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
+        <button class="close-shortcuts-btn" id="closeShortcutsBtn"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="shortcuts-body">
+        <div class="shortcut-row"><span class="shortcut-key">C</span><span class="shortcut-desc">Copy CSS</span></div>
+        <div class="shortcut-row"><span class="shortcut-key">R</span><span class="shortcut-desc">Reset values</span></div>
+        <div class="shortcut-row"><span class="shortcut-key">+</span><span class="shortcut-desc">Add item</span></div>
+        <div class="shortcut-row"><span class="shortcut-key">-</span><span class="shortcut-desc">Remove item</span></div>
+        <div class="shortcut-row"><span class="shortcut-key">?</span><span class="shortcut-desc">Show shortcuts</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="shortcuts-hint">Press <span class="shortcut-key">?</span> for shortcuts</div>
+  <div class="toast" id="toast"></div>
+
+  <script src="../../js/tools-common.js"></script>
+  <script src="flexbox.js"></script>
+</body>
+</html>

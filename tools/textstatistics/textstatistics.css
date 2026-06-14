@@ -1,0 +1,573 @@
+/**
+ * Text Statistics Styles
+ * Following project design system
+ */
+
+/* ==================== Wrapper ==================== */
+.ts-wrapper {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+}
+
+/* ==================== Header ==================== */
+.ts-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-4) var(--space-5);
+  background-color: var(--color-surface);
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.ts-header h2 {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-size: var(--font-size-xl);
+  font-weight: 600;
+  color: var(--color-text);
+  margin: 0;
+}
+
+.ts-header h2 i {
+  color: var(--color-primary);
+}
+
+.header-actions {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.header-action-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background-color: var(--color-surface);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.header-action-btn:hover {
+  background-color: var(--color-surface-hover);
+  color: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.header-action-btn:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* ==================== Input Section ==================== */
+.ts-input-section {
+  padding: var(--space-4) var(--space-5);
+  border-bottom: 1px solid var(--color-border);
+  background: linear-gradient(145deg, var(--color-bg-tertiary), var(--color-bg-secondary));
+}
+
+.ts-input-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-2);
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.ts-input-label {
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  color: var(--color-text-secondary);
+}
+
+.ts-input-actions {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.ts-textarea {
+  width: 100%;
+  padding: var(--space-3);
+  background-color: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  color: var(--color-text);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-sm);
+  resize: vertical;
+  transition: border-color var(--transition-fast);
+  line-height: 1.6;
+}
+
+.ts-textarea:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 4px var(--color-primary-muted);
+}
+
+.ts-textarea::placeholder {
+  color: var(--color-text-muted);
+}
+
+/* ==================== Buttons ==================== */
+.ts-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background-color: var(--color-surface);
+  color: var(--color-text);
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+}
+
+.ts-btn:hover {
+  background-color: var(--color-surface-hover);
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.ts-btn:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* ==================== Counts Grid ==================== */
+.ts-counts {
+  padding: var(--space-4) var(--space-5);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.ts-counts-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-3);
+}
+
+.count-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-1);
+  padding: var(--space-3);
+  background-color: var(--color-bg-secondary);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-lg);
+  text-align: center;
+  transition: border-color var(--transition-fast);
+}
+
+.count-card:hover {
+  border-color: var(--color-primary);
+}
+
+.count-card i {
+  font-size: var(--font-size-lg);
+  color: var(--color-primary);
+  opacity: 0.7;
+}
+
+.count-value {
+  font-size: var(--font-size-2xl);
+  font-weight: 700;
+  color: var(--color-text);
+  font-family: var(--font-mono);
+}
+
+.count-label {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* ==================== Time Estimates ==================== */
+.ts-time {
+  padding: var(--space-4) var(--space-5);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.ts-time-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-3);
+}
+
+.time-card {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-4);
+  background-color: var(--color-bg-secondary);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-lg);
+}
+
+.time-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  background-color: var(--color-primary-muted);
+  border-radius: var(--radius-md);
+  flex-shrink: 0;
+}
+
+.time-icon i {
+  font-size: var(--font-size-xl);
+  color: var(--color-primary);
+}
+
+.time-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.time-value {
+  font-size: var(--font-size-xl);
+  font-weight: 700;
+  color: var(--color-text);
+  font-family: var(--font-mono);
+}
+
+.time-label {
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  color: var(--color-text-secondary);
+}
+
+.time-note {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+}
+
+/* ==================== Difficulty Badge ==================== */
+.ts-difficulty {
+  padding: var(--space-4) var(--space-5);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.difficulty-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-3) var(--space-4);
+  background-color: var(--color-bg-secondary);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-lg);
+}
+
+.difficulty-label {
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  color: var(--color-text-secondary);
+}
+
+.difficulty-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--space-1) var(--space-3);
+  border-radius: 20px;
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.difficulty-badge.very-easy {
+  background-color: #d1fae5;
+  color: #065f46;
+}
+
+.difficulty-badge.easy {
+  background-color: #dbeafe;
+  color: #1e40af;
+}
+
+.difficulty-badge.moderate {
+  background-color: #fef3c7;
+  color: #92400e;
+}
+
+.difficulty-badge.difficult {
+  background-color: #fee2e2;
+  color: #991b1b;
+}
+
+.difficulty-badge.very-difficult {
+  background-color: #fce7f3;
+  color: #9d174d;
+}
+
+/* Dark mode badge adjustments */
+[data-theme="dark"] .difficulty-badge.very-easy {
+  background-color: rgba(16, 185, 129, 0.2);
+  color: #6ee7b7;
+}
+
+[data-theme="dark"] .difficulty-badge.easy {
+  background-color: rgba(59, 130, 246, 0.2);
+  color: #93c5fd;
+}
+
+[data-theme="dark"] .difficulty-badge.moderate {
+  background-color: rgba(245, 158, 11, 0.2);
+  color: #fcd34d;
+}
+
+[data-theme="dark"] .difficulty-badge.difficult {
+  background-color: rgba(239, 68, 68, 0.2);
+  color: #fca5a5;
+}
+
+[data-theme="dark"] .difficulty-badge.very-difficult {
+  background-color: rgba(236, 72, 153, 0.2);
+  color: #f9a8d4;
+}
+
+/* ==================== Gauge ==================== */
+.ts-gauge-section {
+  padding: var(--space-4) var(--space-5);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.ts-gauge-section h3 {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--font-size-base);
+  font-weight: 600;
+  color: var(--color-text);
+  margin: 0 0 var(--space-4);
+}
+
+.ts-gauge-section h3 i {
+  color: var(--color-primary);
+}
+
+.ts-gauge {
+  max-width: 500px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.gauge-track {
+  position: relative;
+  width: 100%;
+  height: 24px;
+  background: linear-gradient(90deg, #ef4444, #f59e0b, #22c55e);
+  border-radius: 12px;
+  overflow: visible;
+}
+
+.gauge-fill {
+  position: absolute;
+  inset: 0;
+  border-radius: 12px;
+  opacity: 0.15;
+  background-color: var(--color-bg-secondary);
+}
+
+.gauge-needle {
+  position: absolute;
+  top: -4px;
+  width: 4px;
+  height: 32px;
+  background-color: var(--color-text);
+  border-radius: 2px;
+  left: 0%;
+  transition: left 0.6s ease;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
+}
+
+.gauge-labels {
+  display: flex;
+  justify-content: space-between;
+  margin-top: var(--space-2);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+}
+
+.gauge-score {
+  margin-top: var(--space-3);
+  font-size: var(--font-size-3xl);
+  font-weight: 800;
+  color: var(--color-primary);
+  font-family: var(--font-mono);
+}
+
+/* ==================== Readability Scores ==================== */
+.ts-scores {
+  padding: var(--space-4) var(--space-5);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.ts-scores h3 {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--font-size-base);
+  font-weight: 600;
+  color: var(--color-text);
+  margin: 0 0 var(--space-3);
+}
+
+.ts-scores h3 i {
+  color: var(--color-primary);
+}
+
+.ts-scores-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-3);
+}
+
+.score-card {
+  padding: var(--space-3);
+  background-color: var(--color-bg-secondary);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-lg);
+  transition: border-color var(--transition-fast);
+}
+
+.score-card:hover {
+  border-color: var(--color-primary);
+}
+
+.score-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-2);
+}
+
+.score-name {
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  color: var(--color-text);
+}
+
+.score-value {
+  font-size: var(--font-size-lg);
+  font-weight: 700;
+  color: var(--color-primary);
+  font-family: var(--font-mono);
+}
+
+.score-bar-track {
+  width: 100%;
+  height: 6px;
+  background-color: var(--color-surface);
+  border-radius: 3px;
+  overflow: hidden;
+  margin-bottom: var(--space-2);
+}
+
+.score-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--color-primary), #c0426e);
+  border-radius: 3px;
+  transition: width 0.5s ease;
+  width: 0%;
+}
+
+.score-desc {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+}
+
+/* ==================== Empty State ==================== */
+.ts-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-8) var(--space-5);
+  color: var(--color-text-muted);
+  text-align: center;
+}
+
+.ts-empty i {
+  font-size: 48px;
+  opacity: 0.3;
+}
+
+.ts-empty p {
+  font-size: var(--font-size-sm);
+  max-width: 400px;
+}
+
+/* ==================== Utilities ==================== */
+.hidden {
+  display: none !important;
+}
+
+/* ==================== Responsive ==================== */
+@media (max-width: 768px) {
+  .ts-header,
+  .ts-input-section,
+  .ts-counts,
+  .ts-time,
+  .ts-difficulty,
+  .ts-gauge-section,
+  .ts-scores,
+  .ts-empty {
+    padding-left: var(--space-3);
+    padding-right: var(--space-3);
+  }
+
+  .ts-counts-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .ts-scores-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ts-time-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .ts-header h2 {
+    font-size: var(--font-size-lg);
+  }
+
+  .ts-counts-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-2);
+  }
+
+  .count-card {
+    padding: var(--space-2);
+  }
+
+  .count-value {
+    font-size: var(--font-size-xl);
+  }
+
+  .time-card {
+    flex-direction: column;
+    text-align: center;
+    gap: var(--space-2);
+    padding: var(--space-3);
+  }
+}

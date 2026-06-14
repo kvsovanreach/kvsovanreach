@@ -89,13 +89,7 @@
   };
 
   // ==================== Toast Notifications ====================
-  function showToast(message, type = 'info') {
-    elements.toast.textContent = message;
-    elements.toast.className = `toast show ${type}`;
-    setTimeout(() => {
-      elements.toast.className = 'toast';
-    }, 2500);
-  }
+  const showToast = (message, type) => ToolsCommon.showToast(message, type);
 
   // ==================== Tab Management ====================
   function setupTabs() {
@@ -260,8 +254,8 @@
       fullExpr = fullExpr.replace(/×/g, '*').replace(/÷/g, '/').replace(/−/g, '-');
       fullExpr = fullExpr.replace(/\^/g, '**');
 
-      // Security check
-      if (!/^[0-9+\-*/.() e\d**]+$/.test(fullExpr)) {
+      // Security check - only allow digits, operators, parens, dots, spaces, and 'e' for scientific notation
+      if (!/^[0-9+\-*/.() e.]+$/.test(fullExpr)) {
         throw new Error('Invalid expression');
       }
 
@@ -378,6 +372,7 @@
       case 'scientific':
         return value.toExponential(state.precision);
       case 'engineering':
+        if (value === 0) return '0';
         const exp = Math.floor(Math.log10(Math.abs(value)) / 3) * 3;
         const mantissa = value / Math.pow(10, exp);
         return mantissa.toFixed(state.precision) + 'e' + exp;
@@ -746,7 +741,7 @@
       const key = e.key;
 
       // Prevent default for calculator keys
-      if (/^[0-9+\-*/.=()^]$/.test(key) || ['Enter', 'Backspace', 'Escape'].includes(key)) {
+      if (/^[0-9+\-*/.=()^%]$/.test(key) || ['Enter', 'Backspace', 'Escape'].includes(key)) {
         e.preventDefault();
       }
 
@@ -755,6 +750,9 @@
 
       // Operators
       if (['+', '-', '*', '/'].includes(key)) addOperator(key);
+
+      // Percent
+      if (key === '%') performAction('percent');
 
       // Parentheses
       if (key === '(' || key === ')') addParenthesis(key);

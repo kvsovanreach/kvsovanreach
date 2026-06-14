@@ -208,7 +208,7 @@
     updateStats();
 
     if (typeof ToolsCommon !== 'undefined') {
-      ToolsCommon.Toast.success('Congratulations! You won!');
+      ToolsCommon.Toast.show('Congratulations! You won!', 'success');
     }
   }
 

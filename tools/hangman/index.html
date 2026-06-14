@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Classic Hangman word guessing game with multiple categories and difficulty.">
+  <meta property="og:title" content="KVSOVANREACH | Hangman">
+  <meta property="og:description" content="Guess the word before the hangman is complete. Multiple categories available.">
+  <meta property="og:image" content="/assets/img/favicons/og-image.png">
+  <title>KVSOVANREACH | Hangman</title>
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  <link rel="stylesheet" href="../../css/tools-common.css">
+  <link rel="stylesheet" href="hangman.css">
+</head>
+<body>
+  <a href="#hangman" class="skip-link">Skip to Hangman</a>
+
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">TOOLS</span>
+      </a>
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <main class="tool-page">
+    <div class="container">
+      <div class="hm-wrapper" id="hangman">
+        <!-- Header -->
+        <div class="hm-header">
+          <h2><i class="fa-solid fa-skull-crossbones"></i> Hangman</h2>
+          <div class="hm-actions">
+            <button class="action-btn" id="hintBtn" title="Get a hint">
+              <i class="fa-solid fa-lightbulb"></i>
+              <span>Hint (<span id="hintCount">3</span>)</span>
+            </button>
+            <button class="action-btn" id="newGameBtn" title="New Game (R)">
+              <i class="fa-solid fa-rotate"></i>
+              <span>New</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="hm-content">
+          <!-- Category selector -->
+          <div class="hm-categories">
+            <label>Category</label>
+            <div class="category-buttons">
+              <button class="cat-btn active" data-cat="animals"><i class="fa-solid fa-paw"></i> Animals</button>
+              <button class="cat-btn" data-cat="countries"><i class="fa-solid fa-globe"></i> Countries</button>
+              <button class="cat-btn" data-cat="programming"><i class="fa-solid fa-code"></i> Programming</button>
+              <button class="cat-btn" data-cat="science"><i class="fa-solid fa-flask"></i> Science</button>
+              <button class="cat-btn" data-cat="food"><i class="fa-solid fa-utensils"></i> Food</button>
+            </div>
+          </div>
+
+          <!-- Stats bar -->
+          <div class="hm-stats">
+            <div class="stat-item">
+              <span class="stat-label">Wins</span>
+              <span class="stat-value win-val" id="winCount">0</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">Streak</span>
+              <span class="stat-value streak-val" id="streakCount">0</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">Losses</span>
+              <span class="stat-value lose-val" id="loseCount">0</span>
+            </div>
+          </div>
+
+          <!-- Hangman drawing -->
+          <div class="hm-drawing">
+            <svg id="hangmanSvg" viewBox="0 0 200 220" class="hangman-svg">
+              <!-- Gallows -->
+              <line x1="20" y1="210" x2="180" y2="210" class="gallows" />
+              <line x1="60" y1="210" x2="60" y2="20" class="gallows" />
+              <line x1="60" y1="20" x2="130" y2="20" class="gallows" />
+              <line x1="130" y1="20" x2="130" y2="45" class="gallows" />
+              <!-- Body parts (hidden by default) -->
+              <circle cx="130" cy="62" r="17" class="hm-part" id="head" />
+              <line x1="130" y1="79" x2="130" y2="130" class="hm-part" id="body" />
+              <line x1="130" y1="95" x2="105" y2="120" class="hm-part" id="leftArm" />
+              <line x1="130" y1="95" x2="155" y2="120" class="hm-part" id="rightArm" />
+              <line x1="130" y1="130" x2="110" y2="170" class="hm-part" id="leftLeg" />
+              <line x1="130" y1="130" x2="150" y2="170" class="hm-part" id="rightLeg" />
+              <!-- Face (shown on lose) -->
+              <circle cx="124" cy="58" r="2" class="hm-face" id="eyeL" />
+              <circle cx="136" cy="58" r="2" class="hm-face" id="eyeR" />
+              <path d="M122 72 Q130 66 138 72" class="hm-face" id="mouth" />
+            </svg>
+          </div>
+
+          <!-- Word display -->
+          <div class="hm-word" id="wordDisplay"></div>
+
+          <!-- Guesses remaining -->
+          <div class="hm-remaining" id="remaining">6 guesses remaining</div>
+
+          <!-- On-screen keyboard -->
+          <div class="hm-keyboard" id="keyboard"></div>
+
+          <!-- Game result message -->
+          <div class="hm-result hidden" id="resultMsg">
+            <span class="result-icon" id="resultIcon"></span>
+            <span class="result-text" id="resultText"></span>
+          </div>
+
+          <!-- Info -->
+          <div class="info-panel">
+            <div class="info-header">
+              <i class="fa-solid fa-circle-info"></i>
+              <span>How to Play</span>
+            </div>
+            <div class="info-content">
+              <ul>
+                <li>Guess letters by clicking the keyboard or typing</li>
+                <li>You have <strong>6 wrong guesses</strong> before the hangman is complete</li>
+                <li>Use <strong>hints</strong> to reveal a letter (3 per game)</li>
+                <li>Press <strong>R</strong> to start a new game</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach. All rights reserved.</p>
+        <p class="footer-made">Made with 💗 and Claude Code xD</p>
+      </div>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast"></div>
+
+  <div class="shortcuts-modal" id="shortcutsModal">
+    <div class="shortcuts-content">
+      <div class="shortcuts-header">
+        <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
+        <button class="close-shortcuts-btn" id="closeShortcutsBtn" aria-label="Close shortcuts">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="shortcuts-body">
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">Gameplay</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>A</kbd> - <kbd>Z</kbd></div>
+            <div class="shortcut-desc">Guess a letter</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>R</kbd></div>
+            <div class="shortcut-desc">New game</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>H</kbd></div>
+            <div class="shortcut-desc">Use hint</div>
+          </div>
+        </div>
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">General</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>?</kbd></div>
+            <div class="shortcut-desc">Show shortcuts</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="shortcuts-hint" id="shortcutsHint">
+    <span><kbd>Shift</kbd>+<kbd>?</kbd> : shortcuts</span>
+  </div>
+
+  <script src="../../js/tools-common.js"></script>
+  <script src="hangman.js"></script>
+</body>
+</html>

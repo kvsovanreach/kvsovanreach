@@ -11,7 +11,7 @@
   border: 1px solid var(--color-border);
   border-radius: var(--radius-xl);
   overflow: hidden;
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--shadow-card);
 }
 
 /* Header */
@@ -21,7 +21,7 @@
   justify-content: space-between;
   padding: var(--space-4) var(--space-5);
   background-color: var(--color-surface);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border-light);
 }
 
 .bigo-header h2 {
@@ -103,11 +103,16 @@
   box-shadow: var(--shadow-md);
 }
 
-.complexity-card.excellent { border-left-color: #22c55e; }
+.complexity-card:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px var(--color-primary-muted);
+}
+
+.complexity-card.excellent { border-left-color: var(--color-success); }
 .complexity-card.good { border-left-color: #84cc16; }
-.complexity-card.fair { border-left-color: #f59e0b; }
+.complexity-card.fair { border-left-color: var(--color-warning); }
 .complexity-card.bad { border-left-color: #f97316; }
-.complexity-card.horrible { border-left-color: #ef4444; }
+.complexity-card.horrible { border-left-color: var(--color-error); }
 
 .card-header {
   display: flex;
@@ -117,7 +122,7 @@
 }
 
 .notation {
-  font-family: 'Fira Code', monospace;
+  font-family: var(--font-mono);
   font-size: var(--font-size-lg);
   font-weight: 700;
   color: var(--color-primary);
@@ -130,11 +135,11 @@
   font-weight: 600;
 }
 
-.complexity-card.excellent .badge { background-color: rgba(34, 197, 94, 0.15); color: #22c55e; }
+.complexity-card.excellent .badge { background-color: color-mix(in srgb, var(--color-success) 15%, transparent); color: var(--color-success); }
 .complexity-card.good .badge { background-color: rgba(132, 204, 22, 0.15); color: #84cc16; }
-.complexity-card.fair .badge { background-color: rgba(245, 158, 11, 0.15); color: #f59e0b; }
+.complexity-card.fair .badge { background-color: color-mix(in srgb, var(--color-warning) 15%, transparent); color: var(--color-warning); }
 .complexity-card.bad .badge { background-color: rgba(249, 115, 22, 0.15); color: #f97316; }
-.complexity-card.horrible .badge { background-color: rgba(239, 68, 68, 0.15); color: #ef4444; }
+.complexity-card.horrible .badge { background-color: color-mix(in srgb, var(--color-error) 15%, transparent); color: var(--color-error); }
 
 .complexity-card h4 {
   font-size: var(--font-size-base);
@@ -190,7 +195,7 @@
 .sort-table td {
   padding: var(--space-3) var(--space-4);
   text-align: center;
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border-light);
   font-size: var(--font-size-sm);
 }
 
@@ -208,7 +213,7 @@
 
 .ds-table td.excellent,
 .sort-table td.excellent {
-  color: #22c55e;
+  color: var(--color-success);
   font-weight: 600;
 }
 
@@ -219,7 +224,7 @@
 
 .ds-table td.fair,
 .sort-table td.fair {
-  color: #f59e0b;
+  color: var(--color-warning);
 }
 
 .ds-table td.bad,
@@ -251,18 +256,18 @@
 .ref-badge {
   padding: var(--space-1) var(--space-2);
   border-radius: var(--radius-sm);
-  font-family: 'Fira Code', monospace;
+  font-family: var(--font-mono);
   font-size: var(--font-size-sm);
   font-weight: 600;
   min-width: 80px;
   text-align: center;
 }
 
-.ref-badge.excellent { background-color: rgba(34, 197, 94, 0.15); color: #22c55e; }
+.ref-badge.excellent { background-color: color-mix(in srgb, var(--color-success) 15%, transparent); color: var(--color-success); }
 .ref-badge.good { background-color: rgba(132, 204, 22, 0.15); color: #84cc16; }
-.ref-badge.fair { background-color: rgba(245, 158, 11, 0.15); color: #f59e0b; }
+.ref-badge.fair { background-color: color-mix(in srgb, var(--color-warning) 15%, transparent); color: var(--color-warning); }
 .ref-badge.bad { background-color: rgba(249, 115, 22, 0.15); color: #f97316; }
-.ref-badge.horrible { background-color: rgba(239, 68, 68, 0.15); color: #ef4444; }
+.ref-badge.horrible { background-color: color-mix(in srgb, var(--color-error) 15%, transparent); color: var(--color-error); }
 
 .reference-item span:last-child {
   font-size: var(--font-size-sm);

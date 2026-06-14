@@ -11,7 +11,7 @@
   border: 1px solid var(--color-border);
   border-radius: var(--radius-xl);
   overflow: hidden;
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--shadow-card);
 }
 
 /* Header */
@@ -21,7 +21,7 @@
   justify-content: space-between;
   padding: var(--space-4) var(--space-5);
   background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border-light);
 }
 
 .nn-header h2 {
@@ -61,7 +61,7 @@
   align-items: center;
   padding: var(--space-3) var(--space-4);
   background-color: var(--color-bg-tertiary);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border-light);
 }
 
 .builder-header h3 {
@@ -101,6 +101,11 @@
 .layer-btn:hover {
   border-color: #8b5cf6;
   background-color: rgba(139, 92, 246, 0.1);
+}
+
+.layer-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px var(--color-primary-muted);
 }
 
 .layer-btn i {
@@ -151,7 +156,7 @@
   align-items: center;
   justify-content: space-between;
   padding: var(--space-4);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border-light);
 }
 
 .config-header h3,
@@ -186,6 +191,11 @@
 .close-preset-btn:hover {
   background-color: var(--color-bg-secondary);
   color: var(--color-text);
+}
+
+.close-preset-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px var(--color-primary-muted);
 }
 
 .config-body {
@@ -261,6 +271,11 @@
   background-color: rgba(139, 92, 246, 0.1);
 }
 
+.preset-option:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px var(--color-primary-muted);
+}
+
 .preset-option i {
   font-size: var(--font-size-lg);
   color: #8b5cf6;
@@ -292,7 +307,7 @@
   justify-content: space-between;
   padding: var(--space-3) var(--space-4);
   background-color: var(--color-bg-tertiary);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border-light);
 }
 
 .viz-header h3 {
@@ -375,26 +390,26 @@
 }
 
 .layer-node.input {
-  border-color: #22c55e;
+  border-color: var(--color-success);
 }
 
 .layer-node.input .layer-icon {
-  background-color: rgba(34, 197, 94, 0.2);
-  color: #22c55e;
+  background-color: color-mix(in srgb, var(--color-success) 20%, transparent);
+  color: var(--color-success);
 }
 
 .layer-node.output {
-  border-color: #ef4444;
+  border-color: var(--color-error);
 }
 
 .layer-node.output .layer-icon {
-  background-color: rgba(239, 68, 68, 0.2);
-  color: #ef4444;
+  background-color: color-mix(in srgb, var(--color-error) 20%, transparent);
+  color: var(--color-error);
 }
 
 .layer-node.dense .layer-icon {
-  background-color: rgba(59, 130, 246, 0.2);
-  color: #3b82f6;
+  background-color: color-mix(in srgb, var(--color-info) 20%, transparent);
+  color: var(--color-info);
 }
 
 .layer-node.conv2d .layer-icon {
@@ -409,7 +424,7 @@
 
 .layer-node.dropout .layer-icon {
   background-color: rgba(148, 163, 184, 0.2);
-  color: #94a3b8;
+  color: var(--color-text-muted);
 }
 
 .layer-node.flatten .layer-icon {
@@ -437,7 +452,7 @@
 }
 
 .layer-shape {
-  font-family: 'Fira Code', monospace;
+  font-family: var(--font-mono);
   font-size: var(--font-size-xs);
   color: var(--color-text-muted);
 }
@@ -451,7 +466,7 @@
   display: none;
   align-items: center;
   justify-content: center;
-  background-color: #ef4444;
+  background-color: var(--color-error);
   border: none;
   border-radius: 50%;
   color: white;
@@ -507,7 +522,7 @@
 }
 
 .stat-value {
-  font-family: 'Fira Code', monospace;
+  font-family: var(--font-mono);
   font-size: var(--font-size-xl);
   font-weight: 700;
   color: var(--color-text);
@@ -531,7 +546,7 @@
   align-items: center;
   padding: var(--space-3) var(--space-4);
   background-color: var(--color-bg-tertiary);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border-light);
 }
 
 .layer-list-header h3 {
@@ -557,7 +572,7 @@
   align-items: center;
   justify-content: space-between;
   padding: var(--space-3) var(--space-4);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border-light);
 }
 
 .layer-item:last-child {
@@ -571,7 +586,7 @@
 }
 
 .layer-item-index {
-  font-family: 'Fira Code', monospace;
+  font-family: var(--font-mono);
   font-size: var(--font-size-xs);
   color: var(--color-text-muted);
   width: 24px;
@@ -584,13 +599,13 @@
 }
 
 .layer-item-details {
-  font-family: 'Fira Code', monospace;
+  font-family: var(--font-mono);
   font-size: var(--font-size-xs);
   color: var(--color-text-secondary);
 }
 
 .layer-item-params {
-  font-family: 'Fira Code', monospace;
+  font-family: var(--font-mono);
   font-size: var(--font-size-xs);
   color: var(--color-text-muted);
 }

@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Fibonacci sequence explorer with golden ratio visualization, spiral drawing, and number properties.">
+  <meta property="og:title" content="KVSOVANREACH | Fibonacci Explorer">
+  <meta property="og:description" content="Explore the Fibonacci sequence, golden ratio convergence, and spiral visualization.">
+  <meta property="og:image" content="/assets/img/favicons/og-image.png">
+  <title>KVSOVANREACH | Fibonacci Explorer</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+  <!-- Common Tools CSS -->
+  <link rel="stylesheet" href="../../css/tools-common.css">
+  <!-- Fibonacci CSS -->
+  <link rel="stylesheet" href="fibonacci.css">
+</head>
+<body>
+  <!-- Skip to Content -->
+  <a href="#fibonacci" class="skip-link">Skip to Fibonacci Explorer</a>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">TOOLS</span>
+      </a>
+
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="tool-page">
+    <div class="container">
+      <div class="fib-wrapper" id="fibonacci">
+        <!-- Header -->
+        <div class="fib-header">
+          <h2><i class="fa-solid fa-hurricane"></i> Fibonacci Explorer</h2>
+        </div>
+
+        <!-- Controls -->
+        <div class="fib-controls">
+          <div class="fib-slider-group">
+            <label for="termSlider">Number of terms: <strong id="termValue">10</strong></label>
+            <input type="range" id="termSlider" min="1" max="100" value="10">
+          </div>
+          <div class="fib-actions">
+            <button type="button" class="fib-btn primary" id="generateBtn">
+              <i class="fa-solid fa-play"></i> Generate
+            </button>
+            <button type="button" class="fib-btn" id="copySeqBtn">
+              <i class="fa-solid fa-copy"></i> Copy
+            </button>
+          </div>
+        </div>
+
+        <!-- Tab Navigation -->
+        <div class="fib-tabs">
+          <button type="button" class="fib-tab active" data-tab="sequence">
+            <i class="fa-solid fa-list-ol"></i> Sequence
+          </button>
+          <button type="button" class="fib-tab" data-tab="ratio">
+            <i class="fa-solid fa-chart-line"></i> Golden Ratio
+          </button>
+          <button type="button" class="fib-tab" data-tab="spiral">
+            <i class="fa-solid fa-hurricane"></i> Spiral
+          </button>
+          <button type="button" class="fib-tab" data-tab="properties">
+            <i class="fa-solid fa-info-circle"></i> Properties
+          </button>
+          <button type="button" class="fib-tab" data-tab="facts">
+            <i class="fa-solid fa-leaf"></i> Fun Facts
+          </button>
+        </div>
+
+        <!-- Tab Panels -->
+        <div class="fib-panels">
+          <!-- Sequence Panel -->
+          <div class="fib-panel active" id="sequencePanel">
+            <div class="fib-sequence-list" id="sequenceList">
+              <div class="fib-empty">Press <strong>Generate</strong> to start exploring</div>
+            </div>
+          </div>
+
+          <!-- Golden Ratio Panel -->
+          <div class="fib-panel" id="ratioPanel">
+            <div class="fib-ratio-info">
+              <div class="ratio-phi">
+                <span class="phi-symbol">&phi;</span>
+                <span class="phi-value">= 1.6180339887...</span>
+              </div>
+              <p class="ratio-desc">The ratio of consecutive Fibonacci numbers converges to the golden ratio (&phi;).</p>
+            </div>
+            <div class="fib-ratio-list" id="ratioList">
+              <div class="fib-empty">Generate a sequence to see ratio convergence</div>
+            </div>
+          </div>
+
+          <!-- Spiral Panel -->
+          <div class="fib-panel" id="spiralPanel">
+            <canvas id="spiralCanvas" width="600" height="600"></canvas>
+          </div>
+
+          <!-- Properties Panel -->
+          <div class="fib-panel" id="propertiesPanel">
+            <div class="fib-props-grid" id="propsGrid">
+              <div class="fib-empty">Generate a sequence to see properties</div>
+            </div>
+          </div>
+
+          <!-- Fun Facts Panel -->
+          <div class="fib-panel" id="factsPanel">
+            <div class="fib-facts-list">
+              <div class="fib-fact-card">
+                <div class="fact-icon"><i class="fa-solid fa-seedling"></i></div>
+                <h4>Sunflower Seeds</h4>
+                <p>Sunflower seed heads arrange in spirals of Fibonacci numbers (typically 34 and 55) to pack seeds as efficiently as possible.</p>
+              </div>
+              <div class="fib-fact-card">
+                <div class="fact-icon"><i class="fa-solid fa-tree"></i></div>
+                <h4>Tree Branching</h4>
+                <p>Many trees exhibit Fibonacci branching patterns. Each branch splits into two, and the number of branches at each level follows the sequence.</p>
+              </div>
+              <div class="fib-fact-card">
+                <div class="fact-icon"><i class="fa-solid fa-shell"></i></div>
+                <h4>Nautilus Shell</h4>
+                <p>The nautilus shell grows in a logarithmic spiral closely related to the golden ratio, sometimes called the "golden spiral."</p>
+              </div>
+              <div class="fib-fact-card">
+                <div class="fact-icon"><i class="fa-solid fa-clover"></i></div>
+                <h4>Flower Petals</h4>
+                <p>Most flowers have a Fibonacci number of petals: lilies (3), buttercups (5), delphiniums (8), marigolds (13), daisies (21, 34, 55, or 89).</p>
+              </div>
+              <div class="fib-fact-card">
+                <div class="fact-icon"><i class="fa-solid fa-dna"></i></div>
+                <h4>DNA Molecule</h4>
+                <p>A DNA molecule measures 34 angstroms long by 21 angstroms wide for each full cycle of its double helix. Both 34 and 21 are Fibonacci numbers.</p>
+              </div>
+              <div class="fib-fact-card">
+                <div class="fact-icon"><i class="fa-solid fa-galaxy"></i></div>
+                <h4>Galaxies</h4>
+                <p>Spiral galaxies like the Milky Way have arms that follow logarithmic spirals with proportions linked to the golden ratio.</p>
+              </div>
+              <div class="fib-fact-card">
+                <div class="fact-icon"><i class="fa-solid fa-rabbit"></i></div>
+                <h4>Rabbit Problem</h4>
+                <p>Leonardo of Pisa (Fibonacci) originally described the sequence in 1202 as a model for rabbit population growth under idealized conditions.</p>
+              </div>
+              <div class="fib-fact-card">
+                <div class="fact-icon"><i class="fa-solid fa-music"></i></div>
+                <h4>Music</h4>
+                <p>A piano octave has 13 keys: 8 white and 5 black. The musical scale is based on 8 notes. All Fibonacci numbers!</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach. All rights reserved.</p>
+        <p class="footer-made">Made with 💗 and Claude Code xD</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Shared Tools JavaScript -->
+  <script src="../../js/tools-common.js"></script>
+  <!-- Fibonacci JavaScript -->
+  <script src="fibonacci.js"></script>
+</body>
+</html>

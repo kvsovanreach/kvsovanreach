@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Convert text to speech using the Web Speech API with voice selection, rate, pitch, and volume controls.">
+  <meta property="og:title" content="KVSOVANREACH | Text to Speech">
+  <meta property="og:description" content="Convert text to speech with customizable voice, rate, pitch, and volume. Word highlighting and history.">
+  <meta property="og:image" content="/assets/img/favicons/og-image.png">
+  <title>KVSOVANREACH | Text to Speech</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+  <!-- Common Tools CSS -->
+  <link rel="stylesheet" href="../../css/tools-common.css">
+  <!-- Text to Speech CSS -->
+  <link rel="stylesheet" href="texttospeech.css">
+</head>
+<body>
+  <!-- Skip to Content -->
+  <a href="#texttospeech" class="skip-link">Skip to text to speech</a>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">TOOLS</span>
+      </a>
+
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="tool-page">
+    <div class="container">
+      <div class="tts-wrapper" id="texttospeech">
+        <!-- Header -->
+        <div class="tts-header">
+          <h2><i class="fa-solid fa-volume-high"></i> Text to Speech</h2>
+        </div>
+
+        <!-- Main Content -->
+        <div class="tts-main">
+          <!-- Controls Panel -->
+          <div class="tts-controls">
+            <div class="controls-section">
+              <h4><i class="fa-solid fa-microphone"></i> Voice</h4>
+              <select id="voiceSelect" class="tts-select">
+                <option value="">Loading voices...</option>
+              </select>
+              <div class="voice-info" id="voiceInfo">
+                <span class="voice-lang" id="voiceLang">--</span>
+              </div>
+            </div>
+
+            <div class="controls-section">
+              <h4><i class="fa-solid fa-sliders"></i> Settings</h4>
+
+              <div class="slider-group">
+                <label for="rateSlider">
+                  <span>Rate</span>
+                  <span class="slider-value" id="rateValue">1.0x</span>
+                </label>
+                <input type="range" id="rateSlider" min="0.5" max="2" step="0.1" value="1">
+              </div>
+
+              <div class="slider-group">
+                <label for="pitchSlider">
+                  <span>Pitch</span>
+                  <span class="slider-value" id="pitchValue">1.0</span>
+                </label>
+                <input type="range" id="pitchSlider" min="0" max="2" step="0.1" value="1">
+              </div>
+
+              <div class="slider-group">
+                <label for="volumeSlider">
+                  <span>Volume</span>
+                  <span class="slider-value" id="volumeValue">100%</span>
+                </label>
+                <input type="range" id="volumeSlider" min="0" max="1" step="0.1" value="1">
+              </div>
+            </div>
+
+            <div class="controls-section">
+              <h4><i class="fa-solid fa-clock-rotate-left"></i> History</h4>
+              <div class="history-list" id="historyList">
+                <div class="history-empty">No history yet</div>
+              </div>
+            </div>
+
+            <div class="controls-section">
+              <h4><i class="fa-solid fa-file-lines"></i> Sample Texts</h4>
+              <div class="sample-buttons">
+                <button type="button" class="sample-btn" data-sample="greeting">Greeting</button>
+                <button type="button" class="sample-btn" data-sample="pangram">Pangram</button>
+                <button type="button" class="sample-btn" data-sample="numbers">Numbers</button>
+                <button type="button" class="sample-btn" data-sample="story">Short Story</button>
+                <button type="button" class="sample-btn" data-sample="technical">Technical</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Text Area & Playback -->
+          <div class="tts-content">
+            <!-- Text Input -->
+            <div class="text-input-section">
+              <div class="section-header">
+                <h3>Text Input</h3>
+                <div class="section-actions">
+                  <button type="button" class="section-btn" id="pasteBtn" title="Paste">
+                    <i class="fa-solid fa-paste"></i>
+                  </button>
+                  <button type="button" class="section-btn" id="clearBtn" title="Clear">
+                    <i class="fa-solid fa-trash"></i>
+                  </button>
+                </div>
+              </div>
+              <textarea id="textInput" placeholder="Type or paste text to speak..." spellcheck="false"></textarea>
+              <div class="text-stats">
+                <span id="charCount">0 characters</span>
+                <span id="wordCount">0 words</span>
+                <span id="estDuration">Est. ~0s</span>
+              </div>
+            </div>
+
+            <!-- Playback Preview -->
+            <div class="playback-section">
+              <div class="section-header">
+                <h3>Playback Preview</h3>
+              </div>
+              <div class="playback-preview" id="playbackPreview">
+                <span class="preview-placeholder">Text will be highlighted here as it is spoken...</span>
+              </div>
+
+              <!-- Progress Bar -->
+              <div class="progress-bar-container">
+                <div class="progress-bar" id="progressBar"></div>
+              </div>
+
+              <!-- Playback Controls -->
+              <div class="playback-controls">
+                <button type="button" class="play-btn" id="playBtn" title="Play">
+                  <i class="fa-solid fa-play"></i>
+                </button>
+                <button type="button" class="control-btn" id="pauseBtn" title="Pause" disabled>
+                  <i class="fa-solid fa-pause"></i>
+                </button>
+                <button type="button" class="control-btn" id="stopBtn" title="Stop" disabled>
+                  <i class="fa-solid fa-stop"></i>
+                </button>
+
+                <div class="playback-status" id="playbackStatus">Ready</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Keyboard Shortcuts Hint -->
+  <div class="shortcuts-hint" id="shortcutsHint">
+    <span><kbd>Space</kbd> : play/pause</span>
+  </div>
+
+  <!-- Shared Tools JavaScript -->
+  <script src="../../js/tools-common.js"></script>
+  <!-- Text to Speech JavaScript -->
+  <script src="texttospeech.js"></script>
+</body>
+</html>

@@ -46,39 +46,49 @@
 
     camelcase: (text) => {
       return text
-        .toLowerCase()
-        .replace(/[^a-zA-Z0-9]+(.)/g, (_, char) => char.toUpperCase())
-        .replace(/^[A-Z]/, char => char.toLowerCase());
+        .replace(/[^a-zA-Z0-9]+/g, ' ')
+        .trim()
+        .split(/\s+/)
+        .map((word, i) => {
+          const lower = word.toLowerCase();
+          return i === 0 ? lower : lower.charAt(0).toUpperCase() + lower.slice(1);
+        })
+        .join('');
     },
 
     pascalcase: (text) => {
       return text
-        .toLowerCase()
-        .replace(/[^a-zA-Z0-9]+(.)/g, (_, char) => char.toUpperCase())
-        .replace(/^[a-z]/, char => char.toUpperCase());
+        .replace(/[^a-zA-Z0-9]+/g, ' ')
+        .trim()
+        .split(/\s+/)
+        .map(word => {
+          const lower = word.toLowerCase();
+          return lower.charAt(0).toUpperCase() + lower.slice(1);
+        })
+        .join('');
     },
 
     snakecase: (text) => {
       return text
         .replace(/([a-z])([A-Z])/g, '$1_$2')
-        .replace(/[\s\-]+/g, '_')
-        .replace(/[^a-zA-Z0-9_]/g, '')
+        .replace(/[^a-zA-Z0-9]+/g, '_')
+        .replace(/^_+|_+$/g, '')
         .toLowerCase();
     },
 
     kebabcase: (text) => {
       return text
         .replace(/([a-z])([A-Z])/g, '$1-$2')
-        .replace(/[\s_]+/g, '-')
-        .replace(/[^a-zA-Z0-9-]/g, '')
+        .replace(/[^a-zA-Z0-9]+/g, '-')
+        .replace(/^-+|-+$/g, '')
         .toLowerCase();
     },
 
     constantcase: (text) => {
       return text
         .replace(/([a-z])([A-Z])/g, '$1_$2')
-        .replace(/[\s\-]+/g, '_')
-        .replace(/[^a-zA-Z0-9_]/g, '')
+        .replace(/[^a-zA-Z0-9]+/g, '_')
+        .replace(/^_+|_+$/g, '')
         .toUpperCase();
     },
 
@@ -104,8 +114,8 @@
     dotcase: (text) => {
       return text
         .replace(/([a-z])([A-Z])/g, '$1.$2')
-        .replace(/[\s_-]+/g, '.')
-        .replace(/[^a-zA-Z0-9.]/g, '')
+        .replace(/[^a-zA-Z0-9]+/g, '.')
+        .replace(/^\.+|\.+$/g, '')
         .toLowerCase();
     }
   };

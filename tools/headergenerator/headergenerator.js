@@ -230,14 +230,14 @@
     updateOutput();
 
     if (typeof ToolsCommon !== 'undefined') {
-      ToolsCommon.Toast.info(`Applied ${presetName} preset`);
+      ToolsCommon.Toast.show(`Applied ${presetName} preset`, 'info');
     }
   }
 
   function reset() {
     applyPreset('basic');
     if (typeof ToolsCommon !== 'undefined') {
-      ToolsCommon.Toast.info('Reset to defaults');
+      ToolsCommon.Toast.show('Reset to defaults', 'info');
     }
   }
 

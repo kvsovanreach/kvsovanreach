@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Interactive gradient descent optimization visualizer with contour plots, multiple optimizers, and convergence graphs.">
+  <meta property="og:title" content="KVSOVANREACH | Gradient Descent Visualizer">
+  <meta property="og:description" content="Visualize gradient descent optimization on 2D loss surfaces.">
+  <meta property="og:image" content="/assets/img/favicons/og-image.png">
+  <title>KVSOVANREACH | Gradient Descent Visualizer</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+  <!-- Common Tools CSS -->
+  <link rel="stylesheet" href="../../css/tools-common.css">
+  <!-- Gradient Descent CSS -->
+  <link rel="stylesheet" href="gradientdescent.css">
+</head>
+<body>
+  <!-- Skip to Content -->
+  <a href="#gradientdescent" class="skip-link">Skip to Gradient Descent Visualizer</a>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">TOOLS</span>
+      </a>
+
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="tool-page">
+    <div class="container">
+      <div class="gd-wrapper" id="gradientdescent">
+        <!-- Header -->
+        <div class="gd-header">
+          <h2><i class="fa-solid fa-chart-line"></i> Gradient Descent Visualizer</h2>
+          <div class="gd-actions">
+            <button class="action-btn" id="exportBtn" title="Export as PNG" aria-label="Export as PNG">
+              <i class="fa-solid fa-download"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Content -->
+        <div class="gd-content">
+          <!-- Top Row: Controls + Surface -->
+          <div class="gd-main-row">
+            <!-- Controls Panel -->
+            <div class="gd-controls-panel">
+              <!-- Function Selection -->
+              <div class="control-section">
+                <div class="section-header">
+                  <h3><i class="fa-solid fa-wave-square"></i> Loss Function</h3>
+                </div>
+                <div class="function-grid">
+                  <button class="function-btn active" data-fn="bowl">Bowl</button>
+                  <button class="function-btn" data-fn="rosenbrock">Rosenbrock</button>
+                  <button class="function-btn" data-fn="himmelblau">Himmelblau</button>
+                  <button class="function-btn" data-fn="rastrigin">Rastrigin</button>
+                </div>
+              </div>
+
+              <!-- Optimizer Selection -->
+              <div class="control-section">
+                <div class="section-header">
+                  <h3><i class="fa-solid fa-gears"></i> Optimizers</h3>
+                </div>
+                <div class="optimizer-grid">
+                  <label class="optimizer-check">
+                    <input type="checkbox" data-opt="vanilla" checked>
+                    <span class="opt-color" data-opt="vanilla"></span>
+                    <span>Vanilla GD</span>
+                  </label>
+                  <label class="optimizer-check">
+                    <input type="checkbox" data-opt="momentum">
+                    <span class="opt-color" data-opt="momentum"></span>
+                    <span>Momentum</span>
+                  </label>
+                  <label class="optimizer-check">
+                    <input type="checkbox" data-opt="rmsprop">
+                    <span class="opt-color" data-opt="rmsprop"></span>
+                    <span>RMSProp</span>
+                  </label>
+                  <label class="optimizer-check">
+                    <input type="checkbox" data-opt="adam">
+                    <span class="opt-color" data-opt="adam"></span>
+                    <span>Adam</span>
+                  </label>
+                </div>
+              </div>
+
+              <!-- Hyperparameters -->
+              <div class="control-section">
+                <div class="section-header">
+                  <h3><i class="fa-solid fa-sliders"></i> Hyperparameters</h3>
+                </div>
+                <div class="param-list">
+                  <div class="param-row">
+                    <label>Learning Rate</label>
+                    <div class="param-slider">
+                      <input type="range" id="learningRate" min="0.001" max="1.0" step="0.001" value="0.05">
+                      <span class="param-value" id="lrValue">0.050</span>
+                    </div>
+                  </div>
+                  <div class="param-row">
+                    <label>Momentum</label>
+                    <div class="param-slider">
+                      <input type="range" id="momentumParam" min="0.5" max="0.99" step="0.01" value="0.9">
+                      <span class="param-value" id="momValue">0.90</span>
+                    </div>
+                  </div>
+                  <div class="param-row">
+                    <label>Iterations</label>
+                    <div class="param-slider">
+                      <input type="range" id="iterations" min="10" max="500" step="10" value="200">
+                      <span class="param-value" id="iterValue">200</span>
+                    </div>
+                  </div>
+                  <div class="param-row">
+                    <label>Speed</label>
+                    <div class="param-slider">
+                      <input type="range" id="speed" min="1" max="50" step="1" value="10">
+                      <span class="param-value" id="speedValue">10</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Playback Controls -->
+              <div class="control-section">
+                <div class="playback-controls">
+                  <button class="play-btn" id="playBtn" title="Play">
+                    <i class="fa-solid fa-play"></i>
+                  </button>
+                  <button class="play-btn" id="pauseBtn" title="Pause" disabled>
+                    <i class="fa-solid fa-pause"></i>
+                  </button>
+                  <button class="play-btn" id="stepBtn" title="Step">
+                    <i class="fa-solid fa-forward-step"></i>
+                  </button>
+                  <button class="play-btn" id="resetBtn" title="Reset">
+                    <i class="fa-solid fa-rotate-left"></i>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Stats -->
+              <div class="control-section">
+                <div class="section-header">
+                  <h3><i class="fa-solid fa-chart-bar"></i> Stats</h3>
+                </div>
+                <div class="stats-grid" id="statsGrid">
+                  <div class="stat-item">
+                    <span class="stat-label">Iteration</span>
+                    <span class="stat-value" id="statIter">0</span>
+                  </div>
+                  <div class="stat-item">
+                    <span class="stat-label">Position</span>
+                    <span class="stat-value" id="statPos">(-, -)</span>
+                  </div>
+                  <div class="stat-item">
+                    <span class="stat-label">Loss</span>
+                    <span class="stat-value" id="statLoss">-</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Legend -->
+              <div class="control-section">
+                <div class="section-header">
+                  <h3><i class="fa-solid fa-palette"></i> Legend</h3>
+                </div>
+                <div class="legend-list" id="legendList">
+                  <!-- Populated by JS -->
+                </div>
+              </div>
+            </div>
+
+            <!-- Surface Canvas -->
+            <div class="gd-surface-panel">
+              <div class="canvas-container" id="surfaceContainer">
+                <canvas id="surfaceCanvas"></canvas>
+                <div class="canvas-hint" id="canvasHint">
+                  <i class="fa-solid fa-hand-pointer"></i> Click to set starting point
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Convergence Graph -->
+          <div class="gd-convergence-panel">
+            <div class="section-header">
+              <h3><i class="fa-solid fa-chart-line"></i> Convergence: Loss vs Iteration</h3>
+            </div>
+            <div class="convergence-container" id="convergenceContainer">
+              <canvas id="convergenceCanvas"></canvas>
+            </div>
+          </div>
+
+          <!-- Info Panel -->
+          <div class="info-panel">
+            <div class="info-header">
+              <i class="fa-solid fa-lightbulb"></i>
+              <span>About Gradient Descent</span>
+            </div>
+            <div class="info-content">
+              <div class="info-steps">
+                <div class="info-step">
+                  <span class="step-num">1</span>
+                  <div>
+                    <strong>Vanilla GD:</strong> Updates parameters using only the current gradient scaled by learning rate.
+                  </div>
+                </div>
+                <div class="info-step">
+                  <span class="step-num">2</span>
+                  <div>
+                    <strong>Momentum:</strong> Accumulates a velocity vector to accelerate through narrow ravines.
+                  </div>
+                </div>
+                <div class="info-step">
+                  <span class="step-num">3</span>
+                  <div>
+                    <strong>RMSProp:</strong> Adapts learning rate per-parameter using a moving average of squared gradients.
+                  </div>
+                </div>
+                <div class="info-step">
+                  <span class="step-num">4</span>
+                  <div>
+                    <strong>Adam:</strong> Combines momentum and RMSProp with bias correction for robust optimization.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach. All rights reserved.</p>
+        <p class="footer-made">Made with Claude Code</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Shared Tools JavaScript -->
+  <script src="../../js/tools-common.js"></script>
+  <!-- Gradient Descent JavaScript -->
+  <script src="gradientdescent.js"></script>
+</body>
+</html>

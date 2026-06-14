@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Test your memory with Simon Says - repeat the color sequence as it grows longer each round.">
+  <meta property="og:title" content="KVSOVANREACH | Simon Says">
+  <meta property="og:description" content="Classic Simon Says memory game with increasing difficulty and strict mode.">
+  <meta property="og:image" content="/assets/img/favicons/og-image.png">
+  <title>KVSOVANREACH | Simon Says</title>
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  <link rel="stylesheet" href="../../css/tools-common.css">
+  <link rel="stylesheet" href="simonsays.css">
+</head>
+<body>
+  <a href="#simonsays" class="skip-link">Skip to Simon Says</a>
+
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">TOOLS</span>
+      </a>
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <main class="tool-page">
+    <div class="container">
+      <div class="simon-wrapper" id="simonsays">
+        <!-- Header -->
+        <div class="simon-header">
+          <h2><i class="fa-solid fa-brain"></i> Simon Says</h2>
+          <div class="simon-actions">
+            <button class="action-btn" id="startBtn" title="Start Game (S)">
+              <i class="fa-solid fa-play"></i>
+              <span>Start</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="simon-content">
+          <!-- Settings -->
+          <div class="simon-settings">
+            <div class="setting-group">
+              <label>Mode</label>
+              <div class="mode-buttons">
+                <button class="mode-btn active" data-mode="normal" title="Replay sequence on mistake">
+                  <i class="fa-solid fa-rotate"></i> Normal
+                </button>
+                <button class="mode-btn" data-mode="strict" title="Restart on mistake">
+                  <i class="fa-solid fa-skull"></i> Strict
+                </button>
+              </div>
+            </div>
+            <div class="setting-group">
+              <label>Sound</label>
+              <div class="mode-buttons">
+                <button class="mode-btn sound-btn active" data-sound="on">
+                  <i class="fa-solid fa-volume-high"></i> On
+                </button>
+                <button class="mode-btn sound-btn" data-sound="off">
+                  <i class="fa-solid fa-volume-xmark"></i> Off
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Scoreboard -->
+          <div class="simon-scoreboard">
+            <div class="score-item">
+              <span class="score-label">Round</span>
+              <span class="score-value" id="roundDisplay">0</span>
+            </div>
+            <div class="score-item high-score">
+              <span class="score-label"><i class="fa-solid fa-trophy"></i> Best</span>
+              <span class="score-value" id="highScoreDisplay">0</span>
+            </div>
+          </div>
+
+          <!-- Status -->
+          <div class="simon-status" id="statusText">Press Start to play</div>
+
+          <!-- Game Board -->
+          <div class="simon-board" id="simonBoard">
+            <button class="simon-pad" data-color="red" aria-label="Red (1)" tabindex="0">
+              <span class="pad-inner"></span>
+            </button>
+            <button class="simon-pad" data-color="blue" aria-label="Blue (2)" tabindex="0">
+              <span class="pad-inner"></span>
+            </button>
+            <button class="simon-pad" data-color="green" aria-label="Green (3)" tabindex="0">
+              <span class="pad-inner"></span>
+            </button>
+            <button class="simon-pad" data-color="yellow" aria-label="Yellow (4)" tabindex="0">
+              <span class="pad-inner"></span>
+            </button>
+          </div>
+
+          <!-- Info -->
+          <div class="info-panel">
+            <div class="info-header">
+              <i class="fa-solid fa-circle-info"></i>
+              <span>How to Play</span>
+            </div>
+            <div class="info-content">
+              <ul>
+                <li>Press <strong>Start</strong> or <strong>S</strong> to begin a new game</li>
+                <li>Watch the color sequence, then repeat it by clicking the pads</li>
+                <li>Keyboard: <strong>1</strong>=Red, <strong>2</strong>=Blue, <strong>3</strong>=Green, <strong>4</strong>=Yellow</li>
+                <li><strong>Normal mode</strong>: replays sequence on mistake. <strong>Strict mode</strong>: restarts the game</li>
+                <li>Speed increases every 5 rounds</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; <span id="current-year"></span> Kong Vungsovanreach. All rights reserved.</p>
+        <p class="footer-made">Made with 💗 and Claude Code xD</p>
+      </div>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast"></div>
+
+  <div class="shortcuts-modal" id="shortcutsModal">
+    <div class="shortcuts-content">
+      <div class="shortcuts-header">
+        <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
+        <button class="close-shortcuts-btn" id="closeShortcutsBtn" aria-label="Close shortcuts">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="shortcuts-body">
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">Game Pads</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>1</kbd></div>
+            <div class="shortcut-desc">Red</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>2</kbd></div>
+            <div class="shortcut-desc">Blue</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>3</kbd></div>
+            <div class="shortcut-desc">Green</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>4</kbd></div>
+            <div class="shortcut-desc">Yellow</div>
+          </div>
+        </div>
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">Actions</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>S</kbd></div>
+            <div class="shortcut-desc">Start / Restart game</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>?</kbd></div>
+            <div class="shortcut-desc">Show shortcuts</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="shortcuts-hint" id="shortcutsHint">
+    <span><kbd>Shift</kbd>+<kbd>?</kbd> : shortcuts</span>
+  </div>
+
+  <script src="../../js/tools-common.js"></script>
+  <script src="simonsays.js"></script>
+</body>
+</html>

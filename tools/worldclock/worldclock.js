@@ -282,14 +282,36 @@
 
   function getTimeDiff(timezone) {
     const now = new Date();
-    const localOffset = now.getTimezoneOffset();
-    const targetDate = new Date(now.toLocaleString('en-US', { timeZone: timezone }));
-    const localDate = new Date(now.toLocaleString('en-US'));
-    const diff = (targetDate - localDate) / (1000 * 60 * 60);
+    // Use Intl.DateTimeFormat for accurate UTC offset extraction (DST-safe)
+    const localOffset = -now.getTimezoneOffset(); // local offset in minutes from UTC
+    const targetFormatter = new Intl.DateTimeFormat('en-US', {
+      timeZone: timezone,
+      timeZoneName: 'shortOffset'
+    });
+    const parts = targetFormatter.formatToParts(now);
+    const tzPart = parts.find(p => p.type === 'timeZoneName');
 
-    if (diff === 0) return 'Same time';
-    const sign = diff > 0 ? '+' : '';
-    return `${sign}${diff}h`;
+    // Parse the offset string like "GMT+5:30" or "GMT-4" or "GMT"
+    const offsetStr = tzPart ? tzPart.value : 'GMT';
+    let targetOffset = 0; // minutes from UTC
+    const match = offsetStr.match(/GMT([+-])(\d{1,2})(?::(\d{2}))?/);
+    if (match) {
+      const sign = match[1] === '+' ? 1 : -1;
+      const hours = parseInt(match[2], 10);
+      const minutes = parseInt(match[3] || '0', 10);
+      targetOffset = sign * (hours * 60 + minutes);
+    }
+
+    const diffMinutes = targetOffset - localOffset;
+    if (diffMinutes === 0) return 'Same time';
+
+    const sign = diffMinutes > 0 ? '+' : '-';
+    const absDiff = Math.abs(diffMinutes);
+    const h = Math.floor(absDiff / 60);
+    const m = absDiff % 60;
+
+    if (m === 0) return `${sign}${h}h`;
+    return `${sign}${h}:${String(m).padStart(2, '0')}h`;
   }
 
   function updateLocalTime() {
@@ -307,8 +329,10 @@
 
       const timeEl = card.querySelector('.clock-time');
       const dateEl = card.querySelector('.clock-date');
+      const diffEl = card.querySelector('.clock-diff');
       if (timeEl) timeEl.textContent = formatTime(now, clock.timezone);
       if (dateEl) dateEl.textContent = formatShortDate(now, clock.timezone);
+      if (diffEl) diffEl.textContent = getTimeDiff(clock.timezone);
 
       // Update analog clock hands
       const angles = getClockAngles(clock.timezone);
@@ -380,7 +404,7 @@
 
   function renderTimezoneList(filter = '') {
     const filtered = TIMEZONES.filter(tz =>
-      !state.clocks.some(c => c.timezone === tz.timezone) &&
+      !state.clocks.some(c => c.city === tz.city && c.timezone === tz.timezone) &&
       (tz.city.toLowerCase().includes(filter.toLowerCase()) ||
        tz.country.toLowerCase().includes(filter.toLowerCase()) ||
        tz.timezone.toLowerCase().includes(filter.toLowerCase()))
@@ -422,13 +446,20 @@
   function loadClocks() {
     const saved = localStorage.getItem('worldclocks');
     if (saved) {
-      state.clocks = JSON.parse(saved);
-    } else {
+      try {
+        const parsed = JSON.parse(saved);
+        // Validate each saved clock still exists in TIMEZONES or has valid timezone
+        state.clocks = parsed.filter(c => c && c.city && c.timezone);
+      } catch {
+        state.clocks = [];
+      }
+    }
+    if (!state.clocks.length) {
       state.clocks = [
         TIMEZONES.find(tz => tz.city === 'London'),
         TIMEZONES.find(tz => tz.city === 'New York'),
         TIMEZONES.find(tz => tz.city === 'Tokyo')
-      ];
+      ].filter(Boolean);
     }
   }
 

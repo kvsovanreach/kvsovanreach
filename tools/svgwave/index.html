@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Generate SVG wave dividers for web sections. Customize wave type, colors, layers, and export as SVG.">
+  <meta property="og:title" content="KVSOVANREACH | SVG Wave Generator">
+  <meta property="og:description" content="Create beautiful SVG wave section dividers with live preview.">
+  <meta property="og:image" content="/assets/img/favicons/og-image.png">
+  <title>KVSOVANREACH | SVG Wave Generator</title>
+
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  <link rel="stylesheet" href="../../css/tools-common.css">
+  <link rel="stylesheet" href="svgwave.css">
+</head>
+<body>
+  <a href="#svgwave" class="skip-link">Skip to SVG Wave Generator</a>
+
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">TOOLS</span>
+      </a>
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools"><i class="fa-solid fa-arrow-left"></i></a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <main class="tool-page">
+    <div class="container">
+      <div class="wave-wrapper" id="svgwave">
+        <div class="wave-header">
+          <h2><i class="fa-solid fa-water"></i> SVG Wave Generator</h2>
+          <div class="header-actions">
+            <button class="header-action-btn" id="downloadBtn" title="Download SVG (D)">
+              <i class="fa-solid fa-download"></i>
+            </button>
+            <button class="header-action-btn" id="copyBtn" title="Copy SVG (C)">
+              <i class="fa-solid fa-copy"></i>
+            </button>
+            <button class="header-action-btn" id="resetBtn" title="Reset (R)">
+              <i class="fa-solid fa-rotate-left"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="wave-content">
+          <!-- Preview -->
+          <div class="wave-preview-panel">
+            <div class="preview-scene" id="previewScene">
+              <div class="preview-top-section"></div>
+              <div class="preview-svg-container" id="svgContainer"></div>
+              <div class="preview-bottom-section"></div>
+            </div>
+          </div>
+
+          <!-- Controls -->
+          <div class="wave-controls">
+            <!-- Presets -->
+            <div class="control-section">
+              <h3>Presets</h3>
+              <div class="presets-grid" id="presetsGrid">
+                <button class="preset-btn" data-preset="gentle">Gentle Wave</button>
+                <button class="preset-btn" data-preset="ocean">Ocean</button>
+                <button class="preset-btn" data-preset="mountain">Mountain</button>
+                <button class="preset-btn" data-preset="zigzag">Zigzag</button>
+                <button class="preset-btn" data-preset="blob">Blob</button>
+              </div>
+            </div>
+
+            <!-- Wave Settings -->
+            <div class="control-section">
+              <h3>Wave Settings</h3>
+
+              <div class="control-group">
+                <div class="control-header">
+                  <label for="waveType">Wave Type</label>
+                </div>
+                <select id="waveType" class="select-input">
+                  <option value="sine">Sine</option>
+                  <option value="smooth">Smooth</option>
+                  <option value="sharp">Sharp</option>
+                  <option value="steps">Steps</option>
+                </select>
+              </div>
+
+              <div class="control-group">
+                <div class="control-header">
+                  <label for="amplitude">Amplitude</label>
+                  <span class="control-value" id="amplitudeValue">40px</span>
+                </div>
+                <input type="range" id="amplitude" min="10" max="150" value="40">
+              </div>
+
+              <div class="control-group">
+                <div class="control-header">
+                  <label for="frequency">Frequency</label>
+                  <span class="control-value" id="frequencyValue">2</span>
+                </div>
+                <input type="range" id="frequency" min="1" max="8" value="2" step="0.5">
+              </div>
+
+              <div class="control-group">
+                <div class="control-header">
+                  <label for="segments">Smoothness</label>
+                  <span class="control-value" id="segmentsValue">128</span>
+                </div>
+                <input type="range" id="segments" min="16" max="256" value="128" step="8">
+              </div>
+
+              <div class="control-group">
+                <div class="control-header">
+                  <label for="waveHeight">Height</label>
+                  <span class="control-value" id="waveHeightValue">150px</span>
+                </div>
+                <input type="range" id="waveHeight" min="50" max="400" value="150">
+              </div>
+
+              <div class="control-group">
+                <div class="control-header">
+                  <label for="waveOpacity">Opacity</label>
+                  <span class="control-value" id="waveOpacityValue">100%</span>
+                </div>
+                <input type="range" id="waveOpacity" min="10" max="100" value="100" step="5">
+              </div>
+            </div>
+
+            <!-- Color -->
+            <div class="control-section">
+              <h3>Color</h3>
+              <div class="control-group">
+                <label class="checkbox-label">
+                  <input type="checkbox" id="useGradient">
+                  <span>Use Gradient</span>
+                </label>
+              </div>
+              <div class="color-row">
+                <div class="color-picker-group">
+                  <label>Fill Color</label>
+                  <input type="color" id="fillColor" value="#91214E">
+                </div>
+                <div class="color-picker-group gradient-only" id="gradientStop">
+                  <label>Gradient End</label>
+                  <input type="color" id="gradientColor" value="#e74c3c">
+                </div>
+              </div>
+            </div>
+
+            <!-- Transforms -->
+            <div class="control-section">
+              <h3>Transform</h3>
+              <div class="flip-row">
+                <label class="checkbox-label">
+                  <input type="checkbox" id="flipVertical">
+                  <span>Flip Vertical</span>
+                </label>
+                <label class="checkbox-label">
+                  <input type="checkbox" id="flipHorizontal">
+                  <span>Flip Horizontal</span>
+                </label>
+              </div>
+            </div>
+
+            <!-- Layers -->
+            <div class="control-section">
+              <h3>Layers <span class="layer-count" id="layerCount">(1/3)</span></h3>
+              <div class="layers-list" id="layersList"></div>
+              <button class="action-btn" id="addLayerBtn"><i class="fa-solid fa-plus"></i> Add Layer</button>
+            </div>
+
+            <!-- Output -->
+            <div class="control-section">
+              <h3>SVG Code</h3>
+              <div class="output-box">
+                <pre id="svgOutput"></pre>
+                <button class="copy-btn" id="svgCopyBtn" title="Copy SVG"><i class="fa-solid fa-copy"></i></button>
+              </div>
+            </div>
+
+            <div class="control-section">
+              <h3>CSS Code</h3>
+              <div class="output-box">
+                <pre id="cssOutput"></pre>
+                <button class="copy-btn" id="cssCopyBtn" title="Copy CSS"><i class="fa-solid fa-copy"></i></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div class="shortcuts-modal" id="shortcutsModal">
+    <div class="shortcuts-content">
+      <div class="shortcuts-header">
+        <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
+        <button class="close-shortcuts-btn" id="closeShortcutsBtn"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="shortcuts-body">
+        <div class="shortcut-row"><span class="shortcut-key">C</span><span class="shortcut-desc">Copy SVG</span></div>
+        <div class="shortcut-row"><span class="shortcut-key">D</span><span class="shortcut-desc">Download SVG</span></div>
+        <div class="shortcut-row"><span class="shortcut-key">R</span><span class="shortcut-desc">Reset values</span></div>
+        <div class="shortcut-row"><span class="shortcut-key">?</span><span class="shortcut-desc">Show shortcuts</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="shortcuts-hint">Press <span class="shortcut-key">?</span> for shortcuts</div>
+  <div class="toast" id="toast"></div>
+
+  <footer class="tool-footer">
+    <p>&copy; <span id="current-year"></span> KVSOVANREACH</p>
+  </footer>
+
+  <script src="../../js/tools-common.js"></script>
+  <script src="svgwave.js"></script>
+</body>
+</html>

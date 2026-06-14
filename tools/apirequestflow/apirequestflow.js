@@ -620,11 +620,11 @@
         const midX = (fromX + toX) / 2;
         const midY = (fromY + toY) / 2;
         ctx.fillStyle = colors[conn.method] || '#94a3b8';
-        ctx.font = `bold ${10 * scale}px "Fira Code", monospace`;
+        ctx.font = `bold ${10 * scale}px "SF Mono", SFMono-Regular, ui-monospace, Menlo, Monaco, "Cascadia Mono", Consolas, monospace`;
         ctx.textAlign = 'center';
         ctx.fillText(conn.method, midX, midY - 8 * scale);
         ctx.fillStyle = '#64748b';
-        ctx.font = `${9 * scale}px "Fira Code", monospace`;
+        ctx.font = `${9 * scale}px "SF Mono", SFMono-Regular, ui-monospace, Menlo, Monaco, "Cascadia Mono", Consolas, monospace`;
         ctx.fillText(conn.label, midX, midY + 8 * scale);
       });
 

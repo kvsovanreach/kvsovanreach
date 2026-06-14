@@ -11,7 +11,7 @@
   border: 1px solid var(--color-border);
   border-radius: var(--radius-xl);
   overflow: hidden;
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--shadow-card);
 }
 
 /* ==================== Header ==================== */
@@ -21,7 +21,7 @@
   justify-content: space-between;
   padding: var(--space-4) var(--space-5);
   background-color: var(--color-surface);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border-light);
 }
 
 .reverse-header h2 {
@@ -63,6 +63,11 @@
   background-color: var(--color-primary);
   color: #fff;
   border-color: var(--color-primary);
+}
+
+.header-action-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px var(--color-primary-muted);
 }
 
 /* ==================== Main Layout ==================== */
@@ -108,7 +113,7 @@
   background-color: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
-  font-family: 'Inter', sans-serif;
+  font-family: var(--font-family);
   font-size: var(--font-size-base);
   color: var(--color-text);
   resize: vertical;
@@ -151,7 +156,7 @@
   justify-content: space-between;
   padding: var(--space-3) var(--space-4);
   background-color: var(--color-bg-tertiary);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border-light);
 }
 
 .card-title {
@@ -170,7 +175,7 @@
 .card-output {
   padding: var(--space-4);
   min-height: 60px;
-  font-family: 'Inter', sans-serif;
+  font-family: var(--font-family);
   font-size: var(--font-size-base);
   color: var(--color-text);
   word-break: break-word;
@@ -185,7 +190,7 @@
 .card-desc {
   padding: var(--space-2) var(--space-4);
   background-color: var(--color-bg-tertiary);
-  border-top: 1px solid var(--color-border);
+  border-top: 1px solid var(--color-border-light);
   font-size: var(--font-size-xs);
   color: var(--color-text-muted);
 }

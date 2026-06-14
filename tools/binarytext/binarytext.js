@@ -42,61 +42,86 @@
 
   // ==================== Conversion Functions ====================
   function textToBinary(text, separator = ' ') {
-    return text.split('').map(char => {
-      return char.charCodeAt(0).toString(2).padStart(8, '0');
+    return [...text].map(char => {
+      return char.codePointAt(0).toString(2).padStart(8, '0');
     }).join(separator);
   }
 
   function textToHex(text, separator = ' ') {
-    return text.split('').map(char => {
-      return char.charCodeAt(0).toString(16).toUpperCase().padStart(2, '0');
+    return [...text].map(char => {
+      return char.codePointAt(0).toString(16).toUpperCase().padStart(2, '0');
     }).join(separator);
   }
 
   function textToDecimal(text, separator = ' ') {
-    return text.split('').map(char => {
-      return char.charCodeAt(0).toString(10);
+    return [...text].map(char => {
+      return char.codePointAt(0).toString(10);
     }).join(separator);
   }
 
   function textToOctal(text, separator = ' ') {
-    return text.split('').map(char => {
-      return char.charCodeAt(0).toString(8).padStart(3, '0');
+    return [...text].map(char => {
+      return char.codePointAt(0).toString(8).padStart(3, '0');
     }).join(separator);
   }
 
   function binaryToText(binary) {
+    // Split on common separators first; fall back to 8-bit chunking
+    const parts = binary.trim().split(/[\s,\-]+/).filter(n => n);
+    if (parts.length > 1) {
+      return parts.map(b => {
+        if (!/^[01]+$/.test(b)) throw new Error('Invalid binary');
+        return String.fromCodePoint(parseInt(b, 2));
+      }).join('');
+    }
+    // No separators - chunk into 8-bit groups
     const cleaned = binary.replace(/[^01]/g, '');
     let text = '';
     for (let i = 0; i < cleaned.length; i += 8) {
-      const byte = cleaned.substr(i, 8);
+      const byte = cleaned.substring(i, i + 8);
       if (byte.length === 8) {
-        text += String.fromCharCode(parseInt(byte, 2));
+        text += String.fromCodePoint(parseInt(byte, 2));
       }
     }
     return text;
   }
 
   function hexToText(hex) {
+    // Split on common separators first; fall back to 2-char chunking
+    const parts = hex.trim().split(/[\s,\-]+/).filter(n => n);
+    if (parts.length > 1) {
+      return parts.map(h => {
+        if (!/^[0-9a-fA-F]+$/.test(h)) throw new Error('Invalid hex');
+        return String.fromCodePoint(parseInt(h, 16));
+      }).join('');
+    }
     const cleaned = hex.replace(/[^0-9a-fA-F]/g, '');
     let text = '';
     for (let i = 0; i < cleaned.length; i += 2) {
-      const byte = cleaned.substr(i, 2);
+      const byte = cleaned.substring(i, i + 2);
       if (byte.length === 2) {
-        text += String.fromCharCode(parseInt(byte, 16));
+        text += String.fromCodePoint(parseInt(byte, 16));
       }
     }
     return text;
   }
 
   function decimalToText(decimal) {
-    const numbers = decimal.split(/[\s,]+/).filter(n => n);
-    return numbers.map(n => String.fromCharCode(parseInt(n, 10))).join('');
+    const numbers = decimal.trim().split(/[\s,]+/).filter(n => n);
+    return numbers.map(n => {
+      const code = parseInt(n, 10);
+      if (isNaN(code)) throw new Error('Invalid decimal');
+      return String.fromCodePoint(code);
+    }).join('');
   }
 
   function octalToText(octal) {
-    const numbers = octal.split(/[\s,]+/).filter(n => n);
-    return numbers.map(n => String.fromCharCode(parseInt(n, 8))).join('');
+    const numbers = octal.trim().split(/[\s,]+/).filter(n => n);
+    return numbers.map(n => {
+      const code = parseInt(n, 8);
+      if (isNaN(code)) throw new Error('Invalid octal');
+      return String.fromCodePoint(code);
+    }).join('');
   }
 
   // ==================== Encode ====================
@@ -183,7 +208,7 @@
     elements.multiHex.textContent = textToHex(text, ' ');
     elements.multiDecimal.textContent = textToDecimal(text, ' ');
     elements.multiOctal.textContent = textToOctal(text, ' ');
-    elements.multiAscii.textContent = text.split('').map(c => c.charCodeAt(0)).join(', ');
+    elements.multiAscii.textContent = [...text].map(c => c.codePointAt(0)).join(', ');
   }
 
   // ==================== Tab Switching ====================

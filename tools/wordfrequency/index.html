@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Analyze word frequency in any text. View sorted tables, bar charts, n-grams, and export results as CSV.">
+  <meta property="og:title" content="KVSOVANREACH | Word Frequency Analyzer">
+  <meta property="og:description" content="Analyze word frequency with charts, n-grams, and CSV export.">
+  <meta property="og:image" content="/assets/img/favicons/og-image.png">
+  <title>KVSOVANREACH | Word Frequency Analyzer</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+  <!-- Common Tools CSS -->
+  <link rel="stylesheet" href="../../css/tools-common.css">
+  <!-- Word Frequency CSS -->
+  <link rel="stylesheet" href="wordfrequency.css">
+</head>
+<body>
+  <!-- Skip to Content -->
+  <a href="#wordfrequency" class="skip-link">Skip to Word Frequency Analyzer</a>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">TOOLS</span>
+      </a>
+
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="tool-page">
+    <div class="container">
+      <div class="wf-wrapper" id="wordfrequency">
+        <!-- Header -->
+        <div class="wf-header">
+          <h2><i class="fa-solid fa-chart-bar"></i> Word Frequency Analyzer</h2>
+          <div class="header-actions">
+            <button type="button" class="header-action-btn" id="clearBtn" title="Clear all" aria-label="Clear all">
+              <i class="fa-solid fa-trash"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Input Section -->
+        <div class="wf-input-section">
+          <div class="wf-input-top">
+            <label class="wf-input-label" for="textInput">Enter or paste your text</label>
+            <div class="wf-input-actions">
+              <button type="button" class="wf-btn" id="pasteBtn" title="Paste">
+                <i class="fa-solid fa-paste"></i> Paste
+              </button>
+              <button type="button" class="wf-btn" id="sampleBtn" title="Load sample">
+                <i class="fa-solid fa-file-import"></i> Sample
+              </button>
+            </div>
+          </div>
+          <textarea id="textInput" class="wf-textarea" rows="8" placeholder="Type or paste your text here to analyze word frequency..."></textarea>
+
+          <!-- Options -->
+          <div class="wf-options">
+            <label class="toggle-setting">
+              <span class="toggle-label">Case sensitive</span>
+              <div class="toggle-switch">
+                <input type="checkbox" id="caseSensitive">
+                <span class="toggle-slider"></span>
+              </div>
+            </label>
+            <label class="toggle-setting">
+              <span class="toggle-label">Exclude stop words</span>
+              <div class="toggle-switch">
+                <input type="checkbox" id="excludeStopWords" checked>
+                <span class="toggle-slider"></span>
+              </div>
+            </label>
+            <div class="min-length-setting">
+              <label for="minLength">Min word length</label>
+              <input type="number" id="minLength" value="1" min="1" max="20" class="wf-number-input">
+            </div>
+          </div>
+
+          <button type="button" class="wf-btn primary" id="analyzeBtn">
+            <i class="fa-solid fa-magnifying-glass-chart"></i> Analyze
+          </button>
+        </div>
+
+        <!-- Summary Stats -->
+        <div class="wf-summary hidden" id="summarySection">
+          <div class="wf-summary-grid">
+            <div class="summary-card">
+              <span class="summary-value" id="totalWords">0</span>
+              <span class="summary-label">Total Words</span>
+            </div>
+            <div class="summary-card">
+              <span class="summary-value" id="uniqueWords">0</span>
+              <span class="summary-label">Unique Words</span>
+            </div>
+            <div class="summary-card">
+              <span class="summary-value" id="avgWordLen">0</span>
+              <span class="summary-label">Avg Length</span>
+            </div>
+            <div class="summary-card">
+              <span class="summary-value" id="topWord">-</span>
+              <span class="summary-label">Most Frequent</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- N-gram Tabs -->
+        <div class="wf-results hidden" id="resultsSection">
+          <div class="wf-tabs">
+            <button type="button" class="wf-tab active" data-ngram="1">Unigrams</button>
+            <button type="button" class="wf-tab" data-ngram="2">Bigrams</button>
+            <button type="button" class="wf-tab" data-ngram="3">Trigrams</button>
+          </div>
+
+          <!-- Toolbar -->
+          <div class="wf-toolbar">
+            <div class="wf-search-wrap">
+              <i class="fa-solid fa-search"></i>
+              <input type="text" id="searchInput" class="wf-search" placeholder="Filter results...">
+            </div>
+            <button type="button" class="wf-btn" id="exportBtn" title="Export CSV">
+              <i class="fa-solid fa-download"></i> Export CSV
+            </button>
+          </div>
+
+          <!-- Chart -->
+          <div class="wf-chart-section">
+            <h3><i class="fa-solid fa-chart-simple"></i> Top 20</h3>
+            <div class="wf-chart" id="chartContainer"></div>
+          </div>
+
+          <!-- Table -->
+          <div class="wf-table-section">
+            <table class="wf-table">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Word / Phrase</th>
+                  <th>Count</th>
+                  <th>Percentage</th>
+                  <th>Bar</th>
+                </tr>
+              </thead>
+              <tbody id="tableBody"></tbody>
+            </table>
+            <div class="wf-table-empty hidden" id="tableEmpty">
+              <i class="fa-solid fa-filter-circle-xmark"></i>
+              <p>No results match your filter.</p>
+            </div>
+          </div>
+
+          <!-- Highlighted Text Preview -->
+          <div class="wf-highlight-section hidden" id="highlightSection">
+            <div class="wf-highlight-header">
+              <h3><i class="fa-solid fa-highlighter"></i> Occurrences of "<span id="highlightWord"></span>"</h3>
+              <button type="button" class="wf-btn small" id="closeHighlight">
+                <i class="fa-solid fa-xmark"></i>
+              </button>
+            </div>
+            <div class="wf-highlight-text" id="highlightText"></div>
+          </div>
+        </div>
+
+        <!-- Empty State -->
+        <div class="wf-empty" id="emptyState">
+          <i class="fa-solid fa-chart-bar"></i>
+          <p>Enter some text and click <strong>Analyze</strong> to see word frequency results.</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Keyboard Shortcuts Hint -->
+  <div class="shortcuts-hint" id="shortcutsHint">
+    <span><kbd>Shift</kbd>+<kbd>?</kbd> : shortcuts</span>
+  </div>
+
+  <!-- Keyboard Shortcuts Modal -->
+  <div class="shortcuts-modal" id="shortcutsModal">
+    <div class="shortcuts-content">
+      <div class="shortcuts-header">
+        <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
+        <button type="button" class="close-shortcuts-btn" id="closeShortcutsBtn" aria-label="Close shortcuts">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="shortcuts-body">
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">Actions</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Ctrl</kbd><span class="key-plus">+</span><kbd>Enter</kbd></div>
+            <div class="shortcut-desc">Analyze text</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Ctrl</kbd><span class="key-plus">+</span><kbd>E</kbd></div>
+            <div class="shortcut-desc">Export CSV</div>
+          </div>
+        </div>
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">General</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>?</kbd></div>
+            <div class="shortcut-desc">Show shortcuts</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Shared Tools JavaScript -->
+  <script src="../../js/tools-common.js"></script>
+  <!-- Word Frequency JavaScript -->
+  <script src="wordfrequency.js"></script>
+</body>
+</html>

@@ -949,6 +949,10 @@
 
   const showToast = (message, type) => ToolsCommon.showToast(message, type);
 
+  function escapeAttr(str) {
+    return str.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
+
   function renderCharacters(filter = '') {
     let chars = CHARACTERS[state.category];
 
@@ -956,12 +960,13 @@
       const filterLower = filter.toLowerCase();
       chars = Object.values(CHARACTERS).flat().filter(c =>
         c.name.toLowerCase().includes(filterLower) ||
-        c.char.includes(filter)
+        c.char.includes(filter) ||
+        c.code.toLowerCase().includes(filterLower)
       );
     }
 
     elements.charGrid.innerHTML = chars.map(c => `
-      <div class="char-item" data-char="${c.char}" data-name="${c.name}" data-code="${c.code}">
+      <div class="char-item" data-char="${escapeAttr(c.char)}" data-name="${escapeAttr(c.name)}" data-code="${escapeAttr(c.code)}">
         ${c.char}
       </div>
     `).join('');
@@ -1055,16 +1060,23 @@
   }
 
   function loadRecent() {
-    const saved = localStorage.getItem('charmap_recent');
-    if (saved) {
-      state.recent = JSON.parse(saved);
-      renderRecent();
+    try {
+      const saved = localStorage.getItem('charmap_recent');
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (Array.isArray(parsed)) {
+          state.recent = parsed;
+          renderRecent();
+        }
+      }
+    } catch {
+      localStorage.removeItem('charmap_recent');
     }
   }
 
   function renderRecent() {
     elements.recentGrid.innerHTML = state.recent.map(c => `
-      <div class="char-item" data-char="${c.char}" data-name="${c.name}" data-code="${c.code}">
+      <div class="char-item" data-char="${escapeAttr(c.char)}" data-name="${escapeAttr(c.name)}" data-code="${escapeAttr(c.code)}">
         ${c.char}
       </div>
     `).join('');

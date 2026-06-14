@@ -9,7 +9,7 @@
   border: 1px solid var(--color-border);
   border-radius: var(--radius-xl);
   overflow: hidden;
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--shadow-card);
 }
 
 .keyboard-header {
@@ -18,7 +18,7 @@
   justify-content: space-between;
   padding: var(--space-4) var(--space-5);
   background-color: var(--color-surface);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border-light);
 }
 
 .keyboard-header h2 {
@@ -56,6 +56,11 @@
   border-color: var(--color-primary);
 }
 
+.header-action-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px var(--color-primary-muted);
+}
+
 .keyboard-content {
   padding: var(--space-5);
   display: flex;
@@ -73,7 +78,7 @@
 .current-key {
   font-size: var(--font-size-4xl);
   font-weight: 700;
-  font-family: 'Fira Code', monospace;
+  font-family: var(--font-mono);
   color: var(--color-primary);
   margin-bottom: var(--space-2);
 }
@@ -88,7 +93,7 @@
 .key-name {
   font-size: var(--font-size-sm);
   color: var(--color-text-secondary);
-  font-family: 'Fira Code', monospace;
+  font-family: var(--font-mono);
 }
 
 .stats-row {
@@ -105,7 +110,7 @@
   display: block;
   font-size: var(--font-size-2xl);
   font-weight: 700;
-  font-family: 'Fira Code', monospace;
+  font-family: var(--font-mono);
   color: var(--color-text);
 }
 
@@ -153,9 +158,9 @@
 }
 
 .key.pressed {
-  background-color: rgba(34, 197, 94, 0.2);
-  border-color: #22c55e;
-  color: #22c55e;
+  background-color: color-mix(in srgb, var(--color-success) 20%, transparent);
+  border-color: var(--color-success);
+  color: var(--color-success);
 }
 
 .key.wide-1-25 { min-width: 52px; }
@@ -168,7 +173,7 @@
 
 .history-section {
   padding-top: var(--space-4);
-  border-top: 1px solid var(--color-border);
+  border-top: 1px solid var(--color-border-light);
 }
 
 .history-section h3 {
@@ -191,7 +196,7 @@
   border: 1px solid var(--color-border);
   border-radius: var(--radius-sm);
   font-size: var(--font-size-xs);
-  font-family: 'Fira Code', monospace;
+  font-family: var(--font-mono);
   color: var(--color-text);
 }
 

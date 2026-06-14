@@ -9,7 +9,7 @@
   border: 1px solid var(--color-border);
   border-radius: var(--radius-xl);
   overflow: hidden;
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--shadow-card);
 }
 
 .fakedata-header {
@@ -18,7 +18,7 @@
   justify-content: space-between;
   padding: var(--space-4) var(--space-5);
   background-color: var(--color-surface);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border-light);
 }
 
 .fakedata-header h2 {
@@ -93,7 +93,7 @@
 .data-value {
   flex: 1;
   font-size: var(--font-size-sm);
-  font-family: 'Fira Code', monospace;
+  font-family: var(--font-mono);
   color: var(--color-text);
   text-align: right;
   word-break: break-all;
@@ -110,6 +110,13 @@
 }
 
 .copy-item-btn:hover { color: var(--color-primary); }
+
+/* Focus ring for all interactive buttons */
+.header-action-btn:focus-visible,
+.copy-item-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px var(--color-primary-muted);
+}
 
 @media screen and (max-width: 768px) {
   .fakedata-wrapper { border-radius: var(--radius-lg); }

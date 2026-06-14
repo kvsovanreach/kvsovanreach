@@ -11,7 +11,7 @@
   border: 1px solid var(--color-border);
   border-radius: var(--radius-xl);
   overflow: hidden;
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--shadow-card);
 }
 
 /* Header */
@@ -21,7 +21,7 @@
   justify-content: space-between;
   padding: var(--space-4) var(--space-5);
   background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border-light);
 }
 
 .game-header h2 {
@@ -67,13 +67,13 @@
 }
 
 .score-card.you {
-  background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
-  box-shadow: 0 4px 15px rgba(34, 197, 94, 0.3);
+  background: linear-gradient(135deg, var(--color-success) 0%, var(--color-success) 100%);
+  box-shadow: 0 4px 15px color-mix(in srgb, var(--color-success) 30%, transparent);
 }
 
 .score-card.ai {
-  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
-  box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
+  background: linear-gradient(135deg, var(--color-error) 0%, var(--color-error) 100%);
+  box-shadow: 0 4px 15px color-mix(in srgb, var(--color-error) 30%, transparent);
 }
 
 .score-card.vs {
@@ -145,25 +145,25 @@
   border-radius: 50%;
   font-size: 3rem;
   color: var(--color-text-muted);
-  transition: all 0.3s ease;
+  transition: all var(--transition-base);
 }
 
 .player-hand .hand-display {
-  border-color: #22c55e;
-  box-shadow: 0 0 20px rgba(34, 197, 94, 0.2);
+  border-color: var(--color-success);
+  box-shadow: 0 0 20px color-mix(in srgb, var(--color-success) 20%, transparent);
 }
 
 .ai-hand .hand-display {
-  border-color: #ef4444;
-  box-shadow: 0 0 20px rgba(239, 68, 68, 0.2);
+  border-color: var(--color-error);
+  box-shadow: 0 0 20px color-mix(in srgb, var(--color-error) 20%, transparent);
 }
 
 .hand-display.active {
   transform: scale(1.1);
 }
 
-.hand-display.rock { color: #f59e0b; }
-.hand-display.paper { color: #3b82f6; }
+.hand-display.rock { color: var(--color-warning); }
+.hand-display.paper { color: var(--color-info); }
 .hand-display.scissors { color: #ec4899; }
 
 .hand-display.shake {
@@ -201,7 +201,7 @@
   text-align: center;
   opacity: 0;
   transform: scale(0.8);
-  transition: all 0.3s ease;
+  transition: all var(--transition-base);
 }
 
 .result-display.show {
@@ -210,17 +210,17 @@
 }
 
 .result-display.win {
-  background-color: #22c55e;
+  background-color: var(--color-success);
   color: white;
 }
 
 .result-display.lose {
-  background-color: #ef4444;
+  background-color: var(--color-error);
   color: white;
 }
 
 .result-display.draw {
-  background-color: #f59e0b;
+  background-color: var(--color-warning);
   color: white;
 }
 
@@ -253,14 +253,14 @@
   border: 2px solid var(--color-border);
   border-radius: var(--radius-xl);
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all var(--transition-fast);
   min-width: 100px;
 }
 
 .choice-btn i {
   font-size: 2rem;
   color: var(--color-text);
-  transition: all 0.2s ease;
+  transition: all var(--transition-fast);
 }
 
 .choice-btn span {
@@ -272,7 +272,12 @@
 .choice-btn:hover {
   transform: translateY(-4px);
   border-color: var(--color-primary);
-  box-shadow: 0 8px 25px rgba(55, 118, 161, 0.3);
+  box-shadow: 0 8px 25px rgba(145, 33, 78, 0.3);
+}
+
+.choice-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px var(--color-primary-muted);
 }
 
 .choice-btn:hover i {
@@ -281,16 +286,16 @@
 }
 
 .choice-btn[data-choice="rock"]:hover {
-  border-color: #f59e0b;
-  box-shadow: 0 8px 25px rgba(245, 158, 11, 0.3);
+  border-color: var(--color-warning);
+  box-shadow: 0 8px 25px color-mix(in srgb, var(--color-warning) 30%, transparent);
 }
-.choice-btn[data-choice="rock"]:hover i { color: #f59e0b; }
+.choice-btn[data-choice="rock"]:hover i { color: var(--color-warning); }
 
 .choice-btn[data-choice="paper"]:hover {
-  border-color: #3b82f6;
-  box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
+  border-color: var(--color-info);
+  box-shadow: 0 8px 25px color-mix(in srgb, var(--color-info) 30%, transparent);
 }
-.choice-btn[data-choice="paper"]:hover i { color: #3b82f6; }
+.choice-btn[data-choice="paper"]:hover i { color: var(--color-info); }
 
 .choice-btn[data-choice="scissors"]:hover {
   border-color: #ec4899;
@@ -304,19 +309,19 @@
 
 .choice-btn.selected {
   transform: translateY(-4px) scale(1.05);
-  box-shadow: 0 8px 25px rgba(55, 118, 161, 0.4);
+  box-shadow: 0 8px 25px rgba(145, 33, 78, 0.4);
 }
 
 .choice-btn.selected[data-choice="rock"] {
-  border-color: #f59e0b;
-  background: linear-gradient(135deg, rgba(245, 158, 11, 0.2), transparent);
-  box-shadow: 0 8px 25px rgba(245, 158, 11, 0.4);
+  border-color: var(--color-warning);
+  background: linear-gradient(135deg, color-mix(in srgb, var(--color-warning) 20%, transparent), transparent);
+  box-shadow: 0 8px 25px color-mix(in srgb, var(--color-warning) 40%, transparent);
 }
 
 .choice-btn.selected[data-choice="paper"] {
-  border-color: #3b82f6;
-  background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), transparent);
-  box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
+  border-color: var(--color-info);
+  background: linear-gradient(135deg, color-mix(in srgb, var(--color-info) 20%, transparent), transparent);
+  box-shadow: 0 8px 25px color-mix(in srgb, var(--color-info) 40%, transparent);
 }
 
 .choice-btn.selected[data-choice="scissors"] {
@@ -455,7 +460,7 @@
   gap: var(--space-2);
   padding: var(--space-3) var(--space-4);
   background-color: var(--color-bg-tertiary);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border-light);
   font-size: var(--font-size-sm);
   font-weight: 600;
   color: var(--color-text);
@@ -492,18 +497,18 @@
 }
 
 .history-item.win {
-  background-color: rgba(34, 197, 94, 0.2);
-  color: #22c55e;
+  background-color: color-mix(in srgb, var(--color-success) 20%, transparent);
+  color: var(--color-success);
 }
 
 .history-item.lose {
-  background-color: rgba(239, 68, 68, 0.2);
-  color: #ef4444;
+  background-color: color-mix(in srgb, var(--color-error) 20%, transparent);
+  color: var(--color-error);
 }
 
 .history-item.draw {
-  background-color: rgba(245, 158, 11, 0.2);
-  color: #f59e0b;
+  background-color: color-mix(in srgb, var(--color-warning) 20%, transparent);
+  color: var(--color-warning);
 }
 
 /* Animations */

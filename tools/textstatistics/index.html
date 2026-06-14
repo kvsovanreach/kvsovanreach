@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Analyze text readability with Flesch Reading Ease, Gunning Fog, Coleman-Liau, SMOG, and more. Get reading time and difficulty estimates.">
+  <meta property="og:title" content="KVSOVANREACH | Text Statistics">
+  <meta property="og:description" content="Analyze text readability, word count, and reading time.">
+  <meta property="og:image" content="/assets/img/favicons/og-image.png">
+  <title>KVSOVANREACH | Text Statistics</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+  <!-- Common Tools CSS -->
+  <link rel="stylesheet" href="../../css/tools-common.css">
+  <!-- Text Statistics CSS -->
+  <link rel="stylesheet" href="textstatistics.css">
+</head>
+<body>
+  <!-- Skip to Content -->
+  <a href="#textstatistics" class="skip-link">Skip to Text Statistics</a>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../tools.html" class="nav-logo">
+        <span class="logo-text">KVSOVANREACH</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-tools">TOOLS</span>
+      </a>
+
+      <div class="nav-actions">
+        <a href="../../tools.html" class="back-btn" title="Back to Tools">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="tool-page">
+    <div class="container">
+      <div class="ts-wrapper" id="textstatistics">
+        <!-- Header -->
+        <div class="ts-header">
+          <h2><i class="fa-solid fa-chart-pie"></i> Text Statistics</h2>
+          <div class="header-actions">
+            <button type="button" class="header-action-btn" id="clearBtn" title="Clear all" aria-label="Clear all">
+              <i class="fa-solid fa-trash"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Input Section -->
+        <div class="ts-input-section">
+          <div class="ts-input-top">
+            <label class="ts-input-label" for="textInput">Enter or paste your text</label>
+            <div class="ts-input-actions">
+              <button type="button" class="ts-btn" id="pasteBtn" title="Paste">
+                <i class="fa-solid fa-paste"></i> Paste
+              </button>
+              <button type="button" class="ts-btn" id="sampleBtn" title="Load sample">
+                <i class="fa-solid fa-file-import"></i> Sample
+              </button>
+            </div>
+          </div>
+          <textarea id="textInput" class="ts-textarea" rows="8" placeholder="Type or paste your text here to analyze readability and statistics..."></textarea>
+        </div>
+
+        <!-- Basic Counts -->
+        <div class="ts-counts hidden" id="countsSection">
+          <div class="ts-counts-grid">
+            <div class="count-card">
+              <i class="fa-solid fa-text-width"></i>
+              <span class="count-value" id="charCount">0</span>
+              <span class="count-label">Characters</span>
+            </div>
+            <div class="count-card">
+              <i class="fa-solid fa-text-slash"></i>
+              <span class="count-value" id="charNoSpaceCount">0</span>
+              <span class="count-label">Chars (no spaces)</span>
+            </div>
+            <div class="count-card">
+              <i class="fa-solid fa-font"></i>
+              <span class="count-value" id="wordCount">0</span>
+              <span class="count-label">Words</span>
+            </div>
+            <div class="count-card">
+              <i class="fa-solid fa-comment-dots"></i>
+              <span class="count-value" id="sentenceCount">0</span>
+              <span class="count-label">Sentences</span>
+            </div>
+            <div class="count-card">
+              <i class="fa-solid fa-paragraph"></i>
+              <span class="count-value" id="paragraphCount">0</span>
+              <span class="count-label">Paragraphs</span>
+            </div>
+            <div class="count-card">
+              <i class="fa-solid fa-drum"></i>
+              <span class="count-value" id="syllableCount">0</span>
+              <span class="count-label">Syllables</span>
+            </div>
+            <div class="count-card">
+              <i class="fa-solid fa-ruler-horizontal"></i>
+              <span class="count-value" id="avgWordLength">0</span>
+              <span class="count-label">Avg Word Length</span>
+            </div>
+            <div class="count-card">
+              <i class="fa-solid fa-arrows-left-right"></i>
+              <span class="count-value" id="avgSentenceLength">0</span>
+              <span class="count-label">Avg Sentence Length</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Time Estimates -->
+        <div class="ts-time hidden" id="timeSection">
+          <div class="ts-time-grid">
+            <div class="time-card">
+              <div class="time-icon"><i class="fa-solid fa-book-open"></i></div>
+              <div class="time-info">
+                <span class="time-value" id="readingTime">0 min</span>
+                <span class="time-label">Reading Time</span>
+                <span class="time-note">~225 words/min</span>
+              </div>
+            </div>
+            <div class="time-card">
+              <div class="time-icon"><i class="fa-solid fa-microphone"></i></div>
+              <div class="time-info">
+                <span class="time-value" id="speakingTime">0 min</span>
+                <span class="time-label">Speaking Time</span>
+                <span class="time-note">~140 words/min</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Difficulty Badge -->
+        <div class="ts-difficulty hidden" id="difficultySection">
+          <div class="difficulty-card">
+            <span class="difficulty-label">Difficulty Level</span>
+            <span class="difficulty-badge" id="difficultyBadge">-</span>
+          </div>
+        </div>
+
+        <!-- Readability Gauge -->
+        <div class="ts-gauge-section hidden" id="gaugeSection">
+          <h3><i class="fa-solid fa-gauge-high"></i> Flesch Reading Ease</h3>
+          <div class="ts-gauge">
+            <div class="gauge-track">
+              <div class="gauge-fill" id="gaugeFill"></div>
+              <div class="gauge-needle" id="gaugeNeedle"></div>
+            </div>
+            <div class="gauge-labels">
+              <span>0 (Very Hard)</span>
+              <span>50</span>
+              <span>100 (Very Easy)</span>
+            </div>
+            <div class="gauge-score" id="gaugeScore">-</div>
+          </div>
+        </div>
+
+        <!-- Readability Scores -->
+        <div class="ts-scores hidden" id="scoresSection">
+          <h3><i class="fa-solid fa-list-check"></i> Readability Scores</h3>
+          <div class="ts-scores-grid">
+            <div class="score-card">
+              <div class="score-header">
+                <span class="score-name">Flesch Reading Ease</span>
+                <span class="score-value" id="fleschEase">-</span>
+              </div>
+              <div class="score-bar-track">
+                <div class="score-bar-fill" id="fleschEaseBar"></div>
+              </div>
+              <span class="score-desc">Higher = easier to read (0-100)</span>
+            </div>
+            <div class="score-card">
+              <div class="score-header">
+                <span class="score-name">Flesch-Kincaid Grade</span>
+                <span class="score-value" id="fleschKincaid">-</span>
+              </div>
+              <div class="score-bar-track">
+                <div class="score-bar-fill" id="fleschKincaidBar"></div>
+              </div>
+              <span class="score-desc">US school grade level</span>
+            </div>
+            <div class="score-card">
+              <div class="score-header">
+                <span class="score-name">Gunning Fog Index</span>
+                <span class="score-value" id="gunningFog">-</span>
+              </div>
+              <div class="score-bar-track">
+                <div class="score-bar-fill" id="gunningFogBar"></div>
+              </div>
+              <span class="score-desc">Years of education needed</span>
+            </div>
+            <div class="score-card">
+              <div class="score-header">
+                <span class="score-name">Coleman-Liau Index</span>
+                <span class="score-value" id="colemanLiau">-</span>
+              </div>
+              <div class="score-bar-track">
+                <div class="score-bar-fill" id="colemanLiauBar"></div>
+              </div>
+              <span class="score-desc">US school grade level</span>
+            </div>
+            <div class="score-card">
+              <div class="score-header">
+                <span class="score-name">SMOG Index</span>
+                <span class="score-value" id="smogIndex">-</span>
+              </div>
+              <div class="score-bar-track">
+                <div class="score-bar-fill" id="smogIndexBar"></div>
+              </div>
+              <span class="score-desc">Years of education needed</span>
+            </div>
+            <div class="score-card">
+              <div class="score-header">
+                <span class="score-name">Automated Readability</span>
+                <span class="score-value" id="ari">-</span>
+              </div>
+              <div class="score-bar-track">
+                <div class="score-bar-fill" id="ariBar"></div>
+              </div>
+              <span class="score-desc">US school grade level</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Empty State -->
+        <div class="ts-empty" id="emptyState">
+          <i class="fa-solid fa-chart-pie"></i>
+          <p>Enter some text above to see readability scores, word counts, and time estimates.</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Keyboard Shortcuts Hint -->
+  <div class="shortcuts-hint" id="shortcutsHint">
+    <span><kbd>Shift</kbd>+<kbd>?</kbd> : shortcuts</span>
+  </div>
+
+  <!-- Keyboard Shortcuts Modal -->
+  <div class="shortcuts-modal" id="shortcutsModal">
+    <div class="shortcuts-content">
+      <div class="shortcuts-header">
+        <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
+        <button type="button" class="close-shortcuts-btn" id="closeShortcutsBtn" aria-label="Close shortcuts">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="shortcuts-body">
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">Actions</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Ctrl</kbd><span class="key-plus">+</span><kbd>V</kbd></div>
+            <div class="shortcut-desc">Paste text</div>
+          </div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>Delete</kbd></div>
+            <div class="shortcut-desc">Clear text</div>
+          </div>
+        </div>
+        <div class="shortcuts-group">
+          <div class="shortcuts-group-title">General</div>
+          <div class="shortcut-row">
+            <div class="shortcut-keys"><kbd>?</kbd></div>
+            <div class="shortcut-desc">Show shortcuts</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Shared Tools JavaScript -->
+  <script src="../../js/tools-common.js"></script>
+  <!-- Text Statistics JavaScript -->
+  <script src="textstatistics.js"></script>
+</body>
+</html>

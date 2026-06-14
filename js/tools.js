@@ -468,7 +468,7 @@
         const searchMatch = !query ||
           tool.name.toLowerCase().includes(query) ||
           tool.description.toLowerCase().includes(query) ||
-          tool.tags.some(tag => tag.includes(query));
+          tool.tags.some(tag => tag.toLowerCase().includes(query));
         return categoryMatch && searchMatch;
       });
 

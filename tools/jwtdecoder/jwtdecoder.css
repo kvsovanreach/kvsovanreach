@@ -1,0 +1,476 @@
+/**
+ * JWT Decoder CSS
+ */
+
+/* ==================== Layout ==================== */
+.jwt-wrapper {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+}
+
+.jwt-header {
+  padding: var(--space-4) var(--space-5);
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.jwt-header h2 {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-size: var(--font-size-xl);
+  font-weight: 600;
+  color: var(--color-text);
+  letter-spacing: -0.02em;
+}
+
+.jwt-header h2 i {
+  color: var(--color-primary);
+  font-size: var(--font-size-xl);
+}
+
+/* ==================== Tabs ==================== */
+.jwt-wrapper .tool-tabs {
+  border-radius: 0;
+}
+
+/* ==================== Tab Panels ==================== */
+.tab-panel {
+  display: none;
+  padding: var(--space-5);
+}
+
+.tab-panel.active {
+  display: block;
+}
+
+/* ==================== Section Headers ==================== */
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-3);
+}
+
+.section-header h3 {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--color-text-secondary);
+}
+
+.section-header h3 i {
+  font-size: var(--font-size-sm);
+}
+
+.section-actions {
+  display: flex;
+  gap: var(--space-2);
+}
+
+/* ==================== Color Coding ==================== */
+.header-color, .header-color i { color: #e74c3c; }
+.payload-color, .payload-color i { color: #9b59b6; }
+.signature-color, .signature-color i { color: #3498db; }
+
+[data-theme="dark"] .header-color,
+[data-theme="dark"] .header-color i { color: #ef5350; }
+[data-theme="dark"] .payload-color,
+[data-theme="dark"] .payload-color i { color: #ab47bc; }
+[data-theme="dark"] .signature-color,
+[data-theme="dark"] .signature-color i { color: #42a5f5; }
+
+/* ==================== Decode Tab ==================== */
+.decode-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-5);
+}
+
+.jwt-token-input textarea {
+  width: 100%;
+  min-height: 200px;
+  padding: var(--space-4);
+  background-color: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-sm);
+  line-height: 1.6;
+  color: var(--color-text);
+  resize: vertical;
+  word-break: break-all;
+}
+
+.jwt-token-input textarea:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 4px var(--color-primary-muted);
+}
+
+/* ==================== Decoded Parts ==================== */
+.jwt-decoded-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.jwt-part {
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+}
+
+.part-label {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.part-label .copy-part-btn {
+  margin-left: auto;
+}
+
+.header-label {
+  background-color: rgba(231, 76, 60, 0.08);
+  color: #e74c3c;
+  border-bottom: 1px solid rgba(231, 76, 60, 0.15);
+}
+
+.payload-label {
+  background-color: rgba(155, 89, 182, 0.08);
+  color: #9b59b6;
+  border-bottom: 1px solid rgba(155, 89, 182, 0.15);
+}
+
+.signature-label {
+  background-color: rgba(52, 152, 219, 0.08);
+  color: #3498db;
+  border-bottom: 1px solid rgba(52, 152, 219, 0.15);
+}
+
+[data-theme="dark"] .header-label {
+  background-color: rgba(239, 83, 80, 0.1);
+  color: #ef5350;
+  border-bottom-color: rgba(239, 83, 80, 0.2);
+}
+
+[data-theme="dark"] .payload-label {
+  background-color: rgba(171, 71, 188, 0.1);
+  color: #ab47bc;
+  border-bottom-color: rgba(171, 71, 188, 0.2);
+}
+
+[data-theme="dark"] .signature-label {
+  background-color: rgba(66, 165, 245, 0.1);
+  color: #42a5f5;
+  border-bottom-color: rgba(66, 165, 245, 0.2);
+}
+
+.part-content {
+  padding: var(--space-3) var(--space-4);
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: var(--font-size-xs);
+  line-height: 1.6;
+  color: var(--color-text);
+  background-color: var(--color-bg-secondary);
+  white-space: pre-wrap;
+  word-break: break-word;
+  max-height: 300px;
+  overflow: auto;
+}
+
+.signature-content {
+  word-break: break-all;
+  color: var(--color-text-muted);
+  font-size: var(--font-size-xs);
+}
+
+/* ==================== Badges ==================== */
+.algo-badge,
+.expiry-badge {
+  padding: 1px var(--space-2);
+  border-radius: var(--radius-full);
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+.algo-badge {
+  background-color: rgba(231, 76, 60, 0.15);
+  color: #e74c3c;
+}
+
+.expiry-badge {
+  font-size: 10px;
+}
+
+.expiry-badge.valid {
+  background-color: rgba(22, 163, 74, 0.12);
+  color: var(--color-success);
+}
+
+.expiry-badge.expired {
+  background-color: rgba(220, 38, 38, 0.12);
+  color: var(--color-error);
+}
+
+.expiry-badge.no-expiry {
+  background-color: var(--color-bg-tertiary);
+  color: var(--color-text-muted);
+}
+
+/* Timestamp annotations */
+.timestamp-annotation {
+  color: var(--color-text-muted);
+  font-style: italic;
+  font-size: var(--font-size-xs);
+}
+
+/* ==================== Panel Button (reused in parts) ==================== */
+.panel-btn {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-sm);
+  background: none;
+  border: none;
+  color: inherit;
+  opacity: 0.6;
+  font-size: var(--font-size-xs);
+  transition: all var(--transition-fast);
+}
+
+.panel-btn:hover {
+  opacity: 1;
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+[data-theme="dark"] .panel-btn:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.panel-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px var(--color-primary-muted);
+}
+
+/* ==================== Encode Tab ==================== */
+.encode-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-5);
+}
+
+.encode-inputs {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.encode-field textarea,
+.encode-field input {
+  width: 100%;
+  padding: var(--space-3) var(--space-4);
+  background-color: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-sm);
+  line-height: 1.6;
+  color: var(--color-text);
+  resize: vertical;
+}
+
+.encode-field textarea:focus,
+.encode-field input:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 4px var(--color-primary-muted);
+}
+
+.secret-input-wrap {
+  display: flex;
+  gap: var(--space-2);
+  align-items: center;
+}
+
+.secret-input-wrap input {
+  flex: 1;
+}
+
+.secret-input-wrap .panel-btn {
+  width: 36px;
+  height: 36px;
+  color: var(--color-text-muted);
+  opacity: 1;
+}
+
+.encode-btn,
+.verify-btn {
+  align-self: flex-start;
+  padding: var(--space-3) var(--space-6);
+}
+
+.encode-output {
+  display: flex;
+  flex-direction: column;
+}
+
+.encoded-token-display {
+  flex: 1;
+  background-color: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  overflow: auto;
+}
+
+.encoded-token-display pre {
+  padding: var(--space-4);
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: var(--font-size-sm);
+  line-height: 1.6;
+  word-break: break-all;
+  white-space: pre-wrap;
+  color: var(--color-text-muted);
+}
+
+/* Color-coded JWT parts in output */
+.jwt-header-part { color: #e74c3c; }
+.jwt-payload-part { color: #9b59b6; }
+.jwt-signature-part { color: #3498db; }
+.jwt-dot { color: var(--color-text-muted); }
+
+[data-theme="dark"] .jwt-header-part { color: #ef5350; }
+[data-theme="dark"] .jwt-payload-part { color: #ab47bc; }
+[data-theme="dark"] .jwt-signature-part { color: #42a5f5; }
+
+/* ==================== Verify Tab ==================== */
+.verify-layout {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  max-width: 700px;
+}
+
+.verify-field textarea,
+.verify-field input {
+  width: 100%;
+  padding: var(--space-3) var(--space-4);
+  background-color: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-sm);
+  line-height: 1.6;
+  color: var(--color-text);
+  resize: vertical;
+}
+
+.verify-field textarea:focus,
+.verify-field input:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 4px var(--color-primary-muted);
+}
+
+/* ==================== Verify Result ==================== */
+.verify-result {
+  padding: var(--space-5);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+  text-align: center;
+}
+
+.verify-result.success {
+  background-color: rgba(22, 163, 74, 0.06);
+  border-color: rgba(22, 163, 74, 0.2);
+}
+
+.verify-result.failure {
+  background-color: rgba(220, 38, 38, 0.06);
+  border-color: rgba(220, 38, 38, 0.2);
+}
+
+.verify-icon {
+  font-size: 2.5rem;
+  margin-bottom: var(--space-3);
+}
+
+.verify-result.success .verify-icon { color: var(--color-success); }
+.verify-result.failure .verify-icon { color: var(--color-error); }
+
+.verify-message {
+  font-size: var(--font-size-lg);
+  font-weight: 700;
+  margin-bottom: var(--space-2);
+}
+
+.verify-result.success .verify-message { color: var(--color-success); }
+.verify-result.failure .verify-message { color: var(--color-error); }
+
+.verify-details {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+}
+
+/* ==================== Responsive ==================== */
+@media screen and (max-width: 900px) {
+  .decode-layout,
+  .encode-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .tab-panel {
+    padding: var(--space-4);
+  }
+
+  .jwt-header h2 {
+    font-size: var(--font-size-xl);
+  }
+
+  .jwt-header {
+    padding: var(--space-3) var(--space-4);
+  }
+
+  .section-actions {
+    flex-wrap: wrap;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .tab-panel {
+    padding: var(--space-3);
+  }
+
+  .section-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-2);
+  }
+
+  .section-actions {
+    width: 100%;
+  }
+
+  .section-actions .action-btn {
+    flex: 1;
+    justify-content: center;
+  }
+}

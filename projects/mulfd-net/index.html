@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>MulFD-Net &mdash; Per-Scale Multi-Layer Feature Decomposition</title>
+<meta name="description" content="MulFD-Net: per-scale Multi-Layer Feature Decomposition for transparent and reflective object segmentation. IEEE Access 2026." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>&#128302;</text></svg>">
+<style>
+  :root{
+    --bg:#0a0a0f; --bg-2:#12121a; --bg-3:#1a1a24;
+    --surface:#1e1e2a; --surface-h:#252532;
+    --border:#2a2a3a; --border-l:#3a3a4a;
+    --text:#ffffff; --text-2:#a0a0b0; --text-3:#6a6a7a;
+    --primary:#6366f1; --primary-l:#818cf8; --accent:#22d3ee;
+    --success:#22c55e;
+    --grad-text:linear-gradient(135deg,#6366f1 0%,#22d3ee 50%,#a855f7 100%);
+    --grad-primary:linear-gradient(135deg,#6366f1 0%,#8b5cf6 50%,#d946ef 100%);
+    --font-sans:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+    --font-mono:'JetBrains Mono','Fira Code',monospace;
+    --r-md:.5rem; --r-lg:.75rem; --r-xl:1rem; --r-2xl:1.5rem; --r-full:9999px;
+    --maxw:1120px;
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+  body{font-family:var(--font-sans);font-size:16px;line-height:1.65;color:var(--text);
+    background:var(--bg);overflow-x:hidden}
+  a{color:inherit;text-decoration:none}
+  img{max-width:100%;height:auto;display:block}
+  button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+  .wrap{width:100%;max-width:var(--maxw);margin:0 auto;padding:0 24px}
+  section{padding:88px 0}
+  .eyebrow{font-family:var(--font-mono);font-size:.76rem;font-weight:500;letter-spacing:.18em;
+    text-transform:uppercase;color:var(--accent);display:block;margin-bottom:14px}
+  h2{font-size:clamp(1.6rem,3vw,2.15rem);font-weight:800;letter-spacing:-.03em;line-height:1.15}
+  h3{font-size:1.05rem;font-weight:700;letter-spacing:-.01em}
+  p.lead{color:var(--text-2);max-width:64ch;margin-top:16px;font-size:1.02rem}
+  .gtext{background:var(--grad-text);-webkit-background-clip:text;background-clip:text;
+    -webkit-text-fill-color:transparent}
+
+  /* Nav */
+  nav{position:sticky;top:0;z-index:60;background:rgba(10,10,15,.72);
+    backdrop-filter:saturate(180%) blur(14px);border-bottom:1px solid var(--border)}
+  nav .wrap{display:flex;align-items:center;justify-content:space-between;height:64px}
+  .brand{font-weight:800;font-size:1.1rem;letter-spacing:-.02em}
+  .brand .dot{color:var(--accent)}
+  .navlinks{display:flex;gap:30px;font-size:.92rem;font-weight:500;color:var(--text-2)}
+  .navlinks a{transition:color .2s ease}
+  .navlinks a:hover{color:var(--text)}
+  .nav-cta{font-family:var(--font-mono);font-size:.82rem;font-weight:500;
+    border:1px solid var(--border-l);padding:8px 16px;border-radius:var(--r-full);
+    color:var(--text);transition:border-color .2s ease,background .2s ease}
+  .nav-cta:hover{border-color:var(--primary);background:rgba(99,102,241,.12)}
+  @media(max-width:720px){.navlinks{display:none}}
+
+  /* Hero */
+  header.hero{position:relative;padding:104px 0 92px;overflow:hidden;
+    border-bottom:1px solid var(--border)}
+  header.hero::before{content:"";position:absolute;inset:0;
+    background:
+      radial-gradient(820px 420px at 80% -8%,rgba(99,102,241,.30),transparent 60%),
+      radial-gradient(680px 420px at 6% 108%,rgba(34,211,238,.16),transparent 55%);
+    pointer-events:none}
+  .hero-inner{position:relative;z-index:2}
+  .badge{display:inline-flex;align-items:center;gap:9px;font-family:var(--font-mono);
+    font-size:.74rem;font-weight:500;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--text-2);border:1px solid var(--border-l);padding:7px 16px;
+    border-radius:var(--r-full);margin-bottom:26px}
+  .badge::before{content:"";width:7px;height:7px;border-radius:50%;
+    background:var(--accent);box-shadow:0 0 12px var(--accent)}
+  header.hero h1{font-size:clamp(2rem,5vw,3.4rem);font-weight:800;line-height:1.1;
+    letter-spacing:-.035em;max-width:19ch}
+  header.hero .sub{margin-top:22px;color:var(--text-2);font-size:1.1rem;max-width:62ch}
+  .authors{margin-top:34px;display:flex;flex-wrap:wrap;gap:10px 28px}
+  .authors .a{font-weight:700}
+  .authors .aff{display:block;font-size:.82rem;color:var(--text-3);font-weight:400;margin-top:2px}
+  .cta{margin-top:38px;display:flex;flex-wrap:wrap;gap:14px}
+  .btn{display:inline-flex;align-items:center;gap:9px;padding:13px 24px;
+    border-radius:var(--r-full);font-weight:600;font-size:.95rem;
+    transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease}
+  .btn:hover{transform:translateY(-2px)}
+  .btn.primary{background:var(--grad-primary);color:#fff;
+    box-shadow:0 14px 34px -12px rgba(139,92,246,.7)}
+  .btn.ghost{border:1px solid var(--border-l);color:var(--text)}
+  .btn.ghost:hover{border-color:var(--primary)}
+
+  /* Stat band */
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:-46px;
+    position:relative;z-index:5}
+  .stat{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-xl);
+    padding:22px 20px}
+  .stat .n{font-size:1.9rem;font-weight:800;letter-spacing:-.02em}
+  .stat .n small{font-family:var(--font-mono);font-size:.9rem;color:var(--success);
+    font-weight:500;margin-left:7px}
+  .stat .l{font-size:.82rem;color:var(--text-2);margin-top:4px}
+  @media(max-width:800px){.stats{grid-template-columns:repeat(2,1fr)}}
+
+  .card{background:var(--surface);border:1px solid var(--border);
+    border-radius:var(--r-2xl);padding:34px}
+  .grid2{display:grid;grid-template-columns:1.05fr .95fr;gap:38px;align-items:center}
+  @media(max-width:860px){.grid2{grid-template-columns:1fr;gap:24px}}
+
+  figure{margin:0}
+  figure img{width:100%;border-radius:var(--r-lg);border:1px solid var(--border);
+    background:#fff}
+  figcaption{font-size:.84rem;color:var(--text-3);margin-top:12px;text-align:center}
+
+  .code{font-family:var(--font-mono);background:var(--bg-2);
+    border:1px solid var(--border);border-radius:var(--r-lg);padding:20px 22px;
+    font-size:.88rem;line-height:1.85;color:#d7def0;overflow-x:auto;white-space:pre}
+  .code .c{color:#6a6a7a} .code .k{color:#22d3ee} .code .v{color:#a855f7}
+
+  .contribs{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-top:36px}
+  @media(max-width:860px){.contribs{grid-template-columns:1fr}}
+  .contrib{background:var(--bg-2);border:1px solid var(--border);
+    border-radius:var(--r-xl);padding:24px;transition:border-color .2s ease,transform .2s ease}
+  .contrib:hover{border-color:var(--border-l);transform:translateY(-3px)}
+  .contrib .ix{display:inline-grid;place-items:center;width:36px;height:36px;
+    border-radius:var(--r-md);background:var(--grad-primary);color:#fff;
+    font-family:var(--font-mono);font-weight:500;margin-bottom:14px}
+  .contrib p{color:var(--text-2);font-size:.94rem;margin-top:6px}
+
+  .tablewrap{border:1px solid var(--border);border-radius:var(--r-xl);
+    background:var(--bg-2);padding:6px 18px 16px;overflow-x:auto}
+  table{width:100%;border-collapse:collapse;font-size:.92rem}
+  th,td{padding:12px;text-align:right;border-bottom:1px solid var(--border)}
+  th:first-child,td:first-child{text-align:left}
+  tbody tr:last-child td{border-bottom:none}
+  thead th{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.06em;
+    text-transform:uppercase;color:var(--text-3);font-weight:500}
+  td{color:var(--text-2)}
+  tbody tr.ours td{color:var(--text);font-weight:700;
+    background:linear-gradient(90deg,rgba(99,102,241,.14),rgba(34,211,238,.08))}
+  .delta{font-family:var(--font-mono);color:var(--success);font-weight:500}
+  .tnote{font-size:.8rem;color:var(--text-3);margin-top:12px}
+
+  .bibtex{position:relative}
+  .bibtex pre{font-family:var(--font-mono);background:var(--bg-2);
+    border:1px solid var(--border);border-radius:var(--r-lg);padding:24px;
+    font-size:.84rem;line-height:1.7;color:#cdd6ee;overflow-x:auto}
+  .copy{position:absolute;top:14px;right:14px;font-family:var(--font-mono);
+    font-size:.76rem;font-weight:500;border:1px solid var(--border-l);
+    padding:7px 14px;border-radius:var(--r-md);color:var(--text-2);
+    transition:all .2s ease}
+  .copy:hover{color:var(--text);border-color:var(--primary);background:rgba(99,102,241,.12)}
+
+  footer{border-top:1px solid var(--border);background:var(--bg-2);
+    padding:44px 0;text-align:center;color:var(--text-3);font-size:.88rem}
+  footer a{color:var(--text-2)} footer a:hover{color:var(--text)}
+  .alt{background:var(--bg-2);border-top:1px solid var(--border);
+    border-bottom:1px solid var(--border)}
+  @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <div class="brand">MulFD<span class="dot">&middot;</span>Net</div>
+    <div class="navlinks">
+      <a href="#idea">Idea</a>
+      <a href="#method">Method</a>
+      <a href="#results">Results</a>
+      <a href="#cite">Cite</a>
+    </div>
+    <a class="nav-cta" href="mailto:kimtk@chungbuk.ac.kr">Contact</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap hero-inner">
+    <span class="badge">IEEE Access &middot; 2026</span>
+    <h1>Per-Scale <span class="gtext">Multi-Layer Feature Decomposition</span> for Transparent &amp; Reflective Object Segmentation</h1>
+    <p class="sub">Transparent surfaces have no appearance of their own. We reframe their
+      segmentation as a <strong>dual-anomaly detection</strong> problem and detect the
+      attenuation&ndash;reflection signature at every backbone scale, before fusion.</p>
+
+    <div class="authors">
+      <div>
+        <span class="a">Vungsovanreach Kong</span>
+        <span class="aff">Dept. of Big Data, Chungbuk National University</span>
+      </div>
+      <div>
+        <span class="a">Tae-Kyung Kim</span>
+        <span class="aff">Dept. of Management Information Systems, CBNU &middot; Corresponding</span>
+      </div>
+    </div>
+
+    <div class="cta">
+      <a class="btn primary" href="#results">View Results</a>
+      <a class="btn ghost" href="#cite">BibTeX</a>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="stats" aria-label="Headline results">
+    <div class="stat"><div class="n">82.42<small>+2.38</small></div><div class="l">Trans10K-v2 mIoU &middot; PVTv2-B3</div></div>
+    <div class="stat"><div class="n">90.10<small>+1.38</small></div><div class="l">GDD glass-detection IoU</div></div>
+    <div class="stat"><div class="n">93.06<small>+2.02</small></div><div class="l">MSD mirror-segmentation IoU</div></div>
+    <div class="stat"><div class="n">3.85<small>M</small></div><div class="l">Constant decoder params, B1&ndash;B5</div></div>
+  </div>
+</div>
+
+<section id="abstract">
+  <div class="wrap">
+    <span class="eyebrow">Abstract</span>
+    <h2>Reading a surface by how it bends the scene behind it</h2>
+    <p class="lead" style="margin-bottom:28px">A single architecture, switching only the loss
+      variant, reaches the best published numbers on a 12-class benchmark and on both binary
+      glass and mirror benchmarks.</p>
+    <div class="card">
+      <p style="color:var(--text-2)">Transparent and reflective surfaces take their color from
+      the background scene through two simultaneous effects: <strong style="color:var(--text)">attenuation</strong>
+      via refraction and a partial <strong style="color:var(--text)">reflection</strong> from
+      the foreground. We frame transparent object semantic segmentation as a dual-anomaly
+      detection problem and propose <strong style="color:var(--text)">Multi-Layer Feature
+      Decomposition (MLFD)</strong>: an operator that estimates a learned local context,
+      sign-splits the residual against the input into attenuation-like and reflection-like
+      channels, and emits a co-occurrence-gated residual amplifier with the multiplier bounded
+      in [1,&nbsp;2] &mdash; so MLFD only amplifies, never suppresses. The architectural
+      contribution is to apply MLFD per stage at every backbone scale, at native channel
+      widths, before the feature pyramid fuses scales, so per-scale transparency cues survive
+      aggregation.</p>
+    </div>
+  </div>
+</section>
+
+<section id="idea" class="alt">
+  <div class="wrap">
+    <span class="eyebrow">Key Idea</span>
+    <h2>The dual-anomaly signature</h2>
+    <p class="lead">Glass attenuates the background and overlays a reflection at the same
+      time. Opaque surfaces do neither. The co-occurrence of both effects uniquely identifies
+      a transparent or reflective surface in feature space.</p>
+    <div class="grid2" style="margin-top:36px;align-items:start">
+      <div>
+        <h3>A bounded co-occurrence amplifier</h3>
+        <p style="color:var(--text-2);margin:8px 0 18px">MLFD sign-splits the residual of a
+          feature against a learned local context, then gates the two rectified channels by
+          their co-occurrence. It can only strengthen evidence where the dual anomaly fires;
+          opaque regions pass through untouched.</p>
+      </div>
+<div class="code"><span class="c"># learned local context, two dilations</span>
+r&#8345; = x &minus; ctx(x, d=<span class="v">3</span>) ;  r&#8348; = x &minus; ctx(x, d=<span class="v">6</span>)
+<span class="c"># sign split &rarr; physically-motivated channels</span>
+a = ReLU(&minus;r&#8345;) + ReLU(&minus;r&#8348;)   <span class="k">// attenuation</span>
+b = ReLU(&nbsp;r&#8345;) + ReLU(&nbsp;r&#8348;)   <span class="k">// reflection</span>
+<span class="c"># co-occurrence gate &middot; bounded in [1,2]</span>
+g = &sigma;( conv([a, b, a&middot;b, x]) )
+y = x + g &middot; x        <span class="k">// = x &middot; (1 + g)</span></div>
+    </div>
+
+    <figure class="card" style="margin-top:32px;text-align:center">
+      <img src="assets/mlfd.png" alt="MLFD module: dual dilated context, sign-split residual into attenuation and reflection channels, co-occurrence gate, bounded residual amplifier." loading="lazy" style="background:#fff;padding:18px;border-radius:var(--r-lg)" />
+      <figcaption>The single-scale MLFD operator.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section id="method">
+  <div class="wrap">
+    <span class="eyebrow">Method</span>
+    <h2>Apply it everywhere, before fusion</h2>
+    <p class="lead">Contour-level refraction lives at fine strides; large-area reflective
+      overlays live at coarse strides. Post-fusion designs mix these away. MulFD-Net runs an
+      independent MLFD at each PVTv2 stage at its native width, before the feature pyramid
+      fuses scales, so each scale keeps its own transparency cues.</p>
+    <figure class="card" style="margin-top:32px">
+      <img src="assets/architecture.png" alt="End-to-end MulFD-Net pipeline: PVTv2 backbone produces four scales, per-scale MLFD before fusion, LightASPP on the deepest stage, FPN top-down fusion, RefinementUNet, segmentation and auxiliary heads." loading="lazy" />
+      <figcaption>End-to-end MulFD-Net: per-scale MLFD on every backbone stage before FPN
+        fusion, LightASPP for global context, a RefinementUNet, and a deeply-supervised head.</figcaption>
+    </figure>
+
+    <div class="contribs">
+      <div class="contrib"><div class="ix">01</div><h3>Dual-anomaly framing</h3>
+        <p>Recasts the task around two perceptual signatures &mdash; attenuation and
+          reflection &mdash; that co-occur only on transparent and reflective surfaces.</p></div>
+      <div class="contrib"><div class="ix">02</div><h3>The MLFD operator</h3>
+        <p>A sign-preserving residual decomposition coupled to a co-occurrence-gated bounded
+          amplifier, not a generic attention block.</p></div>
+      <div class="contrib"><div class="ix">03</div><h3>Per-scale, before fusion</h3>
+        <p>Deployed at every backbone stage at native channel widths, preserving scale-specific
+          cues that post-fusion designs permanently mix.</p></div>
+      <div class="contrib"><div class="ix">04</div><h3>One architecture, three tasks</h3>
+        <p>The same model, with only the binary loss variant, reaches the best published
+          numbers on glass (GDD) and mirror (MSD) benchmarks.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="results" class="alt">
+  <div class="wrap">
+    <span class="eyebrow">Results</span>
+    <h2>Pareto-better across the whole backbone family</h2>
+    <p class="lead">On Trans10K-v2, MulFD-Net beats the matched-backbone TransCues entry at
+      every PVTv2 size from B1 to B5, and from B3 onward does so with fewer total parameters.</p>
+
+    <div class="grid2" style="margin-top:36px">
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Method (PVTv2)</th><th>Params</th><th>mIoU</th><th>&Delta;</th></tr></thead>
+          <tbody>
+            <tr><td>TransCues-B1</td><td>14.87M</td><td>77.05</td><td>&mdash;</td></tr>
+            <tr class="ours"><td>MulFD-Net-B1</td><td>17.34M</td><td>79.13</td><td class="delta">+2.08</td></tr>
+            <tr><td>TransCues-B3</td><td>51.21M</td><td>80.04</td><td>&mdash;</td></tr>
+            <tr class="ours"><td>MulFD-Net-B3</td><td>48.57M</td><td>82.42</td><td class="delta">+2.38</td></tr>
+            <tr><td>TransCues-B5</td><td>106.19M</td><td>81.37</td><td>&mdash;</td></tr>
+            <tr class="ours"><td>MulFD-Net-B5</td><td>85.29M</td><td>84.22</td><td class="delta">+2.85</td></tr>
+          </tbody>
+        </table>
+        <p class="tnote">Single-scale 768&times;768 inference, no TTA, matched protocol. Full
+          B1&ndash;B5 table in the paper.</p>
+      </div>
+      <figure>
+        <img src="assets/pareto.png" alt="Pareto plot of test mIoU versus total parameters on Trans10K-v2; the MulFD-Net curve dominates the TransCues curve." loading="lazy" />
+        <figcaption>mIoU vs. parameters &mdash; MulFD-Net dominates the frontier.</figcaption>
+      </figure>
+    </div>
+
+    <div style="height:38px"></div>
+
+    <div class="grid2">
+      <figure>
+        <img src="assets/predictions.png" alt="Qualitative Trans10K-v2 predictions: input, ground truth, and MulFD-Net output across transparent object classes." loading="lazy" />
+        <figcaption>Qualitative Trans10K-v2 predictions across transparent classes.</figcaption>
+      </figure>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Cross-dataset &middot; B3</th><th>IoU</th><th>MAE&darr;</th><th>F&beta;&uarr;</th><th>BER&darr;</th></tr></thead>
+          <tbody>
+            <tr><td>GDD &mdash; prev. best</td><td>88.72</td><td>0.055</td><td>0.940</td><td>5.36</td></tr>
+            <tr class="ours"><td>GDD &mdash; MulFD-Net</td><td>90.10</td><td>0.051</td><td>0.942</td><td>4.84</td></tr>
+            <tr><td>MSD &mdash; prev. best</td><td>91.04</td><td>0.028</td><td>0.953</td><td>&mdash;</td></tr>
+            <tr class="ours"><td>MSD &mdash; MulFD-Net</td><td>93.06</td><td>0.019</td><td>0.968</td><td>7.12</td></tr>
+          </tbody>
+        </table>
+        <p class="tnote">Same architecture, only the loss variant switched to binary. Best on
+          every metric on both benchmarks.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="cite">
+  <div class="wrap">
+    <span class="eyebrow">Citation</span>
+    <h2>BibTeX</h2>
+    <div style="margin-top:26px" class="bibtex">
+      <button class="copy" onclick="navigator.clipboard.writeText(document.getElementById('bib').innerText).then(()=>{this.textContent='Copied';setTimeout(()=>this.textContent='Copy',1600)})">Copy</button>
+      <pre id="bib">@article{mulfdnet2026,
+  title   = {MulFD-Net: Per-Scale Multi-Layer Feature Decomposition for
+             Transparent and Reflective Object Segmentation},
+  author  = {Kong, Vungsovanreach and Kim, Tae-Kyung},
+  journal = {IEEE Access},
+  year    = {2026}
+}</pre>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p>MulFD-Net &middot; Chungbuk National University &middot; IEEE Access 2026</p>
+    <p style="margin-top:6px">Correspondence:
+      <a href="mailto:kimtk@chungbuk.ac.kr">kimtk@chungbuk.ac.kr</a></p>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -11,7 +11,7 @@
   border: 1px solid var(--color-border);
   border-radius: var(--radius-xl);
   overflow: hidden;
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--shadow-card);
 }
 
 /* Header */
@@ -21,7 +21,7 @@
   justify-content: space-between;
   padding: var(--space-4) var(--space-5);
   background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border-light);
 }
 
 .naming-header h2 {
@@ -73,7 +73,7 @@
   background-color: var(--color-bg-secondary);
   border: 2px solid var(--color-border);
   border-radius: var(--radius-lg);
-  font-family: 'Fira Code', monospace;
+  font-family: var(--font-mono);
   font-size: var(--font-size-lg);
   color: var(--color-text);
   transition: border-color var(--transition-fast);
@@ -108,7 +108,7 @@
   align-items: center;
   padding: var(--space-3) var(--space-4);
   background-color: var(--color-bg-tertiary);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border-light);
 }
 
 .detection-header h3 {
@@ -232,7 +232,7 @@
 }
 
 .convention-name {
-  font-family: 'Fira Code', monospace;
+  font-family: var(--font-mono);
   font-size: var(--font-size-sm);
   font-weight: 600;
   color: var(--color-text);
@@ -258,7 +258,7 @@
 
 .convention-value code {
   flex: 1;
-  font-family: 'Fira Code', monospace;
+  font-family: var(--font-mono);
   font-size: var(--font-size-base);
   font-weight: 500;
   color: #8b5cf6;
@@ -286,6 +286,11 @@
   color: white;
 }
 
+.copy-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px var(--color-primary-muted);
+}
+
 .convention-desc {
   font-size: var(--font-size-xs);
   color: var(--color-text-muted);
@@ -306,7 +311,7 @@
   align-items: center;
   padding: var(--space-3) var(--space-4);
   background-color: var(--color-bg-tertiary);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border-light);
 }
 
 .validation-header h3 {
@@ -341,11 +346,11 @@
 }
 
 .validation-item.valid i {
-  color: #22c55e;
+  color: var(--color-success);
 }
 
 .validation-item.invalid i {
-  color: #ef4444;
+  color: var(--color-error);
 }
 
 .validation-rules {
@@ -370,11 +375,11 @@
 }
 
 .validation-rule.pass i {
-  color: #22c55e;
+  color: var(--color-success);
 }
 
 .validation-rule.fail i {
-  color: #ef4444;
+  color: var(--color-error);
 }
 
 /* Info Panel */
@@ -391,7 +396,7 @@
   gap: var(--space-2);
   padding: var(--space-3) var(--space-4);
   background-color: var(--color-bg-tertiary);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border-light);
   font-size: var(--font-size-sm);
   font-weight: 600;
   color: var(--color-text);
@@ -431,7 +436,7 @@
 }
 
 .info-row code {
-  font-family: 'Fira Code', monospace;
+  font-family: var(--font-mono);
   color: #8b5cf6;
 }
 

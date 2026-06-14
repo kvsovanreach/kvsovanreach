@@ -366,7 +366,7 @@
         const timeEl = document.getElementById(`time-${stage.id}`);
         const timeText = timeEl ? timeEl.textContent : '--';
         ctx.fillStyle = '#64748b';
-        ctx.font = `${8 * scale}px "Fira Code", monospace`;
+        ctx.font = `${8 * scale}px "SF Mono", SFMono-Regular, ui-monospace, Menlo, Monaco, "Cascadia Mono", Consolas, monospace`;
         ctx.fillText(timeText, x + nodeWidth / 2, y + 70 * scale);
 
         // Arrow

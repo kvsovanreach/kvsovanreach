@@ -71,8 +71,15 @@
   }
 
   function handleCustomTip(e) {
-    const value = parseInt(e.target.value);
-    if (value >= 0 && value <= 100) {
+    const raw = e.target.value.trim();
+    if (raw === '') {
+      state.tipPercent = 0;
+      elements.tipButtons.forEach(b => b.classList.remove('active'));
+      calculate();
+      return;
+    }
+    const value = parseInt(raw);
+    if (!isNaN(value) && value >= 0 && value <= 100) {
       elements.tipButtons.forEach(b => b.classList.remove('active'));
       state.tipPercent = value;
       calculate();
