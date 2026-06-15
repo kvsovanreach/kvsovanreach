@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kong Vungsovanreach CV</title>
+<style>
+  :root{
+    --accent:#3776A1;
+    --accent-dark:#2b5d80;
+    --ink:#1f2933;
+    --muted:#5b6b78;
+    --line:#dfe6ec;
+    --soft:#eef3f7;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:#525659;font-family:"Helvetica Neue",Arial,"Malgun Gothic","Apple SD Gothic Neo",sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased}
+
+  /* ---- A4 page ---- */
+  .page{
+    width:210mm;min-height:297mm;margin:18px auto;background:#fff;
+    padding:13mm 13mm 11mm;box-shadow:0 6px 24px rgba(0,0,0,.35);
+    display:flex;flex-direction:column;
+  }
+
+  /* ---- Header ---- */
+  header{display:flex;gap:16px;align-items:center;border-bottom:3px solid var(--accent);padding-bottom:12px;margin-bottom:12px}
+  .photo{width:94px;height:121px;border-radius:2px;object-fit:cover;border:1px solid var(--line);flex:0 0 auto}
+  .head-main{flex:1 1 auto}
+  .name{font-size:27px;font-weight:800;letter-spacing:.3px;line-height:1.05}
+  .kname{font-size:13.5px;font-weight:600;color:var(--muted);margin-top:2px}
+  .role{color:var(--accent-dark);font-weight:700;font-size:14.5px;margin-top:3px;text-transform:uppercase;letter-spacing:.6px}
+  .tagline{color:var(--muted);font-size:11.5px;margin-top:4px;max-width:120mm;line-height:1.45}
+  .contact{flex:0 0 auto;font-size:10.5px;color:var(--muted);text-align:right;line-height:1.75;min-width:54mm}
+  .contact a{color:inherit;text-decoration:none}
+  .contact span.lbl{display:inline-block;color:var(--accent);font-weight:700;width:13px}
+
+  /* ---- Body grid ---- */
+  .body{display:grid;grid-template-columns:52mm 1fr;gap:16px;flex:1 1 auto}
+  aside{border-right:1px solid var(--line);padding-right:13px}
+  main{min-width:0}
+
+  h2{font-size:12px;text-transform:uppercase;letter-spacing:1.1px;color:var(--accent);border-bottom:1.5px solid var(--line);padding-bottom:2px;margin:0 0 5px}
+  section{margin-bottom:7px}
+  aside section{margin-bottom:11px}
+
+  .skill-group{margin-bottom:7px}
+  .skill-group b{display:block;font-size:11.5px;color:var(--ink);margin-bottom:2px}
+  .skill-group p{font-size:11.3px;color:var(--muted);line-height:1.5;text-align:left}
+
+  .lang li,.edu li{list-style:none;font-size:11.8px;margin-bottom:6px;line-height:1.4}
+  .lang li b,.edu li b{font-size:11.8px}
+  .lang li span,.edu li span{color:var(--muted);font-size:11px}
+  .edu li{padding-left:0}
+
+  .summary{font-size:11.3px;line-height:1.46;color:#33424e;text-align:justify}
+
+  .job{margin-bottom:5px}
+  .job .top{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+  .job .title{font-size:12.5px;font-weight:700}
+  .job .org{color:var(--accent-dark);font-weight:600}
+  .job .date{font-size:10.3px;color:var(--muted);white-space:nowrap;flex:0 0 auto}
+  .job ul{margin:3px 0 0 15px}
+  .job li{font-size:11.3px;line-height:1.4;margin-bottom:1.5px;color:#3a4853;text-align:justify}
+
+  .proj li,.pub li{list-style:none;font-size:11.3px;line-height:1.37;margin-bottom:2.5px;padding-left:11px;position:relative;color:#3a4853;text-align:justify}
+  .proj li::before,.pub li::before{content:"";position:absolute;left:0;top:6px;width:5px;height:5px;border-radius:50%;background:var(--accent)}
+  .proj b,.pub b{color:var(--ink)}
+  .pub li em{color:var(--muted);font-style:italic}
+  .morepub{font-size:10.3px;color:var(--muted);margin-top:2px;padding-left:11px}
+
+  footer{margin-top:6px;border-top:1px solid var(--line);padding-top:5px;font-size:9.5px;color:var(--muted);text-align:center}
+
+  /* ---- print button ---- */
+  .toolbar{position:fixed;top:14px;right:14px;z-index:10}
+  .toolbar button{background:var(--accent);color:#fff;border:0;padding:9px 16px;border-radius:7px;font-size:13px;font-weight:600;cursor:pointer;box-shadow:0 3px 10px rgba(0,0,0,.3)}
+  .toolbar button:hover{background:var(--accent-dark)}
+
+  @media print{
+    html,body{background:#fff}
+    .toolbar{display:none}
+    .page{width:auto;min-height:auto;margin:0;box-shadow:none;padding:8mm 12mm}
+  }
+  @page{size:A4;margin:0}
+</style>
+</head>
+<body>
+<div class="toolbar"><button onclick="window.print()">⬇ Save as PDF</button></div>
+
+<div class="page">
+  <header>
+    <img class="photo" src="assets/images/profile-cv.png" alt="Kong Vungsovanreach">
+    <div class="head-main">
+      <div class="name">KONG Vungsovanreach</div>
+      <div class="kname">꿍 웡소완릿</div>
+      <div class="role">Computer Vision &amp; Applied AI Engineer</div>
+      <div class="tagline">Computer-vision engineer focused on real-time detection systems for safety and monitoring, with hands-on experience in LLM and NL2SQL.</div>
+    </div>
+    <div class="contact">
+      <div>Cheongju, South Korea · Open to Daejeon</div>
+      <div>Visa: E-3 · applying for F-2-7 (July 2026)</div>
+      <div><a href="mailto:kv.sovanreach@gmail.com">kv.sovanreach@gmail.com</a></div>
+      <div><a href="https://sovanreach.com">https://sovanreach.com</a></div>
+      <div><a href="https://linkedin.com/in/kvsovanreach">https://linkedin.com/in/kvsovanreach</a></div>
+      <div><a href="https://github.com/kvsovanreach">https://github.com/kvsovanreach</a></div>
+    </div>
+  </header>
+
+  <div class="body">
+    <!-- ============ SIDEBAR ============ -->
+    <aside>
+      <section>
+        <h2>Technical Skills</h2>
+        <div class="skill-group"><b>Computer Vision</b><p>PyTorch · TensorFlow · Keras · OpenCV · image processing · YOLO · detection, segmentation &amp; tracking · super-resolution · pose estimation · video analysis</p></div>
+        <div class="skill-group"><b>LLM &amp; Applied AI</b><p>LLM applications · NL2SQL · model deployment</p></div>
+        <div class="skill-group"><b>Programming</b><p>Python · Java · C++ · Bash · R</p></div>
+        <div class="skill-group"><b>Engineering &amp; Infra</b><p>Flask · Node.js · Spring Boot · REST APIs · Docker · Git · Linux</p></div>
+        <div class="skill-group"><b>Databases</b><p>MySQL · PostgreSQL · MongoDB</p></div>
+      </section>
+
+      <section>
+        <h2>Education</h2>
+        <ul class="edu">
+          <li><b>Ph.D. in Big Data</b><br><span>Chungbuk National University · 2022–2026</span></li>
+          <li><b>M.Sc. in Big Data</b><br><span>Chungbuk National University · 2020–2022</span></li>
+          <li><b>B.Sc. in Computer Science</b><br><span>The University of Cambodia · 2014–2019</span></li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Languages</h2>
+        <ul class="lang">
+          <li><b>Khmer</b> <span>· Native</span></li>
+          <li><b>English</b> <span>· Professional</span></li>
+          <li><b>Korean</b> <span>· Beginner (improving)</span></li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Highlights</h2>
+        <ul class="lang">
+          <li><b>18</b> <span>peer-reviewed publications</span></li>
+          <li><b>10+</b> <span>industrial AI projects</span></li>
+          <li><b>7+</b> <span>years shipping software</span></li>
+          <li><b>5+</b> <span>years in deep learning &amp; CV</span></li>
+        </ul>
+      </section>
+    </aside>
+
+    <!-- ============ MAIN ============ -->
+    <main>
+      <section>
+        <h2>Profile</h2>
+        <p class="summary">Computer-vision engineer with 7+ years of software development and 5+ years in deep learning. I build real-time detection, segmentation, and tracking systems for safety and monitoring, and I have applied LLM and NL2SQL to real database problems. My doctoral research focused on deep learning for vision, with a consistent record of moving models from research into working systems. My background fits closely with H4TECH's work in AIoT, monitoring, and data platforms.</p>
+      </section>
+
+      <section>
+        <h2>Experience</h2>
+
+        <div class="job">
+          <div class="top"><div class="title">Postdoctoral Researcher <span class="org">· Chungbuk National University</span></div><div class="date">2026–Present</div></div>
+          <ul>
+            <li>Lead and mentor graduate students on AI and computer-vision projects, including robot bin picking and transparent object segmentation.</li>
+            <li>Conduct research on LLM applications, including NL2SQL, alongside computer vision and deep learning.</li>
+          </ul>
+        </div>
+
+        <div class="job">
+          <div class="top"><div class="title">Research Assistant (Ph.D.) <span class="org">· Chungbuk National University</span></div><div class="date">2022–2026</div></div>
+          <ul>
+            <li>Built deep-learning systems for automated safety surveillance, including real-time helmet detection, warehouse forklift-safety monitoring, and video fall detection.</li>
+            <li>Developed medical-imaging models with super-resolution; published in PLoS One, Bioengineering &amp; Applied Sciences.</li>
+          </ul>
+        </div>
+
+        <div class="job">
+          <div class="top"><div class="title">Research Assistant (M.Sc.) <span class="org">· Chungbuk National University</span></div><div class="date">2020–2022</div></div>
+          <ul>
+            <li>Designed an end-to-end ML workflow and orchestration platform (data to deployment), with additional research in medical AI.</li>
+          </ul>
+        </div>
+
+        <div class="job">
+          <div class="top"><div class="title">IT Instructor <span class="org">· Korea Software HRD Center</span></div><div class="date">2019–2020</div></div>
+          <ul>
+            <li>Taught Java, Spring Framework, and Laravel to working IT professionals.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section>
+        <h2>Selected Projects</h2>
+        <ul class="proj">
+          <li><b>Autonomous 3D-Vision Bin Picking.</b> 3D point-cloud pipeline with object detection and 6-DoF pose estimation to locate stacked items and plan robot-arm grasps.</li>
+          <li><b>Intelligent Forklift Safety Monitoring.</b> Real-time object detection and multi-object tracking (YOLO) of forklifts and pedestrians, with proximity and zone-intrusion logic to flag collision risks, deployed on an NVIDIA Jetson Nano edge device.</li>
+          <li><b>Smart Edge Hiker Counting.</b> Battery-powered edge device that captures periodic still images instead of continuous real-time video to conserve power, then runs on-device person detection and re-identification to count unique hikers on mountain trails.</li>
+          <li><b>AI-Powered Hanwoo Beef Grading.</b> CNN-based grading that segments the ribeye and analyzes marbling, color, and texture features to predict Korean Hanwoo beef quality grades.</li>
+          <li><b>Real-Time Helmet Detection.</b> Two-stage YOLO and TensorFlow pipeline that detects motorcycle riders and classifies helmet usage on live surveillance feeds, deployed for traffic-safety monitoring in Vietnam.</li>
+          <li><b>Automated Fall Detection from Video.</b> Human pose estimation with joint-angle features and temporal modeling to detect falls automatically for safety surveillance; published in <em>PLoS One</em> (2025).</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Selected Publications <span style="font-weight:400;color:var(--muted);text-transform:none;letter-spacing:0;font-size:9.5px">(of 18 total)</span></h2>
+        <ul class="pub">
+          <li>PIFR: Pose Angle-based Human Activity to Automate Fall Detection in Videos. <em>PLoS One</em>, 2025.</li>
+          <li>Automated Detection of Motorcycle Rider Without Wearing Helmet Using Surveillance Camera. <em>Korea MIS Conference</em>, 2023.</li>
+          <li>Integrating Super-Resolution with Deep Learning for Enhanced Periodontal Bone Loss Segmentation. <em>Bioengineering</em>, 2024.</li>
+          <li>Progressive Knowledge Distillation for Efficient Video-Based Person Re-Identification.</li>
+        </ul>
+        <div class="morepub">Full list (10+ journal &amp; conference papers) on Google Scholar.</div>
+      </section>
+    </main>
+  </div>
+
+  <footer>KONG Vungsovanreach · Computer Vision &amp; Applied AI Engineer · kv.sovanreach@gmail.com · Prepared for H4TECH (㈜에이치포테크), June 2026</footer>
+</div>
+</body>
+</html>
